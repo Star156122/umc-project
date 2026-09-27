@@ -1,0 +1,33 @@
+# Python / virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+.uv-cache/
+
+# Secrets
+.env
+*.p12
+*.pfx
+*.pem
+*.key
+
+# Generated data and reports
+data/*.sqlite3
+data/*.sqlite3-shm
+data/*.sqlite3-wal
+data/llm_cache/
+logs/
+reports/
+*.log
+
+# Build / editor / OS
+build/
+dist/
+*.egg-info/
+.idea/
+.DS_Store
+Thumbs.db

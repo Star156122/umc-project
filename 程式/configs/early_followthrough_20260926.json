@@ -1,0 +1,40 @@
+{
+  "experiment_id": "early-followthrough-20260926-v1",
+  "purpose": "development_ablation_only",
+  "period_start": "2026-01-01",
+  "period_end": "2026-06-30",
+  "stock_codes": ["2303", "2330", "2881", "2882", "2412", "2002"],
+  "priority_stock_codes": ["2330", "2882", "2412", "2002"],
+  "strategies": ["macd", "vote"],
+  "baseline": "six-strategy-logic-20260926-v1 candidate variant",
+  "confirmation_rule": {
+    "signal_bar": "K0",
+    "confirmation_bar": "exactly K1",
+    "condition": "K1 completed close > K0 high",
+    "execution": "K2 open",
+    "cancel": "K1 does not close above K0 high, entry is unavailable, or price does not follow through",
+    "reason": "用價格收盤突破訊號棒最高價確認短期延續；不設定可掃描的百分比門檻"
+  },
+  "unchanged": [
+    "MACD 12/26/9", "RSI門檻", "MA週期", "停損", "停利", "technical exit",
+    "trailing stop", "日線趨勢濾網", "原策略其他進場條件", "費稅與資金規則"
+  ],
+  "excluded": ["盤整濾網", "浮盈保護", "MACD柱狀體條件", "多數決訊號新鮮度", "新停損停利"],
+  "evaluation": {
+    "minimum_improved_stocks": 4,
+    "minimum_trades_per_stock": 5,
+    "minimum_stocks_with_enough_trades": 4,
+    "additional_one_way_cost_bps": 5,
+    "low_mfe_pct": 0.006,
+    "immediate_reversal_bars": 3,
+    "immediate_reversal_pct": 0.005
+  },
+  "limits": [
+    "只測一個固定規則，不掃描其他根數、百分比或價格組合。",
+    "六檔股票共用同一規則，不依個股挑參數。",
+    "原訊號K0、確認K1及成交K2按時間順序處理，禁止回填K0或K1價格。",
+    "保留所有成功及失敗結果；交易樣本不足必須明示。",
+    "這是已看過的2026上半年開發資料，不是獨立驗證。"
+  ],
+  "holdout": {"start": "2025-07-01", "end": "2025-12-31", "access": "forbidden"}
+}

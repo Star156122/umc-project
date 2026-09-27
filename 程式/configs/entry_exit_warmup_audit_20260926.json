@@ -1,0 +1,16 @@
+{
+  "experiment_id": "entry-exit-warmup-audit-20260926-v1",
+  "purpose": "development_confound_check_no_new_parameter_search",
+  "period_start": "2026-01-01",
+  "period_end": "2026-06-30",
+  "stock_codes": ["2303", "2330", "2881", "2882", "2412", "2002"],
+  "strategies": ["ma", "rsi", "macd", "bollinger", "breakout", "vote"],
+  "warmup_complete_days": 25,
+  "comparisons": [
+    {"control": "warmup_risk", "selected": "daily_entry", "confirmation_bars": 1},
+    {"control": "warmup_confirm", "selected": "combined", "confirmation_bars": 3}
+  ],
+  "evaluation": {"minimum_improved_stocks": 4, "minimum_trades_per_stock": 5, "minimum_stocks_with_enough_trades": 4, "additional_one_way_cost_bps": 5},
+  "holdout": {"start": "2025-07-01", "end": "2025-12-31", "access": "forbidden"},
+  "note": "兩個對照組前25交易日都不進場，之後不限制日線趨勢；其他風控及出場確認與原實驗相同。相同門檻，只加嚴證據檢查，不把此資料宣稱新樣本外。"
+}

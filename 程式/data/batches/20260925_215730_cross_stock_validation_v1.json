@@ -1,0 +1,43 @@
+{
+  "batch_id": "20260925_215730_cross_stock_validation_v1",
+  "created_at": "2026-09-25T21:57:30.394092",
+  "status": "partial",
+  "stock_codes": [
+    "2330",
+    "2881",
+    "2882",
+    "2002"
+  ],
+  "strategy_keys": [
+    "ma",
+    "rsi",
+    "macd",
+    "bollinger",
+    "breakout",
+    "vote"
+  ],
+  "parameter_version": "2303-frozen-20260925-v1",
+  "parameter_sha256": "9321e04f3f8128eb27d4ffc4780ab149835a0a6153c74b2ec851a785816e804e",
+  "results": [
+    {
+      "stock_code": "2330",
+      "status": "completed",
+      "return_code": 0
+    },
+    {
+      "stock_code": "2881",
+      "status": "failed",
+      "return_code": 1
+    },
+    {
+      "stock_code": "2882",
+      "status": "completed",
+      "return_code": 0
+    },
+    {
+      "stock_code": "2002",
+      "status": "completed",
+      "return_code": 0
+    }
+  ]
+}

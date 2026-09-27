@@ -1,0 +1,70 @@
+{
+  "experiment_id": "six-strategy-logic-20260926-v1",
+  "data_role": "development_only",
+  "holdout_accessed": false,
+  "formal_strategy_changed": false,
+  "candidates": [
+    {
+      "strategy": "macd",
+      "rule": {
+        "previous_daily_trend_filter": true,
+        "reason": "減少盤整與日線弱勢期間的假交叉"
+      },
+      "against_v2": {
+        "improved_stocks": 4,
+        "median_return_delta": 0.0296112724375,
+        "median_drawdown_delta": -0.002726991654397529,
+        "median_cost_delta": -3591.0182437500002,
+        "min_leave_one_out_median_delta": 0.009525804875000002,
+        "median_stressed_delta": 0.03522995618749994,
+        "median_first_delta": 0.02747156312499989,
+        "median_second_delta": 0.002139709312500051,
+        "status": "保留研究候選",
+        "reasons": []
+      },
+      "against_warmup": {
+        "improved_stocks": 4,
+        "median_return_delta": 0.014003704375000002,
+        "median_drawdown_delta": -0.00286123531476209,
+        "median_cost_delta": -1650.2281875000003,
+        "min_leave_one_out_median_delta": 0.013988782499999998,
+        "median_stressed_delta": 0.015836916875000384,
+        "median_first_delta": 0.014033488125000004,
+        "median_second_delta": 0.003552641250000305,
+        "status": "保留研究候選",
+        "reasons": []
+      }
+    },
+    {
+      "strategy": "vote",
+      "rule": {
+        "previous_daily_trend_filter": true,
+        "reason": "減少弱勢行情中多指標同時偏多的錯誤進場"
+      },
+      "against_v2": {
+        "improved_stocks": 5,
+        "median_return_delta": 0.03224735763750004,
+        "median_drawdown_delta": -0.01146230144493328,
+        "median_cost_delta": -4320.169635000001,
+        "min_leave_one_out_median_delta": 0.020359555,
+        "median_stressed_delta": 0.04081655838749988,
+        "median_first_delta": 0.031233933750000137,
+        "median_second_delta": 0.007708461387499923,
+        "status": "保留研究候選",
+        "reasons": []
+      },
+      "against_warmup": {
+        "improved_stocks": 4,
+        "median_return_delta": 0.0129862088125,
+        "median_drawdown_delta": -0.006123709995030022,
+        "median_cost_delta": -1861.4236687499997,
+        "min_leave_one_out_median_delta": 0.004856250000000001,
+        "median_stressed_delta": 0.015508975062500045,
+        "median_first_delta": 0.008722365624999872,
+        "median_second_delta": 0.007491877562500014,
+        "status": "保留研究候選",
+        "reasons": []
+      }
+    }
+  ]
+}

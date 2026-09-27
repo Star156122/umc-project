@@ -1,0 +1,13 @@
+{
+  "experiment_name": "market_routing_validation_v2",
+  "stock_codes": ["2454", "2891", "3045", "4904", "1301", "2603"],
+  "smoke_test_stock": "3045",
+  "strategy_keys": ["ma", "bollinger", "breakout"],
+  "backtest_start": "2026-07-01",
+  "backtest_end": "2026-09-24",
+  "initial_capital": 100000,
+  "kbar_freq": 5,
+  "llm_during_batch": false,
+  "report_policy": "comparison_and_database",
+  "notes": "不同期間樣本外驗證；只測趨勢、盤整、突破三條主線，不依結果回頭調整v1。"
+}

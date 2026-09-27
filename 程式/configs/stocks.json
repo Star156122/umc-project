@@ -1,0 +1,11 @@
+{
+  "version": "2026-09-25-v1",
+  "stocks": [
+    {"code": "2303", "name": "聯電", "industry": "半導體業", "market": "上市", "role": "原始研究標的"},
+    {"code": "2330", "name": "台積電", "industry": "半導體業", "market": "上市", "role": "同產業大型股"},
+    {"code": "2881", "name": "富邦金", "industry": "金融保險", "market": "上市", "role": "跨產業大型股"},
+    {"code": "2882", "name": "國泰金", "industry": "金融保險", "market": "上市", "role": "跨產業大型股"},
+    {"code": "2412", "name": "中華電", "industry": "通信網路業", "market": "上市", "role": "首檔流程驗證、偏穩定股性"},
+    {"code": "2002", "name": "中鋼", "industry": "鋼鐵工業", "market": "上市", "role": "景氣循環股"}
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "active_profile": "2313_ma",
+  "batch_profiles": [
+    "2313_ma",
+    "2313_rsi",
+    "2313_macd",
+    "2330_ma",
+    "2330_rsi",
+    "2330_macd",
+    "2303_ma",
+    "2303_rsi",
+    "2303_macd",
+    "2317_ma",
+    "2317_rsi",
+    "2317_macd"
+  ],
+  "tick_source": "sinopac",
+  "backtest_start": "2026-01-01",
+  "backtest_end": "2026-06-30",
+  "kbar_freq": 5,
+  "initial_capital": 100000,
+  "lots": 1,
+  "profiles": {
+    "2313_ma": {
+      "code": "2313",
+      "strategy": "ma",
+      "run_name": "2313_ma",
+      "use_rsi": false,
+      "use_macd": false
+    },
+    "2313_rsi": {
+      "code": "2313",
+      "strategy": "rsi",
+      "run_name": "2313_rsi",
+      "rsi_buy_above": 60,
+      "rsi_buy_below": 70,
+      "use_rsi_block": true,
+      "use_rsi": true,
+      "use_macd": false
+    },
+    "2313_macd": {
+      "code": "2313",
+      "strategy": "macd",
+      "run_name": "2313_macd",
+      "use_rsi": false,
+      "use_macd": true
+    },
+    "2330_ma": {
+      "code": "2330",
+      "strategy": "ma",
+      "run_name": "2330_ma",
+      "use_rsi": false,
+      "use_macd": false
+    },
+    "2330_rsi": {
+      "code": "2330",
+      "strategy": "rsi",
+      "run_name": "2330_rsi",
+      "rsi_buy_above": 66,
+      "rsi_buy_below": 70,
+      "use_rsi_block": false,
+      "use_rsi": true,
+      "use_macd": false
+    },
+    "2330_macd": {
+      "code": "2330",
+      "strategy": "macd",
+      "run_name": "2330_macd",
+      "use_rsi": false,
+      "use_macd": true
+    },
+    "2303_ma": {
+      "code": "2303",
+      "strategy": "ma",
+      "run_name": "2303_ma",
+      "use_rsi": false,
+      "use_macd": false
+    },
+    "2303_rsi": {
+      "code": "2303",
+      "strategy": "rsi",
+      "run_name": "2303_rsi",
+      "rsi_buy_above": 60,
+      "rsi_buy_below": 70,
+      "use_rsi_block": true,
+      "use_rsi": true,
+      "use_macd": false
+    },
+    "2303_macd": {
+      "code": "2303",
+      "strategy": "macd",
+      "run_name": "2303_macd",
+      "use_rsi": false,
+      "use_macd": true
+    },
+    "2317_ma": {
+      "code": "2317",
+      "strategy": "ma",
+      "run_name": "2317_ma",
+      "use_rsi": false,
+      "use_macd": false
+    },
+    "2317_rsi": {
+      "code": "2317",
+      "strategy": "rsi",
+      "run_name": "2317_rsi",
+      "rsi_buy_above": 55,
+      "rsi_buy_below": 70,
+      "use_rsi_block": false,
+      "use_rsi": true,
+      "use_macd": false
+    },
+    "2317_macd": {
+      "code": "2317",
+      "strategy": "macd",
+      "run_name": "2317_macd",
+      "use_rsi": false,
+      "use_macd": true
+    }
+  }
+}

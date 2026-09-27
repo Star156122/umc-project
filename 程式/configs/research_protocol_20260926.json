@@ -1,0 +1,100 @@
+{
+  "created": "2026-09-26",
+  "status": "development_only_not_independent_validation",
+  "used_periods": [
+    {
+      "end": "2026-06-30",
+      "start": "2026-01-01",
+      "codes": [
+        "2303",
+        "2330",
+        "2881",
+        "2882",
+        "2412",
+        "2002"
+      ]
+    },
+    {
+      "end": "2026-09-24",
+      "start": "2026-07-01",
+      "codes": [
+        "2454",
+        "2891",
+        "3045",
+        "4904",
+        "1301",
+        "2603"
+      ]
+    }
+  ],
+  "independent_validation_period": {
+    "start": "2025-07-01",
+    "end": "2025-12-31",
+    "status": "reserved_user_confirmed_not_downloaded",
+    "purpose": "候選與門檻凍結後才執行歷史保留驗證；先確認資料完整性與既有使用紀錄"
+  },
+  "files": [
+    {
+      "path": "configs/strategy_templates_v2_candidate.json",
+      "sha256": "ACAE48AD695E86EA93CA34EFED62352E0B9D9A928224959BE8B8A6B4E1AB854B"
+    },
+    {
+      "path": "exports/routing_simulation_config.json",
+      "sha256": "3F8C2E1267D2ADBFE52D4549EED1B88FA8B6C23CC986B1356A368EA1FEF7D28A"
+    },
+    {
+      "path": "scripts/routing_simulation.py",
+      "sha256": "FECE295C09AEDCD8A9E557B56FFF06C87372D2922B256C1B69EB18791A614463"
+    }
+  ],
+  "next_hypothesis": "早期價格延續單一拆項24組完成。MACD因交易降至19筆且毛損益轉負，不保留；多數決改善5/6檔並保留研究候選，但2412與2002樣本不足。停止追加條件，等待使用者決定。獨立驗證尚未執行。",
+  "risk_ablation": {
+    "experiment_id": "risk-ablation-20260926-v1",
+    "completed_runs": 204,
+    "data_role": "development_only",
+    "result": "no_change_passed_preregistered_gate",
+    "report": "docs/風控拆項實驗_20260926.md",
+    "frozen_plan": "exports/risk_ablation/registered_plan.json",
+    "holdout_accessed": false
+  },
+  "entry_exit_improvement": {
+    "holdout_accessed": false,
+    "report": "docs/六策略進出場改善_20260926.md",
+    "completed_runs": 252,
+    "data_role": "development_only",
+    "candidates": "exports/entry_exit_improvement/candidates.json"
+  },
+  "six_strategy_logic": {
+    "experiment_id": "six-strategy-logic-20260926-v1",
+    "completed_runs": 84,
+    "data_role": "development_only",
+    "result": "macd_and_vote_daily_filter_retained",
+    "report": "docs/六策略問題導向改善_20260926.md",
+    "frozen_plan": "exports/six_strategy_logic/registered_plan.json",
+    "candidates": "exports/six_strategy_logic/candidates.json",
+    "holdout_accessed": false
+  },
+  "trade_failure_diagnosis": {
+    "diagnosis_id": "macd-vote-trade-failure-20260926-v1",
+    "source": "exports/six_strategy_logic/results.json",
+    "analyzed_trades": 185,
+    "failed_or_low_quality_trades": 143,
+    "data_role": "development_diagnosis_only",
+    "report": "docs/MACD_多數決逐筆失敗診斷_20260926.md",
+    "frozen_plan": "exports/trade_failure_diagnosis/registered_plan.json",
+    "holdout_accessed": false,
+    "strategy_changed": false,
+    "new_backtest_executed": false
+  },
+  "early_followthrough": {
+    "experiment_id": "early-followthrough-20260926-v1",
+    "completed_runs": 24,
+    "data_role": "development_ablation_only",
+    "rule": "K1 completed close above K0 high; execute at K2 open",
+    "result": "vote_retained_macd_rejected",
+    "report": "docs/早期價格延續確認_20260926.md",
+    "frozen_plan": "exports/early_followthrough/registered_plan.json",
+    "candidates": "exports/early_followthrough/candidates.json",
+    "holdout_accessed": false
+  }
+}

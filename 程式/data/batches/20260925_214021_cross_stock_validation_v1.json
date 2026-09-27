@@ -1,0 +1,19 @@
+{
+  "batch_id": "20260925_214021_cross_stock_validation_v1",
+  "created_at": "2026-09-25T21:40:21.912807",
+  "status": "planned",
+  "stock_codes": [
+    "2412"
+  ],
+  "strategy_keys": [
+    "ma",
+    "rsi",
+    "macd",
+    "bollinger",
+    "breakout",
+    "vote"
+  ],
+  "parameter_version": "2303-frozen-20260925-v1",
+  "parameter_sha256": "94e746715d983a879326f1fe19c3c06f61e73abfeaeed73bbb44f6302faf8c9c",
+  "results": []
+}

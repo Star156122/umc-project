@@ -1,0 +1,22 @@
+{
+  "version": "20260925-routing-v2",
+  "description": "先判斷行情，再挑候選策略；沒有通過門檻時允許不交易。",
+  "market_rules": {
+    "上漲": {"primary": ["ma", "breakout"], "secondary": ["macd"], "blocked": ["bollinger"]},
+    "盤整": {"primary": ["bollinger"], "secondary": [], "blocked": ["ma", "breakout", "macd", "rsi", "vote"]},
+    "下跌": {"primary": [], "secondary": [], "blocked": ["ma", "rsi", "macd", "bollinger", "breakout", "vote"]}
+  },
+  "candidate_gate": {
+    "minimum_return": 0.0,
+    "minimum_profit_factor": 1.0,
+    "minimum_sharpe": 0.0,
+    "minimum_completed_trades": 5,
+    "maximum_drawdown": 0.15
+  },
+  "regime_gate": {
+    "minimum_contribution": 0.0,
+    "minimum_fills": 2
+  },
+  "formal_gate": {"must_beat_buy_and_hold": true},
+  "fallback": "暫不交易"
+}

@@ -1,0 +1,28 @@
+{
+  "experiment_id": "entry-exit-improvement-20260926-v1",
+  "purpose": "development_only",
+  "period_start": "2026-01-01",
+  "period_end": "2026-06-30",
+  "stock_codes": ["2303", "2330", "2881", "2882", "2412", "2002"],
+  "strategies": ["ma", "rsi", "macd", "bollinger", "breakout", "vote"],
+  "risk_overrides": {"min_hold_bars": 4, "stop_loss_pct": 0.02, "take_profit_pct": 0, "cooldown_bars": 12, "max_entries_per_day": 1},
+  "daily_entry_rule": "只使用前一交易日以前：前一日收盤高於20日均線，且20日均線高於5個交易日前；至少25個完整日收盤。",
+  "normal_exit_confirmation_bars": 3,
+  "variants": [
+    {"id": "v2", "label": "原V2對照", "risk": false, "daily_entry": false, "confirm_exit": false, "compare_to": null},
+    {"id": "user_risk", "label": "使用者風控", "risk": true, "daily_entry": false, "confirm_exit": false, "compare_to": "v2"},
+    {"id": "daily_entry", "label": "風控＋日線進場確認", "risk": true, "daily_entry": true, "confirm_exit": false, "compare_to": "user_risk"},
+    {"id": "confirmed_exit", "label": "風控＋一般出場連續3根確認", "risk": true, "daily_entry": false, "confirm_exit": true, "compare_to": "user_risk"},
+    {"id": "combined", "label": "風控＋日線進場＋出場確認", "risk": true, "daily_entry": true, "confirm_exit": true, "compare_to": "user_risk"}
+  ],
+  "evaluation": {"minimum_improved_stocks": 4, "minimum_trades_per_stock": 5, "minimum_stocks_with_enough_trades": 4, "additional_one_way_cost_bps": 5},
+  "holdout": {"start": "2025-07-01", "end": "2025-12-31", "access": "forbidden"},
+  "limits": [
+    "本輪5版本固定；不掃描其他均線、確認根數或依股票調參。",
+    "停損、跌破既有趨勢均線、移動停利及期末平倉不等待3根確認。只有一般技術出場訊號需連續成立3根。",
+    "改善先與相同使用者風控比，另報相對原V2的改善。保留候選須同時對兩個基準通過原拆項的配對保留門檻。",
+    "均使用已研究的一月至六月，跨股票與前後段診斷也不是獨立驗證。",
+    "分析後的最大有利／不利價格只做交易診斷，禁止用於當時的進場決策。",
+    "這輪未實作真實滑價，5bps是固定成交路徑成本壓力估計；所有失敗结果保留。"
+  ]
+}

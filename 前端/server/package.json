@@ -1,0 +1,19 @@
+{
+  "name": "ai-stock-system-api",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "check": "node --check src/server.js && node --check src/db.js && node --check src/marketService.js && node --check src/favoriteService.js && node --check src/databaseReportService.js && node --check src/pythonBacktestService.js && node --check src/reportService.js",
+    "test": "node --test tests/*.test.cjs"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.11.5"
+  }
+}

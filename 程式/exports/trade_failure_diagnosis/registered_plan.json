@@ -1,0 +1,52 @@
+{
+  "diagnosis_id": "macd-vote-trade-failure-20260926-v1",
+  "purpose": "diagnosis_only_no_backtest_no_optimization",
+  "source": "exports/six_strategy_logic/results.json",
+  "period_start": "2026-01-01",
+  "period_end": "2026-06-30",
+  "variant": "candidate",
+  "stock_codes": [
+    "2303",
+    "2330",
+    "2881",
+    "2882",
+    "2412",
+    "2002"
+  ],
+  "priority_stock_codes": [
+    "2330",
+    "2881",
+    "2882",
+    "2412",
+    "2002"
+  ],
+  "strategies": [
+    "macd",
+    "vote"
+  ],
+  "definitions": {
+    "effective_profit_pct": 0.006,
+    "significant_peak_pct": 0.01,
+    "large_giveback_fraction": 0.5,
+    "immediate_reversal_bars": 3,
+    "immediate_reversal_pct": 0.005,
+    "consolidation_lookback_bars": 12,
+    "consolidation_range_pct": 0.015,
+    "flat_trend_slope_pct": 0.002,
+    "late_entry_lookback_bars": 12,
+    "late_entry_near_high_pct": 0.003,
+    "late_entry_prior_return_pct": 0.015,
+    "success_minimum_net_return_pct": 0.006
+  },
+  "classification_notes": [
+    "0.6%約略涵蓋現股來回手續費與交易稅，作為有效浮盈及低品質小利的固定診斷門檻，不用來產生買賣訊號。",
+    "盤整與進場太晚為事後價格結構線索，不宣稱已證實因果。",
+    "成功交易定義為淨報酬至少0.6%；0至0.6%列低品質小利，淨損益小於等於0列失敗。",
+    "本診斷不修改策略、參數或成交，不回測新版本。"
+  ],
+  "holdout": {
+    "start": "2025-07-01",
+    "end": "2025-12-31",
+    "access": "forbidden"
+  }
+}

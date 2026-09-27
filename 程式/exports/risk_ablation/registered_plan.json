@@ -1,0 +1,222 @@
+{
+  "experiment_id": "risk-ablation-20260926-v1",
+  "purpose": "development_only_not_independent_validation",
+  "period_start": "2026-01-01",
+  "period_end": "2026-06-30",
+  "stock_codes": [
+    "2303",
+    "2330",
+    "2881",
+    "2882",
+    "2412",
+    "2002"
+  ],
+  "strategy": "breakout",
+  "entry_filters": [
+    false,
+    true
+  ],
+  "common": {
+    "min_hold_bars": 4,
+    "stop_loss_pct": 0.02,
+    "take_profit_pct": 0,
+    "max_entries_per_day": 1,
+    "cooldown_bars": 12
+  },
+  "policy_reference": {
+    "early_trend_exit": false,
+    "trailing_enabled": false,
+    "normal_cooldown": 12,
+    "stop_cooldown": 12,
+    "exit_trend_period": 120,
+    "trailing_activation": 0.03,
+    "trailing_drawdown": 0.02
+  },
+  "variants": [
+    {
+      "id": "v2_original",
+      "label": "原v2錨點",
+      "kind": "anchor",
+      "compare_to": null,
+      "policy": null
+    },
+    {
+      "id": "reference",
+      "label": "共同基準：持有4根／停損2%／冷卻12根",
+      "kind": "reference",
+      "compare_to": null,
+      "policy": {}
+    },
+    {
+      "id": "trend_only",
+      "label": "只加提早跌破MA120出場",
+      "kind": "component",
+      "compare_to": "reference",
+      "policy": {
+        "early_trend_exit": true
+      }
+    },
+    {
+      "id": "trail_only",
+      "label": "只加移動停利3%／2%",
+      "kind": "component",
+      "compare_to": "reference",
+      "policy": {
+        "trailing_enabled": true
+      }
+    },
+    {
+      "id": "cool_only",
+      "label": "只加停損後冷卻24根",
+      "kind": "component",
+      "compare_to": "reference",
+      "policy": {
+        "stop_cooldown": 24
+      }
+    },
+    {
+      "id": "full",
+      "label": "完整使用者規則",
+      "kind": "combined",
+      "compare_to": "reference",
+      "policy": {
+        "early_trend_exit": true,
+        "trailing_enabled": true,
+        "stop_cooldown": 24
+      }
+    },
+    {
+      "id": "full_no_trail",
+      "label": "完整規則移除移動停利",
+      "kind": "ablation",
+      "compare_to": "full",
+      "policy": {
+        "early_trend_exit": true,
+        "stop_cooldown": 24
+      }
+    },
+    {
+      "id": "full_no_trend",
+      "label": "完整規則移除提早趨勢出場",
+      "kind": "ablation",
+      "compare_to": "full",
+      "policy": {
+        "trailing_enabled": true,
+        "stop_cooldown": 24
+      }
+    },
+    {
+      "id": "full_no_cool",
+      "label": "完整規則移除停損延長冷卻",
+      "kind": "ablation",
+      "compare_to": "full",
+      "policy": {
+        "early_trend_exit": true,
+        "trailing_enabled": true
+      }
+    },
+    {
+      "id": "trail_start_2",
+      "label": "移動停利啟動2%／回跌2%",
+      "kind": "sensitivity",
+      "compare_to": "trail_only",
+      "policy": {
+        "trailing_enabled": true,
+        "trailing_activation": 0.02
+      }
+    },
+    {
+      "id": "trail_start_4",
+      "label": "移動停利啟動4%／回跌2%",
+      "kind": "sensitivity",
+      "compare_to": "trail_only",
+      "policy": {
+        "trailing_enabled": true,
+        "trailing_activation": 0.04
+      }
+    },
+    {
+      "id": "trail_back_15",
+      "label": "移動停利啟動3%／回跌1.5%",
+      "kind": "sensitivity",
+      "compare_to": "trail_only",
+      "policy": {
+        "trailing_enabled": true,
+        "trailing_drawdown": 0.015
+      }
+    },
+    {
+      "id": "trail_back_25",
+      "label": "移動停利啟動3%／回跌2.5%",
+      "kind": "sensitivity",
+      "compare_to": "trail_only",
+      "policy": {
+        "trailing_enabled": true,
+        "trailing_drawdown": 0.025
+      }
+    },
+    {
+      "id": "cool_short",
+      "label": "一般／停損冷卻6／12根",
+      "kind": "sensitivity",
+      "compare_to": "cool_only",
+      "policy": {
+        "normal_cooldown": 6,
+        "stop_cooldown": 12
+      }
+    },
+    {
+      "id": "cool_long",
+      "label": "一般／停損冷卻24／48根",
+      "kind": "sensitivity",
+      "compare_to": "cool_only",
+      "policy": {
+        "normal_cooldown": 24,
+        "stop_cooldown": 48
+      }
+    },
+    {
+      "id": "trend_60",
+      "label": "提早趨勢出場MA60",
+      "kind": "sensitivity",
+      "compare_to": "trend_only",
+      "policy": {
+        "early_trend_exit": true,
+        "exit_trend_period": 60
+      }
+    },
+    {
+      "id": "trend_240",
+      "label": "提早趨勢出場MA240",
+      "kind": "sensitivity",
+      "compare_to": "trend_only",
+      "policy": {
+        "early_trend_exit": true,
+        "exit_trend_period": 240
+      }
+    }
+  ],
+  "evaluation": {
+    "minimum_improved_stocks": 4,
+    "minimum_trades_per_stock": 5,
+    "minimum_stocks_with_enough_trades": 4,
+    "require_positive_median_paired_return_delta": true,
+    "require_nonpositive_median_drawdown_delta": true,
+    "require_nonpositive_median_cost_delta": true,
+    "require_all_leave_one_out_median_deltas_positive": true,
+    "additional_one_way_cost_bps": 5,
+    "note": "以上門檻只是本輪事先固定的候選保留標準，不是統計顯著或獨立驗證；不按結果放寬。"
+  },
+  "holdout": {
+    "start": "2025-07-01",
+    "end": "2025-12-31",
+    "access": "forbidden_for_this_experiment"
+  },
+  "limitations": [
+    "17版本×2種既有行情篩選×6股票；小範圍單因素敏感度，不交叉排列或事後追加參數。",
+    "進場MA120不變；提早趨勢出場关闭時，原本持滿後的MA120技術出場仍保留。",
+    "原v2是錨點，拆項以共同基準比較；共同基準亦統一跨日冷卻與完整棒數，不能把它與原v2的差異全歸因於三項規則。",
+    "前後半年度分段、拿掉一檔及成本壓力均為已使用資料診斷，非新樣本外。",
+    "額外5bps成本按既有成交金額扣除，不重算持倉、訊號或滑價造成的後續路徑。"
+  ]
+}

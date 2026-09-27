@@ -1,0 +1,7 @@
+{
+  "holdout": {"start": "2025-07-01", "end": "2025-12-31", "access": "forbidden"},
+  "state": "locked_unseen",
+  "final_test_requires_explicit_user_authorization": true,
+  "development_override_allowed": false,
+  "after_first_access": "consumed_never_reuse_for_selection"
+}

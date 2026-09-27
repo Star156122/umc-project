@@ -1,0 +1,23 @@
+{
+  "experiment_id": "early-followthrough-20260926-v1",
+  "data_role": "development_only",
+  "formal_strategy_changed": false,
+  "holdout_accessed": false,
+  "retained": [
+    {
+      "strategy": "vote",
+      "paired": {
+        "improved_stocks": 5,
+        "median_return_delta": 0.046544883375000005,
+        "median_drawdown_delta": -0.006890847101058237,
+        "median_cost_delta": -3170.3557875,
+        "min_leave_one_out_median_delta": 0.003715239250000002,
+        "median_stressed_delta": 0.054993035874999846,
+        "median_first_delta": 0.0,
+        "median_second_delta": 0.022717867249999694,
+        "status": "保留研究候選",
+        "reasons": []
+      }
+    }
+  ]
+}

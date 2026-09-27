@@ -1,0 +1,12 @@
+{
+  "stock_code": "2303",
+  "items": [
+    {
+      "date": "YYYY-MM-DD",
+      "source": "新聞來源",
+      "title": "消息標題",
+      "summary": "請填入經過查證的新聞重點或 LLM 摘要，並保留原始來源與日期。",
+      "url": "https://example.com/news"
+    }
+  ]
+}

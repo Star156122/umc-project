@@ -1,0 +1,26 @@
+{
+  "experiment_id": "six-strategy-logic-20260926-v1",
+  "purpose": "development_only",
+  "period_start": "2026-01-01",
+  "period_end": "2026-06-30",
+  "stock_codes": ["2303", "2330", "2881", "2882", "2412", "2002"],
+  "strategies": ["ma", "rsi", "macd", "bollinger", "breakout", "vote"],
+  "baseline": "configs/strategy_templates_v2_candidate.json",
+  "candidate_rules": {
+    "ma": {"max_slow_ma_distance_pct": 0.03, "minimum_trend_slope_pct": 0.002, "reason": "降低假趨勢與均線交叉後追高"},
+    "rsi": {"confirmation_bars_after_cross": 1, "reason": "排除只維持一根K棒的動能尖峰與無效進場"},
+    "macd": {"previous_daily_trend_filter": true, "reason": "減少盤整與日線弱勢期間的假交叉"},
+    "bollinger": {"minimum_close_location": 0.75, "reason": "確認下軌回歸K棒具有明顯買盤承接"},
+    "breakout": {"minimum_breakout_pct": 0.002, "maximum_breakout_pct": 0.02, "reason": "排除擦邊假突破與突破後追價過遠"},
+    "vote": {"previous_daily_trend_filter": true, "reason": "減少弱勢行情中多指標同時偏多的錯誤進場"}
+  },
+  "evaluation": {"minimum_improved_stocks": 4, "minimum_trades_per_stock": 5, "minimum_stocks_with_enough_trades": 4, "additional_one_way_cost_bps": 5},
+  "holdout": {"start": "2025-07-01", "end": "2025-12-31", "access": "forbidden"},
+  "limits": [
+    "每種策略只登記一個具體問題導向的修改版，不掃描其他門檻。",
+    "同一策略六檔股票共用相同規則，不依個股挑參數。",
+    "修改版只改進場品質，風控與出場沿用原V2，避免同時改太多條件。",
+    "日線濾網只使用前一交易日以前資料；前25個交易日資料不足不進場，並另做相同暖機期對照。",
+    "所有失敗結果保留；這是已看過的一月至六月開發資料，不是獨立驗證。"
+  ]
+}

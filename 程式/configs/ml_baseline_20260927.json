@@ -1,0 +1,123 @@
+{
+  "experiment_id": "ml-baseline-20260927-v1",
+  "status": "completed_baseline_only",
+  "purpose": "compare_random_forest_xgboost_gru_without_strategy_integration",
+  "data_role": "ml_development_seen",
+  "stock_codes": [
+    "1101",
+    "1216",
+    "2002",
+    "2207",
+    "2303",
+    "2317",
+    "2330",
+    "2382",
+    "2412",
+    "2881",
+    "2882",
+    "2884",
+    "2886",
+    "6505"
+  ],
+  "period": {
+    "start": "2026-01-01",
+    "end": "2026-06-30"
+  },
+  "bar_minutes": 5,
+  "sequence_bars": 24,
+  "target": {
+    "name": "direction_after_12_bars",
+    "horizon_bars": 12,
+    "definition": "1 if close[t+12] > close[t], else 0",
+    "same_trading_day_required": true,
+    "continuous_5m_bars_required": true
+  },
+  "splits": {
+    "train": {
+      "start": "2026-01-01",
+      "end": "2026-03-31"
+    },
+    "validation": {
+      "start": "2026-04-01",
+      "end": "2026-05-15"
+    },
+    "test": {
+      "start": "2026-05-18",
+      "end": "2026-06-30"
+    },
+    "shuffle": false,
+    "note": "每筆序列與其未來target都必須完整落在同一split及同一交易日。"
+  },
+  "features": [
+    "open_vs_prev_close",
+    "high_vs_prev_close",
+    "low_vs_prev_close",
+    "return_1",
+    "return_3",
+    "volume_ratio_20",
+    "close_vs_ma5",
+    "close_vs_ma20",
+    "close_vs_ma60",
+    "rsi14_scaled",
+    "macd_vs_close",
+    "macd_signal_vs_close",
+    "macd_hist_vs_close",
+    "volatility_12",
+    "trend_slope_12"
+  ],
+  "preprocessing": {
+    "invalid_ohlcv": "exclude_and_count",
+    "duplicate_timestamp": "exclude_duplicates_keep_first_and_count",
+    "indicator_warmup_missing": "drop",
+    "other_missing": "drop_and_count",
+    "gap_handling": "do_not_fill; sequences cannot cross gaps or trading days",
+    "standard_scaler": "fit_train_only_then_apply_to_validation_and_test"
+  },
+  "models": {
+    "random_forest": {
+      "n_estimators": 100,
+      "max_depth": 8,
+      "min_samples_leaf": 20,
+      "class_weight": "balanced",
+      "random_state": 42
+    },
+    "xgboost": {
+      "n_estimators": 150,
+      "max_depth": 4,
+      "learning_rate": 0.05,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8,
+      "random_state": 42
+    },
+    "gru": {
+      "hidden_size": 32,
+      "num_layers": 1,
+      "dropout": 0.0,
+      "batch_size": 256,
+      "max_epochs": 10,
+      "patience": 2,
+      "learning_rate": 0.001,
+      "random_state": 42
+    }
+  },
+  "metrics": [
+    "accuracy",
+    "precision",
+    "recall",
+    "f1",
+    "roc_auc",
+    "confusion_matrix",
+    "training_seconds",
+    "prediction_seconds"
+  ],
+  "selection_rule": "Report all models and all stocks. Do not choose or tune a winner from the test set.",
+  "strategy_integration": "forbidden_for_this_experiment",
+  "holdout": {
+    "start": "2025-07-01",
+    "end": "2025-12-31",
+    "access": "forbidden"
+  },
+  "completed_at": "2026-09-27T00:55:29",
+  "result": "exports/ml_baseline_20260927/results.json",
+  "decision": "BASELINE_ONLY_NOT_INDEPENDENT_VALIDATION"
+}

@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run main02.py",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/main02.py",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Run batch profiles",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_batch.py",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Update local market database",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/update_data.py",
+      "args": ["--profile", "2303_ma"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}

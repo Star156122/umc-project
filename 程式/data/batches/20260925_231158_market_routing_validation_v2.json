@@ -1,0 +1,46 @@
+{
+  "batch_id": "20260925_231158_market_routing_validation_v2",
+  "created_at": "2026-09-25T23:11:58.608571",
+  "status": "completed",
+  "stock_codes": [
+    "2454",
+    "2891",
+    "4904",
+    "1301",
+    "2603"
+  ],
+  "strategy_keys": [
+    "ma",
+    "bollinger",
+    "breakout"
+  ],
+  "parameter_version": "cross-stock-cost-control-20260925-v2-candidate",
+  "parameter_sha256": "2d3cf9f923c7402bf45544a77dc8282574bde980392e4950cd8ed0e09e64c7a2",
+  "results": [
+    {
+      "stock_code": "2454",
+      "status": "completed",
+      "return_code": 0
+    },
+    {
+      "stock_code": "2891",
+      "status": "completed",
+      "return_code": 0
+    },
+    {
+      "stock_code": "4904",
+      "status": "completed",
+      "return_code": 0
+    },
+    {
+      "stock_code": "1301",
+      "status": "completed",
+      "return_code": 0
+    },
+    {
+      "stock_code": "2603",
+      "status": "completed",
+      "return_code": 0
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "version": "2026-09-25-v2",
+  "purpose": "每類至少3檔，驗證市場狀態與產業是否真的影響策略適用性",
+  "stocks": [
+    {"code": "2303", "name": "聯電", "industry": "半導體業", "market": "上市", "role": "原始研究標的"},
+    {"code": "2330", "name": "台積電", "industry": "半導體業", "market": "上市", "role": "同產業大型股"},
+    {"code": "2454", "name": "聯發科", "industry": "半導體業", "market": "上市", "role": "半導體IC設計"},
+    {"code": "2881", "name": "富邦金", "industry": "金融保險", "market": "上市", "role": "金融股驗證"},
+    {"code": "2882", "name": "國泰金", "industry": "金融保險", "market": "上市", "role": "金融股驗證"},
+    {"code": "2891", "name": "中信金", "industry": "金融保險", "market": "上市", "role": "第三檔金融股"},
+    {"code": "2412", "name": "中華電", "industry": "通信網路業", "market": "上市", "role": "低波動股票"},
+    {"code": "3045", "name": "台灣大", "industry": "通信網路業", "market": "上市", "role": "低波動股票"},
+    {"code": "4904", "name": "遠傳", "industry": "通信網路業", "market": "上市", "role": "低波動股票"},
+    {"code": "2002", "name": "中鋼", "industry": "鋼鐵工業", "market": "上市", "role": "景氣循環股"},
+    {"code": "1301", "name": "台塑", "industry": "塑膠工業", "market": "上市", "role": "景氣循環股"},
+    {"code": "2603", "name": "長榮", "industry": "航運業", "market": "上市", "role": "高波動景氣循環股"}
+  ]
+}

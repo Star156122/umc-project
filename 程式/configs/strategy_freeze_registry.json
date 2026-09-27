@@ -1,0 +1,39 @@
+{
+  "updated_at": "2026-09-26",
+  "development_modification_forbidden": true,
+  "development_stocks": ["2303", "2330", "2881", "2882", "2412", "2002"],
+  "development_period": ["2026-01-01", "2026-06-30"],
+  "next_stage": "clean_validation",
+  "entries": [
+    {
+      "strategy": "macd",
+      "variant": "previous_daily_trend_filter",
+      "status": "RESEARCH_CANDIDATE_BASELINE",
+      "frozen": true,
+      "clean_validation_decision": "FAIL",
+      "config": "configs/six_strategy_logic_20260926.json",
+      "config_sha256": "77A06840E87AF06A6C5EBD167A980DC506E3F81AEC15E1F4C4689FE03CFCFDE1",
+      "implementation": "trading_system/strategy_logic_candidate.py",
+      "implementation_sha256": "FF338715C1BDFB14806F418232E6CAE71738407BADA645C9D69E74AA12E6E3EF"
+    },
+    {
+      "strategy": "macd",
+      "variant": "early_followthrough",
+      "status": "REJECTED",
+      "frozen": true,
+      "result": "exports/early_followthrough/results.json"
+    },
+    {
+      "strategy": "vote",
+      "variant": "previous_daily_trend_plus_early_followthrough",
+      "status": "FROZEN_RESEARCH_CANDIDATE",
+      "frozen": true,
+      "clean_validation_decision": "FAIL",
+      "base_config": "configs/six_strategy_logic_20260926.json",
+      "followthrough_plan": "exports/early_followthrough/registered_plan.json",
+      "plan_sha256": "E3D7097C530124920D86C9B92158B93C737E675F0B52886E78AFA73166DA8134",
+      "implementation": "trading_system/early_followthrough_candidate.py",
+      "implementation_sha256": "895DDBFF317A2C319B9A57576968B3FB92CE5410FCD2CBF66C65620263EBF809"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "experiment_name": "cross_stock_validation_v1",
+  "stock_codes": ["2303", "2330", "2881", "2882", "2412", "2002"],
+  "smoke_test_stock": "2412",
+  "strategy_keys": ["ma", "rsi", "macd", "bollinger", "breakout", "vote"],
+  "backtest_start": "2026-01-01",
+  "backtest_end": "2026-06-30",
+  "initial_capital": 100000,
+  "kbar_freq": 5,
+  "llm_during_batch": false,
+  "report_policy": "comparison_and_database",
+  "notes": "先跑2412確認流程，再用--all執行完整6檔；不得依測試結果修改固定策略參數"
+}
