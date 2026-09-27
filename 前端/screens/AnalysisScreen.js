@@ -208,6 +208,7 @@ export default function AnalysisScreen() {
 
   const summary = report?.summary;
   const latestSignal = report?.latestSignal;
+  const canShowHtmlReport = Boolean(report?.hasHtml);
 
   const resultTone = useMemo(() => {
     if (!summary) {
@@ -215,6 +216,12 @@ export default function AnalysisScreen() {
     }
     return summary.totalNetPnl >= 0 ? "positive" : "negative";
   }, [summary]);
+
+  useEffect(() => {
+    if (viewMode === "html" && !canShowHtmlReport) {
+      setViewMode("summary");
+    }
+  }, [canShowHtmlReport, viewMode]);
 
   useEffect(() => {
     let current = true;
@@ -441,7 +448,18 @@ export default function AnalysisScreen() {
           <View style={styles.reportTabs}>
             {[{ key: "summary", label: "績效摘要" }, { key: "html", label: "原始 HTML 報告" }].map(tab =>
               <Pressable key={tab.key} accessibilityRole="button" accessibilityState={{ selected: viewMode === tab.key }}
-                onPress={() => setViewMode(tab.key)} style={[styles.reportTab, viewMode === tab.key && styles.strategyButtonActive]}>
+                disabled={tab.key === "html" && !canShowHtmlReport}
+                onPress={() => {
+                  if (tab.key === "html" && !canShowHtmlReport) {
+                    return;
+                  }
+                  setViewMode(tab.key);
+                }}
+                style={[
+                  styles.reportTab,
+                  viewMode === tab.key && styles.strategyButtonActive,
+                  tab.key === "html" && !canShowHtmlReport && styles.reportTabDisabled,
+                ]}>
                 <Text style={styles.historyTitle}>{tab.label}</Text>
               </Pressable>)}
           </View>
@@ -671,6 +689,9 @@ const styles = StyleSheet.create({
   reportTabs: { flexDirection: "row", gap: 10, marginBottom: 16 },
   reportTab: { flex: 1, padding: 15, alignItems: "center", borderRadius: 12,
     backgroundColor: marketColors.surface, borderWidth: 1, borderColor: marketColors.border },
+  reportTabDisabled: {
+    opacity: 0.45,
+  },
   container: {
     flex: 1,
     backgroundColor: marketColors.background,
