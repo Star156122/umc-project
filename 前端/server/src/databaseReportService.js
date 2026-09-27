@@ -21,12 +21,51 @@ function round(value, digits = 2) {
   return Math.round((number + Number.EPSILON) * factor) / factor;
 }
 
+function extractJsonObjectField(text, field) {
+  const marker = `"${field}"`;
+  const startMarker = text.indexOf(marker);
+  if (startMarker < 0) return null;
+  const objectStart = text.indexOf("{", startMarker + marker.length);
+  if (objectStart < 0) return null;
+
+  let depth = 0;
+  let quoted = false;
+  let escaped = false;
+  for (let index = objectStart; index < text.length; index += 1) {
+    const character = text[index];
+    if (quoted) {
+      if (escaped) escaped = false;
+      else if (character === "\\") escaped = true;
+      else if (character === '"') quoted = false;
+      continue;
+    }
+    if (character === '"') {
+      quoted = true;
+    } else if (character === "{") {
+      depth += 1;
+    } else if (character === "}") {
+      depth -= 1;
+      if (depth === 0) {
+        try {
+          return JSON.parse(text.slice(objectStart, index + 1));
+        } catch (_error) {
+          return null;
+        }
+      }
+    }
+  }
+  return null;
+}
+
 function parseJson(value, fallback) {
   if (value === null || value === undefined || value === "") return fallback;
   if (typeof value === "object") return value;
   try {
     return JSON.parse(String(value));
   } catch (_error) {
+    const text = String(value);
+    const summary = extractJsonObjectField(text, "summary");
+    if (summary) return { summary };
     return fallback;
   }
 }

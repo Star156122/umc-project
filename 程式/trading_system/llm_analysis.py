@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import os
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -157,6 +158,8 @@ def _usage_dict(response: Any) -> dict[str, int]:
         ("total_tokens", "total_tokens"),
     ):
         value = getattr(usage, source, None)
+        if value is None:
+            value = getattr(usage, {"input_tokens": "prompt_tokens", "output_tokens": "completion_tokens"}.get(source, source), None)
         if isinstance(value, int):
             output[target] = value
     return output
@@ -200,6 +203,7 @@ def generate_openai_analysis(
         client = OpenAI(
             api_key=api_key,
             base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+            timeout=120.0, max_retries=1,
         )
         response = client.chat.completions.create(
             model=model,
@@ -262,6 +266,8 @@ def generate_openai_analysis(
 def render_analysis_html(result: dict[str, Any] | None, error: str = "") -> str:
     """把 LLM 結果轉成可放入既有 report.html 的安全 HTML。"""
 
+    provider_label = html.escape(str((result or {}).get("provider") or os.getenv("LLM_PROVIDER", "Gemini")))
+    key_name = "GEMINI_API_KEY" if provider_label == "Gemini" else "OPENAI_API_KEY"
     start = "<!-- OPENAI_LLM_SECTION_START -->"
     end = "<!-- OPENAI_LLM_SECTION_END -->"
     if result and result.get("status") == "ok":
@@ -308,7 +314,7 @@ def render_analysis_html(result: dict[str, Any] | None, error: str = "") -> str:
     elif error:
         body = f"""
     <div class="d-flex align-items-center section-title">
-      <i class="ri-robot-2-fill me-2"></i>OpenAI 智慧分析
+      <i class="ri-robot-2-fill me-2"></i>{provider_label} 智慧分析
     </div>
     <div class="section-bar"></div>
     <div class="alert alert-secondary">此次未產生 AI 分析：{html.escape(error)}</div>
@@ -316,10 +322,10 @@ def render_analysis_html(result: dict[str, Any] | None, error: str = "") -> str:
     else:
         body = f"""
     <div class="d-flex align-items-center section-title">
-      <i class="ri-robot-2-fill me-2"></i>OpenAI 智慧分析（選配）
+      <i class="ri-robot-2-fill me-2"></i>{provider_label} 智慧分析（選配）
     </div>
     <div class="section-bar"></div>
-    <div class="alert alert-light border">尚未啟用；設定 LLM_ENABLED=true 與 OPENAI_API_KEY 後才會呼叫 API。</div>
+    <div class="alert alert-light border">尚未啟用；設定 LLM_ENABLED=true 與 {key_name} 後才會呼叫 API。</div>
     """
     return f"{start}\n{body}\n{end}"
 

@@ -245,6 +245,7 @@ function loadReportFromRoot(reportsRoot, code, reportId) {
   if (!fs.existsSync(summaryPath)) throw new Error("新版回測缺少 summary.json，無法確認績效");
   const raw = JSON.parse(fs.readFileSync(summaryPath, "utf8"));
   const summary = calculateSummary(pnlRows);
+  summary.llm = raw.llm || null;
   const fields = {
     totalTrades: "completed_trades", initialCapital: "initial_capital",
     finalAssets: "final_assets", totalNetPnl: "net_pnl", totalGrossPnl: "gross_pnl",

@@ -415,6 +415,20 @@ app.get("/api/reports/history/:code", authenticate, async (req, res) => {
   }
 });
 
+const { getNews, summarizeNews } = require("./stockNewsService");
+app.get("/api/reports/analysis/:analysisId/news/:mode", authenticate, async (req,res)=>{
+  try {
+    const report=await loadDatabaseReportByAnalysisId(req.user.userId,req.params.analysisId);
+    res.set("Cache-Control","no-store");
+    return res.json({news:await getNews(report,req.params.mode)});
+  } catch(error) {return res.status(error.status||502).json({message:error.status?error.message:"讀取新聞失敗，請稍後重試"});}
+});
+app.post("/api/reports/analysis/:analysisId/news/:mode/summary", authenticate, async (req,res)=>{
+  try {
+    const report=await loadDatabaseReportByAnalysisId(req.user.userId,req.params.analysisId);
+    return res.json({news:await summarizeNews(report,req.params.mode)});
+  } catch(error) {return res.status(error.status||502).json({message:error.status?error.message:"新聞摘要暫時無法產生，請稍後重試"});}
+});
 app.get("/api/reports/analysis/:analysisId/html", authenticate, async (req, res) => {
   try {
     const result = await loadReportHtml(req.user.userId, req.params.analysisId);

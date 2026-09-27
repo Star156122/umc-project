@@ -1,3 +1,4 @@
+import StockNewsPanel from "../components/StockNewsPanel";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -83,11 +84,65 @@ function EmptyState({ message }) {
   );
 }
 
+function LlmAnalysisCard({ analysis }) {
+  const provider = analysis?.provider || "Gemini";
+  const result = analysis?.analysis || {};
+  const sections = [
+    ["重點摘要", result.executive_summary],
+    ["技術面分析", result.technical_analysis],
+    ["策略評估", result.strategy_evaluation],
+    ["績效解讀", result.performance_analysis],
+    ["交易成本影響", result.transaction_cost_analysis],
+    ["風險分析", result.risk_analysis],
+    ["近期資訊脈絡", result.news_context],
+  ].filter(([, value]) => typeof value === "string" && value.trim());
+
+  if (analysis?.status !== "ok") {
+    const message =
+      analysis?.status === "disabled"
+        ? "尚未啟用 Gemini 智慧分析。"
+        : analysis?.error || "此次未產生 Gemini 智慧分析。";
+    return (
+      <View style={styles.aiCard}>
+        <Text style={styles.aiStatusText}>{message}</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.aiCard}>
+      {sections.map(([label, value]) => (
+        <View key={label} style={styles.aiSection}>
+          <Text style={styles.aiSectionTitle}>{label}</Text>
+          <Text style={styles.aiSectionText}>{value}</Text>
+        </View>
+      ))}
+      {Array.isArray(result.limitations) && result.limitations.length > 0 && (
+        <View style={styles.aiSection}>
+          <Text style={styles.aiSectionTitle}>分析限制</Text>
+          {result.limitations.map((item, index) => (
+            <Text key={`${index}-${item}`} style={styles.aiListItem}>• {item}</Text>
+          ))}
+        </View>
+      )}
+      <Text style={styles.aiRiskNotice}>
+        {result.risk_notice || "內容僅供專題研究與教育用途，不構成投資建議。"}
+      </Text>
+      <Text style={styles.aiMetaText}>
+        {provider} · {analysis.model || "模型未提供"}
+        {analysis.generated_at ? ` · ${analysis.generated_at}` : ""}
+      </Text>
+    </View>
+  );
+}
+
 export default function AnalysisScreen() {
   const [inputCode, setInputCode] = useState("2303");
   const [activeCode, setActiveCode] = useState("2303");
   const [strategy, setStrategy] = useState("ma");
   const [report, setReport] = useState(null);
+  const [newsRevision, setNewsRevision] = useState(0);
+  const newsSaved = useCallback(() => setNewsRevision(value => value + 1), []);
   const [viewMode, setViewMode] = useState("summary");
   const [history, setHistory] = useState([]);
   const [historyError, setHistoryError] = useState("");
@@ -207,6 +262,9 @@ export default function AnalysisScreen() {
   }, []);
 
   const summary = report?.summary;
+  const llmAnalysis = [summary?.llm, report?.llm_analysis, report?.engineSummary?.llm]
+    .find(item => item?.status === "ok")
+    || summary?.llm || report?.llm_analysis || report?.engineSummary?.llm;
   const latestSignal = report?.latestSignal;
   const canShowHtmlReport = Boolean(report?.hasHtml);
 
@@ -400,7 +458,7 @@ export default function AnalysisScreen() {
           <ActivityIndicator size="large" color={marketColors.primary} />
           <Text style={styles.loadingText}>{loadingText}</Text>
         </View>
-      ) : report ? (
+      ) : report && summary ? (
         <>
           <View style={styles.reportHero}>
             <View style={styles.reportHeroTop}>
@@ -445,6 +503,7 @@ export default function AnalysisScreen() {
               <Text style={styles.historyDetail}>{item.isTestReport ? "測試報告" : item.sourceOwner === "imported" ? "匯入報告" : "我的回測"} · {item.hasHtml ? "含 HTML" : "績效摘要"}</Text>
             </Pressable>)}
           </ScrollView>
+          <StockNewsPanel key={report.analysisId} report={report} onSaved={newsSaved} />
           <View style={styles.reportTabs}>
             {[{ key: "summary", label: "績效摘要" }, { key: "html", label: "原始 HTML 報告" }].map(tab =>
               <Pressable key={tab.key} accessibilityRole="button" accessibilityState={{ selected: viewMode === tab.key }}
@@ -463,7 +522,7 @@ export default function AnalysisScreen() {
                 <Text style={styles.historyTitle}>{tab.label}</Text>
               </Pressable>)}
           </View>
-          {viewMode === "html" ? <HtmlReportPanel key={report.analysisId} analysisId={report.analysisId}
+          {viewMode === "html" ? <HtmlReportPanel key={`${report.analysisId}:${newsRevision}`} analysisId={report.analysisId}
             title={`${stockTitle} · ${report.strategyLabel || report.strategy}`} available={report.hasHtml} /> : <>
           <SectionHeader icon="speedometer-outline" title="績效摘要" />
           <View style={styles.metricsGrid}>
@@ -509,6 +568,13 @@ export default function AnalysisScreen() {
               tone="negative"
             />
           </View>
+
+          <SectionHeader icon="sparkles-outline" title="Gemini 智慧分析" />
+          {llmAnalysis ? (
+            <LlmAnalysisCard analysis={llmAnalysis} />
+          ) : (
+            <EmptyState message="這份報告沒有保存 Gemini 智慧分析" />
+          )}
 
           <SectionHeader icon="cash-outline" title="交易成本與風險" />
           <View style={styles.infoCard}>
@@ -674,6 +740,8 @@ export default function AnalysisScreen() {
             分析編號：{report.analysisId ?? "—"}　資料庫報告編號：{report.reportDbId ?? "—"}
           </Text>
         </>
+      ) : report ? (
+        <EmptyState message="這份報告缺少績效摘要資料，無法顯示。請重新執行回測或選擇其他歷史報告。" />
       ) : (
         <EmptyState message="目前沒有可顯示的回測報告" />
       )}
@@ -1013,6 +1081,52 @@ const styles = StyleSheet.create({
     color: marketColors.text,
     fontSize: 17,
     fontWeight: "900",
+  },
+  aiCard: {
+    backgroundColor: marketColors.surface,
+    borderWidth: 1,
+    borderColor: marketColors.border,
+    borderRadius: 19,
+    padding: 16,
+    marginBottom: 19,
+  },
+  aiSection: {
+    marginBottom: 15,
+  },
+  aiSectionTitle: {
+    color: marketColors.primary,
+    fontSize: 15,
+    fontWeight: "900",
+    marginBottom: 6,
+  },
+  aiSectionText: {
+    color: marketColors.text,
+    fontSize: 14,
+    lineHeight: 22,
+  },
+  aiListItem: {
+    color: marketColors.textMuted,
+    fontSize: 14,
+    lineHeight: 21,
+    marginBottom: 3,
+  },
+  aiRiskNotice: {
+    color: marketColors.warning,
+    fontSize: 13,
+    lineHeight: 19,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: marketColors.borderSoft,
+    paddingTop: 12,
+  },
+  aiMetaText: {
+    color: marketColors.textSubtle,
+    fontSize: 11,
+    marginTop: 12,
+  },
+  aiStatusText: {
+    color: marketColors.textMuted,
+    fontSize: 14,
+    lineHeight: 21,
   },
   divider: {
     height: StyleSheet.hairlineWidth,

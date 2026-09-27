@@ -112,6 +112,7 @@ function runPythonProcess(args, temporaryReportsRoot) {
         IS_SIMULATION: "true",
         ONLY_BACKTEST: "true",
         REPORT_DIR: temporaryReportsRoot,
+        LLM_PROVIDER: "Gemini",
         PYTHONIOENCODING: "utf-8",
       },
       windowsHide: true,
@@ -286,25 +287,29 @@ async function persistBacktest({ userId, code, strategy, report }) {
       reportUrl: null,
     };
 
-    const [reportInsertResult] = await connection.execute(
-      "INSERT INTO reports (analysis_id, report_content) VALUES (?, ?)", [analysisId, ""]
-    );
     const serialized = JSON.stringify(databaseReport);
-    // Large HTML reports are written in small pieces within the same transaction.
-    for (let start = 0; start < serialized.length;) {
-      let end = Math.min(start + 32000, serialized.length);
-      if (end < serialized.length && /[\uD800-\uDBFF]/.test(serialized[end - 1])) end -= 1;
-      await connection.execute("UPDATE reports SET report_content = CONCAT(report_content, ?) WHERE report_id = ?",
-        [serialized.slice(start, end), reportInsertResult.insertId]);
-      start = end;
+    const [[packetSettings]] = await connection.query("SELECT @@max_allowed_packet AS maxPacket");
+    const reportBytes = Buffer.byteLength(serialized, "utf8");
+    if (reportBytes + 65536 > Number(packetSettings.maxPacket)) {
+      throw createHttpError(
+        `報告大小約 ${(reportBytes / 1048576).toFixed(2)} MB，超過目前 MySQL 連線的傳輸上限。請調整 max_allowed_packet 後重新啟動 API。`,
+        500
+      );
     }
+    // Send the complete JSON in one parameterized write. Repeated CONCAT updates
+    // can lose the beginning of large LONGTEXT values on some MariaDB setups.
+    const [reportInsertResult] = await connection.execute(
+      "INSERT INTO reports (analysis_id, report_content) VALUES (?, ?)",
+      [analysisId, serialized]
+    );
     databaseReport.reportDbId = Number(reportInsertResult.insertId);
     delete databaseReport.reportHtml;
 
     await connection.commit();
     return { analysisId, report: databaseReport };
   } catch (error) {
-    await connection.rollback();
+    try { await connection.rollback(); }
+    catch (rollbackError) { console.error("回復交易時連線已中斷：", rollbackError.code || rollbackError.message); }
     throw error;
   } finally {
     connection.release();
@@ -339,6 +344,7 @@ async function executePythonBacktest({
     path.join(os.tmpdir(), "graduation-stock-backtest-")
   );
 
+  let reportSaved = false;
   try {
     const args = [
       path.join(PYTHON_BACKTEST_ROOT, "app_backtest.py"),
@@ -353,7 +359,7 @@ async function executePythonBacktest({
       "--profile",
       `2303_${cleanStrategy}`,
       "--backtest", "--simulation", "--only-backtest",
-      "--db-disabled", "--llm-disabled",
+      "--db-disabled", "--llm-enabled", "--llm-use-cache",
     ];
 
     args.push("--backtest-start", first, "--backtest-end", last);
@@ -382,6 +388,7 @@ async function executePythonBacktest({
       report: parsedReport,
     });
 
+    reportSaved = true;
     return {
       report: persisted.report,
       analysisId: persisted.analysisId,
@@ -389,8 +396,14 @@ async function executePythonBacktest({
       backend: "umc-integrated",
       storage: "mysql",
     };
+  } catch (error) {
+    error.details = [error.details, `回測輸出已保留於：${temporaryReportsRoot}`].filter(Boolean).join("\n");
+    throw error;
   } finally {
-    fs.rmSync(temporaryReportsRoot, { recursive: true, force: true });
+    if (reportSaved) {
+      try { fs.rmSync(temporaryReportsRoot, { recursive: true, force: true }); }
+      catch (cleanupError) { console.warn("報告已存入資料庫，暫存檔清理失敗：", cleanupError.message); }
+    }
   }
 }
 

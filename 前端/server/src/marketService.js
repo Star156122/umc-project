@@ -36,7 +36,6 @@ const CURATED_TAIWAN_SYMBOLS = [
 
 const INDEX_SYMBOLS = [
   { symbol: "^TWII", code: "TWII", name: "加權指數", market: "index" },
-  { symbol: "^TWOII", code: "TWOII", name: "櫃買指數", market: "index" },
 ];
 
 // 常用台股中文名稱。行情價格、漲跌、成交量與走勢仍全部取自 Yahoo Finance；
@@ -108,6 +107,7 @@ function chooseDisplayName(symbol, candidates = []) {
 }
 
 function toFiniteNumber(value) {
+  if (value === null || value === undefined || value === "") return null;
   const number = Number(value);
   return Number.isFinite(number) ? number : null;
 }
@@ -286,17 +286,12 @@ function normalizeChartStock(result, requestedSymbol, overrides = {}) {
     history.push({
       time: new Date(timestamp * 1000).toISOString(),
       value,
+      open: toFiniteNumber(quote.open?.[index]), high: toFiniteNumber(quote.high?.[index]),
+      low: toFiniteNumber(quote.low?.[index]), close: value, volume: toFiniteNumber(volumes[index]),
     });
   }
 
-  // 非交易時段偶爾只回傳 meta，使用 Yahoo 的昨收與最新價作為兩個真實資料點。
-  if (history.length < 2) {
-    const actualPoints = [prevClose, price].filter((value) => value !== null);
-    for (let index = 0; index < actualPoints.length; index += 1) {
-      history.push({ time: String(index), value: actualPoints[index] });
-    }
-  }
-
+  // Missing intraday data stays empty; do not draw a synthetic line from two quotes.
   const regularMarketTime =
     toFiniteNumber(meta.regularMarketTime) ?? lastFinite(timestamps);
 

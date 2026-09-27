@@ -8,7 +8,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import Sparkline from "./Sparkline";
+import MarketTrendChart from "./MarketTrendChart";
 import { marketColors } from "../styles/marketTheme";
 
 function formatPrice(value) {
@@ -71,7 +71,7 @@ export default function MarketStockRow({
   const available = stock?.available !== false && Number.isFinite(Number(stock?.price));
 
   return (
-    <View style={[styles.card, compact ? styles.compactCard : styles.wideCard, style]}>
+    <View style={[styles.card, compact ? styles.compactCard : styles.wideCard, compact && { flexDirection: "column" }, style]}>
       <View style={[styles.quotePanel, compact ? styles.compactQuotePanel : styles.wideQuotePanel]}>
         <View style={styles.nameRow}>
           <View style={styles.nameBox}>
@@ -154,22 +154,7 @@ export default function MarketStockRow({
         </View>
       </View>
 
-      <View style={[styles.chartPanel, compact ? styles.compactChartPanel : styles.wideChartPanel]}>
-        {historyValues.length >= 2 ? (
-          <Sparkline
-            values={historyValues}
-            width={compact ? 124 : 182}
-            height={compact ? 88 : 105}
-            color={trendColor}
-          />
-        ) : (
-          <View style={styles.noChartBox}>
-            <Ionicons name="analytics-outline" size={31} color="#536a7b" />
-            <Text style={styles.noChartText}>暫無走勢</Text>
-          </View>
-        )}
-        <Text style={styles.chartCaption}>Yahoo 當日走勢</Text>
-      </View>
+      <View style={{ flex: compact ? undefined : 2, width: compact ? "100%" : undefined, padding: 12 }}><MarketTrendChart stock={stock} height={compact ? 210 : 230} /></View>
     </View>
   );
 }

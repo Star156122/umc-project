@@ -16,7 +16,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
 import MarketHeader from "../components/MarketHeader";
 import MarketStockRow from "../components/MarketStockRow";
-import Sparkline from "../components/Sparkline";
+import MarketTrendChart from "../components/MarketTrendChart";
 import { apiRequest } from "../src/config/api";
 import { marketColors } from "../styles/marketTheme";
 
@@ -48,9 +48,7 @@ function MarketIndexCard({ item }) {
           {formatPercent(item?.changePercent)}
         </Text>
       </View>
-      <View style={styles.indexChart}>
-        <Sparkline values={item?.history || []} width={142} height={42} color={color} />
-      </View>
+      <MarketTrendChart stock={item} height={320} />
     </View>
   );
 }
