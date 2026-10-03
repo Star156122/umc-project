@@ -1,0 +1,1811 @@
+{
+  "experiment_id": "ml-trading-20261003-v1",
+  "status": "completed",
+  "generated_at": "2026-10-03T10:59:07+08:00",
+  "holdout_used": false,
+  "classification_metrics": {
+    "random_forest": {
+      "training_seconds": 0.3032710999978008,
+      "splits": {
+        "validation": {
+          "samples": 668,
+          "positive_rate": 0.3263473053892216,
+          "accuracy": 0.5568862275449101,
+          "precision": 0.3597122302158273,
+          "recall": 0.45871559633027525,
+          "f1": 0.4032258064516129,
+          "confusion_matrix": [
+            [
+              272,
+              178
+            ],
+            [
+              118,
+              100
+            ]
+          ],
+          "roc_auc": 0.5572680937818553,
+          "prediction_seconds": 0.036631800001487136,
+          "per_stock": {
+            "2002": {
+              "samples": 111,
+              "positive_rate": 0.3153153153153153,
+              "accuracy": 0.6396396396396397,
+              "precision": 0.2727272727272727,
+              "recall": 0.08571428571428572,
+              "f1": 0.13043478260869565,
+              "confusion_matrix": [
+                [
+                  68,
+                  8
+                ],
+                [
+                  32,
+                  3
+                ]
+              ],
+              "roc_auc": 0.5285714285714286
+            },
+            "2303": {
+              "samples": 112,
+              "positive_rate": 0.44642857142857145,
+              "accuracy": 0.45535714285714285,
+              "precision": 0.42857142857142855,
+              "recall": 0.66,
+              "f1": 0.5196850393700787,
+              "confusion_matrix": [
+                [
+                  18,
+                  44
+                ],
+                [
+                  17,
+                  33
+                ]
+              ],
+              "roc_auc": 0.46612903225806446
+            },
+            "2330": {
+              "samples": 111,
+              "positive_rate": 0.3153153153153153,
+              "accuracy": 0.4864864864864865,
+              "precision": 0.30357142857142855,
+              "recall": 0.4857142857142857,
+              "f1": 0.37362637362637363,
+              "confusion_matrix": [
+                [
+                  37,
+                  39
+                ],
+                [
+                  18,
+                  17
+                ]
+              ],
+              "roc_auc": 0.4973684210526316
+            },
+            "2412": {
+              "samples": 112,
+              "positive_rate": 0.19642857142857142,
+              "accuracy": 0.8035714285714286,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "confusion_matrix": [
+                [
+                  90,
+                  0
+                ],
+                [
+                  22,
+                  0
+                ]
+              ],
+              "roc_auc": 0.5984848484848485
+            },
+            "2881": {
+              "samples": 111,
+              "positive_rate": 0.3333333333333333,
+              "accuracy": 0.46846846846846846,
+              "precision": 0.3625,
+              "recall": 0.7837837837837838,
+              "f1": 0.49572649572649574,
+              "confusion_matrix": [
+                [
+                  23,
+                  51
+                ],
+                [
+                  8,
+                  29
+                ]
+              ],
+              "roc_auc": 0.5613586559532505
+            },
+            "2882": {
+              "samples": 111,
+              "positive_rate": 0.35135135135135137,
+              "accuracy": 0.4864864864864865,
+              "precision": 0.3333333333333333,
+              "recall": 0.46153846153846156,
+              "f1": 0.3870967741935484,
+              "confusion_matrix": [
+                [
+                  36,
+                  36
+                ],
+                [
+                  21,
+                  18
+                ]
+              ],
+              "roc_auc": 0.4451566951566951
+            }
+          }
+        },
+        "test": {
+          "samples": 677,
+          "positive_rate": 0.38404726735598227,
+          "accuracy": 0.552437223042836,
+          "precision": 0.3862433862433862,
+          "recall": 0.28076923076923077,
+          "f1": 0.32516703786191536,
+          "confusion_matrix": [
+            [
+              301,
+              116
+            ],
+            [
+              187,
+              73
+            ]
+          ],
+          "roc_auc": 0.5311566131710016,
+          "prediction_seconds": 0.05348410000442527,
+          "per_stock": {
+            "2002": {
+              "samples": 113,
+              "positive_rate": 0.2831858407079646,
+              "accuracy": 0.672566371681416,
+              "precision": 0.14285714285714285,
+              "recall": 0.03125,
+              "f1": 0.05128205128205128,
+              "confusion_matrix": [
+                [
+                  75,
+                  6
+                ],
+                [
+                  31,
+                  1
+                ]
+              ],
+              "roc_auc": 0.5158179012345679
+            },
+            "2303": {
+              "samples": 112,
+              "positive_rate": 0.4732142857142857,
+              "accuracy": 0.41964285714285715,
+              "precision": 0.39285714285714285,
+              "recall": 0.41509433962264153,
+              "f1": 0.4036697247706422,
+              "confusion_matrix": [
+                [
+                  25,
+                  34
+                ],
+                [
+                  31,
+                  22
+                ]
+              ],
+              "roc_auc": 0.35561240805884237
+            },
+            "2330": {
+              "samples": 113,
+              "positive_rate": 0.5309734513274337,
+              "accuracy": 0.48672566371681414,
+              "precision": 0.625,
+              "recall": 0.08333333333333333,
+              "f1": 0.14705882352941177,
+              "confusion_matrix": [
+                [
+                  50,
+                  3
+                ],
+                [
+                  55,
+                  5
+                ]
+              ],
+              "roc_auc": 0.5267295597484276
+            },
+            "2412": {
+              "samples": 113,
+              "positive_rate": 0.21238938053097345,
+              "accuracy": 0.7699115044247787,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "confusion_matrix": [
+                [
+                  87,
+                  2
+                ],
+                [
+                  24,
+                  0
+                ]
+              ],
+              "roc_auc": 0.5660112359550562
+            },
+            "2881": {
+              "samples": 113,
+              "positive_rate": 0.37168141592920356,
+              "accuracy": 0.4424778761061947,
+              "precision": 0.34328358208955223,
+              "recall": 0.5476190476190477,
+              "f1": 0.42201834862385323,
+              "confusion_matrix": [
+                [
+                  27,
+                  44
+                ],
+                [
+                  19,
+                  23
+                ]
+              ],
+              "roc_auc": 0.4466800804828973
+            },
+            "2882": {
+              "samples": 113,
+              "positive_rate": 0.4336283185840708,
+              "accuracy": 0.5221238938053098,
+              "precision": 0.4489795918367347,
+              "recall": 0.4489795918367347,
+              "f1": 0.4489795918367347,
+              "confusion_matrix": [
+                [
+                  37,
+                  27
+                ],
+                [
+                  27,
+                  22
+                ]
+              ],
+              "roc_auc": 0.5401785714285714
+            }
+          }
+        }
+      }
+    },
+    "xgboost": {
+      "training_seconds": 1.2402775999944424,
+      "splits": {
+        "validation": {
+          "samples": 668,
+          "positive_rate": 0.3263473053892216,
+          "accuracy": 0.6646706586826348,
+          "precision": 0.40625,
+          "recall": 0.05963302752293578,
+          "f1": 0.104,
+          "confusion_matrix": [
+            [
+              431,
+              19
+            ],
+            [
+              205,
+              13
+            ]
+          ],
+          "roc_auc": 0.5348318042813456,
+          "prediction_seconds": 0.007161200002883561,
+          "per_stock": {
+            "2002": {
+              "samples": 111,
+              "positive_rate": 0.3153153153153153,
+              "accuracy": 0.7027027027027027,
+              "precision": 1.0,
+              "recall": 0.05714285714285714,
+              "f1": 0.10810810810810811,
+              "confusion_matrix": [
+                [
+                  76,
+                  0
+                ],
+                [
+                  33,
+                  2
+                ]
+              ],
+              "roc_auc": 0.49210526315789477
+            },
+            "2303": {
+              "samples": 112,
+              "positive_rate": 0.44642857142857145,
+              "accuracy": 0.5625,
+              "precision": 0.5714285714285714,
+              "recall": 0.08,
+              "f1": 0.14035087719298245,
+              "confusion_matrix": [
+                [
+                  59,
+                  3
+                ],
+                [
+                  46,
+                  4
+                ]
+              ],
+              "roc_auc": 0.5061290322580645
+            },
+            "2330": {
+              "samples": 111,
+              "positive_rate": 0.3153153153153153,
+              "accuracy": 0.6666666666666666,
+              "precision": 0.3333333333333333,
+              "recall": 0.05714285714285714,
+              "f1": 0.0975609756097561,
+              "confusion_matrix": [
+                [
+                  72,
+                  4
+                ],
+                [
+                  33,
+                  2
+                ]
+              ],
+              "roc_auc": 0.4413533834586466
+            },
+            "2412": {
+              "samples": 112,
+              "positive_rate": 0.19642857142857142,
+              "accuracy": 0.8035714285714286,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "confusion_matrix": [
+                [
+                  90,
+                  0
+                ],
+                [
+                  22,
+                  0
+                ]
+              ],
+              "roc_auc": 0.5464646464646464
+            },
+            "2881": {
+              "samples": 111,
+              "positive_rate": 0.3333333333333333,
+              "accuracy": 0.6486486486486487,
+              "precision": 0.4,
+              "recall": 0.10810810810810811,
+              "f1": 0.1702127659574468,
+              "confusion_matrix": [
+                [
+                  68,
+                  6
+                ],
+                [
+                  33,
+                  4
+                ]
+              ],
+              "roc_auc": 0.49853907962016075
+            },
+            "2882": {
+              "samples": 111,
+              "positive_rate": 0.35135135135135137,
+              "accuracy": 0.6036036036036037,
+              "precision": 0.14285714285714285,
+              "recall": 0.02564102564102564,
+              "f1": 0.043478260869565216,
+              "confusion_matrix": [
+                [
+                  66,
+                  6
+                ],
+                [
+                  38,
+                  1
+                ]
+              ],
+              "roc_auc": 0.46509971509971504
+            }
+          }
+        },
+        "test": {
+          "samples": 677,
+          "positive_rate": 0.38404726735598227,
+          "accuracy": 0.5937961595273265,
+          "precision": 0.2727272727272727,
+          "recall": 0.03461538461538462,
+          "f1": 0.06143344709897611,
+          "confusion_matrix": [
+            [
+              393,
+              24
+            ],
+            [
+              251,
+              9
+            ]
+          ],
+          "roc_auc": 0.5325493451392732,
+          "prediction_seconds": 0.0013150000013411045,
+          "per_stock": {
+            "2002": {
+              "samples": 113,
+              "positive_rate": 0.2831858407079646,
+              "accuracy": 0.7079646017699115,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "confusion_matrix": [
+                [
+                  80,
+                  1
+                ],
+                [
+                  32,
+                  0
+                ]
+              ],
+              "roc_auc": 0.5320216049382717
+            },
+            "2303": {
+              "samples": 112,
+              "positive_rate": 0.4732142857142857,
+              "accuracy": 0.48214285714285715,
+              "precision": 0.3076923076923077,
+              "recall": 0.07547169811320754,
+              "f1": 0.12121212121212122,
+              "confusion_matrix": [
+                [
+                  50,
+                  9
+                ],
+                [
+                  49,
+                  4
+                ]
+              ],
+              "roc_auc": 0.37895746722097856
+            },
+            "2330": {
+              "samples": 113,
+              "positive_rate": 0.5309734513274337,
+              "accuracy": 0.4690265486725664,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "confusion_matrix": [
+                [
+                  53,
+                  0
+                ],
+                [
+                  60,
+                  0
+                ]
+              ],
+              "roc_auc": 0.5647798742138364
+            },
+            "2412": {
+              "samples": 113,
+              "positive_rate": 0.21238938053097345,
+              "accuracy": 0.7876106194690266,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "confusion_matrix": [
+                [
+                  89,
+                  0
+                ],
+                [
+                  24,
+                  0
+                ]
+              ],
+              "roc_auc": 0.5711610486891386
+            },
+            "2881": {
+              "samples": 113,
+              "positive_rate": 0.37168141592920356,
+              "accuracy": 0.5752212389380531,
+              "precision": 0.125,
+              "recall": 0.023809523809523808,
+              "f1": 0.04,
+              "confusion_matrix": [
+                [
+                  64,
+                  7
+                ],
+                [
+                  41,
+                  1
+                ]
+              ],
+              "roc_auc": 0.4550637156270959
+            },
+            "2882": {
+              "samples": 113,
+              "positive_rate": 0.4336283185840708,
+              "accuracy": 0.5398230088495575,
+              "precision": 0.36363636363636365,
+              "recall": 0.08163265306122448,
+              "f1": 0.13333333333333333,
+              "confusion_matrix": [
+                [
+                  57,
+                  7
+                ],
+                [
+                  45,
+                  4
+                ]
+              ],
+              "roc_auc": 0.4894770408163265
+            }
+          }
+        }
+      }
+    },
+    "gru": {
+      "training_seconds": 1.541195300000254,
+      "epochs_completed": 3,
+      "best_validation_loss": 1.0447617769241333,
+      "splits": {
+        "validation": {
+          "samples": 668,
+          "positive_rate": 0.3263473053892216,
+          "accuracy": 0.4550898203592814,
+          "precision": 0.3147208121827411,
+          "recall": 0.5688073394495413,
+          "f1": 0.40522875816993464,
+          "confusion_matrix": [
+            [
+              180,
+              270
+            ],
+            [
+              94,
+              124
+            ]
+          ],
+          "roc_auc": 0.4854638124362895,
+          "prediction_seconds": 0.017195400010677986,
+          "per_stock": {
+            "2002": {
+              "samples": 111,
+              "positive_rate": 0.3153153153153153,
+              "accuracy": 0.5765765765765766,
+              "precision": 0.4,
+              "recall": 0.6857142857142857,
+              "f1": 0.5052631578947369,
+              "confusion_matrix": [
+                [
+                  40,
+                  36
+                ],
+                [
+                  11,
+                  24
+                ]
+              ],
+              "roc_auc": 0.574436090225564
+            },
+            "2303": {
+              "samples": 112,
+              "positive_rate": 0.44642857142857145,
+              "accuracy": 0.45535714285714285,
+              "precision": 0.4246575342465753,
+              "recall": 0.62,
+              "f1": 0.5040650406504065,
+              "confusion_matrix": [
+                [
+                  20,
+                  42
+                ],
+                [
+                  19,
+                  31
+                ]
+              ],
+              "roc_auc": 0.4587096774193548
+            },
+            "2330": {
+              "samples": 111,
+              "positive_rate": 0.3153153153153153,
+              "accuracy": 0.45045045045045046,
+              "precision": 0.296875,
+              "recall": 0.5428571428571428,
+              "f1": 0.3838383838383838,
+              "confusion_matrix": [
+                [
+                  31,
+                  45
+                ],
+                [
+                  16,
+                  19
+                ]
+              ],
+              "roc_auc": 0.5109022556390977
+            },
+            "2412": {
+              "samples": 112,
+              "positive_rate": 0.19642857142857142,
+              "accuracy": 0.41964285714285715,
+              "precision": 0.16923076923076924,
+              "recall": 0.5,
+              "f1": 0.25287356321839083,
+              "confusion_matrix": [
+                [
+                  36,
+                  54
+                ],
+                [
+                  11,
+                  11
+                ]
+              ],
+              "roc_auc": 0.47878787878787876
+            },
+            "2881": {
+              "samples": 111,
+              "positive_rate": 0.3333333333333333,
+              "accuracy": 0.4144144144144144,
+              "precision": 0.27419354838709675,
+              "recall": 0.4594594594594595,
+              "f1": 0.3434343434343434,
+              "confusion_matrix": [
+                [
+                  29,
+                  45
+                ],
+                [
+                  20,
+                  17
+                ]
+              ],
+              "roc_auc": 0.38239590942293644
+            },
+            "2882": {
+              "samples": 111,
+              "positive_rate": 0.35135135135135137,
+              "accuracy": 0.4144144144144144,
+              "precision": 0.3142857142857143,
+              "recall": 0.5641025641025641,
+              "f1": 0.4036697247706422,
+              "confusion_matrix": [
+                [
+                  24,
+                  48
+                ],
+                [
+                  17,
+                  22
+                ]
+              ],
+              "roc_auc": 0.4636752136752137
+            }
+          }
+        },
+        "test": {
+          "samples": 677,
+          "positive_rate": 0.38404726735598227,
+          "accuracy": 0.5081240768094535,
+          "precision": 0.396011396011396,
+          "recall": 0.5346153846153846,
+          "f1": 0.45499181669394434,
+          "confusion_matrix": [
+            [
+              205,
+              212
+            ],
+            [
+              121,
+              139
+            ]
+          ],
+          "roc_auc": 0.5068622025456558,
+          "prediction_seconds": 0.010812099993927404,
+          "per_stock": {
+            "2002": {
+              "samples": 113,
+              "positive_rate": 0.2831858407079646,
+              "accuracy": 0.5929203539823009,
+              "precision": 0.3055555555555556,
+              "recall": 0.34375,
+              "f1": 0.3235294117647059,
+              "confusion_matrix": [
+                [
+                  56,
+                  25
+                ],
+                [
+                  21,
+                  11
+                ]
+              ],
+              "roc_auc": 0.5108024691358025
+            },
+            "2303": {
+              "samples": 112,
+              "positive_rate": 0.4732142857142857,
+              "accuracy": 0.49107142857142855,
+              "precision": 0.46153846153846156,
+              "recall": 0.4528301886792453,
+              "f1": 0.45714285714285713,
+              "confusion_matrix": [
+                [
+                  31,
+                  28
+                ],
+                [
+                  29,
+                  24
+                ]
+              ],
+              "roc_auc": 0.5129517109050208
+            },
+            "2330": {
+              "samples": 113,
+              "positive_rate": 0.5309734513274337,
+              "accuracy": 0.5486725663716814,
+              "precision": 0.5652173913043478,
+              "recall": 0.65,
+              "f1": 0.6046511627906976,
+              "confusion_matrix": [
+                [
+                  23,
+                  30
+                ],
+                [
+                  21,
+                  39
+                ]
+              ],
+              "roc_auc": 0.5113207547169811
+            },
+            "2412": {
+              "samples": 113,
+              "positive_rate": 0.21238938053097345,
+              "accuracy": 0.5132743362831859,
+              "precision": 0.22807017543859648,
+              "recall": 0.5416666666666666,
+              "f1": 0.32098765432098764,
+              "confusion_matrix": [
+                [
+                  45,
+                  44
+                ],
+                [
+                  11,
+                  13
+                ]
+              ],
+              "roc_auc": 0.5786516853932584
+            },
+            "2881": {
+              "samples": 113,
+              "positive_rate": 0.37168141592920356,
+              "accuracy": 0.504424778761062,
+              "precision": 0.390625,
+              "recall": 0.5952380952380952,
+              "f1": 0.4716981132075472,
+              "confusion_matrix": [
+                [
+                  32,
+                  39
+                ],
+                [
+                  17,
+                  25
+                ]
+              ],
+              "roc_auc": 0.48591549295774644
+            },
+            "2882": {
+              "samples": 113,
+              "positive_rate": 0.4336283185840708,
+              "accuracy": 0.39823008849557523,
+              "precision": 0.3698630136986301,
+              "recall": 0.5510204081632653,
+              "f1": 0.4426229508196721,
+              "confusion_matrix": [
+                [
+                  18,
+                  46
+                ],
+                [
+                  22,
+                  27
+                ]
+              ],
+              "roc_auc": 0.4276147959183674
+            }
+          }
+        }
+      }
+    }
+  },
+  "trading_results": {
+    "random_forest": {
+      "2002": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 99298.1560375,
+          "return_pct": -0.7018439625000039,
+          "round_trips": 1,
+          "win_rate_pct": 0.0,
+          "max_drawdown_pct": -0.7018439625000039
+        },
+        "trades": [
+          {
+            "date": "2026-05-27",
+            "side": "BUY",
+            "price": 19.65,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-05-27",
+            "side": "SELL",
+            "price": 19.060499999999998,
+            "shares": 1000,
+            "reason": "stop_loss",
+            "pnl": -701.8439625000065
+          }
+        ]
+      },
+      "2303": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 99284.05340262497,
+          "return_pct": -0.715946597375039,
+          "round_trips": 8,
+          "win_rate_pct": 50.0,
+          "max_drawdown_pct": -11.106167431319003
+        },
+        "trades": [
+          {
+            "date": "2026-01-09",
+            "side": "BUY",
+            "price": 54.4,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-01-14",
+            "side": "SELL",
+            "price": 55.1,
+            "shares": 1000,
+            "reason": "next_open_signal_or_time",
+            "pnl": 378.66249999999854
+          },
+          {
+            "date": "2026-01-19",
+            "side": "BUY",
+            "price": 60.3,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-01-22",
+            "side": "SELL",
+            "price": 71.5,
+            "shares": 1000,
+            "reason": "next_open_signal_or_time",
+            "pnl": 10797.685000000005
+          },
+          {
+            "date": "2026-01-28",
+            "side": "BUY",
+            "price": 79.6,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-01-28",
+            "side": "SELL",
+            "price": 77.21199999999999,
+            "shares": 1000,
+            "reason": "stop_loss",
+            "pnl": -2843.0931000000273
+          },
+          {
+            "date": "2026-04-20",
+            "side": "BUY",
+            "price": 78.0,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-04-21",
+            "side": "SELL",
+            "price": 75.66,
+            "shares": 1000,
+            "reason": "stop_loss",
+            "pnl": -2785.9455000000016
+          },
+          {
+            "date": "2026-05-04",
+            "side": "BUY",
+            "price": 80.0,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-05-05",
+            "side": "SELL",
+            "price": 80.8,
+            "shares": 1000,
+            "reason": "next_open_signal_or_time",
+            "pnl": 328.45999999999185
+          },
+          {
+            "date": "2026-05-14",
+            "side": "BUY",
+            "price": 102.0,
+            "shares": 984,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-05-14",
+            "side": "SELL",
+            "price": 98.94,
+            "shares": 984,
+            "reason": "stop_loss",
+            "pnl": -3584.868948000003
+          },
+          {
+            "date": "2026-06-03",
+            "side": "BUY",
+            "price": 141.5,
+            "shares": 685,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-06-03",
+            "side": "SELL",
+            "price": 137.255,
+            "shares": 685,
+            "reason": "stop_loss",
+            "pnl": -3461.9837493749947
+          },
+          {
+            "date": "2026-06-15",
+            "side": "BUY",
+            "price": 139.5,
+            "shares": 672,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-06-18",
+            "side": "SELL",
+            "price": 141.0,
+            "shares": 672,
+            "reason": "next_open_signal_or_time",
+            "pnl": 455.1371999999974
+          }
+        ]
+      },
+      "2330": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 100000.0,
+          "return_pct": 0.0,
+          "round_trips": 0,
+          "win_rate_pct": null,
+          "max_drawdown_pct": 0.0
+        },
+        "trades": []
+      },
+      "2412": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 100000.0,
+          "return_pct": 0.0,
+          "round_trips": 0,
+          "win_rate_pct": null,
+          "max_drawdown_pct": 0.0
+        },
+        "trades": []
+      },
+      "2881": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 105389.15012249997,
+          "return_pct": 5.389150122499964,
+          "round_trips": 6,
+          "win_rate_pct": 66.66666666666666,
+          "max_drawdown_pct": -2.4085390540703244
+        },
+        "trades": [
+          {
+            "date": "2026-01-05",
+            "side": "BUY",
+            "price": 95.6,
+            "shares": 992,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-01-08",
+            "side": "SELL",
+            "price": 96.3,
+            "shares": 992,
+            "reason": "next_open_signal_or_time",
+            "pnl": 136.5413600000029
+          },
+          {
+            "date": "2026-02-06",
+            "side": "BUY",
+            "price": 92.7,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-02-11",
+            "side": "SELL",
+            "price": 95.0,
+            "shares": 1000,
+            "reason": "next_open_signal_or_time",
+            "pnl": 1747.5274999999965
+          },
+          {
+            "date": "2026-04-20",
+            "side": "BUY",
+            "price": 87.9,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-04-23",
+            "side": "SELL",
+            "price": 88.2,
+            "shares": 1000,
+            "reason": "next_open_signal_or_time",
+            "pnl": -215.54250000001048
+          },
+          {
+            "date": "2026-04-27",
+            "side": "BUY",
+            "price": 87.5,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-04-30",
+            "side": "SELL",
+            "price": 90.4,
+            "shares": 1000,
+            "reason": "next_open_signal_or_time",
+            "pnl": 2375.292499999996
+          },
+          {
+            "date": "2026-05-18",
+            "side": "BUY",
+            "price": 96.3,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-05-19",
+            "side": "SELL",
+            "price": 95.7,
+            "shares": 1000,
+            "reason": "next_open_signal_or_time",
+            "pnl": -1160.7000000000116
+          },
+          {
+            "date": "2026-06-02",
+            "side": "BUY",
+            "price": 110.5,
+            "shares": 883,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-06-05",
+            "side": "SELL",
+            "price": 114.0,
+            "shares": 883,
+            "reason": "next_open_signal_or_time",
+            "pnl": 2506.0312624999933
+          }
+        ]
+      },
+      "2882": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 102692.84113849998,
+          "return_pct": 2.6928411384999684,
+          "round_trips": 5,
+          "win_rate_pct": 60.0,
+          "max_drawdown_pct": -5.600238693909365
+        },
+        "trades": [
+          {
+            "date": "2026-01-15",
+            "side": "BUY",
+            "price": 74.9,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-01-16",
+            "side": "SELL",
+            "price": 75.6,
+            "shares": 1000,
+            "reason": "next_open_signal_or_time",
+            "pnl": 258.7375000000029
+          },
+          {
+            "date": "2026-02-25",
+            "side": "BUY",
+            "price": 78.2,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-02-26",
+            "side": "SELL",
+            "price": 77.0,
+            "shares": 1000,
+            "reason": "next_open_signal_or_time",
+            "pnl": -1652.1600000000035
+          },
+          {
+            "date": "2026-06-02",
+            "side": "BUY",
+            "price": 88.5,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-06-03",
+            "side": "SELL",
+            "price": 89.9,
+            "shares": 1000,
+            "reason": "next_open_signal_or_time",
+            "pnl": 876.0800000000017
+          },
+          {
+            "date": "2026-06-11",
+            "side": "BUY",
+            "price": 101.0,
+            "shares": 934,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-06-11",
+            "side": "SELL",
+            "price": 97.97,
+            "shares": 934,
+            "reason": "stop_loss",
+            "pnl": -3369.3510615000123
+          },
+          {
+            "date": "2026-06-12",
+            "side": "BUY",
+            "price": 102.0,
+            "shares": 893,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-06-17",
+            "side": "SELL",
+            "price": 110.0,
+            "shares": 893,
+            "reason": "next_open_signal_or_time",
+            "pnl": 6579.534699999989
+          }
+        ]
+      }
+    },
+    "xgboost": {
+      "2002": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 100000.0,
+          "return_pct": 0.0,
+          "round_trips": 0,
+          "win_rate_pct": null,
+          "max_drawdown_pct": 0.0
+        },
+        "trades": []
+      },
+      "2303": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 78615.50192524998,
+          "return_pct": -21.384498074750024,
+          "round_trips": 7,
+          "win_rate_pct": 0.0,
+          "max_drawdown_pct": -21.384498074750024
+        },
+        "trades": [
+          {
+            "date": "2026-01-12",
+            "side": "BUY",
+            "price": 57.0,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-01-12",
+            "side": "SELL",
+            "price": 55.29,
+            "shares": 1000,
+            "reason": "stop_loss",
+            "pnl": -2035.883249999999
+          },
+          {
+            "date": "2026-01-23",
+            "side": "BUY",
+            "price": 68.0,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-01-23",
+            "side": "SELL",
+            "price": 65.96,
+            "shares": 1000,
+            "reason": "stop_loss",
+            "pnl": -2428.773000000001
+          },
+          {
+            "date": "2026-01-29",
+            "side": "BUY",
+            "price": 70.3,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-01-30",
+            "side": "SELL",
+            "price": 65.0,
+            "shares": 1000,
+            "reason": "next_open_signal_or_time",
+            "pnl": -5687.802500000005
+          },
+          {
+            "date": "2026-04-21",
+            "side": "BUY",
+            "price": 78.0,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-04-21",
+            "side": "SELL",
+            "price": 75.66,
+            "shares": 1000,
+            "reason": "stop_loss",
+            "pnl": -2785.9455000000016
+          },
+          {
+            "date": "2026-04-23",
+            "side": "BUY",
+            "price": 79.5,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-04-23",
+            "side": "SELL",
+            "price": 77.115,
+            "shares": 1000,
+            "reason": "stop_loss",
+            "pnl": -2839.521375000011
+          },
+          {
+            "date": "2026-06-03",
+            "side": "BUY",
+            "price": 141.5,
+            "shares": 564,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-06-03",
+            "side": "SELL",
+            "price": 137.255,
+            "shares": 564,
+            "reason": "stop_loss",
+            "pnl": -2850.450853500006
+          },
+          {
+            "date": "2026-06-04",
+            "side": "BUY",
+            "price": 126.5,
+            "shares": 610,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-06-04",
+            "side": "SELL",
+            "price": 122.705,
+            "shares": 610,
+            "reason": "stop_loss",
+            "pnl": -2756.121596249999
+          }
+        ]
+      },
+      "2330": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 100000.0,
+          "return_pct": 0.0,
+          "round_trips": 0,
+          "win_rate_pct": null,
+          "max_drawdown_pct": 0.0
+        },
+        "trades": []
+      },
+      "2412": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 100000.0,
+          "return_pct": 0.0,
+          "round_trips": 0,
+          "win_rate_pct": null,
+          "max_drawdown_pct": 0.0
+        },
+        "trades": []
+      },
+      "2881": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 104063.50089750001,
+          "return_pct": 4.063500897500005,
+          "round_trips": 2,
+          "win_rate_pct": 50.0,
+          "max_drawdown_pct": -2.0331972674999976
+        },
+        "trades": [
+          {
+            "date": "2026-01-20",
+            "side": "BUY",
+            "price": 94.9,
+            "shares": 999,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-01-23",
+            "side": "SELL",
+            "price": 93.7,
+            "shares": 999,
+            "reason": "next_open_signal_or_time",
+            "pnl": -1748.105144999994
+          },
+          {
+            "date": "2026-05-26",
+            "side": "BUY",
+            "price": 97.8,
+            "shares": 953,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-05-27",
+            "side": "SELL",
+            "price": 104.5,
+            "shares": 953,
+            "reason": "next_open_signal_or_time",
+            "pnl": 5811.606042500003
+          }
+        ]
+      },
+      "2882": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 98995.83013749999,
+          "return_pct": -1.004169862500015,
+          "round_trips": 1,
+          "win_rate_pct": 0.0,
+          "max_drawdown_pct": -1.038111375000006
+        },
+        "trades": [
+          {
+            "date": "2026-06-15",
+            "side": "BUY",
+            "price": 105.0,
+            "shares": 903,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-06-16",
+            "side": "SELL",
+            "price": 104.5,
+            "shares": 903,
+            "reason": "next_open_signal_or_time",
+            "pnl": -1004.1698625000136
+          }
+        ]
+      }
+    },
+    "gru": {
+      "2002": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 100000.0,
+          "return_pct": 0.0,
+          "round_trips": 0,
+          "win_rate_pct": null,
+          "max_drawdown_pct": 0.0
+        },
+        "trades": []
+      },
+      "2303": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 98768.078,
+          "return_pct": -1.2319220000000075,
+          "round_trips": 1,
+          "win_rate_pct": 0.0,
+          "max_drawdown_pct": -2.427019767270633
+        },
+        "trades": [
+          {
+            "date": "2026-06-15",
+            "side": "BUY",
+            "price": 139.5,
+            "shares": 680,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-06-17",
+            "side": "SELL",
+            "price": 138.5,
+            "shares": 680,
+            "reason": "next_open_signal_or_time",
+            "pnl": -1231.922000000006
+          }
+        ]
+      },
+      "2330": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 100000.0,
+          "return_pct": 0.0,
+          "round_trips": 0,
+          "win_rate_pct": null,
+          "max_drawdown_pct": 0.0
+        },
+        "trades": []
+      },
+      "2412": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 100000.0,
+          "return_pct": 0.0,
+          "round_trips": 0,
+          "win_rate_pct": null,
+          "max_drawdown_pct": 0.0
+        },
+        "trades": []
+      },
+      "2881": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 100000.0,
+          "return_pct": 0.0,
+          "round_trips": 0,
+          "win_rate_pct": null,
+          "max_drawdown_pct": 0.0
+        },
+        "trades": []
+      },
+      "2882": {
+        "metrics": {
+          "initial_cash": 100000.0,
+          "final_equity": 105356.1675,
+          "return_pct": 5.356167499999986,
+          "round_trips": 1,
+          "win_rate_pct": 100.0,
+          "max_drawdown_pct": -0.3949178855698232
+        },
+        "trades": [
+          {
+            "date": "2026-06-02",
+            "side": "BUY",
+            "price": 88.5,
+            "shares": 1000,
+            "reason": "probability"
+          },
+          {
+            "date": "2026-06-05",
+            "side": "SELL",
+            "price": 94.4,
+            "shares": 1000,
+            "reason": "next_open_signal_or_time",
+            "pnl": 5356.167499999996
+          }
+        ]
+      }
+    }
+  },
+  "benchmarks": {
+    "buy_and_hold": {
+      "2002": {
+        "initial_cash": 100000.0,
+        "final_equity": 99689.735,
+        "return_pct": -0.31026499999999846
+      },
+      "2303": {
+        "initial_cash": 100000.0,
+        "final_equity": 214351.76374999998,
+        "return_pct": 114.35176375
+      },
+      "2330": {
+        "initial_cash": 100000.0,
+        "final_equity": 151369.31237499998,
+        "return_pct": 51.36931237499998
+      },
+      "2412": {
+        "initial_cash": 100000.0,
+        "final_equity": 106623.448475,
+        "return_pct": 6.623448475000004
+      },
+      "2881": {
+        "initial_cash": 100000.0,
+        "final_equity": 132133.619215,
+        "return_pct": 32.13361921500002
+      },
+      "2882": {
+        "initial_cash": 100000.0,
+        "final_equity": 122357.57749999998,
+        "return_pct": 22.35757749999998
+      }
+    },
+    "cash_return_pct": 0.0
+  },
+  "audit": {
+    "coverage": [
+      {
+        "split": "train",
+        "stock_code": "2303",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26453,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "split": "train",
+        "stock_code": "2330",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26453,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "split": "train",
+        "stock_code": "2412",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26451,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "split": "train",
+        "stock_code": "2881",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26452,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "split": "train",
+        "stock_code": "2882",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26452,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "split": "train",
+        "stock_code": "2002",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26452,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "split": "validation",
+        "stock_code": "2303",
+        "start": "2025-01-01",
+        "end": "2025-06-30",
+        "kbar_rows": 6380,
+        "first_timestamp": 1735779600,
+        "last_timestamp": 1751261400,
+        "available": true
+      },
+      {
+        "split": "validation",
+        "stock_code": "2330",
+        "start": "2025-01-01",
+        "end": "2025-06-30",
+        "kbar_rows": 6380,
+        "first_timestamp": 1735779600,
+        "last_timestamp": 1751261400,
+        "available": true
+      },
+      {
+        "split": "validation",
+        "stock_code": "2412",
+        "start": "2025-01-01",
+        "end": "2025-06-30",
+        "kbar_rows": 6380,
+        "first_timestamp": 1735779600,
+        "last_timestamp": 1751261400,
+        "available": true
+      },
+      {
+        "split": "validation",
+        "stock_code": "2881",
+        "start": "2025-01-01",
+        "end": "2025-06-30",
+        "kbar_rows": 6380,
+        "first_timestamp": 1735779600,
+        "last_timestamp": 1751261400,
+        "available": true
+      },
+      {
+        "split": "validation",
+        "stock_code": "2882",
+        "start": "2025-01-01",
+        "end": "2025-06-30",
+        "kbar_rows": 6379,
+        "first_timestamp": 1735779600,
+        "last_timestamp": 1751261400,
+        "available": true
+      },
+      {
+        "split": "validation",
+        "stock_code": "2002",
+        "start": "2025-01-01",
+        "end": "2025-06-30",
+        "kbar_rows": 6380,
+        "first_timestamp": 1735779600,
+        "last_timestamp": 1751261400,
+        "available": true
+      },
+      {
+        "split": "test",
+        "stock_code": "2303",
+        "start": "2026-01-01",
+        "end": "2026-06-30",
+        "kbar_rows": 6379,
+        "first_timestamp": 1767315600,
+        "last_timestamp": 1782801000,
+        "available": true
+      },
+      {
+        "split": "test",
+        "stock_code": "2330",
+        "start": "2026-01-01",
+        "end": "2026-06-30",
+        "kbar_rows": 6379,
+        "first_timestamp": 1767315600,
+        "last_timestamp": 1782801000,
+        "available": true
+      },
+      {
+        "split": "test",
+        "stock_code": "2412",
+        "start": "2026-01-01",
+        "end": "2026-06-30",
+        "kbar_rows": 6380,
+        "first_timestamp": 1767315600,
+        "last_timestamp": 1782797400,
+        "available": true
+      },
+      {
+        "split": "test",
+        "stock_code": "2881",
+        "start": "2026-01-01",
+        "end": "2026-06-30",
+        "kbar_rows": 6380,
+        "first_timestamp": 1767315600,
+        "last_timestamp": 1782797400,
+        "available": true
+      },
+      {
+        "split": "test",
+        "stock_code": "2882",
+        "start": "2026-01-01",
+        "end": "2026-06-30",
+        "kbar_rows": 6380,
+        "first_timestamp": 1767315600,
+        "last_timestamp": 1782797400,
+        "available": true
+      },
+      {
+        "split": "test",
+        "stock_code": "2002",
+        "start": "2026-01-01",
+        "end": "2026-06-30",
+        "kbar_rows": 6380,
+        "first_timestamp": 1767315600,
+        "last_timestamp": 1782797400,
+        "available": true
+      }
+    ],
+    "cleaning": {
+      "train": {
+        "duplicates_removed": 0,
+        "invalid_ohlcv_removed": 0
+      },
+      "validation": {
+        "duplicates_removed": 0,
+        "invalid_ohlcv_removed": 0
+      },
+      "test": {
+        "duplicates_removed": 0,
+        "invalid_ohlcv_removed": 0
+      }
+    },
+    "sample_rejections": {
+      "train": 4,
+      "validation": 10,
+      "test": 1
+    },
+    "samples": {
+      "train": 2868,
+      "validation": 668,
+      "test": 677
+    },
+    "positive_rate": {
+      "train": 0.2820781032078103,
+      "validation": 0.3263473053892216,
+      "test": 0.38404726735598227
+    },
+    "samples_by_stock": {
+      "train": {
+        "2002": 478,
+        "2303": 478,
+        "2330": 478,
+        "2412": 478,
+        "2881": 478,
+        "2882": 478
+      },
+      "validation": {
+        "2002": 111,
+        "2303": 112,
+        "2330": 111,
+        "2412": 112,
+        "2881": 111,
+        "2882": 111
+      },
+      "test": {
+        "2002": 113,
+        "2303": 112,
+        "2330": 113,
+        "2412": 113,
+        "2881": 113,
+        "2882": 113
+      }
+    },
+    "scaler_fit_on": "train_only"
+  }
+}

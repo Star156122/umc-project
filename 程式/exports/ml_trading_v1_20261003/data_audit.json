@@ -1,0 +1,240 @@
+{
+  "coverage": [
+    {
+      "split": "train",
+      "stock_code": "2303",
+      "start": "2023-01-01",
+      "end": "2024-12-31",
+      "kbar_rows": 26453,
+      "first_timestamp": 1672707600,
+      "last_timestamp": 1735623000,
+      "available": true
+    },
+    {
+      "split": "train",
+      "stock_code": "2330",
+      "start": "2023-01-01",
+      "end": "2024-12-31",
+      "kbar_rows": 26453,
+      "first_timestamp": 1672707600,
+      "last_timestamp": 1735623000,
+      "available": true
+    },
+    {
+      "split": "train",
+      "stock_code": "2412",
+      "start": "2023-01-01",
+      "end": "2024-12-31",
+      "kbar_rows": 26451,
+      "first_timestamp": 1672707600,
+      "last_timestamp": 1735623000,
+      "available": true
+    },
+    {
+      "split": "train",
+      "stock_code": "2881",
+      "start": "2023-01-01",
+      "end": "2024-12-31",
+      "kbar_rows": 26452,
+      "first_timestamp": 1672707600,
+      "last_timestamp": 1735623000,
+      "available": true
+    },
+    {
+      "split": "train",
+      "stock_code": "2882",
+      "start": "2023-01-01",
+      "end": "2024-12-31",
+      "kbar_rows": 26452,
+      "first_timestamp": 1672707600,
+      "last_timestamp": 1735623000,
+      "available": true
+    },
+    {
+      "split": "train",
+      "stock_code": "2002",
+      "start": "2023-01-01",
+      "end": "2024-12-31",
+      "kbar_rows": 26452,
+      "first_timestamp": 1672707600,
+      "last_timestamp": 1735623000,
+      "available": true
+    },
+    {
+      "split": "validation",
+      "stock_code": "2303",
+      "start": "2025-01-01",
+      "end": "2025-06-30",
+      "kbar_rows": 6380,
+      "first_timestamp": 1735779600,
+      "last_timestamp": 1751261400,
+      "available": true
+    },
+    {
+      "split": "validation",
+      "stock_code": "2330",
+      "start": "2025-01-01",
+      "end": "2025-06-30",
+      "kbar_rows": 6380,
+      "first_timestamp": 1735779600,
+      "last_timestamp": 1751261400,
+      "available": true
+    },
+    {
+      "split": "validation",
+      "stock_code": "2412",
+      "start": "2025-01-01",
+      "end": "2025-06-30",
+      "kbar_rows": 6380,
+      "first_timestamp": 1735779600,
+      "last_timestamp": 1751261400,
+      "available": true
+    },
+    {
+      "split": "validation",
+      "stock_code": "2881",
+      "start": "2025-01-01",
+      "end": "2025-06-30",
+      "kbar_rows": 6380,
+      "first_timestamp": 1735779600,
+      "last_timestamp": 1751261400,
+      "available": true
+    },
+    {
+      "split": "validation",
+      "stock_code": "2882",
+      "start": "2025-01-01",
+      "end": "2025-06-30",
+      "kbar_rows": 6379,
+      "first_timestamp": 1735779600,
+      "last_timestamp": 1751261400,
+      "available": true
+    },
+    {
+      "split": "validation",
+      "stock_code": "2002",
+      "start": "2025-01-01",
+      "end": "2025-06-30",
+      "kbar_rows": 6380,
+      "first_timestamp": 1735779600,
+      "last_timestamp": 1751261400,
+      "available": true
+    },
+    {
+      "split": "test",
+      "stock_code": "2303",
+      "start": "2026-01-01",
+      "end": "2026-06-30",
+      "kbar_rows": 6379,
+      "first_timestamp": 1767315600,
+      "last_timestamp": 1782801000,
+      "available": true
+    },
+    {
+      "split": "test",
+      "stock_code": "2330",
+      "start": "2026-01-01",
+      "end": "2026-06-30",
+      "kbar_rows": 6379,
+      "first_timestamp": 1767315600,
+      "last_timestamp": 1782801000,
+      "available": true
+    },
+    {
+      "split": "test",
+      "stock_code": "2412",
+      "start": "2026-01-01",
+      "end": "2026-06-30",
+      "kbar_rows": 6380,
+      "first_timestamp": 1767315600,
+      "last_timestamp": 1782797400,
+      "available": true
+    },
+    {
+      "split": "test",
+      "stock_code": "2881",
+      "start": "2026-01-01",
+      "end": "2026-06-30",
+      "kbar_rows": 6380,
+      "first_timestamp": 1767315600,
+      "last_timestamp": 1782797400,
+      "available": true
+    },
+    {
+      "split": "test",
+      "stock_code": "2882",
+      "start": "2026-01-01",
+      "end": "2026-06-30",
+      "kbar_rows": 6380,
+      "first_timestamp": 1767315600,
+      "last_timestamp": 1782797400,
+      "available": true
+    },
+    {
+      "split": "test",
+      "stock_code": "2002",
+      "start": "2026-01-01",
+      "end": "2026-06-30",
+      "kbar_rows": 6380,
+      "first_timestamp": 1767315600,
+      "last_timestamp": 1782797400,
+      "available": true
+    }
+  ],
+  "cleaning": {
+    "train": {
+      "duplicates_removed": 0,
+      "invalid_ohlcv_removed": 0
+    },
+    "validation": {
+      "duplicates_removed": 0,
+      "invalid_ohlcv_removed": 0
+    },
+    "test": {
+      "duplicates_removed": 0,
+      "invalid_ohlcv_removed": 0
+    }
+  },
+  "sample_rejections": {
+    "train": 4,
+    "validation": 10,
+    "test": 1
+  },
+  "samples": {
+    "train": 2868,
+    "validation": 668,
+    "test": 677
+  },
+  "positive_rate": {
+    "train": 0.2820781032078103,
+    "validation": 0.3263473053892216,
+    "test": 0.38404726735598227
+  },
+  "samples_by_stock": {
+    "train": {
+      "2002": 478,
+      "2303": 478,
+      "2330": 478,
+      "2412": 478,
+      "2881": 478,
+      "2882": 478
+    },
+    "validation": {
+      "2002": 111,
+      "2303": 112,
+      "2330": 111,
+      "2412": 112,
+      "2881": 111,
+      "2882": 111
+    },
+    "test": {
+      "2002": 113,
+      "2303": 112,
+      "2330": 113,
+      "2412": 113,
+      "2881": 113,
+      "2882": 113
+    }
+  },
+  "scaler_fit_on": "train_only"
+}

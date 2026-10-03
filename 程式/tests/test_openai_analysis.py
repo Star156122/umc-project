@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 
-from openai_analysis import build_analysis_payload, render_analysis_html, replace_analysis_section
+from trading_system.llm_analysis import build_analysis_payload, render_analysis_html, replace_analysis_section
 
 
 class OpenAIAnalysisTests(unittest.TestCase):
