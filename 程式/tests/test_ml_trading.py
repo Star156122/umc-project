@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from ml.trading_backtest import run_probability_backtest
+from ml.trading_backtest import run_probability_backtest, run_signal_backtest
 from ml.trading_pipeline import load_trading_plan
 from trading_system.research_guard import HoldoutLockedError
 
@@ -57,6 +57,29 @@ class MlTradingTests(unittest.TestCase):
         self.assertEqual(result["trades"][0]["date"], "2026-01-05")
         self.assertEqual(result["trades"][0]["price"], 101)
         self.assertEqual(result["trades"][1]["date"], "2026-01-08")
+        metrics = result["metrics"]
+        self.assertGreater(metrics["transaction_cost"], 0)
+        self.assertAlmostEqual(
+            metrics["gross_pnl_before_costs"] - metrics["transaction_cost"],
+            metrics["net_pnl_after_costs"],
+            places=8,
+        )
+        self.assertIn("profit_factor", metrics)
+        self.assertIn("sharpe_ratio", metrics)
+
+    def test_multiclass_signal_executes_at_next_open(self):
+        market = pd.DataFrame([
+            {"stock_code": "2303", "trade_date": "2026-01-02", "open": 100, "high": 101, "low": 99, "close": 100, "volume": 1},
+            {"stock_code": "2303", "trade_date": "2026-01-05", "open": 101, "high": 103, "low": 100, "close": 102, "volume": 1},
+            {"stock_code": "2303", "trade_date": "2026-01-06", "open": 102, "high": 103, "low": 101, "close": 102, "volume": 1},
+        ])
+        metadata = pd.DataFrame([{"stock_code": "2303", "signal_date": "2026-01-02"}])
+        rules = {"initial_cash": 100000, "capital_fraction": .95, "max_shares": 1000,
+                 "stop_loss": .03, "commission_rate": .001425, "transaction_tax_rate": .003,
+                 "max_holding_sessions": 3}
+        result = run_signal_backtest(market, metadata, ["BUY"], rules)["2303"]
+        self.assertEqual(result["trades"][0]["date"], "2026-01-05")
+        self.assertEqual(result["trades"][0]["price"], 101)
 
 
 if __name__ == "__main__":

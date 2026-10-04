@@ -9,6 +9,7 @@ from typing import Any
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score, roc_auc_score
+from sklearn.utils.class_weight import compute_class_weight, compute_sample_weight
 
 
 def evaluate(y: np.ndarray, prob: np.ndarray) -> dict[str, Any]:
@@ -112,5 +113,113 @@ def run_model(name: str, data, params: dict[str, Any]):
             "prediction_seconds": elapsed,
             "per_stock": per_stock_metrics(data.y[split], prob, data.metadata[split]["stock_code"].to_numpy()),
         }
+    return model, results, probabilities
+
+
+def evaluate_multiclass(y: np.ndarray, probabilities: np.ndarray) -> dict[str, Any]:
+    pred = probabilities.argmax(axis=1)
+    labels = [0, 1, 2]
+    result = {
+        "samples": int(len(y)),
+        "accuracy": float(accuracy_score(y, pred)),
+        "macro_precision": float(precision_score(y, pred, labels=labels, average="macro", zero_division=0)),
+        "macro_recall": float(recall_score(y, pred, labels=labels, average="macro", zero_division=0)),
+        "macro_f1": float(f1_score(y, pred, labels=labels, average="macro", zero_division=0)),
+        "confusion_matrix": confusion_matrix(y, pred, labels=labels).astype(int).tolist(),
+        "actual_class_counts": {str(label): int((y == label).sum()) for label in labels},
+        "predicted_class_counts": {str(label): int((pred == label).sum()) for label in labels},
+    }
+    result["macro_roc_auc_ovr"] = (
+        float(roc_auc_score(y, probabilities, labels=labels, multi_class="ovr", average="macro"))
+        if set(np.unique(y)) == set(labels) else None
+    )
+    return result
+
+
+def _train_random_forest_multiclass(data, params: dict[str, Any]):
+    model = RandomForestClassifier(**params, n_jobs=-1)
+    X_train = data.X["train"].reshape(len(data.X["train"]), -1)
+    started = time.perf_counter()
+    model.fit(X_train, data.y["train"])
+    seconds = time.perf_counter() - started
+    return model, seconds, lambda X: model.predict_proba(X.reshape(len(X), -1))
+
+
+def _train_xgboost_multiclass(data, params: dict[str, Any]):
+    from xgboost import XGBClassifier
+    model = XGBClassifier(**params, objective="multi:softprob", num_class=3, eval_metric="mlogloss", n_jobs=-1)
+    X_train = data.X["train"].reshape(len(data.X["train"]), -1)
+    weights = compute_sample_weight(class_weight="balanced", y=data.y["train"])
+    started = time.perf_counter()
+    model.fit(X_train, data.y["train"], sample_weight=weights)
+    seconds = time.perf_counter() - started
+    return model, seconds, lambda X: model.predict_proba(X.reshape(len(X), -1))
+
+
+def _train_gru_multiclass(data, params: dict[str, Any]):
+    import torch
+    from torch import nn
+    from torch.utils.data import DataLoader, TensorDataset
+
+    seed = int(params["random_state"])
+    random.seed(seed); np.random.seed(seed); torch.manual_seed(seed)
+
+    class GRUClassifier(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.gru = nn.GRU(input_size=data.X["train"].shape[2], hidden_size=int(params["hidden_size"]), num_layers=int(params["num_layers"]), dropout=float(params["dropout"]), batch_first=True)
+            self.head = nn.Linear(int(params["hidden_size"]), 3)
+        def forward(self, x):
+            _, hidden = self.gru(x)
+            return self.head(hidden[-1])
+
+    model = GRUClassifier()
+    classes = np.asarray([0, 1, 2])
+    class_weights = compute_class_weight(class_weight="balanced", classes=classes, y=data.y["train"])
+    loss_fn = nn.CrossEntropyLoss(weight=torch.tensor(class_weights, dtype=torch.float32))
+    optimizer = torch.optim.Adam(model.parameters(), lr=float(params["learning_rate"]))
+    loader = DataLoader(TensorDataset(torch.from_numpy(data.X["train"]), torch.from_numpy(data.y["train"].astype(np.int64))), batch_size=int(params["batch_size"]), shuffle=False)
+    X_val = torch.from_numpy(data.X["validation"])
+    y_val = torch.from_numpy(data.y["validation"].astype(np.int64))
+    best_loss, best_state, stale, epochs = float("inf"), None, 0, 0
+    started = time.perf_counter()
+    for epoch in range(int(params["max_epochs"])):
+        model.train()
+        for X_batch, y_batch in loader:
+            optimizer.zero_grad(); loss = loss_fn(model(X_batch), y_batch); loss.backward(); optimizer.step()
+        model.eval()
+        with torch.no_grad():
+            val_loss = float(loss_fn(model(X_val), y_val))
+        epochs = epoch + 1
+        if val_loss < best_loss - 1e-6:
+            best_loss, best_state, stale = val_loss, copy.deepcopy(model.state_dict()), 0
+        else:
+            stale += 1
+            if stale >= int(params["patience"]): break
+    if best_state is not None: model.load_state_dict(best_state)
+    seconds = time.perf_counter() - started
+    def predict(X):
+        model.eval()
+        with torch.no_grad(): return torch.softmax(model(torch.from_numpy(X)), dim=1).numpy()
+    return model, seconds, predict, {"epochs_completed": epochs, "best_validation_loss": best_loss}
+
+
+def run_multiclass_model(name: str, data, params: dict[str, Any]):
+    if name == "random_forest": model, training_seconds, predict = _train_random_forest_multiclass(data, params); extra = {}
+    elif name == "xgboost": model, training_seconds, predict = _train_xgboost_multiclass(data, params); extra = {}
+    elif name == "gru": model, training_seconds, predict, extra = _train_gru_multiclass(data, params)
+    else: raise ValueError(name)
+    results = {"training_seconds": training_seconds, **extra, "splits": {}}
+    probabilities = {}
+    for split in ("validation", "test"):
+        started = time.perf_counter(); prob = np.asarray(predict(data.X[split])); elapsed = time.perf_counter() - started
+        probabilities[split] = prob
+        overall = evaluate_multiclass(data.y[split], prob)
+        per_stock = {}
+        codes = data.metadata[split]["stock_code"].to_numpy()
+        for code in sorted(set(codes)):
+            mask = codes == code
+            per_stock[code] = evaluate_multiclass(data.y[split][mask], prob[mask])
+        results["splits"][split] = {**overall, "prediction_seconds": elapsed, "per_stock": per_stock}
     return model, results, probabilities
 

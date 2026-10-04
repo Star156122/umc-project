@@ -1,0 +1,2955 @@
+{
+  "experiment_id": "ml-trading-diagnosis-20261004-v1",
+  "status": "completed_diagnosis_only",
+  "generated_at": "2026-10-04T10:26:43+08:00",
+  "holdout_used": false,
+  "label_audit": {
+    "model_target_type": "binary",
+    "label_1": "next open to third session close return > 1%",
+    "label_0": "all other outcomes",
+    "buy_hold_sell_are_labels": false,
+    "signal_mapping": {
+      "BUY": "p >= 0.60",
+      "HOLD": "0.45 < p < 0.60",
+      "SELL": "p <= 0.45"
+    },
+    "positive_rate": {
+      "train": 0.2820781032078103,
+      "validation": 0.3263473053892216,
+      "test": 0.38404726735598227
+    }
+  },
+  "models": {
+    "random_forest": {
+      "classification": {
+        "training_seconds": 0.22412929999700282,
+        "splits": {
+          "validation": {
+            "samples": 668,
+            "positive_rate": 0.3263473053892216,
+            "accuracy": 0.5568862275449101,
+            "precision": 0.3597122302158273,
+            "recall": 0.45871559633027525,
+            "f1": 0.4032258064516129,
+            "confusion_matrix": [
+              [
+                272,
+                178
+              ],
+              [
+                118,
+                100
+              ]
+            ],
+            "roc_auc": 0.5572680937818553,
+            "prediction_seconds": 0.03135479999764357,
+            "per_stock": {
+              "2002": {
+                "samples": 111,
+                "positive_rate": 0.3153153153153153,
+                "accuracy": 0.6396396396396397,
+                "precision": 0.2727272727272727,
+                "recall": 0.08571428571428572,
+                "f1": 0.13043478260869565,
+                "confusion_matrix": [
+                  [
+                    68,
+                    8
+                  ],
+                  [
+                    32,
+                    3
+                  ]
+                ],
+                "roc_auc": 0.5285714285714286
+              },
+              "2303": {
+                "samples": 112,
+                "positive_rate": 0.44642857142857145,
+                "accuracy": 0.45535714285714285,
+                "precision": 0.42857142857142855,
+                "recall": 0.66,
+                "f1": 0.5196850393700787,
+                "confusion_matrix": [
+                  [
+                    18,
+                    44
+                  ],
+                  [
+                    17,
+                    33
+                  ]
+                ],
+                "roc_auc": 0.46612903225806446
+              },
+              "2330": {
+                "samples": 111,
+                "positive_rate": 0.3153153153153153,
+                "accuracy": 0.4864864864864865,
+                "precision": 0.30357142857142855,
+                "recall": 0.4857142857142857,
+                "f1": 0.37362637362637363,
+                "confusion_matrix": [
+                  [
+                    37,
+                    39
+                  ],
+                  [
+                    18,
+                    17
+                  ]
+                ],
+                "roc_auc": 0.4973684210526316
+              },
+              "2412": {
+                "samples": 112,
+                "positive_rate": 0.19642857142857142,
+                "accuracy": 0.8035714285714286,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "confusion_matrix": [
+                  [
+                    90,
+                    0
+                  ],
+                  [
+                    22,
+                    0
+                  ]
+                ],
+                "roc_auc": 0.5984848484848485
+              },
+              "2881": {
+                "samples": 111,
+                "positive_rate": 0.3333333333333333,
+                "accuracy": 0.46846846846846846,
+                "precision": 0.3625,
+                "recall": 0.7837837837837838,
+                "f1": 0.49572649572649574,
+                "confusion_matrix": [
+                  [
+                    23,
+                    51
+                  ],
+                  [
+                    8,
+                    29
+                  ]
+                ],
+                "roc_auc": 0.5613586559532505
+              },
+              "2882": {
+                "samples": 111,
+                "positive_rate": 0.35135135135135137,
+                "accuracy": 0.4864864864864865,
+                "precision": 0.3333333333333333,
+                "recall": 0.46153846153846156,
+                "f1": 0.3870967741935484,
+                "confusion_matrix": [
+                  [
+                    36,
+                    36
+                  ],
+                  [
+                    21,
+                    18
+                  ]
+                ],
+                "roc_auc": 0.4451566951566951
+              }
+            }
+          },
+          "test": {
+            "samples": 677,
+            "positive_rate": 0.38404726735598227,
+            "accuracy": 0.552437223042836,
+            "precision": 0.3862433862433862,
+            "recall": 0.28076923076923077,
+            "f1": 0.32516703786191536,
+            "confusion_matrix": [
+              [
+                301,
+                116
+              ],
+              [
+                187,
+                73
+              ]
+            ],
+            "roc_auc": 0.5311566131710016,
+            "prediction_seconds": 0.034130799998820294,
+            "per_stock": {
+              "2002": {
+                "samples": 113,
+                "positive_rate": 0.2831858407079646,
+                "accuracy": 0.672566371681416,
+                "precision": 0.14285714285714285,
+                "recall": 0.03125,
+                "f1": 0.05128205128205128,
+                "confusion_matrix": [
+                  [
+                    75,
+                    6
+                  ],
+                  [
+                    31,
+                    1
+                  ]
+                ],
+                "roc_auc": 0.5158179012345679
+              },
+              "2303": {
+                "samples": 112,
+                "positive_rate": 0.4732142857142857,
+                "accuracy": 0.41964285714285715,
+                "precision": 0.39285714285714285,
+                "recall": 0.41509433962264153,
+                "f1": 0.4036697247706422,
+                "confusion_matrix": [
+                  [
+                    25,
+                    34
+                  ],
+                  [
+                    31,
+                    22
+                  ]
+                ],
+                "roc_auc": 0.35561240805884237
+              },
+              "2330": {
+                "samples": 113,
+                "positive_rate": 0.5309734513274337,
+                "accuracy": 0.48672566371681414,
+                "precision": 0.625,
+                "recall": 0.08333333333333333,
+                "f1": 0.14705882352941177,
+                "confusion_matrix": [
+                  [
+                    50,
+                    3
+                  ],
+                  [
+                    55,
+                    5
+                  ]
+                ],
+                "roc_auc": 0.5267295597484276
+              },
+              "2412": {
+                "samples": 113,
+                "positive_rate": 0.21238938053097345,
+                "accuracy": 0.7699115044247787,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "confusion_matrix": [
+                  [
+                    87,
+                    2
+                  ],
+                  [
+                    24,
+                    0
+                  ]
+                ],
+                "roc_auc": 0.5660112359550562
+              },
+              "2881": {
+                "samples": 113,
+                "positive_rate": 0.37168141592920356,
+                "accuracy": 0.4424778761061947,
+                "precision": 0.34328358208955223,
+                "recall": 0.5476190476190477,
+                "f1": 0.42201834862385323,
+                "confusion_matrix": [
+                  [
+                    27,
+                    44
+                  ],
+                  [
+                    19,
+                    23
+                  ]
+                ],
+                "roc_auc": 0.4466800804828973
+              },
+              "2882": {
+                "samples": 113,
+                "positive_rate": 0.4336283185840708,
+                "accuracy": 0.5221238938053098,
+                "precision": 0.4489795918367347,
+                "recall": 0.4489795918367347,
+                "f1": 0.4489795918367347,
+                "confusion_matrix": [
+                  [
+                    37,
+                    27
+                  ],
+                  [
+                    27,
+                    22
+                  ]
+                ],
+                "roc_auc": 0.5401785714285714
+              }
+            }
+          }
+        }
+      },
+      "validation_probability_by_stock": {
+        "2002": {
+          "samples": 111,
+          "positive_labels": 35,
+          "positive_label_rate": 0.3153153153153153,
+          "signal_counts": {
+            "BUY": 1,
+            "HOLD": 33,
+            "SELL": 77
+          },
+          "signal_rates": {
+            "BUY": 0.009009009009009009,
+            "HOLD": 0.2972972972972973,
+            "SELL": 0.6936936936936937
+          },
+          "probability_quantiles": {
+            "0.0": 0.2928705665790553,
+            "0.1": 0.3386073068620042,
+            "0.25": 0.37536864371700907,
+            "0.5": 0.4175143039649188,
+            "0.75": 0.464871010383479,
+            "0.9": 0.4993029238894567,
+            "1.0": 0.6065584321511704
+          },
+          "mean_probability": 0.42121896737973175,
+          "max_probability": 0.6065584321511704,
+          "zero_buy_reason": null
+        },
+        "2303": {
+          "samples": 112,
+          "positive_labels": 50,
+          "positive_label_rate": 0.44642857142857145,
+          "signal_counts": {
+            "BUY": 7,
+            "HOLD": 96,
+            "SELL": 9
+          },
+          "signal_rates": {
+            "BUY": 0.0625,
+            "HOLD": 0.8571428571428571,
+            "SELL": 0.08035714285714286
+          },
+          "probability_quantiles": {
+            "0.0": 0.36042401131762264,
+            "0.1": 0.4563326913142032,
+            "0.25": 0.4823418781057508,
+            "0.5": 0.5286736010628836,
+            "0.75": 0.5552970669580313,
+            "0.9": 0.5827551267331107,
+            "1.0": 0.6496953589094275
+          },
+          "mean_probability": 0.5219574653347975,
+          "max_probability": 0.6496953589094275,
+          "zero_buy_reason": null
+        },
+        "2330": {
+          "samples": 111,
+          "positive_labels": 35,
+          "positive_label_rate": 0.3153153153153153,
+          "signal_counts": {
+            "BUY": 8,
+            "HOLD": 68,
+            "SELL": 35
+          },
+          "signal_rates": {
+            "BUY": 0.07207207207207207,
+            "HOLD": 0.6126126126126126,
+            "SELL": 0.3153153153153153
+          },
+          "probability_quantiles": {
+            "0.0": 0.282840016989182,
+            "0.1": 0.3795819802139315,
+            "0.25": 0.4368261680665549,
+            "0.5": 0.503029191978491,
+            "0.75": 0.5434606114680638,
+            "0.9": 0.5876661504541033,
+            "1.0": 0.6673863675874699
+          },
+          "mean_probability": 0.49000248772503424,
+          "max_probability": 0.6673863675874699,
+          "zero_buy_reason": null
+        },
+        "2412": {
+          "samples": 112,
+          "positive_labels": 22,
+          "positive_label_rate": 0.19642857142857142,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 5,
+            "SELL": 107
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.044642857142857144,
+            "SELL": 0.9553571428571429
+          },
+          "probability_quantiles": {
+            "0.0": 0.1825251185626891,
+            "0.1": 0.22291829884097145,
+            "0.25": 0.2702242905131331,
+            "0.5": 0.30897734628036,
+            "0.75": 0.35017803015949633,
+            "0.9": 0.40733144138639926,
+            "1.0": 0.46881022182911025
+          },
+          "mean_probability": 0.31305319563673034,
+          "max_probability": 0.46881022182911025,
+          "zero_buy_reason": "最高機率 0.4688 低於買進門檻 0.60"
+        },
+        "2881": {
+          "samples": 111,
+          "positive_labels": 37,
+          "positive_label_rate": 0.3333333333333333,
+          "signal_counts": {
+            "BUY": 14,
+            "HOLD": 90,
+            "SELL": 7
+          },
+          "signal_rates": {
+            "BUY": 0.12612612612612611,
+            "HOLD": 0.8108108108108109,
+            "SELL": 0.06306306306306306
+          },
+          "probability_quantiles": {
+            "0.0": 0.39843691006455506,
+            "0.1": 0.47179734720890243,
+            "0.25": 0.49754998953051766,
+            "0.5": 0.5367499061287806,
+            "0.75": 0.5792168562275954,
+            "0.9": 0.6020905748075465,
+            "1.0": 0.6671085400993519
+          },
+          "mean_probability": 0.5374523241690785,
+          "max_probability": 0.6671085400993519,
+          "zero_buy_reason": null
+        },
+        "2882": {
+          "samples": 111,
+          "positive_labels": 39,
+          "positive_label_rate": 0.35135135135135137,
+          "signal_counts": {
+            "BUY": 8,
+            "HOLD": 84,
+            "SELL": 19
+          },
+          "signal_rates": {
+            "BUY": 0.07207207207207207,
+            "HOLD": 0.7567567567567568,
+            "SELL": 0.17117117117117117
+          },
+          "probability_quantiles": {
+            "0.0": 0.35908930323563604,
+            "0.1": 0.42152771681250556,
+            "0.25": 0.46234008548014754,
+            "0.5": 0.49711616535456743,
+            "0.75": 0.5415738578527678,
+            "0.9": 0.5837309806213087,
+            "1.0": 0.6396126431581708
+          },
+          "mean_probability": 0.5025817399072763,
+          "max_probability": 0.6396126431581708,
+          "zero_buy_reason": null
+        }
+      },
+      "test_probability_by_stock": {
+        "2002": {
+          "samples": 113,
+          "positive_labels": 32,
+          "positive_label_rate": 0.2831858407079646,
+          "signal_counts": {
+            "BUY": 1,
+            "HOLD": 26,
+            "SELL": 86
+          },
+          "signal_rates": {
+            "BUY": 0.008849557522123894,
+            "HOLD": 0.23008849557522124,
+            "SELL": 0.7610619469026548
+          },
+          "probability_quantiles": {
+            "0.0": 0.26365297155822215,
+            "0.1": 0.3448817742378139,
+            "0.25": 0.37991650233504065,
+            "0.5": 0.4106321138313051,
+            "0.75": 0.4464705022802747,
+            "0.9": 0.48476061758526845,
+            "1.0": 0.6107099449408362
+          },
+          "mean_probability": 0.4125157773655417,
+          "max_probability": 0.6107099449408362,
+          "zero_buy_reason": null
+        },
+        "2303": {
+          "samples": 112,
+          "positive_labels": 53,
+          "positive_label_rate": 0.4732142857142857,
+          "signal_counts": {
+            "BUY": 9,
+            "HOLD": 80,
+            "SELL": 23
+          },
+          "signal_rates": {
+            "BUY": 0.08035714285714286,
+            "HOLD": 0.7142857142857143,
+            "SELL": 0.20535714285714285
+          },
+          "probability_quantiles": {
+            "0.0": 0.3412395460808909,
+            "0.1": 0.41448787545608484,
+            "0.25": 0.4579537297391058,
+            "0.5": 0.4998483446032589,
+            "0.75": 0.5472644044417819,
+            "0.9": 0.5883018942957897,
+            "1.0": 0.6909954988611873
+          },
+          "mean_probability": 0.5017719042937261,
+          "max_probability": 0.6909954988611873,
+          "zero_buy_reason": null
+        },
+        "2330": {
+          "samples": 113,
+          "positive_labels": 60,
+          "positive_label_rate": 0.5309734513274337,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 36,
+            "SELL": 77
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.3185840707964602,
+            "SELL": 0.6814159292035398
+          },
+          "probability_quantiles": {
+            "0.0": 0.2807583959171965,
+            "0.1": 0.3235754709751649,
+            "0.25": 0.3607206322662869,
+            "0.5": 0.4192610811384961,
+            "0.75": 0.4637950327323891,
+            "0.9": 0.492989169220512,
+            "1.0": 0.5271654507964896
+          },
+          "mean_probability": 0.41349674999161046,
+          "max_probability": 0.5271654507964896,
+          "zero_buy_reason": "最高機率 0.5272 低於買進門檻 0.60"
+        },
+        "2412": {
+          "samples": 113,
+          "positive_labels": 24,
+          "positive_label_rate": 0.21238938053097345,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 8,
+            "SELL": 105
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.07079646017699115,
+            "SELL": 0.9292035398230089
+          },
+          "probability_quantiles": {
+            "0.0": 0.23151474276994247,
+            "0.1": 0.27105196699470346,
+            "0.25": 0.2990462832759627,
+            "0.5": 0.34325025059999115,
+            "0.75": 0.3849753777647865,
+            "0.9": 0.43864591108678547,
+            "1.0": 0.5263250586771893
+          },
+          "mean_probability": 0.3485630787341644,
+          "max_probability": 0.5263250586771893,
+          "zero_buy_reason": "最高機率 0.5263 低於買進門檻 0.60"
+        },
+        "2881": {
+          "samples": 113,
+          "positive_labels": 42,
+          "positive_label_rate": 0.37168141592920356,
+          "signal_counts": {
+            "BUY": 8,
+            "HOLD": 84,
+            "SELL": 21
+          },
+          "signal_rates": {
+            "BUY": 0.07079646017699115,
+            "HOLD": 0.7433628318584071,
+            "SELL": 0.18584070796460178
+          },
+          "probability_quantiles": {
+            "0.0": 0.28977484057544417,
+            "0.1": 0.41363060701276233,
+            "0.25": 0.465277072396829,
+            "0.5": 0.5189103182128754,
+            "0.75": 0.5504415428086189,
+            "0.9": 0.580527770123178,
+            "1.0": 0.6293692541306638
+          },
+          "mean_probability": 0.504886716547964,
+          "max_probability": 0.6293692541306638,
+          "zero_buy_reason": null
+        },
+        "2882": {
+          "samples": 113,
+          "positive_labels": 49,
+          "positive_label_rate": 0.4336283185840708,
+          "signal_counts": {
+            "BUY": 5,
+            "HOLD": 75,
+            "SELL": 33
+          },
+          "signal_rates": {
+            "BUY": 0.04424778761061947,
+            "HOLD": 0.6637168141592921,
+            "SELL": 0.2920353982300885
+          },
+          "probability_quantiles": {
+            "0.0": 0.2536234582693625,
+            "0.1": 0.3997067022539746,
+            "0.25": 0.44726749163039725,
+            "0.5": 0.49163243069451745,
+            "0.75": 0.5244418320105969,
+            "0.9": 0.5665833651757851,
+            "1.0": 0.6565755034071695
+          },
+          "mean_probability": 0.48460974860450146,
+          "max_probability": 0.6565755034071695,
+          "zero_buy_reason": null
+        }
+      },
+      "trading_by_stock": {
+        "2002": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 99298.1560375,
+            "return_pct": -0.7018439625000039,
+            "round_trips": 1,
+            "win_rate_pct": 0.0,
+            "average_trade_pnl": -701.8439625000028,
+            "average_win": null,
+            "average_loss": 701.8439625000028,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": -589.500000000001,
+            "net_pnl_after_costs": -701.8439625000028,
+            "transaction_cost": 112.34396249999999,
+            "cost_to_gross_profit": null,
+            "gross_profit": 0.0,
+            "gross_loss": 701.8439625000028,
+            "profit_factor": 0.0,
+            "sharpe_ratio": -1.4803054913855067,
+            "max_drawdown_pct": -0.7018439625000039
+          },
+          "trades": [
+            {
+              "date": "2026-05-27",
+              "side": "BUY",
+              "price": 19.65,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 28.001250000000002,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-05-27",
+              "side": "SELL",
+              "price": 19.060499999999998,
+              "shares": 1000,
+              "reason": "stop_loss",
+              "gross_pnl": -589.500000000001,
+              "commission": 27.161212499999994,
+              "tax": 57.18149999999999,
+              "pnl": -701.8439625000028
+            }
+          ]
+        },
+        "2303": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 99284.05340262502,
+            "return_pct": -0.7159465973749723,
+            "round_trips": 8,
+            "win_rate_pct": 50.0,
+            "average_trade_pnl": -89.49332467187196,
+            "average_win": 2989.9861750000055,
+            "average_loss": 3168.9728243437494,
+            "payoff_ratio": 0.9435190330542486,
+            "gross_pnl_before_costs": 3061.1349999999893,
+            "net_pnl_after_costs": -715.9465973749757,
+            "transaction_cost": 3777.081597375,
+            "cost_to_gross_profit": 1.2338827256475173,
+            "gross_profit": 11959.944700000022,
+            "gross_loss": 12675.891297374998,
+            "profit_factor": 0.9435190330542486,
+            "sharpe_ratio": -0.058516380268721586,
+            "max_drawdown_pct": -11.106167431318958
+          },
+          "trades": [
+            {
+              "date": "2026-01-09",
+              "side": "BUY",
+              "price": 54.4,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 77.52,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-01-14",
+              "side": "SELL",
+              "price": 55.1,
+              "shares": 1000,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 700.0000000000028,
+              "commission": 78.5175,
+              "tax": 165.3,
+              "pnl": 378.66249999999854
+            },
+            {
+              "date": "2026-01-19",
+              "side": "BUY",
+              "price": 60.3,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 85.92750000000001,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-01-22",
+              "side": "SELL",
+              "price": 71.5,
+              "shares": 1000,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 11200.000000000004,
+              "commission": 101.8875,
+              "tax": 214.5,
+              "pnl": 10797.685000000005
+            },
+            {
+              "date": "2026-01-28",
+              "side": "BUY",
+              "price": 79.6,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 113.43,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-01-28",
+              "side": "SELL",
+              "price": 77.21199999999999,
+              "shares": 1000,
+              "reason": "stop_loss",
+              "gross_pnl": -2388.0000000000055,
+              "commission": 110.02709999999999,
+              "tax": 231.63599999999997,
+              "pnl": -2843.093100000013
+            },
+            {
+              "date": "2026-04-20",
+              "side": "BUY",
+              "price": 78.0,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 111.15,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-04-21",
+              "side": "SELL",
+              "price": 75.66,
+              "shares": 1000,
+              "reason": "stop_loss",
+              "gross_pnl": -2340.0000000000036,
+              "commission": 107.8155,
+              "tax": 226.98000000000002,
+              "pnl": -2785.945499999987
+            },
+            {
+              "date": "2026-05-04",
+              "side": "BUY",
+              "price": 80.0,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 114.0,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-05-05",
+              "side": "SELL",
+              "price": 80.8,
+              "shares": 1000,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 799.9999999999972,
+              "commission": 115.14,
+              "tax": 242.4,
+              "pnl": 328.4600000000064
+            },
+            {
+              "date": "2026-05-14",
+              "side": "BUY",
+              "price": 102.0,
+              "shares": 984,
+              "reason": "model_signal",
+              "commission": 143.0244,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-05-14",
+              "side": "SELL",
+              "price": 98.94,
+              "shares": 984,
+              "reason": "stop_loss",
+              "gross_pnl": -3011.0400000000022,
+              "commission": 138.733668,
+              "tax": 292.07088,
+              "pnl": -3584.868948000003
+            },
+            {
+              "date": "2026-06-03",
+              "side": "BUY",
+              "price": 141.5,
+              "shares": 685,
+              "reason": "model_signal",
+              "commission": 138.1216875,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-06-03",
+              "side": "SELL",
+              "price": 137.255,
+              "shares": 685,
+              "reason": "stop_loss",
+              "gross_pnl": -2907.825000000003,
+              "commission": 133.97803687500002,
+              "tax": 282.059025,
+              "pnl": -3461.9837493749947
+            },
+            {
+              "date": "2026-06-15",
+              "side": "BUY",
+              "price": 139.5,
+              "shares": 672,
+              "reason": "model_signal",
+              "commission": 133.58520000000001,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-06-18",
+              "side": "SELL",
+              "price": 141.0,
+              "shares": 672,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 1008.0,
+              "commission": 135.0216,
+              "tax": 284.25600000000003,
+              "pnl": 455.13720000001194
+            }
+          ]
+        },
+        "2330": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 100000.0,
+            "return_pct": 0.0,
+            "round_trips": 0,
+            "win_rate_pct": null,
+            "average_trade_pnl": null,
+            "average_win": null,
+            "average_loss": null,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": 0.0,
+            "net_pnl_after_costs": 0.0,
+            "transaction_cost": 0.0,
+            "cost_to_gross_profit": null,
+            "gross_profit": 0.0,
+            "gross_loss": 0.0,
+            "profit_factor": null,
+            "sharpe_ratio": null,
+            "max_drawdown_pct": 0.0
+          },
+          "trades": []
+        },
+        "2412": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 100000.0,
+            "return_pct": 0.0,
+            "round_trips": 0,
+            "win_rate_pct": null,
+            "average_trade_pnl": null,
+            "average_win": null,
+            "average_loss": null,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": 0.0,
+            "net_pnl_after_costs": 0.0,
+            "transaction_cost": 0.0,
+            "cost_to_gross_profit": null,
+            "gross_profit": 0.0,
+            "gross_loss": 0.0,
+            "profit_factor": null,
+            "sharpe_ratio": null,
+            "max_drawdown_pct": 0.0
+          },
+          "trades": []
+        },
+        "2881": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 105389.15012249998,
+            "return_pct": 5.389150122499986,
+            "round_trips": 6,
+            "win_rate_pct": 66.66666666666666,
+            "average_trade_pnl": 898.1916870833302,
+            "average_win": 1691.3481556249972,
+            "average_loss": 688.1212500000038,
+            "payoff_ratio": 2.457921704387109,
+            "gross_pnl_before_costs": 8684.900000000009,
+            "net_pnl_after_costs": 5389.150122499981,
+            "transaction_cost": 3295.7498775,
+            "cost_to_gross_profit": 0.3794804635056243,
+            "gross_profit": 6765.392622499989,
+            "gross_loss": 1376.2425000000076,
+            "profit_factor": 4.915843408774218,
+            "sharpe_ratio": 1.610495658865505,
+            "max_drawdown_pct": -2.4085390540703133
+          },
+          "trades": [
+            {
+              "date": "2026-01-05",
+              "side": "BUY",
+              "price": 95.6,
+              "shares": 992,
+              "reason": "model_signal",
+              "commission": 135.14016,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-01-08",
+              "side": "SELL",
+              "price": 96.3,
+              "shares": 992,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 694.4000000000028,
+              "commission": 136.12967999999998,
+              "tax": 286.5888,
+              "pnl": 136.5413600000029
+            },
+            {
+              "date": "2026-02-06",
+              "side": "BUY",
+              "price": 92.7,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 132.0975,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-02-11",
+              "side": "SELL",
+              "price": 95.0,
+              "shares": 1000,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 2299.9999999999973,
+              "commission": 135.375,
+              "tax": 285.0,
+              "pnl": 1747.5274999999965
+            },
+            {
+              "date": "2026-04-20",
+              "side": "BUY",
+              "price": 87.9,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 125.25750000000001,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-04-23",
+              "side": "SELL",
+              "price": 88.2,
+              "shares": 1000,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 299.99999999999716,
+              "commission": 125.685,
+              "tax": 264.6,
+              "pnl": -215.54250000001048
+            },
+            {
+              "date": "2026-04-27",
+              "side": "BUY",
+              "price": 87.5,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 124.6875,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-04-30",
+              "side": "SELL",
+              "price": 90.4,
+              "shares": 1000,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 2900.0000000000055,
+              "commission": 128.82,
+              "tax": 271.2,
+              "pnl": 2375.292499999996
+            },
+            {
+              "date": "2026-05-18",
+              "side": "BUY",
+              "price": 96.3,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 137.2275,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-05-19",
+              "side": "SELL",
+              "price": 95.7,
+              "shares": 1000,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": -599.9999999999943,
+              "commission": 136.3725,
+              "tax": 287.1,
+              "pnl": -1160.699999999997
+            },
+            {
+              "date": "2026-06-02",
+              "side": "BUY",
+              "price": 110.5,
+              "shares": 883,
+              "reason": "model_signal",
+              "commission": 139.0393875,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-06-05",
+              "side": "SELL",
+              "price": 114.0,
+              "shares": 883,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 3090.5,
+              "commission": 143.44335,
+              "tax": 301.986,
+              "pnl": 2506.0312624999933
+            }
+          ]
+        },
+        "2882": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 102692.84113849998,
+            "return_pct": 2.6928411384999684,
+            "round_trips": 5,
+            "win_rate_pct": 60.0,
+            "average_trade_pnl": 538.5682276999956,
+            "average_win": 2571.4507333333313,
+            "average_loss": 2510.755530750008,
+            "payoff_ratio": 1.0241740790132572,
+            "gross_pnl_before_costs": 5213.9799999999905,
+            "net_pnl_after_costs": 2692.841138499978,
+            "transaction_cost": 2521.1388615,
+            "cost_to_gross_profit": 0.48353443271742597,
+            "gross_profit": 7714.352199999994,
+            "gross_loss": 5021.511061500016,
+            "profit_factor": 1.536261118519886,
+            "sharpe_ratio": 0.5937352092030812,
+            "max_drawdown_pct": -5.600238693909365
+          },
+          "trades": [
+            {
+              "date": "2026-01-15",
+              "side": "BUY",
+              "price": 74.9,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 106.7325,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-01-16",
+              "side": "SELL",
+              "price": 75.6,
+              "shares": 1000,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 699.9999999999886,
+              "commission": 107.73,
+              "tax": 226.8,
+              "pnl": 258.7375000000029
+            },
+            {
+              "date": "2026-02-25",
+              "side": "BUY",
+              "price": 78.2,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 111.435,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-02-26",
+              "side": "SELL",
+              "price": 77.0,
+              "shares": 1000,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": -1200.0000000000027,
+              "commission": 109.72500000000001,
+              "tax": 231.0,
+              "pnl": -1652.1600000000035
+            },
+            {
+              "date": "2026-06-02",
+              "side": "BUY",
+              "price": 88.5,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 126.11250000000001,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-06-03",
+              "side": "SELL",
+              "price": 89.9,
+              "shares": 1000,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 1400.0000000000057,
+              "commission": 128.10750000000002,
+              "tax": 269.7,
+              "pnl": 876.0800000000017
+            },
+            {
+              "date": "2026-06-11",
+              "side": "BUY",
+              "price": 101.0,
+              "shares": 934,
+              "reason": "model_signal",
+              "commission": 134.42595,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-06-11",
+              "side": "SELL",
+              "price": 97.97,
+              "shares": 934,
+              "reason": "stop_loss",
+              "gross_pnl": -2830.020000000001,
+              "commission": 130.3931715,
+              "tax": 274.51194,
+              "pnl": -3369.3510615000123
+            },
+            {
+              "date": "2026-06-12",
+              "side": "BUY",
+              "price": 102.0,
+              "shares": 893,
+              "reason": "model_signal",
+              "commission": 129.79755,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-06-17",
+              "side": "SELL",
+              "price": 110.0,
+              "shares": 893,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 7144.0,
+              "commission": 139.97775000000001,
+              "tax": 294.69,
+              "pnl": 6579.534699999989
+            }
+          ]
+        }
+      },
+      "stability": {
+        "stocks": 6,
+        "active_stocks": 4,
+        "profitable_stocks": 2,
+        "total_round_trips": 20,
+        "mean_return_pct": 1.110700116854163,
+        "median_return_pct": 0.0,
+        "return_std_pct": 2.4453044154276915,
+        "worst_return_pct": -0.7159465973749723,
+        "best_return_pct": 5.389150122499986,
+        "mean_sharpe_ratio": 0.16635224910358948,
+        "mean_profit_factor": 1.848905890087088
+      }
+    },
+    "xgboost": {
+      "classification": {
+        "training_seconds": 0.7751003000012133,
+        "splits": {
+          "validation": {
+            "samples": 668,
+            "positive_rate": 0.3263473053892216,
+            "accuracy": 0.6646706586826348,
+            "precision": 0.40625,
+            "recall": 0.05963302752293578,
+            "f1": 0.104,
+            "confusion_matrix": [
+              [
+                431,
+                19
+              ],
+              [
+                205,
+                13
+              ]
+            ],
+            "roc_auc": 0.5348318042813456,
+            "prediction_seconds": 0.0017477999936090782,
+            "per_stock": {
+              "2002": {
+                "samples": 111,
+                "positive_rate": 0.3153153153153153,
+                "accuracy": 0.7027027027027027,
+                "precision": 1.0,
+                "recall": 0.05714285714285714,
+                "f1": 0.10810810810810811,
+                "confusion_matrix": [
+                  [
+                    76,
+                    0
+                  ],
+                  [
+                    33,
+                    2
+                  ]
+                ],
+                "roc_auc": 0.49210526315789477
+              },
+              "2303": {
+                "samples": 112,
+                "positive_rate": 0.44642857142857145,
+                "accuracy": 0.5625,
+                "precision": 0.5714285714285714,
+                "recall": 0.08,
+                "f1": 0.14035087719298245,
+                "confusion_matrix": [
+                  [
+                    59,
+                    3
+                  ],
+                  [
+                    46,
+                    4
+                  ]
+                ],
+                "roc_auc": 0.5061290322580645
+              },
+              "2330": {
+                "samples": 111,
+                "positive_rate": 0.3153153153153153,
+                "accuracy": 0.6666666666666666,
+                "precision": 0.3333333333333333,
+                "recall": 0.05714285714285714,
+                "f1": 0.0975609756097561,
+                "confusion_matrix": [
+                  [
+                    72,
+                    4
+                  ],
+                  [
+                    33,
+                    2
+                  ]
+                ],
+                "roc_auc": 0.4413533834586466
+              },
+              "2412": {
+                "samples": 112,
+                "positive_rate": 0.19642857142857142,
+                "accuracy": 0.8035714285714286,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "confusion_matrix": [
+                  [
+                    90,
+                    0
+                  ],
+                  [
+                    22,
+                    0
+                  ]
+                ],
+                "roc_auc": 0.5464646464646464
+              },
+              "2881": {
+                "samples": 111,
+                "positive_rate": 0.3333333333333333,
+                "accuracy": 0.6486486486486487,
+                "precision": 0.4,
+                "recall": 0.10810810810810811,
+                "f1": 0.1702127659574468,
+                "confusion_matrix": [
+                  [
+                    68,
+                    6
+                  ],
+                  [
+                    33,
+                    4
+                  ]
+                ],
+                "roc_auc": 0.49853907962016075
+              },
+              "2882": {
+                "samples": 111,
+                "positive_rate": 0.35135135135135137,
+                "accuracy": 0.6036036036036037,
+                "precision": 0.14285714285714285,
+                "recall": 0.02564102564102564,
+                "f1": 0.043478260869565216,
+                "confusion_matrix": [
+                  [
+                    66,
+                    6
+                  ],
+                  [
+                    38,
+                    1
+                  ]
+                ],
+                "roc_auc": 0.46509971509971504
+              }
+            }
+          },
+          "test": {
+            "samples": 677,
+            "positive_rate": 0.38404726735598227,
+            "accuracy": 0.5937961595273265,
+            "precision": 0.2727272727272727,
+            "recall": 0.03461538461538462,
+            "f1": 0.06143344709897611,
+            "confusion_matrix": [
+              [
+                393,
+                24
+              ],
+              [
+                251,
+                9
+              ]
+            ],
+            "roc_auc": 0.5325493451392732,
+            "prediction_seconds": 0.001126399998611305,
+            "per_stock": {
+              "2002": {
+                "samples": 113,
+                "positive_rate": 0.2831858407079646,
+                "accuracy": 0.7079646017699115,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "confusion_matrix": [
+                  [
+                    80,
+                    1
+                  ],
+                  [
+                    32,
+                    0
+                  ]
+                ],
+                "roc_auc": 0.5320216049382717
+              },
+              "2303": {
+                "samples": 112,
+                "positive_rate": 0.4732142857142857,
+                "accuracy": 0.48214285714285715,
+                "precision": 0.3076923076923077,
+                "recall": 0.07547169811320754,
+                "f1": 0.12121212121212122,
+                "confusion_matrix": [
+                  [
+                    50,
+                    9
+                  ],
+                  [
+                    49,
+                    4
+                  ]
+                ],
+                "roc_auc": 0.37895746722097856
+              },
+              "2330": {
+                "samples": 113,
+                "positive_rate": 0.5309734513274337,
+                "accuracy": 0.4690265486725664,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "confusion_matrix": [
+                  [
+                    53,
+                    0
+                  ],
+                  [
+                    60,
+                    0
+                  ]
+                ],
+                "roc_auc": 0.5647798742138364
+              },
+              "2412": {
+                "samples": 113,
+                "positive_rate": 0.21238938053097345,
+                "accuracy": 0.7876106194690266,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "confusion_matrix": [
+                  [
+                    89,
+                    0
+                  ],
+                  [
+                    24,
+                    0
+                  ]
+                ],
+                "roc_auc": 0.5711610486891386
+              },
+              "2881": {
+                "samples": 113,
+                "positive_rate": 0.37168141592920356,
+                "accuracy": 0.5752212389380531,
+                "precision": 0.125,
+                "recall": 0.023809523809523808,
+                "f1": 0.04,
+                "confusion_matrix": [
+                  [
+                    64,
+                    7
+                  ],
+                  [
+                    41,
+                    1
+                  ]
+                ],
+                "roc_auc": 0.4550637156270959
+              },
+              "2882": {
+                "samples": 113,
+                "positive_rate": 0.4336283185840708,
+                "accuracy": 0.5398230088495575,
+                "precision": 0.36363636363636365,
+                "recall": 0.08163265306122448,
+                "f1": 0.13333333333333333,
+                "confusion_matrix": [
+                  [
+                    57,
+                    7
+                  ],
+                  [
+                    45,
+                    4
+                  ]
+                ],
+                "roc_auc": 0.4894770408163265
+              }
+            }
+          }
+        }
+      },
+      "validation_probability_by_stock": {
+        "2002": {
+          "samples": 111,
+          "positive_labels": 35,
+          "positive_label_rate": 0.3153153153153153,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 3,
+            "SELL": 108
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.02702702702702703,
+            "SELL": 0.972972972972973
+          },
+          "probability_quantiles": {
+            "0.0": 0.07557354867458344,
+            "0.1": 0.13418444991111755,
+            "0.25": 0.1616998016834259,
+            "0.5": 0.21306565403938293,
+            "0.75": 0.2792166620492935,
+            "0.9": 0.3769218325614929,
+            "1.0": 0.544215202331543
+          },
+          "mean_probability": 0.23396285368247074,
+          "max_probability": 0.544215202331543,
+          "zero_buy_reason": "最高機率 0.5442 低於買進門檻 0.60"
+        },
+        "2303": {
+          "samples": 112,
+          "positive_labels": 50,
+          "positive_label_rate": 0.44642857142857145,
+          "signal_counts": {
+            "BUY": 3,
+            "HOLD": 10,
+            "SELL": 99
+          },
+          "signal_rates": {
+            "BUY": 0.026785714285714284,
+            "HOLD": 0.08928571428571429,
+            "SELL": 0.8839285714285714
+          },
+          "probability_quantiles": {
+            "0.0": 0.12711556255817413,
+            "0.1": 0.18558784425258637,
+            "0.25": 0.24293793737888336,
+            "0.5": 0.32670874893665314,
+            "0.75": 0.40416546911001205,
+            "0.9": 0.45819361507892614,
+            "1.0": 0.700532853603363
+          },
+          "mean_probability": 0.33077592628874947,
+          "max_probability": 0.700532853603363,
+          "zero_buy_reason": null
+        },
+        "2330": {
+          "samples": 111,
+          "positive_labels": 35,
+          "positive_label_rate": 0.3153153153153153,
+          "signal_counts": {
+            "BUY": 2,
+            "HOLD": 7,
+            "SELL": 102
+          },
+          "signal_rates": {
+            "BUY": 0.018018018018018018,
+            "HOLD": 0.06306306306306306,
+            "SELL": 0.918918918918919
+          },
+          "probability_quantiles": {
+            "0.0": 0.0775071233510971,
+            "0.1": 0.12252314388751984,
+            "0.25": 0.20939256250858307,
+            "0.5": 0.2974310517311096,
+            "0.75": 0.3794364780187607,
+            "0.9": 0.4319595694541931,
+            "1.0": 0.7620431184768677
+          },
+          "mean_probability": 0.29995114081077745,
+          "max_probability": 0.7620431184768677,
+          "zero_buy_reason": null
+        },
+        "2412": {
+          "samples": 112,
+          "positive_labels": 22,
+          "positive_label_rate": 0.19642857142857142,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 0,
+            "SELL": 112
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.0,
+            "SELL": 1.0
+          },
+          "probability_quantiles": {
+            "0.0": 0.034938111901283264,
+            "0.1": 0.07847580388188362,
+            "0.25": 0.09492078796029091,
+            "0.5": 0.1286768987774849,
+            "0.75": 0.17905523255467415,
+            "0.9": 0.2284737542271614,
+            "1.0": 0.3166826069355011
+          },
+          "mean_probability": 0.14239753749487655,
+          "max_probability": 0.3166826069355011,
+          "zero_buy_reason": "最高機率 0.3167 低於買進門檻 0.60"
+        },
+        "2881": {
+          "samples": 111,
+          "positive_labels": 37,
+          "positive_label_rate": 0.3333333333333333,
+          "signal_counts": {
+            "BUY": 1,
+            "HOLD": 18,
+            "SELL": 92
+          },
+          "signal_rates": {
+            "BUY": 0.009009009009009009,
+            "HOLD": 0.16216216216216217,
+            "SELL": 0.8288288288288288
+          },
+          "probability_quantiles": {
+            "0.0": 0.16347530484199524,
+            "0.1": 0.2301960438489914,
+            "0.25": 0.28297270834445953,
+            "0.5": 0.3454403281211853,
+            "0.75": 0.4153320789337158,
+            "0.9": 0.4945882260799408,
+            "1.0": 0.6088484525680542
+          },
+          "mean_probability": 0.352897407235326,
+          "max_probability": 0.6088484525680542,
+          "zero_buy_reason": null
+        },
+        "2882": {
+          "samples": 111,
+          "positive_labels": 39,
+          "positive_label_rate": 0.35135135135135137,
+          "signal_counts": {
+            "BUY": 1,
+            "HOLD": 9,
+            "SELL": 101
+          },
+          "signal_rates": {
+            "BUY": 0.009009009009009009,
+            "HOLD": 0.08108108108108109,
+            "SELL": 0.9099099099099099
+          },
+          "probability_quantiles": {
+            "0.0": 0.11607395112514496,
+            "0.1": 0.20013047754764557,
+            "0.25": 0.2306934967637062,
+            "0.5": 0.30211740732192993,
+            "0.75": 0.376503050327301,
+            "0.9": 0.43606334924697876,
+            "1.0": 0.6518833041191101
+          },
+          "mean_probability": 0.3109064555919922,
+          "max_probability": 0.6518833041191101,
+          "zero_buy_reason": null
+        }
+      },
+      "test_probability_by_stock": {
+        "2002": {
+          "samples": 113,
+          "positive_labels": 32,
+          "positive_label_rate": 0.2831858407079646,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 2,
+            "SELL": 111
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.017699115044247787,
+            "SELL": 0.9823008849557522
+          },
+          "probability_quantiles": {
+            "0.0": 0.07489932328462601,
+            "0.1": 0.12280286103487015,
+            "0.25": 0.1603272259235382,
+            "0.5": 0.18871769309043884,
+            "0.75": 0.24262769520282745,
+            "0.9": 0.3241818070411682,
+            "1.0": 0.5008804202079773
+          },
+          "mean_probability": 0.2087644858829743,
+          "max_probability": 0.5008804202079773,
+          "zero_buy_reason": "最高機率 0.5009 低於買進門檻 0.60"
+        },
+        "2303": {
+          "samples": 112,
+          "positive_labels": 53,
+          "positive_label_rate": 0.4732142857142857,
+          "signal_counts": {
+            "BUY": 7,
+            "HOLD": 17,
+            "SELL": 88
+          },
+          "signal_rates": {
+            "BUY": 0.0625,
+            "HOLD": 0.15178571428571427,
+            "SELL": 0.7857142857142857
+          },
+          "probability_quantiles": {
+            "0.0": 0.06734614819288254,
+            "0.1": 0.1632212817668915,
+            "0.25": 0.22508908435702324,
+            "0.5": 0.28614822030067444,
+            "0.75": 0.4213879406452179,
+            "0.9": 0.5086014032363891,
+            "1.0": 0.7974569201469421
+          },
+          "mean_probability": 0.32280445930414964,
+          "max_probability": 0.7974569201469421,
+          "zero_buy_reason": null
+        },
+        "2330": {
+          "samples": 113,
+          "positive_labels": 60,
+          "positive_label_rate": 0.5309734513274337,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 1,
+            "SELL": 112
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.008849557522123894,
+            "SELL": 0.9911504424778761
+          },
+          "probability_quantiles": {
+            "0.0": 0.039958592504262924,
+            "0.1": 0.11327405422925949,
+            "0.25": 0.1534470170736313,
+            "0.5": 0.19136565923690796,
+            "0.75": 0.2716553807258606,
+            "0.9": 0.31094730496406553,
+            "1.0": 0.48919591307640076
+          },
+          "mean_probability": 0.20835682057437643,
+          "max_probability": 0.48919591307640076,
+          "zero_buy_reason": "最高機率 0.4892 低於買進門檻 0.60"
+        },
+        "2412": {
+          "samples": 113,
+          "positive_labels": 24,
+          "positive_label_rate": 0.21238938053097345,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 0,
+            "SELL": 113
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.0,
+            "SELL": 1.0
+          },
+          "probability_quantiles": {
+            "0.0": 0.049984727054834366,
+            "0.1": 0.07289693355560303,
+            "0.25": 0.1025153174996376,
+            "0.5": 0.14139874279499054,
+            "0.75": 0.19066578149795532,
+            "0.9": 0.2833249568939209,
+            "1.0": 0.44934597611427307
+          },
+          "mean_probability": 0.1603374443948269,
+          "max_probability": 0.44934597611427307,
+          "zero_buy_reason": "最高機率 0.4493 低於買進門檻 0.60"
+        },
+        "2881": {
+          "samples": 113,
+          "positive_labels": 42,
+          "positive_label_rate": 0.37168141592920356,
+          "signal_counts": {
+            "BUY": 2,
+            "HOLD": 13,
+            "SELL": 98
+          },
+          "signal_rates": {
+            "BUY": 0.017699115044247787,
+            "HOLD": 0.11504424778761062,
+            "SELL": 0.8672566371681416
+          },
+          "probability_quantiles": {
+            "0.0": 0.0702696368098259,
+            "0.1": 0.16945810317993165,
+            "0.25": 0.23566323518753052,
+            "0.5": 0.3118821084499359,
+            "0.75": 0.38875168561935425,
+            "0.9": 0.4641863822937011,
+            "1.0": 0.6794164776802063
+          },
+          "mean_probability": 0.3186961546276523,
+          "max_probability": 0.6794164776802063,
+          "zero_buy_reason": null
+        },
+        "2882": {
+          "samples": 113,
+          "positive_labels": 49,
+          "positive_label_rate": 0.4336283185840708,
+          "signal_counts": {
+            "BUY": 1,
+            "HOLD": 14,
+            "SELL": 98
+          },
+          "signal_rates": {
+            "BUY": 0.008849557522123894,
+            "HOLD": 0.12389380530973451,
+            "SELL": 0.8672566371681416
+          },
+          "probability_quantiles": {
+            "0.0": 0.09667886793613434,
+            "0.1": 0.17922268211841583,
+            "0.25": 0.23140563070774078,
+            "0.5": 0.3035370111465454,
+            "0.75": 0.3767925500869751,
+            "0.9": 0.49258112311363217,
+            "1.0": 0.6385214328765869
+          },
+          "mean_probability": 0.31321336421291385,
+          "max_probability": 0.6385214328765869,
+          "zero_buy_reason": null
+        }
+      },
+      "trading_by_stock": {
+        "2002": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 100000.0,
+            "return_pct": 0.0,
+            "round_trips": 0,
+            "win_rate_pct": null,
+            "average_trade_pnl": null,
+            "average_win": null,
+            "average_loss": null,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": 0.0,
+            "net_pnl_after_costs": 0.0,
+            "transaction_cost": 0.0,
+            "cost_to_gross_profit": null,
+            "gross_profit": 0.0,
+            "gross_loss": 0.0,
+            "profit_factor": null,
+            "sharpe_ratio": null,
+            "max_drawdown_pct": 0.0
+          },
+          "trades": []
+        },
+        "2303": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 78615.50192525,
+            "return_pct": -21.38449807474999,
+            "round_trips": 7,
+            "win_rate_pct": 0.0,
+            "average_trade_pnl": -3054.9282963928563,
+            "average_win": null,
+            "average_loss": 3054.9282963928563,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": -18484.130000000016,
+            "net_pnl_after_costs": -21384.498074749994,
+            "transaction_cost": 2900.3680747500002,
+            "cost_to_gross_profit": null,
+            "gross_profit": 0.0,
+            "gross_loss": 21384.498074749994,
+            "profit_factor": 0.0,
+            "sharpe_ratio": -4.217199580270653,
+            "max_drawdown_pct": -21.38449807474999
+          },
+          "trades": [
+            {
+              "date": "2026-01-12",
+              "side": "BUY",
+              "price": 57.0,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 81.22500000000001,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-01-12",
+              "side": "SELL",
+              "price": 55.29,
+              "shares": 1000,
+              "reason": "stop_loss",
+              "gross_pnl": -1710.000000000001,
+              "commission": 78.78825,
+              "tax": 165.87,
+              "pnl": -2035.883249999999
+            },
+            {
+              "date": "2026-01-23",
+              "side": "BUY",
+              "price": 68.0,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 96.9,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-01-23",
+              "side": "SELL",
+              "price": 65.96,
+              "shares": 1000,
+              "reason": "stop_loss",
+              "gross_pnl": -2040.0000000000064,
+              "commission": 93.99300000000001,
+              "tax": 197.88,
+              "pnl": -2428.773000000001
+            },
+            {
+              "date": "2026-01-29",
+              "side": "BUY",
+              "price": 70.3,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 100.17750000000001,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-01-30",
+              "side": "SELL",
+              "price": 65.0,
+              "shares": 1000,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": -5299.999999999997,
+              "commission": 92.625,
+              "tax": 195.0,
+              "pnl": -5687.802500000005
+            },
+            {
+              "date": "2026-04-21",
+              "side": "BUY",
+              "price": 78.0,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 111.15,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-04-21",
+              "side": "SELL",
+              "price": 75.66,
+              "shares": 1000,
+              "reason": "stop_loss",
+              "gross_pnl": -2340.0000000000036,
+              "commission": 107.8155,
+              "tax": 226.98000000000002,
+              "pnl": -2785.945499999987
+            },
+            {
+              "date": "2026-04-23",
+              "side": "BUY",
+              "price": 79.5,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 113.28750000000001,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-04-23",
+              "side": "SELL",
+              "price": 77.115,
+              "shares": 1000,
+              "reason": "stop_loss",
+              "gross_pnl": -2385.000000000005,
+              "commission": 109.888875,
+              "tax": 231.345,
+              "pnl": -2839.521375000011
+            },
+            {
+              "date": "2026-06-03",
+              "side": "BUY",
+              "price": 141.5,
+              "shares": 564,
+              "reason": "model_signal",
+              "commission": 113.72355,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-06-03",
+              "side": "SELL",
+              "price": 137.255,
+              "shares": 564,
+              "reason": "stop_loss",
+              "gross_pnl": -2394.1800000000026,
+              "commission": 110.3118435,
+              "tax": 232.23546,
+              "pnl": -2850.450853500006
+            },
+            {
+              "date": "2026-06-04",
+              "side": "BUY",
+              "price": 126.5,
+              "shares": 610,
+              "reason": "model_signal",
+              "commission": 109.960125,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-06-04",
+              "side": "SELL",
+              "price": 122.705,
+              "shares": 610,
+              "reason": "stop_loss",
+              "gross_pnl": -2314.950000000001,
+              "commission": 106.66132125000001,
+              "tax": 224.55015,
+              "pnl": -2756.1215962499846
+            }
+          ]
+        },
+        "2330": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 100000.0,
+            "return_pct": 0.0,
+            "round_trips": 0,
+            "win_rate_pct": null,
+            "average_trade_pnl": null,
+            "average_win": null,
+            "average_loss": null,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": 0.0,
+            "net_pnl_after_costs": 0.0,
+            "transaction_cost": 0.0,
+            "cost_to_gross_profit": null,
+            "gross_profit": 0.0,
+            "gross_loss": 0.0,
+            "profit_factor": null,
+            "sharpe_ratio": null,
+            "max_drawdown_pct": 0.0
+          },
+          "trades": []
+        },
+        "2412": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 100000.0,
+            "return_pct": 0.0,
+            "round_trips": 0,
+            "win_rate_pct": null,
+            "average_trade_pnl": null,
+            "average_win": null,
+            "average_loss": null,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": 0.0,
+            "net_pnl_after_costs": 0.0,
+            "transaction_cost": 0.0,
+            "cost_to_gross_profit": null,
+            "gross_profit": 0.0,
+            "gross_loss": 0.0,
+            "profit_factor": null,
+            "sharpe_ratio": null,
+            "max_drawdown_pct": 0.0
+          },
+          "trades": []
+        },
+        "2881": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 104063.50089750002,
+            "return_pct": 4.0635008975000275,
+            "round_trips": 2,
+            "win_rate_pct": 50.0,
+            "average_trade_pnl": 2031.7504487500119,
+            "average_win": 5811.606042500018,
+            "average_loss": 1748.105144999994,
+            "payoff_ratio": 3.3245174405685063,
+            "gross_pnl_before_costs": 5186.3,
+            "net_pnl_after_costs": 4063.5008975000237,
+            "transaction_cost": 1122.7991025000001,
+            "cost_to_gross_profit": 0.2164932808553304,
+            "gross_profit": 5811.606042500018,
+            "gross_loss": 1748.105144999994,
+            "profit_factor": 3.3245174405685063,
+            "sharpe_ratio": 1.0884691290560753,
+            "max_drawdown_pct": -2.0331972674999976
+          },
+          "trades": [
+            {
+              "date": "2026-01-20",
+              "side": "BUY",
+              "price": 94.9,
+              "shares": 999,
+              "reason": "model_signal",
+              "commission": 135.09726750000002,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-01-23",
+              "side": "SELL",
+              "price": 93.7,
+              "shares": 999,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": -1198.800000000003,
+              "commission": 133.3889775,
+              "tax": 280.81890000000004,
+              "pnl": -1748.105144999994
+            },
+            {
+              "date": "2026-05-26",
+              "side": "BUY",
+              "price": 97.8,
+              "shares": 953,
+              "reason": "model_signal",
+              "commission": 132.814845,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-05-27",
+              "side": "SELL",
+              "price": 104.5,
+              "shares": 953,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 6385.100000000003,
+              "commission": 141.9136125,
+              "tax": 298.76550000000003,
+              "pnl": 5811.606042500018
+            }
+          ]
+        },
+        "2882": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 98995.8301375,
+            "return_pct": -1.004169862500004,
+            "round_trips": 1,
+            "win_rate_pct": 0.0,
+            "average_trade_pnl": -1004.169862499999,
+            "average_win": null,
+            "average_loss": 1004.169862499999,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": -451.5,
+            "net_pnl_after_costs": -1004.169862499999,
+            "transaction_cost": 552.6698625,
+            "cost_to_gross_profit": null,
+            "gross_profit": 0.0,
+            "gross_loss": 1004.169862499999,
+            "profit_factor": 0.0,
+            "sharpe_ratio": -1.4302039872181498,
+            "max_drawdown_pct": -1.0381113749999948
+          },
+          "trades": [
+            {
+              "date": "2026-06-15",
+              "side": "BUY",
+              "price": 105.0,
+              "shares": 903,
+              "reason": "model_signal",
+              "commission": 135.111375,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-06-16",
+              "side": "SELL",
+              "price": 104.5,
+              "shares": 903,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": -451.5,
+              "commission": 134.4679875,
+              "tax": 283.0905,
+              "pnl": -1004.169862499999
+            }
+          ]
+        }
+      },
+      "stability": {
+        "stocks": 6,
+        "active_stocks": 3,
+        "profitable_stocks": 1,
+        "total_round_trips": 10,
+        "mean_return_pct": -3.0541945066249947,
+        "median_return_pct": 0.0,
+        "return_std_pct": 9.152579199984375,
+        "worst_return_pct": -21.38449807474999,
+        "best_return_pct": 4.0635008975000275,
+        "mean_sharpe_ratio": -1.519644812810909,
+        "mean_profit_factor": 1.108172480189502
+      }
+    },
+    "gru": {
+      "classification": {
+        "training_seconds": 0.7385700000013458,
+        "epochs_completed": 3,
+        "best_validation_loss": 1.0447617769241333,
+        "splits": {
+          "validation": {
+            "samples": 668,
+            "positive_rate": 0.3263473053892216,
+            "accuracy": 0.4550898203592814,
+            "precision": 0.3147208121827411,
+            "recall": 0.5688073394495413,
+            "f1": 0.40522875816993464,
+            "confusion_matrix": [
+              [
+                180,
+                270
+              ],
+              [
+                94,
+                124
+              ]
+            ],
+            "roc_auc": 0.4854638124362895,
+            "prediction_seconds": 0.006150199995317962,
+            "per_stock": {
+              "2002": {
+                "samples": 111,
+                "positive_rate": 0.3153153153153153,
+                "accuracy": 0.5765765765765766,
+                "precision": 0.4,
+                "recall": 0.6857142857142857,
+                "f1": 0.5052631578947369,
+                "confusion_matrix": [
+                  [
+                    40,
+                    36
+                  ],
+                  [
+                    11,
+                    24
+                  ]
+                ],
+                "roc_auc": 0.574436090225564
+              },
+              "2303": {
+                "samples": 112,
+                "positive_rate": 0.44642857142857145,
+                "accuracy": 0.45535714285714285,
+                "precision": 0.4246575342465753,
+                "recall": 0.62,
+                "f1": 0.5040650406504065,
+                "confusion_matrix": [
+                  [
+                    20,
+                    42
+                  ],
+                  [
+                    19,
+                    31
+                  ]
+                ],
+                "roc_auc": 0.4587096774193548
+              },
+              "2330": {
+                "samples": 111,
+                "positive_rate": 0.3153153153153153,
+                "accuracy": 0.45045045045045046,
+                "precision": 0.296875,
+                "recall": 0.5428571428571428,
+                "f1": 0.3838383838383838,
+                "confusion_matrix": [
+                  [
+                    31,
+                    45
+                  ],
+                  [
+                    16,
+                    19
+                  ]
+                ],
+                "roc_auc": 0.5109022556390977
+              },
+              "2412": {
+                "samples": 112,
+                "positive_rate": 0.19642857142857142,
+                "accuracy": 0.41964285714285715,
+                "precision": 0.16923076923076924,
+                "recall": 0.5,
+                "f1": 0.25287356321839083,
+                "confusion_matrix": [
+                  [
+                    36,
+                    54
+                  ],
+                  [
+                    11,
+                    11
+                  ]
+                ],
+                "roc_auc": 0.47878787878787876
+              },
+              "2881": {
+                "samples": 111,
+                "positive_rate": 0.3333333333333333,
+                "accuracy": 0.4144144144144144,
+                "precision": 0.27419354838709675,
+                "recall": 0.4594594594594595,
+                "f1": 0.3434343434343434,
+                "confusion_matrix": [
+                  [
+                    29,
+                    45
+                  ],
+                  [
+                    20,
+                    17
+                  ]
+                ],
+                "roc_auc": 0.38239590942293644
+              },
+              "2882": {
+                "samples": 111,
+                "positive_rate": 0.35135135135135137,
+                "accuracy": 0.4144144144144144,
+                "precision": 0.3142857142857143,
+                "recall": 0.5641025641025641,
+                "f1": 0.4036697247706422,
+                "confusion_matrix": [
+                  [
+                    24,
+                    48
+                  ],
+                  [
+                    17,
+                    22
+                  ]
+                ],
+                "roc_auc": 0.4636752136752137
+              }
+            }
+          },
+          "test": {
+            "samples": 677,
+            "positive_rate": 0.38404726735598227,
+            "accuracy": 0.5081240768094535,
+            "precision": 0.396011396011396,
+            "recall": 0.5346153846153846,
+            "f1": 0.45499181669394434,
+            "confusion_matrix": [
+              [
+                205,
+                212
+              ],
+              [
+                121,
+                139
+              ]
+            ],
+            "roc_auc": 0.5068622025456558,
+            "prediction_seconds": 0.005108799996378366,
+            "per_stock": {
+              "2002": {
+                "samples": 113,
+                "positive_rate": 0.2831858407079646,
+                "accuracy": 0.5929203539823009,
+                "precision": 0.3055555555555556,
+                "recall": 0.34375,
+                "f1": 0.3235294117647059,
+                "confusion_matrix": [
+                  [
+                    56,
+                    25
+                  ],
+                  [
+                    21,
+                    11
+                  ]
+                ],
+                "roc_auc": 0.5108024691358025
+              },
+              "2303": {
+                "samples": 112,
+                "positive_rate": 0.4732142857142857,
+                "accuracy": 0.49107142857142855,
+                "precision": 0.46153846153846156,
+                "recall": 0.4528301886792453,
+                "f1": 0.45714285714285713,
+                "confusion_matrix": [
+                  [
+                    31,
+                    28
+                  ],
+                  [
+                    29,
+                    24
+                  ]
+                ],
+                "roc_auc": 0.5129517109050208
+              },
+              "2330": {
+                "samples": 113,
+                "positive_rate": 0.5309734513274337,
+                "accuracy": 0.5486725663716814,
+                "precision": 0.5652173913043478,
+                "recall": 0.65,
+                "f1": 0.6046511627906976,
+                "confusion_matrix": [
+                  [
+                    23,
+                    30
+                  ],
+                  [
+                    21,
+                    39
+                  ]
+                ],
+                "roc_auc": 0.5113207547169811
+              },
+              "2412": {
+                "samples": 113,
+                "positive_rate": 0.21238938053097345,
+                "accuracy": 0.5132743362831859,
+                "precision": 0.22807017543859648,
+                "recall": 0.5416666666666666,
+                "f1": 0.32098765432098764,
+                "confusion_matrix": [
+                  [
+                    45,
+                    44
+                  ],
+                  [
+                    11,
+                    13
+                  ]
+                ],
+                "roc_auc": 0.5786516853932584
+              },
+              "2881": {
+                "samples": 113,
+                "positive_rate": 0.37168141592920356,
+                "accuracy": 0.504424778761062,
+                "precision": 0.390625,
+                "recall": 0.5952380952380952,
+                "f1": 0.4716981132075472,
+                "confusion_matrix": [
+                  [
+                    32,
+                    39
+                  ],
+                  [
+                    17,
+                    25
+                  ]
+                ],
+                "roc_auc": 0.48591549295774644
+              },
+              "2882": {
+                "samples": 113,
+                "positive_rate": 0.4336283185840708,
+                "accuracy": 0.39823008849557523,
+                "precision": 0.3698630136986301,
+                "recall": 0.5510204081632653,
+                "f1": 0.4426229508196721,
+                "confusion_matrix": [
+                  [
+                    18,
+                    46
+                  ],
+                  [
+                    22,
+                    27
+                  ]
+                ],
+                "roc_auc": 0.4276147959183674
+              }
+            }
+          }
+        }
+      },
+      "validation_probability_by_stock": {
+        "2002": {
+          "samples": 111,
+          "positive_labels": 35,
+          "positive_label_rate": 0.3153153153153153,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 106,
+            "SELL": 5
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.954954954954955,
+            "SELL": 0.04504504504504504
+          },
+          "probability_quantiles": {
+            "0.0": 0.4111126959323883,
+            "0.1": 0.47147831320762634,
+            "0.25": 0.48668111860752106,
+            "0.5": 0.5026000738143921,
+            "0.75": 0.514648050069809,
+            "0.9": 0.5338606238365173,
+            "1.0": 0.5814817547798157
+          },
+          "mean_probability": 0.5009312441757133,
+          "max_probability": 0.5814817547798157,
+          "zero_buy_reason": "最高機率 0.5815 低於買進門檻 0.60"
+        },
+        "2303": {
+          "samples": 112,
+          "positive_labels": 50,
+          "positive_label_rate": 0.44642857142857145,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 108,
+            "SELL": 4
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.9642857142857143,
+            "SELL": 0.03571428571428571
+          },
+          "probability_quantiles": {
+            "0.0": 0.40756455063819885,
+            "0.1": 0.4846859484910965,
+            "0.25": 0.49578074365854263,
+            "0.5": 0.5113138854503632,
+            "0.75": 0.5237527638673782,
+            "0.9": 0.5372297525405884,
+            "1.0": 0.5725523233413696
+          },
+          "mean_probability": 0.5086710075182574,
+          "max_probability": 0.5725523233413696,
+          "zero_buy_reason": "最高機率 0.5726 低於買進門檻 0.60"
+        },
+        "2330": {
+          "samples": 111,
+          "positive_labels": 35,
+          "positive_label_rate": 0.3153153153153153,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 110,
+            "SELL": 1
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.990990990990991,
+            "SELL": 0.009009009009009009
+          },
+          "probability_quantiles": {
+            "0.0": 0.43989503383636475,
+            "0.1": 0.48222729563713074,
+            "0.25": 0.4905427247285843,
+            "0.5": 0.5060440301895142,
+            "0.75": 0.5210956037044525,
+            "0.9": 0.5384894013404846,
+            "1.0": 0.5795142650604248
+          },
+          "mean_probability": 0.5081429301618455,
+          "max_probability": 0.5795142650604248,
+          "zero_buy_reason": "最高機率 0.5795 低於買進門檻 0.60"
+        },
+        "2412": {
+          "samples": 112,
+          "positive_labels": 22,
+          "positive_label_rate": 0.19642857142857142,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 110,
+            "SELL": 2
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.9821428571428571,
+            "SELL": 0.017857142857142856
+          },
+          "probability_quantiles": {
+            "0.0": 0.4263148307800293,
+            "0.1": 0.47508196234703065,
+            "0.25": 0.4916965365409851,
+            "0.5": 0.5048809051513672,
+            "0.75": 0.5199307054281235,
+            "0.9": 0.5295757710933685,
+            "1.0": 0.5601804256439209
+          },
+          "mean_probability": 0.5040058863482305,
+          "max_probability": 0.5601804256439209,
+          "zero_buy_reason": "最高機率 0.5602 低於買進門檻 0.60"
+        },
+        "2881": {
+          "samples": 111,
+          "positive_labels": 37,
+          "positive_label_rate": 0.3333333333333333,
+          "signal_counts": {
+            "BUY": 1,
+            "HOLD": 109,
+            "SELL": 1
+          },
+          "signal_rates": {
+            "BUY": 0.009009009009009009,
+            "HOLD": 0.9819819819819819,
+            "SELL": 0.009009009009009009
+          },
+          "probability_quantiles": {
+            "0.0": 0.4490961730480194,
+            "0.1": 0.4842036962509155,
+            "0.25": 0.490363210439682,
+            "0.5": 0.5031285881996155,
+            "0.75": 0.5179102122783661,
+            "0.9": 0.538041353225708,
+            "1.0": 0.6549214124679565
+          },
+          "mean_probability": 0.5065723018603282,
+          "max_probability": 0.6549214124679565,
+          "zero_buy_reason": null
+        },
+        "2882": {
+          "samples": 111,
+          "positive_labels": 39,
+          "positive_label_rate": 0.35135135135135137,
+          "signal_counts": {
+            "BUY": 1,
+            "HOLD": 109,
+            "SELL": 1
+          },
+          "signal_rates": {
+            "BUY": 0.009009009009009009,
+            "HOLD": 0.9819819819819819,
+            "SELL": 0.009009009009009009
+          },
+          "probability_quantiles": {
+            "0.0": 0.4427984654903412,
+            "0.1": 0.4771164655685425,
+            "0.25": 0.49195997416973114,
+            "0.5": 0.5104696154594421,
+            "0.75": 0.5239082872867584,
+            "0.9": 0.5462276935577393,
+            "1.0": 0.6262140274047852
+          },
+          "mean_probability": 0.5104261427312284,
+          "max_probability": 0.6262140274047852,
+          "zero_buy_reason": null
+        }
+      },
+      "test_probability_by_stock": {
+        "2002": {
+          "samples": 113,
+          "positive_labels": 32,
+          "positive_label_rate": 0.2831858407079646,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 112,
+            "SELL": 1
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.9911504424778761,
+            "SELL": 0.008849557522123894
+          },
+          "probability_quantiles": {
+            "0.0": 0.44766858220100403,
+            "0.1": 0.4669851720333099,
+            "0.25": 0.47885867953300476,
+            "0.5": 0.49016469717025757,
+            "0.75": 0.5054007768630981,
+            "0.9": 0.5283979654312134,
+            "1.0": 0.5651189088821411
+          },
+          "mean_probability": 0.49350344765502796,
+          "max_probability": 0.5651189088821411,
+          "zero_buy_reason": "最高機率 0.5651 低於買進門檻 0.60"
+        },
+        "2303": {
+          "samples": 112,
+          "positive_labels": 53,
+          "positive_label_rate": 0.4732142857142857,
+          "signal_counts": {
+            "BUY": 1,
+            "HOLD": 87,
+            "SELL": 24
+          },
+          "signal_rates": {
+            "BUY": 0.008928571428571428,
+            "HOLD": 0.7767857142857143,
+            "SELL": 0.21428571428571427
+          },
+          "probability_quantiles": {
+            "0.0": 0.33130592107772827,
+            "0.1": 0.4299911856651306,
+            "0.25": 0.4645223021507263,
+            "0.5": 0.49774453043937683,
+            "0.75": 0.525634691119194,
+            "0.9": 0.5498185992240906,
+            "1.0": 0.6038244962692261
+          },
+          "mean_probability": 0.4922606223928077,
+          "max_probability": 0.6038244962692261,
+          "zero_buy_reason": null
+        },
+        "2330": {
+          "samples": 113,
+          "positive_labels": 60,
+          "positive_label_rate": 0.5309734513274337,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 111,
+            "SELL": 2
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.9823008849557522,
+            "SELL": 0.017699115044247787
+          },
+          "probability_quantiles": {
+            "0.0": 0.4359767735004425,
+            "0.1": 0.4609514832496643,
+            "0.25": 0.48438501358032227,
+            "0.5": 0.5110686421394348,
+            "0.75": 0.5376073122024536,
+            "0.9": 0.5553314447402954,
+            "1.0": 0.5819767117500305
+          },
+          "mean_probability": 0.5101789428597003,
+          "max_probability": 0.5819767117500305,
+          "zero_buy_reason": "最高機率 0.5820 低於買進門檻 0.60"
+        },
+        "2412": {
+          "samples": 113,
+          "positive_labels": 24,
+          "positive_label_rate": 0.21238938053097345,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 112,
+            "SELL": 1
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.9911504424778761,
+            "SELL": 0.008849557522123894
+          },
+          "probability_quantiles": {
+            "0.0": 0.44286683201789856,
+            "0.1": 0.4737936854362488,
+            "0.25": 0.4860486090183258,
+            "0.5": 0.5007389783859253,
+            "0.75": 0.5194258093833923,
+            "0.9": 0.5303029656410218,
+            "1.0": 0.5528106093406677
+          },
+          "mean_probability": 0.5014629087089437,
+          "max_probability": 0.5528106093406677,
+          "zero_buy_reason": "最高機率 0.5528 低於買進門檻 0.60"
+        },
+        "2881": {
+          "samples": 113,
+          "positive_labels": 42,
+          "positive_label_rate": 0.37168141592920356,
+          "signal_counts": {
+            "BUY": 0,
+            "HOLD": 111,
+            "SELL": 2
+          },
+          "signal_rates": {
+            "BUY": 0.0,
+            "HOLD": 0.9823008849557522,
+            "SELL": 0.017699115044247787
+          },
+          "probability_quantiles": {
+            "0.0": 0.44333168864250183,
+            "0.1": 0.4794070959091187,
+            "0.25": 0.48776790499687195,
+            "0.5": 0.50436931848526,
+            "0.75": 0.5206283330917358,
+            "0.9": 0.536360216140747,
+            "1.0": 0.5936526656150818
+          },
+          "mean_probability": 0.5056524184425321,
+          "max_probability": 0.5936526656150818,
+          "zero_buy_reason": "最高機率 0.5937 低於買進門檻 0.60"
+        },
+        "2882": {
+          "samples": 113,
+          "positive_labels": 49,
+          "positive_label_rate": 0.4336283185840708,
+          "signal_counts": {
+            "BUY": 1,
+            "HOLD": 110,
+            "SELL": 2
+          },
+          "signal_rates": {
+            "BUY": 0.008849557522123894,
+            "HOLD": 0.9734513274336283,
+            "SELL": 0.017699115044247787
+          },
+          "probability_quantiles": {
+            "0.0": 0.429238498210907,
+            "0.1": 0.46590369939804077,
+            "0.25": 0.49047112464904785,
+            "0.5": 0.5082806348800659,
+            "0.75": 0.5244638323783875,
+            "0.9": 0.5455553770065308,
+            "1.0": 0.6176915168762207
+          },
+          "mean_probability": 0.5085049725211828,
+          "max_probability": 0.6176915168762207,
+          "zero_buy_reason": null
+        }
+      },
+      "trading_by_stock": {
+        "2002": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 100000.0,
+            "return_pct": 0.0,
+            "round_trips": 0,
+            "win_rate_pct": null,
+            "average_trade_pnl": null,
+            "average_win": null,
+            "average_loss": null,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": 0.0,
+            "net_pnl_after_costs": 0.0,
+            "transaction_cost": 0.0,
+            "cost_to_gross_profit": null,
+            "gross_profit": 0.0,
+            "gross_loss": 0.0,
+            "profit_factor": null,
+            "sharpe_ratio": null,
+            "max_drawdown_pct": 0.0
+          },
+          "trades": []
+        },
+        "2303": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 98768.07800000001,
+            "return_pct": -1.2319219999999964,
+            "round_trips": 1,
+            "win_rate_pct": 0.0,
+            "average_trade_pnl": -1231.9219999999914,
+            "average_win": null,
+            "average_loss": 1231.9219999999914,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": -680.0,
+            "net_pnl_after_costs": -1231.9219999999914,
+            "transaction_cost": 551.922,
+            "cost_to_gross_profit": null,
+            "gross_profit": 0.0,
+            "gross_loss": 1231.9219999999914,
+            "profit_factor": 0.0,
+            "sharpe_ratio": -0.7274386043251445,
+            "max_drawdown_pct": -2.4270197672706217
+          },
+          "trades": [
+            {
+              "date": "2026-06-15",
+              "side": "BUY",
+              "price": 139.5,
+              "shares": 680,
+              "reason": "model_signal",
+              "commission": 135.1755,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-06-17",
+              "side": "SELL",
+              "price": 138.5,
+              "shares": 680,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": -680.0,
+              "commission": 134.2065,
+              "tax": 282.54,
+              "pnl": -1231.9219999999914
+            }
+          ]
+        },
+        "2330": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 100000.0,
+            "return_pct": 0.0,
+            "round_trips": 0,
+            "win_rate_pct": null,
+            "average_trade_pnl": null,
+            "average_win": null,
+            "average_loss": null,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": 0.0,
+            "net_pnl_after_costs": 0.0,
+            "transaction_cost": 0.0,
+            "cost_to_gross_profit": null,
+            "gross_profit": 0.0,
+            "gross_loss": 0.0,
+            "profit_factor": null,
+            "sharpe_ratio": null,
+            "max_drawdown_pct": 0.0
+          },
+          "trades": []
+        },
+        "2412": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 100000.0,
+            "return_pct": 0.0,
+            "round_trips": 0,
+            "win_rate_pct": null,
+            "average_trade_pnl": null,
+            "average_win": null,
+            "average_loss": null,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": 0.0,
+            "net_pnl_after_costs": 0.0,
+            "transaction_cost": 0.0,
+            "cost_to_gross_profit": null,
+            "gross_profit": 0.0,
+            "gross_loss": 0.0,
+            "profit_factor": null,
+            "sharpe_ratio": null,
+            "max_drawdown_pct": 0.0
+          },
+          "trades": []
+        },
+        "2881": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 100000.0,
+            "return_pct": 0.0,
+            "round_trips": 0,
+            "win_rate_pct": null,
+            "average_trade_pnl": null,
+            "average_win": null,
+            "average_loss": null,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": 0.0,
+            "net_pnl_after_costs": 0.0,
+            "transaction_cost": 0.0,
+            "cost_to_gross_profit": null,
+            "gross_profit": 0.0,
+            "gross_loss": 0.0,
+            "profit_factor": null,
+            "sharpe_ratio": null,
+            "max_drawdown_pct": 0.0
+          },
+          "trades": []
+        },
+        "2882": {
+          "metrics": {
+            "initial_cash": 100000.0,
+            "final_equity": 105356.1675,
+            "return_pct": 5.356167499999986,
+            "round_trips": 1,
+            "win_rate_pct": 100.0,
+            "average_trade_pnl": 5356.167499999996,
+            "average_win": 5356.167499999996,
+            "average_loss": null,
+            "payoff_ratio": null,
+            "gross_pnl_before_costs": 5900.0000000000055,
+            "net_pnl_after_costs": 5356.167499999996,
+            "transaction_cost": 543.8325,
+            "cost_to_gross_profit": 0.09217499999999991,
+            "gross_profit": 5356.167499999996,
+            "gross_loss": 0.0,
+            "profit_factor": null,
+            "sharpe_ratio": 2.137447147190664,
+            "max_drawdown_pct": -0.3949178855698232
+          },
+          "trades": [
+            {
+              "date": "2026-06-02",
+              "side": "BUY",
+              "price": 88.5,
+              "shares": 1000,
+              "reason": "model_signal",
+              "commission": 126.11250000000001,
+              "tax": 0.0
+            },
+            {
+              "date": "2026-06-05",
+              "side": "SELL",
+              "price": 94.4,
+              "shares": 1000,
+              "reason": "next_open_signal_or_time",
+              "gross_pnl": 5900.0000000000055,
+              "commission": 134.52,
+              "tax": 283.2,
+              "pnl": 5356.167499999996
+            }
+          ]
+        }
+      },
+      "stability": {
+        "stocks": 6,
+        "active_stocks": 2,
+        "profitable_stocks": 1,
+        "total_round_trips": 2,
+        "mean_return_pct": 0.6873742499999983,
+        "median_return_pct": 0.0,
+        "return_std_pct": 2.3397120312022044,
+        "worst_return_pct": -1.2319219999999964,
+        "best_return_pct": 5.356167499999986,
+        "mean_sharpe_ratio": 0.7050042714327598,
+        "mean_profit_factor": 0.0
+      }
+    }
+  }
+}
