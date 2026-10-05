@@ -13,6 +13,7 @@ import numpy as np
 import pandas as pd
 
 from ml.data_pipeline import PreparedData, _rsi
+from ml.data_roles import ACTIVE_ROLE_NAMES, assert_ml_read_period, validate_active_periods
 from trading_system.research_guard import assert_development_period, assert_payload
 
 TAIPEI = ZoneInfo("Asia/Taipei")
@@ -29,19 +30,36 @@ def load_trading_plan(path: Path) -> dict[str, Any]:
     assert_payload(plan)
     if plan.get("data_role") != "ml_development_seen":
         raise ValueError("ML Trading 只能使用已登記的開發資料。")
-    for split in ("train", "validation", "test"):
-        spec = plan["periods"][split]
+    if plan.get("data_policy") != "configs/ml_data_policy.json":
+        raise ValueError("ML Trading 必須使用 configs/ml_data_policy.json。")
+    validate_active_periods(plan["periods"])
+    for role in ACTIVE_ROLE_NAMES:
+        spec = plan["periods"][role]
+        assert_ml_read_period(spec["start"], spec["end"])
         assert_development_period(spec["start"], spec["end"])
     if plan["holdout"] != {"start": "2025-07-01", "end": "2025-12-31", "access": "forbidden"}:
         raise ValueError("保留區間宣告遭到變更。")
     return plan
 
 
-def coverage_report(database: Path, plan: dict[str, Any]) -> Coverage:
+def _requested_roles(roles: tuple[str, ...] | list[str] | None) -> tuple[str, ...]:
+    requested = tuple(roles or ACTIVE_ROLE_NAMES)
+    if not requested or len(set(requested)) != len(requested):
+        raise ValueError("ML 資料角色不可為空或重複。")
+    unknown = sorted(set(requested) - set(ACTIVE_ROLE_NAMES))
+    if unknown:
+        raise ValueError(f"不允許的 ML 資料角色：{unknown}")
+    return requested
+
+
+def coverage_report(database: Path, plan: dict[str, Any], roles: tuple[str, ...] | list[str] | None = None) -> Coverage:
     rows: list[dict[str, Any]] = []
+    validate_active_periods(plan["periods"])
+    requested = _requested_roles(roles)
     with sqlite3.connect(database) as connection:
-        for split in ("train", "validation", "test"):
-            spec = plan["periods"][split]
+        for role in requested:
+            spec = plan["periods"][role]
+            assert_ml_read_period(spec["start"], spec["end"])
             assert_development_period(spec["start"], spec["end"])
             for code in plan["stock_codes"]:
                 item = connection.execute(
@@ -52,7 +70,7 @@ def coverage_report(database: Path, plan: dict[str, Any]) -> Coverage:
                 ).fetchone()
                 count = int(item[0])
                 rows.append({
-                    "split": split, "stock_code": code,
+                    "role": role, "stock_code": code,
                     "start": spec["start"], "end": spec["end"],
                     "kbar_rows": count,
                     "first_timestamp": item[1], "last_timestamp": item[2],
@@ -63,6 +81,7 @@ def coverage_report(database: Path, plan: dict[str, Any]) -> Coverage:
 
 def _read_split(database: Path, plan: dict[str, Any], split: str) -> pd.DataFrame:
     spec = plan["periods"][split]
+    assert_ml_read_period(spec["start"], spec["end"])
     assert_development_period(spec["start"], spec["end"])
     placeholders = ",".join("?" for _ in plan["stock_codes"])
     query = f"""SELECT stock_code, kbar_timestamp, open, high, low, close, volume
@@ -191,11 +210,19 @@ def _samples_for_split(featured: pd.DataFrame, plan: dict[str, Any]) -> tuple[li
     return samples, labels, metadata, daily, rejected
 
 
-def prepare_trading_data(database: Path, plan: dict[str, Any]) -> tuple[PreparedData, dict[str, pd.DataFrame]]:
+def prepare_trading_data(
+    database: Path,
+    plan: dict[str, Any],
+    roles: tuple[str, ...] | list[str] | None = None,
+    *,
+    apply_scaling: bool = True,
+    workflow_stage: str = "legacy_combined",
+) -> tuple[PreparedData, dict[str, pd.DataFrame]]:
     multiclass = plan.get("target", {}).get("classification") == "multiclass"
-    coverage = coverage_report(database, plan)
+    requested = _requested_roles(roles)
+    coverage = coverage_report(database, plan, requested)
     if not coverage.complete:
-        missing = [f"{r['split']}:{r['stock_code']}" for r in coverage.rows if not r["available"]]
+        missing = [f"{r['role']}:{r['stock_code']}" for r in coverage.rows if not r["available"]]
         raise RuntimeError("資料不足：" + ", ".join(missing))
     X0: dict[str, np.ndarray] = {}
     y: dict[str, np.ndarray] = {}
@@ -203,23 +230,33 @@ def prepare_trading_data(database: Path, plan: dict[str, Any]) -> tuple[Prepared
     markets: dict[str, pd.DataFrame] = {}
     cleaning: dict[str, Any] = {}
     rejected: dict[str, int] = {}
-    for split in ("train", "validation", "test"):
-        raw = _read_split(database, plan, split)
+    for role in requested:
+        raw = _read_split(database, plan, role)
         featured, audit = _intraday_features(raw, plan["features"])
         samples, labels, meta, market, reject_count = _samples_for_split(featured, plan)
         if not samples:
-            raise RuntimeError(f"{split} 無法建立有效樣本。")
-        X0[split] = np.asarray(samples, dtype=np.float32)
-        y[split] = np.asarray(labels, dtype=np.int64)
-        metadata[split] = pd.DataFrame(meta)
-        markets[split] = market
-        cleaning[split] = audit
-        rejected[split] = reject_count
-    train_flat = X0["train"].reshape(-1, len(plan["features"])).astype(np.float64)
-    mean = train_flat.mean(axis=0)
-    scale = train_flat.std(axis=0)
-    scale[scale == 0] = 1.0
-    X = {key: ((value - mean) / scale).astype(np.float32) for key, value in X0.items()}
+            raise RuntimeError(f"{role} 無法建立有效樣本。")
+        X0[role] = np.asarray(samples, dtype=np.float32)
+        y[role] = np.asarray(labels, dtype=np.int64)
+        metadata[role] = pd.DataFrame(meta)
+        markets[role] = market
+        cleaning[role] = audit
+        rejected[role] = reject_count
+    feature_count = len(plan["features"])
+    if apply_scaling:
+        if "train" not in X0:
+            raise ValueError("套用標準化時必須包含 train；Validation 與 Development 不可自行 fit scaler。")
+        train_flat = X0["train"].reshape(-1, feature_count).astype(np.float64)
+        mean = train_flat.mean(axis=0)
+        scale = train_flat.std(axis=0)
+        scale[scale == 0] = 1.0
+        X = {key: ((value - mean) / scale).astype(np.float32) for key, value in X0.items()}
+        scaler_fit_on = "train"
+    else:
+        mean = np.zeros(feature_count, dtype=np.float64)
+        scale = np.ones(feature_count, dtype=np.float64)
+        X = {key: value.astype(np.float32, copy=True) for key, value in X0.items()}
+        scaler_fit_on = None
     class_distribution = {
         key: {str(label): int((y[key] == label).sum()) for label in sorted(set(y[key].tolist()))}
         for key in y
@@ -230,6 +267,8 @@ def prepare_trading_data(database: Path, plan: dict[str, Any]) -> tuple[Prepared
         "positive_rate": {key: float(y[key].mean()) for key in y} if not multiclass else None,
         "class_distribution": class_distribution,
         "samples_by_stock": {key: metadata[key]["stock_code"].value_counts().sort_index().astype(int).to_dict() for key in metadata},
-        "scaler_fit_on": "train_only",
+        "scaler_fit_on": scaler_fit_on,
+        "workflow_stage": workflow_stage,
+        "loaded_roles": list(requested),
     }
     return PreparedData(X, y, metadata, plan["features"], mean, scale, audit), markets

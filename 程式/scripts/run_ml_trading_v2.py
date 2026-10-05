@@ -40,11 +40,11 @@ def render(
     rows, stability_rows, classification_rows = [], [], []
     for model, payload in results["models"].items():
         s = payload["stability"]
-        test = payload["classification"]["splits"]["test"]
-        signals = payload["test_signal_counts"]
+        development = payload["classification"]["splits"]["development"]
+        signals = payload["development_signal_counts"]
         classification_rows.append(
-            f"<tr><td>{html.escape(model)}</td><td>{test['accuracy']:.3f}</td>"
-            f"<td>{test['macro_f1']:.3f}</td><td>{test['macro_roc_auc_ovr']:.3f}</td>"
+            f"<tr><td>{html.escape(model)}</td><td>{development['accuracy']:.3f}</td>"
+            f"<td>{development['macro_f1']:.3f}</td><td>{development['macro_roc_auc_ovr']:.3f}</td>"
             f"<td>{signals['SELL']}</td><td>{signals['HOLD']}</td><td>{signals['BUY']}</td></tr>"
         )
         stability_rows.append(
@@ -92,13 +92,13 @@ def execute(plan_path: Path, out: Path, latest: Path, title: str, change_note: s
         "experiment_id": plan["experiment_id"], "status": "completed",
         "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
         "holdout_used": False, "audit": data.audit, "models": {},
-        "benchmarks": {"buy_and_hold": buy_and_hold(markets["test"], rules), "cash_return_pct": 0.0},
+        "benchmarks": {"buy_and_hold": buy_and_hold(markets["development"], rules), "cash_return_pct": 0.0},
     }
     prediction_parts = []
     for name in ("random_forest", "xgboost", "gru"):
         print(f"訓練 {name} 三分類模型...", flush=True)
         _, metrics, probabilities = run_multiclass_model(name, data, plan["models"][name])
-        for split in ("validation", "test"):
+        for split in ("validation", "development"):
             frame = data.metadata[split].reset_index(drop=True).copy()
             frame["model"] = name; frame["split"] = split; frame["actual_label"] = data.y[split]
             frame["p_sell"] = probabilities[split][:, 0]
@@ -106,11 +106,11 @@ def execute(plan_path: Path, out: Path, latest: Path, title: str, change_note: s
             frame["p_buy"] = probabilities[split][:, 2]
             frame["predicted_signal"] = LABELS[probabilities[split].argmax(axis=1)]
             prediction_parts.append(frame)
-        test_signals = LABELS[probabilities["test"].argmax(axis=1)]
-        trading = run_signal_backtest(markets["test"], data.metadata["test"], test_signals, rules)
+        development_signals = LABELS[probabilities["development"].argmax(axis=1)]
+        trading = run_signal_backtest(markets["development"], data.metadata["development"], development_signals, rules)
         results["models"][name] = {
             "classification": metrics,
-            "test_signal_counts": {signal: int((test_signals == signal).sum()) for signal in LABELS},
+            "development_signal_counts": {signal: int((development_signals == signal).sum()) for signal in LABELS},
             "trading_by_stock": trading,
             "stability": stability_summary(trading),
         }

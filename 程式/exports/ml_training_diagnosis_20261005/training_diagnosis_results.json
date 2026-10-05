@@ -1,0 +1,396 @@
+{
+  "report_name": "ML Training-only Complete Diagnosis",
+  "generated_at": "2026-10-05T21:09:14+08:00",
+  "scope": {
+    "period": [
+      "2023-01-01",
+      "2024-12-31"
+    ],
+    "method": "5-stock LOSO x 4-fold expanding-window",
+    "industries": {
+      "technology": [
+        "2303",
+        "2330",
+        "2379",
+        "2454",
+        "3034"
+      ],
+      "financial": [
+        "2881",
+        "2882",
+        "2884",
+        "2886",
+        "2891"
+      ]
+    },
+    "feature_policy": {
+      "random_forest": {
+        "feature_set": "A",
+        "context_features": []
+      },
+      "xgboost": {
+        "feature_set": "A",
+        "context_features": []
+      },
+      "gru": {
+        "feature_set": "A+VOLUME",
+        "context_features": [
+          "volume_trend_5d",
+          "volume_trend_20d"
+        ]
+      }
+    },
+    "trading_signal": "argmax class == BUY",
+    "trading_rule_source": "configs/ml_trading_v3_20261004.json",
+    "trading_metrics_are_diagnostic_only": true
+  },
+  "guardrails": {
+    "training_only": true,
+    "controlled_validation_used": false,
+    "development_used": false,
+    "holdout_used": false,
+    "final_oos_used": false,
+    "feature_search": false,
+    "parameter_search": false,
+    "probability_threshold_search": false,
+    "trading_metrics_used_for_model_selection": false,
+    "heldout_stock_never_in_training": true,
+    "heldout_stock_never_in_gru_early_stopping": true
+  },
+  "data_audit": {
+    "loaded_role": "train",
+    "stock_codes": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "2881",
+      "2882",
+      "2884",
+      "2886",
+      "2891",
+      "3034"
+    ],
+    "coverage": [
+      {
+        "role": "train",
+        "stock_code": "2303",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26453,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2330",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26453,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2379",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26384,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2454",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26451,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2881",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26452,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2882",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26452,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2884",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26451,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2886",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26453,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2891",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26453,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "3034",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26434,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      }
+    ],
+    "cleaning": {
+      "duplicates_removed": 0,
+      "invalid_ohlcv_removed": 0
+    },
+    "sample_rejections_before_context_alignment": 18,
+    "samples_after_common_alignment": 4580,
+    "context_features": [
+      "volume_trend_5d",
+      "volume_trend_20d"
+    ],
+    "common_sample_alignment_across_models": true
+  },
+  "classification_summary": [
+    {
+      "industry": "technology",
+      "model": "random_forest",
+      "macro_f1_mean": 0.3035329990104632,
+      "macro_f1_std": 0.04957467483575976,
+      "macro_f1_worst_fold": 0.2178350670887984,
+      "macro_auc_mean": 0.4965454478406506,
+      "macro_auc_std": 0.056814641997328844,
+      "macro_auc_worst_fold": 0.35741166453810136,
+      "sell_auc_mean": 0.48116924391505417,
+      "hold_auc_mean": 0.4951092044271898,
+      "buy_auc_mean": 0.513357895179708,
+      "stock_f1_std": 0.014976694831055242,
+      "stock_f1_worst": 0.28651142147504693,
+      "stock_auc_std": 0.030331298400094152,
+      "stock_auc_worst": 0.4485997179541146
+    },
+    {
+      "industry": "technology",
+      "model": "xgboost",
+      "macro_f1_mean": 0.3119062373398961,
+      "macro_f1_std": 0.047888797509573144,
+      "macro_f1_worst_fold": 0.22506012506012504,
+      "macro_auc_mean": 0.495883122827813,
+      "macro_auc_std": 0.03623348873809035,
+      "macro_auc_worst_fold": 0.4322876559204684,
+      "sell_auc_mean": 0.4799834014940375,
+      "hold_auc_mean": 0.5024490007715222,
+      "buy_auc_mean": 0.5052169662178791,
+      "stock_f1_std": 0.01704708410127225,
+      "stock_f1_worst": 0.2904354011586862,
+      "stock_auc_std": 0.018311254890329927,
+      "stock_auc_worst": 0.47595572161249605
+    },
+    {
+      "industry": "technology",
+      "model": "gru",
+      "macro_f1_mean": 0.2872124594958785,
+      "macro_f1_std": 0.046541541783702754,
+      "macro_f1_worst_fold": 0.21648672964462437,
+      "macro_auc_mean": 0.4808584670128888,
+      "macro_auc_std": 0.04534031256283585,
+      "macro_auc_worst_fold": 0.38492975734355045,
+      "sell_auc_mean": 0.48085523092931953,
+      "hold_auc_mean": 0.48579303471696245,
+      "buy_auc_mean": 0.4759271353923844,
+      "stock_f1_std": 0.019983106062021305,
+      "stock_f1_worst": 0.2662612884335493,
+      "stock_auc_std": 0.0156663461133754,
+      "stock_auc_worst": 0.4597549895699398
+    },
+    {
+      "industry": "financial",
+      "model": "random_forest",
+      "macro_f1_mean": 0.33158023878074366,
+      "macro_f1_std": 0.0474476965297952,
+      "macro_f1_worst_fold": 0.2396825396825397,
+      "macro_auc_mean": 0.5033080264705381,
+      "macro_auc_std": 0.04986691011598236,
+      "macro_auc_worst_fold": 0.43353451974141627,
+      "sell_auc_mean": 0.4986028912438779,
+      "hold_auc_mean": 0.4894328213013409,
+      "buy_auc_mean": 0.5218883668663956,
+      "stock_f1_std": 0.017407748253207893,
+      "stock_f1_worst": 0.309409558122991,
+      "stock_auc_std": 0.03114921940373917,
+      "stock_auc_worst": 0.4577561434093605
+    },
+    {
+      "industry": "financial",
+      "model": "xgboost",
+      "macro_f1_mean": 0.3285744699097261,
+      "macro_f1_std": 0.05335611253717989,
+      "macro_f1_worst_fold": 0.27289377289377287,
+      "macro_auc_mean": 0.5109018750837995,
+      "macro_auc_std": 0.059581283999129445,
+      "macro_auc_worst_fold": 0.3917240295314799,
+      "sell_auc_mean": 0.48794885939425703,
+      "hold_auc_mean": 0.49975553255269156,
+      "buy_auc_mean": 0.5450012333044503,
+      "stock_f1_std": 0.016691508207767734,
+      "stock_f1_worst": 0.3105854259331978,
+      "stock_auc_std": 0.020569227769966454,
+      "stock_auc_worst": 0.4887685133345778
+    },
+    {
+      "industry": "financial",
+      "model": "gru",
+      "macro_f1_mean": 0.3189265676263728,
+      "macro_f1_std": 0.05845955400934694,
+      "macro_f1_worst_fold": 0.21984126984126984,
+      "macro_auc_mean": 0.5267740131599512,
+      "macro_auc_std": 0.06061362334404191,
+      "macro_auc_worst_fold": 0.39340051216422905,
+      "sell_auc_mean": 0.4934513198219436,
+      "hold_auc_mean": 0.526854079586565,
+      "buy_auc_mean": 0.560016640071345,
+      "stock_f1_std": 0.04986973340828376,
+      "stock_f1_worst": 0.25992095696500606,
+      "stock_auc_std": 0.044525283927676455,
+      "stock_auc_worst": 0.4718644056304089
+    }
+  ],
+  "baseline_summary": [
+    {
+      "industry": "technology",
+      "baseline": "peer-training class-prior argmax",
+      "macro_f1_mean": 0.18344974639224015,
+      "macro_f1_worst": 0.12794612794612795,
+      "macro_auc_mean": 0.5,
+      "macro_auc_worst": 0.5
+    },
+    {
+      "industry": "financial",
+      "baseline": "peer-training class-prior argmax",
+      "macro_f1_mean": 0.20555736507350986,
+      "macro_f1_worst": 0.1423948220064725,
+      "macro_auc_mean": 0.5,
+      "macro_auc_worst": 0.5
+    }
+  ],
+  "trading_summary": [
+    {
+      "industry": "technology",
+      "model": "random_forest",
+      "aggregation": "5 independent equal-weight 100k subaccounts",
+      "initial_equity": 500000.0,
+      "final_equity": 415826.12877537427,
+      "net_profit": -84173.87122462573,
+      "total_return": -0.16834774244925144,
+      "trade_count": 268,
+      "win_rate": 0.45149253731343286,
+      "mean_stock_max_drawdown": -0.2373709554604516,
+      "worst_stock_max_drawdown": -0.3082265216510105,
+      "profit_factor": 0.7368464139522093
+    },
+    {
+      "industry": "technology",
+      "model": "xgboost",
+      "aggregation": "5 independent equal-weight 100k subaccounts",
+      "initial_equity": 500000.0,
+      "final_equity": 414835.2458604996,
+      "net_profit": -85164.75413950038,
+      "total_return": -0.17032950827900073,
+      "trade_count": 223,
+      "win_rate": 0.4349775784753363,
+      "mean_stock_max_drawdown": -0.23066983054206514,
+      "worst_stock_max_drawdown": -0.2919711992362508,
+      "profit_factor": 0.6836158612620404
+    },
+    {
+      "industry": "technology",
+      "model": "gru",
+      "aggregation": "5 independent equal-weight 100k subaccounts",
+      "initial_equity": 500000.0,
+      "final_equity": 374260.00269012444,
+      "net_profit": -125739.99730987556,
+      "total_return": -0.2514799946197511,
+      "trade_count": 299,
+      "win_rate": 0.38461538461538464,
+      "mean_stock_max_drawdown": -0.3044732376981949,
+      "worst_stock_max_drawdown": -0.35211742740905927,
+      "profit_factor": 0.6321670809065066
+    },
+    {
+      "industry": "financial",
+      "model": "random_forest",
+      "aggregation": "5 independent equal-weight 100k subaccounts",
+      "initial_equity": 500000.0,
+      "final_equity": 470192.67051524983,
+      "net_profit": -29807.329484750167,
+      "total_return": -0.059614658969500356,
+      "trade_count": 198,
+      "win_rate": 0.4696969696969697,
+      "mean_stock_max_drawdown": -0.09126364967698353,
+      "worst_stock_max_drawdown": -0.16817288621403248,
+      "profit_factor": 0.6749864477989513
+    },
+    {
+      "industry": "financial",
+      "model": "xgboost",
+      "aggregation": "5 independent equal-weight 100k subaccounts",
+      "initial_equity": 500000.0,
+      "final_equity": 487548.1949249997,
+      "net_profit": -12451.805075000273,
+      "total_return": -0.024903610150000532,
+      "trade_count": 171,
+      "win_rate": 0.4853801169590643,
+      "mean_stock_max_drawdown": -0.0679538355662527,
+      "worst_stock_max_drawdown": -0.12574274493635218,
+      "profit_factor": 0.818573420686287
+    },
+    {
+      "industry": "financial",
+      "model": "gru",
+      "aggregation": "5 independent equal-weight 100k subaccounts",
+      "initial_equity": 500000.0,
+      "final_equity": 437795.16826709965,
+      "net_profit": -62204.83173290035,
+      "total_return": -0.12440966346580073,
+      "trade_count": 270,
+      "win_rate": 0.37407407407407406,
+      "mean_stock_max_drawdown": -0.1331129012111942,
+      "worst_stock_max_drawdown": -0.2948127252923082,
+      "profit_factor": 0.504835070198724
+    }
+  ]
+}

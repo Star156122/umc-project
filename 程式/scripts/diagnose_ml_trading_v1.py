@@ -39,7 +39,7 @@ def render(diagnostics: dict) -> str:
             f"<td>{s['mean_return_pct']:.2f}%</td><td>{s['median_return_pct']:.2f}%</td>"
             f"<td>{s['return_std_pct']:.2f}</td><td>{s['profitable_stocks']}/6</td></tr>"
         )
-        for code, item in payload["test_probability_by_stock"].items():
+        for code, item in payload["development_probability_by_stock"].items():
             counts = item["signal_counts"]
             reason = item["zero_buy_reason"] or "—"
             signal_rows.append(
@@ -52,7 +52,7 @@ def render(diagnostics: dict) -> str:
 <h1>ML Trading V1：Label、訊號與穩定度診斷</h1>
 <div class='card warn'><b>重要發現：</b>目前模型不是三分類。Label 只有「三日後淨報酬是否超過 1%」的 0／1；BUY、HOLD、SELL 是把單一上漲機率套入 0.60／0.45 門檻後才產生。0 次交易主要要看最高預測機率是否曾達到 0.60。</div>
 <h2>跨股票穩定度</h2><table><tr><th>模型</th><th>有交易股票</th><th>總交易</th><th>平均報酬</th><th>中位報酬</th><th>報酬標準差</th><th>獲利股票</th></tr>{''.join(stability_rows)}</table>
-<h2>測試期訊號分布</h2><table><tr><th>模型</th><th>股票</th><th>樣本</th><th>BUY</th><th>HOLD</th><th>SELL</th><th>平均機率</th><th>最高機率</th><th>0 BUY 原因</th></tr>{''.join(signal_rows)}</table>
+<h2>Development 訊號分布</h2><table><tr><th>模型</th><th>股票</th><th>樣本</th><th>BUY</th><th>HOLD</th><th>SELL</th><th>平均機率</th><th>最高機率</th><th>0 BUY 原因</th></tr>{''.join(signal_rows)}</table>
 <div class='card'>本報告只診斷現有模型，沒有改 Label、Features、模型參數或交易門檻；locked / forbidden 資料未讀取。</div></html>"""
 
 
@@ -83,15 +83,15 @@ def main() -> int:
         print(f"診斷 {name}...", flush=True)
         _, metrics, probabilities = run_model(name, data, plan["models"][name])
         frames = []
-        for split in ("validation", "test"):
+        for split in ("validation", "development"):
             frame = prediction_frame(name, split, data.metadata[split], data.y[split], probabilities[split], buy, sell)
             frames.append(frame); prediction_parts.append(frame)
-        test_frame = next(frame for frame in frames if frame["split"].iloc[0] == "test")
-        trading = run_probability_backtest(markets["test"], data.metadata["test"], probabilities["test"], rules)
+        development_frame = next(frame for frame in frames if frame["split"].iloc[0] == "development")
+        trading = run_probability_backtest(markets["development"], data.metadata["development"], probabilities["development"], rules)
         diagnostics["models"][name] = {
             "classification": metrics,
             "validation_probability_by_stock": probability_diagnostics(frames[0], buy),
-            "test_probability_by_stock": probability_diagnostics(test_frame, buy),
+            "development_probability_by_stock": probability_diagnostics(development_frame, buy),
             "trading_by_stock": trading,
             "stability": stability_summary(trading),
         }

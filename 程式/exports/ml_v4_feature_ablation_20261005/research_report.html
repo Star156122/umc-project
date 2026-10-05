@@ -1,0 +1,1848 @@
+<!doctype html><html lang='zh-Hant'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width'><title>V4 Research Fix1</title><style>body{font-family:system-ui,'Noto Sans TC';max-width:1500px;margin:28px auto;padding:0 18px;background:#f6f8fb;color:#182536}section{background:#fff;border:1px solid #dae3ea;border-radius:12px;padding:18px;margin:16px 0}h1,h2{color:#0b527a}table{border-collapse:collapse;width:100%;font-size:13px}th,td{border:1px solid #d6e0e8;padding:6px;text-align:right}th:first-child,td:first-child{text-align:left}th{background:#eaf3f8}pre{white-space:pre-wrap}</style></head><body>
+<h1>V4 Training-only Research Framework Fix1</h1>
+<section><h2>1. Framework Fix Audit</h2><pre>{
+  &quot;daily_context_repeated_across_timesteps&quot;: false,
+  &quot;intraday_feature_count&quot;: 24,
+  &quot;context_feature_count_A&quot;: 0,
+  &quot;context_feature_count_B&quot;: 12,
+  &quot;rf_xgb_context_appended_once&quot;: true,
+  &quot;gru_context_after_sequence_encoder&quot;: true,
+  &quot;intraday_scaler_fit_fold_train_only&quot;: true,
+  &quot;context_scaler_fit_fold_train_only&quot;: true,
+  &quot;controlled_validation_used&quot;: false,
+  &quot;development_used&quot;: false,
+  &quot;forbidden_roles_used&quot;: false
+}</pre></section>
+<section><h2>2. Experiment Design</h2><pre>{
+  &quot;enabled_experiments&quot;: [
+    {
+      &quot;id&quot;: &quot;A_all_stocks&quot;,
+      &quot;enabled&quot;: true,
+      &quot;feature_set&quot;: &quot;A&quot;,
+      &quot;stock_group&quot;: &quot;all_stocks&quot;,
+      &quot;comparison_group&quot;: &quot;stage1_all_stocks&quot;,
+      &quot;formal&quot;: true
+    },
+    {
+      &quot;id&quot;: &quot;VOL_all_stocks&quot;,
+      &quot;enabled&quot;: true,
+      &quot;feature_set&quot;: &quot;VOL&quot;,
+      &quot;stock_group&quot;: &quot;all_stocks&quot;,
+      &quot;comparison_group&quot;: &quot;stage1_all_stocks&quot;,
+      &quot;formal&quot;: true
+    },
+    {
+      &quot;id&quot;: &quot;TREND_all_stocks&quot;,
+      &quot;enabled&quot;: true,
+      &quot;feature_set&quot;: &quot;TREND&quot;,
+      &quot;stock_group&quot;: &quot;all_stocks&quot;,
+      &quot;comparison_group&quot;: &quot;stage1_all_stocks&quot;,
+      &quot;formal&quot;: true
+    },
+    {
+      &quot;id&quot;: &quot;VOLUME_all_stocks&quot;,
+      &quot;enabled&quot;: true,
+      &quot;feature_set&quot;: &quot;VOLUME&quot;,
+      &quot;stock_group&quot;: &quot;all_stocks&quot;,
+      &quot;comparison_group&quot;: &quot;stage1_all_stocks&quot;,
+      &quot;formal&quot;: true
+    },
+    {
+      &quot;id&quot;: &quot;POSITION_all_stocks&quot;,
+      &quot;enabled&quot;: true,
+      &quot;feature_set&quot;: &quot;POSITION&quot;,
+      &quot;stock_group&quot;: &quot;all_stocks&quot;,
+      &quot;comparison_group&quot;: &quot;stage1_all_stocks&quot;,
+      &quot;formal&quot;: true
+    },
+    {
+      &quot;id&quot;: &quot;B_all_stocks&quot;,
+      &quot;enabled&quot;: true,
+      &quot;feature_set&quot;: &quot;B&quot;,
+      &quot;stock_group&quot;: &quot;all_stocks&quot;,
+      &quot;comparison_group&quot;: &quot;stage1_all_stocks&quot;,
+      &quot;formal&quot;: true
+    }
+  ],
+  &quot;model_settings&quot;: {
+    &quot;random_forest&quot;: {
+      &quot;config_name&quot;: &quot;flexible&quot;,
+      &quot;params&quot;: {
+        &quot;n_estimators&quot;: 200,
+        &quot;max_depth&quot;: 10,
+        &quot;min_samples_leaf&quot;: 5,
+        &quot;class_weight&quot;: &quot;balanced&quot;,
+        &quot;random_state&quot;: 42
+      }
+    },
+    &quot;xgboost&quot;: {
+      &quot;config_name&quot;: &quot;baseline&quot;,
+      &quot;params&quot;: {
+        &quot;n_estimators&quot;: 150,
+        &quot;max_depth&quot;: 4,
+        &quot;learning_rate&quot;: 0.05,
+        &quot;subsample&quot;: 0.8,
+        &quot;colsample_bytree&quot;: 0.8,
+        &quot;random_state&quot;: 42
+      }
+    },
+    &quot;gru&quot;: {
+      &quot;config_name&quot;: &quot;smaller&quot;,
+      &quot;params&quot;: {
+        &quot;hidden_size&quot;: 16,
+        &quot;num_layers&quot;: 1,
+        &quot;dropout&quot;: 0.0,
+        &quot;batch_size&quot;: 128,
+        &quot;max_epochs&quot;: 10,
+        &quot;patience&quot;: 2,
+        &quot;learning_rate&quot;: 0.001,
+        &quot;random_state&quot;: 42
+      }
+    }
+  },
+  &quot;walk_forward&quot;: &quot;4-fold expanding-window&quot;,
+  &quot;common_sample_alignment&quot;: {
+    &quot;stage1_all_stocks&quot;: {
+      &quot;experiment_ids&quot;: [
+        &quot;A_all_stocks&quot;,
+        &quot;VOL_all_stocks&quot;,
+        &quot;TREND_all_stocks&quot;,
+        &quot;VOLUME_all_stocks&quot;,
+        &quot;POSITION_all_stocks&quot;,
+        &quot;B_all_stocks&quot;
+      ],
+      &quot;common_samples&quot;: 2732,
+      &quot;original_samples&quot;: {
+        &quot;A_all_stocks&quot;: 2851,
+        &quot;VOL_all_stocks&quot;: 2732,
+        &quot;TREND_all_stocks&quot;: 2732,
+        &quot;VOLUME_all_stocks&quot;: 2738,
+        &quot;POSITION_all_stocks&quot;: 2738,
+        &quot;B_all_stocks&quot;: 2732
+      },
+      &quot;labels_identical&quot;: true,
+      &quot;future_net_return_max_abs_error&quot;: 0.0
+    }
+  },
+  &quot;training_data_load&quot;: {
+    &quot;loaded_role&quot;: &quot;train&quot;,
+    &quot;stock_union&quot;: [
+      &quot;2002&quot;,
+      &quot;2303&quot;,
+      &quot;2330&quot;,
+      &quot;2412&quot;,
+      &quot;2881&quot;,
+      &quot;2882&quot;
+    ],
+    &quot;coverage&quot;: [
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2002&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26452,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2303&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26453,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2330&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26453,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2412&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26451,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2881&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26452,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2882&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26452,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      }
+    ]
+  },
+  &quot;selection_uses_trading_return&quot;: false
+}</pre></section>
+<section><h2>3. Walk-forward Metrics</h2><table><tr><th>實驗</th><th>模型</th><th>F1 mean</th><th>F1 std</th><th>F1 worst</th><th>AUC mean</th><th>AUC std</th><th>AUC worst</th></tr><tr><td>A_all_stocks</td><td>random_forest</td><td>0.3820</td><td>0.0177</td><td>0.3597</td><td>0.5708</td><td>0.0263</td><td>0.5320</td></tr><tr><td>A_all_stocks</td><td>xgboost</td><td>0.3510</td><td>0.0201</td><td>0.3401</td><td>0.5662</td><td>0.0263</td><td>0.5283</td></tr><tr><td>A_all_stocks</td><td>gru</td><td>0.3698</td><td>0.0310</td><td>0.3486</td><td>0.5443</td><td>0.0272</td><td>0.5057</td></tr><tr><td>VOL_all_stocks</td><td>random_forest</td><td>0.3734</td><td>0.0316</td><td>0.3511</td><td>0.5744</td><td>0.0230</td><td>0.5485</td></tr><tr><td>VOL_all_stocks</td><td>xgboost</td><td>0.3705</td><td>0.0154</td><td>0.3543</td><td>0.5643</td><td>0.0287</td><td>0.5236</td></tr><tr><td>VOL_all_stocks</td><td>gru</td><td>0.3611</td><td>0.0349</td><td>0.3211</td><td>0.5585</td><td>0.0143</td><td>0.5466</td></tr><tr><td>TREND_all_stocks</td><td>random_forest</td><td>0.3787</td><td>0.0121</td><td>0.3685</td><td>0.5740</td><td>0.0202</td><td>0.5463</td></tr><tr><td>TREND_all_stocks</td><td>xgboost</td><td>0.3645</td><td>0.0157</td><td>0.3531</td><td>0.5647</td><td>0.0224</td><td>0.5337</td></tr><tr><td>TREND_all_stocks</td><td>gru</td><td>0.3368</td><td>0.0327</td><td>0.2992</td><td>0.5321</td><td>0.0259</td><td>0.4943</td></tr><tr><td>VOLUME_all_stocks</td><td>random_forest</td><td>0.3777</td><td>0.0109</td><td>0.3636</td><td>0.5740</td><td>0.0309</td><td>0.5286</td></tr><tr><td>VOLUME_all_stocks</td><td>xgboost</td><td>0.3529</td><td>0.0230</td><td>0.3287</td><td>0.5612</td><td>0.0291</td><td>0.5196</td></tr><tr><td>VOLUME_all_stocks</td><td>gru</td><td>0.3738</td><td>0.0242</td><td>0.3494</td><td>0.5515</td><td>0.0178</td><td>0.5304</td></tr><tr><td>POSITION_all_stocks</td><td>random_forest</td><td>0.3705</td><td>0.0151</td><td>0.3572</td><td>0.5707</td><td>0.0269</td><td>0.5310</td></tr><tr><td>POSITION_all_stocks</td><td>xgboost</td><td>0.3507</td><td>0.0262</td><td>0.3286</td><td>0.5648</td><td>0.0255</td><td>0.5320</td></tr><tr><td>POSITION_all_stocks</td><td>gru</td><td>0.3629</td><td>0.0299</td><td>0.3250</td><td>0.5444</td><td>0.0200</td><td>0.5149</td></tr><tr><td>B_all_stocks</td><td>random_forest</td><td>0.3815</td><td>0.0222</td><td>0.3506</td><td>0.5730</td><td>0.0278</td><td>0.5327</td></tr><tr><td>B_all_stocks</td><td>xgboost</td><td>0.3669</td><td>0.0256</td><td>0.3317</td><td>0.5649</td><td>0.0354</td><td>0.5138</td></tr><tr><td>B_all_stocks</td><td>gru</td><td>0.3718</td><td>0.0265</td><td>0.3509</td><td>0.5502</td><td>0.0212</td><td>0.5352</td></tr></table></section>
+<section><h2>4. Comparison Groups</h2><pre>{
+  &quot;stage1_all_stocks&quot;: {
+    &quot;baseline_experiment&quot;: &quot;A_all_stocks&quot;,
+    &quot;experimental_experiment&quot;: &quot;B_all_stocks&quot;,
+    &quot;status&quot;: &quot;completed&quot;,
+    &quot;comparison&quot;: {
+      &quot;random_forest&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: -0.0005567775295641231,
+          &quot;standard_deviation&quot;: 0.004490295766335205,
+          &quot;worst&quot;: -0.009115741624796392
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: 0.0022188087546722857,
+          &quot;standard_deviation&quot;: 0.0015022035439621675,
+          &quot;worst&quot;: 0.0006844351026944473
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: 0.005607981363708214,
+          &quot;HOLD&quot;: 0.0029124808126497204,
+          &quot;BUY&quot;: -0.0018640359123411887
+        },
+        &quot;stocks_higher_mean_f1&quot;: 3,
+        &quot;stocks_higher_mean_auc&quot;: 3
+      },
+      &quot;xgboost&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: 0.015911394527936384,
+          &quot;standard_deviation&quot;: 0.0054769377233357674,
+          &quot;worst&quot;: -0.008441374262774859
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: -0.0012680761164647336,
+          &quot;standard_deviation&quot;: 0.009118461410866176,
+          &quot;worst&quot;: -0.01448809204442214
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: 0.007476479112525913,
+          &quot;HOLD&quot;: 0.0028447554068663505,
+          &quot;BUY&quot;: -0.014125462868786465
+        },
+        &quot;stocks_higher_mean_f1&quot;: 4,
+        &quot;stocks_higher_mean_auc&quot;: 4
+      },
+      &quot;gru&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: 0.0020359837471603526,
+          &quot;standard_deviation&quot;: -0.0044961956701235276,
+          &quot;worst&quot;: 0.002250619508235019
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: 0.005912801460959516,
+          &quot;standard_deviation&quot;: -0.005929531137775546,
+          &quot;worst&quot;: 0.029482715083049782
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: -0.005846606453987158,
+          &quot;HOLD&quot;: 0.006095277659669995,
+          &quot;BUY&quot;: 0.017489733177195932
+        },
+        &quot;stocks_higher_mean_f1&quot;: 2,
+        &quot;stocks_higher_mean_auc&quot;: 2
+      }
+    }
+  },
+  &quot;ablation_volatility&quot;: {
+    &quot;baseline_experiment&quot;: &quot;A_all_stocks&quot;,
+    &quot;experimental_experiment&quot;: &quot;VOL_all_stocks&quot;,
+    &quot;status&quot;: &quot;completed&quot;,
+    &quot;comparison&quot;: {
+      &quot;random_forest&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: -0.008674564824768638,
+          &quot;standard_deviation&quot;: 0.013903256256133461,
+          &quot;worst&quot;: -0.008570459748735715
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: 0.0035944253107267343,
+          &quot;standard_deviation&quot;: -0.003366981477737209,
+          &quot;worst&quot;: 0.016521093863457792
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: 0.007024518872307373,
+          &quot;HOLD&quot;: 0.00757280883427458,
+          &quot;BUY&quot;: -0.003814051774401861
+        },
+        &quot;stocks_higher_mean_f1&quot;: 3,
+        &quot;stocks_higher_mean_auc&quot;: 1
+      },
+      &quot;xgboost&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: 0.019493689130285097,
+          &quot;standard_deviation&quot;: -0.0047457252479061966,
+          &quot;worst&quot;: 0.014226543043291795
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: -0.001896665901545136,
+          &quot;standard_deviation&quot;: 0.0023867091647417488,
+          &quot;worst&quot;: -0.0046807776427167935
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: -0.009530274137133699,
+          &quot;HOLD&quot;: 0.0027044320370832597,
+          &quot;BUY&quot;: 0.001135844395415142
+        },
+        &quot;stocks_higher_mean_f1&quot;: 3,
+        &quot;stocks_higher_mean_auc&quot;: 3
+      },
+      &quot;gru&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: -0.008614654486602424,
+          &quot;standard_deviation&quot;: 0.0039075292998720056,
+          &quot;worst&quot;: -0.02754550988097587
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: 0.014199604401795018,
+          &quot;standard_deviation&quot;: -0.012861775154026128,
+          &quot;worst&quot;: 0.04089400468489335
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: -0.023592666826508957,
+          &quot;HOLD&quot;: 0.015371809243275747,
+          &quot;BUY&quot;: 0.050819670788618265
+        },
+        &quot;stocks_higher_mean_f1&quot;: 1,
+        &quot;stocks_higher_mean_auc&quot;: 2
+      }
+    }
+  },
+  &quot;ablation_trend&quot;: {
+    &quot;baseline_experiment&quot;: &quot;A_all_stocks&quot;,
+    &quot;experimental_experiment&quot;: &quot;TREND_all_stocks&quot;,
+    &quot;status&quot;: &quot;completed&quot;,
+    &quot;comparison&quot;: {
+      &quot;random_forest&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: -0.003350689589640188,
+          &quot;standard_deviation&quot;: -0.005574490167960416,
+          &quot;worst&quot;: 0.00882310109806178
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: 0.0031929049100370976,
+          &quot;standard_deviation&quot;: -0.006191118891770635,
+          &quot;worst&quot;: 0.014315453611526974
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: 0.000998006285068631,
+          &quot;HOLD&quot;: 0.01225458450894712,
+          &quot;BUY&quot;: -0.0036738760639045687
+        },
+        &quot;stocks_higher_mean_f1&quot;: 3,
+        &quot;stocks_higher_mean_auc&quot;: 4
+      },
+      &quot;xgboost&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: 0.013513877768500215,
+          &quot;standard_deviation&quot;: -0.004381690276157046,
+          &quot;worst&quot;: 0.012979906784388318
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: -0.0015254574516383457,
+          &quot;standard_deviation&quot;: -0.003872596280470035,
+          &quot;worst&quot;: 0.005394710331573904
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: 0.007431588759099328,
+          &quot;HOLD&quot;: -0.00046769362340348675,
+          &quot;BUY&quot;: -0.011540267490610656
+        },
+        &quot;stocks_higher_mean_f1&quot;: 6,
+        &quot;stocks_higher_mean_auc&quot;: 3
+      },
+      &quot;gru&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: -0.03296165256760669,
+          &quot;standard_deviation&quot;: 0.0017052164535971658,
+          &quot;worst&quot;: -0.049466272951350365
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: -0.012188072764835356,
+          &quot;standard_deviation&quot;: -0.0012579939857719734,
+          &quot;worst&quot;: -0.011401709659126735
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: -0.020244385484936123,
+          &quot;HOLD&quot;: 0.006679479445269143,
+          &quot;BUY&quot;: -0.022999312254838977
+        },
+        &quot;stocks_higher_mean_f1&quot;: 1,
+        &quot;stocks_higher_mean_auc&quot;: 0
+      }
+    }
+  },
+  &quot;ablation_volume&quot;: {
+    &quot;baseline_experiment&quot;: &quot;A_all_stocks&quot;,
+    &quot;experimental_experiment&quot;: &quot;VOLUME_all_stocks&quot;,
+    &quot;status&quot;: &quot;completed&quot;,
+    &quot;comparison&quot;: {
+      &quot;random_forest&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: -0.00436980016502353,
+          &quot;standard_deviation&quot;: -0.00674794529448196,
+          &quot;worst&quot;: 0.0039003864828330292
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: 0.0031848170519772623,
+          &quot;standard_deviation&quot;: 0.00453377738809279,
+          &quot;worst&quot;: -0.003439217551789886
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: 0.006995130738927546,
+          &quot;HOLD&quot;: 0.00214403830587262,
+          &quot;BUY&quot;: 0.00041528211113117663
+        },
+        &quot;stocks_higher_mean_f1&quot;: 3,
+        &quot;stocks_higher_mean_auc&quot;: 2
+      },
+      &quot;xgboost&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: 0.001942887262982529,
+          &quot;standard_deviation&quot;: 0.0028763178279546976,
+          &quot;worst&quot;: -0.011369283469668201
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: -0.004991223192847172,
+          &quot;standard_deviation&quot;: 0.0027881515333663467,
+          &quot;worst&quot;: -0.008720937168332332
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: -0.009131688468102084,
+          &quot;HOLD&quot;: 0.0006596876182419775,
+          &quot;BUY&quot;: -0.006501668728681076
+        },
+        &quot;stocks_higher_mean_f1&quot;: 4,
+        &quot;stocks_higher_mean_auc&quot;: 2
+      },
+      &quot;gru&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: 0.0040836736961206155,
+          &quot;standard_deviation&quot;: -0.006783035415197373,
+          &quot;worst&quot;: 0.0008013279616960189
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: 0.00726647846376538,
+          &quot;standard_deviation&quot;: -0.009367992693030805,
+          &quot;worst&quot;: 0.02470893249433126
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: -0.01451946945905569,
+          &quot;HOLD&quot;: 0.028911515253512654,
+          &quot;BUY&quot;: 0.007407389596839398
+        },
+        &quot;stocks_higher_mean_f1&quot;: 4,
+        &quot;stocks_higher_mean_auc&quot;: 2
+      }
+    }
+  },
+  &quot;ablation_position&quot;: {
+    &quot;baseline_experiment&quot;: &quot;A_all_stocks&quot;,
+    &quot;experimental_experiment&quot;: &quot;POSITION_all_stocks&quot;,
+    &quot;status&quot;: &quot;completed&quot;,
+    &quot;comparison&quot;: {
+      &quot;random_forest&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: -0.011509445403184326,
+          &quot;standard_deviation&quot;: -0.0026018271788136402,
+          &quot;worst&quot;: -0.0024515331604627044
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: -8.603956812058833e-05,
+          &quot;standard_deviation&quot;: 0.0005945569360238136,
+          &quot;worst&quot;: -0.0010172258016704072
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: 0.006113104524654633,
+          &quot;HOLD&quot;: -0.0016911655994347186,
+          &quot;BUY&quot;: -0.00468005762958168
+        },
+        &quot;stocks_higher_mean_f1&quot;: 3,
+        &quot;stocks_higher_mean_auc&quot;: 2
+      },
+      &quot;xgboost&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: -0.00023925256917561866,
+          &quot;standard_deviation&quot;: 0.006084609496592671,
+          &quot;worst&quot;: -0.011517106563907531
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: -0.0014399327898970693,
+          &quot;standard_deviation&quot;: -0.0007769090232465567,
+          &quot;worst&quot;: 0.0036774570901030312
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: -0.0015770467964237866,
+          &quot;HOLD&quot;: -0.0030753371740447344,
+          &quot;BUY&quot;: 0.0003325856007776462
+        },
+        &quot;stocks_higher_mean_f1&quot;: 5,
+        &quot;stocks_higher_mean_auc&quot;: 4
+      },
+      &quot;gru&quot;: {
+        &quot;macro_f1&quot;: {
+          &quot;mean&quot;: -0.006838405373397638,
+          &quot;standard_deviation&quot;: -0.0010317364652849131,
+          &quot;worst&quot;: -0.023642087890392627
+        },
+        &quot;macro_auc&quot;: {
+          &quot;mean&quot;: 7.918167653220287e-05,
+          &quot;standard_deviation&quot;: -0.007152657883463049,
+          &quot;worst&quot;: 0.009205562224802954
+        },
+        &quot;individual_auc_mean&quot;: {
+          &quot;SELL&quot;: -0.01998374499886746,
+          &quot;HOLD&quot;: 0.014727688373805115,
+          &quot;BUY&quot;: 0.005493601654659064
+        },
+        &quot;stocks_higher_mean_f1&quot;: 1,
+        &quot;stocks_higher_mean_auc&quot;: 1
+      }
+    }
+  },
+  &quot;future_technology&quot;: {
+    &quot;baseline_experiment&quot;: &quot;C_technology&quot;,
+    &quot;experimental_experiment&quot;: &quot;D_technology&quot;,
+    &quot;status&quot;: &quot;skipped_disabled&quot;
+  },
+  &quot;future_financial&quot;: {
+    &quot;baseline_experiment&quot;: &quot;E_financial&quot;,
+    &quot;experimental_experiment&quot;: &quot;F_financial&quot;,
+    &quot;status&quot;: &quot;skipped_disabled&quot;
+  }
+}</pre></section>
+<section><h2>5. Correlation Audit</h2><pre>{
+  &quot;A_all_stocks&quot;: {
+    &quot;intraday&quot;: [
+      {
+        &quot;feature_a&quot;: &quot;return_12&quot;,
+        &quot;feature_b&quot;: &quot;trend_slope_12&quot;,
+        &quot;correlation&quot;: 0.999999999999996,
+        &quot;involves_new_feature&quot;: false
+      },
+      {
+        &quot;feature_a&quot;: &quot;macd_vs_close&quot;,
+        &quot;feature_b&quot;: &quot;macd_signal_vs_close&quot;,
+        &quot;correlation&quot;: 0.9550330339402265,
+        &quot;involves_new_feature&quot;: false
+      }
+    ],
+    &quot;context&quot;: []
+  },
+  &quot;VOL_all_stocks&quot;: {
+    &quot;intraday&quot;: [
+      {
+        &quot;feature_a&quot;: &quot;return_12&quot;,
+        &quot;feature_b&quot;: &quot;trend_slope_12&quot;,
+        &quot;correlation&quot;: 0.999999999999996,
+        &quot;involves_new_feature&quot;: false
+      },
+      {
+        &quot;feature_a&quot;: &quot;macd_vs_close&quot;,
+        &quot;feature_b&quot;: &quot;macd_signal_vs_close&quot;,
+        &quot;correlation&quot;: 0.9550330339402265,
+        &quot;involves_new_feature&quot;: false
+      }
+    ],
+    &quot;context&quot;: []
+  },
+  &quot;TREND_all_stocks&quot;: {
+    &quot;intraday&quot;: [
+      {
+        &quot;feature_a&quot;: &quot;return_12&quot;,
+        &quot;feature_b&quot;: &quot;trend_slope_12&quot;,
+        &quot;correlation&quot;: 0.999999999999996,
+        &quot;involves_new_feature&quot;: false
+      },
+      {
+        &quot;feature_a&quot;: &quot;macd_vs_close&quot;,
+        &quot;feature_b&quot;: &quot;macd_signal_vs_close&quot;,
+        &quot;correlation&quot;: 0.9550330339402265,
+        &quot;involves_new_feature&quot;: false
+      }
+    ],
+    &quot;context&quot;: []
+  },
+  &quot;VOLUME_all_stocks&quot;: {
+    &quot;intraday&quot;: [
+      {
+        &quot;feature_a&quot;: &quot;return_12&quot;,
+        &quot;feature_b&quot;: &quot;trend_slope_12&quot;,
+        &quot;correlation&quot;: 0.999999999999996,
+        &quot;involves_new_feature&quot;: false
+      },
+      {
+        &quot;feature_a&quot;: &quot;macd_vs_close&quot;,
+        &quot;feature_b&quot;: &quot;macd_signal_vs_close&quot;,
+        &quot;correlation&quot;: 0.9550330339402265,
+        &quot;involves_new_feature&quot;: false
+      }
+    ],
+    &quot;context&quot;: []
+  },
+  &quot;POSITION_all_stocks&quot;: {
+    &quot;intraday&quot;: [
+      {
+        &quot;feature_a&quot;: &quot;return_12&quot;,
+        &quot;feature_b&quot;: &quot;trend_slope_12&quot;,
+        &quot;correlation&quot;: 0.999999999999996,
+        &quot;involves_new_feature&quot;: false
+      },
+      {
+        &quot;feature_a&quot;: &quot;macd_vs_close&quot;,
+        &quot;feature_b&quot;: &quot;macd_signal_vs_close&quot;,
+        &quot;correlation&quot;: 0.9550330339402265,
+        &quot;involves_new_feature&quot;: false
+      }
+    ],
+    &quot;context&quot;: []
+  },
+  &quot;B_all_stocks&quot;: {
+    &quot;intraday&quot;: [
+      {
+        &quot;feature_a&quot;: &quot;return_12&quot;,
+        &quot;feature_b&quot;: &quot;trend_slope_12&quot;,
+        &quot;correlation&quot;: 0.999999999999996,
+        &quot;involves_new_feature&quot;: false
+      },
+      {
+        &quot;feature_a&quot;: &quot;macd_vs_close&quot;,
+        &quot;feature_b&quot;: &quot;macd_signal_vs_close&quot;,
+        &quot;correlation&quot;: 0.9550330339402265,
+        &quot;involves_new_feature&quot;: false
+      }
+    ],
+    &quot;context&quot;: []
+  }
+}</pre></section>
+<section><h2>6. Feature Importance</h2><pre>{
+  &quot;A_all_stocks&quot;: {
+    &quot;aggregation&quot;: &quot;intraday positions summed; static context appended once; mean across four folds&quot;,
+    &quot;all_features&quot;: [
+      {
+        &quot;feature&quot;: &quot;range_vs_close&quot;,
+        &quot;importance&quot;: 0.06591267289138378,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 1
+      },
+      {
+        &quot;feature&quot;: &quot;volume_zscore_20&quot;,
+        &quot;importance&quot;: 0.06302291137786381,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 2
+      },
+      {
+        &quot;feature&quot;: &quot;volume_ratio_5&quot;,
+        &quot;importance&quot;: 0.06092099583728632,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 3
+      },
+      {
+        &quot;feature&quot;: &quot;volume_ratio_20&quot;,
+        &quot;importance&quot;: 0.059583329608262285,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 4
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_24&quot;,
+        &quot;importance&quot;: 0.050079184544762796,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 5
+      },
+      {
+        &quot;feature&quot;: &quot;close_vs_ma5&quot;,
+        &quot;importance&quot;: 0.0498839761710487,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 6
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_12&quot;,
+        &quot;importance&quot;: 0.04982451996953237,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 7
+      },
+      {
+        &quot;feature&quot;: &quot;macd_hist_vs_close&quot;,
+        &quot;importance&quot;: 0.0490632183981624,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 8
+      },
+      {
+        &quot;feature&quot;: &quot;close_vs_ma20&quot;,
+        &quot;importance&quot;: 0.04560884270017193,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 9
+      },
+      {
+        &quot;feature&quot;: &quot;price_zscore_20&quot;,
+        &quot;importance&quot;: 0.04382733437385568,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 10
+      },
+      {
+        &quot;feature&quot;: &quot;rsi14_scaled&quot;,
+        &quot;importance&quot;: 0.04226521346966176,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 11
+      },
+      {
+        &quot;feature&quot;: &quot;high_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.040610564642703684,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 12
+      },
+      {
+        &quot;feature&quot;: &quot;low_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.03806456842578086,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 13
+      },
+      {
+        &quot;feature&quot;: &quot;macd_signal_vs_close&quot;,
+        &quot;importance&quot;: 0.037842480177854416,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 14
+      },
+      {
+        &quot;feature&quot;: &quot;trend_slope_24&quot;,
+        &quot;importance&quot;: 0.03694939633540046,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 15
+      },
+      {
+        &quot;feature&quot;: &quot;return_12&quot;,
+        &quot;importance&quot;: 0.03518685722023593,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 16
+      },
+      {
+        &quot;feature&quot;: &quot;trend_slope_12&quot;,
+        &quot;importance&quot;: 0.034696448764003206,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 17
+      },
+      {
+        &quot;feature&quot;: &quot;macd_vs_close&quot;,
+        &quot;importance&quot;: 0.034504828665052216,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 18
+      },
+      {
+        &quot;feature&quot;: &quot;return_3&quot;,
+        &quot;importance&quot;: 0.03338225964443485,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 19
+      },
+      {
+        &quot;feature&quot;: &quot;return_6&quot;,
+        &quot;importance&quot;: 0.03324479585104968,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 20
+      },
+      {
+        &quot;feature&quot;: &quot;return_1&quot;,
+        &quot;importance&quot;: 0.03006505640010625,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 21
+      },
+      {
+        &quot;feature&quot;: &quot;body_return&quot;,
+        &quot;importance&quot;: 0.028574631760877194,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 22
+      },
+      {
+        &quot;feature&quot;: &quot;open_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.027459735837677184,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 23
+      },
+      {
+        &quot;feature&quot;: &quot;close_location&quot;,
+        &quot;importance&quot;: 0.009426176932832264,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 24
+      }
+    ]
+  },
+  &quot;VOL_all_stocks&quot;: {
+    &quot;aggregation&quot;: &quot;intraday positions summed; static context appended once; mean across four folds&quot;,
+    &quot;all_features&quot;: [
+      {
+        &quot;feature&quot;: &quot;range_vs_close&quot;,
+        &quot;importance&quot;: 0.06691604077438215,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 1
+      },
+      {
+        &quot;feature&quot;: &quot;volume_zscore_20&quot;,
+        &quot;importance&quot;: 0.0615209196401319,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 2
+      },
+      {
+        &quot;feature&quot;: &quot;volume_ratio_20&quot;,
+        &quot;importance&quot;: 0.05960539546414437,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 3
+      },
+      {
+        &quot;feature&quot;: &quot;volume_ratio_5&quot;,
+        &quot;importance&quot;: 0.05876824299540535,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 4
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_24&quot;,
+        &quot;importance&quot;: 0.050659967653190766,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 5
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_12&quot;,
+        &quot;importance&quot;: 0.0487222756062981,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 6
+      },
+      {
+        &quot;feature&quot;: &quot;close_vs_ma5&quot;,
+        &quot;importance&quot;: 0.04795400122089995,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 7
+      },
+      {
+        &quot;feature&quot;: &quot;macd_hist_vs_close&quot;,
+        &quot;importance&quot;: 0.047141237205499495,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 8
+      },
+      {
+        &quot;feature&quot;: &quot;price_zscore_20&quot;,
+        &quot;importance&quot;: 0.044120455690222646,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 9
+      },
+      {
+        &quot;feature&quot;: &quot;rsi14_scaled&quot;,
+        &quot;importance&quot;: 0.04340230185481075,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 10
+      },
+      {
+        &quot;feature&quot;: &quot;close_vs_ma20&quot;,
+        &quot;importance&quot;: 0.04283376348282489,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 11
+      },
+      {
+        &quot;feature&quot;: &quot;high_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.04118525606676241,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 12
+      },
+      {
+        &quot;feature&quot;: &quot;trend_slope_24&quot;,
+        &quot;importance&quot;: 0.03712220298635025,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 13
+      },
+      {
+        &quot;feature&quot;: &quot;low_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.03659853566855702,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 14
+      },
+      {
+        &quot;feature&quot;: &quot;macd_signal_vs_close&quot;,
+        &quot;importance&quot;: 0.03602501802201763,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 15
+      },
+      {
+        &quot;feature&quot;: &quot;macd_vs_close&quot;,
+        &quot;importance&quot;: 0.035850361802088435,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 16
+      },
+      {
+        &quot;feature&quot;: &quot;return_6&quot;,
+        &quot;importance&quot;: 0.03438592982126915,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 17
+      },
+      {
+        &quot;feature&quot;: &quot;trend_slope_12&quot;,
+        &quot;importance&quot;: 0.03342926418913945,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 18
+      },
+      {
+        &quot;feature&quot;: &quot;return_3&quot;,
+        &quot;importance&quot;: 0.03301534979330343,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 19
+      },
+      {
+        &quot;feature&quot;: &quot;return_12&quot;,
+        &quot;importance&quot;: 0.03294782704405848,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 20
+      },
+      {
+        &quot;feature&quot;: &quot;return_1&quot;,
+        &quot;importance&quot;: 0.029435609730166703,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 21
+      },
+      {
+        &quot;feature&quot;: &quot;body_return&quot;,
+        &quot;importance&quot;: 0.028356464455453124,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 22
+      },
+      {
+        &quot;feature&quot;: &quot;open_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.02636392219871698,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 23
+      },
+      {
+        &quot;feature&quot;: &quot;close_location&quot;,
+        &quot;importance&quot;: 0.009555295016795157,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 24
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_5d&quot;,
+        &quot;importance&quot;: 0.0057218391995610095,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 25
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_20d&quot;,
+        &quot;importance&quot;: 0.005371823957098674,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 26
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_ratio_5d_20d&quot;,
+        &quot;importance&quot;: 0.0029906984608517964,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 27
+      }
+    ]
+  },
+  &quot;TREND_all_stocks&quot;: {
+    &quot;aggregation&quot;: &quot;intraday positions summed; static context appended once; mean across four folds&quot;,
+    &quot;all_features&quot;: [
+      {
+        &quot;feature&quot;: &quot;range_vs_close&quot;,
+        &quot;importance&quot;: 0.06657139138655556,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 1
+      },
+      {
+        &quot;feature&quot;: &quot;volume_zscore_20&quot;,
+        &quot;importance&quot;: 0.06237910517049943,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 2
+      },
+      {
+        &quot;feature&quot;: &quot;volume_ratio_5&quot;,
+        &quot;importance&quot;: 0.059887305015089334,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 3
+      },
+      {
+        &quot;feature&quot;: &quot;volume_ratio_20&quot;,
+        &quot;importance&quot;: 0.05895578996705906,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 4
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_24&quot;,
+        &quot;importance&quot;: 0.051846584515407704,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 5
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_12&quot;,
+        &quot;importance&quot;: 0.05074613152393066,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 6
+      },
+      {
+        &quot;feature&quot;: &quot;close_vs_ma5&quot;,
+        &quot;importance&quot;: 0.04878971013410725,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 7
+      },
+      {
+        &quot;feature&quot;: &quot;macd_hist_vs_close&quot;,
+        &quot;importance&quot;: 0.04581617140949283,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 8
+      },
+      {
+        &quot;feature&quot;: &quot;close_vs_ma20&quot;,
+        &quot;importance&quot;: 0.04461663437733193,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 9
+      },
+      {
+        &quot;feature&quot;: &quot;price_zscore_20&quot;,
+        &quot;importance&quot;: 0.04222358352829292,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 10
+      },
+      {
+        &quot;feature&quot;: &quot;rsi14_scaled&quot;,
+        &quot;importance&quot;: 0.04154196905333975,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 11
+      },
+      {
+        &quot;feature&quot;: &quot;high_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.03873223783136767,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 12
+      },
+      {
+        &quot;feature&quot;: &quot;macd_signal_vs_close&quot;,
+        &quot;importance&quot;: 0.03663881124402467,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 13
+      },
+      {
+        &quot;feature&quot;: &quot;trend_slope_24&quot;,
+        &quot;importance&quot;: 0.03659795858141532,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 14
+      },
+      {
+        &quot;feature&quot;: &quot;low_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.03500159212402221,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 15
+      },
+      {
+        &quot;feature&quot;: &quot;macd_vs_close&quot;,
+        &quot;importance&quot;: 0.03478494719225071,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 16
+      },
+      {
+        &quot;feature&quot;: &quot;return_12&quot;,
+        &quot;importance&quot;: 0.033760453746380134,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 17
+      },
+      {
+        &quot;feature&quot;: &quot;return_6&quot;,
+        &quot;importance&quot;: 0.03311843243920611,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 18
+      },
+      {
+        &quot;feature&quot;: &quot;return_3&quot;,
+        &quot;importance&quot;: 0.03225126247086906,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 19
+      },
+      {
+        &quot;feature&quot;: &quot;trend_slope_12&quot;,
+        &quot;importance&quot;: 0.032232427318283546,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 20
+      },
+      {
+        &quot;feature&quot;: &quot;return_1&quot;,
+        &quot;importance&quot;: 0.030984201137064418,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 21
+      },
+      {
+        &quot;feature&quot;: &quot;body_return&quot;,
+        &quot;importance&quot;: 0.029781758200246724,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 22
+      },
+      {
+        &quot;feature&quot;: &quot;open_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.025079024131679558,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 23
+      },
+      {
+        &quot;feature&quot;: &quot;close_location&quot;,
+        &quot;importance&quot;: 0.009077255342735497,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 24
+      },
+      {
+        &quot;feature&quot;: &quot;stock_return_5d&quot;,
+        &quot;importance&quot;: 0.004708236800576925,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 25
+      },
+      {
+        &quot;feature&quot;: &quot;trend_strength_5d&quot;,
+        &quot;importance&quot;: 0.004379988906870623,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 26
+      },
+      {
+        &quot;feature&quot;: &quot;stock_return_3d&quot;,
+        &quot;importance&quot;: 0.003643142517230638,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 27
+      },
+      {
+        &quot;feature&quot;: &quot;trend_strength_20d&quot;,
+        &quot;importance&quot;: 0.0033513781650525393,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 28
+      },
+      {
+        &quot;feature&quot;: &quot;stock_return_1d&quot;,
+        &quot;importance&quot;: 0.002502515769617254,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 29
+      }
+    ]
+  },
+  &quot;VOLUME_all_stocks&quot;: {
+    &quot;aggregation&quot;: &quot;intraday positions summed; static context appended once; mean across four folds&quot;,
+    &quot;all_features&quot;: [
+      {
+        &quot;feature&quot;: &quot;range_vs_close&quot;,
+        &quot;importance&quot;: 0.06691847959830396,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 1
+      },
+      {
+        &quot;feature&quot;: &quot;volume_ratio_20&quot;,
+        &quot;importance&quot;: 0.06181432820326905,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 2
+      },
+      {
+        &quot;feature&quot;: &quot;volume_zscore_20&quot;,
+        &quot;importance&quot;: 0.06171672792080686,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 3
+      },
+      {
+        &quot;feature&quot;: &quot;volume_ratio_5&quot;,
+        &quot;importance&quot;: 0.05950031586830281,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 4
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_12&quot;,
+        &quot;importance&quot;: 0.05082815164748566,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 5
+      },
+      {
+        &quot;feature&quot;: &quot;close_vs_ma5&quot;,
+        &quot;importance&quot;: 0.049668632654562596,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 6
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_24&quot;,
+        &quot;importance&quot;: 0.0495474663053677,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 7
+      },
+      {
+        &quot;feature&quot;: &quot;price_zscore_20&quot;,
+        &quot;importance&quot;: 0.04564805371951743,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 8
+      },
+      {
+        &quot;feature&quot;: &quot;macd_hist_vs_close&quot;,
+        &quot;importance&quot;: 0.045555593762016997,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 9
+      },
+      {
+        &quot;feature&quot;: &quot;close_vs_ma20&quot;,
+        &quot;importance&quot;: 0.04367955536157184,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 10
+      },
+      {
+        &quot;feature&quot;: &quot;rsi14_scaled&quot;,
+        &quot;importance&quot;: 0.043508229109896115,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 11
+      },
+      {
+        &quot;feature&quot;: &quot;high_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.03936145116764855,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 12
+      },
+      {
+        &quot;feature&quot;: &quot;trend_slope_24&quot;,
+        &quot;importance&quot;: 0.03866673728190382,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 13
+      },
+      {
+        &quot;feature&quot;: &quot;low_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.03726814495709017,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 14
+      },
+      {
+        &quot;feature&quot;: &quot;macd_signal_vs_close&quot;,
+        &quot;importance&quot;: 0.036942086935100656,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 15
+      },
+      {
+        &quot;feature&quot;: &quot;macd_vs_close&quot;,
+        &quot;importance&quot;: 0.035636361561954884,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 16
+      },
+      {
+        &quot;feature&quot;: &quot;return_12&quot;,
+        &quot;importance&quot;: 0.03497725335998067,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 17
+      },
+      {
+        &quot;feature&quot;: &quot;return_6&quot;,
+        &quot;importance&quot;: 0.034968816932582136,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 18
+      },
+      {
+        &quot;feature&quot;: &quot;return_3&quot;,
+        &quot;importance&quot;: 0.03417939133830162,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 19
+      },
+      {
+        &quot;feature&quot;: &quot;trend_slope_12&quot;,
+        &quot;importance&quot;: 0.03352929323721226,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 20
+      },
+      {
+        &quot;feature&quot;: &quot;return_1&quot;,
+        &quot;importance&quot;: 0.028622110764112686,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 21
+      },
+      {
+        &quot;feature&quot;: &quot;body_return&quot;,
+        &quot;importance&quot;: 0.02733411936880335,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 22
+      },
+      {
+        &quot;feature&quot;: &quot;open_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.02547412663000697,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 23
+      },
+      {
+        &quot;feature&quot;: &quot;close_location&quot;,
+        &quot;importance&quot;: 0.008643037708799511,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 24
+      },
+      {
+        &quot;feature&quot;: &quot;volume_trend_20d&quot;,
+        &quot;importance&quot;: 0.0035079056978645053,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 25
+      },
+      {
+        &quot;feature&quot;: &quot;volume_trend_5d&quot;,
+        &quot;importance&quot;: 0.0025036289075372215,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 26
+      }
+    ]
+  },
+  &quot;POSITION_all_stocks&quot;: {
+    &quot;aggregation&quot;: &quot;intraday positions summed; static context appended once; mean across four folds&quot;,
+    &quot;all_features&quot;: [
+      {
+        &quot;feature&quot;: &quot;range_vs_close&quot;,
+        &quot;importance&quot;: 0.06817199117409557,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 1
+      },
+      {
+        &quot;feature&quot;: &quot;volume_ratio_20&quot;,
+        &quot;importance&quot;: 0.06199205940262884,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 2
+      },
+      {
+        &quot;feature&quot;: &quot;volume_zscore_20&quot;,
+        &quot;importance&quot;: 0.061916534623396635,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 3
+      },
+      {
+        &quot;feature&quot;: &quot;volume_ratio_5&quot;,
+        &quot;importance&quot;: 0.05940852917251911,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 4
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_12&quot;,
+        &quot;importance&quot;: 0.05088187536042357,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 5
+      },
+      {
+        &quot;feature&quot;: &quot;close_vs_ma5&quot;,
+        &quot;importance&quot;: 0.04981206163092375,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 6
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_24&quot;,
+        &quot;importance&quot;: 0.049062350853536975,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 7
+      },
+      {
+        &quot;feature&quot;: &quot;price_zscore_20&quot;,
+        &quot;importance&quot;: 0.04622870115618799,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 8
+      },
+      {
+        &quot;feature&quot;: &quot;macd_hist_vs_close&quot;,
+        &quot;importance&quot;: 0.04601332915262102,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 9
+      },
+      {
+        &quot;feature&quot;: &quot;close_vs_ma20&quot;,
+        &quot;importance&quot;: 0.042784079515114745,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 10
+      },
+      {
+        &quot;feature&quot;: &quot;rsi14_scaled&quot;,
+        &quot;importance&quot;: 0.04272849038615989,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 11
+      },
+      {
+        &quot;feature&quot;: &quot;high_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.03942955478244745,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 12
+      },
+      {
+        &quot;feature&quot;: &quot;trend_slope_24&quot;,
+        &quot;importance&quot;: 0.038643647608893314,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 13
+      },
+      {
+        &quot;feature&quot;: &quot;low_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.03732116116639164,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 14
+      },
+      {
+        &quot;feature&quot;: &quot;macd_signal_vs_close&quot;,
+        &quot;importance&quot;: 0.036885653150820194,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 15
+      },
+      {
+        &quot;feature&quot;: &quot;macd_vs_close&quot;,
+        &quot;importance&quot;: 0.035368234301946966,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 16
+      },
+      {
+        &quot;feature&quot;: &quot;return_6&quot;,
+        &quot;importance&quot;: 0.034827606727179966,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 17
+      },
+      {
+        &quot;feature&quot;: &quot;return_3&quot;,
+        &quot;importance&quot;: 0.03395925652522014,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 18
+      },
+      {
+        &quot;feature&quot;: &quot;return_12&quot;,
+        &quot;importance&quot;: 0.03393331784022495,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 19
+      },
+      {
+        &quot;feature&quot;: &quot;trend_slope_12&quot;,
+        &quot;importance&quot;: 0.03358611809257102,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 20
+      },
+      {
+        &quot;feature&quot;: &quot;return_1&quot;,
+        &quot;importance&quot;: 0.02862508234972832,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 21
+      },
+      {
+        &quot;feature&quot;: &quot;body_return&quot;,
+        &quot;importance&quot;: 0.027715670115518433,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 22
+      },
+      {
+        &quot;feature&quot;: &quot;open_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.02595577190123661,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 23
+      },
+      {
+        &quot;feature&quot;: &quot;close_location&quot;,
+        &quot;importance&quot;: 0.008789184211956019,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 24
+      },
+      {
+        &quot;feature&quot;: &quot;distance_from_low_20d&quot;,
+        &quot;importance&quot;: 0.0031780968369546723,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 25
+      },
+      {
+        &quot;feature&quot;: &quot;distance_from_high_20d&quot;,
+        &quot;importance&quot;: 0.0027816419613022527,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 26
+      }
+    ]
+  },
+  &quot;B_all_stocks&quot;: {
+    &quot;aggregation&quot;: &quot;intraday positions summed; static context appended once; mean across four folds&quot;,
+    &quot;all_features&quot;: [
+      {
+        &quot;feature&quot;: &quot;range_vs_close&quot;,
+        &quot;importance&quot;: 0.06271796104325221,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 1
+      },
+      {
+        &quot;feature&quot;: &quot;volume_ratio_20&quot;,
+        &quot;importance&quot;: 0.058693078798152484,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 2
+      },
+      {
+        &quot;feature&quot;: &quot;volume_zscore_20&quot;,
+        &quot;importance&quot;: 0.05865321565472172,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 3
+      },
+      {
+        &quot;feature&quot;: &quot;volume_ratio_5&quot;,
+        &quot;importance&quot;: 0.05626170836201124,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 4
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_12&quot;,
+        &quot;importance&quot;: 0.047473105152001635,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 5
+      },
+      {
+        &quot;feature&quot;: &quot;close_vs_ma5&quot;,
+        &quot;importance&quot;: 0.047252198340275595,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 6
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_24&quot;,
+        &quot;importance&quot;: 0.046920276822801484,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 7
+      },
+      {
+        &quot;feature&quot;: &quot;macd_hist_vs_close&quot;,
+        &quot;importance&quot;: 0.04463314283535344,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 8
+      },
+      {
+        &quot;feature&quot;: &quot;price_zscore_20&quot;,
+        &quot;importance&quot;: 0.04399088463430584,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 9
+      },
+      {
+        &quot;feature&quot;: &quot;close_vs_ma20&quot;,
+        &quot;importance&quot;: 0.04260878392210233,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 10
+      },
+      {
+        &quot;feature&quot;: &quot;rsi14_scaled&quot;,
+        &quot;importance&quot;: 0.04159254844545796,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 11
+      },
+      {
+        &quot;feature&quot;: &quot;high_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.03965471384572665,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 12
+      },
+      {
+        &quot;feature&quot;: &quot;macd_vs_close&quot;,
+        &quot;importance&quot;: 0.03598584718796276,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 13
+      },
+      {
+        &quot;feature&quot;: &quot;low_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.03577543644809457,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 14
+      },
+      {
+        &quot;feature&quot;: &quot;macd_signal_vs_close&quot;,
+        &quot;importance&quot;: 0.03568638303298952,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 15
+      },
+      {
+        &quot;feature&quot;: &quot;trend_slope_24&quot;,
+        &quot;importance&quot;: 0.03560404104711916,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 16
+      },
+      {
+        &quot;feature&quot;: &quot;return_6&quot;,
+        &quot;importance&quot;: 0.03361559332408249,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 17
+      },
+      {
+        &quot;feature&quot;: &quot;return_12&quot;,
+        &quot;importance&quot;: 0.03278068049789763,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 18
+      },
+      {
+        &quot;feature&quot;: &quot;trend_slope_12&quot;,
+        &quot;importance&quot;: 0.03215190478023827,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 19
+      },
+      {
+        &quot;feature&quot;: &quot;return_3&quot;,
+        &quot;importance&quot;: 0.031666441748941086,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 20
+      },
+      {
+        &quot;feature&quot;: &quot;return_1&quot;,
+        &quot;importance&quot;: 0.029803637417845284,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 21
+      },
+      {
+        &quot;feature&quot;: &quot;body_return&quot;,
+        &quot;importance&quot;: 0.028012144026547264,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 22
+      },
+      {
+        &quot;feature&quot;: &quot;open_vs_prev_close&quot;,
+        &quot;importance&quot;: 0.025773491774496095,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 23
+      },
+      {
+        &quot;feature&quot;: &quot;close_location&quot;,
+        &quot;importance&quot;: 0.009551501595204799,
+        &quot;input_type&quot;: &quot;intraday_sequence&quot;,
+        &quot;is_new_feature&quot;: false,
+        &quot;rank&quot;: 24
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_20d&quot;,
+        &quot;importance&quot;: 0.0058918860546779885,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 25
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_5d&quot;,
+        &quot;importance&quot;: 0.005886769133176091,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 26
+      },
+      {
+        &quot;feature&quot;: &quot;trend_strength_5d&quot;,
+        &quot;importance&quot;: 0.004277820339258708,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 27
+      },
+      {
+        &quot;feature&quot;: &quot;stock_return_5d&quot;,
+        &quot;importance&quot;: 0.004052467351681054,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 28
+      },
+      {
+        &quot;feature&quot;: &quot;volume_trend_20d&quot;,
+        &quot;importance&quot;: 0.0033692438665328295,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 29
+      },
+      {
+        &quot;feature&quot;: &quot;trend_strength_20d&quot;,
+        &quot;importance&quot;: 0.003321273203845428,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 30
+      },
+      {
+        &quot;feature&quot;: &quot;stock_return_3d&quot;,
+        &quot;importance&quot;: 0.0032503473170627717,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 31
+      },
+      {
+        &quot;feature&quot;: &quot;volatility_ratio_5d_20d&quot;,
+        &quot;importance&quot;: 0.0031710882470438705,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 32
+      },
+      {
+        &quot;feature&quot;: &quot;distance_from_low_20d&quot;,
+        &quot;importance&quot;: 0.002872271306177992,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 33
+      },
+      {
+        &quot;feature&quot;: &quot;volume_trend_5d&quot;,
+        &quot;importance&quot;: 0.0027350622900091603,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 34
+      },
+      {
+        &quot;feature&quot;: &quot;distance_from_high_20d&quot;,
+        &quot;importance&quot;: 0.0022020384131736653,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 35
+      },
+      {
+        &quot;feature&quot;: &quot;stock_return_1d&quot;,
+        &quot;importance&quot;: 0.0021110117397789585,
+        &quot;input_type&quot;: &quot;static_context&quot;,
+        &quot;is_new_feature&quot;: true,
+        &quot;rank&quot;: 36
+      }
+    ]
+  }
+}</pre></section>
+<section><h2>7. Findings</h2><ul><li>Static daily context 每個 sample 只附加一次，未複製到 24 個 timestep。</li><li>A/B common samples：2732；labels_identical=true；future return error=0。</li><li>平均、最差 Fold 與穩定度同時改善的模型數：1/3。</li></ul></section>
+<section><h2>8. Recommendation</h2><p>Feature Set B 尚未在平均、最差 Fold 與穩定度呈現跨模型一致改善；先保留實驗結果，維持 Feature Set A 為 Baseline，不啟動 Controlled Validation。</p></section></body></html>

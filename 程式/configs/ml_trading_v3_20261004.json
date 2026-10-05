@@ -1,25 +1,57 @@
 {
   "experiment_id": "ml-trading-20261004-v3",
   "status": "planned_fixed_rules",
-  "purpose": "test_market_structure_feature_enrichment_without_label_model_or_trading_rule_changes",
+  "purpose": "evaluate_market_structure_feature_enrichment_without_label_model_or_trading_rule_changes",
   "data_role": "ml_development_seen",
-  "stock_codes": ["2303", "2330", "2412", "2881", "2882", "2002"],
+  "stock_codes": [
+    "2303",
+    "2330",
+    "2412",
+    "2881",
+    "2882",
+    "2002"
+  ],
   "bar_minutes": 5,
   "periods": {
-    "train": {"start": "2023-01-01", "end": "2024-12-31"},
-    "validation": {"start": "2025-01-01", "end": "2025-06-30"},
-    "test": {"start": "2026-01-01", "end": "2026-06-30"}
+    "train": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    },
+    "validation": {
+      "start": "2025-01-01",
+      "end": "2025-06-30"
+    },
+    "development": {
+      "start": "2026-01-01",
+      "end": "2026-06-30"
+    }
   },
   "sequence_bars": 24,
   "features": [
-    "open_vs_prev_close", "high_vs_prev_close", "low_vs_prev_close",
-    "return_1", "return_3", "return_6", "return_12",
-    "volume_ratio_5", "volume_ratio_20", "volume_zscore_20",
-    "close_vs_ma5", "close_vs_ma20", "price_zscore_20",
-    "rsi14_scaled", "macd_vs_close", "macd_signal_vs_close",
-    "macd_hist_vs_close", "range_vs_close", "body_return",
-    "close_location", "volatility_12", "volatility_24",
-    "trend_slope_12", "trend_slope_24"
+    "open_vs_prev_close",
+    "high_vs_prev_close",
+    "low_vs_prev_close",
+    "return_1",
+    "return_3",
+    "return_6",
+    "return_12",
+    "volume_ratio_5",
+    "volume_ratio_20",
+    "volume_zscore_20",
+    "close_vs_ma5",
+    "close_vs_ma20",
+    "price_zscore_20",
+    "rsi14_scaled",
+    "macd_vs_close",
+    "macd_signal_vs_close",
+    "macd_hist_vs_close",
+    "range_vs_close",
+    "body_return",
+    "close_location",
+    "volatility_12",
+    "volatility_24",
+    "trend_slope_12",
+    "trend_slope_24"
   ],
   "target": {
     "name": "cost_aware_buy_hold_sell_after_three_sessions",
@@ -28,7 +60,11 @@
     "sell_net_return_threshold": -0.01,
     "buy_net_return_threshold": 0.01,
     "holding_sessions": 3,
-    "labels": {"0": "SELL", "1": "HOLD", "2": "BUY"}
+    "labels": {
+      "0": "SELL",
+      "1": "HOLD",
+      "2": "BUY"
+    }
   },
   "trading": {
     "initial_cash": 100000,
@@ -43,11 +79,42 @@
     "trailing_stop": null
   },
   "models": {
-    "random_forest": {"n_estimators": 100, "max_depth": 8, "min_samples_leaf": 10, "class_weight": "balanced", "random_state": 42},
-    "xgboost": {"n_estimators": 150, "max_depth": 4, "learning_rate": 0.05, "subsample": 0.8, "colsample_bytree": 0.8, "random_state": 42},
-    "gru": {"hidden_size": 32, "num_layers": 1, "dropout": 0.0, "batch_size": 128, "max_epochs": 10, "patience": 2, "learning_rate": 0.001, "random_state": 42}
+    "random_forest": {
+      "n_estimators": 100,
+      "max_depth": 8,
+      "min_samples_leaf": 10,
+      "class_weight": "balanced",
+      "random_state": 42
+    },
+    "xgboost": {
+      "n_estimators": 150,
+      "max_depth": 4,
+      "learning_rate": 0.05,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8,
+      "random_state": 42
+    },
+    "gru": {
+      "hidden_size": 32,
+      "num_layers": 1,
+      "dropout": 0.0,
+      "batch_size": 128,
+      "max_epochs": 10,
+      "patience": 2,
+      "learning_rate": 0.001,
+      "random_state": 42
+    }
   },
-  "benchmarks": ["buy_and_hold", "cash", "ml_trading_v2"],
-  "selection_rule": "Report every model and stock; do not tune the fixed feature list or parameters from test results.",
-  "holdout": {"start": "2025-07-01", "end": "2025-12-31", "access": "forbidden"}
+  "benchmarks": [
+    "buy_and_hold",
+    "cash",
+    "ml_trading_v2"
+  ],
+  "selection_rule": "Report every model and stock; do not tune the fixed feature list or parameters from development results.",
+  "holdout": {
+    "start": "2025-07-01",
+    "end": "2025-12-31",
+    "access": "forbidden"
+  },
+  "data_policy": "configs/ml_data_policy.json"
 }

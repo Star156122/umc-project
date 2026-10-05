@@ -1,0 +1,1021 @@
+{
+  "report_name": "ML V3 Training-only Diagnosis",
+  "source": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\ml_v3_candidate_20261005\\walk_forward_results.json",
+  "selected_model": "random_forest",
+  "data_usage": {
+    "training_only": true,
+    "controlled_validation_used": false,
+    "development_used": false,
+    "forbidden_roles_used": false
+  },
+  "candidate_overall": {
+    "macro_f1": {
+      "mean": 0.3939036273040527,
+      "standard_deviation": 0.022184111938754816,
+      "worst": 0.3623203972664581,
+      "available_folds": 4
+    },
+    "macro_auc": {
+      "mean": 0.5800337818376766,
+      "standard_deviation": 0.019452299096616957,
+      "worst": 0.5552814798505619,
+      "available_folds": 4
+    },
+    "individual_auc": {
+      "SELL": {
+        "mean": 0.528613634093347,
+        "standard_deviation": 0.04659479968059071,
+        "worst": 0.4634816240354253,
+        "available_folds": 4
+      },
+      "HOLD": {
+        "mean": 0.6178993087503403,
+        "standard_deviation": 0.015317326376422507,
+        "worst": 0.6009663865546219,
+        "available_folds": 4
+      },
+      "BUY": {
+        "mean": 0.5935884026693425,
+        "standard_deviation": 0.012970006542968577,
+        "worst": 0.579691913841808,
+        "available_folds": 4
+      }
+    }
+  },
+  "stocks": {
+    "2002": {
+      "stock_code": "2002",
+      "macro_f1": {
+        "mean": 0.3755487939923339,
+        "std": 0.026432521937169252,
+        "worst": 0.34486967477754155,
+        "best": 0.4067702110712863,
+        "n": 4
+      },
+      "macro_auc": {
+        "mean": 0.5559044544499067,
+        "std": 0.038426000965555776,
+        "worst": 0.5056924758011715,
+        "best": 0.5970706924654294,
+        "n": 4
+      },
+      "individual_auc": {
+        "SELL": {
+          "mean": 0.5787160755910756,
+          "std": 0.08330596355323758,
+          "worst": 0.5061813186813188,
+          "best": 0.668939393939394,
+          "n": 4
+        },
+        "HOLD": {
+          "mean": 0.5442453618172024,
+          "std": 0.0856718612581193,
+          "worst": 0.4521943573667711,
+          "best": 0.6378446115288221,
+          "n": 4
+        },
+        "BUY": {
+          "mean": 0.5447519259414421,
+          "std": 0.07079903726052035,
+          "worst": 0.48666666666666664,
+          "best": 0.6471861471861472,
+          "n": 4
+        }
+      },
+      "confusion_matrix": [
+        [
+          71,
+          42,
+          27
+        ],
+        [
+          49,
+          55,
+          22
+        ],
+        [
+          15,
+          21,
+          9
+        ]
+      ],
+      "actual_class_counts": {
+        "SELL": 140,
+        "HOLD": 126,
+        "BUY": 45
+      },
+      "predicted_class_counts": {
+        "SELL": 135,
+        "HOLD": 118,
+        "BUY": 58
+      },
+      "actual_class_proportions": {
+        "SELL": 0.45016077170418006,
+        "HOLD": 0.40514469453376206,
+        "BUY": 0.14469453376205788
+      },
+      "predicted_class_proportions": {
+        "SELL": 0.4340836012861736,
+        "HOLD": 0.37942122186495175,
+        "BUY": 0.1864951768488746
+      },
+      "dominant_prediction_folds": []
+    },
+    "2303": {
+      "stock_code": "2303",
+      "macro_f1": {
+        "mean": 0.2966150422301627,
+        "std": 0.06898354596004407,
+        "worst": 0.2263888888888889,
+        "best": 0.3578732829103933,
+        "n": 4
+      },
+      "macro_auc": {
+        "mean": 0.4861771091770193,
+        "std": 0.06618673050397712,
+        "worst": 0.43376308215871723,
+        "best": 0.5830620779835646,
+        "n": 4
+      },
+      "individual_auc": {
+        "SELL": {
+          "mean": 0.45351551061850887,
+          "std": 0.06166310094265163,
+          "worst": 0.40421329822251484,
+          "best": 0.5436090225563909,
+          "n": 4
+        },
+        "HOLD": {
+          "mean": 0.492093673165995,
+          "std": 0.04854246942466867,
+          "worst": 0.4316939890710383,
+          "best": 0.5469565217391303,
+          "n": 4
+        },
+        "BUY": {
+          "mean": 0.5129221437465539,
+          "std": 0.11059741306132774,
+          "worst": 0.39108187134502925,
+          "best": 0.6586206896551724,
+          "n": 4
+        }
+      },
+      "confusion_matrix": [
+        [
+          58,
+          37,
+          49
+        ],
+        [
+          48,
+          17,
+          27
+        ],
+        [
+          35,
+          14,
+          28
+        ]
+      ],
+      "actual_class_counts": {
+        "SELL": 144,
+        "HOLD": 92,
+        "BUY": 77
+      },
+      "predicted_class_counts": {
+        "SELL": 141,
+        "HOLD": 68,
+        "BUY": 104
+      },
+      "actual_class_proportions": {
+        "SELL": 0.46006389776357826,
+        "HOLD": 0.2939297124600639,
+        "BUY": 0.24600638977635783
+      },
+      "predicted_class_proportions": {
+        "SELL": 0.4504792332268371,
+        "HOLD": 0.21725239616613418,
+        "BUY": 0.33226837060702874
+      },
+      "dominant_prediction_folds": []
+    },
+    "2330": {
+      "stock_code": "2330",
+      "macro_f1": {
+        "mean": 0.2990037629383323,
+        "std": 0.030853001010284924,
+        "worst": 0.260661938534279,
+        "best": 0.3352366587660705,
+        "n": 4
+      },
+      "macro_auc": {
+        "mean": 0.512642919697447,
+        "std": 0.017600620027283836,
+        "worst": 0.4942236024844721,
+        "best": 0.5359767908596034,
+        "n": 4
+      },
+      "individual_auc": {
+        "SELL": {
+          "mean": 0.47227566946511046,
+          "std": 0.064575603136859,
+          "worst": 0.39972527472527475,
+          "best": 0.5528571428571429,
+          "n": 4
+        },
+        "HOLD": {
+          "mean": 0.5280224971388764,
+          "std": 0.10676468794209867,
+          "worst": 0.4285714285714286,
+          "best": 0.6603535353535354,
+          "n": 4
+        },
+        "BUY": {
+          "mean": 0.5376305924883541,
+          "std": 0.05660752900568405,
+          "worst": 0.4880952380952381,
+          "best": 0.6133333333333334,
+          "n": 4
+        }
+      },
+      "confusion_matrix": [
+        [
+          32,
+          46,
+          32
+        ],
+        [
+          32,
+          35,
+          36
+        ],
+        [
+          35,
+          28,
+          37
+        ]
+      ],
+      "actual_class_counts": {
+        "SELL": 110,
+        "HOLD": 103,
+        "BUY": 100
+      },
+      "predicted_class_counts": {
+        "SELL": 99,
+        "HOLD": 109,
+        "BUY": 105
+      },
+      "actual_class_proportions": {
+        "SELL": 0.3514376996805112,
+        "HOLD": 0.329073482428115,
+        "BUY": 0.3194888178913738
+      },
+      "predicted_class_proportions": {
+        "SELL": 0.31629392971246006,
+        "HOLD": 0.34824281150159747,
+        "BUY": 0.3354632587859425
+      },
+      "dominant_prediction_folds": []
+    },
+    "2412": {
+      "stock_code": "2412",
+      "macro_f1": {
+        "mean": 0.2863223417327341,
+        "std": 0.014106257278696476,
+        "worst": 0.27313201703445605,
+        "best": 0.3043478260869565,
+        "n": 4
+      },
+      "macro_auc": {
+        "mean": 0.47159729997847266,
+        "std": 0.1400443003495201,
+        "worst": 0.3864302649943412,
+        "best": 0.633228447326808,
+        "n": 3
+      },
+      "individual_auc": {
+        "SELL": {
+          "mean": 0.4482579474465884,
+          "std": 0.09746399369277021,
+          "worst": 0.34942528735632183,
+          "best": 0.5824175824175825,
+          "n": 4
+        },
+        "HOLD": {
+          "mean": 0.4668849244423906,
+          "std": 0.13439207796366168,
+          "worst": 0.37454212454212454,
+          "best": 0.6639344262295083,
+          "n": 4
+        },
+        "BUY": {
+          "mean": 0.4825202753356505,
+          "std": 0.1527835132705299,
+          "worst": 0.3589041095890411,
+          "best": 0.6533333333333333,
+          "n": 3
+        }
+      },
+      "confusion_matrix": [
+        [
+          1,
+          67,
+          0
+        ],
+        [
+          0,
+          222,
+          0
+        ],
+        [
+          0,
+          15,
+          0
+        ]
+      ],
+      "actual_class_counts": {
+        "SELL": 68,
+        "HOLD": 222,
+        "BUY": 15
+      },
+      "predicted_class_counts": {
+        "SELL": 1,
+        "HOLD": 304,
+        "BUY": 0
+      },
+      "actual_class_proportions": {
+        "SELL": 0.22295081967213115,
+        "HOLD": 0.7278688524590164,
+        "BUY": 0.04918032786885246
+      },
+      "predicted_class_proportions": {
+        "SELL": 0.003278688524590164,
+        "HOLD": 0.9967213114754099,
+        "BUY": 0.0
+      },
+      "dominant_prediction_folds": [
+        {
+          "fold": 1,
+          "class": "HOLD",
+          "proportion": 0.9871794871794872
+        },
+        {
+          "fold": 2,
+          "class": "HOLD",
+          "proportion": 1.0
+        },
+        {
+          "fold": 3,
+          "class": "HOLD",
+          "proportion": 1.0
+        },
+        {
+          "fold": 4,
+          "class": "HOLD",
+          "proportion": 1.0
+        }
+      ]
+    },
+    "2881": {
+      "stock_code": "2881",
+      "macro_f1": {
+        "mean": 0.3050073719278721,
+        "std": 0.061395859179578044,
+        "worst": 0.23268705338377468,
+        "best": 0.3828470380194518,
+        "n": 4
+      },
+      "macro_auc": {
+        "mean": 0.5097652472409846,
+        "std": 0.014708837524362051,
+        "worst": 0.4884388839130218,
+        "best": 0.5209305472180676,
+        "n": 4
+      },
+      "individual_auc": {
+        "SELL": {
+          "mean": 0.48458682512456097,
+          "std": 0.034639282718206224,
+          "worst": 0.44533333333333325,
+          "best": 0.5257142857142857,
+          "n": 4
+        },
+        "HOLD": {
+          "mean": 0.527468364218545,
+          "std": 0.02885797238237833,
+          "worst": 0.49310344827586206,
+          "best": 0.5593966059082338,
+          "n": 4
+        },
+        "BUY": {
+          "mean": 0.5172405523798479,
+          "std": 0.0237159511425084,
+          "worst": 0.49624530663329164,
+          "best": 0.5487944890929966,
+          "n": 4
+        }
+      },
+      "confusion_matrix": [
+        [
+          49,
+          18,
+          43
+        ],
+        [
+          62,
+          24,
+          40
+        ],
+        [
+          33,
+          12,
+          32
+        ]
+      ],
+      "actual_class_counts": {
+        "SELL": 110,
+        "HOLD": 126,
+        "BUY": 77
+      },
+      "predicted_class_counts": {
+        "SELL": 144,
+        "HOLD": 54,
+        "BUY": 115
+      },
+      "actual_class_proportions": {
+        "SELL": 0.3514376996805112,
+        "HOLD": 0.402555910543131,
+        "BUY": 0.24600638977635783
+      },
+      "predicted_class_proportions": {
+        "SELL": 0.46006389776357826,
+        "HOLD": 0.17252396166134185,
+        "BUY": 0.36741214057507987
+      },
+      "dominant_prediction_folds": []
+    },
+    "2882": {
+      "stock_code": "2882",
+      "macro_f1": {
+        "mean": 0.2937444442921242,
+        "std": 0.038659683272451686,
+        "worst": 0.25555372817036104,
+        "best": 0.34279209729544263,
+        "n": 4
+      },
+      "macro_auc": {
+        "mean": 0.5242997744986514,
+        "std": 0.053846167331990026,
+        "worst": 0.4643618601414034,
+        "best": 0.5907407407407407,
+        "n": 4
+      },
+      "individual_auc": {
+        "SELL": {
+          "mean": 0.4849565171189036,
+          "std": 0.023122688178321242,
+          "worst": 0.46416666666666667,
+          "best": 0.5075445816186557,
+          "n": 4
+        },
+        "HOLD": {
+          "mean": 0.5707842757379795,
+          "std": 0.06772526447242833,
+          "worst": 0.5089163237311386,
+          "best": 0.6628571428571428,
+          "n": 4
+        },
+        "BUY": {
+          "mean": 0.5171585306390711,
+          "std": 0.09555190401951388,
+          "worst": 0.3938596491228071,
+          "best": 0.6071428571428572,
+          "n": 4
+        }
+      },
+      "confusion_matrix": [
+        [
+          52,
+          14,
+          47
+        ],
+        [
+          63,
+          20,
+          46
+        ],
+        [
+          33,
+          12,
+          26
+        ]
+      ],
+      "actual_class_counts": {
+        "SELL": 113,
+        "HOLD": 129,
+        "BUY": 71
+      },
+      "predicted_class_counts": {
+        "SELL": 148,
+        "HOLD": 46,
+        "BUY": 119
+      },
+      "actual_class_proportions": {
+        "SELL": 0.3610223642172524,
+        "HOLD": 0.41214057507987223,
+        "BUY": 0.2268370607028754
+      },
+      "predicted_class_proportions": {
+        "SELL": 0.4728434504792332,
+        "HOLD": 0.14696485623003194,
+        "BUY": 0.3801916932907348
+      },
+      "dominant_prediction_folds": []
+    }
+  },
+  "groups": {
+    "科技組": {
+      "stocks": [
+        "2303",
+        "2330"
+      ],
+      "macro_f1": {
+        "mean": 0.29780940258424754,
+        "std": 0.04948783952639237,
+        "worst": 0.2263888888888889,
+        "best": 0.3578732829103933,
+        "n": 8
+      },
+      "macro_auc": {
+        "mean": 0.49941001443723315,
+        "std": 0.047014091525017614,
+        "worst": 0.43376308215871723,
+        "best": 0.5830620779835646,
+        "n": 8
+      },
+      "individual_auc": {
+        "SELL": {
+          "mean": 0.4628955900418097,
+          "std": 0.05930662060724,
+          "worst": 0.39972527472527475,
+          "best": 0.5528571428571429,
+          "n": 8
+        },
+        "HOLD": {
+          "mean": 0.5100580851524357,
+          "std": 0.07914450668763563,
+          "worst": 0.4285714285714286,
+          "best": 0.6603535353535354,
+          "n": 8
+        },
+        "BUY": {
+          "mean": 0.5252763681174539,
+          "std": 0.08240112276143387,
+          "worst": 0.39108187134502925,
+          "best": 0.6586206896551724,
+          "n": 8
+        }
+      },
+      "confusion_matrix": [
+        [
+          90,
+          83,
+          81
+        ],
+        [
+          80,
+          52,
+          63
+        ],
+        [
+          70,
+          42,
+          65
+        ]
+      ],
+      "actual_class_proportions": {
+        "SELL": 0.4057507987220447,
+        "HOLD": 0.31150159744408945,
+        "BUY": 0.2827476038338658
+      },
+      "predicted_class_proportions": {
+        "SELL": 0.38338658146964855,
+        "HOLD": 0.2827476038338658,
+        "BUY": 0.33386581469648563
+      }
+    },
+    "金融組": {
+      "stocks": [
+        "2881",
+        "2882"
+      ],
+      "macro_f1": {
+        "mean": 0.29937590810999815,
+        "std": 0.047877484990681854,
+        "worst": 0.23268705338377468,
+        "best": 0.3828470380194518,
+        "n": 8
+      },
+      "macro_auc": {
+        "mean": 0.5170325108698179,
+        "std": 0.03735884649143831,
+        "worst": 0.4643618601414034,
+        "best": 0.5907407407407407,
+        "n": 8
+      },
+      "individual_auc": {
+        "SELL": {
+          "mean": 0.48477167112173225,
+          "std": 0.027265596301703974,
+          "worst": 0.44533333333333325,
+          "best": 0.5257142857142857,
+          "n": 8
+        },
+        "HOLD": {
+          "mean": 0.5491263199782622,
+          "std": 0.05346697035843233,
+          "worst": 0.49310344827586206,
+          "best": 0.6628571428571428,
+          "n": 8
+        },
+        "BUY": {
+          "mean": 0.5171995415094595,
+          "std": 0.0644513676638403,
+          "worst": 0.3938596491228071,
+          "best": 0.6071428571428572,
+          "n": 8
+        }
+      },
+      "confusion_matrix": [
+        [
+          101,
+          32,
+          90
+        ],
+        [
+          125,
+          44,
+          86
+        ],
+        [
+          66,
+          24,
+          58
+        ]
+      ],
+      "actual_class_proportions": {
+        "SELL": 0.3562300319488818,
+        "HOLD": 0.4073482428115016,
+        "BUY": 0.2364217252396166
+      },
+      "predicted_class_proportions": {
+        "SELL": 0.46645367412140576,
+        "HOLD": 0.1597444089456869,
+        "BUY": 0.3738019169329074
+      }
+    },
+    "其他參考": {
+      "stocks": [
+        "2002",
+        "2412"
+      ],
+      "macro_f1": {
+        "mean": 0.330935567862534,
+        "std": 0.05156925121590579,
+        "worst": 0.27313201703445605,
+        "best": 0.4067702110712863,
+        "n": 8
+      },
+      "macro_auc": {
+        "mean": 0.5197728168192921,
+        "std": 0.09647029507531345,
+        "worst": 0.3864302649943412,
+        "best": 0.633228447326808,
+        "n": 7
+      },
+      "individual_auc": {
+        "SELL": {
+          "mean": 0.513487011518832,
+          "std": 0.10912377460490842,
+          "worst": 0.34942528735632183,
+          "best": 0.668939393939394,
+          "n": 8
+        },
+        "HOLD": {
+          "mean": 0.5055651431297965,
+          "std": 0.11223188357408478,
+          "worst": 0.37454212454212454,
+          "best": 0.6639344262295083,
+          "n": 8
+        },
+        "BUY": {
+          "mean": 0.5180812185389599,
+          "std": 0.10674124746596657,
+          "worst": 0.3589041095890411,
+          "best": 0.6533333333333333,
+          "n": 7
+        }
+      },
+      "confusion_matrix": [
+        [
+          72,
+          109,
+          27
+        ],
+        [
+          49,
+          277,
+          22
+        ],
+        [
+          15,
+          36,
+          9
+        ]
+      ],
+      "actual_class_proportions": {
+        "SELL": 0.33766233766233766,
+        "HOLD": 0.564935064935065,
+        "BUY": 0.09740259740259741
+      },
+      "predicted_class_proportions": {
+        "SELL": 0.22077922077922077,
+        "HOLD": 0.685064935064935,
+        "BUY": 0.09415584415584416
+      }
+    }
+  },
+  "feature_importance": {
+    "available": true,
+    "sequence_bars": 24,
+    "feature_count": 24,
+    "top_features": [
+      {
+        "feature": "range_vs_close",
+        "importance": 0.13332827795241847
+      },
+      {
+        "feature": "volatility_12",
+        "importance": 0.06113256226992627
+      },
+      {
+        "feature": "volatility_24",
+        "importance": 0.05776779701852351
+      },
+      {
+        "feature": "volume_ratio_5",
+        "importance": 0.04965466991355649
+      },
+      {
+        "feature": "low_vs_prev_close",
+        "importance": 0.049244771285005345
+      },
+      {
+        "feature": "volume_zscore_20",
+        "importance": 0.04780800266439354
+      },
+      {
+        "feature": "volume_ratio_20",
+        "importance": 0.04695331956345019
+      },
+      {
+        "feature": "macd_hist_vs_close",
+        "importance": 0.04346575631542071
+      },
+      {
+        "feature": "high_vs_prev_close",
+        "importance": 0.04187892155700142
+      },
+      {
+        "feature": "close_vs_ma5",
+        "importance": 0.04166815817974888
+      },
+      {
+        "feature": "trend_slope_24",
+        "importance": 0.03805786348483517
+      },
+      {
+        "feature": "macd_signal_vs_close",
+        "importance": 0.03762485783161887
+      },
+      {
+        "feature": "price_zscore_20",
+        "importance": 0.03718297040251567
+      },
+      {
+        "feature": "trend_slope_12",
+        "importance": 0.0366806530074613
+      },
+      {
+        "feature": "close_vs_ma20",
+        "importance": 0.03626980921570262
+      }
+    ],
+    "all_features": [
+      {
+        "feature": "range_vs_close",
+        "importance": 0.13332827795241847
+      },
+      {
+        "feature": "volatility_12",
+        "importance": 0.06113256226992627
+      },
+      {
+        "feature": "volatility_24",
+        "importance": 0.05776779701852351
+      },
+      {
+        "feature": "volume_ratio_5",
+        "importance": 0.04965466991355649
+      },
+      {
+        "feature": "low_vs_prev_close",
+        "importance": 0.049244771285005345
+      },
+      {
+        "feature": "volume_zscore_20",
+        "importance": 0.04780800266439354
+      },
+      {
+        "feature": "volume_ratio_20",
+        "importance": 0.04695331956345019
+      },
+      {
+        "feature": "macd_hist_vs_close",
+        "importance": 0.04346575631542071
+      },
+      {
+        "feature": "high_vs_prev_close",
+        "importance": 0.04187892155700142
+      },
+      {
+        "feature": "close_vs_ma5",
+        "importance": 0.04166815817974888
+      },
+      {
+        "feature": "trend_slope_24",
+        "importance": 0.03805786348483517
+      },
+      {
+        "feature": "macd_signal_vs_close",
+        "importance": 0.03762485783161887
+      },
+      {
+        "feature": "price_zscore_20",
+        "importance": 0.03718297040251567
+      },
+      {
+        "feature": "trend_slope_12",
+        "importance": 0.0366806530074613
+      },
+      {
+        "feature": "close_vs_ma20",
+        "importance": 0.03626980921570262
+      },
+      {
+        "feature": "rsi14_scaled",
+        "importance": 0.03510135054393604
+      },
+      {
+        "feature": "return_12",
+        "importance": 0.03402557482377944
+      },
+      {
+        "feature": "macd_vs_close",
+        "importance": 0.03207016942732923
+      },
+      {
+        "feature": "return_6",
+        "importance": 0.030483506451417623
+      },
+      {
+        "feature": "return_3",
+        "importance": 0.028494691682851774
+      },
+      {
+        "feature": "body_return",
+        "importance": 0.026832657073983412
+      },
+      {
+        "feature": "return_1",
+        "importance": 0.0254066728189907
+      },
+      {
+        "feature": "open_vs_prev_close",
+        "importance": 0.022574220347998386
+      },
+      {
+        "feature": "close_location",
+        "importance": 0.0062927661681348905
+      }
+    ],
+    "temporal_importance": [
+      {
+        "sequence_position": 1,
+        "importance": 0.04112456609995528
+      },
+      {
+        "sequence_position": 2,
+        "importance": 0.04546147324951889
+      },
+      {
+        "sequence_position": 3,
+        "importance": 0.039325298845117936
+      },
+      {
+        "sequence_position": 4,
+        "importance": 0.0336624106330087
+      },
+      {
+        "sequence_position": 5,
+        "importance": 0.04491088416656645
+      },
+      {
+        "sequence_position": 6,
+        "importance": 0.047008637438853015
+      },
+      {
+        "sequence_position": 7,
+        "importance": 0.045935244309002796
+      },
+      {
+        "sequence_position": 8,
+        "importance": 0.042772205265706506
+      },
+      {
+        "sequence_position": 9,
+        "importance": 0.03783780771125407
+      },
+      {
+        "sequence_position": 10,
+        "importance": 0.04070027935264175
+      },
+      {
+        "sequence_position": 11,
+        "importance": 0.040495959089954375
+      },
+      {
+        "sequence_position": 12,
+        "importance": 0.03759172576255188
+      },
+      {
+        "sequence_position": 13,
+        "importance": 0.044639774864140565
+      },
+      {
+        "sequence_position": 14,
+        "importance": 0.03872427409581872
+      },
+      {
+        "sequence_position": 15,
+        "importance": 0.04649433025829866
+      },
+      {
+        "sequence_position": 16,
+        "importance": 0.043464122409886806
+      },
+      {
+        "sequence_position": 17,
+        "importance": 0.04635967883340011
+      },
+      {
+        "sequence_position": 18,
+        "importance": 0.041616120305339795
+      },
+      {
+        "sequence_position": 19,
+        "importance": 0.04570410136086972
+      },
+      {
+        "sequence_position": 20,
+        "importance": 0.04519496632017267
+      },
+      {
+        "sequence_position": 21,
+        "importance": 0.03860178876796127
+      },
+      {
+        "sequence_position": 22,
+        "importance": 0.034088534842064366
+      },
+      {
+        "sequence_position": 23,
+        "importance": 0.03639869899175016
+      },
+      {
+        "sequence_position": 24,
+        "importance": 0.04188711702616549
+      }
+    ]
+  },
+  "diagnostic_flags": [
+    "整體 SELL AUC 最弱（0.5286），低於 HOLD（0.6179）與 BUY（0.5936）。",
+    "2303 的跨 Fold Macro AUC 平均低於 0.50（0.4862）。",
+    "2412 的跨 Fold Macro AUC 平均低於 0.50（0.4716）。",
+    "2412 Fold 1 有預測塌縮傾向：HOLD 佔 98.7%。",
+    "2412 Fold 2 有預測塌縮傾向：HOLD 佔 100.0%。",
+    "2412 Fold 3 有預測塌縮傾向：HOLD 佔 100.0%。",
+    "2412 Fold 4 有預測塌縮傾向：HOLD 佔 100.0%。",
+    "產業組 Macro AUC（僅供診斷，不做最終結論）：科技組 0.4994、金融組 0.5170。"
+  ]
+}

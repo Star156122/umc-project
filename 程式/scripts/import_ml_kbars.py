@@ -1,4 +1,4 @@
-"""從 Shioaji 分鐘 K 匯入 ML Trading V1 所需的 5 分 K。"""
+"""依 ML 資料角色政策匯入目前允許的 5 分 K。"""
 from __future__ import annotations
 
 import argparse
@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from ml.trading_pipeline import coverage_report, load_trading_plan
+from ml.data_roles import ACTIVE_ROLE_NAMES, assert_ml_read_period
 from trading_system.backtest import login_sinopac, sino_ts_to_local_timestamp
 from trading_system.research_guard import assert_development_period
 
@@ -26,10 +27,12 @@ def request_chunks(start: str, end: str) -> list[tuple[str, str]]:
     """Shioaji 單次 K 棒查詢最多 30 個日曆日。"""
     first = date.fromisoformat(start)
     last = date.fromisoformat(end)
+    assert_ml_read_period(first, last)
     chunks = []
     cursor = first
     while cursor <= last:
         chunk_end = min(last, cursor + timedelta(days=29))
+        assert_ml_read_period(cursor, chunk_end)
         assert_development_period(cursor, chunk_end)
         chunks.append((cursor.isoformat(), chunk_end.isoformat()))
         cursor = chunk_end + timedelta(days=1)
@@ -37,6 +40,7 @@ def request_chunks(start: str, end: str) -> list[tuple[str, str]]:
 
 
 def fetch_one(api, code: str, start: str, end: str, bar_minutes: int) -> tuple[list[tuple], int, float | None, float | None]:
+    assert_ml_read_period(start, end)
     assert_development_period(start, end)
     contract = api.Contracts.Stocks[code]
     parts = []
@@ -86,20 +90,20 @@ def save(database: Path, code: str, start: str, end: str, bar_minutes: int,
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="匯入 ML Trading V1 需要的六檔 5 分 K")
+    parser = argparse.ArgumentParser(description="匯入 ML Training、Validation、Development 所需的六檔 5 分 K")
     parser.add_argument("--force", action="store_true", help="重新下載已存在的完整區間")
     args = parser.parse_args()
     load_dotenv(ROOT / ".env")
     plan = load_trading_plan(PLAN_PATH)
     current = coverage_report(DATABASE, plan)
-    available = {(r["split"], r["stock_code"]) for r in current.rows if r["available"]}
+    available = {(r["role"], r["stock_code"]) for r in current.rows if r["available"]}
     api = login_sinopac()
     try:
-        for split in ("train", "validation", "test"):
-            spec = plan["periods"][split]
+        for role in ACTIVE_ROLE_NAMES:
+            spec = plan["periods"][role]
             for code in plan["stock_codes"]:
-                if not args.force and (split, code) in available:
-                    print(f"略過已有資料：{split} {code}", flush=True)
+                if not args.force and (role, code) in available:
+                    print(f"略過已有資料：{role} {code}", flush=True)
                     continue
                 rows, source_count, first_ts, last_ts = fetch_one(api, code, spec["start"], spec["end"], plan["bar_minutes"])
                 if not rows:

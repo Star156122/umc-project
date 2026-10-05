@@ -1,0 +1,41 @@
+{
+  "policy_version": "2026-10-05",
+  "active_roles": {
+    "train": {
+      "display_name": "Training",
+      "start": "2023-01-01",
+      "end": "2024-12-31",
+      "access": "development_allowed"
+    },
+    "validation": {
+      "display_name": "Controlled Validation",
+      "start": "2025-01-01",
+      "end": "2025-06-30",
+      "access": "development_allowed"
+    },
+    "development": {
+      "display_name": "Development",
+      "start": "2026-01-01",
+      "end": "2026-06-30",
+      "access": "development_allowed",
+      "note": "已用於 V1、V2、V3，不得稱為最終 Test。"
+    }
+  },
+  "locked_roles": {
+    "holdout": {
+      "display_name": "Additional Holdout",
+      "start": "2025-07-01",
+      "end": "2025-12-31",
+      "access": "forbidden"
+    },
+    "final_out_of_sample": {
+      "display_name": "Final Out-of-Sample Test",
+      "start": "2026-07-01",
+      "end": "latest_available",
+      "access": "forbidden",
+      "note": "結束日隨未來可取得資料延伸；模型開發期間禁止查詢實際涵蓋終點。"
+    }
+  },
+  "allowed_during_model_development": ["train", "validation", "development"],
+  "unlock_mechanism": null
+}

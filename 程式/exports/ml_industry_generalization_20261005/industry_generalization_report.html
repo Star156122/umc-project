@@ -1,0 +1,644 @@
+
+<!doctype html>
+
+<html lang="zh-Hant">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta
+    name="viewport"
+    content="width=device-width"
+>
+
+<title>
+ML Industry Generalization
+</title>
+
+<style>
+
+body {
+    font-family:
+        system-ui,
+        'Noto Sans TC';
+    max-width: 1500px;
+    margin: 28px auto;
+    padding: 0 18px;
+    background: #f6f8fb;
+    color: #182536;
+}
+
+section {
+    background: #fff;
+    border: 1px solid #dae3ea;
+    border-radius: 12px;
+    padding: 18px;
+    margin: 16px 0;
+}
+
+h1,
+h2 {
+    color: #0b527a;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 13px;
+}
+
+th,
+td {
+    border: 1px solid #d6e0e8;
+    padding: 6px;
+    text-align: right;
+}
+
+th:first-child,
+td:first-child {
+    text-align: left;
+}
+
+th {
+    background: #eaf3f8;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+Training-only Industry Generalization
+</h1>
+
+<section>
+
+<h2>
+1. Design
+</h2>
+
+<pre>{
+  &quot;method&quot;: &quot;5-stock LOSO x 4-fold expanding-window&quot;,
+  &quot;industries&quot;: {
+    &quot;technology&quot;: [
+      &quot;2303&quot;,
+      &quot;2330&quot;,
+      &quot;2379&quot;,
+      &quot;2454&quot;,
+      &quot;3034&quot;
+    ],
+    &quot;financial&quot;: [
+      &quot;2881&quot;,
+      &quot;2882&quot;,
+      &quot;2884&quot;,
+      &quot;2886&quot;,
+      &quot;2891&quot;
+    ]
+  },
+  &quot;model_feature_policy&quot;: {
+    &quot;random_forest&quot;: {
+      &quot;feature_set&quot;: &quot;A&quot;,
+      &quot;context_features&quot;: []
+    },
+    &quot;xgboost&quot;: {
+      &quot;feature_set&quot;: &quot;A&quot;,
+      &quot;context_features&quot;: []
+    },
+    &quot;gru&quot;: {
+      &quot;feature_set&quot;: &quot;A+VOLUME&quot;,
+      &quot;context_features&quot;: [
+        &quot;volume_trend_5d&quot;,
+        &quot;volume_trend_20d&quot;
+      ]
+    }
+  },
+  &quot;models&quot;: {
+    &quot;random_forest&quot;: {
+      &quot;config_name&quot;: &quot;flexible&quot;,
+      &quot;params&quot;: {
+        &quot;n_estimators&quot;: 200,
+        &quot;max_depth&quot;: 10,
+        &quot;min_samples_leaf&quot;: 5,
+        &quot;class_weight&quot;: &quot;balanced&quot;,
+        &quot;random_state&quot;: 42
+      }
+    },
+    &quot;xgboost&quot;: {
+      &quot;config_name&quot;: &quot;baseline&quot;,
+      &quot;params&quot;: {
+        &quot;n_estimators&quot;: 150,
+        &quot;max_depth&quot;: 4,
+        &quot;learning_rate&quot;: 0.05,
+        &quot;subsample&quot;: 0.8,
+        &quot;colsample_bytree&quot;: 0.8,
+        &quot;random_state&quot;: 42
+      }
+    },
+    &quot;gru&quot;: {
+      &quot;config_name&quot;: &quot;smaller&quot;,
+      &quot;params&quot;: {
+        &quot;hidden_size&quot;: 16,
+        &quot;num_layers&quot;: 1,
+        &quot;dropout&quot;: 0.0,
+        &quot;batch_size&quot;: 128,
+        &quot;max_epochs&quot;: 10,
+        &quot;patience&quot;: 2,
+        &quot;learning_rate&quot;: 0.001,
+        &quot;random_state&quot;: 42
+      }
+    }
+  },
+  &quot;gru_inner_validation_fraction&quot;: 0.2,
+  &quot;selection&quot;: &quot;diagnostic_only_no_candidate_selection&quot;
+}</pre>
+
+</section>
+
+
+<section>
+
+<h2>
+2. Industry Aggregate
+</h2>
+
+<table><tr><th>Industry</th><th>Model</th><th>F1 mean</th><th>F1 std</th><th>F1 worst</th><th>AUC mean</th><th>AUC std</th><th>AUC worst</th></tr><tr><td>technology</td><td>random_forest</td><td>0.3035</td><td>0.0496</td><td>0.2178</td><td>0.4965</td><td>0.0568</td><td>0.3574</td></tr><tr><td>technology</td><td>xgboost</td><td>0.3119</td><td>0.0479</td><td>0.2251</td><td>0.4959</td><td>0.0362</td><td>0.4323</td></tr><tr><td>technology</td><td>gru</td><td>0.2872</td><td>0.0465</td><td>0.2165</td><td>0.4809</td><td>0.0453</td><td>0.3849</td></tr><tr><td>financial</td><td>random_forest</td><td>0.3316</td><td>0.0474</td><td>0.2397</td><td>0.5033</td><td>0.0499</td><td>0.4335</td></tr><tr><td>financial</td><td>xgboost</td><td>0.3286</td><td>0.0534</td><td>0.2729</td><td>0.5109</td><td>0.0596</td><td>0.3917</td></tr><tr><td>financial</td><td>gru</td><td>0.3189</td><td>0.0585</td><td>0.2198</td><td>0.5268</td><td>0.0606</td><td>0.3934</td></tr></table>
+
+</section>
+
+
+<section>
+
+<h2>
+3. Held-out Stock Summary
+</h2>
+
+<table><tr><th>Industry</th><th>Held-out</th><th>Model</th><th>F1 mean</th><th>F1 worst</th><th>AUC mean</th><th>AUC worst</th></tr><tr><td>technology</td><td>2303</td><td>random_forest</td><td>0.3119</td><td>0.2178</td><td>0.5013</td><td>0.4437</td></tr><tr><td>technology</td><td>2303</td><td>xgboost</td><td>0.3162</td><td>0.2622</td><td>0.5052</td><td>0.4628</td></tr><tr><td>technology</td><td>2303</td><td>gru</td><td>0.2663</td><td>0.2240</td><td>0.4695</td><td>0.4142</td></tr><tr><td>technology</td><td>2330</td><td>random_forest</td><td>0.3107</td><td>0.2584</td><td>0.5011</td><td>0.4524</td></tr><tr><td>technology</td><td>2330</td><td>xgboost</td><td>0.3371</td><td>0.2830</td><td>0.4862</td><td>0.4323</td></tr><tr><td>technology</td><td>2330</td><td>gru</td><td>0.2838</td><td>0.2307</td><td>0.4862</td><td>0.4652</td></tr><tr><td>technology</td><td>2379</td><td>random_forest</td><td>0.2865</td><td>0.2293</td><td>0.4486</td><td>0.3574</td></tr><tr><td>technology</td><td>2379</td><td>xgboost</td><td>0.3105</td><td>0.2251</td><td>0.4760</td><td>0.4520</td></tr><tr><td>technology</td><td>2379</td><td>gru</td><td>0.3127</td><td>0.2501</td><td>0.4598</td><td>0.3849</td></tr><tr><td>technology</td><td>2454</td><td>random_forest</td><td>0.2887</td><td>0.2525</td><td>0.4986</td><td>0.4084</td></tr><tr><td>technology</td><td>2454</td><td>xgboost</td><td>0.3052</td><td>0.2519</td><td>0.4894</td><td>0.4493</td></tr><tr><td>technology</td><td>2454</td><td>gru</td><td>0.3025</td><td>0.2744</td><td>0.4967</td><td>0.4874</td></tr><tr><td>technology</td><td>3034</td><td>random_forest</td><td>0.3198</td><td>0.2996</td><td>0.5331</td><td>0.4840</td></tr><tr><td>technology</td><td>3034</td><td>xgboost</td><td>0.2904</td><td>0.2715</td><td>0.5227</td><td>0.4980</td></tr><tr><td>technology</td><td>3034</td><td>gru</td><td>0.2709</td><td>0.2165</td><td>0.4922</td><td>0.4127</td></tr><tr><td>financial</td><td>2881</td><td>random_forest</td><td>0.3327</td><td>0.2884</td><td>0.4845</td><td>0.4492</td></tr><tr><td>financial</td><td>2881</td><td>xgboost</td><td>0.3106</td><td>0.2733</td><td>0.4888</td><td>0.4491</td></tr><tr><td>financial</td><td>2881</td><td>gru</td><td>0.2599</td><td>0.2198</td><td>0.4719</td><td>0.4328</td></tr><tr><td>financial</td><td>2882</td><td>random_forest</td><td>0.3094</td><td>0.2397</td><td>0.5190</td><td>0.4939</td></tr><tr><td>financial</td><td>2882</td><td>xgboost</td><td>0.3261</td><td>0.3087</td><td>0.5420</td><td>0.5041</td></tr><tr><td>financial</td><td>2882</td><td>gru</td><td>0.3723</td><td>0.3167</td><td>0.5276</td><td>0.4776</td></tr><tr><td>financial</td><td>2884</td><td>random_forest</td><td>0.3199</td><td>0.3006</td><td>0.4578</td><td>0.4356</td></tr><tr><td>financial</td><td>2884</td><td>xgboost</td><td>0.3148</td><td>0.2858</td><td>0.5022</td><td>0.4370</td></tr><tr><td>financial</td><td>2884</td><td>gru</td><td>0.2842</td><td>0.2616</td><td>0.5079</td><td>0.3934</td></tr><tr><td>financial</td><td>2886</td><td>random_forest</td><td>0.3431</td><td>0.2865</td><td>0.5307</td><td>0.4960</td></tr><tr><td>financial</td><td>2886</td><td>xgboost</td><td>0.3478</td><td>0.2804</td><td>0.5196</td><td>0.3917</td></tr><tr><td>financial</td><td>2886</td><td>gru</td><td>0.3673</td><td>0.3579</td><td>0.5941</td><td>0.5577</td></tr><tr><td>financial</td><td>2891</td><td>random_forest</td><td>0.3528</td><td>0.3024</td><td>0.5246</td><td>0.4335</td></tr><tr><td>financial</td><td>2891</td><td>xgboost</td><td>0.3436</td><td>0.2729</td><td>0.5019</td><td>0.4486</td></tr><tr><td>financial</td><td>2891</td><td>gru</td><td>0.3109</td><td>0.2512</td><td>0.5324</td><td>0.4772</td></tr></table>
+
+</section>
+
+
+<section>
+
+<h2>
+4. Audit
+</h2>
+
+<pre>{
+  &quot;training_only&quot;: true,
+  &quot;training_period&quot;: {
+    &quot;start&quot;: &quot;2023-01-01&quot;,
+    &quot;end&quot;: &quot;2024-12-31&quot;
+  },
+  &quot;controlled_validation_used&quot;: false,
+  &quot;development_used&quot;: false,
+  &quot;holdout_used&quot;: false,
+  &quot;final_oos_used&quot;: false,
+  &quot;parameter_search&quot;: false,
+  &quot;feature_search&quot;: false,
+  &quot;trading_return_selection&quot;: false,
+  &quot;heldout_stock_never_in_training&quot;: true,
+  &quot;heldout_stock_never_in_gru_early_stopping&quot;: true,
+  &quot;scaler_fit_on_peer_training_only&quot;: true,
+  &quot;context_scaler_fit_on_peer_training_only&quot;: true,
+  &quot;common_sample_alignment_across_models&quot;: true,
+  &quot;gru_early_stopping_source&quot;: &quot;peer-stock inner chronological validation only&quot;,
+  &quot;gru_epoch_records&quot;: [
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2303&quot;,
+      &quot;fold&quot;: 1,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2023-07-20&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2303&quot;,
+      &quot;fold&quot;: 2,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2023-10-26&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2303&quot;,
+      &quot;fold&quot;: 3,
+      &quot;selected_epochs&quot;: 9,
+      &quot;inner_validation_start&quot;: &quot;2024-01-22&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2303&quot;,
+      &quot;fold&quot;: 4,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-05-09&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2330&quot;,
+      &quot;fold&quot;: 1,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2023-07-20&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2330&quot;,
+      &quot;fold&quot;: 2,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2023-10-26&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2330&quot;,
+      &quot;fold&quot;: 3,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-01-22&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2330&quot;,
+      &quot;fold&quot;: 4,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-05-09&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2379&quot;,
+      &quot;fold&quot;: 1,
+      &quot;selected_epochs&quot;: 5,
+      &quot;inner_validation_start&quot;: &quot;2023-07-20&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2379&quot;,
+      &quot;fold&quot;: 2,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2023-10-26&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2379&quot;,
+      &quot;fold&quot;: 3,
+      &quot;selected_epochs&quot;: 9,
+      &quot;inner_validation_start&quot;: &quot;2024-01-22&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2379&quot;,
+      &quot;fold&quot;: 4,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-05-09&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2454&quot;,
+      &quot;fold&quot;: 1,
+      &quot;selected_epochs&quot;: 5,
+      &quot;inner_validation_start&quot;: &quot;2023-07-20&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2454&quot;,
+      &quot;fold&quot;: 2,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2023-10-26&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2454&quot;,
+      &quot;fold&quot;: 3,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-01-22&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;2454&quot;,
+      &quot;fold&quot;: 4,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-05-09&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;3034&quot;,
+      &quot;fold&quot;: 1,
+      &quot;selected_epochs&quot;: 3,
+      &quot;inner_validation_start&quot;: &quot;2023-07-20&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;3034&quot;,
+      &quot;fold&quot;: 2,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2023-10-26&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;3034&quot;,
+      &quot;fold&quot;: 3,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-01-22&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;technology&quot;,
+      &quot;heldout_stock&quot;: &quot;3034&quot;,
+      &quot;fold&quot;: 4,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-05-09&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2881&quot;,
+      &quot;fold&quot;: 1,
+      &quot;selected_epochs&quot;: 3,
+      &quot;inner_validation_start&quot;: &quot;2023-07-20&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2881&quot;,
+      &quot;fold&quot;: 2,
+      &quot;selected_epochs&quot;: 6,
+      &quot;inner_validation_start&quot;: &quot;2023-10-26&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2881&quot;,
+      &quot;fold&quot;: 3,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-01-22&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2881&quot;,
+      &quot;fold&quot;: 4,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-05-09&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2882&quot;,
+      &quot;fold&quot;: 1,
+      &quot;selected_epochs&quot;: 3,
+      &quot;inner_validation_start&quot;: &quot;2023-07-20&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2882&quot;,
+      &quot;fold&quot;: 2,
+      &quot;selected_epochs&quot;: 6,
+      &quot;inner_validation_start&quot;: &quot;2023-10-26&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2882&quot;,
+      &quot;fold&quot;: 3,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-01-22&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2882&quot;,
+      &quot;fold&quot;: 4,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-05-09&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2884&quot;,
+      &quot;fold&quot;: 1,
+      &quot;selected_epochs&quot;: 3,
+      &quot;inner_validation_start&quot;: &quot;2023-07-20&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2884&quot;,
+      &quot;fold&quot;: 2,
+      &quot;selected_epochs&quot;: 6,
+      &quot;inner_validation_start&quot;: &quot;2023-10-26&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2884&quot;,
+      &quot;fold&quot;: 3,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-01-22&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2884&quot;,
+      &quot;fold&quot;: 4,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-05-09&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2886&quot;,
+      &quot;fold&quot;: 1,
+      &quot;selected_epochs&quot;: 3,
+      &quot;inner_validation_start&quot;: &quot;2023-07-20&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2886&quot;,
+      &quot;fold&quot;: 2,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2023-10-26&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2886&quot;,
+      &quot;fold&quot;: 3,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-01-22&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2886&quot;,
+      &quot;fold&quot;: 4,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-05-09&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2891&quot;,
+      &quot;fold&quot;: 1,
+      &quot;selected_epochs&quot;: 8,
+      &quot;inner_validation_start&quot;: &quot;2023-07-20&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2891&quot;,
+      &quot;fold&quot;: 2,
+      &quot;selected_epochs&quot;: 8,
+      &quot;inner_validation_start&quot;: &quot;2023-10-26&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2891&quot;,
+      &quot;fold&quot;: 3,
+      &quot;selected_epochs&quot;: 10,
+      &quot;inner_validation_start&quot;: &quot;2024-01-22&quot;
+    },
+    {
+      &quot;industry&quot;: &quot;financial&quot;,
+      &quot;heldout_stock&quot;: &quot;2891&quot;,
+      &quot;fold&quot;: 4,
+      &quot;selected_epochs&quot;: 6,
+      &quot;inner_validation_start&quot;: &quot;2024-05-09&quot;
+    }
+  ],
+  &quot;data_load&quot;: {
+    &quot;loaded_role&quot;: &quot;train&quot;,
+    &quot;stock_codes&quot;: [
+      &quot;2303&quot;,
+      &quot;2330&quot;,
+      &quot;2379&quot;,
+      &quot;2454&quot;,
+      &quot;2881&quot;,
+      &quot;2882&quot;,
+      &quot;2884&quot;,
+      &quot;2886&quot;,
+      &quot;2891&quot;,
+      &quot;3034&quot;
+    ],
+    &quot;coverage&quot;: [
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2303&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26453,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2330&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26453,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2379&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26384,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2454&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26451,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2881&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26452,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2882&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26452,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2884&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26451,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2886&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26453,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;2891&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26453,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      },
+      {
+        &quot;role&quot;: &quot;train&quot;,
+        &quot;stock_code&quot;: &quot;3034&quot;,
+        &quot;start&quot;: &quot;2023-01-01&quot;,
+        &quot;end&quot;: &quot;2024-12-31&quot;,
+        &quot;kbar_rows&quot;: 26434,
+        &quot;first_timestamp&quot;: 1672707600,
+        &quot;last_timestamp&quot;: 1735623000,
+        &quot;available&quot;: true
+      }
+    ],
+    &quot;cleaning&quot;: {
+      &quot;duplicates_removed&quot;: 0,
+      &quot;invalid_ohlcv_removed&quot;: 0
+    },
+    &quot;sample_rejections_before_context_alignment&quot;: 18,
+    &quot;samples_after_common_alignment&quot;: 4580,
+    &quot;context_features&quot;: [
+      &quot;volume_trend_5d&quot;,
+      &quot;volume_trend_20d&quot;
+    ],
+    &quot;common_sample_alignment_across_models&quot;: true
+  }
+}</pre>
+
+</section>
+
+
+<section>
+
+<h2>
+5. Decision Status
+</h2>
+
+<p>
+本報告只做 Training-only（僅訓練資料）
+產業泛化診斷。
+不自動選產業、不調 Feature、不調參數，
+不啟動 Controlled Validation。
+</p>
+
+</section>
+
+</body>
+
+</html>

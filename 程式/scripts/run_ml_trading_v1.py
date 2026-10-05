@@ -29,7 +29,7 @@ def _json(value) -> str:
 
 def _coverage_table(rows: list[dict]) -> str:
     body = "".join(
-        f"<tr><td>{html.escape(r['split'])}</td><td>{html.escape(r['stock_code'])}</td>"
+        f"<tr><td>{html.escape(r['role'])}</td><td>{html.escape(r['stock_code'])}</td>"
         f"<td>{r['start']}～{r['end']}</td><td>{r['kbar_rows']:,}</td>"
         f"<td class={'ok' if r['available'] else 'bad'}>{'可用' if r['available'] else '缺少'}</td></tr>"
         for r in rows
@@ -69,7 +69,7 @@ def render_completed(plan: dict, results: dict, coverage_rows: list[dict]) -> st
 <div class='card ok'>訓練、驗證及回測均已完成。保留區間仍為 locked / forbidden，未讀取也未用來建立特徵。</div>
 <table><thead><tr><th>方法</th><th>股票</th><th>報酬率</th><th>交易</th><th>勝率</th><th>最大回撤</th></tr></thead><tbody>{''.join(rows)}{benchmark_rows}</tbody></table>
 <h2>資料涵蓋</h2>{_coverage_table(coverage_rows)}
-<div class='card'>測試結果只作開發比較，不是獨立驗證，也沒有依測試績效調整門檻。</div>""")
+<div class='card'>Development 結果只作開發比較，不是獨立 Test，也沒有依 Development 績效調整門檻。</div>""")
 
 
 def write_coverage(rows: list[dict]) -> None:
@@ -105,7 +105,7 @@ def main() -> int:
         "experiment_id": plan["experiment_id"], "status": "completed",
         "generated_at": generated_at, "holdout_used": False,
         "classification_metrics": {}, "trading_results": {},
-        "benchmarks": {"buy_and_hold": buy_and_hold(markets["test"], plan["trading"]), "cash_return_pct": 0.0},
+        "benchmarks": {"buy_and_hold": buy_and_hold(markets["development"], plan["trading"]), "cash_return_pct": 0.0},
         "audit": data.audit,
     }
     rules = {**plan["trading"], "max_holding_sessions": plan["target"]["holding_sessions"]}
@@ -113,7 +113,7 @@ def main() -> int:
         print(f"訓練 {name}...", flush=True)
         _, metrics, probabilities = run_model(name, data, plan["models"][name])
         results["classification_metrics"][name] = metrics
-        results["trading_results"][name] = run_probability_backtest(markets["test"], data.metadata["test"], probabilities["test"], rules)
+        results["trading_results"][name] = run_probability_backtest(markets["development"], data.metadata["development"], probabilities["development"], rules)
     assert_payload(results)
     report = render_completed(plan, results, coverage.rows)
     (OUTPUT_DIR / "data_audit.json").write_text(_json(data.audit), encoding="utf-8")

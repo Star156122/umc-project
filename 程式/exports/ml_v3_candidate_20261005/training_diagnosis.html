@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>ML V3 Training-only Diagnosis</title>
+<style>
+body{font-family:system-ui,'Noto Sans TC',sans-serif;max-width:1200px;margin:30px auto;padding:0 16px;color:#182433}
+table{border-collapse:collapse;width:100%;margin:14px 0}
+th,td{border:1px solid #d9e1e8;padding:8px;text-align:right}
+th:first-child,td:first-child{text-align:left}
+.card{background:#f4f7fa;border-radius:12px;padding:16px;margin:16px 0}
+.warn{background:#fff4cf}
+code{background:#edf2f7;padding:2px 5px}
+</style>
+</head>
+<body>
+<h1>ML V3 Training-only 診斷</h1>
+<div class="card">
+<p><strong>資料限制：</strong>本報告只使用既有 2023–2024 Walk-forward 結果與已重訓 Candidate 模型，
+不讀取 Controlled Validation、Development、Holdout 或 Final OOS。</p>
+<p><strong>Candidate：</strong>random_forest</p>
+</div>
+
+<h2>單股跨 Fold 指標</h2>
+<table><thead><tr><th>股票</th><th>Macro F1 平均</th><th>Macro AUC 平均</th><th>SELL AUC</th><th>HOLD AUC</th><th>BUY AUC</th></tr></thead><tbody><tr><td>2002</td><td>0.3755</td><td>0.5559</td><td>0.5787</td><td>0.5442</td><td>0.5448</td></tr><tr><td>2303</td><td>0.2966</td><td>0.4862</td><td>0.4535</td><td>0.4921</td><td>0.5129</td></tr><tr><td>2330</td><td>0.2990</td><td>0.5126</td><td>0.4723</td><td>0.5280</td><td>0.5376</td></tr><tr><td>2412</td><td>0.2863</td><td>0.4716</td><td>0.4483</td><td>0.4669</td><td>0.4825</td></tr><tr><td>2881</td><td>0.3050</td><td>0.5098</td><td>0.4846</td><td>0.5275</td><td>0.5172</td></tr><tr><td>2882</td><td>0.2937</td><td>0.5243</td><td>0.4850</td><td>0.5708</td><td>0.5172</td></tr></tbody></table>
+
+<h2>產業分組診斷</h2>
+<table><thead><tr><th>群組</th><th>股票</th><th>Macro F1 平均</th><th>Macro AUC 平均</th><th>SELL AUC</th><th>HOLD AUC</th><th>BUY AUC</th></tr></thead><tbody><tr><td>科技組</td><td>2303, 2330</td><td>0.2978</td><td>0.4994</td><td>0.4629</td><td>0.5101</td><td>0.5253</td></tr><tr><td>金融組</td><td>2881, 2882</td><td>0.2994</td><td>0.5170</td><td>0.4848</td><td>0.5491</td><td>0.5172</td></tr><tr><td>其他參考</td><td>2002, 2412</td><td>0.3309</td><td>0.5198</td><td>0.5135</td><td>0.5056</td><td>0.5181</td></tr></tbody></table>
+
+<h2>Random Forest Feature Importance</h2>
+<p>Random Forest 輸入還原為 24 個時間位置 × 24 個 Features。</p><table><thead><tr><th>排名</th><th>Feature</th><th>Importance</th></tr></thead><tbody><tr><td>1</td><td>range_vs_close</td><td>0.133328</td></tr><tr><td>2</td><td>volatility_12</td><td>0.061133</td></tr><tr><td>3</td><td>volatility_24</td><td>0.057768</td></tr><tr><td>4</td><td>volume_ratio_5</td><td>0.049655</td></tr><tr><td>5</td><td>low_vs_prev_close</td><td>0.049245</td></tr><tr><td>6</td><td>volume_zscore_20</td><td>0.047808</td></tr><tr><td>7</td><td>volume_ratio_20</td><td>0.046953</td></tr><tr><td>8</td><td>macd_hist_vs_close</td><td>0.043466</td></tr><tr><td>9</td><td>high_vs_prev_close</td><td>0.041879</td></tr><tr><td>10</td><td>close_vs_ma5</td><td>0.041668</td></tr><tr><td>11</td><td>trend_slope_24</td><td>0.038058</td></tr><tr><td>12</td><td>macd_signal_vs_close</td><td>0.037625</td></tr><tr><td>13</td><td>price_zscore_20</td><td>0.037183</td></tr><tr><td>14</td><td>trend_slope_12</td><td>0.036681</td></tr><tr><td>15</td><td>close_vs_ma20</td><td>0.036270</td></tr></tbody></table>
+
+<h2>自動診斷提醒</h2>
+<div class="card warn"><ul><li>整體 SELL AUC 最弱（0.5286），低於 HOLD（0.6179）與 BUY（0.5936）。</li><li>2303 的跨 Fold Macro AUC 平均低於 0.50（0.4862）。</li><li>2412 的跨 Fold Macro AUC 平均低於 0.50（0.4716）。</li><li>2412 Fold 1 有預測塌縮傾向：HOLD 佔 98.7%。</li><li>2412 Fold 2 有預測塌縮傾向：HOLD 佔 100.0%。</li><li>2412 Fold 3 有預測塌縮傾向：HOLD 佔 100.0%。</li><li>2412 Fold 4 有預測塌縮傾向：HOLD 佔 100.0%。</li><li>產業組 Macro AUC（僅供診斷，不做最終結論）：科技組 0.4994、金融組 0.5170。</li></ul></div>
+
+<p>注意：本報告是 Training-only diagnosis，不應直接用來宣稱最終泛化能力，也沒有以交易報酬挑選模型。</p>
+</body>
+</html>

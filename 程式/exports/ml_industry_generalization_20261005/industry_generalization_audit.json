@@ -1,0 +1,430 @@
+{
+  "training_only": true,
+  "training_period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "controlled_validation_used": false,
+  "development_used": false,
+  "holdout_used": false,
+  "final_oos_used": false,
+  "parameter_search": false,
+  "feature_search": false,
+  "trading_return_selection": false,
+  "heldout_stock_never_in_training": true,
+  "heldout_stock_never_in_gru_early_stopping": true,
+  "scaler_fit_on_peer_training_only": true,
+  "context_scaler_fit_on_peer_training_only": true,
+  "common_sample_alignment_across_models": true,
+  "gru_early_stopping_source": "peer-stock inner chronological validation only",
+  "gru_epoch_records": [
+    {
+      "industry": "technology",
+      "heldout_stock": "2303",
+      "fold": 1,
+      "selected_epochs": 10,
+      "inner_validation_start": "2023-07-20"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2303",
+      "fold": 2,
+      "selected_epochs": 10,
+      "inner_validation_start": "2023-10-26"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2303",
+      "fold": 3,
+      "selected_epochs": 9,
+      "inner_validation_start": "2024-01-22"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2303",
+      "fold": 4,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-05-09"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2330",
+      "fold": 1,
+      "selected_epochs": 10,
+      "inner_validation_start": "2023-07-20"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2330",
+      "fold": 2,
+      "selected_epochs": 10,
+      "inner_validation_start": "2023-10-26"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2330",
+      "fold": 3,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-01-22"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2330",
+      "fold": 4,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-05-09"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2379",
+      "fold": 1,
+      "selected_epochs": 5,
+      "inner_validation_start": "2023-07-20"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2379",
+      "fold": 2,
+      "selected_epochs": 10,
+      "inner_validation_start": "2023-10-26"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2379",
+      "fold": 3,
+      "selected_epochs": 9,
+      "inner_validation_start": "2024-01-22"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2379",
+      "fold": 4,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-05-09"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2454",
+      "fold": 1,
+      "selected_epochs": 5,
+      "inner_validation_start": "2023-07-20"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2454",
+      "fold": 2,
+      "selected_epochs": 10,
+      "inner_validation_start": "2023-10-26"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2454",
+      "fold": 3,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-01-22"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "2454",
+      "fold": 4,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-05-09"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "3034",
+      "fold": 1,
+      "selected_epochs": 3,
+      "inner_validation_start": "2023-07-20"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "3034",
+      "fold": 2,
+      "selected_epochs": 10,
+      "inner_validation_start": "2023-10-26"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "3034",
+      "fold": 3,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-01-22"
+    },
+    {
+      "industry": "technology",
+      "heldout_stock": "3034",
+      "fold": 4,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-05-09"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2881",
+      "fold": 1,
+      "selected_epochs": 3,
+      "inner_validation_start": "2023-07-20"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2881",
+      "fold": 2,
+      "selected_epochs": 6,
+      "inner_validation_start": "2023-10-26"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2881",
+      "fold": 3,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-01-22"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2881",
+      "fold": 4,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-05-09"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2882",
+      "fold": 1,
+      "selected_epochs": 3,
+      "inner_validation_start": "2023-07-20"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2882",
+      "fold": 2,
+      "selected_epochs": 6,
+      "inner_validation_start": "2023-10-26"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2882",
+      "fold": 3,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-01-22"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2882",
+      "fold": 4,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-05-09"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2884",
+      "fold": 1,
+      "selected_epochs": 3,
+      "inner_validation_start": "2023-07-20"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2884",
+      "fold": 2,
+      "selected_epochs": 6,
+      "inner_validation_start": "2023-10-26"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2884",
+      "fold": 3,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-01-22"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2884",
+      "fold": 4,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-05-09"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2886",
+      "fold": 1,
+      "selected_epochs": 3,
+      "inner_validation_start": "2023-07-20"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2886",
+      "fold": 2,
+      "selected_epochs": 10,
+      "inner_validation_start": "2023-10-26"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2886",
+      "fold": 3,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-01-22"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2886",
+      "fold": 4,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-05-09"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2891",
+      "fold": 1,
+      "selected_epochs": 8,
+      "inner_validation_start": "2023-07-20"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2891",
+      "fold": 2,
+      "selected_epochs": 8,
+      "inner_validation_start": "2023-10-26"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2891",
+      "fold": 3,
+      "selected_epochs": 10,
+      "inner_validation_start": "2024-01-22"
+    },
+    {
+      "industry": "financial",
+      "heldout_stock": "2891",
+      "fold": 4,
+      "selected_epochs": 6,
+      "inner_validation_start": "2024-05-09"
+    }
+  ],
+  "data_load": {
+    "loaded_role": "train",
+    "stock_codes": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "2881",
+      "2882",
+      "2884",
+      "2886",
+      "2891",
+      "3034"
+    ],
+    "coverage": [
+      {
+        "role": "train",
+        "stock_code": "2303",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26453,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2330",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26453,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2379",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26384,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2454",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26451,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2881",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26452,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2882",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26452,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2884",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26451,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2886",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26453,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "2891",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26453,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      },
+      {
+        "role": "train",
+        "stock_code": "3034",
+        "start": "2023-01-01",
+        "end": "2024-12-31",
+        "kbar_rows": 26434,
+        "first_timestamp": 1672707600,
+        "last_timestamp": 1735623000,
+        "available": true
+      }
+    ],
+    "cleaning": {
+      "duplicates_removed": 0,
+      "invalid_ohlcv_removed": 0
+    },
+    "sample_rejections_before_context_alignment": 18,
+    "samples_after_common_alignment": 4580,
+    "context_features": [
+      "volume_trend_5d",
+      "volume_trend_20d"
+    ],
+    "common_sample_alignment_across_models": true
+  }
+}

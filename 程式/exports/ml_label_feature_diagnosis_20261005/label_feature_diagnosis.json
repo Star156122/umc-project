@@ -1,0 +1,3317 @@
+{
+  "report_name": "ML V3 Training-only Label and Feature Structure Diagnosis",
+  "generated_at": "2026-10-05T11:19:11+08:00",
+  "scope": {
+    "period": [
+      "2023-01-01",
+      "2024-12-31"
+    ],
+    "roles_loaded": [
+      "train"
+    ],
+    "workflow_stage": "label_feature_diagnosis_training_only",
+    "label_definition_unchanged": {
+      "name": "cost_aware_buy_hold_sell_after_three_sessions",
+      "classification": "multiclass",
+      "definition": "net return after buy commission, sell commission and tax; SELL <= -1%, HOLD between, BUY >= 1%",
+      "sell_net_return_threshold": -0.01,
+      "buy_net_return_threshold": 0.01,
+      "holding_sessions": 3,
+      "labels": {
+        "0": "SELL",
+        "1": "HOLD",
+        "2": "BUY"
+      }
+    }
+  },
+  "executive_summary": [
+    "Flexible Random Forest 的調參改善很小，沒有理由繼續擴大參數搜尋。",
+    "三模型整體 Macro F1 偏低、Macro AUC 僅略高於 0.5，問題不只來自模型參數。",
+    "固定 ±1% 門檻對不同股票與產業產生不同類別比例，2412 特別容易集中於 HOLD。",
+    "Feature Importance 有集中項目，但多個 Top Feature 在三類間仍高度重疊。"
+  ],
+  "label_diagnosis": {
+    "definition": {
+      "SELL": "future_net_return <= -1%",
+      "HOLD": "-1% < future_net_return < +1%",
+      "BUY": "future_net_return >= +1%",
+      "holding_sessions": 3
+    },
+    "by_stock": {
+      "2002": {
+        "return_distribution": {
+          "samples": 476,
+          "mean": -0.008377699759207552,
+          "median": -0.005841675612252573,
+          "standard_deviation": 0.01847997256603533,
+          "min": -0.06247094725459257,
+          "max": 0.06814219969102164,
+          "quantiles": {
+            "5%": -0.03848913252084116,
+            "25%": -0.01973227797023583,
+            "50%": -0.005841675612252573,
+            "75%": 0.002711193898230768,
+            "95%": 0.018415961265286662
+          }
+        },
+        "label_distribution": {
+          "threshold": 0.01,
+          "samples": 476,
+          "classes": {
+            "SELL": {
+              "count": 204,
+              "proportion": 0.42857142857142855
+            },
+            "HOLD": {
+              "count": 216,
+              "proportion": 0.453781512605042
+            },
+            "BUY": {
+              "count": 56,
+              "proportion": 0.11764705882352941
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "threshold_sensitivity": {
+          "±0.50%": {
+            "threshold": 0.005,
+            "samples": 476,
+            "classes": {
+              "SELL": {
+                "count": 263,
+                "proportion": 0.5525210084033614
+              },
+              "HOLD": {
+                "count": 121,
+                "proportion": 0.2542016806722689
+              },
+              "BUY": {
+                "count": 92,
+                "proportion": 0.19327731092436976
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±0.75%": {
+            "threshold": 0.0075,
+            "samples": 476,
+            "classes": {
+              "SELL": {
+                "count": 236,
+                "proportion": 0.4957983193277311
+              },
+              "HOLD": {
+                "count": 162,
+                "proportion": 0.3403361344537815
+              },
+              "BUY": {
+                "count": 78,
+                "proportion": 0.1638655462184874
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.00%": {
+            "threshold": 0.01,
+            "samples": 476,
+            "classes": {
+              "SELL": {
+                "count": 204,
+                "proportion": 0.42857142857142855
+              },
+              "HOLD": {
+                "count": 216,
+                "proportion": 0.453781512605042
+              },
+              "BUY": {
+                "count": 56,
+                "proportion": 0.11764705882352941
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.25%": {
+            "threshold": 0.0125,
+            "samples": 476,
+            "classes": {
+              "SELL": {
+                "count": 174,
+                "proportion": 0.36554621848739494
+              },
+              "HOLD": {
+                "count": 258,
+                "proportion": 0.542016806722689
+              },
+              "BUY": {
+                "count": 44,
+                "proportion": 0.09243697478991597
+              }
+            },
+            "flags": [
+              "BUY < 10%"
+            ],
+            "severe_class_imbalance": true
+          },
+          "±1.50%": {
+            "threshold": 0.015,
+            "samples": 476,
+            "classes": {
+              "SELL": {
+                "count": 154,
+                "proportion": 0.3235294117647059
+              },
+              "HOLD": {
+                "count": 290,
+                "proportion": 0.6092436974789915
+              },
+              "BUY": {
+                "count": 32,
+                "proportion": 0.06722689075630252
+              }
+            },
+            "flags": [
+              "BUY < 10%"
+            ],
+            "severe_class_imbalance": true
+          }
+        }
+      },
+      "2303": {
+        "return_distribution": {
+          "samples": 478,
+          "mean": -0.005649403978386273,
+          "median": -0.005841675612252684,
+          "standard_deviation": 0.024892118444643535,
+          "min": -0.08418060548896045,
+          "max": 0.08350816241577008,
+          "quantiles": {
+            "5%": -0.04545811795680639,
+            "25%": -0.021741856353099442,
+            "50%": -0.005841675612252684,
+            "75%": 0.00923771802358192,
+            "95%": 0.03263147087779563
+          }
+        },
+        "label_distribution": {
+          "threshold": 0.01,
+          "samples": 478,
+          "classes": {
+            "SELL": {
+              "count": 209,
+              "proportion": 0.4372384937238494
+            },
+            "HOLD": {
+              "count": 155,
+              "proportion": 0.32426778242677823
+            },
+            "BUY": {
+              "count": 114,
+              "proportion": 0.2384937238493724
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "threshold_sensitivity": {
+          "±0.50%": {
+            "threshold": 0.005,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 255,
+                "proportion": 0.5334728033472803
+              },
+              "HOLD": {
+                "count": 66,
+                "proportion": 0.13807531380753138
+              },
+              "BUY": {
+                "count": 157,
+                "proportion": 0.3284518828451883
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±0.75%": {
+            "threshold": 0.0075,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 235,
+                "proportion": 0.4916317991631799
+              },
+              "HOLD": {
+                "count": 114,
+                "proportion": 0.2384937238493724
+              },
+              "BUY": {
+                "count": 129,
+                "proportion": 0.2698744769874477
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.00%": {
+            "threshold": 0.01,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 209,
+                "proportion": 0.4372384937238494
+              },
+              "HOLD": {
+                "count": 155,
+                "proportion": 0.32426778242677823
+              },
+              "BUY": {
+                "count": 114,
+                "proportion": 0.2384937238493724
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.25%": {
+            "threshold": 0.0125,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 195,
+                "proportion": 0.40794979079497906
+              },
+              "HOLD": {
+                "count": 179,
+                "proportion": 0.37447698744769875
+              },
+              "BUY": {
+                "count": 104,
+                "proportion": 0.2175732217573222
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.50%": {
+            "threshold": 0.015,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 176,
+                "proportion": 0.3682008368200837
+              },
+              "HOLD": {
+                "count": 215,
+                "proportion": 0.4497907949790795
+              },
+              "BUY": {
+                "count": 87,
+                "proportion": 0.18200836820083682
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          }
+        }
+      },
+      "2330": {
+        "return_distribution": {
+          "samples": 478,
+          "mean": -0.0018891192664206966,
+          "median": -0.0040225006273940656,
+          "standard_deviation": 0.025946449269057707,
+          "min": -0.1638400058039069,
+          "max": 0.09467354201936806,
+          "quantiles": {
+            "5%": -0.03994011279888329,
+            "25%": -0.017429801547538565,
+            "50%": -0.0040225006273940656,
+            "75%": 0.013386544657151778,
+            "95%": 0.03925566772799006
+          }
+        },
+        "label_distribution": {
+          "threshold": 0.01,
+          "samples": 478,
+          "classes": {
+            "SELL": {
+              "count": 181,
+              "proportion": 0.3786610878661088
+            },
+            "HOLD": {
+              "count": 160,
+              "proportion": 0.33472803347280333
+            },
+            "BUY": {
+              "count": 137,
+              "proportion": 0.28661087866108786
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "threshold_sensitivity": {
+          "±0.50%": {
+            "threshold": 0.005,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 228,
+                "proportion": 0.4769874476987448
+              },
+              "HOLD": {
+                "count": 83,
+                "proportion": 0.17364016736401675
+              },
+              "BUY": {
+                "count": 167,
+                "proportion": 0.3493723849372385
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±0.75%": {
+            "threshold": 0.0075,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 208,
+                "proportion": 0.4351464435146444
+              },
+              "HOLD": {
+                "count": 111,
+                "proportion": 0.23221757322175732
+              },
+              "BUY": {
+                "count": 159,
+                "proportion": 0.33263598326359833
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.00%": {
+            "threshold": 0.01,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 181,
+                "proportion": 0.3786610878661088
+              },
+              "HOLD": {
+                "count": 160,
+                "proportion": 0.33472803347280333
+              },
+              "BUY": {
+                "count": 137,
+                "proportion": 0.28661087866108786
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.25%": {
+            "threshold": 0.0125,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 163,
+                "proportion": 0.3410041841004184
+              },
+              "HOLD": {
+                "count": 188,
+                "proportion": 0.39330543933054396
+              },
+              "BUY": {
+                "count": 127,
+                "proportion": 0.26569037656903766
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.50%": {
+            "threshold": 0.015,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 140,
+                "proportion": 0.2928870292887029
+              },
+              "HOLD": {
+                "count": 228,
+                "proportion": 0.4769874476987448
+              },
+              "BUY": {
+                "count": 110,
+                "proportion": 0.2301255230125523
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          }
+        }
+      },
+      "2412": {
+        "return_distribution": {
+          "samples": 465,
+          "mean": -0.005093947729748581,
+          "median": -0.005841675612252573,
+          "standard_deviation": 0.009792505374584832,
+          "min": -0.06501776634961842,
+          "max": 0.022332851799545805,
+          "quantiles": {
+            "5%": -0.018797731019858065,
+            "25%": -0.009932862132366771,
+            "50%": -0.005841675612252573,
+            "75%": 0.002079904661753451,
+            "95%": 0.010180256704606492
+          }
+        },
+        "label_distribution": {
+          "threshold": 0.01,
+          "samples": 465,
+          "classes": {
+            "SELL": {
+              "count": 109,
+              "proportion": 0.23440860215053763
+            },
+            "HOLD": {
+              "count": 329,
+              "proportion": 0.7075268817204301
+            },
+            "BUY": {
+              "count": 27,
+              "proportion": 0.05806451612903226
+            }
+          },
+          "flags": [
+            "HOLD > 70%",
+            "BUY < 10%"
+          ],
+          "severe_class_imbalance": true
+        },
+        "threshold_sensitivity": {
+          "±0.50%": {
+            "threshold": 0.005,
+            "samples": 465,
+            "classes": {
+              "SELL": {
+                "count": 254,
+                "proportion": 0.546236559139785
+              },
+              "HOLD": {
+                "count": 149,
+                "proportion": 0.3204301075268817
+              },
+              "BUY": {
+                "count": 62,
+                "proportion": 0.13333333333333333
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±0.75%": {
+            "threshold": 0.0075,
+            "samples": 465,
+            "classes": {
+              "SELL": {
+                "count": 162,
+                "proportion": 0.34838709677419355
+              },
+              "HOLD": {
+                "count": 275,
+                "proportion": 0.5913978494623656
+              },
+              "BUY": {
+                "count": 28,
+                "proportion": 0.060215053763440864
+              }
+            },
+            "flags": [
+              "BUY < 10%"
+            ],
+            "severe_class_imbalance": true
+          },
+          "±1.00%": {
+            "threshold": 0.01,
+            "samples": 465,
+            "classes": {
+              "SELL": {
+                "count": 109,
+                "proportion": 0.23440860215053763
+              },
+              "HOLD": {
+                "count": 329,
+                "proportion": 0.7075268817204301
+              },
+              "BUY": {
+                "count": 27,
+                "proportion": 0.05806451612903226
+              }
+            },
+            "flags": [
+              "HOLD > 70%",
+              "BUY < 10%"
+            ],
+            "severe_class_imbalance": true
+          },
+          "±1.25%": {
+            "threshold": 0.0125,
+            "samples": 465,
+            "classes": {
+              "SELL": {
+                "count": 83,
+                "proportion": 0.17849462365591398
+              },
+              "HOLD": {
+                "count": 371,
+                "proportion": 0.7978494623655914
+              },
+              "BUY": {
+                "count": 11,
+                "proportion": 0.023655913978494623
+              }
+            },
+            "flags": [
+              "HOLD > 70%",
+              "BUY < 10%"
+            ],
+            "severe_class_imbalance": true
+          },
+          "±1.50%": {
+            "threshold": 0.015,
+            "samples": 465,
+            "classes": {
+              "SELL": {
+                "count": 47,
+                "proportion": 0.1010752688172043
+              },
+              "HOLD": {
+                "count": 414,
+                "proportion": 0.8903225806451613
+              },
+              "BUY": {
+                "count": 4,
+                "proportion": 0.008602150537634409
+              }
+            },
+            "flags": [
+              "HOLD > 70%",
+              "BUY < 10%"
+            ],
+            "severe_class_imbalance": true
+          }
+        }
+      },
+      "2881": {
+        "return_distribution": {
+          "samples": 476,
+          "mean": -0.002791125600794013,
+          "median": -0.002611264627875809,
+          "standard_deviation": 0.02030101965954402,
+          "min": -0.11754485812772975,
+          "max": 0.06814219969102164,
+          "quantiles": {
+            "5%": -0.03231803502209374,
+            "25%": -0.014641782094421102,
+            "50%": -0.002611264627875809,
+            "75%": 0.008794913354752909,
+            "95%": 0.02962917492667727
+          }
+        },
+        "label_distribution": {
+          "threshold": 0.01,
+          "samples": 476,
+          "classes": {
+            "SELL": {
+              "count": 170,
+              "proportion": 0.35714285714285715
+            },
+            "HOLD": {
+              "count": 194,
+              "proportion": 0.40756302521008403
+            },
+            "BUY": {
+              "count": 112,
+              "proportion": 0.23529411764705882
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "threshold_sensitivity": {
+          "±0.50%": {
+            "threshold": 0.005,
+            "samples": 476,
+            "classes": {
+              "SELL": {
+                "count": 221,
+                "proportion": 0.4642857142857143
+              },
+              "HOLD": {
+                "count": 103,
+                "proportion": 0.21638655462184875
+              },
+              "BUY": {
+                "count": 152,
+                "proportion": 0.31932773109243695
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±0.75%": {
+            "threshold": 0.0075,
+            "samples": 476,
+            "classes": {
+              "SELL": {
+                "count": 190,
+                "proportion": 0.39915966386554624
+              },
+              "HOLD": {
+                "count": 160,
+                "proportion": 0.33613445378151263
+              },
+              "BUY": {
+                "count": 126,
+                "proportion": 0.2647058823529412
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.00%": {
+            "threshold": 0.01,
+            "samples": 476,
+            "classes": {
+              "SELL": {
+                "count": 170,
+                "proportion": 0.35714285714285715
+              },
+              "HOLD": {
+                "count": 194,
+                "proportion": 0.40756302521008403
+              },
+              "BUY": {
+                "count": 112,
+                "proportion": 0.23529411764705882
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.25%": {
+            "threshold": 0.0125,
+            "samples": 476,
+            "classes": {
+              "SELL": {
+                "count": 135,
+                "proportion": 0.28361344537815125
+              },
+              "HOLD": {
+                "count": 251,
+                "proportion": 0.5273109243697479
+              },
+              "BUY": {
+                "count": 90,
+                "proportion": 0.18907563025210083
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.50%": {
+            "threshold": 0.015,
+            "samples": 476,
+            "classes": {
+              "SELL": {
+                "count": 118,
+                "proportion": 0.24789915966386555
+              },
+              "HOLD": {
+                "count": 281,
+                "proportion": 0.5903361344537815
+              },
+              "BUY": {
+                "count": 77,
+                "proportion": 0.16176470588235295
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          }
+        }
+      },
+      "2882": {
+        "return_distribution": {
+          "samples": 478,
+          "mean": -0.0029897839273572424,
+          "median": -0.0032678517377213168,
+          "standard_deviation": 0.020510597140126895,
+          "min": -0.12122094060478916,
+          "max": 0.08400367393948893,
+          "quantiles": {
+            "5%": -0.030384042467407633,
+            "25%": -0.01571198237095961,
+            "50%": -0.0032678517377213168,
+            "75%": 0.007946746641363411,
+            "95%": 0.031125955303426243
+          }
+        },
+        "label_distribution": {
+          "threshold": 0.01,
+          "samples": 478,
+          "classes": {
+            "SELL": {
+              "count": 171,
+              "proportion": 0.3577405857740586
+            },
+            "HOLD": {
+              "count": 204,
+              "proportion": 0.42677824267782427
+            },
+            "BUY": {
+              "count": 103,
+              "proportion": 0.21548117154811716
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "threshold_sensitivity": {
+          "±0.50%": {
+            "threshold": 0.005,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 221,
+                "proportion": 0.46234309623430964
+              },
+              "HOLD": {
+                "count": 113,
+                "proportion": 0.23640167364016737
+              },
+              "BUY": {
+                "count": 144,
+                "proportion": 0.301255230125523
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±0.75%": {
+            "threshold": 0.0075,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 195,
+                "proportion": 0.40794979079497906
+              },
+              "HOLD": {
+                "count": 158,
+                "proportion": 0.3305439330543933
+              },
+              "BUY": {
+                "count": 125,
+                "proportion": 0.2615062761506276
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.00%": {
+            "threshold": 0.01,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 171,
+                "proportion": 0.3577405857740586
+              },
+              "HOLD": {
+                "count": 204,
+                "proportion": 0.42677824267782427
+              },
+              "BUY": {
+                "count": 103,
+                "proportion": 0.21548117154811716
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.25%": {
+            "threshold": 0.0125,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 153,
+                "proportion": 0.3200836820083682
+              },
+              "HOLD": {
+                "count": 239,
+                "proportion": 0.5
+              },
+              "BUY": {
+                "count": 86,
+                "proportion": 0.1799163179916318
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          },
+          "±1.50%": {
+            "threshold": 0.015,
+            "samples": 478,
+            "classes": {
+              "SELL": {
+                "count": 128,
+                "proportion": 0.26778242677824265
+              },
+              "HOLD": {
+                "count": 275,
+                "proportion": 0.5753138075313807
+              },
+              "BUY": {
+                "count": 75,
+                "proportion": 0.15690376569037656
+              }
+            },
+            "flags": [],
+            "severe_class_imbalance": false
+          }
+        }
+      }
+    },
+    "fold_stock_distribution": [
+      {
+        "fold": 1,
+        "stock_code": "2002",
+        "threshold": 0.01,
+        "samples": 80,
+        "classes": {
+          "SELL": {
+            "count": 28,
+            "proportion": 0.35
+          },
+          "HOLD": {
+            "count": 38,
+            "proportion": 0.475
+          },
+          "BUY": {
+            "count": 14,
+            "proportion": 0.175
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 1,
+        "stock_code": "2303",
+        "threshold": 0.01,
+        "samples": 80,
+        "classes": {
+          "SELL": {
+            "count": 31,
+            "proportion": 0.3875
+          },
+          "HOLD": {
+            "count": 24,
+            "proportion": 0.3
+          },
+          "BUY": {
+            "count": 25,
+            "proportion": 0.3125
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 1,
+        "stock_code": "2330",
+        "threshold": 0.01,
+        "samples": 80,
+        "classes": {
+          "SELL": {
+            "count": 28,
+            "proportion": 0.35
+          },
+          "HOLD": {
+            "count": 36,
+            "proportion": 0.45
+          },
+          "BUY": {
+            "count": 16,
+            "proportion": 0.2
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 1,
+        "stock_code": "2412",
+        "threshold": 0.01,
+        "samples": 78,
+        "classes": {
+          "SELL": {
+            "count": 27,
+            "proportion": 0.34615384615384615
+          },
+          "HOLD": {
+            "count": 46,
+            "proportion": 0.5897435897435898
+          },
+          "BUY": {
+            "count": 5,
+            "proportion": 0.0641025641025641
+          }
+        },
+        "flags": [
+          "BUY < 10%"
+        ],
+        "severe_class_imbalance": true
+      },
+      {
+        "fold": 1,
+        "stock_code": "2881",
+        "threshold": 0.01,
+        "samples": 80,
+        "classes": {
+          "SELL": {
+            "count": 30,
+            "proportion": 0.375
+          },
+          "HOLD": {
+            "count": 37,
+            "proportion": 0.4625
+          },
+          "BUY": {
+            "count": 13,
+            "proportion": 0.1625
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 1,
+        "stock_code": "2882",
+        "threshold": 0.01,
+        "samples": 80,
+        "classes": {
+          "SELL": {
+            "count": 35,
+            "proportion": 0.4375
+          },
+          "HOLD": {
+            "count": 35,
+            "proportion": 0.4375
+          },
+          "BUY": {
+            "count": 10,
+            "proportion": 0.125
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 2,
+        "stock_code": "2002",
+        "threshold": 0.01,
+        "samples": 73,
+        "classes": {
+          "SELL": {
+            "count": 33,
+            "proportion": 0.4520547945205479
+          },
+          "HOLD": {
+            "count": 29,
+            "proportion": 0.3972602739726027
+          },
+          "BUY": {
+            "count": 11,
+            "proportion": 0.1506849315068493
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 2,
+        "stock_code": "2303",
+        "threshold": 0.01,
+        "samples": 73,
+        "classes": {
+          "SELL": {
+            "count": 35,
+            "proportion": 0.4794520547945205
+          },
+          "HOLD": {
+            "count": 23,
+            "proportion": 0.3150684931506849
+          },
+          "BUY": {
+            "count": 15,
+            "proportion": 0.2054794520547945
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 2,
+        "stock_code": "2330",
+        "threshold": 0.01,
+        "samples": 73,
+        "classes": {
+          "SELL": {
+            "count": 24,
+            "proportion": 0.3287671232876712
+          },
+          "HOLD": {
+            "count": 25,
+            "proportion": 0.3424657534246575
+          },
+          "BUY": {
+            "count": 24,
+            "proportion": 0.3287671232876712
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 2,
+        "stock_code": "2412",
+        "threshold": 0.01,
+        "samples": 73,
+        "classes": {
+          "SELL": {
+            "count": 15,
+            "proportion": 0.2054794520547945
+          },
+          "HOLD": {
+            "count": 52,
+            "proportion": 0.7123287671232876
+          },
+          "BUY": {
+            "count": 6,
+            "proportion": 0.0821917808219178
+          }
+        },
+        "flags": [
+          "HOLD > 70%",
+          "BUY < 10%"
+        ],
+        "severe_class_imbalance": true
+      },
+      {
+        "fold": 2,
+        "stock_code": "2881",
+        "threshold": 0.01,
+        "samples": 73,
+        "classes": {
+          "SELL": {
+            "count": 20,
+            "proportion": 0.273972602739726
+          },
+          "HOLD": {
+            "count": 38,
+            "proportion": 0.5205479452054794
+          },
+          "BUY": {
+            "count": 15,
+            "proportion": 0.2054794520547945
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 2,
+        "stock_code": "2882",
+        "threshold": 0.01,
+        "samples": 73,
+        "classes": {
+          "SELL": {
+            "count": 25,
+            "proportion": 0.3424657534246575
+          },
+          "HOLD": {
+            "count": 33,
+            "proportion": 0.4520547945205479
+          },
+          "BUY": {
+            "count": 15,
+            "proportion": 0.2054794520547945
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 3,
+        "stock_code": "2002",
+        "threshold": 0.01,
+        "samples": 79,
+        "classes": {
+          "SELL": {
+            "count": 39,
+            "proportion": 0.4936708860759494
+          },
+          "HOLD": {
+            "count": 36,
+            "proportion": 0.45569620253164556
+          },
+          "BUY": {
+            "count": 4,
+            "proportion": 0.05063291139240506
+          }
+        },
+        "flags": [
+          "BUY < 10%"
+        ],
+        "severe_class_imbalance": true
+      },
+      {
+        "fold": 3,
+        "stock_code": "2303",
+        "threshold": 0.01,
+        "samples": 81,
+        "classes": {
+          "SELL": {
+            "count": 30,
+            "proportion": 0.37037037037037035
+          },
+          "HOLD": {
+            "count": 27,
+            "proportion": 0.3333333333333333
+          },
+          "BUY": {
+            "count": 24,
+            "proportion": 0.2962962962962963
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 3,
+        "stock_code": "2330",
+        "threshold": 0.01,
+        "samples": 81,
+        "classes": {
+          "SELL": {
+            "count": 25,
+            "proportion": 0.30864197530864196
+          },
+          "HOLD": {
+            "count": 21,
+            "proportion": 0.25925925925925924
+          },
+          "BUY": {
+            "count": 35,
+            "proportion": 0.43209876543209874
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 3,
+        "stock_code": "2412",
+        "threshold": 0.01,
+        "samples": 79,
+        "classes": {
+          "SELL": {
+            "count": 14,
+            "proportion": 0.17721518987341772
+          },
+          "HOLD": {
+            "count": 61,
+            "proportion": 0.7721518987341772
+          },
+          "BUY": {
+            "count": 4,
+            "proportion": 0.05063291139240506
+          }
+        },
+        "flags": [
+          "HOLD > 70%",
+          "BUY < 10%"
+        ],
+        "severe_class_imbalance": true
+      },
+      {
+        "fold": 3,
+        "stock_code": "2881",
+        "threshold": 0.01,
+        "samples": 81,
+        "classes": {
+          "SELL": {
+            "count": 25,
+            "proportion": 0.30864197530864196
+          },
+          "HOLD": {
+            "count": 22,
+            "proportion": 0.2716049382716049
+          },
+          "BUY": {
+            "count": 34,
+            "proportion": 0.41975308641975306
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 3,
+        "stock_code": "2882",
+        "threshold": 0.01,
+        "samples": 81,
+        "classes": {
+          "SELL": {
+            "count": 27,
+            "proportion": 0.3333333333333333
+          },
+          "HOLD": {
+            "count": 27,
+            "proportion": 0.3333333333333333
+          },
+          "BUY": {
+            "count": 27,
+            "proportion": 0.3333333333333333
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 4,
+        "stock_code": "2002",
+        "threshold": 0.01,
+        "samples": 79,
+        "classes": {
+          "SELL": {
+            "count": 40,
+            "proportion": 0.5063291139240507
+          },
+          "HOLD": {
+            "count": 23,
+            "proportion": 0.2911392405063291
+          },
+          "BUY": {
+            "count": 16,
+            "proportion": 0.20253164556962025
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 4,
+        "stock_code": "2303",
+        "threshold": 0.01,
+        "samples": 79,
+        "classes": {
+          "SELL": {
+            "count": 48,
+            "proportion": 0.6075949367088608
+          },
+          "HOLD": {
+            "count": 18,
+            "proportion": 0.22784810126582278
+          },
+          "BUY": {
+            "count": 13,
+            "proportion": 0.16455696202531644
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 4,
+        "stock_code": "2330",
+        "threshold": 0.01,
+        "samples": 79,
+        "classes": {
+          "SELL": {
+            "count": 33,
+            "proportion": 0.4177215189873418
+          },
+          "HOLD": {
+            "count": 21,
+            "proportion": 0.26582278481012656
+          },
+          "BUY": {
+            "count": 25,
+            "proportion": 0.31645569620253167
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 4,
+        "stock_code": "2412",
+        "threshold": 0.01,
+        "samples": 75,
+        "classes": {
+          "SELL": {
+            "count": 12,
+            "proportion": 0.16
+          },
+          "HOLD": {
+            "count": 63,
+            "proportion": 0.84
+          },
+          "BUY": {
+            "count": 0,
+            "proportion": 0.0
+          }
+        },
+        "flags": [
+          "HOLD > 70%",
+          "BUY < 10%"
+        ],
+        "severe_class_imbalance": true
+      },
+      {
+        "fold": 4,
+        "stock_code": "2881",
+        "threshold": 0.01,
+        "samples": 79,
+        "classes": {
+          "SELL": {
+            "count": 35,
+            "proportion": 0.4430379746835443
+          },
+          "HOLD": {
+            "count": 29,
+            "proportion": 0.3670886075949367
+          },
+          "BUY": {
+            "count": 15,
+            "proportion": 0.189873417721519
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      {
+        "fold": 4,
+        "stock_code": "2882",
+        "threshold": 0.01,
+        "samples": 79,
+        "classes": {
+          "SELL": {
+            "count": 26,
+            "proportion": 0.3291139240506329
+          },
+          "HOLD": {
+            "count": 34,
+            "proportion": 0.43037974683544306
+          },
+          "BUY": {
+            "count": 19,
+            "proportion": 0.24050632911392406
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      }
+    ]
+  },
+  "industry_comparison": {
+    "科技組": {
+      "stocks": [
+        "2303",
+        "2330"
+      ],
+      "return_distribution": {
+        "samples": 956,
+        "mean": -0.0037692616224034845,
+        "median": -0.005841675612252462,
+        "standard_deviation": 0.025480966515646655,
+        "min": -0.1638400058039069,
+        "max": 0.09467354201936806,
+        "quantiles": {
+          "5%": -0.04361392531833733,
+          "25%": -0.02005921959342813,
+          "50%": -0.005841675612252462,
+          "75%": 0.01136171460041785,
+          "95%": 0.037488024422038524
+        }
+      },
+      "label_distribution": {
+        "threshold": 0.01,
+        "samples": 956,
+        "classes": {
+          "SELL": {
+            "count": 390,
+            "proportion": 0.40794979079497906
+          },
+          "HOLD": {
+            "count": 315,
+            "proportion": 0.3294979079497908
+          },
+          "BUY": {
+            "count": 251,
+            "proportion": 0.2625523012552301
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      "threshold_sensitivity": {
+        "±0.50%": {
+          "threshold": 0.005,
+          "samples": 956,
+          "classes": {
+            "SELL": {
+              "count": 483,
+              "proportion": 0.5052301255230126
+            },
+            "HOLD": {
+              "count": 149,
+              "proportion": 0.15585774058577406
+            },
+            "BUY": {
+              "count": 324,
+              "proportion": 0.3389121338912134
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "±0.75%": {
+          "threshold": 0.0075,
+          "samples": 956,
+          "classes": {
+            "SELL": {
+              "count": 443,
+              "proportion": 0.46338912133891214
+            },
+            "HOLD": {
+              "count": 225,
+              "proportion": 0.23535564853556484
+            },
+            "BUY": {
+              "count": 288,
+              "proportion": 0.301255230125523
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "±1.00%": {
+          "threshold": 0.01,
+          "samples": 956,
+          "classes": {
+            "SELL": {
+              "count": 390,
+              "proportion": 0.40794979079497906
+            },
+            "HOLD": {
+              "count": 315,
+              "proportion": 0.3294979079497908
+            },
+            "BUY": {
+              "count": 251,
+              "proportion": 0.2625523012552301
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "±1.25%": {
+          "threshold": 0.0125,
+          "samples": 956,
+          "classes": {
+            "SELL": {
+              "count": 358,
+              "proportion": 0.37447698744769875
+            },
+            "HOLD": {
+              "count": 367,
+              "proportion": 0.38389121338912136
+            },
+            "BUY": {
+              "count": 231,
+              "proportion": 0.24163179916317992
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "±1.50%": {
+          "threshold": 0.015,
+          "samples": 956,
+          "classes": {
+            "SELL": {
+              "count": 316,
+              "proportion": 0.3305439330543933
+            },
+            "HOLD": {
+              "count": 443,
+              "proportion": 0.46338912133891214
+            },
+            "BUY": {
+              "count": 197,
+              "proportion": 0.20606694560669456
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        }
+      }
+    },
+    "金融組": {
+      "stocks": [
+        "2881",
+        "2882"
+      ],
+      "return_distribution": {
+        "samples": 954,
+        "mean": -0.0028906630013152117,
+        "median": -0.002728780566858824,
+        "standard_deviation": 0.020395830563174934,
+        "min": -0.12122094060478916,
+        "max": 0.08400367393948893,
+        "quantiles": {
+          "5%": -0.031595798282395185,
+          "25%": -0.015432974621375994,
+          "50%": -0.002728780566858824,
+          "75%": 0.008156077892486568,
+          "95%": 0.03081061036922229
+        }
+      },
+      "label_distribution": {
+        "threshold": 0.01,
+        "samples": 954,
+        "classes": {
+          "SELL": {
+            "count": 341,
+            "proportion": 0.35744234800838576
+          },
+          "HOLD": {
+            "count": 398,
+            "proportion": 0.4171907756813417
+          },
+          "BUY": {
+            "count": 215,
+            "proportion": 0.22536687631027252
+          }
+        },
+        "flags": [],
+        "severe_class_imbalance": false
+      },
+      "threshold_sensitivity": {
+        "±0.50%": {
+          "threshold": 0.005,
+          "samples": 954,
+          "classes": {
+            "SELL": {
+              "count": 442,
+              "proportion": 0.46331236897274636
+            },
+            "HOLD": {
+              "count": 216,
+              "proportion": 0.22641509433962265
+            },
+            "BUY": {
+              "count": 296,
+              "proportion": 0.31027253668763105
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "±0.75%": {
+          "threshold": 0.0075,
+          "samples": 954,
+          "classes": {
+            "SELL": {
+              "count": 385,
+              "proportion": 0.40356394129979034
+            },
+            "HOLD": {
+              "count": 318,
+              "proportion": 0.3333333333333333
+            },
+            "BUY": {
+              "count": 251,
+              "proportion": 0.2631027253668763
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "±1.00%": {
+          "threshold": 0.01,
+          "samples": 954,
+          "classes": {
+            "SELL": {
+              "count": 341,
+              "proportion": 0.35744234800838576
+            },
+            "HOLD": {
+              "count": 398,
+              "proportion": 0.4171907756813417
+            },
+            "BUY": {
+              "count": 215,
+              "proportion": 0.22536687631027252
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "±1.25%": {
+          "threshold": 0.0125,
+          "samples": 954,
+          "classes": {
+            "SELL": {
+              "count": 288,
+              "proportion": 0.3018867924528302
+            },
+            "HOLD": {
+              "count": 490,
+              "proportion": 0.5136268343815513
+            },
+            "BUY": {
+              "count": 176,
+              "proportion": 0.18448637316561844
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "±1.50%": {
+          "threshold": 0.015,
+          "samples": 954,
+          "classes": {
+            "SELL": {
+              "count": 246,
+              "proportion": 0.2578616352201258
+            },
+            "HOLD": {
+              "count": 556,
+              "proportion": 0.5828092243186582
+            },
+            "BUY": {
+              "count": 152,
+              "proportion": 0.15932914046121593
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        }
+      }
+    },
+    "其他參考": {
+      "stocks": [
+        "2002",
+        "2412"
+      ],
+      "return_distribution": {
+        "samples": 941,
+        "mean": -0.006755016769092332,
+        "median": -0.005841675612252573,
+        "standard_deviation": 0.014919919066947116,
+        "min": -0.06501776634961842,
+        "max": 0.06814219969102164,
+        "quantiles": {
+          "5%": -0.034183908544359376,
+          "25%": -0.013891540587051998,
+          "50%": -0.005841675612252573,
+          "75%": 0.002208189362546964,
+          "95%": 0.01388368796686934
+        }
+      },
+      "label_distribution": {
+        "threshold": 0.01,
+        "samples": 941,
+        "classes": {
+          "SELL": {
+            "count": 313,
+            "proportion": 0.332624867162593
+          },
+          "HOLD": {
+            "count": 545,
+            "proportion": 0.5791710945802337
+          },
+          "BUY": {
+            "count": 83,
+            "proportion": 0.08820403825717323
+          }
+        },
+        "flags": [
+          "BUY < 10%"
+        ],
+        "severe_class_imbalance": true
+      },
+      "threshold_sensitivity": {
+        "±0.50%": {
+          "threshold": 0.005,
+          "samples": 941,
+          "classes": {
+            "SELL": {
+              "count": 517,
+              "proportion": 0.5494155154091392
+            },
+            "HOLD": {
+              "count": 270,
+              "proportion": 0.2869287991498406
+            },
+            "BUY": {
+              "count": 154,
+              "proportion": 0.1636556854410202
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "±0.75%": {
+          "threshold": 0.0075,
+          "samples": 941,
+          "classes": {
+            "SELL": {
+              "count": 398,
+              "proportion": 0.42295430393198724
+            },
+            "HOLD": {
+              "count": 437,
+              "proportion": 0.46439957492029754
+            },
+            "BUY": {
+              "count": 106,
+              "proportion": 0.1126461211477152
+            }
+          },
+          "flags": [],
+          "severe_class_imbalance": false
+        },
+        "±1.00%": {
+          "threshold": 0.01,
+          "samples": 941,
+          "classes": {
+            "SELL": {
+              "count": 313,
+              "proportion": 0.332624867162593
+            },
+            "HOLD": {
+              "count": 545,
+              "proportion": 0.5791710945802337
+            },
+            "BUY": {
+              "count": 83,
+              "proportion": 0.08820403825717323
+            }
+          },
+          "flags": [
+            "BUY < 10%"
+          ],
+          "severe_class_imbalance": true
+        },
+        "±1.25%": {
+          "threshold": 0.0125,
+          "samples": 941,
+          "classes": {
+            "SELL": {
+              "count": 257,
+              "proportion": 0.2731137088204038
+            },
+            "HOLD": {
+              "count": 629,
+              "proportion": 0.6684378320935175
+            },
+            "BUY": {
+              "count": 55,
+              "proportion": 0.05844845908607864
+            }
+          },
+          "flags": [
+            "BUY < 10%"
+          ],
+          "severe_class_imbalance": true
+        },
+        "±1.50%": {
+          "threshold": 0.015,
+          "samples": 941,
+          "classes": {
+            "SELL": {
+              "count": 201,
+              "proportion": 0.21360255047821466
+            },
+            "HOLD": {
+              "count": 704,
+              "proportion": 0.7481402763018066
+            },
+            "BUY": {
+              "count": 36,
+              "proportion": 0.03825717321997875
+            }
+          },
+          "flags": [
+            "HOLD > 70%",
+            "BUY < 10%"
+          ],
+          "severe_class_imbalance": true
+        }
+      }
+    }
+  },
+  "feature_diagnosis": {
+    "model": "random_forest flexible",
+    "parameters": {
+      "n_estimators": 200,
+      "max_depth": 10,
+      "min_samples_leaf": 5,
+      "class_weight": "balanced",
+      "random_state": 42
+    },
+    "fit_scope": "full Training 2023-01-01..2024-12-31 only",
+    "fit_seconds": 0.48575580000760965,
+    "sequence_aggregation": "importance summed across all 24 sequence positions per feature",
+    "all_features": [
+      {
+        "rank": 1,
+        "feature": "range_vs_close",
+        "category": "Candle / Range",
+        "importance": 0.10221513331531216
+      },
+      {
+        "rank": 2,
+        "feature": "volatility_12",
+        "category": "Volatility",
+        "importance": 0.0537822407424272
+      },
+      {
+        "rank": 3,
+        "feature": "volume_ratio_5",
+        "category": "Volume",
+        "importance": 0.053760755139723296
+      },
+      {
+        "rank": 4,
+        "feature": "volume_zscore_20",
+        "category": "Volume",
+        "importance": 0.05313817701817698
+      },
+      {
+        "rank": 5,
+        "feature": "volatility_24",
+        "category": "Volatility",
+        "importance": 0.05252955834700013
+      },
+      {
+        "rank": 6,
+        "feature": "volume_ratio_20",
+        "category": "Volume",
+        "importance": 0.050534826307982776
+      },
+      {
+        "rank": 7,
+        "feature": "macd_hist_vs_close",
+        "category": "MACD",
+        "importance": 0.045012218265726225
+      },
+      {
+        "rank": 8,
+        "feature": "low_vs_prev_close",
+        "category": "Price / Return",
+        "importance": 0.04428662181276085
+      },
+      {
+        "rank": 9,
+        "feature": "close_vs_ma5",
+        "category": "MA",
+        "importance": 0.043726815566700605
+      },
+      {
+        "rank": 10,
+        "feature": "price_zscore_20",
+        "category": "MA",
+        "importance": 0.041612530583114704
+      },
+      {
+        "rank": 11,
+        "feature": "close_vs_ma20",
+        "category": "MA",
+        "importance": 0.04084540735983105
+      },
+      {
+        "rank": 12,
+        "feature": "rsi14_scaled",
+        "category": "RSI",
+        "importance": 0.040260567471745626
+      },
+      {
+        "rank": 13,
+        "feature": "high_vs_prev_close",
+        "category": "Price / Return",
+        "importance": 0.03926822798188605
+      },
+      {
+        "rank": 14,
+        "feature": "trend_slope_24",
+        "category": "Trend",
+        "importance": 0.03837575427837165
+      },
+      {
+        "rank": 15,
+        "feature": "trend_slope_12",
+        "category": "Trend",
+        "importance": 0.035974943386911915
+      },
+      {
+        "rank": 16,
+        "feature": "macd_signal_vs_close",
+        "category": "MACD",
+        "importance": 0.03543164160840651
+      },
+      {
+        "rank": 17,
+        "feature": "return_12",
+        "category": "Price / Return",
+        "importance": 0.034713280263318165
+      },
+      {
+        "rank": 18,
+        "feature": "return_6",
+        "category": "Price / Return",
+        "importance": 0.03453360029274938
+      },
+      {
+        "rank": 19,
+        "feature": "macd_vs_close",
+        "category": "MACD",
+        "importance": 0.03433137984316942
+      },
+      {
+        "rank": 20,
+        "feature": "return_3",
+        "category": "Price / Return",
+        "importance": 0.033331215555031914
+      },
+      {
+        "rank": 21,
+        "feature": "return_1",
+        "category": "Price / Return",
+        "importance": 0.030347826016799334
+      },
+      {
+        "rank": 22,
+        "feature": "body_return",
+        "category": "Candle / Range",
+        "importance": 0.029913507834498993
+      },
+      {
+        "rank": 23,
+        "feature": "open_vs_prev_close",
+        "category": "Price / Return",
+        "importance": 0.023528823237892058
+      },
+      {
+        "rank": 24,
+        "feature": "close_location",
+        "category": "Candle / Range",
+        "importance": 0.008544947770462972
+      }
+    ],
+    "top_10": [
+      {
+        "rank": 1,
+        "feature": "range_vs_close",
+        "category": "Candle / Range",
+        "importance": 0.10221513331531216
+      },
+      {
+        "rank": 2,
+        "feature": "volatility_12",
+        "category": "Volatility",
+        "importance": 0.0537822407424272
+      },
+      {
+        "rank": 3,
+        "feature": "volume_ratio_5",
+        "category": "Volume",
+        "importance": 0.053760755139723296
+      },
+      {
+        "rank": 4,
+        "feature": "volume_zscore_20",
+        "category": "Volume",
+        "importance": 0.05313817701817698
+      },
+      {
+        "rank": 5,
+        "feature": "volatility_24",
+        "category": "Volatility",
+        "importance": 0.05252955834700013
+      },
+      {
+        "rank": 6,
+        "feature": "volume_ratio_20",
+        "category": "Volume",
+        "importance": 0.050534826307982776
+      },
+      {
+        "rank": 7,
+        "feature": "macd_hist_vs_close",
+        "category": "MACD",
+        "importance": 0.045012218265726225
+      },
+      {
+        "rank": 8,
+        "feature": "low_vs_prev_close",
+        "category": "Price / Return",
+        "importance": 0.04428662181276085
+      },
+      {
+        "rank": 9,
+        "feature": "close_vs_ma5",
+        "category": "MA",
+        "importance": 0.043726815566700605
+      },
+      {
+        "rank": 10,
+        "feature": "price_zscore_20",
+        "category": "MA",
+        "importance": 0.041612530583114704
+      }
+    ],
+    "bottom_10": [
+      {
+        "rank": 15,
+        "feature": "trend_slope_12",
+        "category": "Trend",
+        "importance": 0.035974943386911915
+      },
+      {
+        "rank": 16,
+        "feature": "macd_signal_vs_close",
+        "category": "MACD",
+        "importance": 0.03543164160840651
+      },
+      {
+        "rank": 17,
+        "feature": "return_12",
+        "category": "Price / Return",
+        "importance": 0.034713280263318165
+      },
+      {
+        "rank": 18,
+        "feature": "return_6",
+        "category": "Price / Return",
+        "importance": 0.03453360029274938
+      },
+      {
+        "rank": 19,
+        "feature": "macd_vs_close",
+        "category": "MACD",
+        "importance": 0.03433137984316942
+      },
+      {
+        "rank": 20,
+        "feature": "return_3",
+        "category": "Price / Return",
+        "importance": 0.033331215555031914
+      },
+      {
+        "rank": 21,
+        "feature": "return_1",
+        "category": "Price / Return",
+        "importance": 0.030347826016799334
+      },
+      {
+        "rank": 22,
+        "feature": "body_return",
+        "category": "Candle / Range",
+        "importance": 0.029913507834498993
+      },
+      {
+        "rank": 23,
+        "feature": "open_vs_prev_close",
+        "category": "Price / Return",
+        "importance": 0.023528823237892058
+      },
+      {
+        "rank": 24,
+        "feature": "close_location",
+        "category": "Candle / Range",
+        "importance": 0.008544947770462972
+      }
+    ],
+    "category_importance": {
+      "Price / Return": 0.24000959516043774,
+      "Volume": 0.15743375846588306,
+      "Candle / Range": 0.14067358892027412,
+      "MA": 0.12618475350964636,
+      "MACD": 0.11477523971730216,
+      "Volatility": 0.10631179908942733,
+      "Trend": 0.07435069766528357,
+      "RSI": 0.040260567471745626
+    },
+    "top_10_feature_vs_label": {
+      "range_vs_close": {
+        "feature": "range_vs_close",
+        "measurement": "last completed 5-minute bar before signal",
+        "classes": {
+          "SELL": {
+            "samples": 1044,
+            "mean": 0.0,
+            "standard_deviation": 0.0
+          },
+          "HOLD": {
+            "samples": 1258,
+            "mean": 0.0,
+            "standard_deviation": 0.0
+          },
+          "BUY": {
+            "samples": 549,
+            "mean": 0.0,
+            "standard_deviation": 0.0
+          }
+        },
+        "mean_range_over_average_class_std": null,
+        "limited_discrimination_flag": true
+      },
+      "volatility_12": {
+        "feature": "volatility_12",
+        "measurement": "last completed 5-minute bar before signal",
+        "classes": {
+          "SELL": {
+            "samples": 1044,
+            "mean": 0.0017112749628722668,
+            "standard_deviation": 0.0007968561840243638
+          },
+          "HOLD": {
+            "samples": 1258,
+            "mean": 0.001815569819882512,
+            "standard_deviation": 0.0008399590151384473
+          },
+          "BUY": {
+            "samples": 549,
+            "mean": 0.0016743832966312766,
+            "standard_deviation": 0.0008635001140646636
+          }
+        },
+        "mean_range_over_average_class_std": 0.16940246196667264,
+        "limited_discrimination_flag": true
+      },
+      "volume_ratio_5": {
+        "feature": "volume_ratio_5",
+        "measurement": "last completed 5-minute bar before signal",
+        "classes": {
+          "SELL": {
+            "samples": 1044,
+            "mean": 3.190734624862671,
+            "standard_deviation": 0.6372237801551819
+          },
+          "HOLD": {
+            "samples": 1258,
+            "mean": 3.1724886894226074,
+            "standard_deviation": 0.6364656686782837
+          },
+          "BUY": {
+            "samples": 549,
+            "mean": 3.2635536193847656,
+            "standard_deviation": 0.5940601229667664
+          }
+        },
+        "mean_range_over_average_class_std": 0.14626949673084685,
+        "limited_discrimination_flag": true
+      },
+      "volume_zscore_20": {
+        "feature": "volume_zscore_20",
+        "measurement": "last completed 5-minute bar before signal",
+        "classes": {
+          "SELL": {
+            "samples": 1044,
+            "mean": 3.7872474193573,
+            "standard_deviation": 0.5520328879356384
+          },
+          "HOLD": {
+            "samples": 1258,
+            "mean": 3.7505908012390137,
+            "standard_deviation": 0.5945044755935669
+          },
+          "BUY": {
+            "samples": 549,
+            "mean": 3.818934917449951,
+            "standard_deviation": 0.5266936421394348
+          }
+        },
+        "mean_range_over_average_class_std": 0.1225367853800196,
+        "limited_discrimination_flag": true
+      },
+      "volatility_24": {
+        "feature": "volatility_24",
+        "measurement": "last completed 5-minute bar before signal",
+        "classes": {
+          "SELL": {
+            "samples": 1044,
+            "mean": 0.001597756170667708,
+            "standard_deviation": 0.0006694148178212345
+          },
+          "HOLD": {
+            "samples": 1258,
+            "mean": 0.0017337962053716183,
+            "standard_deviation": 0.0007371026440523565
+          },
+          "BUY": {
+            "samples": 549,
+            "mean": 0.0015348686138167977,
+            "standard_deviation": 0.0007003273349255323
+          }
+        },
+        "mean_range_over_average_class_std": 0.2832590115660816,
+        "limited_discrimination_flag": false
+      },
+      "volume_ratio_20": {
+        "feature": "volume_ratio_20",
+        "measurement": "last completed 5-minute bar before signal",
+        "classes": {
+          "SELL": {
+            "samples": 1044,
+            "mean": 7.074302673339844,
+            "standard_deviation": 2.7476749420166016
+          },
+          "HOLD": {
+            "samples": 1258,
+            "mean": 6.991246700286865,
+            "standard_deviation": 2.6174237728118896
+          },
+          "BUY": {
+            "samples": 549,
+            "mean": 7.130424976348877,
+            "standard_deviation": 2.7069177627563477
+          }
+        },
+        "mean_range_over_average_class_std": 0.05172621108312731,
+        "limited_discrimination_flag": true
+      },
+      "macd_hist_vs_close": {
+        "feature": "macd_hist_vs_close",
+        "measurement": "last completed 5-minute bar before signal",
+        "classes": {
+          "SELL": {
+            "samples": 1044,
+            "mean": 4.594881829689257e-05,
+            "standard_deviation": 0.0003549928078427911
+          },
+          "HOLD": {
+            "samples": 1258,
+            "mean": 1.0518832823436242e-05,
+            "standard_deviation": 0.00031567015685141087
+          },
+          "BUY": {
+            "samples": 549,
+            "mean": 2.4747268980718218e-05,
+            "standard_deviation": 0.00034906103974208236
+          }
+        },
+        "mean_range_over_average_class_std": 0.10423404368040483,
+        "limited_discrimination_flag": true
+      },
+      "low_vs_prev_close": {
+        "feature": "low_vs_prev_close",
+        "measurement": "last completed 5-minute bar before signal",
+        "classes": {
+          "SELL": {
+            "samples": 1044,
+            "mean": 0.0004049961280543357,
+            "standard_deviation": 0.003202608786523342
+          },
+          "HOLD": {
+            "samples": 1258,
+            "mean": 0.00024936837144196033,
+            "standard_deviation": 0.0030633786227554083
+          },
+          "BUY": {
+            "samples": 549,
+            "mean": 8.630435331724584e-05,
+            "standard_deviation": 0.0033842234406620264
+          }
+        },
+        "mean_range_over_average_class_std": 0.09907299841196082,
+        "limited_discrimination_flag": true
+      },
+      "close_vs_ma5": {
+        "feature": "close_vs_ma5",
+        "measurement": "last completed 5-minute bar before signal",
+        "classes": {
+          "SELL": {
+            "samples": 1044,
+            "mean": 0.0004209627222735435,
+            "standard_deviation": 0.002465867670252919
+          },
+          "HOLD": {
+            "samples": 1258,
+            "mean": 0.00022160002845339477,
+            "standard_deviation": 0.0023233292158693075
+          },
+          "BUY": {
+            "samples": 549,
+            "mean": 0.00013409359962679446,
+            "standard_deviation": 0.002612318145111203
+          }
+        },
+        "mean_range_over_average_class_std": 0.11627448762970771,
+        "limited_discrimination_flag": true
+      },
+      "price_zscore_20": {
+        "feature": "price_zscore_20",
+        "measurement": "last completed 5-minute bar before signal",
+        "classes": {
+          "SELL": {
+            "samples": 1044,
+            "mean": 0.3075895309448242,
+            "standard_deviation": 1.7225733995437622
+          },
+          "HOLD": {
+            "samples": 1258,
+            "mean": 0.15037286281585693,
+            "standard_deviation": 1.6402215957641602
+          },
+          "BUY": {
+            "samples": 549,
+            "mean": 0.1320589780807495,
+            "standard_deviation": 1.7006676197052002
+          }
+        },
+        "mean_range_over_average_class_std": 0.10399833051613425,
+        "limited_discrimination_flag": true
+      }
+    },
+    "limited_discrimination_features": [
+      "range_vs_close",
+      "volatility_12",
+      "volume_ratio_5",
+      "volume_zscore_20",
+      "volume_ratio_20",
+      "macd_hist_vs_close",
+      "low_vs_prev_close",
+      "close_vs_ma5",
+      "price_zscore_20"
+    ],
+    "limited_discrimination_message": "目前 Feature 對此 Label 的辨識力可能有限"
+  },
+  "existing_model_comparison": {
+    "rf_baseline_to_flexible_delta": {
+      "macro_f1": {
+        "mean": 0.001972069426848244,
+        "standard_deviation": -0.005741255999340125,
+        "worst": 0.015085882968563002
+      },
+      "macro_auc": {
+        "mean": 0.0013111030680159619,
+        "standard_deviation": 0.004466893884285714,
+        "worst": -0.008646626358279508
+      }
+    },
+    "best_training_only_per_model": {
+      "random_forest": {
+        "config": "flexible",
+        "params": {
+          "n_estimators": 200,
+          "max_depth": 10,
+          "min_samples_leaf": 5,
+          "class_weight": "balanced",
+          "random_state": 42
+        },
+        "macro_f1": {
+          "mean": 0.39587569673090095,
+          "standard_deviation": 0.01644285593941469,
+          "worst": 0.3774062802350211,
+          "available_folds": 4
+        },
+        "macro_auc": {
+          "mean": 0.5813448849056926,
+          "standard_deviation": 0.02391919298090267,
+          "worst": 0.5466348534922824,
+          "available_folds": 4
+        },
+        "individual_auc": {
+          "SELL": {
+            "mean": 0.5446959488296934,
+            "standard_deviation": 0.04835568673696304,
+            "worst": 0.4760934960109116,
+            "available_folds": 4
+          },
+          "HOLD": {
+            "mean": 0.61338356437101,
+            "standard_deviation": 0.020013983952314268,
+            "worst": 0.5890055131467345,
+            "available_folds": 4
+          },
+          "BUY": {
+            "mean": 0.5859551415163742,
+            "standard_deviation": 0.010666888721498333,
+            "worst": 0.574805551319201,
+            "available_folds": 4
+          }
+        }
+      },
+      "xgboost": {
+        "config": "baseline",
+        "params": {
+          "n_estimators": 150,
+          "max_depth": 4,
+          "learning_rate": 0.05,
+          "subsample": 0.8,
+          "colsample_bytree": 0.8,
+          "random_state": 42
+        },
+        "macro_f1": {
+          "mean": 0.36900402933603144,
+          "standard_deviation": 0.010592294219332051,
+          "worst": 0.35873836231335504,
+          "available_folds": 4
+        },
+        "macro_auc": {
+          "mean": 0.5665045832705686,
+          "standard_deviation": 0.01941051929581449,
+          "worst": 0.5391358914906201,
+          "available_folds": 4
+        },
+        "individual_auc": {
+          "SELL": {
+            "mean": 0.5232875527654623,
+            "standard_deviation": 0.046743408931991214,
+            "worst": 0.4604174062517516,
+            "available_folds": 4
+          },
+          "HOLD": {
+            "mean": 0.5979221988947391,
+            "standard_deviation": 0.020888394435352075,
+            "worst": 0.5697094995759118,
+            "available_folds": 4
+          },
+          "BUY": {
+            "mean": 0.5783039981515045,
+            "standard_deviation": 0.013171187345364186,
+            "worst": 0.5625,
+            "available_folds": 4
+          }
+        }
+      },
+      "gru": {
+        "config": "smaller",
+        "params": {
+          "hidden_size": 16,
+          "num_layers": 1,
+          "dropout": 0.0,
+          "batch_size": 128,
+          "max_epochs": 10,
+          "patience": 2,
+          "learning_rate": 0.001,
+          "random_state": 42
+        },
+        "macro_f1": {
+          "mean": 0.3636853312821257,
+          "standard_deviation": 0.027990743319488327,
+          "worst": 0.34226312164544326,
+          "available_folds": 4
+        },
+        "macro_auc": {
+          "mean": 0.5482920842542837,
+          "standard_deviation": 0.02765498569288789,
+          "worst": 0.5095322826630613,
+          "available_folds": 4
+        },
+        "individual_auc": {
+          "SELL": {
+            "mean": 0.5288990242479746,
+            "standard_deviation": 0.021396632191297785,
+            "worst": 0.5095885093167702,
+            "available_folds": 4
+          },
+          "HOLD": {
+            "mean": 0.5601698750973159,
+            "standard_deviation": 0.031399316586018806,
+            "worst": 0.5372816437571593,
+            "available_folds": 4
+          },
+          "BUY": {
+            "mean": 0.5558073534175607,
+            "standard_deviation": 0.05600976171982779,
+            "worst": 0.48172669491525427,
+            "available_folds": 4
+          }
+        }
+      }
+    },
+    "stock_and_group_diagnosis": {
+      "stocks": {
+        "2002": {
+          "stock_code": "2002",
+          "macro_f1": {
+            "mean": 0.3755487939923339,
+            "std": 0.026432521937169252,
+            "worst": 0.34486967477754155,
+            "best": 0.4067702110712863,
+            "n": 4
+          },
+          "macro_auc": {
+            "mean": 0.5559044544499067,
+            "std": 0.038426000965555776,
+            "worst": 0.5056924758011715,
+            "best": 0.5970706924654294,
+            "n": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.5787160755910756,
+              "std": 0.08330596355323758,
+              "worst": 0.5061813186813188,
+              "best": 0.668939393939394,
+              "n": 4
+            },
+            "HOLD": {
+              "mean": 0.5442453618172024,
+              "std": 0.0856718612581193,
+              "worst": 0.4521943573667711,
+              "best": 0.6378446115288221,
+              "n": 4
+            },
+            "BUY": {
+              "mean": 0.5447519259414421,
+              "std": 0.07079903726052035,
+              "worst": 0.48666666666666664,
+              "best": 0.6471861471861472,
+              "n": 4
+            }
+          },
+          "confusion_matrix": [
+            [
+              71,
+              42,
+              27
+            ],
+            [
+              49,
+              55,
+              22
+            ],
+            [
+              15,
+              21,
+              9
+            ]
+          ],
+          "actual_class_counts": {
+            "SELL": 140,
+            "HOLD": 126,
+            "BUY": 45
+          },
+          "predicted_class_counts": {
+            "SELL": 135,
+            "HOLD": 118,
+            "BUY": 58
+          },
+          "actual_class_proportions": {
+            "SELL": 0.45016077170418006,
+            "HOLD": 0.40514469453376206,
+            "BUY": 0.14469453376205788
+          },
+          "predicted_class_proportions": {
+            "SELL": 0.4340836012861736,
+            "HOLD": 0.37942122186495175,
+            "BUY": 0.1864951768488746
+          },
+          "dominant_prediction_folds": []
+        },
+        "2303": {
+          "stock_code": "2303",
+          "macro_f1": {
+            "mean": 0.2966150422301627,
+            "std": 0.06898354596004407,
+            "worst": 0.2263888888888889,
+            "best": 0.3578732829103933,
+            "n": 4
+          },
+          "macro_auc": {
+            "mean": 0.4861771091770193,
+            "std": 0.06618673050397712,
+            "worst": 0.43376308215871723,
+            "best": 0.5830620779835646,
+            "n": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.45351551061850887,
+              "std": 0.06166310094265163,
+              "worst": 0.40421329822251484,
+              "best": 0.5436090225563909,
+              "n": 4
+            },
+            "HOLD": {
+              "mean": 0.492093673165995,
+              "std": 0.04854246942466867,
+              "worst": 0.4316939890710383,
+              "best": 0.5469565217391303,
+              "n": 4
+            },
+            "BUY": {
+              "mean": 0.5129221437465539,
+              "std": 0.11059741306132774,
+              "worst": 0.39108187134502925,
+              "best": 0.6586206896551724,
+              "n": 4
+            }
+          },
+          "confusion_matrix": [
+            [
+              58,
+              37,
+              49
+            ],
+            [
+              48,
+              17,
+              27
+            ],
+            [
+              35,
+              14,
+              28
+            ]
+          ],
+          "actual_class_counts": {
+            "SELL": 144,
+            "HOLD": 92,
+            "BUY": 77
+          },
+          "predicted_class_counts": {
+            "SELL": 141,
+            "HOLD": 68,
+            "BUY": 104
+          },
+          "actual_class_proportions": {
+            "SELL": 0.46006389776357826,
+            "HOLD": 0.2939297124600639,
+            "BUY": 0.24600638977635783
+          },
+          "predicted_class_proportions": {
+            "SELL": 0.4504792332268371,
+            "HOLD": 0.21725239616613418,
+            "BUY": 0.33226837060702874
+          },
+          "dominant_prediction_folds": []
+        },
+        "2330": {
+          "stock_code": "2330",
+          "macro_f1": {
+            "mean": 0.2990037629383323,
+            "std": 0.030853001010284924,
+            "worst": 0.260661938534279,
+            "best": 0.3352366587660705,
+            "n": 4
+          },
+          "macro_auc": {
+            "mean": 0.512642919697447,
+            "std": 0.017600620027283836,
+            "worst": 0.4942236024844721,
+            "best": 0.5359767908596034,
+            "n": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.47227566946511046,
+              "std": 0.064575603136859,
+              "worst": 0.39972527472527475,
+              "best": 0.5528571428571429,
+              "n": 4
+            },
+            "HOLD": {
+              "mean": 0.5280224971388764,
+              "std": 0.10676468794209867,
+              "worst": 0.4285714285714286,
+              "best": 0.6603535353535354,
+              "n": 4
+            },
+            "BUY": {
+              "mean": 0.5376305924883541,
+              "std": 0.05660752900568405,
+              "worst": 0.4880952380952381,
+              "best": 0.6133333333333334,
+              "n": 4
+            }
+          },
+          "confusion_matrix": [
+            [
+              32,
+              46,
+              32
+            ],
+            [
+              32,
+              35,
+              36
+            ],
+            [
+              35,
+              28,
+              37
+            ]
+          ],
+          "actual_class_counts": {
+            "SELL": 110,
+            "HOLD": 103,
+            "BUY": 100
+          },
+          "predicted_class_counts": {
+            "SELL": 99,
+            "HOLD": 109,
+            "BUY": 105
+          },
+          "actual_class_proportions": {
+            "SELL": 0.3514376996805112,
+            "HOLD": 0.329073482428115,
+            "BUY": 0.3194888178913738
+          },
+          "predicted_class_proportions": {
+            "SELL": 0.31629392971246006,
+            "HOLD": 0.34824281150159747,
+            "BUY": 0.3354632587859425
+          },
+          "dominant_prediction_folds": []
+        },
+        "2412": {
+          "stock_code": "2412",
+          "macro_f1": {
+            "mean": 0.2863223417327341,
+            "std": 0.014106257278696476,
+            "worst": 0.27313201703445605,
+            "best": 0.3043478260869565,
+            "n": 4
+          },
+          "macro_auc": {
+            "mean": 0.47159729997847266,
+            "std": 0.1400443003495201,
+            "worst": 0.3864302649943412,
+            "best": 0.633228447326808,
+            "n": 3
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.4482579474465884,
+              "std": 0.09746399369277021,
+              "worst": 0.34942528735632183,
+              "best": 0.5824175824175825,
+              "n": 4
+            },
+            "HOLD": {
+              "mean": 0.4668849244423906,
+              "std": 0.13439207796366168,
+              "worst": 0.37454212454212454,
+              "best": 0.6639344262295083,
+              "n": 4
+            },
+            "BUY": {
+              "mean": 0.4825202753356505,
+              "std": 0.1527835132705299,
+              "worst": 0.3589041095890411,
+              "best": 0.6533333333333333,
+              "n": 3
+            }
+          },
+          "confusion_matrix": [
+            [
+              1,
+              67,
+              0
+            ],
+            [
+              0,
+              222,
+              0
+            ],
+            [
+              0,
+              15,
+              0
+            ]
+          ],
+          "actual_class_counts": {
+            "SELL": 68,
+            "HOLD": 222,
+            "BUY": 15
+          },
+          "predicted_class_counts": {
+            "SELL": 1,
+            "HOLD": 304,
+            "BUY": 0
+          },
+          "actual_class_proportions": {
+            "SELL": 0.22295081967213115,
+            "HOLD": 0.7278688524590164,
+            "BUY": 0.04918032786885246
+          },
+          "predicted_class_proportions": {
+            "SELL": 0.003278688524590164,
+            "HOLD": 0.9967213114754099,
+            "BUY": 0.0
+          },
+          "dominant_prediction_folds": [
+            {
+              "fold": 1,
+              "class": "HOLD",
+              "proportion": 0.9871794871794872
+            },
+            {
+              "fold": 2,
+              "class": "HOLD",
+              "proportion": 1.0
+            },
+            {
+              "fold": 3,
+              "class": "HOLD",
+              "proportion": 1.0
+            },
+            {
+              "fold": 4,
+              "class": "HOLD",
+              "proportion": 1.0
+            }
+          ]
+        },
+        "2881": {
+          "stock_code": "2881",
+          "macro_f1": {
+            "mean": 0.3050073719278721,
+            "std": 0.061395859179578044,
+            "worst": 0.23268705338377468,
+            "best": 0.3828470380194518,
+            "n": 4
+          },
+          "macro_auc": {
+            "mean": 0.5097652472409846,
+            "std": 0.014708837524362051,
+            "worst": 0.4884388839130218,
+            "best": 0.5209305472180676,
+            "n": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.48458682512456097,
+              "std": 0.034639282718206224,
+              "worst": 0.44533333333333325,
+              "best": 0.5257142857142857,
+              "n": 4
+            },
+            "HOLD": {
+              "mean": 0.527468364218545,
+              "std": 0.02885797238237833,
+              "worst": 0.49310344827586206,
+              "best": 0.5593966059082338,
+              "n": 4
+            },
+            "BUY": {
+              "mean": 0.5172405523798479,
+              "std": 0.0237159511425084,
+              "worst": 0.49624530663329164,
+              "best": 0.5487944890929966,
+              "n": 4
+            }
+          },
+          "confusion_matrix": [
+            [
+              49,
+              18,
+              43
+            ],
+            [
+              62,
+              24,
+              40
+            ],
+            [
+              33,
+              12,
+              32
+            ]
+          ],
+          "actual_class_counts": {
+            "SELL": 110,
+            "HOLD": 126,
+            "BUY": 77
+          },
+          "predicted_class_counts": {
+            "SELL": 144,
+            "HOLD": 54,
+            "BUY": 115
+          },
+          "actual_class_proportions": {
+            "SELL": 0.3514376996805112,
+            "HOLD": 0.402555910543131,
+            "BUY": 0.24600638977635783
+          },
+          "predicted_class_proportions": {
+            "SELL": 0.46006389776357826,
+            "HOLD": 0.17252396166134185,
+            "BUY": 0.36741214057507987
+          },
+          "dominant_prediction_folds": []
+        },
+        "2882": {
+          "stock_code": "2882",
+          "macro_f1": {
+            "mean": 0.2937444442921242,
+            "std": 0.038659683272451686,
+            "worst": 0.25555372817036104,
+            "best": 0.34279209729544263,
+            "n": 4
+          },
+          "macro_auc": {
+            "mean": 0.5242997744986514,
+            "std": 0.053846167331990026,
+            "worst": 0.4643618601414034,
+            "best": 0.5907407407407407,
+            "n": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.4849565171189036,
+              "std": 0.023122688178321242,
+              "worst": 0.46416666666666667,
+              "best": 0.5075445816186557,
+              "n": 4
+            },
+            "HOLD": {
+              "mean": 0.5707842757379795,
+              "std": 0.06772526447242833,
+              "worst": 0.5089163237311386,
+              "best": 0.6628571428571428,
+              "n": 4
+            },
+            "BUY": {
+              "mean": 0.5171585306390711,
+              "std": 0.09555190401951388,
+              "worst": 0.3938596491228071,
+              "best": 0.6071428571428572,
+              "n": 4
+            }
+          },
+          "confusion_matrix": [
+            [
+              52,
+              14,
+              47
+            ],
+            [
+              63,
+              20,
+              46
+            ],
+            [
+              33,
+              12,
+              26
+            ]
+          ],
+          "actual_class_counts": {
+            "SELL": 113,
+            "HOLD": 129,
+            "BUY": 71
+          },
+          "predicted_class_counts": {
+            "SELL": 148,
+            "HOLD": 46,
+            "BUY": 119
+          },
+          "actual_class_proportions": {
+            "SELL": 0.3610223642172524,
+            "HOLD": 0.41214057507987223,
+            "BUY": 0.2268370607028754
+          },
+          "predicted_class_proportions": {
+            "SELL": 0.4728434504792332,
+            "HOLD": 0.14696485623003194,
+            "BUY": 0.3801916932907348
+          },
+          "dominant_prediction_folds": []
+        }
+      },
+      "groups": {
+        "科技組": {
+          "stocks": [
+            "2303",
+            "2330"
+          ],
+          "macro_f1": {
+            "mean": 0.29780940258424754,
+            "std": 0.04948783952639237,
+            "worst": 0.2263888888888889,
+            "best": 0.3578732829103933,
+            "n": 8
+          },
+          "macro_auc": {
+            "mean": 0.49941001443723315,
+            "std": 0.047014091525017614,
+            "worst": 0.43376308215871723,
+            "best": 0.5830620779835646,
+            "n": 8
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.4628955900418097,
+              "std": 0.05930662060724,
+              "worst": 0.39972527472527475,
+              "best": 0.5528571428571429,
+              "n": 8
+            },
+            "HOLD": {
+              "mean": 0.5100580851524357,
+              "std": 0.07914450668763563,
+              "worst": 0.4285714285714286,
+              "best": 0.6603535353535354,
+              "n": 8
+            },
+            "BUY": {
+              "mean": 0.5252763681174539,
+              "std": 0.08240112276143387,
+              "worst": 0.39108187134502925,
+              "best": 0.6586206896551724,
+              "n": 8
+            }
+          },
+          "confusion_matrix": [
+            [
+              90,
+              83,
+              81
+            ],
+            [
+              80,
+              52,
+              63
+            ],
+            [
+              70,
+              42,
+              65
+            ]
+          ],
+          "actual_class_proportions": {
+            "SELL": 0.4057507987220447,
+            "HOLD": 0.31150159744408945,
+            "BUY": 0.2827476038338658
+          },
+          "predicted_class_proportions": {
+            "SELL": 0.38338658146964855,
+            "HOLD": 0.2827476038338658,
+            "BUY": 0.33386581469648563
+          }
+        },
+        "金融組": {
+          "stocks": [
+            "2881",
+            "2882"
+          ],
+          "macro_f1": {
+            "mean": 0.29937590810999815,
+            "std": 0.047877484990681854,
+            "worst": 0.23268705338377468,
+            "best": 0.3828470380194518,
+            "n": 8
+          },
+          "macro_auc": {
+            "mean": 0.5170325108698179,
+            "std": 0.03735884649143831,
+            "worst": 0.4643618601414034,
+            "best": 0.5907407407407407,
+            "n": 8
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.48477167112173225,
+              "std": 0.027265596301703974,
+              "worst": 0.44533333333333325,
+              "best": 0.5257142857142857,
+              "n": 8
+            },
+            "HOLD": {
+              "mean": 0.5491263199782622,
+              "std": 0.05346697035843233,
+              "worst": 0.49310344827586206,
+              "best": 0.6628571428571428,
+              "n": 8
+            },
+            "BUY": {
+              "mean": 0.5171995415094595,
+              "std": 0.0644513676638403,
+              "worst": 0.3938596491228071,
+              "best": 0.6071428571428572,
+              "n": 8
+            }
+          },
+          "confusion_matrix": [
+            [
+              101,
+              32,
+              90
+            ],
+            [
+              125,
+              44,
+              86
+            ],
+            [
+              66,
+              24,
+              58
+            ]
+          ],
+          "actual_class_proportions": {
+            "SELL": 0.3562300319488818,
+            "HOLD": 0.4073482428115016,
+            "BUY": 0.2364217252396166
+          },
+          "predicted_class_proportions": {
+            "SELL": 0.46645367412140576,
+            "HOLD": 0.1597444089456869,
+            "BUY": 0.3738019169329074
+          }
+        },
+        "其他參考": {
+          "stocks": [
+            "2002",
+            "2412"
+          ],
+          "macro_f1": {
+            "mean": 0.330935567862534,
+            "std": 0.05156925121590579,
+            "worst": 0.27313201703445605,
+            "best": 0.4067702110712863,
+            "n": 8
+          },
+          "macro_auc": {
+            "mean": 0.5197728168192921,
+            "std": 0.09647029507531345,
+            "worst": 0.3864302649943412,
+            "best": 0.633228447326808,
+            "n": 7
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.513487011518832,
+              "std": 0.10912377460490842,
+              "worst": 0.34942528735632183,
+              "best": 0.668939393939394,
+              "n": 8
+            },
+            "HOLD": {
+              "mean": 0.5055651431297965,
+              "std": 0.11223188357408478,
+              "worst": 0.37454212454212454,
+              "best": 0.6639344262295083,
+              "n": 8
+            },
+            "BUY": {
+              "mean": 0.5180812185389599,
+              "std": 0.10674124746596657,
+              "worst": 0.3589041095890411,
+              "best": 0.6533333333333333,
+              "n": 7
+            }
+          },
+          "confusion_matrix": [
+            [
+              72,
+              109,
+              27
+            ],
+            [
+              49,
+              277,
+              22
+            ],
+            [
+              15,
+              36,
+              9
+            ]
+          ],
+          "actual_class_proportions": {
+            "SELL": 0.33766233766233766,
+            "HOLD": 0.564935064935065,
+            "BUY": 0.09740259740259741
+          },
+          "predicted_class_proportions": {
+            "SELL": 0.22077922077922077,
+            "HOLD": 0.685064935064935,
+            "BUY": 0.09415584415584416
+          }
+        }
+      },
+      "flags": [
+        "整體 SELL AUC 最弱（0.5286），低於 HOLD（0.6179）與 BUY（0.5936）。",
+        "2303 的跨 Fold Macro AUC 平均低於 0.50（0.4862）。",
+        "2412 的跨 Fold Macro AUC 平均低於 0.50（0.4716）。",
+        "2412 Fold 1 有預測塌縮傾向：HOLD 佔 98.7%。",
+        "2412 Fold 2 有預測塌縮傾向：HOLD 佔 100.0%。",
+        "2412 Fold 3 有預測塌縮傾向：HOLD 佔 100.0%。",
+        "2412 Fold 4 有預測塌縮傾向：HOLD 佔 100.0%。",
+        "產業組 Macro AUC（僅供診斷，不做最終結論）：科技組 0.4994、金融組 0.5170。"
+      ]
+    },
+    "interpretation": [
+      "Flexible RF 的平均 Macro F1 與平均 Macro AUC 只小幅增加，最差 Fold F1 改善，但最差 Fold AUC 下降。",
+      "RF、XGBoost、GRU 的 Macro F1 都偏低，Macro AUC 僅略高於 0.5，並非單一模型參數造成。",
+      "2412 的 HOLD 集中與股票間分布差異顯示，問題較像 Label 固定門檻、現有 Feature 辨識力及股票差異的共同結果。"
+    ]
+  },
+  "diagnostic_findings": [
+    "±1% 下出現警示的股票：2412。",
+    "Fold 1 / 2412: BUY < 10%",
+    "Fold 2 / 2412: HOLD > 70%, BUY < 10%",
+    "Fold 3 / 2002: BUY < 10%",
+    "Fold 3 / 2412: HOLD > 70%, BUY < 10%",
+    "Fold 4 / 2412: HOLD > 70%, BUY < 10%",
+    "Flexible RF 的平均 Macro F1 與平均 Macro AUC 只小幅增加，最差 Fold F1 改善，但最差 Fold AUC 下降。",
+    "RF、XGBoost、GRU 的 Macro F1 都偏低，Macro AUC 僅略高於 0.5，並非單一模型參數造成。",
+    "2412 的 HOLD 集中與股票間分布差異顯示，問題較像 Label 固定門檻、現有 Feature 辨識力及股票差異的共同結果。",
+    "Top 10 中被標記分布高度重疊的 Features：range_vs_close, volatility_12, volume_ratio_5, volume_zscore_20, volume_ratio_20, macd_hist_vs_close, low_vs_prev_close, close_vs_ma5, price_zscore_20；目前 Feature 對此 Label 的辨識力可能有限。"
+  ],
+  "possible_next_directions": [
+    "保留目前 Label 作為基準。",
+    "考慮 volatility-adjusted Label，但需另立後續版本評估。",
+    "考慮產業限定模型，先以現有數據確認跨股票穩定性。",
+    "考慮 Feature 改良，但先保留本次 V3 結果作比較基準。"
+  ],
+  "execution_confirmation": {
+    "controlled_validation_used": false,
+    "development_used": false,
+    "forbidden_roles_used": false,
+    "label_changed": false,
+    "features_changed": false,
+    "model_parameters_changed": false,
+    "v4_created": false,
+    "formal_validation_run": false,
+    "candidate_overwritten": false,
+    "return_used_for_model_selection": false
+  },
+  "sources": {
+    "training_diagnosis": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\ml_v3_candidate_20261005\\training_diagnosis.json",
+    "parameter_comparison": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\ml_training_param_compare_20261005\\param_compare_results.json",
+    "plan": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\configs\\ml_trading_v3_20261004.json",
+    "protocol": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\configs\\ml_training_protocol_v3.json"
+  }
+}

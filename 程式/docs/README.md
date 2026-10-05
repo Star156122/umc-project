@@ -6,6 +6,8 @@
 
 - `ML交易回測V1_20261003.md`：目前六檔股票的 ML 訓練、交易規則、執行方法與輸出位置。
 - `ML交易診斷與V2_V3改善_20261004.md`：零交易原因、Label／訊號診斷、成本感知三分類、Features、Sharpe／Profit Factor 與三模型穩定性結果。
+- `ML資料角色與命名_20261005.md`：Training、Validation、Development、Additional Holdout 與 Final Out-of-Sample 的固定期間、命名及程式防線。
+- `ML_Training_Validation流程_20261005.md`：V3 四折 Walk-forward、Candidate、Controlled Validation 與 Development 診斷的執行順序。
 - `長期研究規範.md`：資料期間、保留區間、實驗登記與避免過度配適的固定規則。
 - `研究路線與驗證規範_20260926.md`：技術策略研究的驗證原則。
 - `ML_Baseline規格_20260927.md`：ML 分類 baseline 的歷史固定規格，供重現舊實驗。

@@ -2,6 +2,7 @@ import json
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import numpy as np
 import pandas as pd
@@ -11,7 +12,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from ml.trading_backtest import run_probability_backtest, run_signal_backtest
-from ml.trading_pipeline import load_trading_plan
+from ml.trading_pipeline import coverage_report, load_trading_plan
 from trading_system.research_guard import HoldoutLockedError
 
 
@@ -19,7 +20,8 @@ class MlTradingTests(unittest.TestCase):
     def test_fixed_plan_uses_six_stocks_and_locked_holdout(self):
         plan = load_trading_plan(ROOT / "configs/ml_trading_v1_20261003.json")
         self.assertEqual(plan["stock_codes"], ["2303", "2330", "2412", "2881", "2882", "2002"])
-        self.assertEqual(plan["periods"]["test"], {"start": "2026-01-01", "end": "2026-06-30"})
+        self.assertEqual(plan["periods"]["development"], {"start": "2026-01-01", "end": "2026-06-30"})
+        self.assertNotIn("test", plan["periods"])
         self.assertEqual(plan["holdout"]["access"], "forbidden")
 
     def test_holdout_cannot_be_used_as_a_split(self):
@@ -33,6 +35,26 @@ class MlTradingTests(unittest.TestCase):
                 load_trading_plan(temp)
         finally:
             temp.unlink(missing_ok=True)
+
+    def test_final_oos_cannot_be_used_as_a_split(self):
+        source = ROOT / "configs/ml_trading_v1_20261003.json"
+        plan = json.loads(source.read_text(encoding="utf-8"))
+        plan["periods"]["development"] = {"start": "2026-07-01", "end": "2026-10-05"}
+        temp = ROOT / "configs/_test_ml_final_oos.json"
+        temp.write_text(json.dumps(plan), encoding="utf-8")
+        try:
+            with self.assertRaises(HoldoutLockedError):
+                load_trading_plan(temp)
+        finally:
+            temp.unlink(missing_ok=True)
+
+    def test_final_oos_is_blocked_before_database_connection(self):
+        plan = json.loads((ROOT / "configs/ml_trading_v1_20261003.json").read_text(encoding="utf-8"))
+        plan["periods"]["development"] = {"start": "2026-07-01", "end": "2026-10-05"}
+        with patch("ml.trading_pipeline.sqlite3.connect") as connect:
+            with self.assertRaises(HoldoutLockedError):
+                coverage_report(ROOT / "data/market_data.sqlite3", plan)
+            connect.assert_not_called()
 
     def test_probability_signal_executes_at_next_open(self):
         market = pd.DataFrame([

@@ -1,7 +1,17 @@
 {
-  "holdout": {"start": "2025-07-01", "end": "2025-12-31", "access": "forbidden"},
+  "holdout": {
+    "start": "2025-07-01",
+    "end": "2025-12-31",
+    "access": "forbidden"
+  },
   "state": "locked_unseen",
   "final_test_requires_explicit_user_authorization": true,
   "development_override_allowed": false,
-  "after_first_access": "consumed_never_reuse_for_selection"
+  "after_first_access": "consumed_never_reuse_for_selection",
+  "ml_final_out_of_sample": {
+    "start": "2026-07-01",
+    "end": "latest_available",
+    "access": "forbidden"
+  },
+  "ml_data_policy": "configs/ml_data_policy.json"
 }

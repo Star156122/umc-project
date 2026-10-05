@@ -1,0 +1,81 @@
+{
+  "protocol_id": "ml-v3-walk-forward-20261005",
+  "candidate_name": "V3 Candidate",
+  "base_plan": "configs/ml_trading_v3_20261004.json",
+  "training_role": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "walk_forward": {
+    "type": "expanding_window",
+    "shuffle": false,
+    "folds": [
+      {
+        "fold": 1,
+        "train_start": "2023-01-01",
+        "train_end": "2023-08-31",
+        "validation_start": "2023-09-01",
+        "validation_end": "2023-12-31"
+      },
+      {
+        "fold": 2,
+        "train_start": "2023-01-01",
+        "train_end": "2023-12-31",
+        "validation_start": "2024-01-01",
+        "validation_end": "2024-04-30"
+      },
+      {
+        "fold": 3,
+        "train_start": "2023-01-01",
+        "train_end": "2024-04-30",
+        "validation_start": "2024-05-01",
+        "validation_end": "2024-08-31"
+      },
+      {
+        "fold": 4,
+        "train_start": "2023-01-01",
+        "train_end": "2024-08-31",
+        "validation_start": "2024-09-01",
+        "validation_end": "2024-12-31"
+      }
+    ],
+    "boundary_rule": "signal_date and target_date must both remain inside the same fold partition",
+    "preprocessing": "fit_on_each_fold_training_only",
+    "class_weight": "derive_from_each_fold_training_only",
+    "gru_early_stopping": "fold_validation_only"
+  },
+  "candidate_selection": {
+    "automatic_parameter_search": false,
+    "return_optimization": false,
+    "required_completed_folds": 4,
+    "ordered_criteria": [
+      "maximize_worst_fold_macro_f1",
+      "maximize_mean_macro_f1",
+      "maximize_worst_fold_macro_auc",
+      "maximize_mean_macro_auc",
+      "minimize_macro_f1_standard_deviation",
+      "minimize_macro_auc_standard_deviation"
+    ],
+    "tie_break_model_order": ["random_forest", "xgboost", "gru"]
+  },
+  "candidate_refit": {
+    "data": "full_training_2023_2024_only",
+    "scaler": "fit_full_training_only",
+    "gru_epochs": "median_completed_epoch_from_walk_forward_folds",
+    "external_validation_for_early_stopping": false
+  },
+  "controlled_validation": {
+    "start": "2025-01-01",
+    "end": "2025-06-30",
+    "candidate_required": true,
+    "access_log_required": true,
+    "automatic_model_change": false
+  },
+  "development_diagnosis": {
+    "start": "2026-01-01",
+    "end": "2026-06-30",
+    "automatic_parameter_search": false,
+    "candidate_selection": false
+  },
+  "forbidden_roles": ["holdout", "final_out_of_sample"]
+}

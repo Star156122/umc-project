@@ -49,6 +49,7 @@ def stability_summary(by_stock: dict[str, Any]) -> dict[str, Any]:
     returns = np.asarray([item["return_pct"] for item in metrics], dtype=float)
     sharpes = [item["sharpe_ratio"] for item in metrics if item["sharpe_ratio"] is not None]
     factors = [item["profit_factor"] for item in metrics if item["profit_factor"] is not None]
+    drawdowns = np.asarray([item["max_drawdown_pct"] for item in metrics], dtype=float)
     return {
         "stocks": len(metrics),
         "active_stocks": int(sum(item["round_trips"] > 0 for item in metrics)),
@@ -61,4 +62,6 @@ def stability_summary(by_stock: dict[str, Any]) -> dict[str, Any]:
         "best_return_pct": float(returns.max()),
         "mean_sharpe_ratio": float(np.mean(sharpes)) if sharpes else None,
         "mean_profit_factor": float(np.mean(factors)) if factors else None,
+        "mean_max_drawdown_pct": float(drawdowns.mean()),
+        "worst_max_drawdown_pct": float(drawdowns.min()),
     }

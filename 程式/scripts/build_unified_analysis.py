@@ -20,6 +20,10 @@ def read_json(path: Path):
 def main():
     ml = read_json(ROOT / "exports/ml_baseline_20260927/results.json")
     clean = read_json(ROOT / "exports/clean_validation_20260926/results.json")
+    development_metrics = {
+        name: payload["splits"].get("development", payload["splits"].get("test"))
+        for name, payload in ml["models"].items()
+    }
     record = {
         "schema_version": "analysis-record-v1",
         "generated_at": datetime.now().isoformat(timespec="seconds"),
@@ -33,7 +37,7 @@ def main():
         "machine_learning": {
             "experiment_id": ml["experiment_id"], "data_role": ml["data_role"],
             "period": ml["period"], "target": ml["target"],
-            "test_metrics": {name: payload["splits"]["test"] for name, payload in ml["models"].items()},
+            "development_metrics": development_metrics,
             "source": "exports/ml_baseline_20260927/results.json",
             "strategy_integration": "尚未整合；本輪只比較模型分類能力。",
         },
@@ -48,6 +52,7 @@ def main():
         "data_governance": {
             "development": "2026-01-01～2026-06-30（已看過）",
             "holdout": {"start": "2025-07-01", "end": "2025-12-31", "access": "forbidden", "status": "unseen_and_locked"},
+            "final_out_of_sample": {"start": "2026-07-01", "end": "latest_available", "access": "forbidden"},
             "standardization": "只以 train split 估計 mean/std",
         },
         "known_limitations": [

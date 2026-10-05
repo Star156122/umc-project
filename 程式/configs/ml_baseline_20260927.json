@@ -1,7 +1,7 @@
 {
   "experiment_id": "ml-baseline-20260927-v1",
-  "status": "completed_baseline_only",
-  "purpose": "compare_random_forest_xgboost_gru_without_strategy_integration",
+  "status": "archived_legacy_baseline",
+  "purpose": "historical_intra_development_model_comparison_without_strategy_integration",
   "data_role": "ml_development_seen",
   "stock_codes": [
     "1101",
@@ -41,12 +41,12 @@
       "start": "2026-04-01",
       "end": "2026-05-15"
     },
-    "test": {
+    "shuffle": false,
+    "note": "歷史 baseline 的三段資料都位於已看過的 2026H1 Development；development 不得稱為獨立 Test。",
+    "development": {
       "start": "2026-05-18",
       "end": "2026-06-30"
-    },
-    "shuffle": false,
-    "note": "每筆序列與其未來target都必須完整落在同一split及同一交易日。"
+    }
   },
   "features": [
     "open_vs_prev_close",
@@ -71,7 +71,7 @@
     "indicator_warmup_missing": "drop",
     "other_missing": "drop_and_count",
     "gap_handling": "do_not_fill; sequences cannot cross gaps or trading days",
-    "standard_scaler": "fit_train_only_then_apply_to_validation_and_test"
+    "standard_scaler": "fit_train_only_then_apply_to_validation_and_development"
   },
   "models": {
     "random_forest": {
@@ -110,7 +110,7 @@
     "training_seconds",
     "prediction_seconds"
   ],
-  "selection_rule": "Report all models and all stocks. Do not choose or tune a winner from the test set.",
+  "selection_rule": "Report all models and all stocks. Do not choose or tune a winner from the development split.",
   "strategy_integration": "forbidden_for_this_experiment",
   "holdout": {
     "start": "2025-07-01",
@@ -119,5 +119,6 @@
   },
   "completed_at": "2026-09-27T00:55:29",
   "result": "exports/ml_baseline_20260927/results.json",
-  "decision": "BASELINE_ONLY_NOT_INDEPENDENT_VALIDATION"
+  "decision": "BASELINE_ONLY_NOT_INDEPENDENT_VALIDATION",
+  "data_policy": "configs/ml_data_policy.json"
 }

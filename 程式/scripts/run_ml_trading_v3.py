@@ -8,17 +8,10 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.run_ml_trading_v2 import execute
-
-
 def main() -> int:
-    return execute(
-        ROOT / "configs/ml_trading_v3_20261004.json",
-        ROOT / "exports/ml_trading_v3_20261004",
-        ROOT / "exports/ml_trading_v3_latest.html",
-        "ML Trading V3：市場結構 Features",
-        "唯一核心修改：在 V2 三分類上加入固定的動能、波動、量能、K 棒實體與收盤位置 Features。Label、模型主要參數與交易規則全部維持 V2。",
-    )
+    print("舊版 V3 一次載入 Training/Validation/Development 的入口已停用。")
+    print("請依序執行 run_ml_training_cv.py、run_ml_candidate_validation.py、diagnose_ml_candidate_development.py。")
+    return 2
 
 
 if __name__ == "__main__":

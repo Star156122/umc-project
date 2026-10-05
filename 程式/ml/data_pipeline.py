@@ -3,13 +3,14 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 import pandas as pd
 
+from ml.data_roles import assert_ml_read_period
 from trading_system.research_guard import assert_development_period, assert_payload
 
 
@@ -22,6 +23,10 @@ class PreparedData:
     scaler_mean: np.ndarray
     scaler_scale: np.ndarray
     audit: dict[str, Any]
+    context_X: dict[str, np.ndarray] | None = None
+    context_feature_names: list[str] = field(default_factory=list)
+    context_scaler_mean: np.ndarray | None = None
+    context_scaler_scale: np.ndarray | None = None
 
 
 def load_plan(path: Path) -> dict[str, Any]:
@@ -29,6 +34,9 @@ def load_plan(path: Path) -> dict[str, Any]:
     assert_payload(plan)
     if plan.get("data_role") != "ml_development_seen":
         raise ValueError("ML baseline 只能使用已標示的開發資料。")
+    if plan.get("data_policy") != "configs/ml_data_policy.json":
+        raise ValueError("ML baseline 必須使用 configs/ml_data_policy.json。")
+    assert_ml_read_period(plan["period"]["start"], plan["period"]["end"])
     assert_development_period(plan["period"]["start"], plan["period"]["end"])
     return plan
 
@@ -36,6 +44,7 @@ def load_plan(path: Path) -> dict[str, Any]:
 def load_kbars(database: Path, plan: dict[str, Any]) -> pd.DataFrame:
     """只查詢計畫登記的開發區間，查詢前後都套用日期鎖。"""
     start, end = plan["period"]["start"], plan["period"]["end"]
+    assert_ml_read_period(start, end)
     assert_development_period(start, end)
     placeholders = ",".join("?" for _ in plan["stock_codes"])
     sql = f"""
@@ -117,7 +126,7 @@ def make_sequences(featured: pd.DataFrame, plan: dict[str, Any]) -> PreparedData
     horizon = int(plan["target"]["horizon_bars"])
     expected_delta = int(plan["bar_minutes"]) * 60
     split_specs = plan["splits"]
-    rows: dict[str, list[np.ndarray]] = {k: [] for k in ("train", "validation", "test")}
+    rows: dict[str, list[np.ndarray]] = {k: [] for k in ("train", "validation", "development")}
     labels: dict[str, list[int]] = {k: [] for k in rows}
     metas: dict[str, list[dict[str, Any]]] = {k: [] for k in rows}
     warmup_or_missing = 0
@@ -141,7 +150,7 @@ def make_sequences(featured: pd.DataFrame, plan: dict[str, Any]) -> PreparedData
             target_date = g.loc[future, "datetime"].date()
             anchor_date = g.loc[i, "datetime"].date()
             split_name = None
-            for candidate in ("train", "validation", "test"):
+            for candidate in ("train", "validation", "development"):
                 spec = split_specs[candidate]
                 if pd.Timestamp(spec["start"]).date() <= anchor_date <= pd.Timestamp(spec["end"]).date() and pd.Timestamp(spec["start"]).date() <= target_date <= pd.Timestamp(spec["end"]).date():
                     split_name = candidate

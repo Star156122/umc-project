@@ -74,22 +74,22 @@ def write_csv(results):
 
 
 def render_html(plan, audit, results):
-    test_rows = []
+    development_rows = []
     stock_rows = []
     for name, payload in results["models"].items():
-        m = payload["splits"]["test"]
-        test_rows.append(f"<tr><td>{html.escape(name)}</td><td>{m['samples']:,}</td><td>{m['accuracy']:.3f}</td><td>{m['precision']:.3f}</td><td>{m['recall']:.3f}</td><td>{m['f1']:.3f}</td><td>{m['roc_auc']:.3f}</td><td>{payload['training_seconds']:.1f} 秒</td></tr>")
+        m = payload["splits"]["development"]
+        development_rows.append(f"<tr><td>{html.escape(name)}</td><td>{m['samples']:,}</td><td>{m['accuracy']:.3f}</td><td>{m['precision']:.3f}</td><td>{m['recall']:.3f}</td><td>{m['f1']:.3f}</td><td>{m['roc_auc']:.3f}</td><td>{payload['training_seconds']:.1f} 秒</td></tr>")
         for code, s in m["per_stock"].items():
             auc_text = "—" if s["roc_auc"] is None else f"{s['roc_auc']:.3f}"
             stock_rows.append(f"<tr><td>{html.escape(name)}</td><td>{code}</td><td>{s['samples']:,}</td><td>{s['accuracy']:.3f}</td><td>{s['f1']:.3f}</td><td>{auc_text}</td></tr>")
-    benchmark = results["benchmarks"]["always_predict_not_up"]["test"]
+    benchmark = results["benchmarks"]["always_predict_not_up"]["development"]
     return f"""<!doctype html><html lang='zh-Hant'><meta charset='utf-8'><meta name='viewport' content='width=device-width'><title>ML Baseline 模型比較</title>
 <style>body{{font-family:system-ui,'Noto Sans TC',sans-serif;margin:32px;color:#223}}.card{{border:1px solid #dbe2ea;border-radius:12px;padding:18px;margin:16px 0}}table{{border-collapse:collapse;width:100%}}th,td{{padding:9px;border:1px solid #dde3ea;text-align:right}}th:first-child,td:first-child,td:nth-child(2){{text-align:left}}.warn{{background:#fff4cc}}.ok{{background:#e9f7ef}}code{{background:#eef2f6;padding:2px 5px}}</style>
 <h1>機器學習 Baseline：RF／XGBoost／GRU</h1>
 <div class='card warn'><b>資料身分：</b>已看過的開發資料（ml_development_seen），不是獨立驗證。<br><b>Holdout：</b>2025/07/01～2025/12/31 仍為 locked / forbidden，本次完全未讀取。<br><b>限制：</b>這是方向預測模型比較，尚未轉成買賣策略或報酬率。</div>
-<div class='card'><h2>大家比的是同一道題目</h2><p>使用前 24 根完成的 5 分 K，預測 12 根後（約 60 分鐘）收盤是否高於目前收盤。訓練、驗證、測試依時間先後切開；標準化只用訓練資料估計。</p><p>訓練 {audit['samples']['train']:,} 筆、驗證 {audit['samples']['validation']:,} 筆、測試 {audit['samples']['test']:,} 筆。</p></div>
-<h2>測試區間結果</h2><table><thead><tr><th>模型</th><th>樣本</th><th>正確率</th><th>精確率</th><th>召回率</th><th>F1</th><th>ROC AUC</th><th>訓練時間</th></tr></thead><tbody>{''.join(test_rows)}<tr><td>永遠猜不漲（簡單基準）</td><td>{benchmark['samples']:,}</td><td>{benchmark['accuracy']:.3f}</td><td>0.000</td><td>0.000</td><td>0.000</td><td>0.500</td><td>0 秒</td></tr></tbody></table>
-<h2>各股票測試結果</h2><table><thead><tr><th>模型</th><th>股票</th><th>樣本</th><th>正確率</th><th>F1</th><th>ROC AUC</th></tr></thead><tbody>{''.join(stock_rows)}</tbody></table>
+<div class='card'><h2>大家比的是同一道題目</h2><p>使用前 24 根完成的 5 分 K，預測 12 根後（約 60 分鐘）收盤是否高於目前收盤。這是歷史 baseline，三段都位於已看過的 2026H1 Development；標準化只用其中的 train 段估計。</p><p>訓練段 {audit['samples']['train']:,} 筆、驗證段 {audit['samples']['validation']:,} 筆、Development 評估段 {audit['samples']['development']:,} 筆。</p></div>
+<h2>Development 區間結果</h2><table><thead><tr><th>模型</th><th>樣本</th><th>正確率</th><th>精確率</th><th>召回率</th><th>F1</th><th>ROC AUC</th><th>訓練時間</th></tr></thead><tbody>{''.join(development_rows)}<tr><td>永遠猜不漲（簡單基準）</td><td>{benchmark['samples']:,}</td><td>{benchmark['accuracy']:.3f}</td><td>0.000</td><td>0.000</td><td>0.000</td><td>0.500</td><td>0 秒</td></tr></tbody></table>
+<h2>各股票 Development 結果</h2><table><thead><tr><th>模型</th><th>股票</th><th>樣本</th><th>正確率</th><th>F1</th><th>ROC AUC</th></tr></thead><tbody>{''.join(stock_rows)}</tbody></table>
 <div class='card ok'><h2>怎麼看</h2><p>正確率看整體猜對比例；F1 同時考慮「猜上漲時準不準」與「真正上漲抓到多少」；ROC AUC 看模型排序能力，0.5 附近代表接近隨機。因為樣本中「不上漲」較多，永遠猜不漲也有 {benchmark['accuracy']:.1%} 正確率，所以不能只看正確率。這些數值不能直接當成投資報酬。</p></div>
 <p>實驗：<code>{html.escape(plan['experiment_id'])}</code>｜產生：{html.escape(results['generated_at'])}</p></html>"""
 
@@ -99,7 +99,7 @@ def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     data = prepare(ROOT / "data/market_data.sqlite3", plan)
     results = {"experiment_id": plan["experiment_id"], "generated_at": datetime.now().isoformat(timespec="seconds"), "data_role": plan["data_role"], "period": plan["period"], "target": plan["target"], "models": {}, "benchmarks": {"always_predict_not_up": {}}}
-    for split in ("validation", "test"):
+    for split in ("validation", "development"):
         positives = int(data.y[split].sum()); samples = int(len(data.y[split])); negatives = samples - positives
         results["benchmarks"]["always_predict_not_up"][split] = {"samples": samples, "accuracy": negatives / samples, "precision": 0.0, "recall": 0.0, "f1": 0.0, "roc_auc": 0.5, "confusion_matrix": [[negatives, 0], [positives, 0]]}
     for name in ("random_forest", "xgboost", "gru"):

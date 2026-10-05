@@ -1,0 +1,95 @@
+<!doctype html><html lang='zh-Hant'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width'><title>Signal Anchor Controlled Experiment</title><style>
+body{font-family:system-ui,'Noto Sans TC',sans-serif;max-width:1400px;margin:28px auto;padding:0 18px;background:#f6f8fb;color:#182536}section{background:#fff;border:1px solid #d9e3eb;border-radius:12px;padding:18px;margin:16px 0}h1,h2{color:#0b527a}table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #d6e0e8;padding:7px;text-align:right}th:first-child,td:first-child{text-align:left}th{background:#eaf3f8}.answer{background:#eaf7ee}pre{white-space:pre-wrap}</style></head><body>
+<h1>ML V3 Training-only Signal Anchor Controlled Experiment</h1>
+<section class='answer'><h2>判讀</h2><p>13:25 在資料結構上較合理，因為最後 position 恢復正常變化；但模型與股票指標未呈現一致改善，因此預測效益仍屬混合結果，不能只靠平均值宣稱提升。</p></section>
+<section><h2>實驗控制</h2><p>Baseline：13:30；Experimental：排除 13:30，使最後位置為 13:25。Label、Features、模型參數、Walk-forward、Scaler 規則完全相同。</p><pre>{
+  &quot;sample_count&quot;: 2849,
+  &quot;sample_keys_identical&quot;: true,
+  &quot;labels_identical&quot;: true,
+  &quot;future_net_return_max_abs_error&quot;: 0.0,
+  &quot;baseline_original_samples&quot;: 2851,
+  &quot;experimental_original_samples&quot;: 2849,
+  &quot;common_samples&quot;: 2849,
+  &quot;baseline_only_removed&quot;: 2,
+  &quot;experimental_only_removed&quot;: 0,
+  &quot;reason&quot;: &quot;Both anchors use the identical common stock/date sample set; days lacking 24 bars by 13:25 are removed from both.&quot;
+}</pre></section>
+<section><h2>range_vs_close 最後 Position</h2><pre>{
+  &quot;baseline_1330&quot;: {
+    &quot;mean&quot;: 0.0,
+    &quot;standard_deviation&quot;: 0.0,
+    &quot;min&quot;: 0.0,
+    &quot;max&quot;: 0.0,
+    &quot;zero_ratio&quot;: 1.0
+  },
+  &quot;experimental_1325&quot;: {
+    &quot;mean&quot;: 0.0026838253252208233,
+    &quot;standard_deviation&quot;: 0.0013744367752224207,
+    &quot;min&quot;: 0.0,
+    &quot;max&quot;: 0.009900989942252636,
+    &quot;zero_ratio&quot;: 0.003861003861003861
+  }
+}</pre></section>
+<section><h2>Macro 指標</h2><table><thead><tr><th>模型</th><th>指標</th><th>統計</th><th>Baseline</th><th>13:25</th><th>Delta</th></tr></thead><tbody><tr><td>random_forest</td><td>Macro F1</td><td>mean</td><td>0.3960</td><td>0.3888</td><td>-0.0071</td></tr><tr><td>random_forest</td><td>Macro F1</td><td>standard_deviation</td><td>0.0208</td><td>0.0422</td><td>0.0213</td></tr><tr><td>random_forest</td><td>Macro F1</td><td>worst</td><td>0.3665</td><td>0.3541</td><td>-0.0124</td></tr><tr><td>random_forest</td><td>Macro AUC</td><td>mean</td><td>0.5781</td><td>0.5739</td><td>-0.0041</td></tr><tr><td>random_forest</td><td>Macro AUC</td><td>standard_deviation</td><td>0.0261</td><td>0.0339</td><td>0.0078</td></tr><tr><td>random_forest</td><td>Macro AUC</td><td>worst</td><td>0.5415</td><td>0.5349</td><td>-0.0067</td></tr><tr><td>xgboost</td><td>Macro F1</td><td>mean</td><td>0.3722</td><td>0.3447</td><td>-0.0275</td></tr><tr><td>xgboost</td><td>Macro F1</td><td>standard_deviation</td><td>0.0263</td><td>0.0362</td><td>0.0099</td></tr><tr><td>xgboost</td><td>Macro F1</td><td>worst</td><td>0.3516</td><td>0.2938</td><td>-0.0579</td></tr><tr><td>xgboost</td><td>Macro AUC</td><td>mean</td><td>0.5665</td><td>0.5654</td><td>-0.0011</td></tr><tr><td>xgboost</td><td>Macro AUC</td><td>standard_deviation</td><td>0.0175</td><td>0.0272</td><td>0.0097</td></tr><tr><td>xgboost</td><td>Macro AUC</td><td>worst</td><td>0.5430</td><td>0.5287</td><td>-0.0143</td></tr><tr><td>gru</td><td>Macro F1</td><td>mean</td><td>0.3615</td><td>0.3532</td><td>-0.0082</td></tr><tr><td>gru</td><td>Macro F1</td><td>standard_deviation</td><td>0.0250</td><td>0.0328</td><td>0.0078</td></tr><tr><td>gru</td><td>Macro F1</td><td>worst</td><td>0.3265</td><td>0.3299</td><td>0.0034</td></tr><tr><td>gru</td><td>Macro AUC</td><td>mean</td><td>0.5457</td><td>0.5661</td><td>0.0204</td></tr><tr><td>gru</td><td>Macro AUC</td><td>standard_deviation</td><td>0.0314</td><td>0.0273</td><td>-0.0041</td></tr><tr><td>gru</td><td>Macro AUC</td><td>worst</td><td>0.5049</td><td>0.5343</td><td>0.0293</td></tr></tbody></table></section>
+<section><h2>SELL / HOLD / BUY AUC</h2><table><thead><tr><th>模型</th><th>類別</th><th>Baseline</th><th>13:25</th><th>Delta</th></tr></thead><tbody><tr><td>random_forest</td><td>SELL</td><td>0.5324</td><td>0.5253</td><td>-0.0070</td></tr><tr><td>random_forest</td><td>HOLD</td><td>0.6128</td><td>0.6100</td><td>-0.0028</td></tr><tr><td>random_forest</td><td>BUY</td><td>0.5890</td><td>0.5864</td><td>-0.0026</td></tr><tr><td>xgboost</td><td>SELL</td><td>0.5148</td><td>0.5200</td><td>0.0052</td></tr><tr><td>xgboost</td><td>HOLD</td><td>0.6035</td><td>0.5994</td><td>-0.0042</td></tr><tr><td>xgboost</td><td>BUY</td><td>0.5811</td><td>0.5769</td><td>-0.0042</td></tr><tr><td>gru</td><td>SELL</td><td>0.5189</td><td>0.5194</td><td>0.0005</td></tr><tr><td>gru</td><td>HOLD</td><td>0.5531</td><td>0.5893</td><td>0.0361</td></tr><tr><td>gru</td><td>BUY</td><td>0.5652</td><td>0.5897</td><td>0.0245</td></tr></tbody></table></section>
+<section><h2>Prediction Distribution</h2><table><thead><tr><th>模型</th><th>預測類別</th><th>Baseline</th><th>13:25</th><th>Delta</th></tr></thead><tbody><tr><td>random_forest</td><td>SELL</td><td>35.08%</td><td>33.21%</td><td>-1.87%</td></tr><tr><td>random_forest</td><td>HOLD</td><td>37.71%</td><td>38.30%</td><td>+0.59%</td></tr><tr><td>random_forest</td><td>BUY</td><td>27.21%</td><td>28.49%</td><td>+1.29%</td></tr><tr><td>xgboost</td><td>SELL</td><td>34.82%</td><td>33.64%</td><td>-1.18%</td></tr><tr><td>xgboost</td><td>HOLD</td><td>50.29%</td><td>51.79%</td><td>+1.50%</td></tr><tr><td>xgboost</td><td>BUY</td><td>14.89%</td><td>14.57%</td><td>-0.32%</td></tr><tr><td>gru</td><td>SELL</td><td>27.00%</td><td>17.73%</td><td>-9.27%</td></tr><tr><td>gru</td><td>HOLD</td><td>36.37%</td><td>44.30%</td><td>+7.93%</td></tr><tr><td>gru</td><td>BUY</td><td>36.64%</td><td>37.98%</td><td>+1.34%</td></tr></tbody></table></section>
+<section><h2>各股票平均表現</h2><table><thead><tr><th>模型</th><th>股票</th><th>F1 Base</th><th>F1 13:25</th><th>F1 Δ</th><th>AUC Base</th><th>AUC 13:25</th><th>AUC Δ</th></tr></thead><tbody><tr><td>random_forest</td><td>2002</td><td>0.3255</td><td>0.3731</td><td>0.0476</td><td>0.5126</td><td>0.5356</td><td>0.0229</td></tr><tr><td>random_forest</td><td>2303</td><td>0.3105</td><td>0.2824</td><td>-0.0280</td><td>0.4723</td><td>0.4871</td><td>0.0148</td></tr><tr><td>random_forest</td><td>2330</td><td>0.3254</td><td>0.2933</td><td>-0.0321</td><td>0.5198</td><td>0.4795</td><td>-0.0403</td></tr><tr><td>random_forest</td><td>2412</td><td>0.2799</td><td>0.2799</td><td>0.0000</td><td>0.4717</td><td>0.4689</td><td>-0.0028</td></tr><tr><td>random_forest</td><td>2881</td><td>0.3227</td><td>0.3262</td><td>0.0035</td><td>0.4996</td><td>0.5037</td><td>0.0041</td></tr><tr><td>random_forest</td><td>2882</td><td>0.3141</td><td>0.2774</td><td>-0.0367</td><td>0.5337</td><td>0.4933</td><td>-0.0404</td></tr><tr><td>xgboost</td><td>2002</td><td>0.3058</td><td>0.2633</td><td>-0.0425</td><td>0.5318</td><td>0.4950</td><td>-0.0368</td></tr><tr><td>xgboost</td><td>2303</td><td>0.3117</td><td>0.3150</td><td>0.0032</td><td>0.4815</td><td>0.4964</td><td>0.0149</td></tr><tr><td>xgboost</td><td>2330</td><td>0.3077</td><td>0.2750</td><td>-0.0328</td><td>0.5059</td><td>0.5035</td><td>-0.0023</td></tr><tr><td>xgboost</td><td>2412</td><td>0.2759</td><td>0.2743</td><td>-0.0015</td><td>0.4802</td><td>0.4744</td><td>-0.0059</td></tr><tr><td>xgboost</td><td>2881</td><td>0.3522</td><td>0.2814</td><td>-0.0708</td><td>0.5015</td><td>0.4955</td><td>-0.0059</td></tr><tr><td>xgboost</td><td>2882</td><td>0.3292</td><td>0.3494</td><td>0.0202</td><td>0.5298</td><td>0.5266</td><td>-0.0032</td></tr><tr><td>gru</td><td>2002</td><td>0.3528</td><td>0.3411</td><td>-0.0117</td><td>0.5578</td><td>0.5604</td><td>0.0025</td></tr><tr><td>gru</td><td>2303</td><td>0.2977</td><td>0.2747</td><td>-0.0230</td><td>0.4845</td><td>0.4859</td><td>0.0014</td></tr><tr><td>gru</td><td>2330</td><td>0.3198</td><td>0.2718</td><td>-0.0481</td><td>0.5331</td><td>0.4711</td><td>-0.0620</td></tr><tr><td>gru</td><td>2412</td><td>0.2986</td><td>0.2791</td><td>-0.0195</td><td>0.4918</td><td>0.5599</td><td>0.0681</td></tr><tr><td>gru</td><td>2881</td><td>0.2983</td><td>0.2694</td><td>-0.0289</td><td>0.4979</td><td>0.5106</td><td>0.0126</td></tr><tr><td>gru</td><td>2882</td><td>0.3348</td><td>0.2934</td><td>-0.0414</td><td>0.5441</td><td>0.4994</td><td>-0.0447</td></tr></tbody></table></section>
+<section><h2>一致性</h2><pre>{
+  &quot;random_forest&quot;: {
+    &quot;favorable_components&quot;: {
+      &quot;f1_mean&quot;: false,
+      &quot;f1_worst&quot;: false,
+      &quot;f1_std&quot;: false,
+      &quot;auc_mean&quot;: false,
+      &quot;auc_worst&quot;: false,
+      &quot;auc_std&quot;: false
+    },
+    &quot;favorable_component_count&quot;: 0,
+    &quot;component_count&quot;: 6,
+    &quot;stocks_with_higher_mean_f1&quot;: 2,
+    &quot;stocks_total&quot;: 6,
+    &quot;stocks_with_higher_mean_auc&quot;: 3
+  },
+  &quot;xgboost&quot;: {
+    &quot;favorable_components&quot;: {
+      &quot;f1_mean&quot;: false,
+      &quot;f1_worst&quot;: false,
+      &quot;f1_std&quot;: false,
+      &quot;auc_mean&quot;: false,
+      &quot;auc_worst&quot;: false,
+      &quot;auc_std&quot;: false
+    },
+    &quot;favorable_component_count&quot;: 0,
+    &quot;component_count&quot;: 6,
+    &quot;stocks_with_higher_mean_f1&quot;: 2,
+    &quot;stocks_total&quot;: 6,
+    &quot;stocks_with_higher_mean_auc&quot;: 1
+  },
+  &quot;gru&quot;: {
+    &quot;favorable_components&quot;: {
+      &quot;f1_mean&quot;: false,
+      &quot;f1_worst&quot;: true,
+      &quot;f1_std&quot;: false,
+      &quot;auc_mean&quot;: true,
+      &quot;auc_worst&quot;: true,
+      &quot;auc_std&quot;: true
+    },
+    &quot;favorable_component_count&quot;: 4,
+    &quot;component_count&quot;: 6,
+    &quot;stocks_with_higher_mean_f1&quot;: 0,
+    &quot;stocks_total&quot;: 6,
+    &quot;stocks_with_higher_mean_auc&quot;: 4
+  }
+}</pre></section>
+<section><h2>限制確認</h2><pre>{
+  &quot;controlled_validation_used&quot;: false,
+  &quot;development_used&quot;: false,
+  &quot;forbidden_roles_used&quot;: false,
+  &quot;label_changed&quot;: false,
+  &quot;feature_definition_changed&quot;: false,
+  &quot;model_parameters_changed&quot;: false,
+  &quot;candidate_overwritten&quot;: false,
+  &quot;return_used_for_selection&quot;: false,
+  &quot;v4_created&quot;: false
+}</pre></section>
+</body></html>

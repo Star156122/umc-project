@@ -3,19 +3,44 @@
   "status": "planned_fixed_rules",
   "purpose": "compare_rf_xgboost_gru_as_tradeable_three_day_swing_strategies",
   "data_role": "ml_development_seen",
-  "stock_codes": ["2303", "2330", "2412", "2881", "2882", "2002"],
+  "stock_codes": [
+    "2303",
+    "2330",
+    "2412",
+    "2881",
+    "2882",
+    "2002"
+  ],
   "bar_minutes": 5,
   "periods": {
-    "train": {"start": "2023-01-01", "end": "2024-12-31"},
-    "validation": {"start": "2025-01-01", "end": "2025-06-30"},
-    "test": {"start": "2026-01-01", "end": "2026-06-30"}
+    "train": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    },
+    "validation": {
+      "start": "2025-01-01",
+      "end": "2025-06-30"
+    },
+    "development": {
+      "start": "2026-01-01",
+      "end": "2026-06-30"
+    }
   },
   "sequence_bars": 24,
   "features": [
-    "open_vs_prev_close", "high_vs_prev_close", "low_vs_prev_close",
-    "return_1", "return_3", "volume_ratio_20", "close_vs_ma5",
-    "close_vs_ma20", "rsi14_scaled", "macd_vs_close",
-    "macd_signal_vs_close", "macd_hist_vs_close", "volatility_12",
+    "open_vs_prev_close",
+    "high_vs_prev_close",
+    "low_vs_prev_close",
+    "return_1",
+    "return_3",
+    "volume_ratio_20",
+    "close_vs_ma5",
+    "close_vs_ma20",
+    "rsi14_scaled",
+    "macd_vs_close",
+    "macd_signal_vs_close",
+    "macd_hist_vs_close",
+    "volatility_12",
     "trend_slope_12"
   ],
   "target": {
@@ -28,7 +53,7 @@
     "initial_cash": 100000,
     "capital_fraction": 0.95,
     "max_shares": 1000,
-    "buy_probability": 0.60,
+    "buy_probability": 0.6,
     "sell_probability": 0.45,
     "stop_loss": 0.03,
     "commission_rate": 0.001425,
@@ -39,11 +64,41 @@
     "trailing_stop": null
   },
   "models": {
-    "random_forest": {"n_estimators": 100, "max_depth": 8, "min_samples_leaf": 10, "class_weight": "balanced", "random_state": 42},
-    "xgboost": {"n_estimators": 150, "max_depth": 4, "learning_rate": 0.05, "subsample": 0.8, "colsample_bytree": 0.8, "random_state": 42},
-    "gru": {"hidden_size": 32, "num_layers": 1, "dropout": 0.0, "batch_size": 128, "max_epochs": 10, "patience": 2, "learning_rate": 0.001, "random_state": 42}
+    "random_forest": {
+      "n_estimators": 100,
+      "max_depth": 8,
+      "min_samples_leaf": 10,
+      "class_weight": "balanced",
+      "random_state": 42
+    },
+    "xgboost": {
+      "n_estimators": 150,
+      "max_depth": 4,
+      "learning_rate": 0.05,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8,
+      "random_state": 42
+    },
+    "gru": {
+      "hidden_size": 32,
+      "num_layers": 1,
+      "dropout": 0.0,
+      "batch_size": 128,
+      "max_epochs": 10,
+      "patience": 2,
+      "learning_rate": 0.001,
+      "random_state": 42
+    }
   },
-  "benchmarks": ["buy_and_hold", "cash"],
-  "selection_rule": "Report every model and stock; do not tune thresholds or choose a winner from test returns.",
-  "holdout": {"start": "2025-07-01", "end": "2025-12-31", "access": "forbidden"}
+  "benchmarks": [
+    "buy_and_hold",
+    "cash"
+  ],
+  "selection_rule": "Report every model and stock; do not tune thresholds or choose a winner from development returns.",
+  "holdout": {
+    "start": "2025-07-01",
+    "end": "2025-12-31",
+    "access": "forbidden"
+  },
+  "data_policy": "configs/ml_data_policy.json"
 }

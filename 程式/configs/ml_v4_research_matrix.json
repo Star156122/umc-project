@@ -1,0 +1,347 @@
+{
+  "framework_id": "ml-v4-training-research-feature-ablation-20261005",
+  "base_plan": "configs/ml_trading_v3_20261004.json",
+  "walk_forward_protocol": "configs/ml_training_protocol_v3.json",
+
+  "data_role": "train",
+  "training_period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+
+  "fixed_design": {
+    "label": "V3 fixed SELL<=-1%, HOLD(-1%,+1%), BUY>=+1%",
+    "signal_anchor": "13:30",
+    "holding_sessions": 3,
+    "parameter_search": false,
+    "trading_return_selection": false
+  },
+
+  "models": {
+    "random_forest": {
+      "config_name": "flexible",
+      "params": {
+        "n_estimators": 200,
+        "max_depth": 10,
+        "min_samples_leaf": 5,
+        "class_weight": "balanced",
+        "random_state": 42
+      }
+    },
+
+    "xgboost": {
+      "config_name": "baseline",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 4,
+        "learning_rate": 0.05,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8,
+        "random_state": 42
+      }
+    },
+
+    "gru": {
+      "config_name": "smaller",
+      "params": {
+        "hidden_size": 16,
+        "num_layers": 1,
+        "dropout": 0.0,
+        "batch_size": 128,
+        "max_epochs": 10,
+        "patience": 2,
+        "learning_rate": 0.001,
+        "random_state": 42
+      }
+    }
+  },
+
+  "stock_groups": {
+    "all_stocks": [
+      "2002",
+      "2303",
+      "2330",
+      "2412",
+      "2881",
+      "2882"
+    ],
+
+    "technology": [
+      "2303",
+      "2330"
+    ],
+
+    "financial": [
+      "2881",
+      "2882"
+    ],
+
+    "other_reference": [
+      "2002",
+      "2412"
+    ]
+  },
+
+  "industry_groups": {
+    "technology": [
+      "2303",
+      "2330"
+    ],
+
+    "financial": [
+      "2881",
+      "2882"
+    ],
+
+    "other_reference": [
+      "2002",
+      "2412"
+    ]
+  },
+
+  "feature_sets": {
+    "A": {
+      "description": "V3 original 24 intraday features",
+      "base": "v3",
+      "additional_features": [],
+      "industry_features": [],
+      "status": "baseline"
+    },
+
+    "VOL": {
+      "description": "V3 plus volatility static daily context",
+      "base": "v3",
+      "additional_features": [
+        "volatility_5d",
+        "volatility_20d",
+        "volatility_ratio_5d_20d"
+      ],
+      "industry_features": [],
+      "status": "formal_stage_2_ablation",
+      "representation": "static_context_once_per_sample"
+    },
+
+    "TREND": {
+      "description": "V3 plus momentum and trend static daily context",
+      "base": "v3",
+      "additional_features": [
+        "stock_return_1d",
+        "stock_return_3d",
+        "stock_return_5d",
+        "trend_strength_5d",
+        "trend_strength_20d"
+      ],
+      "industry_features": [],
+      "status": "formal_stage_2_ablation",
+      "representation": "static_context_once_per_sample"
+    },
+
+    "VOLUME": {
+      "description": "V3 plus volume static daily context",
+      "base": "v3",
+      "additional_features": [
+        "volume_trend_5d",
+        "volume_trend_20d"
+      ],
+      "industry_features": [],
+      "status": "formal_stage_2_ablation",
+      "representation": "static_context_once_per_sample"
+    },
+
+    "POSITION": {
+      "description": "V3 plus price-position static daily context",
+      "base": "v3",
+      "additional_features": [
+        "distance_from_high_20d",
+        "distance_from_low_20d"
+      ],
+      "industry_features": [],
+      "status": "formal_stage_2_ablation",
+      "representation": "static_context_once_per_sample"
+    },
+
+    "B": {
+      "description": "V3 plus all 12 causal static daily context features",
+      "base": "v3",
+      "additional_features": [
+        "stock_return_1d",
+        "stock_return_3d",
+        "stock_return_5d",
+        "volume_trend_5d",
+        "volume_trend_20d",
+        "volatility_5d",
+        "volatility_20d",
+        "volatility_ratio_5d_20d",
+        "distance_from_high_20d",
+        "distance_from_low_20d",
+        "trend_strength_5d",
+        "trend_strength_20d"
+      ],
+      "industry_features": [],
+      "status": "formal_stage_2_ablation_full",
+      "representation": "static_context_once_per_sample"
+    },
+
+    "C": {
+      "description": "Feature Set B plus exploratory leave-one-stock-out industry and universe-proxy context",
+      "base": "B",
+      "additional_features": [],
+      "industry_features": [
+        "industry_return_1d",
+        "industry_return_3d",
+        "industry_return_5d",
+        "industry_volatility_5d",
+        "industry_volatility_20d",
+        "stock_vs_industry_return_1d",
+        "stock_vs_industry_return_3d",
+        "stock_vs_industry_return_5d",
+        "industry_vs_universe_return_1d",
+        "industry_vs_universe_return_3d",
+        "industry_vs_universe_return_5d"
+      ],
+      "status": "exploratory_interface_only",
+      "aggregation": "leave_one_stock_out",
+      "minimum_reliable_industry_members": 3,
+      "market_proxy": "current research universe mean"
+    }
+  },
+
+  "quality_rules": {
+    "high_correlation_absolute": 0.90,
+    "high_nan_ratio": 0.01,
+    "nearly_constant_dominant_ratio": 0.999,
+    "extreme_max_abs_to_p99_abs": 20.0,
+    "automatic_feature_removal": false
+  },
+
+  "experiments": [
+    {
+      "id": "A_all_stocks",
+      "enabled": true,
+      "feature_set": "A",
+      "stock_group": "all_stocks",
+      "comparison_group": "stage1_all_stocks",
+      "formal": true
+    },
+
+    {
+      "id": "VOL_all_stocks",
+      "enabled": true,
+      "feature_set": "VOL",
+      "stock_group": "all_stocks",
+      "comparison_group": "stage1_all_stocks",
+      "formal": true
+    },
+
+    {
+      "id": "TREND_all_stocks",
+      "enabled": true,
+      "feature_set": "TREND",
+      "stock_group": "all_stocks",
+      "comparison_group": "stage1_all_stocks",
+      "formal": true
+    },
+
+    {
+      "id": "VOLUME_all_stocks",
+      "enabled": true,
+      "feature_set": "VOLUME",
+      "stock_group": "all_stocks",
+      "comparison_group": "stage1_all_stocks",
+      "formal": true
+    },
+
+    {
+      "id": "POSITION_all_stocks",
+      "enabled": true,
+      "feature_set": "POSITION",
+      "stock_group": "all_stocks",
+      "comparison_group": "stage1_all_stocks",
+      "formal": true
+    },
+
+    {
+      "id": "B_all_stocks",
+      "enabled": true,
+      "feature_set": "B",
+      "stock_group": "all_stocks",
+      "comparison_group": "stage1_all_stocks",
+      "formal": true
+    },
+
+    {
+      "id": "C_technology",
+      "enabled": false,
+      "feature_set": "A",
+      "stock_group": "technology",
+      "comparison_group": "future_technology",
+      "formal": false
+    },
+
+    {
+      "id": "D_technology",
+      "enabled": false,
+      "feature_set": "C",
+      "stock_group": "technology",
+      "comparison_group": "future_technology",
+      "formal": false
+    },
+
+    {
+      "id": "E_financial",
+      "enabled": false,
+      "feature_set": "A",
+      "stock_group": "financial",
+      "comparison_group": "future_financial",
+      "formal": false
+    },
+
+    {
+      "id": "F_financial",
+      "enabled": false,
+      "feature_set": "C",
+      "stock_group": "financial",
+      "comparison_group": "future_financial",
+      "formal": false
+    }
+  ],
+
+  "comparison_groups": {
+    "stage1_all_stocks": {
+      "baseline_experiment": "A_all_stocks",
+      "experimental_experiment": "B_all_stocks"
+    },
+
+    "ablation_volatility": {
+      "baseline_experiment": "A_all_stocks",
+      "experimental_experiment": "VOL_all_stocks"
+    },
+
+    "ablation_trend": {
+      "baseline_experiment": "A_all_stocks",
+      "experimental_experiment": "TREND_all_stocks"
+    },
+
+    "ablation_volume": {
+      "baseline_experiment": "A_all_stocks",
+      "experimental_experiment": "VOLUME_all_stocks"
+    },
+
+    "ablation_position": {
+      "baseline_experiment": "A_all_stocks",
+      "experimental_experiment": "POSITION_all_stocks"
+    },
+
+    "future_technology": {
+      "baseline_experiment": "C_technology",
+      "experimental_experiment": "D_technology"
+    },
+
+    "future_financial": {
+      "baseline_experiment": "E_financial",
+      "experimental_experiment": "F_financial"
+    }
+  },
+
+  "industry_analysis_status": "exploratory"
+}

@@ -29,6 +29,17 @@ class MlPipelineTests(unittest.TestCase):
         finally:
             temp.unlink(missing_ok=True)
 
+    def test_plan_with_final_oos_as_active_period_is_blocked(self):
+        path = ROOT / "configs/ml_baseline_20260927.json"
+        plan = json.loads(path.read_text(encoding="utf-8"))
+        plan["period"] = {"start": "2026-07-01", "end": "2026-10-05"}
+        temp = ROOT / "configs/_test_ml_final_oos_plan.json"
+        temp.write_text(json.dumps(plan), encoding="utf-8")
+        try:
+            with self.assertRaises(HoldoutLockedError): load_plan(temp)
+        finally:
+            temp.unlink(missing_ok=True)
+
     def test_invalid_and_duplicate_bars_are_counted(self):
         base = pd.Timestamp("2026-01-02 09:00", tz="Asia/Taipei")
         rows = []
