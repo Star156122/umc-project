@@ -1,8 +1,14 @@
 {
   "experiment_id": "ml-baseline-20260927-v1",
+<<<<<<< HEAD
   "status": "archived_legacy_baseline",
   "purpose": "historical_intra_development_model_comparison_without_strategy_integration",
   "data_role": "ml_development_seen",
+=======
+  "status": "completed_baseline_only",
+  "purpose": "compare_random_forest_xgboost_gru_without_strategy_integration",
+  "data_role": "development_seen",
+>>>>>>> 4b83d10 (1009)
   "stock_codes": [
     "1101",
     "1216",
@@ -119,6 +125,10 @@
   },
   "completed_at": "2026-09-27T00:55:29",
   "result": "exports/ml_baseline_20260927/results.json",
+<<<<<<< HEAD
   "decision": "BASELINE_ONLY_NOT_INDEPENDENT_VALIDATION",
   "data_policy": "configs/ml_data_policy.json"
+=======
+  "decision": "BASELINE_ONLY_NOT_INDEPENDENT_VALIDATION"
+>>>>>>> 4b83d10 (1009)
 }

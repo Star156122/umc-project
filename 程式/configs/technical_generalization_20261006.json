@@ -1,0 +1,336 @@
+{
+  "experiment_id": "technical-generalization-20261006-v1",
+  "status": "preregistered",
+  "purpose": "以時間順序檢查同一套技術指標參數在五檔廣義科技股的泛化能力",
+  "stock_codes": ["2303", "2330", "2454", "2317", "2382"],
+  "stock_names": {
+    "2303": "聯電",
+    "2330": "台積電",
+    "2454": "聯發科",
+    "2317": "鴻海",
+    "2382": "廣達"
+  },
+  "periods": {
+    "training": {
+      "start": "2023-01-01",
+      "end": "2024-12-31",
+      "access": "development_allowed",
+      "report_block": "Training Walk-forward"
+    },
+    "validation": {
+      "start": "2025-01-01",
+      "end": "2025-06-30",
+      "access": "development_allowed_seen",
+      "report_block": "Validation"
+    },
+    "development_seen": {
+      "start": "2026-01-01",
+      "end": "2026-06-30",
+      "access": "historical_context_only",
+      "report_block": "Development Seen"
+    },
+    "additional_holdout": {
+      "start": "2025-07-01",
+      "end": "2025-12-31",
+      "access": "forbidden",
+      "report_block": "LOCKED"
+    },
+    "final_out_of_sample": {
+      "start": "2026-07-01",
+      "end": null,
+      "access": "forbidden",
+      "report_block": "LOCKED"
+    }
+  },
+  "walk_forward_folds": [
+    {
+      "id": "WF1",
+      "train_start": "2023-01-01",
+      "train_end": "2023-06-30",
+      "evaluate_start": "2023-07-01",
+      "evaluate_end": "2023-12-31"
+    },
+    {
+      "id": "WF2",
+      "train_start": "2023-01-01",
+      "train_end": "2023-12-31",
+      "evaluate_start": "2024-01-01",
+      "evaluate_end": "2024-06-30"
+    },
+    {
+      "id": "WF3",
+      "train_start": "2023-01-01",
+      "train_end": "2024-06-30",
+      "evaluate_start": "2024-07-01",
+      "evaluate_end": "2024-12-31"
+    }
+  ],
+  "common_backtest": {
+    "kbar_freq": 5,
+    "initial_capital": 100000,
+    "lots": 1,
+    "position_sizing": "cash_fraction",
+    "capital_utilization": 0.95,
+    "holding_mode": "swing",
+    "stock_fee_rate": 0.001425,
+    "stock_tax_rate": 0.003,
+    "day_trade_tax_rate": 0.0015,
+    "apply_day_trade_tax": true,
+    "slippage_rate": 0.0,
+    "stop_loss_pct": 0.025,
+    "take_profit_pct": 0.0,
+    "min_hold_bars": 2,
+    "cooldown_bars": 6,
+    "max_entries_per_day": 1,
+    "use_entry_block": false
+  },
+  "selection": {
+    "minimum_trades_per_stock_fold": 5,
+    "minimum_training_trades_per_stock": 10,
+    "minimum_total_trades": 30,
+    "maximum_single_stock_profit_concentration": 0.6,
+    "parameter_spike_sharpe_gap": 0.5,
+    "parameter_spike_return_gap": 0.15
+  },
+  "data_quality": {
+    "minimum_evaluation_bars": 1000,
+    "minimum_warmup_bars": 400,
+    "validation_warmup_start": "2024-11-01",
+    "development_seen_warmup_mode": "period_prefix"
+  },
+  "versions": {
+    "A": {
+      "label": "legacy",
+      "description": "保留現有 2303 vote profile 作為基準，不覆寫原設定",
+      "candidates": [
+        {
+          "id": "A_legacy_vote",
+          "strategy": "vote",
+          "complexity": 3,
+          "neighbours": [],
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 120,
+            "trend_ma_period": 240,
+            "trend_slope_lookback": 24,
+            "require_trend_filter": true,
+            "rsi_period": 14,
+            "rsi_buy_above": 55,
+            "rsi_buy_below": 70,
+            "rsi_sell_below": 50,
+            "rsi_require_cross": false,
+            "use_rsi_block": false,
+            "macd_fast_period": 12,
+            "macd_slow_period": 26,
+            "macd_signal_period": 9,
+            "macd_require_positive": true,
+            "vote_required": 2,
+            "vote_exit_required": 3,
+            "stop_loss_pct": 0.03,
+            "use_rsi": true,
+            "use_macd": true
+          }
+        }
+      ]
+    },
+    "B": {
+      "label": "shared_common",
+      "description": "移除個股特殊區間，MA、RSI、MACD 候選皆以同一參數套用五檔股票",
+      "candidates": [
+        {
+          "id": "B_ma_10_30_120",
+          "strategy": "ma",
+          "complexity": 1,
+          "neighbours": ["B_ma_20_60_240"],
+          "params": {
+            "ma_fast_period": 10,
+            "ma_mid_period": 30,
+            "ma_slow_period": 120,
+            "trend_ma_period": 240,
+            "trend_slope_lookback": 24,
+            "require_trend_filter": true,
+            "ma_exit_on_cross": false,
+            "use_rsi": false,
+            "use_macd": false
+          }
+        },
+        {
+          "id": "B_ma_20_60_240",
+          "strategy": "ma",
+          "complexity": 1,
+          "neighbours": ["B_ma_10_30_120"],
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 240,
+            "trend_ma_period": 360,
+            "trend_slope_lookback": 36,
+            "require_trend_filter": true,
+            "ma_exit_on_cross": false,
+            "use_rsi": false,
+            "use_macd": false
+          }
+        },
+        {
+          "id": "B_rsi_50_65",
+          "strategy": "rsi",
+          "complexity": 1,
+          "neighbours": ["B_rsi_55_70"],
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 240,
+            "trend_ma_period": 360,
+            "trend_slope_lookback": 36,
+            "require_trend_filter": true,
+            "rsi_period": 14,
+            "rsi_buy_above": 50,
+            "rsi_buy_below": 65,
+            "rsi_sell_below": 45,
+            "rsi_require_cross": true,
+            "use_rsi_block": false,
+            "use_rsi": true,
+            "use_macd": false
+          }
+        },
+        {
+          "id": "B_rsi_55_70",
+          "strategy": "rsi",
+          "complexity": 1,
+          "neighbours": ["B_rsi_50_65"],
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 240,
+            "trend_ma_period": 360,
+            "trend_slope_lookback": 36,
+            "require_trend_filter": true,
+            "rsi_period": 14,
+            "rsi_buy_above": 55,
+            "rsi_buy_below": 70,
+            "rsi_sell_below": 50,
+            "rsi_require_cross": true,
+            "use_rsi_block": false,
+            "use_rsi": true,
+            "use_macd": false
+          }
+        },
+        {
+          "id": "B_macd_12_26_9",
+          "strategy": "macd",
+          "complexity": 1,
+          "neighbours": ["B_macd_19_39_9"],
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 240,
+            "trend_ma_period": 240,
+            "trend_slope_lookback": 24,
+            "require_trend_filter": true,
+            "macd_fast_period": 12,
+            "macd_slow_period": 26,
+            "macd_signal_period": 9,
+            "macd_require_positive": true,
+            "macd_exit_on_cross": false,
+            "use_rsi": false,
+            "use_macd": true
+          }
+        },
+        {
+          "id": "B_macd_19_39_9",
+          "strategy": "macd",
+          "complexity": 1,
+          "neighbours": ["B_macd_12_26_9"],
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 240,
+            "trend_ma_period": 240,
+            "trend_slope_lookback": 24,
+            "require_trend_filter": true,
+            "macd_fast_period": 19,
+            "macd_slow_period": 39,
+            "macd_signal_period": 9,
+            "macd_require_positive": true,
+            "macd_exit_on_cross": false,
+            "use_rsi": false,
+            "use_macd": true
+          }
+        }
+      ]
+    },
+    "C": {
+      "label": "majority_confirmation",
+      "description": "以共用 MA、RSI、MACD 設定進行多數決確認",
+      "candidates": [
+        {
+          "id": "C_vote_2_of_3",
+          "strategy": "vote",
+          "complexity": 2,
+          "neighbours": ["C_vote_3_of_3"],
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 120,
+            "trend_ma_period": 360,
+            "trend_slope_lookback": 36,
+            "require_trend_filter": true,
+            "rsi_period": 14,
+            "rsi_buy_above": 55,
+            "rsi_buy_below": 70,
+            "rsi_sell_below": 50,
+            "use_rsi_block": false,
+            "macd_fast_period": 12,
+            "macd_slow_period": 26,
+            "macd_signal_period": 9,
+            "macd_require_positive": true,
+            "vote_required": 2,
+            "vote_exit_required": 3,
+            "use_rsi": true,
+            "use_macd": true
+          }
+        },
+        {
+          "id": "C_vote_3_of_3",
+          "strategy": "vote",
+          "complexity": 2,
+          "neighbours": ["C_vote_2_of_3"],
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 120,
+            "trend_ma_period": 360,
+            "trend_slope_lookback": 36,
+            "require_trend_filter": true,
+            "rsi_period": 14,
+            "rsi_buy_above": 55,
+            "rsi_buy_below": 70,
+            "rsi_sell_below": 50,
+            "use_rsi_block": false,
+            "macd_fast_period": 12,
+            "macd_slow_period": 26,
+            "macd_signal_period": 9,
+            "macd_require_positive": true,
+            "vote_required": 3,
+            "vote_exit_required": 3,
+            "use_rsi": true,
+            "use_macd": true
+          }
+        }
+      ]
+    },
+    "D": {
+      "label": "atr_risk_control",
+      "enabled": false,
+      "decision": "未取得跨股票固定百分比風控失效證據前不啟用"
+    }
+  },
+  "market_data_path": "data/market_data.sqlite3",
+  "output_directory": "exports",
+  "outputs": {
+    "csv": "technical_generalization_results.csv",
+    "audit_json": "technical_generalization_audit.json",
+    "html": "technical_generalization_report.html"
+  }
+}

@@ -1,7 +1,13 @@
 import unittest
 from unittest.mock import patch, Mock
 from types import SimpleNamespace
-from trading_system.research_guard import assert_development_period, assert_config, assert_payload, HoldoutLockedError
+from trading_system.research_guard import (
+    HoldoutLockedError,
+    assert_config,
+    assert_development_period,
+    assert_payload,
+    assert_timestamps,
+)
 
 
 class HoldoutTests(unittest.TestCase):
@@ -17,16 +23,38 @@ class HoldoutTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             assert_development_period('2026-02-01','2026-01-01')
 
+    def test_final_test_from_2026_july_is_locked(self):
+        for start,end in [('2026-07-01','2026-07-01'),('2026-06-30','2026-07-01'),
+                          ('2027-01-01','2027-12-31')]:
+            with self.subTest(start=start), self.assertRaises(HoldoutLockedError):
+                assert_development_period(start,end)
+
     def test_backfill_also_locked(self):
         config=SimpleNamespace(backtest_start='2026-01-01',backtest_end='2026-06-30',
                                backfill_start='2025-12-01',backfill_end='2025-12-31')
         with self.assertRaises(HoldoutLockedError):
             assert_config(config)
+        config=SimpleNamespace(backtest_start='2026-01-01',backtest_end='2026-06-30',
+                               backfill_start='2026-06-30',backfill_end='2026-07-01')
+        with self.assertRaises(HoldoutLockedError):
+            assert_config(config)
 
     def test_nested_report_rejected_but_reservation_allowed(self):
         assert_payload({'holdout':{'start':'2025-07-01','end':'2025-12-31'}})
+        assert_payload({'final_test':{'start':'2026-07-01','end':None}})
         with self.assertRaises(HoldoutLockedError):
             assert_payload({'records':[{'backtest_start':'2025-07-01','backtest_end':'2025-12-31'}]})
+        with self.assertRaises(HoldoutLockedError):
+            assert_payload({'records':[{'backtest_start':'2026-07-01','backtest_end':'2026-12-31'}]})
+        with self.assertRaises(HoldoutLockedError):
+            assert_payload({'final_test':{'records':[{'start':'2026-07-01','end':'2026-07-02'}]}})
+
+    def test_final_test_timestamps_are_locked(self):
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+        stamp=datetime(2026,7,1,tzinfo=ZoneInfo('Asia/Taipei')).timestamp()
+        with self.assertRaises(HoldoutLockedError):
+            assert_timestamps([stamp])
 
     def test_direct_cache_and_fetch_block_before_io(self):
         from trading_system import backtest as bt

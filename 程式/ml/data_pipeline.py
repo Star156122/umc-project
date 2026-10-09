@@ -32,7 +32,7 @@ class PreparedData:
 def load_plan(path: Path) -> dict[str, Any]:
     plan = json.loads(path.read_text(encoding="utf-8"))
     assert_payload(plan)
-    if plan.get("data_role") != "ml_development_seen":
+    if plan.get("data_role") != "development_seen":
         raise ValueError("ML baseline 只能使用已標示的開發資料。")
     if plan.get("data_policy") != "configs/ml_data_policy.json":
         raise ValueError("ML baseline 必須使用 configs/ml_data_policy.json。")

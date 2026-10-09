@@ -5,9 +5,18 @@ from pathlib import Path
 import json
 
 POLICY = Path(__file__).resolve().parents[1] / 'configs/holdout_policy.json'
+RESERVED_PERIOD_KEYS = ('holdout', 'final_test', 'independent_validation_period', 'reserved_period')
+RESERVED_DECLARATION_FIELDS = {
+    'start', 'end', 'access', 'state', 'status', 'notes',
+    'requires_explicit_authorization',
+}
 MESSAGE = ('Holdout period is locked. This period is reserved for final out-of-sample '
            'evaluation and cannot be used during strategy development. '
            '2025/07/01～2025/12/31 為鎖定保留資料，請勿用於開發、比較或報告。')
+FINAL_TEST_MESSAGE = (
+    'Final out-of-sample period is locked. '
+    '2026/07/01 起為最終樣本外測試資料，請勿用於開發、比較或報告。'
+)
 
 
 class HoldoutLockedError(ValueError):
@@ -27,11 +36,15 @@ def assert_development_period(start, end):
     # 防止只改設定檔就意外移除日期鎖；正式驗證須另外審核執行流程。
     if policy.get('holdout') != {'start': '2025-07-01', 'end': '2025-12-31', 'access': 'forbidden'}:
         raise HoldoutLockedError('Holdout policy changed unexpectedly; development execution blocked.')
+    if policy.get('final_test') != {'start': '2026-07-01', 'end': None, 'access': 'forbidden'}:
+        raise HoldoutLockedError('Final-test policy changed unexpectedly; development execution blocked.')
     first, last = _date(start), _date(end)
     if first > last:
         raise ValueError('開始日期不能晚於結束日期')
     if first <= date(2025, 12, 31) and last >= date(2025, 7, 1):
         raise HoldoutLockedError(MESSAGE)
+    if last >= date(2026, 7, 1):
+        raise HoldoutLockedError(FINAL_TEST_MESSAGE)
 
 
 def assert_config(config):
@@ -48,6 +61,14 @@ def assert_timestamps(stamps):
         assert_development_period(first, last)
 
 
+def _is_reserved_period_declaration(value):
+    return (
+        isinstance(value, dict)
+        and 'start' in value
+        and set(value).issubset(RESERVED_DECLARATION_FIELDS)
+    )
+
+
 def assert_payload(value):
     """檢查報告／實驗的日期中繼資料，不把保留期宣告當成實際存取。"""
     if isinstance(value, dict):
@@ -56,7 +77,7 @@ def assert_payload(value):
             if a in value and b in value:
                 assert_development_period(value[a], value[b])
         for key, child in value.items():
-            if key in ('holdout', 'independent_validation_period', 'reserved_period'):
+            if key in RESERVED_PERIOD_KEYS and _is_reserved_period_declaration(child):
                 continue
             if key in ('period', 'development_period') and isinstance(child, list) and len(child) == 2:
                 assert_development_period(*child)

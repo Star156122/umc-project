@@ -1,6 +1,7 @@
 {
   "experiment_id": "ml-trading-20261004-v3",
   "status": "planned_fixed_rules",
+<<<<<<< HEAD
   "purpose": "evaluate_market_structure_feature_enrichment_without_label_model_or_trading_rule_changes",
   "data_role": "ml_development_seen",
   "stock_codes": [
@@ -11,6 +12,11 @@
     "2882",
     "2002"
   ],
+=======
+  "purpose": "test_market_structure_feature_enrichment_without_label_model_or_trading_rule_changes",
+  "data_role": "development_seen",
+  "stock_codes": ["2303", "2330", "2412", "2881", "2882", "2002"],
+>>>>>>> 4b83d10 (1009)
   "bar_minutes": 5,
   "periods": {
     "train": {

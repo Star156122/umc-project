@@ -15,7 +15,7 @@ from trading_system.research_guard import HoldoutLockedError
 class MlPipelineTests(unittest.TestCase):
     def test_plan_is_development_and_holdout_declaration_is_not_read(self):
         plan = load_plan(ROOT / "configs/ml_baseline_20260927.json")
-        self.assertEqual(plan["data_role"], "ml_development_seen")
+        self.assertEqual(plan["data_role"], "development_seen")
         self.assertEqual(plan["holdout"]["access"], "forbidden")
 
     def test_plan_with_holdout_as_active_period_is_blocked(self):
