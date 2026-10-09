@@ -1,11 +1,4 @@
 {
-<<<<<<< HEAD
-  "holdout": {
-    "start": "2025-07-01",
-    "end": "2025-12-31",
-    "access": "forbidden"
-  },
-=======
   "roles": {
     "training": {"start": "2023-01-01", "end": "2024-12-31", "access": "development_allowed"},
     "validation": {"start": "2025-01-01", "end": "2025-06-30", "access": "development_allowed_seen"},
@@ -15,7 +8,6 @@
   },
   "holdout": {"start": "2025-07-01", "end": "2025-12-31", "access": "forbidden"},
   "final_test": {"start": "2026-07-01", "end": null, "access": "forbidden"},
->>>>>>> 4b83d10 (1009)
   "state": "locked_unseen",
   "final_test_requires_explicit_user_authorization": true,
   "development_override_allowed": false,
