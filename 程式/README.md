@@ -1,5 +1,9 @@
 ﻿# 股票交易策略回測系統
 
+> **目前正式研究方向（2026-10）**：先以 Technical Strategy V1 產生可稽核的 `BUY_CANDIDATE`，再由另行凍結且股票集合一致的 ML V1 擔任 Filter，最後才進入 Hybrid Strategy。Technical V1 本輪只允許 `2023-01-01～2024-12-31` Training 三個 Walk-Forward fold；Validation、Additional Holdout、Development Seen 與 Final Out-of-Sample 均不在本輪執行範圍。使用入口為 `scripts/run_technical_v1.py`，研究設定為 `configs/technical_v1_research.json`。
+
+> 下方聯電單股六策略、LLM 與既有報表流程保留為歷史研究及操作功能，不代表目前正式候選，也不得用來繞過 `docs/長期研究規範.md` 的資料角色與日期鎖。Technical V1 使用聯電、台積電、聯發科、鴻海、廣達五檔廣義科技股，所有股票共用參數、成本與風險控制。
+
 本專案是一套以 Python 建立的聯電（2303）策略回測系統，可從永豐 Shioaji 或 TSST 取得歷史 tick 資料，先快取成 SQLite，再聚合為 5 分 K 進行訊號判斷、模擬成交、計算損益，最後輸出 CSV、JSON 與 HTML 報表。系統支援 MA、RSI、MACD、布林通道反轉、區間突破與三指標多數決六種比較策略，也保留固定價格策略作為流程測試用途。
 
 > 2026-09-11 改善版：回測日期仍固定為 `2026-01-01～2026-06-30`。修正固定一張造成資金不足、每筆 tick 重算導致耗時過久、趨勢策略被每日平倉切斷，以及當沖／跨日稅率混用等問題。結果屬於同期間參數研究，不是未來獲利保證。

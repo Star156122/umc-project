@@ -1,0 +1,42 @@
+{
+  "generated_at": "2026-10-11T02:27:06+08:00",
+  "run_id": "20261011T022706203237",
+  "experiment_id": "technical-v1-20261010-v1",
+  "config_path": "C:\\Users\\yushe\\OneDrive - 國立高雄科技大學\\桌面\\畢業專題\\umc-project\\程式\\configs\\technical_v1_research.json",
+  "config_fingerprint": "2775109cd5d7ae95f0e906a6b628d0cc2f4e6d9eb60449e1b86f957e616c0f04",
+  "requested_role": "training",
+  "queried_roles": [
+    "training"
+  ],
+  "forbidden_roles_queried": [],
+  "locked_periods": {
+    "validation": "NOT_QUERIED_THIS_ROUND",
+    "additional_holdout": "LOCKED_NOT_QUERIED",
+    "development_seen": "NOT_QUERIED_THIS_ROUND",
+    "final_out_of_sample": "LOCKED_NOT_QUERIED"
+  },
+  "preflight_only": true,
+  "freeze_manifest_created": false,
+  "outputs": [
+    "C:\\Users\\yushe\\OneDrive - 國立高雄科技大學\\桌面\\畢業專題\\umc-project\\程式\\exports\\technical_v1_20261011T022706203237\\technical_v1_audit.json"
+  ],
+  "market_data_preflight": {
+    "status": "BLOCKED_MISSING_DATA",
+    "complete": false,
+    "database_path": "C:\\Users\\yushe\\OneDrive - 國立高雄科技大學\\桌面\\畢業專題\\umc-project\\程式\\data\\market_data.sqlite3",
+    "reason": "找不到 Technical V1 行情資料庫；未建立假資料、未下載行情、未執行回測。",
+    "schema_columns": [],
+    "schema_initialized": false,
+    "query_role": "training",
+    "query_period": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    },
+    "forbidden_roles_queried": [],
+    "stock_checks": [],
+    "import_command": "uv run python \"C:\\Users\\yushe\\OneDrive - 國立高雄科技大學\\桌面\\畢業專題\\umc-project\\程式\\scripts\\import_technical_v1_training_kbars.py\" --database \"C:\\Users\\yushe\\OneDrive - 國立高雄科技大學\\桌面\\畢業專題\\umc-project\\程式\\data\\market_data.sqlite3\""
+  },
+  "status": "BLOCKED_MISSING_DATA",
+  "reason": "找不到 Technical V1 行情資料庫；未建立假資料、未下載行情、未執行回測。",
+  "conclusion": "資料缺少或不完整；只產生 audit，未執行回測、未產生績效檔、未凍結候選。"
+}

@@ -1,5 +1,28 @@
 {
-  "updated_at": "2026-09-26",
+  "updated_at": "2026-10-11",
+  "formal_research_direction": "Technical Candidate -> ML Filter -> Hybrid",
+  "current_workstreams": {
+    "technical_v1": {
+      "status": "BLOCKED_MISSING_DATA",
+      "experiment_id": "technical-v1-20261010-v1",
+      "data_role": "training",
+      "period": ["2023-01-01", "2024-12-31"],
+      "stock_codes": ["2303", "2330", "2454", "2317", "2382"],
+      "preflight_audit": "exports/technical_v1_20261011T004423133302/technical_v1_audit.json",
+      "backtest_executed": false,
+      "frozen": false
+    },
+    "ml_candidate": {
+      "status": "NOT_FROZEN",
+      "current_stock_codes": ["2303", "2330", "2412", "2881", "2882", "2002"],
+      "technical_universe_aligned": false,
+      "next_stage": "align_and_freeze_ml_v1_or_obtain_separate_user_approval_before_hybrid"
+    },
+    "hybrid": {
+      "status": "NOT_STARTED",
+      "blocked_by": ["technical_v1_not_complete", "ml_v1_not_frozen_or_universe_aligned"]
+    }
+  },
   "development_period": ["2026-01-01", "2026-06-30"],
   "holdout": {
     "period": ["2025-07-01", "2025-12-31"],

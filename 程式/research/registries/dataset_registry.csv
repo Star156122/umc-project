@@ -40,3 +40,8 @@ techval-2025h1-2454,2454,聯發科,半導體,2025-01-01,2025-06-30,false,false,f
 techval-2025h1-2317,2317,鴻海,其他電子,2025-01-01,2025-06-30,false,false,false,validation,false,,,technical-generalization-20261006-v1,開發期Validation計畫；不得稱完全未查看的獨立測試
 techval-2025h1-2382,2382,廣達,電腦及週邊設備,2025-01-01,2025-06-30,false,false,false,validation,false,,,technical-generalization-20261006-v1,開發期Validation計畫；不得稱完全未查看的獨立測試
 techdev-2026h1-2454,2454,聯發科,半導體,2026-01-01,2026-06-30,false,false,false,development_seen,false,,,technical-generalization-20261006-v1,只作歷史補充；不得與Training或Validation混合
+techv1-plan-training-2303,2303,聯電,半導體,2023-01-01,2024-12-31,false,false,false,training,false,,exports/technical_v1_20261011T004423133302/technical_v1_audit.json,technical-v1-20261010-v1,五檔集合已確認；preflight確認SQLite不存在；未讀行情且未執行回測
+techv1-plan-training-2330,2330,台積電,半導體,2023-01-01,2024-12-31,false,false,false,training,false,,exports/technical_v1_20261011T004423133302/technical_v1_audit.json,technical-v1-20261010-v1,五檔集合已確認；preflight確認SQLite不存在；未讀行情且未執行回測
+techv1-plan-training-2454,2454,聯發科,半導體,2023-01-01,2024-12-31,false,false,false,training,false,,exports/technical_v1_20261011T004423133302/technical_v1_audit.json,technical-v1-20261010-v1,五檔集合已確認；preflight確認SQLite不存在；未讀行情且未執行回測
+techv1-plan-training-2317,2317,鴻海,其他電子,2023-01-01,2024-12-31,false,false,false,training,false,,exports/technical_v1_20261011T004423133302/technical_v1_audit.json,technical-v1-20261010-v1,五檔集合已確認；preflight確認SQLite不存在；未讀行情且未執行回測
+techv1-plan-training-2382,2382,廣達,電腦及週邊設備,2023-01-01,2024-12-31,false,false,false,training,false,,exports/technical_v1_20261011T004423133302/technical_v1_audit.json,technical-v1-20261010-v1,五檔集合已確認；preflight確認SQLite不存在；未讀行情且未執行回測

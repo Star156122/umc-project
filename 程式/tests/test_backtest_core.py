@@ -68,6 +68,7 @@ def install_dependency_stubs() -> None:
 
 install_dependency_stubs()
 main02 = importlib.import_module("main02")
+backtest_module = importlib.import_module("trading_system.backtest")
 update_data = importlib.import_module("update_data")
 import_existing_report = importlib.import_module("import_existing_report")
 
@@ -286,8 +287,8 @@ class BacktestCoreTests(unittest.TestCase):
 
     def test_report_contains_required_capital_cost_and_date_fields(self):
         with tempfile.TemporaryDirectory() as directory:
-            previous_report_dir = main02.REPORT_DIR
-            main02.REPORT_DIR = Path(directory)
+            previous_report_dir = backtest_module.REPORT_DIR
+            backtest_module.REPORT_DIR = Path(directory)
             try:
                 config = main02.AppConfig(
                     code="2303",
@@ -302,7 +303,7 @@ class BacktestCoreTests(unittest.TestCase):
                 report = report_path.read_text(encoding="utf-8")
                 summary = (report_path.parent / "summary.json").read_text(encoding="utf-8")
             finally:
-                main02.REPORT_DIR = previous_report_dir
+                backtest_module.REPORT_DIR = previous_report_dir
 
             self.assertIn("初始本金", report)
             self.assertIn("回測開始日期", report)

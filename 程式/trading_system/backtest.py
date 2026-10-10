@@ -234,6 +234,7 @@ CONFIG_ENV_NAMES: dict[str, str] = {
     "stop_loss_pct": "STOP_LOSS_PCT",
     "take_profit_pct": "TAKE_PROFIT_PCT",
     "min_hold_bars": "MIN_HOLD_BARS",
+    "max_hold_bars": "MAX_HOLD_BARS",
     "cooldown_bars": "COOLDOWN_BARS",
     "max_entries_per_day": "MAX_ENTRIES_PER_DAY",
     "verbose_bars": "VERBOSE_BARS",
@@ -388,6 +389,7 @@ class AppConfig:
     stop_loss_pct: float = 0.015
     take_profit_pct: float = 0.03
     min_hold_bars: int = 2
+    max_hold_bars: int = 0
     cooldown_bars: int = 6
     max_entries_per_day: int = 1
     verbose_bars: bool = False
@@ -1326,13 +1328,23 @@ class MovingAverageTsst(BacktestSafeTsst):
             ]
         return []
 
-    def _exit_signal(self, close: float, snapshot: dict[str, float | None]) -> tuple[str, list[str]] | None:
+    def _risk_exit_signal(self, close: float) -> tuple[str, list[str]] | None:
         if self.entry_price is not None:
             return_pct = (close - self.entry_price) / self.entry_price
             if self.config.stop_loss_pct > 0 and return_pct <= -self.config.stop_loss_pct:
                 return "stop_loss", [f"return {return_pct:.2%}"]
             if self.config.take_profit_pct > 0 and return_pct >= self.config.take_profit_pct:
                 return "take_profit", [f"return {return_pct:.2%}"]
+        if self.config.max_hold_bars > 0 and self.bars_since_entry >= self.config.max_hold_bars:
+            return "max_holding_period", [
+                f"held {self.bars_since_entry} bars (limit {self.config.max_hold_bars})"
+            ]
+        return None
+
+    def _exit_signal(self, close: float, snapshot: dict[str, float | None]) -> tuple[str, list[str]] | None:
+        risk_signal = self._risk_exit_signal(close)
+        if risk_signal is not None:
+            return risk_signal
 
         if self.bars_since_entry < self.config.min_hold_bars:
             return None
@@ -3387,6 +3399,10 @@ def generate_local_report(
             ),
             _metric("停損 / 停利", f"{config.stop_loss_pct:.2%} / {config.take_profit_pct:.2%}"),
             _metric("最少持有 / 冷卻", f"{config.min_hold_bars} / {config.cooldown_bars} 根 K 棒"),
+            _metric(
+                "最長持有",
+                f"{config.max_hold_bars} 根 K 棒" if config.max_hold_bars > 0 else "停用",
+            ),
             _metric("每日最多進場", f"{config.max_entries_per_day} 次"),
             _metric(
                 "強制出場",
@@ -3934,8 +3950,10 @@ def validate_config(config: AppConfig) -> None:
         raise RuntimeError("--vote-exit-required 必須介於 1 到 3")
     if min(config.stop_loss_pct, config.take_profit_pct) < 0:
         raise RuntimeError("停損與停利比例不可小於 0")
-    if min(config.min_hold_bars, config.cooldown_bars) < 0:
-        raise RuntimeError("最少持有與冷卻 K 棒數不可小於 0")
+    if min(config.min_hold_bars, config.max_hold_bars, config.cooldown_bars) < 0:
+        raise RuntimeError("最少持有、最長持有與冷卻 K 棒數不可小於 0")
+    if config.max_hold_bars > 0 and config.max_hold_bars < config.min_hold_bars:
+        raise RuntimeError("最長持有 K 棒數不可小於最少持有 K 棒數")
     if config.max_entries_per_day <= 0:
         raise RuntimeError("--max-entries-per-day 必須大於 0")
     if config.llm_enabled and not config.openai_model.strip():
@@ -4153,6 +4171,7 @@ def parse_args() -> AppConfig:
     parser.add_argument("--stop-loss-pct", type=float, default=float(os.getenv("STOP_LOSS_PCT", "0.015")))
     parser.add_argument("--take-profit-pct", type=float, default=float(os.getenv("TAKE_PROFIT_PCT", "0.03")))
     parser.add_argument("--min-hold-bars", type=int, default=int(os.getenv("MIN_HOLD_BARS", "2")))
+    parser.add_argument("--max-hold-bars", type=int, default=int(os.getenv("MAX_HOLD_BARS", "0")))
     parser.add_argument("--cooldown-bars", type=int, default=int(os.getenv("COOLDOWN_BARS", "6")))
     parser.add_argument("--max-entries-per-day", type=int, default=int(os.getenv("MAX_ENTRIES_PER_DAY", "1")))
     parser.set_defaults(
@@ -4304,6 +4323,7 @@ def parse_args() -> AppConfig:
         stop_loss_pct=args.stop_loss_pct,
         take_profit_pct=args.take_profit_pct,
         min_hold_bars=args.min_hold_bars,
+        max_hold_bars=args.max_hold_bars,
         cooldown_bars=args.cooldown_bars,
         max_entries_per_day=args.max_entries_per_day,
         verbose_bars=args.verbose_bars,
@@ -4376,7 +4396,8 @@ def main() -> None:
     print(f"Vote: required={config.vote_required}/3")
     print(
         f"Risk: stop={config.stop_loss_pct:.2%} take={config.take_profit_pct:.2%} "
-        f"min_hold={config.min_hold_bars} cooldown={config.cooldown_bars} "
+        f"min_hold={config.min_hold_bars} max_hold={config.max_hold_bars} "
+        f"cooldown={config.cooldown_bars} "
         f"max_entries/day={config.max_entries_per_day}"
     )
     print(

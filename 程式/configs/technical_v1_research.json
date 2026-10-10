@@ -1,0 +1,380 @@
+{
+  "experiment_id": "technical-v1-20261010-v1",
+  "technical_version": "technical-v1-draft-20261010",
+  "status": "preregistered_training_only",
+  "scope": "technical_strategy_only",
+  "research_hypothesis": "以明確角色組合技術指標，可產生穩定、可解釋且樣本數足夠的 BUY Candidate，而不以 Training 最高報酬選參數。",
+  "stock_universe": {
+    "status": "confirmed",
+    "confirmed_at": "2026-10-10",
+    "source": "technical-generalization-20261006-v1_and_user_confirmation",
+    "scope_description": "跨半導體、其他電子、電腦及週邊設備的廣義科技股研究集合",
+    "stock_codes": ["2303", "2330", "2454", "2317", "2382"],
+    "stock_names": {
+      "2303": "聯電",
+      "2330": "台積電",
+      "2454": "聯發科",
+      "2317": "鴻海",
+      "2382": "廣達"
+    },
+    "industries": {
+      "2303": "半導體",
+      "2330": "半導體",
+      "2454": "半導體",
+      "2317": "其他電子",
+      "2382": "電腦及週邊設備"
+    },
+    "rule": "所有股票共用相同參數、成本與風險控制；不得依個股挑參數"
+  },
+  "periods": {
+    "training": {
+      "start": "2023-01-01",
+      "end": "2024-12-31",
+      "access": "development_allowed"
+    },
+    "validation": {
+      "start": "2025-01-01",
+      "end": "2025-06-30",
+      "access": "candidate_frozen_only"
+    },
+    "development_seen": {
+      "start": "2026-01-01",
+      "end": "2026-06-30",
+      "access": "historical_context_only"
+    },
+    "additional_holdout": {
+      "start": "2025-07-01",
+      "end": "2025-12-31",
+      "access": "forbidden"
+    },
+    "final_out_of_sample": {
+      "start": "2026-07-01",
+      "end": null,
+      "access": "forbidden"
+    }
+  },
+  "walk_forward_folds": [
+    {
+      "id": "WF1",
+      "train_start": "2023-01-01",
+      "train_end": "2023-06-30",
+      "evaluate_start": "2023-07-01",
+      "evaluate_end": "2023-12-31"
+    },
+    {
+      "id": "WF2",
+      "train_start": "2023-01-01",
+      "train_end": "2023-12-31",
+      "evaluate_start": "2024-01-01",
+      "evaluate_end": "2024-06-30"
+    },
+    {
+      "id": "WF3",
+      "train_start": "2023-01-01",
+      "train_end": "2024-06-30",
+      "evaluate_start": "2024-07-01",
+      "evaluate_end": "2024-12-31"
+    }
+  ],
+  "data_quality": {
+    "minimum_warmup_bars": 400,
+    "minimum_evaluation_bars": 1000,
+    "minimum_training_trading_days": 470,
+    "minimum_evaluation_trading_days": 100,
+    "expected_bars_per_trading_day": 54,
+    "expected_first_bar_time": "09:00",
+    "expected_last_bar_time": "13:25",
+    "expected_cadence_seconds": 300,
+    "missing_day_calendar_basis": "union_of_confirmed_universe"
+  },
+  "evaluation": {
+    "forward_return_horizon_bars": 12,
+    "forward_return_description": "BUY_CANDIDATE 訊號後 12 根五分 K（約一小時）的收盤報酬，只存在評估結果，不進 Candidate Signal"
+  },
+  "common_backtest": {
+    "kbar_unit": "m",
+    "kbar_freq": 5,
+    "initial_capital": 100000,
+    "lots": 1,
+    "position_sizing": "cash_fraction",
+    "capital_utilization": 0.95,
+    "holding_mode": "swing",
+    "stock_fee_rate": 0.001425,
+    "stock_tax_rate": 0.003,
+    "day_trade_tax_rate": 0.0015,
+    "apply_day_trade_tax": true,
+    "slippage_rate": 0.0,
+    "stop_loss_pct": 0.025,
+    "take_profit_pct": 0.0,
+    "min_hold_bars": 2,
+    "max_hold_bars": 162,
+    "cooldown_bars": 6,
+    "max_entries_per_day": 1,
+    "entry_start_hour": 9,
+    "entry_start_minute": 0,
+    "entry_cutoff_hour": 12,
+    "entry_cutoff_minute": 30,
+    "use_entry_block": false
+  },
+  "selection": {
+    "minimum_trades_per_stock_fold": 5,
+    "minimum_training_trades_per_stock": 10,
+    "minimum_total_trades": 30,
+    "maximum_single_stock_profit_concentration": 0.6,
+    "parameter_spike_sharpe_gap": 0.5,
+    "parameter_spike_return_gap": 0.15,
+    "selection_order": [
+      "sample_sufficiency",
+      "worst_fold",
+      "fold_standard_deviation",
+      "cross_stock_median",
+      "maximum_drawdown",
+      "cost_efficiency",
+      "neighbour_stability"
+    ],
+    "return_used_as_only_selector": false
+  },
+  "legacy_baseline": {
+    "display_name": "Legacy Baseline（既有 2-of-3 多數決）",
+    "entry_rule_id": "legacy_vote_ma_rsi_macd_2_of_3",
+    "exit_rule_id": "legacy_vote_bearish_3_of_3_or_close_risk",
+    "candidate": {
+      "id": "LEGACY_VOTE_2_OF_3",
+      "kind": "legacy_baseline",
+      "base_strategy": "vote",
+      "single_change": null,
+      "trade_reason": "忠實保留既有 Version A，作為所有新 Technical V1 候選的固定比較基準。",
+      "params": {
+        "ma_fast_period": 20,
+        "ma_mid_period": 60,
+        "ma_slow_period": 120,
+        "trend_ma_period": 240,
+        "trend_slope_lookback": 24,
+        "require_trend_filter": true,
+        "rsi_period": 14,
+        "rsi_buy_above": 55,
+        "rsi_buy_below": 70,
+        "rsi_sell_below": 50,
+        "rsi_require_cross": false,
+        "use_rsi_block": false,
+        "macd_fast_period": 12,
+        "macd_slow_period": 26,
+        "macd_signal_period": 9,
+        "macd_require_positive": true,
+        "vote_required": 2,
+        "vote_exit_required": 3,
+        "use_rsi": true,
+        "use_macd": true,
+        "stop_loss_pct": 0.03,
+        "take_profit_pct": 0.0,
+        "max_hold_bars": 0
+      }
+    }
+  },
+  "strategy_families": {
+    "trend_momentum": {
+      "entry_rule_id": "tm_ma_structure_macd_momentum_rsi_quality_v1",
+      "exit_rule_id": "tm_close_below_slow_ma_or_risk_v1",
+      "indicator_roles": {
+        "MA": "trend_direction",
+        "MACD": "momentum_confirmation",
+        "RSI": "entry_quality_and_overheat_filter"
+      },
+      "candidates": [
+        {
+          "id": "TM_BASE_20_60_120_RSI55_70",
+          "kind": "baseline",
+          "base_strategy": "vote",
+          "single_change": null,
+          "trade_reason": "沿用既有共用 MA、MACD 與 RSI 區間，檢查角色式組合是否具穩定候選訊號。",
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 120,
+            "trend_ma_period": 240,
+            "trend_slope_lookback": 24,
+            "require_trend_filter": true,
+            "rsi_period": 14,
+            "rsi_buy_above": 55,
+            "rsi_buy_below": 70,
+            "rsi_sell_below": 50,
+            "use_rsi_block": false,
+            "macd_fast_period": 12,
+            "macd_slow_period": 26,
+            "macd_signal_period": 9,
+            "macd_require_positive": true,
+            "use_rsi": true,
+            "use_macd": true
+          }
+        },
+        {
+          "id": "TM_SENS_RSI55_68",
+          "kind": "sensitivity",
+          "base_strategy": "vote",
+          "single_change": "rsi_buy_below:70->68",
+          "trade_reason": "只收緊 RSI 過熱上限，檢查基準是否依賴接近超買區的追價訊號。",
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 120,
+            "trend_ma_period": 240,
+            "trend_slope_lookback": 24,
+            "require_trend_filter": true,
+            "rsi_period": 14,
+            "rsi_buy_above": 55,
+            "rsi_buy_below": 68,
+            "rsi_sell_below": 50,
+            "use_rsi_block": false,
+            "macd_fast_period": 12,
+            "macd_slow_period": 26,
+            "macd_signal_period": 9,
+            "macd_require_positive": true,
+            "use_rsi": true,
+            "use_macd": true
+          }
+        }
+      ]
+    },
+    "breakout": {
+      "entry_rule_id": "breakout_range_trigger_ma_direction_bb_upper_v1",
+      "exit_rule_id": "breakout_close_below_prior_range_low_or_risk_v1",
+      "bollinger_mode": "upper_breakout_only",
+      "volume_confirmation": "disabled_first_round",
+      "indicator_roles": {
+        "Range_Breakout": "sole_entry_trigger",
+        "MA": "direction_confirmation",
+        "Bollinger_Bands": "breakout_price_position"
+      },
+      "candidates": [
+        {
+          "id": "BR_BASE_RANGE60_BB20_2",
+          "kind": "baseline",
+          "base_strategy": "breakout",
+          "single_change": null,
+          "trade_reason": "沿用既有 60 根區間突破來源，加入布林上軌作突破環境確認，不使用下軌均值回歸。",
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 240,
+            "trend_ma_period": 120,
+            "trend_slope_lookback": 12,
+            "require_trend_filter": true,
+            "bollinger_period": 20,
+            "bollinger_stddev": 2.0,
+            "breakout_entry_period": 60,
+            "breakout_exit_period": 30,
+            "breakout_require_cross": true,
+            "breakout_volume_ratio": 0.0,
+            "volume_ma_period": 20,
+            "use_rsi": false,
+            "use_macd": false
+          }
+        },
+        {
+          "id": "BR_SENS_RANGE55_BB20_2",
+          "kind": "sensitivity",
+          "base_strategy": "breakout",
+          "single_change": "breakout_entry_period:60->55",
+          "trade_reason": "只調整鄰近區間長度，檢查 60 根設定是否形成孤立參數尖峰。",
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 240,
+            "trend_ma_period": 120,
+            "trend_slope_lookback": 12,
+            "require_trend_filter": true,
+            "bollinger_period": 20,
+            "bollinger_stddev": 2.0,
+            "breakout_entry_period": 55,
+            "breakout_exit_period": 30,
+            "breakout_require_cross": true,
+            "breakout_volume_ratio": 0.0,
+            "volume_ma_period": 20,
+            "use_rsi": false,
+            "use_macd": false
+          }
+        }
+      ]
+    },
+    "majority_vote": {
+      "display_name": "2-of-3 多數決 + 長期趨勢濾網",
+      "description": "MA、RSI、MACD 三票至少兩票成立，且額外要求價格位於上升的長期趨勢均線之上。",
+      "entry_rule_id": "majority_vote_ma_rsi_macd_v1",
+      "exit_rule_id": "majority_vote_bearish_or_risk_v1",
+      "indicator_roles": {
+        "MA": "one_vote",
+        "RSI": "one_vote",
+        "MACD": "one_vote"
+      },
+      "candidates": [
+        {
+          "id": "MV_BASE_2_OF_3",
+          "kind": "baseline",
+          "base_strategy": "vote",
+          "single_change": null,
+          "trade_reason": "保留可解釋的 2 of 3 對照，判斷角色式家族是否真的較穩定。",
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 120,
+            "trend_ma_period": 240,
+            "trend_slope_lookback": 24,
+            "require_trend_filter": true,
+            "rsi_period": 14,
+            "rsi_buy_above": 55,
+            "rsi_buy_below": 70,
+            "rsi_sell_below": 50,
+            "use_rsi_block": false,
+            "macd_fast_period": 12,
+            "macd_slow_period": 26,
+            "macd_signal_period": 9,
+            "macd_require_positive": true,
+            "vote_required": 2,
+            "vote_exit_required": 2,
+            "use_rsi": true,
+            "use_macd": true
+          }
+        },
+        {
+          "id": "MV_SENS_3_OF_3",
+          "kind": "sensitivity",
+          "base_strategy": "vote",
+          "single_change": "vote_required:2->3",
+          "trade_reason": "只提高進場票數，量化更嚴格確認造成的樣本犧牲與穩定度變化。",
+          "params": {
+            "ma_fast_period": 20,
+            "ma_mid_period": 60,
+            "ma_slow_period": 120,
+            "trend_ma_period": 240,
+            "trend_slope_lookback": 24,
+            "require_trend_filter": true,
+            "rsi_period": 14,
+            "rsi_buy_above": 55,
+            "rsi_buy_below": 70,
+            "rsi_sell_below": 50,
+            "use_rsi_block": false,
+            "macd_fast_period": 12,
+            "macd_slow_period": 26,
+            "macd_signal_period": 9,
+            "macd_require_positive": true,
+            "vote_required": 3,
+            "vote_exit_required": 2,
+            "use_rsi": true,
+            "use_macd": true
+          }
+        }
+      ]
+    }
+  },
+  "atr": {
+    "enabled": false,
+    "decision": "第一輪停用；不得在本輪追加 ATR 候選或參數搜尋"
+  },
+  "candidate_signal_schema_version": "technical_candidate_v1",
+  "market_data_path": "data/market_data.sqlite3",
+  "output_policy": {
+    "overwrite_existing": false,
+    "directory_template": "exports/technical_v1_<run_id>",
+    "freeze_manifest_allowed": false
+  }
+}
