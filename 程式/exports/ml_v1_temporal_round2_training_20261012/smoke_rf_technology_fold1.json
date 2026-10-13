@@ -1,0 +1,27 @@
+{
+  "status": "SMOKE_TEST_PASS_NOT_FORMAL_DECISION",
+  "industry": "technology",
+  "model": "random_forest",
+  "fold": 1,
+  "train_samples": 644,
+  "validation_samples": 395,
+  "baseline": {
+    "timesteps": 24,
+    "macro_f1": 0.30153619763127404,
+    "macro_roc_auc_ovr": 0.4894790930538573
+  },
+  "round2": {
+    "timesteps": 72,
+    "macro_f1": 0.29294779268572724,
+    "macro_roc_auc_ovr": 0.4990452189180588
+  },
+  "guardrails": {
+    "same_samples": true,
+    "same_labels": true,
+    "same_model_params": true,
+    "fold_train_scaler_only": true,
+    "2025_used": false,
+    "2026_used": false,
+    "formal_decision_allowed": false
+  }
+}

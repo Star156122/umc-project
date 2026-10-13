@@ -1,0 +1,87 @@
+{
+  "status": "COMPLETED_POC_ONLY",
+  "purpose": "Verify the end-to-end Technical BUY_CANDIDATE -> prior-session ML OOF gate -> Hybrid entry -> unchanged Technical exit/backtest flow.",
+  "config": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\configs\\hybrid_poc_v1.json",
+  "config_sha256": "8da41c882d533f2b708ceda49fa48fa4d1c06bf732beda0d49fe42c122669a0e",
+  "technical_config": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\configs\\technical_v1_research.json",
+  "technical_config_sha256": "a637c56fd98524668570803854302dbfe658753f27268854371deaa6234d9a46",
+  "technical_source_run": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\technical_v1_20261013T024919303843",
+  "technical_source_hashes": {
+    "technical_v1_audit.json": "9fa41b1b867013b61d90f5be59190950b6136764382c16168eb86778fe9ac8cb",
+    "technical_v1_results.json": "46400f793fb235e3f0a98cc2e2368577535615efaf58de0b016b4d34184762a6",
+    "technical_v1_signals.csv": "47e5d90cfff4ecd9e73960a6e85ded42a5b0a60b10942cf538f4bc4e04837eb2"
+  },
+  "technical_candidate": "BR_SENS_RANGE55_BB20_2",
+  "technical_candidate_count": 248,
+  "technical_parameter_fingerprint": "24dbe3030fe335b8e62684e908fbe139315933add7a904c38fae07e0e24707bf",
+  "technical_alone_reproduced": true,
+  "oof_reused_from": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\hybrid_poc_v1_20261013T041200118542\\ml_v1_baseline_oof_predictions.csv",
+  "oof_discovery_attempts": [],
+  "oof_rebuild": {},
+  "oof_artifact": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\hybrid_poc_v1_20261013T041446912699\\ml_v1_baseline_oof_predictions.csv",
+  "oof_artifact_sha256": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b",
+  "oof_validation": {
+    "status": "PASS",
+    "rows": 4629,
+    "models": [
+      "gru",
+      "random_forest",
+      "xgboost"
+    ],
+    "stocks": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "folds": [
+      "ML_WF1",
+      "ML_WF2",
+      "ML_WF3",
+      "ML_WF4"
+    ],
+    "date_min": "2023-09-01",
+    "date_max": "2024-12-26",
+    "in_sample_predictions_used": false,
+    "forbidden_roles_used": false,
+    "context_round1_used": false,
+    "temporal_round2_used": false
+  },
+  "alignment": {
+    "rows": 744,
+    "matched": 621,
+    "missing": 123,
+    "invalid": 0
+  },
+  "source_roles": {
+    "technical": "training",
+    "ml": "training_walk_forward_oof"
+  },
+  "controlled_validation_used": false,
+  "development_used": false,
+  "additional_holdout_used": false,
+  "final_oos_used": false,
+  "in_sample_predictions_used": false,
+  "context_round1_used": false,
+  "temporal_round2_used": false,
+  "label_changed": false,
+  "features_changed": false,
+  "model_parameters_changed": false,
+  "technical_exit_or_risk_changed": false,
+  "database_modified": false,
+  "llm_used": false,
+  "frontend_api_modified": false,
+  "poc_only": true,
+  "final_research_conclusion": false,
+  "source_files": {
+    "technical_signal_source": "exports\\technical_v1_20261013T024919303843\\technical_v1_signals.csv",
+    "ml_prediction_source": "exports\\hybrid_poc_v1_20261013T041446912699\\ml_v1_baseline_oof_predictions.csv",
+    "hybrid_config": "configs\\hybrid_poc_v1.json",
+    "hybrid_audit": "exports\\hybrid_poc_v1_20261013T041446912699\\hybrid_poc_audit.json",
+    "hybrid_alignment_csv": "exports\\hybrid_poc_v1_20261013T041446912699\\hybrid_poc_alignment.csv",
+    "hybrid_decision_csv": "exports\\hybrid_poc_v1_20261013T041446912699\\hybrid_poc_decisions.csv",
+    "hybrid_results_json": "exports\\hybrid_poc_v1_20261013T041446912699\\hybrid_poc_results.json",
+    "hybrid_summary_csv": "exports\\hybrid_poc_v1_20261013T041446912699\\hybrid_poc_summary.csv"
+  }
+}

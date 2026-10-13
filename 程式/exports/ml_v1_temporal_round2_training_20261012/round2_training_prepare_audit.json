@@ -1,0 +1,85 @@
+{
+  "status": "READY_FOR_ALIGNED_WALK_FORWARD",
+  "experiment": "ML V1 Temporal Round 2",
+  "samples": 4447,
+  "sample_keys_identical": true,
+  "baseline_sequence_shape": [
+    4447,
+    24,
+    24
+  ],
+  "round2_sequence_shape": [
+    4447,
+    72,
+    24
+  ],
+  "rf_xgb_baseline_flat_features": 576,
+  "rf_xgb_round2_flat_features": 1728,
+  "gru_static_context_shape": [
+    4447,
+    2
+  ],
+  "gru_static_features": [
+    "volume_trend_5d",
+    "volume_trend_20d"
+  ],
+  "label_counts": {
+    "SELL": 1611,
+    "HOLD": 1723,
+    "BUY": 1113
+  },
+  "per_stock_samples": {
+    "2303": 455,
+    "2330": 455,
+    "2379": 403,
+    "2454": 449,
+    "2881": 449,
+    "2882": 455,
+    "2884": 443,
+    "2886": 452,
+    "2891": 449,
+    "3034": 437
+  },
+  "core_feature_count": 24,
+  "core_features": [
+    "open_vs_prev_close",
+    "high_vs_prev_close",
+    "low_vs_prev_close",
+    "return_1",
+    "return_3",
+    "return_6",
+    "return_12",
+    "volume_ratio_5",
+    "volume_ratio_20",
+    "volume_zscore_20",
+    "close_vs_ma5",
+    "close_vs_ma20",
+    "price_zscore_20",
+    "rsi14_scaled",
+    "macd_vs_close",
+    "macd_signal_vs_close",
+    "macd_hist_vs_close",
+    "range_vs_close",
+    "body_return",
+    "close_location",
+    "volatility_12",
+    "volatility_24",
+    "trend_slope_12",
+    "trend_slope_24"
+  ],
+  "cleaning": {
+    "duplicates_removed": 0,
+    "invalid_ohlcv_removed": 0
+  },
+  "label_unchanged": true,
+  "horizon_unchanged": true,
+  "decision_time_unchanged": true,
+  "universe_unchanged": true,
+  "context_round1_used": false,
+  "year_2025_used": false,
+  "year_2026_used": false,
+  "models_trained": false,
+  "walk_forward_run": false,
+  "loso_run": false,
+  "gru_fold4_inner_validation_start": "2024-05-09"
+}

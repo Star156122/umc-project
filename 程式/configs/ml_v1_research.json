@@ -1,0 +1,161 @@
+{
+  "experiment_id": "ml-v1-label-confirmatory-20261012",
+  "ml_version": "ml-v1-draft-20261012",
+  "status": "phase_b_completed_label_frozen",
+  "scope": "machine_learning_only",
+  "purpose": "Predict the direction/state after Day T close and gate Day T+1 Technical BUY candidates.",
+  "historical_experiment": {
+    "experiment_id": "ml-v4a-label-exploratory-20261005",
+    "classification": "Historical Exploratory Experiment",
+    "stock_universe": ["2002", "2303", "2330", "2412", "2881", "2882"],
+    "label_versions": ["fixed_1pct", "volatility_k_0_50", "volatility_k_0_75", "volatility_k_1_00"],
+    "decision": "retained_fixed_1pct",
+    "must_not_delete_or_overwrite": true
+  },
+  "data": {
+    "role": "train",
+    "start": "2023-01-01",
+    "end": "2024-12-31",
+    "database": "data/market_data.sqlite3",
+    "bar_minutes": 5
+  },
+  "stock_universe": {
+    "technology": ["2303", "2330", "2379", "2454", "3034"],
+    "financial": ["2881", "2882", "2884", "2886", "2891"],
+    "industry_specific_training": true,
+    "allow_stock_specific_settings": false
+  },
+  "prediction": {
+    "unit": "one_prediction_per_stock_after_each_trading_day_close",
+    "decision_time": "13:30:00",
+    "timezone": "Asia/Taipei",
+    "sequence_bars": 24,
+    "sequence_policy": "EXACT_24_BARS_11_35_TO_13_30",
+    "missing_sequence_policy": "EXCLUDE_NO_FILL",
+    "required_sequence_times": [
+      "11:35:00", "11:40:00", "11:45:00", "11:50:00",
+      "11:55:00", "12:00:00", "12:05:00", "12:10:00",
+      "12:15:00", "12:20:00", "12:25:00", "12:30:00",
+      "12:35:00", "12:40:00", "12:45:00", "12:50:00",
+      "12:55:00", "13:00:00", "13:05:00", "13:10:00",
+      "13:15:00", "13:20:00", "13:25:00", "13:30:00"
+    ],
+    "sequence_fill_allowed": false,
+    "prediction_horizon_sessions": 3,
+    "direction": "long_only",
+    "hybrid_gate": {
+      "BUY": "allow_next_session_technical_buy_candidate",
+      "HOLD": "block_long_entry",
+      "SELL": "block_long_entry_no_short"
+    },
+    "known_limitation": "13:30 is the closing-auction one-price bar; range_vs_close is fixed at the final timestep. Decision time and features remain unchanged in ML V1 Phase A/B."
+  },
+  "target": {
+    "entry_price": "Day T+1 open",
+    "exit_price": "Day T+3 close",
+    "future_return": "cost_aware_net_return",
+    "commission_rate": 0.001425,
+    "transaction_tax_rate": 0.003,
+    "baseline": {
+      "label_version": "ml_v1_fixed_1pct",
+      "SELL": "future_net_return <= -0.01",
+      "HOLD": "-0.01 < future_net_return < 0.01",
+      "BUY": "future_net_return >= 0.01"
+    },
+    "candidate": {
+      "label_version": "ml_v1_volatility_k_0_50",
+      "volatility_lookback_sessions": 20,
+      "volatility_ddof": 1,
+      "horizon_scaling": "sqrt(3)",
+      "k": 0.5,
+      "z_return": "future_net_return / (sigma_20d * sqrt(3))",
+      "SELL": "z_return <= -0.5",
+      "HOLD": "-0.5 < z_return < 0.5",
+      "BUY": "z_return >= 0.5",
+      "warmup_status": "INSUFFICIENT_20D_VOLATILITY"
+    }
+  },
+  "feature_policy": {
+    "core_version": "feature_set_a_v3_24",
+    "core_features": [
+      "open_vs_prev_close", "high_vs_prev_close", "low_vs_prev_close",
+      "return_1", "return_3", "return_6", "return_12",
+      "volume_ratio_5", "volume_ratio_20", "volume_zscore_20",
+      "close_vs_ma5", "close_vs_ma20", "price_zscore_20", "rsi14_scaled",
+      "macd_vs_close", "macd_signal_vs_close", "macd_hist_vs_close",
+      "range_vs_close", "body_return", "close_location",
+      "volatility_12", "volatility_24", "trend_slope_12", "trend_slope_24"
+    ],
+    "random_forest": {"feature_set": "A", "auxiliary_context": []},
+    "xgboost": {"feature_set": "A", "auxiliary_context": []},
+    "gru": {"feature_set": "A+VOLUME", "auxiliary_context": ["volume_trend_5d", "volume_trend_20d"]},
+    "feature_search": false
+  },
+  "models": {
+    "random_forest": {
+      "n_estimators": 200, "max_depth": 10, "min_samples_leaf": 5,
+      "class_weight": "balanced", "random_state": 42
+    },
+    "xgboost": {
+      "n_estimators": 150, "max_depth": 4, "learning_rate": 0.05,
+      "subsample": 0.8, "colsample_bytree": 0.8, "random_state": 42
+    },
+    "gru": {
+      "hidden_size": 16, "num_layers": 1, "dropout": 0.0,
+      "batch_size": 128, "max_epochs": 10, "patience": 2,
+      "learning_rate": 0.001, "random_state": 42
+    }
+  },
+  "validation": {
+    "walk_forward_protocol": "configs/ml_training_protocol_v3.json",
+    "walk_forward_type": "4-fold expanding-window",
+    "shuffle": false,
+    "industry_loso": true,
+    "fold_local_scaler": true,
+    "fold_local_preprocessing": true,
+    "fold_local_class_weight": true,
+    "gru_early_stopping": "fold_validation_only"
+  },
+  "phase_a": {
+    "only_change": "label_definition",
+    "severe_class_imbalance_threshold": 0.10,
+    "phase_b_requires": [
+      "model_eligible_sequence_audit_pass",
+      "no_industry_severe_class_imbalance",
+      "label_leakage_tests_pass",
+      "explicit_user_authorization"
+    ]
+  },
+  "phase_b": {
+    "status": "completed",
+    "model_eligible_manifest": "exports/ml_v1_model_eligible_20261012/model_eligible_samples.csv",
+    "model_eligible_label_audit": "exports/ml_v1_model_eligible_20261012/model_eligible_label_audit.json",
+    "selection_priority": [
+      "BUY_precision", "BUY_recall_and_coverage", "macro_f1_and_macro_auc",
+      "worst_fold_and_standard_deviation", "LOSO_and_per_stock_stability"
+    ],
+    "minimum_directional_support": {
+      "technology": "at_least_2_of_3_models",
+      "financial": "at_least_2_of_3_models"
+    },
+    "trading_metrics_forbidden_for_selection": true,
+    "k_search": false,
+    "probability_threshold_search": false,
+    "sequence_eligible_samples": 4542,
+    "model_ready_samples": 4532,
+    "nonfinite_feature_exclusions": 10,
+    "result": "KEEP_FIXED_1PCT",
+    "label_freeze": "configs/ml_v1_label_freeze.json",
+    "report": "exports/ml_v1_phase_b_20261012/phase_b_report.html",
+    "technology_support_for_k_0_50": "0_of_3_models",
+    "financial_support_for_k_0_50": "0_of_3_models",
+    "final_model_selected": false,
+    "hybrid_started": false
+  },
+  "locked_roles": {
+    "validation_2025_h1": "not_used_in_this_round",
+    "additional_holdout_2025_h2": "forbidden",
+    "development_2026_h1": "not_used_in_this_round",
+    "final_oos_2026_07_onward": "forbidden"
+  }
+}

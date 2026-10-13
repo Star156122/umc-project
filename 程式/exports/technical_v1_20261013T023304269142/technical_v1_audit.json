@@ -1,0 +1,306 @@
+{
+  "generated_at": "2026-10-13T02:33:04+08:00",
+  "run_id": "20261013T023304269142",
+  "experiment_id": "technical-v1-20261010-v1",
+  "config_path": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\configs\\technical_v1_research.json",
+  "config_fingerprint": "bb286338a8c6b515811f372e491de83ecf9f6e4ea3cf37727c811aba661980ad",
+  "requested_role": "training",
+  "queried_roles": [
+    "training"
+  ],
+  "forbidden_roles_queried": [],
+  "locked_periods": {
+    "validation": "NOT_QUERIED_THIS_ROUND",
+    "additional_holdout": "LOCKED_NOT_QUERIED",
+    "development_seen": "NOT_QUERIED_THIS_ROUND",
+    "final_out_of_sample": "LOCKED_NOT_QUERIED"
+  },
+  "preflight_only": true,
+  "freeze_manifest_created": false,
+  "outputs": [
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\technical_v1_20261013T023304269142\\technical_v1_audit.json"
+  ],
+  "market_data_preflight": {
+    "status": "READY",
+    "complete": true,
+    "database_path": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\data\\technical_v1_training_clean.sqlite3",
+    "reason": "",
+    "schema_columns": [
+      "stock_code",
+      "freq_minutes",
+      "range_start",
+      "range_end",
+      "kbar_timestamp",
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume"
+    ],
+    "schema_initialized": false,
+    "query_role": "training",
+    "query_period": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    },
+    "query_timestamp_bounds": {
+      "lower_inclusive": 1672502400,
+      "upper_exclusive": 1735660800
+    },
+    "forbidden_roles_queried": [],
+    "non_five_minute_rows_ignored": 0,
+    "calendar_basis": "union_of_confirmed_universe",
+    "calendar_day_count": 478,
+    "stock_checks": [
+      {
+        "stock_code": "2303",
+        "bar_count": 25812,
+        "actual_first_timestamp": "2023-01-03T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-31T13:25:00+08:00",
+        "trading_day_count": 478,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [],
+        "cadence_error_count": 0,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 6102,
+            "evaluation_bar_count": 6750,
+            "evaluation_trading_day_count": 125,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 12852,
+            "evaluation_bar_count": 6264,
+            "evaluation_trading_day_count": 116,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 19116,
+            "evaluation_bar_count": 6696,
+            "evaluation_trading_day_count": 124,
+            "complete": true,
+            "problems": []
+          }
+        ],
+        "complete": true,
+        "problems": []
+      },
+      {
+        "stock_code": "2330",
+        "bar_count": 25812,
+        "actual_first_timestamp": "2023-01-03T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-31T13:25:00+08:00",
+        "trading_day_count": 478,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [],
+        "cadence_error_count": 0,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 6102,
+            "evaluation_bar_count": 6750,
+            "evaluation_trading_day_count": 125,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 12852,
+            "evaluation_bar_count": 6264,
+            "evaluation_trading_day_count": 116,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 19116,
+            "evaluation_bar_count": 6696,
+            "evaluation_trading_day_count": 124,
+            "complete": true,
+            "problems": []
+          }
+        ],
+        "complete": true,
+        "problems": []
+      },
+      {
+        "stock_code": "2454",
+        "bar_count": 25812,
+        "actual_first_timestamp": "2023-01-03T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-31T13:25:00+08:00",
+        "trading_day_count": 478,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [],
+        "cadence_error_count": 0,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 6102,
+            "evaluation_bar_count": 6750,
+            "evaluation_trading_day_count": 125,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 12852,
+            "evaluation_bar_count": 6264,
+            "evaluation_trading_day_count": 116,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 19116,
+            "evaluation_bar_count": 6696,
+            "evaluation_trading_day_count": 124,
+            "complete": true,
+            "problems": []
+          }
+        ],
+        "complete": true,
+        "problems": []
+      },
+      {
+        "stock_code": "2317",
+        "bar_count": 25812,
+        "actual_first_timestamp": "2023-01-03T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-31T13:25:00+08:00",
+        "trading_day_count": 478,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [],
+        "cadence_error_count": 0,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 6102,
+            "evaluation_bar_count": 6750,
+            "evaluation_trading_day_count": 125,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 12852,
+            "evaluation_bar_count": 6264,
+            "evaluation_trading_day_count": 116,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 19116,
+            "evaluation_bar_count": 6696,
+            "evaluation_trading_day_count": 124,
+            "complete": true,
+            "problems": []
+          }
+        ],
+        "complete": true,
+        "problems": []
+      },
+      {
+        "stock_code": "2382",
+        "bar_count": 25812,
+        "actual_first_timestamp": "2023-01-03T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-31T13:25:00+08:00",
+        "trading_day_count": 478,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [],
+        "cadence_error_count": 0,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 6102,
+            "evaluation_bar_count": 6750,
+            "evaluation_trading_day_count": 125,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 12852,
+            "evaluation_bar_count": 6264,
+            "evaluation_trading_day_count": 116,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 19116,
+            "evaluation_bar_count": 6696,
+            "evaluation_trading_day_count": 124,
+            "complete": true,
+            "problems": []
+          }
+        ],
+        "complete": true,
+        "problems": []
+      }
+    ],
+    "import_command": "uv run python \"C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\scripts\\import_technical_v1_training_kbars.py\" --database \"C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\data\\technical_v1_training_clean.sqlite3\""
+  },
+  "status": "PREFLIGHT_READY",
+  "reason": "Training 五檔資料通過完整性檢查；依 --preflight-only 未執行回測。",
+  "conclusion": "只完成 Training 資料前置檢查。"
+}

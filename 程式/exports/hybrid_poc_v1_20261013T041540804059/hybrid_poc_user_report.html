@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI 股票策略回測結果</title>
+  <style>
+    :root{--bg:#06131f;--panel:#0d2232;--panel2:#102b3e;--line:#294a60;--text:#f1f7fb;--muted:#a9c3d4;--blue:#48b7ff;--blue2:#167ff2;--green:#72dfa0;--red:#ff7c82;--amber:#ffc36d}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 0,#0d3249 0,transparent 28rem),var(--bg);color:var(--text);font-family:Inter,"Microsoft JhengHei",Arial,sans-serif;line-height:1.65;font-size:17px}
+    main{width:min(1180px,calc(100% - 32px));margin:auto;padding:34px 0 56px}.hero{padding:38px;border:1px solid #1f5878;background:linear-gradient(135deg,#0d3d59,#0b2638 65%);border-radius:24px;box-shadow:0 22px 60px #0005}.eyebrow{color:#84d3ff;font-weight:800;letter-spacing:.08em;text-transform:uppercase}h1{font-size:clamp(2rem,5vw,4rem);line-height:1.08;margin:.25rem 0}h1 span{display:block;color:#9edbff;font-size:.42em;margin-top:13px}h2{font-size:clamp(1.45rem,3vw,2.2rem);margin:0 0 8px}h3{margin:.25rem 0 1rem}p{margin:.45rem 0}.lead{font-size:1.2rem;max-width:760px}.notice{margin-top:22px;padding:13px 16px;background:#40281a;border:1px solid #865d35;border-radius:12px;color:#ffdfad;font-weight:700}
+    .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}.fact{padding:14px;background:#071c2a99;border:1px solid #2e607b;border-radius:13px}.fact span{display:block;color:var(--muted);font-size:.82rem}.fact b{font-size:1rem}section{margin-top:24px;padding:27px;background:linear-gradient(160deg,var(--panel),#091c2a);border:1px solid var(--line);border-radius:20px;overflow:hidden}.section-intro{color:var(--muted);max-width:840px}
+    .result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}.result-card{padding:20px;background:#0a1d2a;border:1px solid #2d536a;border-radius:18px;position:relative;overflow:hidden}.result-card:before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:#587386}.result-card:not(.technical_alone):before{background:var(--blue)}.card-kicker{font-weight:800;color:#cae8f9}.hero-number{font-size:clamp(2rem,4vw,3.15rem);font-weight:900;line-height:1.15;margin:12px 0 0}.positive{color:var(--green)}.negative{color:var(--red)}.hero-label{color:var(--muted);font-size:.86rem}.mini-metrics{margin-top:20px;border-top:1px solid #294657}.mini-metrics div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #1f394a}.info{display:inline-grid;place-items:center;width:18px;height:18px;border:1px solid #56839e;border-radius:50%;font-size:.72rem;cursor:help;color:#bfe6ff}
+    .reading{display:grid;grid-template-columns:1fr .85fr;gap:18px;align-items:start}.finding-list{padding-left:1.25rem;margin:14px 0 0}.finding-list li{margin:10px 0;padding-left:6px}.simple-note{background:#0a3147;border:1px solid #276684;border-radius:16px;padding:18px}.simple-note b{color:#8ed7ff}
+    .filter-row,.risk-row{display:grid;grid-template-columns:minmax(130px,190px) 1fr minmax(90px,130px);gap:12px;align-items:center;margin:14px 0}.track,.risk-track{height:18px;background:#1b3546;border-radius:999px;overflow:hidden}.track i,.risk-track i{height:100%;display:block;background:#698093;border-radius:999px}.track i.ai{background:linear-gradient(90deg,#1489ef,#61c4ff)}.risk-track i{background:linear-gradient(90deg,#ffbe6b,#ff747c)}
+    .risk-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:center}.risk-explain{padding:20px;background:#261f24;border:1px solid #67444a;border-radius:16px}
+    .stock-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}.stock-card,.fold-card,.case-card{background:#091d2b;border:1px solid #294c62;border-radius:16px;padding:18px}.stock-line{display:grid;grid-template-columns:1fr auto minmax(150px,auto);gap:12px;padding:8px 0;border-top:1px solid #1f3c4e;align-items:center}.stock-line small{text-align:right}.stock-line .up{color:var(--green)}.stock-line .down{color:var(--red)}.stock-line .same{color:var(--muted)}
+    .fold-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:18px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{padding:9px;border-bottom:1px solid #284759;text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}
+    .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.case-card{border-top:4px solid var(--green)}.case-card.hold{border-top-color:var(--amber)}.case-card.sell{border-top-color:var(--red)}.case-title{font-weight:800;color:#bde5fa}dl{margin:0}dl div{padding:10px 0;border-top:1px solid #244354}dt{color:var(--muted);font-size:.82rem}dd{margin:2px 0}dd small{display:block;color:var(--muted)}dd strong{color:#fff}
+    .warning{background:#321f22;border-color:#82454c}.warning h2{color:#ffb2b5}.warning ul{margin-bottom:0}details{margin-top:14px;background:#071722;border:1px solid #29495c;border-radius:14px;padding:14px 17px}summary{cursor:pointer;font-size:1.1rem;font-weight:800;color:#9edaff}details h3{margin-top:20px}pre{max-height:330px;overflow:auto;white-space:pre-wrap;background:#04101a;border-radius:10px;padding:14px;font-size:.72rem;color:#bfd4e0}.research-link{display:inline-block;margin-top:16px;padding:10px 15px;border:1px solid #3991c4;border-radius:10px;color:#a9dcff;text-decoration:none;font-weight:800}.research-link:hover{background:#123d55}footer{color:var(--muted);text-align:center;padding:28px 0 0;font-size:.88rem}
+    @media(max-width:900px){.facts,.result-grid{grid-template-columns:repeat(2,1fr)}.reading,.risk-layout{grid-template-columns:1fr}.case-grid{grid-template-columns:1fr}}
+    @media(max-width:620px){body{font-size:16px}main{width:min(100% - 20px,1180px);padding-top:10px}.hero,section{padding:20px;border-radius:16px}.facts,.result-grid,.stock-grid{grid-template-columns:1fr}.filter-row,.risk-row{grid-template-columns:110px 1fr 90px;gap:8px;font-size:.86rem}.stock-line{grid-template-columns:1fr auto}.stock-line small{grid-column:1/-1;text-align:left}}
+  </style>
+</head>
+<body><main>
+  <header class="hero">
+    <div class="eyebrow">歷史回測·流程驗證</div>
+    <h1>AI 股票策略回測結果<span>Technical Indicators × Machine Learning</span></h1>
+    <p class="lead">技術指標先尋找可能的買進機會，再由 AI 模型判斷是否值得執行交易。</p>
+    <div class="facts">
+      <div class="fact"><span>資料期間</span><b>2023-07-01 ～ 2024-12-31</b></div>
+      <div class="fact"><span>股票數量</span><b>5 檔</b></div>
+      <div class="fact"><span>測試股票</span><b>2303 聯電、2330 台積電、2379 瑞昱、2454 聯發科、3034 聯詠</b></div>
+      <div class="fact"><span>AI 模型</span><b>Random Forest、XGBoost、GRU</b></div>
+    </div>
+    <div class="notice">此結果為歷史資料測試，不代表未來投資績效。</div>
+  </header>
+
+  <section>
+    <h2>最重要的結果</h2>
+    <p class="section-intro">先看四個版本的平均結果。滑鼠移到 <span class="info">i</span> 可查看名詞說明。</p>
+    <div class="result-grid">
+        <article class="result-card technical_alone">
+          <div class="card-kicker">Technical Only</div>
+          <div class="hero-number negative">-1.74%</div>
+          <div class="hero-label">平均報酬率 <span class="info" title="每個股票 × 測試期間回測結果的平均報酬，不是單一實際投資帳戶報酬。">i</span></div>
+          <div class="mini-metrics">
+            <div><span>勝率 <span class="info" title="完成的交易中，獲利交易所占比例。">i</span></span><b>29.35%</b></div>
+            <div><span>最大回撤 <span class="info" title="歷史測試期間，資產從高點跌到低點最嚴重的一次；數字越低通常代表歷史波動風險較小。">i</span></span><b>20.09%</b></div>
+            <div><span>交易次數</span><b>248</b></div>
+          </div>
+        </article>
+        <article class="result-card hybrid_random_forest">
+          <div class="card-kicker">Random Forest</div>
+          <div class="hero-number positive">+1.40%</div>
+          <div class="hero-label">平均報酬率 <span class="info" title="每個股票 × 測試期間回測結果的平均報酬，不是單一實際投資帳戶報酬。">i</span></div>
+          <div class="mini-metrics">
+            <div><span>勝率 <span class="info" title="完成的交易中，獲利交易所占比例。">i</span></span><b>35.19%</b></div>
+            <div><span>最大回撤 <span class="info" title="歷史測試期間，資產從高點跌到低點最嚴重的一次；數字越低通常代表歷史波動風險較小。">i</span></span><b>8.56%</b></div>
+            <div><span>交易次數</span><b>45</b></div>
+          </div>
+        </article>
+        <article class="result-card hybrid_xgboost">
+          <div class="card-kicker">XGBoost</div>
+          <div class="hero-number positive">+1.82%</div>
+          <div class="hero-label">平均報酬率 <span class="info" title="每個股票 × 測試期間回測結果的平均報酬，不是單一實際投資帳戶報酬。">i</span></div>
+          <div class="mini-metrics">
+            <div><span>勝率 <span class="info" title="完成的交易中，獲利交易所占比例。">i</span></span><b>33.61%</b></div>
+            <div><span>最大回撤 <span class="info" title="歷史測試期間，資產從高點跌到低點最嚴重的一次；數字越低通常代表歷史波動風險較小。">i</span></span><b>5.57%</b></div>
+            <div><span>交易次數</span><b>41</b></div>
+          </div>
+        </article>
+        <article class="result-card hybrid_gru">
+          <div class="card-kicker">GRU</div>
+          <div class="hero-number positive">+0.03%</div>
+          <div class="hero-label">平均報酬率 <span class="info" title="每個股票 × 測試期間回測結果的平均報酬，不是單一實際投資帳戶報酬。">i</span></div>
+          <div class="mini-metrics">
+            <div><span>勝率 <span class="info" title="完成的交易中，獲利交易所占比例。">i</span></span><b>27.89%</b></div>
+            <div><span>最大回撤 <span class="info" title="歷史測試期間，資產從高點跌到低點最嚴重的一次；數字越低通常代表歷史波動風險較小。">i</span></span><b>7.00%</b></div>
+            <div><span>交易次數</span><b>43</b></div>
+          </div>
+        </article></div>
+  </section>
+
+  <section class="reading">
+    <div><h2>結果怎麼看？</h2><ul class="finding-list"><li>與單純使用技術指標相比，本次歷史測試中三個 AI Hybrid 版本的平均報酬皆較高。</li><li>本次平均報酬最高的版本是 XGBoost（+1.82%）；平均勝率最高的是 Random Forest（35.19%）。</li><li>三個 Hybrid 版本的最大回撤都低於 Technical Only，表示這次測試中最嚴重的資產下跌幅度有縮小。</li><li>三個 AI 模型都過濾了大部分技術指標買進機會，因此交易次數明顯減少。</li><li>若只比較各測試期間平均報酬的起伏，GRU 在這次結果中的期間差異相對較小。</li></ul></div>
+    <aside class="simple-note"><b>閱讀方式</b><p>報酬較高、回撤較低或交易較少，都只是這段歷史資料中的現象。要經過未見過的資料驗證，才能評估是否能穩定重現。</p></aside>
+  </section>
+
+  <section>
+    <h2>AI 過濾了多少交易機會？</h2>
+    <p class="section-intro">AI 並不是自己尋找買點，而是協助過濾技術指標產生的交易機會。交易變少不一定代表比較差，本系統要測試的是 AI 能否過濾品質較差的訊號。</p>
+    <div class="filter-chart"><div class="filter-row"><span>Technical 原始機會</span><div class="track"><i style="width:100%"></i></div><b>248 次</b></div><div class="filter-row"><span>Random Forest</span><div class="track"><i class="ai" style="width:18.15%"></i></div><b>45 次通過</b></div><div class="filter-row"><span>XGBoost</span><div class="track"><i class="ai" style="width:16.53%"></i></div><b>41 次通過</b></div><div class="filter-row"><span>GRU</span><div class="track"><i class="ai" style="width:17.34%"></i></div><b>43 次通過</b></div></div>
+  </section>
+
+  <section>
+    <div class="risk-layout"><div><h2>最大回撤比較</h2><div class="risk-row"><span>Technical Only</span><div class="risk-track"><i style="width:100.00%"></i></div><b>20.09%</b></div><div class="risk-row"><span>Random Forest</span><div class="risk-track"><i style="width:42.60%"></i></div><b>8.56%</b></div><div class="risk-row"><span>XGBoost</span><div class="risk-track"><i style="width:27.75%"></i></div><b>5.57%</b></div><div class="risk-row"><span>GRU</span><div class="risk-track"><i style="width:34.85%"></i></div><b>7.00%</b></div></div><aside class="risk-explain"><b>白話說明</b><p>最大回撤可以想像成：如果剛好在資產最高點開始觀察，最嚴重時曾經跌多少。這個數字越低，代表這次歷史測試的跌幅較小。</p></aside></div>
+  </section>
+
+  <section>
+    <h2>每檔股票的平均報酬</h2>
+    <p class="section-intro">「較高／較低」只是同一檔股票與 Technical 版本的比較，不是股票評分。</p>
+    <div class="stock-grid"><article class="stock-card"><h3>2303 聯電</h3><div class="stock-line baseline"><span>Technical</span><b>-4.36%</b><small>比較基準</small></div><div class="stock-line"><span>Random Forest</span><b>-0.41%</b><small class="up">相較 Technical 較高</small></div><div class="stock-line"><span>XGBoost</span><b>+0.01%</b><small class="up">相較 Technical 較高</small></div><div class="stock-line"><span>GRU</span><b>-0.56%</b><small class="up">相較 Technical 較高</small></div></article><article class="stock-card"><h3>2330 台積電</h3><div class="stock-line baseline"><span>Technical</span><b>-2.87%</b><small>比較基準</small></div><div class="stock-line"><span>Random Forest</span><b>+4.21%</b><small class="up">相較 Technical 較高</small></div><div class="stock-line"><span>XGBoost</span><b>+2.55%</b><small class="up">相較 Technical 較高</small></div><div class="stock-line"><span>GRU</span><b>-2.13%</b><small class="up">相較 Technical 較高</small></div></article><article class="stock-card"><h3>2379 瑞昱</h3><div class="stock-line baseline"><span>Technical</span><b>+2.07%</b><small>比較基準</small></div><div class="stock-line"><span>Random Forest</span><b>+3.39%</b><small class="up">相較 Technical 較高</small></div><div class="stock-line"><span>XGBoost</span><b>-1.37%</b><small class="down">相較 Technical 較低</small></div><div class="stock-line"><span>GRU</span><b>+3.35%</b><small class="up">相較 Technical 較高</small></div></article><article class="stock-card"><h3>2454 聯發科</h3><div class="stock-line baseline"><span>Technical</span><b>+3.44%</b><small>比較基準</small></div><div class="stock-line"><span>Random Forest</span><b>+1.42%</b><small class="down">相較 Technical 較低</small></div><div class="stock-line"><span>XGBoost</span><b>+7.85%</b><small class="up">相較 Technical 較高</small></div><div class="stock-line"><span>GRU</span><b>-0.13%</b><small class="down">相較 Technical 較低</small></div></article><article class="stock-card"><h3>3034 聯詠</h3><div class="stock-line baseline"><span>Technical</span><b>-6.97%</b><small>比較基準</small></div><div class="stock-line"><span>Random Forest</span><b>-1.59%</b><small class="up">相較 Technical 較高</small></div><div class="stock-line"><span>XGBoost</span><b>+0.07%</b><small class="up">相較 Technical 較高</small></div><div class="stock-line"><span>GRU</span><b>-0.35%</b><small class="up">相較 Technical 較高</small></div></article></div>
+  </section>
+
+  <section>
+    <h2>不同測試期間</h2>
+    <p class="section-intro">將歷史資料分成不同時間區段測試，是為了確認策略不是只有某一段行情表現良好。</p>
+    <div class="fold-grid">
+        <article class="fold-card">
+          <h3>測試期間 1（WF1）</h3>
+          <div class="table-wrap"><table><thead><tr><th>版本</th><th>平均報酬</th><th>勝率</th><th>最大回撤</th><th>交易</th></tr></thead><tbody><tr><th>Technical Only</th><td>-1.95%</td><td>29.01%</td><td>16.77%</td><td>93</td></tr><tr><th>Random Forest</th><td>+2.48%</td><td>38.33%</td><td>2.92%</td><td>10</td></tr><tr><th>XGBoost</th><td>+1.36%</td><td>66.67%</td><td>2.17%</td><td>8</td></tr><tr><th>GRU</th><td>-0.02%</td><td>32.33%</td><td>4.77%</td><td>19</td></tr></tbody></table></div>
+        </article>
+        <article class="fold-card">
+          <h3>測試期間 2（WF2）</h3>
+          <div class="table-wrap"><table><thead><tr><th>版本</th><th>平均報酬</th><th>勝率</th><th>最大回撤</th><th>交易</th></tr></thead><tbody><tr><th>Technical Only</th><td>+2.50%</td><td>36.54%</td><td>20.09%</td><td>94</td></tr><tr><th>Random Forest</th><td>+0.57%</td><td>35.22%</td><td>8.56%</td><td>26</td></tr><tr><th>XGBoost</th><td>+4.16%</td><td>26.67%</td><td>5.57%</td><td>22</td></tr><tr><th>GRU</th><td>-0.27%</td><td>23.33%</td><td>6.27%</td><td>9</td></tr></tbody></table></div>
+        </article>
+        <article class="fold-card">
+          <h3>測試期間 3（WF3）</h3>
+          <div class="table-wrap"><table><thead><tr><th>版本</th><th>平均報酬</th><th>勝率</th><th>最大回撤</th><th>交易</th></tr></thead><tbody><tr><th>Technical Only</th><td>-5.76%</td><td>22.50%</td><td>16.59%</td><td>61</td></tr><tr><th>Random Forest</th><td>+1.16%</td><td>32.00%</td><td>3.66%</td><td>9</td></tr><tr><th>XGBoost</th><td>-0.04%</td><td>7.50%</td><td>4.81%</td><td>11</td></tr><tr><th>GRU</th><td>+0.40%</td><td>28.00%</td><td>7.00%</td><td>15</td></tr></tbody></table></div>
+        </article></div>
+  </section>
+
+  <section>
+    <h2>真實交易決定範例</h2>
+    <p class="section-intro">以下三筆都直接取自本次 Hybrid Decision 紀錄。</p>
+    <div class="case-grid">
+        <article class="case-card entry">
+          <div class="case-title">通過範例</div>
+          <h3>2023-12-13 · 2303 聯電</h3>
+          <dl>
+            <div><dt>技術指標</dt><dd>出現買進候選</dd></div>
+            <div><dt>前一交易日 AI</dt><dd>Random Forest 判斷為 <b>BUY</b><small>2023-12-12</small></dd></div>
+            <div><dt>系統決定</dt><dd><strong>執行交易</strong></dd></div>
+          </dl>
+        </article>
+        <article class="case-card hold">
+          <div class="case-title">觀望範例</div>
+          <h3>2023-10-11 · 2303 聯電</h3>
+          <dl>
+            <div><dt>技術指標</dt><dd>出現買進候選</dd></div>
+            <div><dt>前一交易日 AI</dt><dd>Random Forest 判斷為 <b>HOLD</b><small>2023-10-06</small></dd></div>
+            <div><dt>系統決定</dt><dd><strong>不執行交易</strong></dd></div>
+          </dl>
+        </article>
+        <article class="case-card sell">
+          <div class="case-title">阻擋範例</div>
+          <h3>2023-09-05 · 2303 聯電</h3>
+          <dl>
+            <div><dt>技術指標</dt><dd>出現買進候選</dd></div>
+            <div><dt>前一交易日 AI</dt><dd>Random Forest 判斷為 <b>SELL</b><small>2023-09-04</small></dd></div>
+            <div><dt>系統決定</dt><dd><strong>不執行交易</strong></dd></div>
+          </dl>
+        </article></div>
+  </section>
+
+  <section>
+    <h2>這次測試我們看到了什麼？</h2>
+    <ul class="finding-list"><li>與單純使用技術指標相比，本次歷史測試中三個 AI Hybrid 版本的平均報酬皆較高。</li><li>本次平均報酬最高的版本是 XGBoost（+1.82%）；平均勝率最高的是 Random Forest（35.19%）。</li><li>三個 Hybrid 版本的最大回撤都低於 Technical Only，表示這次測試中最嚴重的資產下跌幅度有縮小。</li><li>三個 AI 模型都過濾了大部分技術指標買進機會，因此交易次數明顯減少。</li><li>若只比較各測試期間平均報酬的起伏，GRU 在這次結果中的期間差異相對較小。</li></ul>
+  </section>
+
+  <section class="warning">
+    <h2>請注意</h2>
+    <ul><li>這是 2023–2024 歷史資料回測結果，不能代表未來市場。</li><li>目前仍是 Hybrid POC 流程驗證版本。</li><li>尚未使用 Final OOS 做最終驗證。</li><li>本頁不是投資建議。</li></ul>
+  </section>
+
+  <section>
+    <h2>想看更完整的資料？</h2>
+    <p>一般讀者可以先看到這裡。下方進階資料保留了研究人員需要的數據與稽核記錄。</p>
+    <details>
+      <summary>查看進階研究數據</summary>
+      <h3>進階績效指標</h3>
+      <div class="table-wrap"><table><thead><tr><th>版本</th><th>Profit Factor</th><th>Sharpe Ratio</th><th>Net PnL</th><th>Gross PnL</th><th>Transaction Cost</th></tr></thead><tbody><tr><th>Technical Only</th><td>0.91</td><td>-0.81</td><td>-26,063</td><td>+90,041</td><td>+116,104</td></tr><tr><th>Random Forest</th><td>2.07</td><td>0.16</td><td>+21,052</td><td>+43,437</td><td>+22,385</td></tr><tr><th>XGBoost</th><td>0.97</td><td>-0.04</td><td>+27,358</td><td>+47,810</td><td>+20,452</td></tr><tr><th>GRU</th><td>1.37</td><td>-0.46</td><td>+510</td><td>+22,447</td><td>+21,937</td></tr></tbody></table></div>
+      <h3>Alignment / OOF</h3>
+      <p>Alignment：621 筆成功對齊，123 筆缺少可用預測，0 筆時間無效。</p>
+      <p>OOF：4629 筆，日期 2023-09-01 ～ 2024-12-26，稽核狀態 PASS。OOF 表示每筆預測都來自當時沒有用來訓練該預測的時間區段。</p>
+      <h3>Audit</h3><pre>{
+  &quot;status&quot;: &quot;COMPLETED_POC_ONLY&quot;,
+  &quot;purpose&quot;: &quot;Verify the end-to-end Technical BUY_CANDIDATE -&gt; prior-session ML OOF gate -&gt; Hybrid entry -&gt; unchanged Technical exit/backtest flow.&quot;,
+  &quot;config&quot;: &quot;C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\configs\\hybrid_poc_v1.json&quot;,
+  &quot;config_sha256&quot;: &quot;8da41c882d533f2b708ceda49fa48fa4d1c06bf732beda0d49fe42c122669a0e&quot;,
+  &quot;technical_config&quot;: &quot;C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\configs\\technical_v1_research.json&quot;,
+  &quot;technical_config_sha256&quot;: &quot;a637c56fd98524668570803854302dbfe658753f27268854371deaa6234d9a46&quot;,
+  &quot;technical_source_run&quot;: &quot;C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\technical_v1_20261013T024919303843&quot;,
+  &quot;technical_source_hashes&quot;: {
+    &quot;technical_v1_audit.json&quot;: &quot;9fa41b1b867013b61d90f5be59190950b6136764382c16168eb86778fe9ac8cb&quot;,
+    &quot;technical_v1_results.json&quot;: &quot;46400f793fb235e3f0a98cc2e2368577535615efaf58de0b016b4d34184762a6&quot;,
+    &quot;technical_v1_signals.csv&quot;: &quot;47e5d90cfff4ecd9e73960a6e85ded42a5b0a60b10942cf538f4bc4e04837eb2&quot;
+  },
+  &quot;technical_candidate&quot;: &quot;BR_SENS_RANGE55_BB20_2&quot;,
+  &quot;technical_candidate_count&quot;: 248,
+  &quot;technical_parameter_fingerprint&quot;: &quot;24dbe3030fe335b8e62684e908fbe139315933add7a904c38fae07e0e24707bf&quot;,
+  &quot;technical_alone_reproduced&quot;: true,
+  &quot;oof_reused_from&quot;: &quot;C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\hybrid_poc_v1_20261013T041446912699\\ml_v1_baseline_oof_predictions.csv&quot;,
+  &quot;oof_discovery_attempts&quot;: [],
+  &quot;oof_rebuild&quot;: {},
+  &quot;oof_artifact&quot;: &quot;C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\hybrid_poc_v1_20261013T041540804059\\ml_v1_baseline_oof_predictions.csv&quot;,
+  &quot;oof_artifact_sha256&quot;: &quot;d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b&quot;,
+  &quot;oof_validation&quot;: {
+    &quot;status&quot;: &quot;PASS&quot;,
+    &quot;rows&quot;: 4629,
+    &quot;models&quot;: [
+      &quot;gru&quot;,
+      &quot;random_forest&quot;,
+      &quot;xgboost&quot;
+    ],
+    &quot;stocks&quot;: [
+      &quot;2303&quot;,
+      &quot;2330&quot;,
+      &quot;2379&quot;,
+      &quot;2454&quot;,
+      &quot;3034&quot;
+    ],
+    &quot;folds&quot;: [
+      &quot;ML_WF1&quot;,
+      &quot;ML_WF2&quot;,
+      &quot;ML_WF3&quot;,
+      &quot;ML_WF4&quot;
+    ],
+    &quot;date_min&quot;: &quot;2023-09-01&quot;,
+    &quot;date_max&quot;: &quot;2024-12-26&quot;,
+    &quot;in_sample_predictions_used&quot;: false,
+    &quot;forbidden_roles_used&quot;: false,
+    &quot;context_round1_used&quot;: false,
+    &quot;temporal_round2_used&quot;: false
+  },
+  &quot;alignment&quot;: {
+    &quot;rows&quot;: 744,
+    &quot;matched&quot;: 621,
+    &quot;missing&quot;: 123,
+    &quot;invalid&quot;: 0
+  },
+  &quot;source_roles&quot;: {
+    &quot;technical&quot;: &quot;training&quot;,
+    &quot;ml&quot;: &quot;training_walk_forward_oof&quot;
+  },
+  &quot;controlled_validation_used&quot;: false,
+  &quot;development_used&quot;: false,
+  &quot;additional_holdout_used&quot;: false,
+  &quot;final_oos_used&quot;: false,
+  &quot;in_sample_predictions_used&quot;: false,
+  &quot;context_round1_used&quot;: false,
+  &quot;temporal_round2_used&quot;: false,
+  &quot;label_changed&quot;: false,
+  &quot;features_changed&quot;: false,
+  &quot;model_parameters_changed&quot;: false,
+  &quot;hyperparameter_search&quot;: false,
+  &quot;probability_threshold_search&quot;: false,
+  &quot;technical_exit_or_risk_changed&quot;: false,
+  &quot;database_modified&quot;: false,
+  &quot;llm_used&quot;: false,
+  &quot;frontend_api_modified&quot;: false,
+  &quot;poc_only&quot;: true,
+  &quot;final_research_conclusion&quot;: false,
+  &quot;source_files&quot;: {
+    &quot;technical_signal_source&quot;: &quot;exports\\technical_v1_20261013T024919303843\\technical_v1_signals.csv&quot;,
+    &quot;ml_prediction_source&quot;: &quot;exports\\hybrid_poc_v1_20261013T041540804059\\ml_v1_baseline_oof_predictions.csv&quot;,
+    &quot;hybrid_config&quot;: &quot;configs\\hybrid_poc_v1.json&quot;,
+    &quot;hybrid_audit&quot;: &quot;exports\\hybrid_poc_v1_20261013T041540804059\\hybrid_poc_audit.json&quot;,
+    &quot;hybrid_alignment_csv&quot;: &quot;exports\\hybrid_poc_v1_20261013T041540804059\\hybrid_poc_alignment.csv&quot;,
+    &quot;hybrid_decision_csv&quot;: &quot;exports\\hybrid_poc_v1_20261013T041540804059\\hybrid_poc_decisions.csv&quot;,
+    &quot;hybrid_results_json&quot;: &quot;exports\\hybrid_poc_v1_20261013T041540804059\\hybrid_poc_results.json&quot;,
+    &quot;hybrid_summary_csv&quot;: &quot;exports\\hybrid_poc_v1_20261013T041540804059\\hybrid_poc_summary.csv&quot;
+  }
+}</pre>
+    </details>
+    <p style="margin-top:20px">此頁為簡化版成果說明。</p>
+    <a class="research-link" href="hybrid_poc_report.html">Technical Research Report：hybrid_poc_report.html</a>
+  </section>
+  <footer>SAME SOURCE DATA · PRESENTATION ONLY · NO EXTERNAL DEPENDENCIES</footer>
+</main></body></html>

@@ -1,0 +1,331 @@
+{
+  "generated_at": "2026-10-13T02:45:39+08:00",
+  "run_id": "20261013T024539262013",
+  "experiment_id": "technical-v1-20261010-v1",
+  "config_path": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\configs\\technical_v1_research.json",
+  "config_fingerprint": "245411f5163cd3dff4f52808ec2968b486b1fe6dfe81ec4ba9040039deeeb772",
+  "requested_role": "training",
+  "queried_roles": [
+    "training"
+  ],
+  "forbidden_roles_queried": [],
+  "locked_periods": {
+    "validation": "NOT_QUERIED_THIS_ROUND",
+    "additional_holdout": "LOCKED_NOT_QUERIED",
+    "development_seen": "NOT_QUERIED_THIS_ROUND",
+    "final_out_of_sample": "LOCKED_NOT_QUERIED"
+  },
+  "preflight_only": true,
+  "freeze_manifest_created": false,
+  "outputs": [
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\technical_v1_20261013T024539262013\\technical_v1_audit.json"
+  ],
+  "market_data_preflight": {
+    "status": "BLOCKED_MISSING_DATA",
+    "complete": false,
+    "database_path": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\data\\technical_v1_mltech_clean.sqlite3",
+    "reason": "2303: Training 交易日 422 < 470；2303: WF3 評估交易日 94 < 100；2330: Training 交易日 422 < 470；2330: WF3 評估交易日 94 < 100；2379: Training 交易日 422 < 470；2379: WF3 評估交易日 94 < 100；2454: Training 交易日 422 < 470；2454: WF3 評估交易日 94 < 100；3034: Training 交易日 422 < 470；3034: WF3 評估交易日 94 < 100",
+    "schema_columns": [
+      "stock_code",
+      "freq_minutes",
+      "range_start",
+      "range_end",
+      "kbar_timestamp",
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume"
+    ],
+    "schema_initialized": false,
+    "query_role": "training",
+    "query_period": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    },
+    "query_timestamp_bounds": {
+      "lower_inclusive": 1672502400,
+      "upper_exclusive": 1735660800
+    },
+    "forbidden_roles_queried": [],
+    "non_five_minute_rows_ignored": 0,
+    "calendar_basis": "union_of_confirmed_universe",
+    "calendar_day_count": 422,
+    "stock_checks": [
+      {
+        "stock_code": "2303",
+        "bar_count": 22788,
+        "actual_first_timestamp": "2023-01-04T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-30T13:25:00+08:00",
+        "trading_day_count": 422,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [],
+        "cadence_error_count": 0,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 5562,
+            "evaluation_bar_count": 6048,
+            "evaluation_trading_day_count": 112,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 11610,
+            "evaluation_bar_count": 6102,
+            "evaluation_trading_day_count": 113,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 17712,
+            "evaluation_bar_count": 5076,
+            "evaluation_trading_day_count": 94,
+            "complete": false,
+            "problems": [
+              "評估交易日 94 < 100"
+            ]
+          }
+        ],
+        "complete": false,
+        "problems": [
+          "Training 交易日 422 < 470",
+          "WF3 評估交易日 94 < 100"
+        ]
+      },
+      {
+        "stock_code": "2330",
+        "bar_count": 22788,
+        "actual_first_timestamp": "2023-01-04T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-30T13:25:00+08:00",
+        "trading_day_count": 422,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [],
+        "cadence_error_count": 0,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 5562,
+            "evaluation_bar_count": 6048,
+            "evaluation_trading_day_count": 112,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 11610,
+            "evaluation_bar_count": 6102,
+            "evaluation_trading_day_count": 113,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 17712,
+            "evaluation_bar_count": 5076,
+            "evaluation_trading_day_count": 94,
+            "complete": false,
+            "problems": [
+              "評估交易日 94 < 100"
+            ]
+          }
+        ],
+        "complete": false,
+        "problems": [
+          "Training 交易日 422 < 470",
+          "WF3 評估交易日 94 < 100"
+        ]
+      },
+      {
+        "stock_code": "2379",
+        "bar_count": 22788,
+        "actual_first_timestamp": "2023-01-04T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-30T13:25:00+08:00",
+        "trading_day_count": 422,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [],
+        "cadence_error_count": 0,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 5562,
+            "evaluation_bar_count": 6048,
+            "evaluation_trading_day_count": 112,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 11610,
+            "evaluation_bar_count": 6102,
+            "evaluation_trading_day_count": 113,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 17712,
+            "evaluation_bar_count": 5076,
+            "evaluation_trading_day_count": 94,
+            "complete": false,
+            "problems": [
+              "評估交易日 94 < 100"
+            ]
+          }
+        ],
+        "complete": false,
+        "problems": [
+          "Training 交易日 422 < 470",
+          "WF3 評估交易日 94 < 100"
+        ]
+      },
+      {
+        "stock_code": "2454",
+        "bar_count": 22788,
+        "actual_first_timestamp": "2023-01-04T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-30T13:25:00+08:00",
+        "trading_day_count": 422,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [],
+        "cadence_error_count": 0,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 5562,
+            "evaluation_bar_count": 6048,
+            "evaluation_trading_day_count": 112,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 11610,
+            "evaluation_bar_count": 6102,
+            "evaluation_trading_day_count": 113,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 17712,
+            "evaluation_bar_count": 5076,
+            "evaluation_trading_day_count": 94,
+            "complete": false,
+            "problems": [
+              "評估交易日 94 < 100"
+            ]
+          }
+        ],
+        "complete": false,
+        "problems": [
+          "Training 交易日 422 < 470",
+          "WF3 評估交易日 94 < 100"
+        ]
+      },
+      {
+        "stock_code": "3034",
+        "bar_count": 22788,
+        "actual_first_timestamp": "2023-01-04T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-30T13:25:00+08:00",
+        "trading_day_count": 422,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [],
+        "cadence_error_count": 0,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 5562,
+            "evaluation_bar_count": 6048,
+            "evaluation_trading_day_count": 112,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 11610,
+            "evaluation_bar_count": 6102,
+            "evaluation_trading_day_count": 113,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 17712,
+            "evaluation_bar_count": 5076,
+            "evaluation_trading_day_count": 94,
+            "complete": false,
+            "problems": [
+              "評估交易日 94 < 100"
+            ]
+          }
+        ],
+        "complete": false,
+        "problems": [
+          "Training 交易日 422 < 470",
+          "WF3 評估交易日 94 < 100"
+        ]
+      }
+    ],
+    "import_command": "uv run python \"C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\scripts\\import_technical_v1_training_kbars.py\" --database \"C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\data\\technical_v1_mltech_clean.sqlite3\""
+  },
+  "status": "BLOCKED_MISSING_DATA",
+  "reason": "2303: Training 交易日 422 < 470；2303: WF3 評估交易日 94 < 100；2330: Training 交易日 422 < 470；2330: WF3 評估交易日 94 < 100；2379: Training 交易日 422 < 470；2379: WF3 評估交易日 94 < 100；2454: Training 交易日 422 < 470；2454: WF3 評估交易日 94 < 100；3034: Training 交易日 422 < 470；3034: WF3 評估交易日 94 < 100",
+  "conclusion": "資料缺少或不完整；只產生 audit，未執行回測、未產生績效檔、未凍結候選。"
+}

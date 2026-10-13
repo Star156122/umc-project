@@ -1,0 +1,272 @@
+{
+  "experiment_id": "ml-v1-temporal-round2-preflight-20261012",
+  "generated_at": "2026-10-12T20:46:34+08:00",
+  "status": "PREFLIGHT_PASS_NOT_AUTHORIZED_FOR_TRAINING",
+  "baseline_input": {
+    "samples": 4532,
+    "sequence_shape": [
+      4532,
+      24,
+      24
+    ],
+    "rf_xgb_flat_shape": [
+      4532,
+      576
+    ],
+    "gru_static_context_shape": [
+      4532,
+      2
+    ],
+    "feature_names": [
+      "open_vs_prev_close",
+      "high_vs_prev_close",
+      "low_vs_prev_close",
+      "return_1",
+      "return_3",
+      "return_6",
+      "return_12",
+      "volume_ratio_5",
+      "volume_ratio_20",
+      "volume_zscore_20",
+      "close_vs_ma5",
+      "close_vs_ma20",
+      "price_zscore_20",
+      "rsi14_scaled",
+      "macd_vs_close",
+      "macd_signal_vs_close",
+      "macd_hist_vs_close",
+      "range_vs_close",
+      "body_return",
+      "close_location",
+      "volatility_12",
+      "volatility_24",
+      "trend_slope_12",
+      "trend_slope_24"
+    ],
+    "gru_static_features": [
+      "volume_trend_5d",
+      "volume_trend_20d"
+    ],
+    "input_audit": {
+      "sequence_eligible_samples": 4542,
+      "nonfinite_feature_exclusions": 10,
+      "model_ready_samples": 4532,
+      "shape": [
+        4532,
+        24,
+        24
+      ],
+      "context_shape": [
+        4532,
+        2
+      ],
+      "nonfinite_feature_rows": [
+        {
+          "stock_code": "2454",
+          "decision_date": "2024-05-09",
+          "reason": "EXCLUDE_NONFINITE_FEATURE_NO_FILL",
+          "nonfinite_features": "price_zscore_20"
+        },
+        {
+          "stock_code": "2881",
+          "decision_date": "2023-03-30",
+          "reason": "EXCLUDE_NONFINITE_FEATURE_NO_FILL",
+          "nonfinite_features": "price_zscore_20"
+        },
+        {
+          "stock_code": "2881",
+          "decision_date": "2023-05-02",
+          "reason": "EXCLUDE_NONFINITE_FEATURE_NO_FILL",
+          "nonfinite_features": "price_zscore_20"
+        },
+        {
+          "stock_code": "2884",
+          "decision_date": "2023-08-23",
+          "reason": "EXCLUDE_NONFINITE_FEATURE_NO_FILL",
+          "nonfinite_features": "price_zscore_20"
+        },
+        {
+          "stock_code": "2884",
+          "decision_date": "2023-12-12",
+          "reason": "EXCLUDE_NONFINITE_FEATURE_NO_FILL",
+          "nonfinite_features": "price_zscore_20"
+        },
+        {
+          "stock_code": "2884",
+          "decision_date": "2024-01-24",
+          "reason": "EXCLUDE_NONFINITE_FEATURE_NO_FILL",
+          "nonfinite_features": "price_zscore_20"
+        },
+        {
+          "stock_code": "2884",
+          "decision_date": "2024-01-30",
+          "reason": "EXCLUDE_NONFINITE_FEATURE_NO_FILL",
+          "nonfinite_features": "price_zscore_20"
+        },
+        {
+          "stock_code": "2886",
+          "decision_date": "2023-09-25",
+          "reason": "EXCLUDE_NONFINITE_FEATURE_NO_FILL",
+          "nonfinite_features": "rsi14_scaled"
+        },
+        {
+          "stock_code": "2891",
+          "decision_date": "2023-12-01",
+          "reason": "EXCLUDE_NONFINITE_FEATURE_NO_FILL",
+          "nonfinite_features": "price_zscore_20"
+        },
+        {
+          "stock_code": "2891",
+          "decision_date": "2024-04-29",
+          "reason": "EXCLUDE_NONFINITE_FEATURE_NO_FILL",
+          "nonfinite_features": "price_zscore_20"
+        }
+      ],
+      "cleaning": {
+        "duplicates_removed": 0,
+        "invalid_ohlcv_removed": 0
+      },
+      "database_sha256_before": "f17f0c6885770621207a24744320fac687df5ca192934b3ac379cf4bb16118f0",
+      "database_sha256_after": "f17f0c6885770621207a24744320fac687df5ca192934b3ac379cf4bb16118f0",
+      "database_modified": false,
+      "manifest_sha256": "099b244d396a42983c6544bbd10e8a312a85d251ade53d757f0563a375840696",
+      "exact_times": [
+        "11:35:00",
+        "11:40:00",
+        "11:45:00",
+        "11:50:00",
+        "11:55:00",
+        "12:00:00",
+        "12:05:00",
+        "12:10:00",
+        "12:15:00",
+        "12:20:00",
+        "12:25:00",
+        "12:30:00",
+        "12:35:00",
+        "12:40:00",
+        "12:45:00",
+        "12:50:00",
+        "12:55:00",
+        "13:00:00",
+        "13:05:00",
+        "13:10:00",
+        "13:15:00",
+        "13:20:00",
+        "13:25:00",
+        "13:30:00"
+      ]
+    }
+  },
+  "full_session": {
+    "stock_dates": 4810,
+    "complete_55": 4731,
+    "incomplete": 79,
+    "per_stock_complete": {
+      "2303": 479,
+      "2330": 479,
+      "2379": 438,
+      "2454": 478,
+      "2881": 479,
+      "2882": 479,
+      "2884": 479,
+      "2886": 479,
+      "2891": 479,
+      "3034": 462
+    },
+    "per_stock_incomplete": {
+      "2303": 2,
+      "2330": 2,
+      "2379": 43,
+      "2454": 3,
+      "2881": 2,
+      "2882": 2,
+      "2884": 2,
+      "2886": 2,
+      "2891": 2,
+      "3034": 19
+    }
+  },
+  "round2": {
+    "baseline_eligible": 4532,
+    "round2_eligible": 4447,
+    "common_intersection": 4447,
+    "excluded": 85,
+    "excluded_by_reason": {
+      "MISSING_OR_INVALID_PRIOR_SESSION": 85
+    },
+    "per_stock_common_samples": {
+      "2303": 455,
+      "2330": 455,
+      "2379": 403,
+      "2454": 449,
+      "2881": 449,
+      "2882": 455,
+      "2884": 443,
+      "2886": 452,
+      "2891": 449,
+      "3034": 437
+    },
+    "candidate_shape": [
+      4447,
+      72,
+      24
+    ],
+    "rf_xgb_flat_shape": [
+      4447,
+      1728
+    ],
+    "sample_keys_identical": true,
+    "forward_fill": false,
+    "backfill": false,
+    "synthetic_fill": false,
+    "cross_stock_join": false
+  },
+  "round2_formal_shape": {
+    "sequence": [
+      4447,
+      72,
+      24
+    ],
+    "rf_xgb_flat": [
+      4447,
+      1728
+    ],
+    "gru_static_context": [
+      4447,
+      2
+    ]
+  },
+  "feature_level_verified": true,
+  "cleaning": {
+    "duplicates_removed": 0,
+    "invalid_ohlcv_removed": 0
+  },
+  "common_sample_files": {
+    "common": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\ml_v1_temporal_round2_preflight_20261012\\round2_common_samples.csv",
+    "exclusions": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\ml_v1_temporal_round2_preflight_20261012\\round2_exclusions.csv"
+  },
+  "representation": {
+    "random_forest": "flatten 72 x 24 to 1728; no static context",
+    "xgboost": "flatten 72 x 24 to 1728; no static context",
+    "gru": "sequential 72 x 24 plus unchanged Day T static volume_trend_5d and volume_trend_20d"
+  },
+  "research_guardrails": {
+    "label_unchanged": true,
+    "horizon_unchanged": true,
+    "decision_time_unchanged": true,
+    "universe_unchanged": true,
+    "hyperparameters_unchanged": true,
+    "context_round1_unused": true,
+    "year_2025_used": false,
+    "year_2026_used": false,
+    "models_trained": false,
+    "walk_forward_run": false,
+    "loso_run": false,
+    "database_modified": false,
+    "database_sha256_before": "f17f0c6885770621207a24744320fac687df5ca192934b3ac379cf4bb16118f0",
+    "database_sha256_after": "f17f0c6885770621207a24744320fac687df5ca192934b3ac379cf4bb16118f0"
+  },
+  "training_authorized": false,
+  "remaining_before_training": []
+}

@@ -1,0 +1,59 @@
+{
+  "status": "READY_FOR_CANDIDATE_WALK_FORWARD",
+  "samples": 4532,
+  "sequence_shape": [
+    4532,
+    24,
+    24
+  ],
+  "label_counts": {
+    "SELL": 1647,
+    "HOLD": 1750,
+    "BUY": 1135
+  },
+  "candidate_context_features": [
+    "stock_return_5d",
+    "stock_return_20d",
+    "stock_volatility_20d",
+    "industry_proxy_return_5d",
+    "industry_proxy_return_20d",
+    "stock_vs_industry_proxy_5d",
+    "market_proxy_return_5d",
+    "market_proxy_return_20d",
+    "stock_vs_market_proxy_5d"
+  ],
+  "rf_context_count": 9,
+  "xgb_context_count": 9,
+  "gru_context_count": 11,
+  "gru_context_features": [
+    "volume_trend_5d",
+    "volume_trend_20d",
+    "stock_return_5d",
+    "stock_return_20d",
+    "stock_volatility_20d",
+    "industry_proxy_return_5d",
+    "industry_proxy_return_20d",
+    "stock_vs_industry_proxy_5d",
+    "market_proxy_return_5d",
+    "market_proxy_return_20d",
+    "stock_vs_market_proxy_5d"
+  ],
+  "database_sha256_before": "f17f0c6885770621207a24744320fac687df5ca192934b3ac379cf4bb16118f0",
+  "database_sha256_after": "f17f0c6885770621207a24744320fac687df5ca192934b3ac379cf4bb16118f0",
+  "database_modified": false,
+  "cleaning_audit": {
+    "duplicates_removed": 0,
+    "invalid_ohlcv_removed": 0
+  },
+  "training_period": [
+    "2023-01-01",
+    "2024-12-31"
+  ],
+  "controlled_validation_used": false,
+  "development_used": false,
+  "holdout_used": false,
+  "final_oos_used": false,
+  "loso_run": false,
+  "hyperparameter_search": false,
+  "threshold_search": false
+}

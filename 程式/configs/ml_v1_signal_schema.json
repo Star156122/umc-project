@@ -1,0 +1,17 @@
+{
+  "schema_version": "ml_signal_v1",
+  "required_fields": [
+    "ml_version", "industry", "model", "stock_code", "decision_date",
+    "decision_time", "prediction", "p_buy", "p_hold", "p_sell",
+    "prediction_horizon", "label_version", "feature_version", "fold_id", "data_role"
+  ],
+  "prediction_values": ["BUY", "HOLD", "SELL"],
+  "probability_fields_are_research_information": true,
+  "hybrid_gate_field": "prediction",
+  "forbidden_realtime_fields": [
+    "future_net_return", "future_gross_return", "target_close", "target_date",
+    "true_label", "z_return", "realized_return"
+  ],
+  "decision_time": "13:30:00+08:00",
+  "timezone": "Asia/Taipei"
+}

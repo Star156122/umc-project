@@ -255,7 +255,7 @@ class TechnicalV1Tests(unittest.TestCase):
                 )
                 connection.execute(
                     """DELETE FROM market_kbars
-                       WHERE stock_code='2317' AND kbar_timestamp>=? AND kbar_timestamp<?""",
+                       WHERE stock_code='2379' AND kbar_timestamp>=? AND kbar_timestamp<?""",
                     (stamp, stamp + 86400),
                 )
                 connection.commit()
@@ -265,7 +265,7 @@ class TechnicalV1Tests(unittest.TestCase):
             self.assertTrue(checks["2303"]["incomplete_trading_days"])
             self.assertGreater(checks["2330"]["duplicate_timestamp_count"], 0)
             self.assertGreater(checks["2454"]["invalid_ohlcv_count"], 0)
-            self.assertTrue(checks["2317"]["missing_trading_days"])
+            self.assertTrue(checks["2379"]["missing_trading_days"])
 
     def test_missing_data_workflow_writes_audit_only(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

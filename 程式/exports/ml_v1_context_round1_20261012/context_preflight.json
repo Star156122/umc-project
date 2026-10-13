@@ -1,0 +1,59 @@
+{
+  "experiment_id": "ml-v1-improvement-round1-context-20261012",
+  "status": "CONTEXT_CANDIDATE_DATA_READY_NOT_TRAINED",
+  "context_features": [
+    "stock_return_5d",
+    "stock_return_20d",
+    "stock_volatility_20d",
+    "industry_proxy_return_5d",
+    "industry_proxy_return_20d",
+    "stock_vs_industry_proxy_5d",
+    "market_proxy_return_5d",
+    "market_proxy_return_20d",
+    "stock_vs_market_proxy_5d"
+  ],
+  "context_feature_count": 9,
+  "sample_alignment": {
+    "sequence_label_eligible_samples": 4542,
+    "phase_b_model_ready_samples": 4532,
+    "candidate_context_complete_within_manifest": 4542,
+    "candidate_context_exclusions_from_phase_b": 0,
+    "final_common_eligible_samples": 4532,
+    "baseline_eligible_samples": 4532,
+    "candidate_eligible_samples": 4532,
+    "sample_keys_identical": true,
+    "by_stock": {
+      "2303": 457,
+      "2330": 457,
+      "2379": 437,
+      "2454": 455,
+      "2881": 455,
+      "2882": 457,
+      "2884": 453,
+      "2886": 456,
+      "2891": 455,
+      "3034": 450
+    },
+    "candidate_excluded_keys": []
+  },
+  "leakage_guard": {
+    "training_only_2023_2024": true,
+    "day_t_cutoff": "13:30:00",
+    "target_stock_excluded_from_proxies": true,
+    "centered_rolling_used": false,
+    "fill_used": false,
+    "synthetic_data_used": false
+  },
+  "execution": {
+    "model_training_run": false,
+    "walk_forward_run": false,
+    "loso_run": false,
+    "label_changed": false,
+    "horizon_changed": false,
+    "decision_time_changed": false,
+    "model_parameters_changed": false
+  },
+  "database_sha256_before": "f17f0c6885770621207a24744320fac687df5ca192934b3ac379cf4bb16118f0",
+  "database_sha256_after": "f17f0c6885770621207a24744320fac687df5ca192934b3ac379cf4bb16118f0",
+  "database_modified": false
+}

@@ -998,20 +998,43 @@ def inspect_training_market_data(
         incomplete_days: list[dict[str, Any]] = []
         cadence_errors = 0
         for day, day_stamps in sorted(by_day.items()):
-            local_times = [datetime.fromtimestamp(stamp, TAIPEI) for stamp in day_stamps]
+            # market_data.sqlite3 may contain an extra 13:30 bar used by ML.
+            # Technical V1 completeness is defined only by its configured
+            # session, currently 09:00-13:25 (54 five-minute bars).
+            session_stamps = [
+                stamp
+                for stamp in day_stamps
+                if expected_first
+                <= datetime.fromtimestamp(stamp, TAIPEI).strftime("%H:%M")
+                <= expected_last
+            ]
+
+            local_times = [
+                datetime.fromtimestamp(stamp, TAIPEI)
+                for stamp in session_stamps
+            ]
+
             bad_deltas = sum(
                 1
-                for previous, current in zip(day_stamps, day_stamps[1:])
+                for previous, current in zip(session_stamps, session_stamps[1:])
                 if current - previous != expected_cadence
             )
+
             cadence_errors += bad_deltas
-            first_time = local_times[0].strftime("%H:%M")
-            last_time = local_times[-1].strftime("%H:%M")
-            if len(day_stamps) != expected_count or first_time != expected_first or last_time != expected_last or bad_deltas:
+
+            first_time = local_times[0].strftime("%H:%M") if local_times else None
+            last_time = local_times[-1].strftime("%H:%M") if local_times else None
+
+            if (
+                len(session_stamps) != expected_count
+                or first_time != expected_first
+                or last_time != expected_last
+                or bad_deltas
+            ):
                 incomplete_days.append(
                     {
                         "date": day,
-                        "bar_count": len(day_stamps),
+                        "bar_count": len(session_stamps),
                         "first_bar_time": first_time,
                         "last_bar_time": last_time,
                         "cadence_errors": bad_deltas,

@@ -1,0 +1,1145 @@
+{
+  "status": "REVIEW_REQUIRED_NON_TRADING_DATE_ROWS|REVIEW_REQUIRED_MISSING_INTRADAY_KBARS",
+  "issues": [
+    "REVIEW_REQUIRED_NON_TRADING_DATE_ROWS",
+    "REVIEW_REQUIRED_MISSING_INTRADAY_KBARS"
+  ],
+  "expected_regular_times": [
+    "09:00:00",
+    "09:05:00",
+    "09:10:00",
+    "09:15:00",
+    "09:20:00",
+    "09:25:00",
+    "09:30:00",
+    "09:35:00",
+    "09:40:00",
+    "09:45:00",
+    "09:50:00",
+    "09:55:00",
+    "10:00:00",
+    "10:05:00",
+    "10:10:00",
+    "10:15:00",
+    "10:20:00",
+    "10:25:00",
+    "10:30:00",
+    "10:35:00",
+    "10:40:00",
+    "10:45:00",
+    "10:50:00",
+    "10:55:00",
+    "11:00:00",
+    "11:05:00",
+    "11:10:00",
+    "11:15:00",
+    "11:20:00",
+    "11:25:00",
+    "11:30:00",
+    "11:35:00",
+    "11:40:00",
+    "11:45:00",
+    "11:50:00",
+    "11:55:00",
+    "12:00:00",
+    "12:05:00",
+    "12:10:00",
+    "12:15:00",
+    "12:20:00",
+    "12:25:00",
+    "12:30:00",
+    "12:35:00",
+    "12:40:00",
+    "12:45:00",
+    "12:50:00",
+    "12:55:00",
+    "13:00:00",
+    "13:05:00",
+    "13:10:00",
+    "13:15:00",
+    "13:20:00",
+    "13:25:00",
+    "13:30:00"
+  ],
+  "expected_regular_kbars_per_day": 55,
+  "universe_union_trading_days": 481,
+  "duplicate_timestamp_rows": 0,
+  "invalid_ohlcv_rows": 0,
+  "weekend_rows": 8,
+  "missing_regular_intraday_kbars": 122,
+  "unresolved_full_day_gaps": 0,
+  "by_stock": {
+    "2303": {
+      "rows": 26453,
+      "raw_distinct_dates": 482,
+      "valid_weekday_trading_days": 481,
+      "first_timestamp": "2023-01-03T09:00:00+08:00",
+      "last_timestamp": "2024-12-31T13:30:00+08:00",
+      "duplicate_timestamp_rows": 0,
+      "invalid_ohlcv_rows": 0,
+      "negative_volume_rows": 0,
+      "weekend_rows": 1,
+      "weekend_observations": [
+        {
+          "datetime": "2024-12-01T09:00:00+08:00",
+          "open": 47.9,
+          "high": 47.9,
+          "low": 47.9,
+          "close": 47.9,
+          "volume": 65.0
+        }
+      ],
+      "missing_dates_against_universe_union": [],
+      "missing_date_reason": null,
+      "daily_kbar_count_distribution": {
+        "53": 1,
+        "54": 1,
+        "55": 479
+      },
+      "nonstandard_days": [
+        {
+          "trade_date": "2023-07-13",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:00:00",
+            "11:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-01-10",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:55:00"
+          ],
+          "extra_times": []
+        }
+      ],
+      "missing_clock_time_counts": {
+        "11:00:00": 1,
+        "11:05:00": 1,
+        "11:55:00": 1
+      },
+      "extra_clock_time_counts": {}
+    },
+    "2330": {
+      "rows": 26453,
+      "raw_distinct_dates": 482,
+      "valid_weekday_trading_days": 481,
+      "first_timestamp": "2023-01-03T09:00:00+08:00",
+      "last_timestamp": "2024-12-31T13:30:00+08:00",
+      "duplicate_timestamp_rows": 0,
+      "invalid_ohlcv_rows": 0,
+      "negative_volume_rows": 0,
+      "weekend_rows": 1,
+      "weekend_observations": [
+        {
+          "datetime": "2024-12-01T09:00:00+08:00",
+          "open": 1000.0,
+          "high": 1020.0,
+          "low": 1000.0,
+          "close": 1020.0,
+          "volume": 31.0
+        }
+      ],
+      "missing_dates_against_universe_union": [],
+      "missing_date_reason": null,
+      "daily_kbar_count_distribution": {
+        "53": 1,
+        "54": 1,
+        "55": 479
+      },
+      "nonstandard_days": [
+        {
+          "trade_date": "2023-07-13",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:00:00",
+            "11:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-01-10",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:55:00"
+          ],
+          "extra_times": []
+        }
+      ],
+      "missing_clock_time_counts": {
+        "11:00:00": 1,
+        "11:05:00": 1,
+        "11:55:00": 1
+      },
+      "extra_clock_time_counts": {}
+    },
+    "2379": {
+      "rows": 26384,
+      "raw_distinct_dates": 481,
+      "valid_weekday_trading_days": 481,
+      "first_timestamp": "2023-01-03T09:00:00+08:00",
+      "last_timestamp": "2024-12-31T13:30:00+08:00",
+      "duplicate_timestamp_rows": 0,
+      "invalid_ohlcv_rows": 0,
+      "negative_volume_rows": 0,
+      "weekend_rows": 0,
+      "weekend_observations": [],
+      "missing_dates_against_universe_union": [],
+      "missing_date_reason": null,
+      "daily_kbar_count_distribution": {
+        "49": 1,
+        "50": 1,
+        "51": 1,
+        "52": 3,
+        "53": 10,
+        "54": 27,
+        "55": 438
+      },
+      "nonstandard_days": [
+        {
+          "trade_date": "2023-01-03",
+          "kbar_count": 54,
+          "missing_times": [
+            "10:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-03-27",
+          "kbar_count": 52,
+          "missing_times": [
+            "10:25:00",
+            "11:35:00",
+            "12:45:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-03-30",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:00:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-04-07",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:20:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-05-11",
+          "kbar_count": 53,
+          "missing_times": [
+            "10:20:00",
+            "11:25:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-05-15",
+          "kbar_count": 49,
+          "missing_times": [
+            "09:55:00",
+            "10:40:00",
+            "11:05:00",
+            "11:10:00",
+            "11:35:00",
+            "12:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-05-17",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:40:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-05-19",
+          "kbar_count": 54,
+          "missing_times": [
+            "12:10:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-06-14",
+          "kbar_count": 54,
+          "missing_times": [
+            "12:30:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-06-15",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:05:00",
+            "11:20:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-07-11",
+          "kbar_count": 54,
+          "missing_times": [
+            "12:00:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-07-13",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:00:00",
+            "11:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-08-21",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:55:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-08-23",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:40:00",
+            "11:45:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-10-06",
+          "kbar_count": 54,
+          "missing_times": [
+            "10:30:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-10-31",
+          "kbar_count": 54,
+          "missing_times": [
+            "10:35:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-11-01",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:20:00",
+            "11:50:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-11-06",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:15:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-11-07",
+          "kbar_count": 54,
+          "missing_times": [
+            "09:15:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-12-07",
+          "kbar_count": 54,
+          "missing_times": [
+            "09:40:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-12-28",
+          "kbar_count": 54,
+          "missing_times": [
+            "12:20:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-12-29",
+          "kbar_count": 50,
+          "missing_times": [
+            "10:35:00",
+            "11:00:00",
+            "11:35:00",
+            "11:40:00",
+            "11:45:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-01-10",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:55:00",
+            "12:10:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-01-12",
+          "kbar_count": 54,
+          "missing_times": [
+            "12:35:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-01-26",
+          "kbar_count": 51,
+          "missing_times": [
+            "10:40:00",
+            "10:45:00",
+            "11:10:00",
+            "11:40:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-01-29",
+          "kbar_count": 54,
+          "missing_times": [
+            "09:15:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-08-23",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:00:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-08-26",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:25:00",
+            "13:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-08-29",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:50:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-08-30",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:25:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-09-03",
+          "kbar_count": 54,
+          "missing_times": [
+            "09:45:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-09-11",
+          "kbar_count": 52,
+          "missing_times": [
+            "09:25:00",
+            "10:45:00",
+            "10:55:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-09-12",
+          "kbar_count": 54,
+          "missing_times": [
+            "10:55:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-09-30",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:15:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-10-15",
+          "kbar_count": 52,
+          "missing_times": [
+            "10:45:00",
+            "11:35:00",
+            "11:40:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-10-30",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-11-05",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:55:00",
+            "12:00:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-11-14",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:20:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-11-15",
+          "kbar_count": 54,
+          "missing_times": [
+            "12:55:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-12-13",
+          "kbar_count": 54,
+          "missing_times": [
+            "09:25:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-12-23",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:30:00",
+            "11:35:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-12-24",
+          "kbar_count": 54,
+          "missing_times": [
+            "09:45:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-12-25",
+          "kbar_count": 53,
+          "missing_times": [
+            "10:00:00",
+            "12:10:00"
+          ],
+          "extra_times": []
+        }
+      ],
+      "missing_clock_time_counts": {
+        "09:15:00": 2,
+        "09:25:00": 2,
+        "09:40:00": 1,
+        "09:45:00": 2,
+        "09:55:00": 1,
+        "10:00:00": 1,
+        "10:05:00": 1,
+        "10:20:00": 1,
+        "10:25:00": 1,
+        "10:30:00": 1,
+        "10:35:00": 2,
+        "10:40:00": 2,
+        "10:45:00": 3,
+        "10:55:00": 2,
+        "11:00:00": 4,
+        "11:05:00": 4,
+        "11:10:00": 2,
+        "11:15:00": 2,
+        "11:20:00": 4,
+        "11:25:00": 3,
+        "11:30:00": 1,
+        "11:35:00": 5,
+        "11:40:00": 5,
+        "11:45:00": 2,
+        "11:50:00": 2,
+        "11:55:00": 3,
+        "12:00:00": 2,
+        "12:05:00": 1,
+        "12:10:00": 3,
+        "12:20:00": 1,
+        "12:30:00": 1,
+        "12:35:00": 1,
+        "12:45:00": 1,
+        "12:55:00": 1,
+        "13:05:00": 1
+      },
+      "extra_clock_time_counts": {}
+    },
+    "2454": {
+      "rows": 26451,
+      "raw_distinct_dates": 482,
+      "valid_weekday_trading_days": 481,
+      "first_timestamp": "2023-01-03T09:00:00+08:00",
+      "last_timestamp": "2024-12-31T13:30:00+08:00",
+      "duplicate_timestamp_rows": 0,
+      "invalid_ohlcv_rows": 0,
+      "negative_volume_rows": 0,
+      "weekend_rows": 1,
+      "weekend_observations": [
+        {
+          "datetime": "2024-12-01T09:00:00+08:00",
+          "open": 1260.0,
+          "high": 1260.0,
+          "low": 1255.0,
+          "close": 1255.0,
+          "volume": 2.0
+        }
+      ],
+      "missing_dates_against_universe_union": [],
+      "missing_date_reason": null,
+      "daily_kbar_count_distribution": {
+        "53": 2,
+        "54": 1,
+        "55": 478
+      },
+      "nonstandard_days": [
+        {
+          "trade_date": "2023-07-13",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:00:00",
+            "11:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-01-10",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:55:00",
+            "12:10:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-10-30",
+          "kbar_count": 54,
+          "missing_times": [
+            "12:00:00"
+          ],
+          "extra_times": []
+        }
+      ],
+      "missing_clock_time_counts": {
+        "11:00:00": 1,
+        "11:05:00": 1,
+        "11:55:00": 1,
+        "12:00:00": 1,
+        "12:10:00": 1
+      },
+      "extra_clock_time_counts": {}
+    },
+    "3034": {
+      "rows": 26434,
+      "raw_distinct_dates": 482,
+      "valid_weekday_trading_days": 481,
+      "first_timestamp": "2023-01-03T09:00:00+08:00",
+      "last_timestamp": "2024-12-31T13:30:00+08:00",
+      "duplicate_timestamp_rows": 0,
+      "invalid_ohlcv_rows": 0,
+      "negative_volume_rows": 0,
+      "weekend_rows": 1,
+      "weekend_observations": [
+        {
+          "datetime": "2024-12-01T09:00:00+08:00",
+          "open": 481.0,
+          "high": 481.0,
+          "low": 481.0,
+          "close": 481.0,
+          "volume": 2.0
+        }
+      ],
+      "missing_dates_against_universe_union": [],
+      "missing_date_reason": null,
+      "daily_kbar_count_distribution": {
+        "53": 3,
+        "54": 16,
+        "55": 462
+      },
+      "nonstandard_days": [
+        {
+          "trade_date": "2023-07-13",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:00:00",
+            "11:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-08-31",
+          "kbar_count": 54,
+          "missing_times": [
+            "12:40:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2023-10-27",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-01-10",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:55:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-08-27",
+          "kbar_count": 54,
+          "missing_times": [
+            "09:30:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-09-23",
+          "kbar_count": 54,
+          "missing_times": [
+            "12:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-09-24",
+          "kbar_count": 54,
+          "missing_times": [
+            "10:55:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-09-27",
+          "kbar_count": 54,
+          "missing_times": [
+            "12:15:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-10-14",
+          "kbar_count": 54,
+          "missing_times": [
+            "12:00:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-10-15",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:50:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-10-17",
+          "kbar_count": 53,
+          "missing_times": [
+            "10:50:00",
+            "10:55:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-10-25",
+          "kbar_count": 54,
+          "missing_times": [
+            "10:40:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-12-05",
+          "kbar_count": 54,
+          "missing_times": [
+            "12:00:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-12-06",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:20:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-12-09",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:40:00",
+            "12:00:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-12-11",
+          "kbar_count": 54,
+          "missing_times": [
+            "09:45:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-12-12",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:10:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-12-27",
+          "kbar_count": 54,
+          "missing_times": [
+            "10:55:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-12-31",
+          "kbar_count": 54,
+          "missing_times": [
+            "10:25:00"
+          ],
+          "extra_times": []
+        }
+      ],
+      "missing_clock_time_counts": {
+        "09:30:00": 1,
+        "09:45:00": 1,
+        "10:25:00": 1,
+        "10:40:00": 1,
+        "10:50:00": 1,
+        "10:55:00": 3,
+        "11:00:00": 1,
+        "11:05:00": 2,
+        "11:10:00": 1,
+        "11:20:00": 1,
+        "11:40:00": 1,
+        "11:50:00": 1,
+        "11:55:00": 1,
+        "12:00:00": 3,
+        "12:05:00": 1,
+        "12:15:00": 1,
+        "12:40:00": 1
+      },
+      "extra_clock_time_counts": {}
+    },
+    "2881": {
+      "rows": 26452,
+      "raw_distinct_dates": 482,
+      "valid_weekday_trading_days": 481,
+      "first_timestamp": "2023-01-03T09:00:00+08:00",
+      "last_timestamp": "2024-12-31T13:30:00+08:00",
+      "duplicate_timestamp_rows": 0,
+      "invalid_ohlcv_rows": 0,
+      "negative_volume_rows": 0,
+      "weekend_rows": 1,
+      "weekend_observations": [
+        {
+          "datetime": "2024-12-01T09:00:00+08:00",
+          "open": 88.0,
+          "high": 89.4,
+          "low": 88.0,
+          "close": 89.4,
+          "volume": 5.0
+        }
+      ],
+      "missing_dates_against_universe_union": [],
+      "missing_date_reason": null,
+      "daily_kbar_count_distribution": {
+        "53": 2,
+        "55": 479
+      },
+      "nonstandard_days": [
+        {
+          "trade_date": "2023-07-13",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:00:00",
+            "11:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-01-10",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:55:00",
+            "12:10:00"
+          ],
+          "extra_times": []
+        }
+      ],
+      "missing_clock_time_counts": {
+        "11:00:00": 1,
+        "11:05:00": 1,
+        "11:55:00": 1,
+        "12:10:00": 1
+      },
+      "extra_clock_time_counts": {}
+    },
+    "2882": {
+      "rows": 26452,
+      "raw_distinct_dates": 482,
+      "valid_weekday_trading_days": 481,
+      "first_timestamp": "2023-01-03T09:00:00+08:00",
+      "last_timestamp": "2024-12-31T13:30:00+08:00",
+      "duplicate_timestamp_rows": 0,
+      "invalid_ohlcv_rows": 0,
+      "negative_volume_rows": 0,
+      "weekend_rows": 1,
+      "weekend_observations": [
+        {
+          "datetime": "2024-12-01T09:00:00+08:00",
+          "open": 72.0,
+          "high": 72.0,
+          "low": 70.0,
+          "close": 70.0,
+          "volume": 19.0
+        }
+      ],
+      "missing_dates_against_universe_union": [],
+      "missing_date_reason": null,
+      "daily_kbar_count_distribution": {
+        "53": 2,
+        "55": 479
+      },
+      "nonstandard_days": [
+        {
+          "trade_date": "2023-07-13",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:00:00",
+            "11:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-01-10",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:55:00",
+            "12:10:00"
+          ],
+          "extra_times": []
+        }
+      ],
+      "missing_clock_time_counts": {
+        "11:00:00": 1,
+        "11:05:00": 1,
+        "11:55:00": 1,
+        "12:10:00": 1
+      },
+      "extra_clock_time_counts": {}
+    },
+    "2884": {
+      "rows": 26451,
+      "raw_distinct_dates": 481,
+      "valid_weekday_trading_days": 481,
+      "first_timestamp": "2023-01-03T09:00:00+08:00",
+      "last_timestamp": "2024-12-31T13:30:00+08:00",
+      "duplicate_timestamp_rows": 0,
+      "invalid_ohlcv_rows": 0,
+      "negative_volume_rows": 0,
+      "weekend_rows": 0,
+      "weekend_observations": [],
+      "missing_dates_against_universe_union": [],
+      "missing_date_reason": null,
+      "daily_kbar_count_distribution": {
+        "53": 2,
+        "55": 479
+      },
+      "nonstandard_days": [
+        {
+          "trade_date": "2023-07-13",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:00:00",
+            "11:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-01-10",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:55:00",
+            "12:10:00"
+          ],
+          "extra_times": []
+        }
+      ],
+      "missing_clock_time_counts": {
+        "11:00:00": 1,
+        "11:05:00": 1,
+        "11:55:00": 1,
+        "12:10:00": 1
+      },
+      "extra_clock_time_counts": {}
+    },
+    "2886": {
+      "rows": 26453,
+      "raw_distinct_dates": 482,
+      "valid_weekday_trading_days": 481,
+      "first_timestamp": "2023-01-03T09:00:00+08:00",
+      "last_timestamp": "2024-12-31T13:30:00+08:00",
+      "duplicate_timestamp_rows": 0,
+      "invalid_ohlcv_rows": 0,
+      "negative_volume_rows": 0,
+      "weekend_rows": 1,
+      "weekend_observations": [
+        {
+          "datetime": "2024-12-01T09:00:00+08:00",
+          "open": 36.0,
+          "high": 36.0,
+          "low": 36.0,
+          "close": 36.0,
+          "volume": 2.0
+        }
+      ],
+      "missing_dates_against_universe_union": [],
+      "missing_date_reason": null,
+      "daily_kbar_count_distribution": {
+        "53": 1,
+        "54": 1,
+        "55": 479
+      },
+      "nonstandard_days": [
+        {
+          "trade_date": "2023-07-13",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:00:00",
+            "11:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-01-10",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:55:00"
+          ],
+          "extra_times": []
+        }
+      ],
+      "missing_clock_time_counts": {
+        "11:00:00": 1,
+        "11:05:00": 1,
+        "11:55:00": 1
+      },
+      "extra_clock_time_counts": {}
+    },
+    "2891": {
+      "rows": 26453,
+      "raw_distinct_dates": 482,
+      "valid_weekday_trading_days": 481,
+      "first_timestamp": "2023-01-03T09:00:00+08:00",
+      "last_timestamp": "2024-12-31T13:30:00+08:00",
+      "duplicate_timestamp_rows": 0,
+      "invalid_ohlcv_rows": 0,
+      "negative_volume_rows": 0,
+      "weekend_rows": 1,
+      "weekend_observations": [
+        {
+          "datetime": "2024-12-01T09:00:00+08:00",
+          "open": 40.0,
+          "high": 40.0,
+          "low": 40.0,
+          "close": 40.0,
+          "volume": 8.0
+        }
+      ],
+      "missing_dates_against_universe_union": [],
+      "missing_date_reason": null,
+      "daily_kbar_count_distribution": {
+        "53": 1,
+        "54": 1,
+        "55": 479
+      },
+      "nonstandard_days": [
+        {
+          "trade_date": "2023-07-13",
+          "kbar_count": 53,
+          "missing_times": [
+            "11:00:00",
+            "11:05:00"
+          ],
+          "extra_times": []
+        },
+        {
+          "trade_date": "2024-01-10",
+          "kbar_count": 54,
+          "missing_times": [
+            "11:55:00"
+          ],
+          "extra_times": []
+        }
+      ],
+      "missing_clock_time_counts": {
+        "11:00:00": 1,
+        "11:05:00": 1,
+        "11:55:00": 1
+      },
+      "extra_clock_time_counts": {}
+    }
+  },
+  "no_automatic_fill": true,
+  "label_audit_excludes_weekend_rows": true,
+  "day_count_difference_explanation": "2379 and 2884 have 481 raw dates. The other eight stocks have one extra 2024-12-01 Sunday row, so all ten have the same 481 weekday trading dates. The difference is an extra non-trading-date observation in eight stocks, not a missing weekday in 2379/2884."
+}

@@ -1,0 +1,62 @@
+{
+  "status": "READY_FOR_ALIGNED_BASELINE_LOSO",
+  "walk_forward_completed": 24,
+  "walk_forward_required": 24,
+  "samples": 4532,
+  "training_period": [
+    "2023-01-01",
+    "2024-12-31"
+  ],
+  "method": "5-stock LOSO x 4-fold expanding-window",
+  "industries": {
+    "technology": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "financial": [
+      "2881",
+      "2882",
+      "2884",
+      "2886",
+      "2891"
+    ]
+  },
+  "models": [
+    "random_forest",
+    "xgboost",
+    "gru"
+  ],
+  "candidate_context_features": [
+    "stock_return_5d",
+    "stock_return_20d",
+    "stock_volatility_20d",
+    "industry_proxy_return_5d",
+    "industry_proxy_return_20d",
+    "stock_vs_industry_proxy_5d",
+    "market_proxy_return_5d",
+    "market_proxy_return_20d",
+    "stock_vs_market_proxy_5d"
+  ],
+  "heldout_stock_never_training_sample": true,
+  "heldout_stock_never_gru_early_stopping_sample": true,
+  "scaler_fit_on_peer_training_only": true,
+  "context_scaler_fit_on_peer_training_only": true,
+  "controlled_validation_used": false,
+  "development_used": false,
+  "holdout_period_used": false,
+  "final_oos_used": false,
+  "hyperparameter_search": false,
+  "probability_threshold_search": false,
+  "trading_return_selection": false,
+  "comparison_variant": "baseline",
+  "same_candidate_intersection": true,
+  "rf_xgb_context": [],
+  "gru_context": [
+    "volume_trend_5d",
+    "volume_trend_20d"
+  ],
+  "round1_context_features_used": false
+}

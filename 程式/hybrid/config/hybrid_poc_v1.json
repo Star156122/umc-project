@@ -1,0 +1,56 @@
+{
+  "experiment_id": "technical-ml-hybrid-poc-v1",
+  "status": "POC_ONLY_NOT_FROZEN",
+  "purpose": "Verify the end-to-end Technical BUY_CANDIDATE -> prior-session ML OOF gate -> Hybrid entry -> unchanged Technical exit/backtest flow.",
+  "data_role": "training",
+  "period": {"start": "2023-01-01", "end": "2024-12-31"},
+  "stock_universe": ["2303", "2330", "2379", "2454", "3034"],
+  "technical": {
+    "config": "configs/technical_v1_research.json",
+    "source_run": "exports/technical_v1_20261013T024919303843",
+    "candidate_id": "BR_SENS_RANGE55_BB20_2",
+    "required_signal": "BUY_CANDIDATE",
+    "entry_only_change": true,
+    "unchanged": [
+      "exit_rule", "stop_loss", "take_profit", "max_hold_bars", "min_hold_bars",
+      "cooldown_bars", "capital", "position_sizing", "transaction_cost", "slippage"
+    ]
+  },
+  "ml": {
+    "research_config": "configs/ml_v1_research.json",
+    "phase_b_config": "configs/ml_v1_phase_b.json",
+    "label": "fixed_1pct",
+    "industry": "technology",
+    "models": ["random_forest", "xgboost", "gru"],
+    "prediction_source": "training_only_4_fold_walk_forward_oof",
+    "allow_oof_rebuild_with_existing_baseline_pipeline": true,
+    "forbidden_sources": ["context_round1", "temporal_round2", "in_sample", "controlled_validation", "development", "additional_holdout", "final_oos"]
+  },
+  "alignment": {
+    "rule": "ML decision after Day T close may gate only a Technical BUY_CANDIDATE on the recorded Day T+1 entry_date.",
+    "timezone": "Asia/Taipei",
+    "ml_decision_time": "13:30:00",
+    "missing_prediction": "NO_ML_MATCH",
+    "same_day_prediction": "REJECT_LOOKAHEAD"
+  },
+  "gate": {
+    "BUY": "ENTRY",
+    "HOLD": "BLOCK_HOLD",
+    "SELL": "BLOCK_SELL",
+    "NO_ML_MATCH": "NO_ML_MATCH",
+    "direction": "long_only"
+  },
+  "comparison_variants": ["technical_alone", "hybrid_random_forest", "hybrid_xgboost", "hybrid_gru"],
+  "selection_or_optimization": false,
+  "final_research_conclusion": false,
+  "forbidden": {
+    "use_2025_or_2026": true,
+    "use_in_sample_prediction": true,
+    "change_ml_parameter": true,
+    "change_ml_feature": true,
+    "change_ml_label": true,
+    "change_technical_exit_or_risk": true,
+    "run_llm": true,
+    "modify_frontend_api_or_database": true
+  }
+}

@@ -1,0 +1,1838 @@
+{
+  "fixed_1pct": {
+    "technology": {
+      "random_forest": {
+        "walk_forward": {
+          "evaluations": 4,
+          "samples": 1543,
+          "macro_f1": {
+            "mean": 0.334567205242054,
+            "standard_deviation": 0.031367086179988284,
+            "worst": 0.2935990287500833,
+            "count": 4
+          },
+          "macro_auc": {
+            "mean": 0.5196502913334657,
+            "standard_deviation": 0.02542963700236622,
+            "worst": 0.4979714102289867,
+            "count": 4
+          },
+          "buy_precision": {
+            "mean": 0.3567463354942852,
+            "standard_deviation": 0.08262029126239655,
+            "worst": 0.26285714285714284,
+            "count": 4
+          },
+          "buy_recall": {
+            "mean": 0.2868471065736291,
+            "standard_deviation": 0.11461631043419128,
+            "worst": 0.18796992481203006,
+            "count": 4
+          },
+          "buy_coverage": {
+            "mean": 0.26390806701728564,
+            "standard_deviation": 0.13667606836969912,
+            "worst": 0.14786967418546365,
+            "count": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.4948108537653261,
+              "standard_deviation": 0.04109198956967998,
+              "worst": 0.45834032790554524,
+              "count": 4
+            },
+            "HOLD": {
+              "mean": 0.5227984811090773,
+              "standard_deviation": 0.05395770736623375,
+              "worst": 0.4662064662064662,
+              "count": 4
+            },
+            "BUY": {
+              "mean": 0.5413415391259938,
+              "standard_deviation": 0.0031050006211162423,
+              "worst": 0.5378858398182969,
+              "count": 4
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              302,
+              147,
+              146
+            ],
+            [
+              226,
+              116,
+              125
+            ],
+            [
+              246,
+              102,
+              133
+            ]
+          ],
+          "pooled_buy_precision": 0.3292079207920792,
+          "pooled_buy_recall": 0.2765072765072765,
+          "pooled_buy_coverage": 0.26182760855476345,
+          "buy_prediction_count": 404
+        },
+        "loso": {
+          "evaluations": 20,
+          "samples": 1543,
+          "macro_f1": {
+            "mean": 0.30150637401026625,
+            "standard_deviation": 0.05059380481509394,
+            "worst": 0.19672838009000995,
+            "count": 20
+          },
+          "macro_auc": {
+            "mean": 0.49650318210549366,
+            "standard_deviation": 0.047337687245263105,
+            "worst": 0.40160256410256406,
+            "count": 20
+          },
+          "buy_precision": {
+            "mean": 0.3052092799591674,
+            "standard_deviation": 0.10573353971536174,
+            "worst": 0.10526315789473684,
+            "count": 20
+          },
+          "buy_recall": {
+            "mean": 0.25990313382804314,
+            "standard_deviation": 0.15320712589420485,
+            "worst": 0.041666666666666664,
+            "count": 20
+          },
+          "buy_coverage": {
+            "mean": 0.26642106946724453,
+            "standard_deviation": 0.1514946204920094,
+            "worst": 0.0375,
+            "count": 20
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.4866810468292659,
+              "standard_deviation": 0.07535230781011723,
+              "worst": 0.34,
+              "count": 20
+            },
+            "HOLD": {
+              "mean": 0.5004813705952651,
+              "standard_deviation": 0.06987543952675482,
+              "worst": 0.38644067796610165,
+              "count": 20
+            },
+            "BUY": {
+              "mean": 0.5023471288919501,
+              "standard_deviation": 0.05446733774469608,
+              "worst": 0.3798076923076923,
+              "count": 20
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              247,
+              189,
+              159
+            ],
+            [
+              197,
+              146,
+              124
+            ],
+            [
+              242,
+              113,
+              126
+            ]
+          ],
+          "pooled_buy_precision": 0.3080684596577017,
+          "pooled_buy_recall": 0.26195426195426197,
+          "pooled_buy_coverage": 0.2650680492546986,
+          "buy_prediction_count": 409
+        }
+      },
+      "xgboost": {
+        "walk_forward": {
+          "evaluations": 4,
+          "samples": 1543,
+          "macro_f1": {
+            "mean": 0.32697004333663837,
+            "standard_deviation": 0.026527744022132673,
+            "worst": 0.29381856666616685,
+            "count": 4
+          },
+          "macro_auc": {
+            "mean": 0.5061177936230656,
+            "standard_deviation": 0.02631216795043348,
+            "worst": 0.48808697276167146,
+            "count": 4
+          },
+          "buy_precision": {
+            "mean": 0.34680377938581186,
+            "standard_deviation": 0.03731184540736635,
+            "worst": 0.3082191780821918,
+            "count": 4
+          },
+          "buy_recall": {
+            "mean": 0.23952840150098192,
+            "standard_deviation": 0.14203206203373023,
+            "worst": 0.11278195488721804,
+            "count": 4
+          },
+          "buy_coverage": {
+            "mean": 0.211603832451348,
+            "standard_deviation": 0.11931783028393038,
+            "worst": 0.10776942355889724,
+            "count": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.48538176431267177,
+              "standard_deviation": 0.03948334700013687,
+              "worst": 0.442199413489736,
+              "count": 4
+            },
+            "HOLD": {
+              "mean": 0.5088829652498678,
+              "standard_deviation": 0.044941384878141435,
+              "worst": 0.47208491761723703,
+              "count": 4
+            },
+            "BUY": {
+              "mean": 0.5240886513066574,
+              "standard_deviation": 0.008788514288970614,
+              "worst": 0.5139634801288936,
+              "count": 4
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              316,
+              153,
+              126
+            ],
+            [
+              259,
+              119,
+              89
+            ],
+            [
+              285,
+              87,
+              109
+            ]
+          ],
+          "pooled_buy_precision": 0.33641975308641975,
+          "pooled_buy_recall": 0.22661122661122662,
+          "pooled_buy_coverage": 0.2099805573558004,
+          "buy_prediction_count": 324
+        },
+        "loso": {
+          "evaluations": 20,
+          "samples": 1543,
+          "macro_f1": {
+            "mean": 0.3064834264838923,
+            "standard_deviation": 0.06323606000740045,
+            "worst": 0.21437407785722393,
+            "count": 20
+          },
+          "macro_auc": {
+            "mean": 0.4934075851073539,
+            "standard_deviation": 0.048083246773428505,
+            "worst": 0.43300828945360204,
+            "count": 20
+          },
+          "buy_precision": {
+            "mean": 0.29166576543511524,
+            "standard_deviation": 0.15265522227151426,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_recall": {
+            "mean": 0.22203142186331837,
+            "standard_deviation": 0.15872057744513723,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_coverage": {
+            "mean": 0.2141091868406763,
+            "standard_deviation": 0.12823432445620164,
+            "worst": 0.05714285714285714,
+            "count": 20
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.49348797946258316,
+              "standard_deviation": 0.06103709937921096,
+              "worst": 0.42613636363636365,
+              "count": 20
+            },
+            "HOLD": {
+              "mean": 0.4901699325818664,
+              "standard_deviation": 0.05801908519560894,
+              "worst": 0.411864406779661,
+              "count": 20
+            },
+            "BUY": {
+              "mean": 0.49656484327761197,
+              "standard_deviation": 0.08477863602709913,
+              "worst": 0.3056640625,
+              "count": 20
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              304,
+              155,
+              136
+            ],
+            [
+              246,
+              129,
+              92
+            ],
+            [
+              271,
+              108,
+              102
+            ]
+          ],
+          "pooled_buy_precision": 0.3090909090909091,
+          "pooled_buy_recall": 0.21205821205821207,
+          "pooled_buy_coverage": 0.21386908619572262,
+          "buy_prediction_count": 330
+        }
+      },
+      "gru": {
+        "walk_forward": {
+          "evaluations": 4,
+          "samples": 1543,
+          "macro_f1": {
+            "mean": 0.31602384358755276,
+            "standard_deviation": 0.009195968526975063,
+            "worst": 0.30794019673483425,
+            "count": 4
+          },
+          "macro_auc": {
+            "mean": 0.4951265638597415,
+            "standard_deviation": 0.02417104466391987,
+            "worst": 0.45926734553985,
+            "count": 4
+          },
+          "buy_precision": {
+            "mean": 0.30724588933843006,
+            "standard_deviation": 0.028427504810846084,
+            "worst": 0.2681564245810056,
+            "count": 4
+          },
+          "buy_recall": {
+            "mean": 0.2885007630430643,
+            "standard_deviation": 0.12812940974414103,
+            "worst": 0.19626168224299065,
+            "count": 4
+          },
+          "buy_coverage": {
+            "mean": 0.29026171108891896,
+            "standard_deviation": 0.12453508395868751,
+            "worst": 0.1871508379888268,
+            "count": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.482642266292198,
+              "standard_deviation": 0.038739242088842635,
+              "worst": 0.4284750733137831,
+              "count": 4
+            },
+            "HOLD": {
+              "mean": 0.5043050078938487,
+              "standard_deviation": 0.03752186217005649,
+              "worst": 0.45045760947004987,
+              "count": 4
+            },
+            "BUY": {
+              "mean": 0.49843241739317795,
+              "standard_deviation": 0.011931471885218113,
+              "worst": 0.4867833006322215,
+              "count": 4
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              237,
+              187,
+              171
+            ],
+            [
+              183,
+              141,
+              143
+            ],
+            [
+              198,
+              148,
+              135
+            ]
+          ],
+          "pooled_buy_precision": 0.30066815144766146,
+          "pooled_buy_recall": 0.2806652806652807,
+          "pooled_buy_coverage": 0.29099157485418015,
+          "buy_prediction_count": 449
+        },
+        "loso": {
+          "evaluations": 20,
+          "samples": 1543,
+          "macro_f1": {
+            "mean": 0.29345984363164834,
+            "standard_deviation": 0.04467594918051782,
+            "worst": 0.2009520492279113,
+            "count": 20
+          },
+          "macro_auc": {
+            "mean": 0.4811713376389565,
+            "standard_deviation": 0.04761592650799109,
+            "worst": 0.3869444444444445,
+            "count": 20
+          },
+          "buy_precision": {
+            "mean": 0.29532400067229786,
+            "standard_deviation": 0.13209471691822888,
+            "worst": 0.11764705882352941,
+            "count": 20
+          },
+          "buy_recall": {
+            "mean": 0.25376607166602627,
+            "standard_deviation": 0.15901785564612556,
+            "worst": 0.08333333333333333,
+            "count": 20
+          },
+          "buy_coverage": {
+            "mean": 0.26325066007425413,
+            "standard_deviation": 0.1348616390515893,
+            "worst": 0.1,
+            "count": 20
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.479412176796793,
+              "standard_deviation": 0.051351812960683946,
+              "worst": 0.41208791208791207,
+              "count": 20
+            },
+            "HOLD": {
+              "mean": 0.48642086324635636,
+              "standard_deviation": 0.0841518028550533,
+              "worst": 0.27143778207608,
+              "count": 20
+            },
+            "BUY": {
+              "mean": 0.4776809728737197,
+              "standard_deviation": 0.05054499521227274,
+              "worst": 0.39583333333333337,
+              "count": 20
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              228,
+              202,
+              165
+            ],
+            [
+              191,
+              149,
+              127
+            ],
+            [
+              194,
+              174,
+              113
+            ]
+          ],
+          "pooled_buy_precision": 0.27901234567901234,
+          "pooled_buy_recall": 0.23492723492723494,
+          "pooled_buy_coverage": 0.26247569669475046,
+          "buy_prediction_count": 405
+        }
+      }
+    },
+    "financial": {
+      "random_forest": {
+        "walk_forward": {
+          "evaluations": 4,
+          "samples": 1555,
+          "macro_f1": {
+            "mean": 0.3650341436988379,
+            "standard_deviation": 0.02039048292511478,
+            "worst": 0.34265173750502115,
+            "count": 4
+          },
+          "macro_auc": {
+            "mean": 0.5283386216175239,
+            "standard_deviation": 0.020881309400586117,
+            "worst": 0.5027342226283645,
+            "count": 4
+          },
+          "buy_precision": {
+            "mean": 0.2800956692977592,
+            "standard_deviation": 0.06799751881690988,
+            "worst": 0.21739130434782608,
+            "count": 4
+          },
+          "buy_recall": {
+            "mean": 0.21847652505969495,
+            "standard_deviation": 0.06936182101864287,
+            "worst": 0.15492957746478872,
+            "count": 4
+          },
+          "buy_coverage": {
+            "mean": 0.17623289422361632,
+            "standard_deviation": 0.06443053637843069,
+            "worst": 0.10831234256926953,
+            "count": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.5309284008876238,
+              "standard_deviation": 0.03017494405060921,
+              "worst": 0.4958225295303947,
+              "count": 4
+            },
+            "HOLD": {
+              "mean": 0.5190868858049174,
+              "standard_deviation": 0.04579968871043479,
+              "worst": 0.4514321295143213,
+              "count": 4
+            },
+            "BUY": {
+              "mean": 0.5350005781600307,
+              "standard_deviation": 0.016461475459244587,
+              "worst": 0.5190674571382792,
+              "count": 4
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              182,
+              253,
+              76
+            ],
+            [
+              212,
+              366,
+              121
+            ],
+            [
+              87,
+              179,
+              79
+            ]
+          ],
+          "pooled_buy_precision": 0.286231884057971,
+          "pooled_buy_recall": 0.2289855072463768,
+          "pooled_buy_coverage": 0.17749196141479098,
+          "buy_prediction_count": 276
+        },
+        "loso": {
+          "evaluations": 20,
+          "samples": 1555,
+          "macro_f1": {
+            "mean": 0.32827590801774764,
+            "standard_deviation": 0.05760354814828006,
+            "worst": 0.2204315095881361,
+            "count": 20
+          },
+          "macro_auc": {
+            "mean": 0.5057615031535276,
+            "standard_deviation": 0.04459635974345152,
+            "worst": 0.448312844864569,
+            "count": 20
+          },
+          "buy_precision": {
+            "mean": 0.2387921809299518,
+            "standard_deviation": 0.11307252220461197,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_recall": {
+            "mean": 0.21219210904060817,
+            "standard_deviation": 0.1511496769691892,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_coverage": {
+            "mean": 0.18725104927109146,
+            "standard_deviation": 0.0721844669070831,
+            "worst": 0.0759493670886076,
+            "count": 20
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.48647802823507497,
+              "standard_deviation": 0.05875421928054013,
+              "worst": 0.36945304437564497,
+              "count": 20
+            },
+            "HOLD": {
+              "mean": 0.5002637756275703,
+              "standard_deviation": 0.06683192698680744,
+              "worst": 0.38046874999999997,
+              "count": 20
+            },
+            "BUY": {
+              "mean": 0.5305427055979377,
+              "standard_deviation": 0.08692336556915031,
+              "worst": 0.35960591133004927,
+              "count": 20
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              148,
+              275,
+              88
+            ],
+            [
+              194,
+              376,
+              129
+            ],
+            [
+              111,
+              159,
+              75
+            ]
+          ],
+          "pooled_buy_precision": 0.2568493150684932,
+          "pooled_buy_recall": 0.21739130434782608,
+          "pooled_buy_coverage": 0.18778135048231512,
+          "buy_prediction_count": 292
+        }
+      },
+      "xgboost": {
+        "walk_forward": {
+          "evaluations": 4,
+          "samples": 1555,
+          "macro_f1": {
+            "mean": 0.34617893545365436,
+            "standard_deviation": 0.026536333702516866,
+            "worst": 0.31304431758638757,
+            "count": 4
+          },
+          "macro_auc": {
+            "mean": 0.5186666486126835,
+            "standard_deviation": 0.02123132311542105,
+            "worst": 0.4940716676803105,
+            "count": 4
+          },
+          "buy_precision": {
+            "mean": 0.2849164822851283,
+            "standard_deviation": 0.08323999345502282,
+            "worst": 0.20253164556962025,
+            "count": 4
+          },
+          "buy_recall": {
+            "mean": 0.17281901949400613,
+            "standard_deviation": 0.04933106606114534,
+            "worst": 0.11267605633802817,
+            "count": 4
+          },
+          "buy_coverage": {
+            "mean": 0.1396728003303624,
+            "standard_deviation": 0.05243567364146336,
+            "worst": 0.07808564231738035,
+            "count": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.5138880315121267,
+              "standard_deviation": 0.0423011863370434,
+              "worst": 0.48127340823970033,
+              "count": 4
+            },
+            "HOLD": {
+              "mean": 0.4910613674036923,
+              "standard_deviation": 0.03577616369057119,
+              "worst": 0.45773661270236615,
+              "count": 4
+            },
+            "BUY": {
+              "mean": 0.5510505469222317,
+              "standard_deviation": 0.015233783880791933,
+              "worst": 0.5327838827838828,
+              "count": 4
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              169,
+              281,
+              61
+            ],
+            [
+              223,
+              381,
+              95
+            ],
+            [
+              99,
+              184,
+              62
+            ]
+          ],
+          "pooled_buy_precision": 0.28440366972477066,
+          "pooled_buy_recall": 0.17971014492753623,
+          "pooled_buy_coverage": 0.14019292604501607,
+          "buy_prediction_count": 218
+        },
+        "loso": {
+          "evaluations": 20,
+          "samples": 1555,
+          "macro_f1": {
+            "mean": 0.31677765656724866,
+            "standard_deviation": 0.040266898820909884,
+            "worst": 0.25438596491228066,
+            "count": 20
+          },
+          "macro_auc": {
+            "mean": 0.5051819627402723,
+            "standard_deviation": 0.04573000012054632,
+            "worst": 0.3986153687632201,
+            "count": 20
+          },
+          "buy_precision": {
+            "mean": 0.2532274850753112,
+            "standard_deviation": 0.14669052792304937,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_recall": {
+            "mean": 0.15723032798951495,
+            "standard_deviation": 0.11205929985556515,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_coverage": {
+            "mean": 0.13487182707119416,
+            "standard_deviation": 0.062205692946230025,
+            "worst": 0.06329113924050633,
+            "count": 20
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.4767804806240067,
+              "standard_deviation": 0.06269264766512792,
+              "worst": 0.36635706914344685,
+              "count": 20
+            },
+            "HOLD": {
+              "mean": 0.4959081105752402,
+              "standard_deviation": 0.06711578340426912,
+              "worst": 0.33203125,
+              "count": 20
+            },
+            "BUY": {
+              "mean": 0.54285729702157,
+              "standard_deviation": 0.09481055206875327,
+              "worst": 0.3908045977011494,
+              "count": 20
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              143,
+              295,
+              73
+            ],
+            [
+              216,
+              399,
+              84
+            ],
+            [
+              105,
+              186,
+              54
+            ]
+          ],
+          "pooled_buy_precision": 0.2559241706161137,
+          "pooled_buy_recall": 0.1565217391304348,
+          "pooled_buy_coverage": 0.13569131832797426,
+          "buy_prediction_count": 211
+        }
+      },
+      "gru": {
+        "walk_forward": {
+          "evaluations": 4,
+          "samples": 1555,
+          "macro_f1": {
+            "mean": 0.35100548945957144,
+            "standard_deviation": 0.014527004955647104,
+            "worst": 0.3326391752123124,
+            "count": 4
+          },
+          "macro_auc": {
+            "mean": 0.5281571662629272,
+            "standard_deviation": 0.03090404389273659,
+            "worst": 0.506652085575643,
+            "count": 4
+          },
+          "buy_precision": {
+            "mean": 0.2639775142160638,
+            "standard_deviation": 0.04338837523925428,
+            "worst": 0.20279720279720279,
+            "count": 4
+          },
+          "buy_recall": {
+            "mean": 0.3717920146650758,
+            "standard_deviation": 0.053412822464569534,
+            "worst": 0.3333333333333333,
+            "count": 4
+          },
+          "buy_coverage": {
+            "mean": 0.312474195220559,
+            "standard_deviation": 0.057803095989238995,
+            "worst": 0.22921914357682618,
+            "count": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.5075191114381712,
+              "standard_deviation": 0.030112913108372094,
+              "worst": 0.46953971119133575,
+              "count": 4
+            },
+            "HOLD": {
+              "mean": 0.5273921599339895,
+              "standard_deviation": 0.055001706683661264,
+              "worst": 0.4490049751243781,
+              "count": 4
+            },
+            "BUY": {
+              "mean": 0.5495602274166207,
+              "standard_deviation": 0.04904615353600103,
+              "worst": 0.5012818458580356,
+              "count": 4
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              194,
+              154,
+              163
+            ],
+            [
+              268,
+              236,
+              195
+            ],
+            [
+              110,
+              108,
+              127
+            ]
+          ],
+          "pooled_buy_precision": 0.2618556701030928,
+          "pooled_buy_recall": 0.3681159420289855,
+          "pooled_buy_coverage": 0.31189710610932475,
+          "buy_prediction_count": 485
+        },
+        "loso": {
+          "evaluations": 20,
+          "samples": 1555,
+          "macro_f1": {
+            "mean": 0.3296367581478047,
+            "standard_deviation": 0.041097543438685435,
+            "worst": 0.24518999518999518,
+            "count": 20
+          },
+          "macro_auc": {
+            "mean": 0.5211828988063563,
+            "standard_deviation": 0.05772620473254387,
+            "worst": 0.38337541116538176,
+            "count": 20
+          },
+          "buy_precision": {
+            "mean": 0.25175133438518194,
+            "standard_deviation": 0.06924866606296487,
+            "worst": 0.10344827586206896,
+            "count": 20
+          },
+          "buy_recall": {
+            "mean": 0.3050325527735004,
+            "standard_deviation": 0.11662210784377937,
+            "worst": 0.15384615384615385,
+            "count": 20
+          },
+          "buy_coverage": {
+            "mean": 0.2643252991538857,
+            "standard_deviation": 0.08711870670303881,
+            "worst": 0.125,
+            "count": 20
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.48313239174343287,
+              "standard_deviation": 0.07678360971105337,
+              "worst": 0.31999999999999995,
+              "count": 20
+            },
+            "HOLD": {
+              "mean": 0.5244108635423458,
+              "standard_deviation": 0.09999482091572219,
+              "worst": 0.3555555555555555,
+              "count": 20
+            },
+            "BUY": {
+              "mean": 0.5560054411332901,
+              "standard_deviation": 0.09816545937367822,
+              "worst": 0.38958333333333334,
+              "count": 20
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              227,
+              143,
+              141
+            ],
+            [
+              328,
+              203,
+              168
+            ],
+            [
+              150,
+              93,
+              102
+            ]
+          ],
+          "pooled_buy_precision": 0.24817518248175183,
+          "pooled_buy_recall": 0.2956521739130435,
+          "pooled_buy_coverage": 0.2643086816720257,
+          "buy_prediction_count": 411
+        }
+      }
+    }
+  },
+  "volatility_k_0_50": {
+    "technology": {
+      "random_forest": {
+        "walk_forward": {
+          "evaluations": 4,
+          "samples": 1543,
+          "macro_f1": {
+            "mean": 0.32074859702859415,
+            "standard_deviation": 0.008929301499344323,
+            "worst": 0.31329177607665437,
+            "count": 4
+          },
+          "macro_auc": {
+            "mean": 0.5051301559138435,
+            "standard_deviation": 0.015412205315286143,
+            "worst": 0.4887181598346117,
+            "count": 4
+          },
+          "buy_precision": {
+            "mean": 0.21869699557291464,
+            "standard_deviation": 0.01558210583186951,
+            "worst": 0.19642857142857142,
+            "count": 4
+          },
+          "buy_recall": {
+            "mean": 0.17070631914381915,
+            "standard_deviation": 0.12072020820763074,
+            "worst": 0.09259259259259259,
+            "count": 4
+          },
+          "buy_coverage": {
+            "mean": 0.1755341518309474,
+            "standard_deviation": 0.09639285412305917,
+            "worst": 0.10776942355889724,
+            "count": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.5137024179563645,
+              "standard_deviation": 0.03788278671767563,
+              "worst": 0.47049033414415564,
+              "count": 4
+            },
+            "HOLD": {
+              "mean": 0.5041901461332123,
+              "standard_deviation": 0.017440781420391675,
+              "worst": 0.4853623617693523,
+              "count": 4
+            },
+            "BUY": {
+              "mean": 0.4974979036519538,
+              "standard_deviation": 0.022444232772129778,
+              "worst": 0.4680857833778796,
+              "count": 4
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              188,
+              200,
+              77
+            ],
+            [
+              273,
+              302,
+              134
+            ],
+            [
+              157,
+              153,
+              59
+            ]
+          ],
+          "pooled_buy_precision": 0.21851851851851853,
+          "pooled_buy_recall": 0.15989159891598917,
+          "pooled_buy_coverage": 0.17498379779650033,
+          "buy_prediction_count": 270
+        },
+        "loso": {
+          "evaluations": 20,
+          "samples": 1543,
+          "macro_f1": {
+            "mean": 0.31062552725196435,
+            "standard_deviation": 0.06362378495326836,
+            "worst": 0.22916666666666666,
+            "count": 20
+          },
+          "macro_auc": {
+            "mean": 0.5095808795475281,
+            "standard_deviation": 0.05421718079753204,
+            "worst": 0.40568059653697475,
+            "count": 20
+          },
+          "buy_precision": {
+            "mean": 0.2257509960799434,
+            "standard_deviation": 0.2206925166087569,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_recall": {
+            "mean": 0.16127066703585333,
+            "standard_deviation": 0.18073894750038502,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_coverage": {
+            "mean": 0.15706857071861263,
+            "standard_deviation": 0.11912309321663875,
+            "worst": 0.014285714285714285,
+            "count": 20
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.5123689684515069,
+              "standard_deviation": 0.08784915762321314,
+              "worst": 0.3508474576271186,
+              "count": 20
+            },
+            "HOLD": {
+              "mean": 0.5134321562569786,
+              "standard_deviation": 0.06186901239243765,
+              "worst": 0.37160493827160496,
+              "count": 20
+            },
+            "BUY": {
+              "mean": 0.5029415139340986,
+              "standard_deviation": 0.06808167029668591,
+              "worst": 0.39621365787694385,
+              "count": 20
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              180,
+              216,
+              69
+            ],
+            [
+              260,
+              330,
+              119
+            ],
+            [
+              158,
+              157,
+              54
+            ]
+          ],
+          "pooled_buy_precision": 0.2231404958677686,
+          "pooled_buy_recall": 0.14634146341463414,
+          "pooled_buy_coverage": 0.15683732987686325,
+          "buy_prediction_count": 242
+        }
+      },
+      "xgboost": {
+        "walk_forward": {
+          "evaluations": 4,
+          "samples": 1543,
+          "macro_f1": {
+            "mean": 0.32456561548696417,
+            "standard_deviation": 0.01692423221059953,
+            "worst": 0.29981884057971014,
+            "count": 4
+          },
+          "macro_auc": {
+            "mean": 0.5050981961752993,
+            "standard_deviation": 0.023594002424523218,
+            "worst": 0.48382381877662367,
+            "count": 4
+          },
+          "buy_precision": {
+            "mean": 0.23033486079746815,
+            "standard_deviation": 0.04422905390858295,
+            "worst": 0.1941747572815534,
+            "count": 4
+          },
+          "buy_recall": {
+            "mean": 0.12782963564213562,
+            "standard_deviation": 0.09025617713527247,
+            "worst": 0.05555555555555555,
+            "count": 4
+          },
+          "buy_coverage": {
+            "mean": 0.13125061414560854,
+            "standard_deviation": 0.09212084879590009,
+            "worst": 0.07518796992481203,
+            "count": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.523095681582307,
+              "standard_deviation": 0.032493793697655475,
+              "worst": 0.4804891206617515,
+              "count": 4
+            },
+            "HOLD": {
+              "mean": 0.49981892290006763,
+              "standard_deviation": 0.005686544988187785,
+              "worst": 0.4937310414560162,
+              "count": 4
+            },
+            "BUY": {
+              "mean": 0.4923799840435231,
+              "standard_deviation": 0.04152184808071919,
+              "worst": 0.4424398625429553,
+              "count": 4
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              196,
+              214,
+              55
+            ],
+            [
+              273,
+              333,
+              103
+            ],
+            [
+              144,
+              181,
+              44
+            ]
+          ],
+          "pooled_buy_precision": 0.21782178217821782,
+          "pooled_buy_recall": 0.11924119241192412,
+          "pooled_buy_coverage": 0.13091380427738172,
+          "buy_prediction_count": 202
+        },
+        "loso": {
+          "evaluations": 20,
+          "samples": 1543,
+          "macro_f1": {
+            "mean": 0.30942241461961195,
+            "standard_deviation": 0.051432058733566106,
+            "worst": 0.23594377510040157,
+            "count": 20
+          },
+          "macro_auc": {
+            "mean": 0.5026057668505866,
+            "standard_deviation": 0.044716515854710884,
+            "worst": 0.42439846109665186,
+            "count": 20
+          },
+          "buy_precision": {
+            "mean": 0.20565561631351104,
+            "standard_deviation": 0.15627884144972326,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_recall": {
+            "mean": 0.1253219736988553,
+            "standard_deviation": 0.1266357819849359,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_coverage": {
+            "mean": 0.12966506132406944,
+            "standard_deviation": 0.09200299949279564,
+            "worst": 0.025,
+            "count": 20
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.5180155040852448,
+              "standard_deviation": 0.08794718684730876,
+              "worst": 0.3703349282296651,
+              "count": 20
+            },
+            "HOLD": {
+              "mean": 0.5005550306002139,
+              "standard_deviation": 0.0649125176538352,
+              "worst": 0.3845679012345679,
+              "count": 20
+            },
+            "BUY": {
+              "mean": 0.489246765866301,
+              "standard_deviation": 0.03809794245700695,
+              "worst": 0.396484375,
+              "count": 20
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              167,
+              232,
+              66
+            ],
+            [
+              247,
+              372,
+              90
+            ],
+            [
+              137,
+              189,
+              43
+            ]
+          ],
+          "pooled_buy_precision": 0.21608040201005024,
+          "pooled_buy_recall": 0.11653116531165311,
+          "pooled_buy_coverage": 0.1289695398574206,
+          "buy_prediction_count": 199
+        }
+      },
+      "gru": {
+        "walk_forward": {
+          "evaluations": 4,
+          "samples": 1543,
+          "macro_f1": {
+            "mean": 0.300558670488876,
+            "standard_deviation": 0.03381198512284149,
+            "worst": 0.27660525553369014,
+            "count": 4
+          },
+          "macro_auc": {
+            "mean": 0.48945091599968343,
+            "standard_deviation": 0.03384808276519932,
+            "worst": 0.4445728131831044,
+            "count": 4
+          },
+          "buy_precision": {
+            "mean": 0.21754607783459087,
+            "standard_deviation": 0.04551631965253573,
+            "worst": 0.183206106870229,
+            "count": 4
+          },
+          "buy_recall": {
+            "mean": 0.19576719576719576,
+            "standard_deviation": 0.08058144403420679,
+            "worst": 0.125,
+            "count": 4
+          },
+          "buy_coverage": {
+            "mean": 0.2173666084492069,
+            "standard_deviation": 0.08964053872571891,
+            "worst": 0.14804469273743018,
+            "count": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.48330562993384424,
+              "standard_deviation": 0.03291439993975343,
+              "worst": 0.4367558571245679,
+              "count": 4
+            },
+            "HOLD": {
+              "mean": 0.49965550141167336,
+              "standard_deviation": 0.04849840221440323,
+              "worst": 0.44481799797775534,
+              "count": 4
+            },
+            "BUY": {
+              "mean": 0.4853916166535325,
+              "standard_deviation": 0.025582725181860458,
+              "worst": 0.45214458444699,
+              "count": 4
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              172,
+              189,
+              104
+            ],
+            [
+              285,
+              262,
+              162
+            ],
+            [
+              150,
+              149,
+              70
+            ]
+          ],
+          "pooled_buy_precision": 0.20833333333333334,
+          "pooled_buy_recall": 0.1897018970189702,
+          "pooled_buy_coverage": 0.21775761503564484,
+          "buy_prediction_count": 336
+        },
+        "loso": {
+          "evaluations": 20,
+          "samples": 1543,
+          "macro_f1": {
+            "mean": 0.29424565605644515,
+            "standard_deviation": 0.07137418680154678,
+            "worst": 0.1647028138328884,
+            "count": 20
+          },
+          "macro_auc": {
+            "mean": 0.4762415464549251,
+            "standard_deviation": 0.06890758243694292,
+            "worst": 0.3416839641839642,
+            "count": 20
+          },
+          "buy_precision": {
+            "mean": 0.22454443260310933,
+            "standard_deviation": 0.14177854594837094,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_recall": {
+            "mean": 0.20042892463731582,
+            "standard_deviation": 0.14048042546636408,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_coverage": {
+            "mean": 0.2264155893643351,
+            "standard_deviation": 0.11457678486687187,
+            "worst": 0.0875,
+            "count": 20
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.4732730480706465,
+              "standard_deviation": 0.07852464000300116,
+              "worst": 0.31794871794871793,
+              "count": 20
+            },
+            "HOLD": {
+              "mean": 0.49577590519699954,
+              "standard_deviation": 0.12108210879165533,
+              "worst": 0.227936507936508,
+              "count": 20
+            },
+            "BUY": {
+              "mean": 0.45967568609712944,
+              "standard_deviation": 0.07150755555765825,
+              "worst": 0.30213903743315507,
+              "count": 20
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              169,
+              173,
+              123
+            ],
+            [
+              298,
+              256,
+              155
+            ],
+            [
+              152,
+              145,
+              72
+            ]
+          ],
+          "pooled_buy_precision": 0.2057142857142857,
+          "pooled_buy_recall": 0.1951219512195122,
+          "pooled_buy_coverage": 0.22683084899546338,
+          "buy_prediction_count": 350
+        }
+      }
+    },
+    "financial": {
+      "random_forest": {
+        "walk_forward": {
+          "evaluations": 4,
+          "samples": 1555,
+          "macro_f1": {
+            "mean": 0.32583127495922937,
+            "standard_deviation": 0.01794542652753068,
+            "worst": 0.300819356082514,
+            "count": 4
+          },
+          "macro_auc": {
+            "mean": 0.5073842953556458,
+            "standard_deviation": 0.02071275248192825,
+            "worst": 0.47808264263222283,
+            "count": 4
+          },
+          "buy_precision": {
+            "mean": 0.2029356593957329,
+            "standard_deviation": 0.08127884705659456,
+            "worst": 0.12,
+            "count": 4
+          },
+          "buy_recall": {
+            "mean": 0.15577382923150498,
+            "standard_deviation": 0.05889935706376238,
+            "worst": 0.07317073170731707,
+            "count": 4
+          },
+          "buy_coverage": {
+            "mean": 0.17732929023224062,
+            "standard_deviation": 0.03603795291650902,
+            "worst": 0.12594458438287154,
+            "count": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.5255078360410868,
+              "standard_deviation": 0.010312666291253948,
+              "worst": 0.5136974789915967,
+              "count": 4
+            },
+            "HOLD": {
+              "mean": 0.5032713575678571,
+              "standard_deviation": 0.04762066285500972,
+              "worst": 0.44736432903125484,
+              "count": 4
+            },
+            "BUY": {
+              "mean": 0.4933736924579935,
+              "standard_deviation": 0.013964930466882615,
+              "worst": 0.473186119873817,
+              "count": 4
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              205,
+              250,
+              81
+            ],
+            [
+              215,
+              310,
+              137
+            ],
+            [
+              130,
+              170,
+              57
+            ]
+          ],
+          "pooled_buy_precision": 0.20727272727272728,
+          "pooled_buy_recall": 0.15966386554621848,
+          "pooled_buy_coverage": 0.17684887459807075,
+          "buy_prediction_count": 275
+        },
+        "loso": {
+          "evaluations": 20,
+          "samples": 1555,
+          "macro_f1": {
+            "mean": 0.3112627518557896,
+            "standard_deviation": 0.03697631160068859,
+            "worst": 0.2361045727018799,
+            "count": 20
+          },
+          "macro_auc": {
+            "mean": 0.4930414753157735,
+            "standard_deviation": 0.03922899802269483,
+            "worst": 0.4302206921590747,
+            "count": 20
+          },
+          "buy_precision": {
+            "mean": 0.22656511380776084,
+            "standard_deviation": 0.0973853445544998,
+            "worst": 0.06666666666666667,
+            "count": 20
+          },
+          "buy_recall": {
+            "mean": 0.17774694194072063,
+            "standard_deviation": 0.08530396814668557,
+            "worst": 0.05263157894736842,
+            "count": 20
+          },
+          "buy_coverage": {
+            "mean": 0.18085041189471568,
+            "standard_deviation": 0.054945567636032124,
+            "worst": 0.1,
+            "count": 20
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.4941930004358418,
+              "standard_deviation": 0.053066273742780765,
+              "worst": 0.40510366826156297,
+              "count": 20
+            },
+            "HOLD": {
+              "mean": 0.4752239860485277,
+              "standard_deviation": 0.05296816996584109,
+              "worst": 0.3959608323133415,
+              "count": 20
+            },
+            "BUY": {
+              "mean": 0.5097074394629508,
+              "standard_deviation": 0.06728445996250944,
+              "worst": 0.4131578947368421,
+              "count": 20
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              179,
+              269,
+              88
+            ],
+            [
+              220,
+              314,
+              128
+            ],
+            [
+              115,
+              178,
+              64
+            ]
+          ],
+          "pooled_buy_precision": 0.22857142857142856,
+          "pooled_buy_recall": 0.1792717086834734,
+          "pooled_buy_coverage": 0.18006430868167203,
+          "buy_prediction_count": 280
+        }
+      },
+      "xgboost": {
+        "walk_forward": {
+          "evaluations": 4,
+          "samples": 1555,
+          "macro_f1": {
+            "mean": 0.33949594659939897,
+            "standard_deviation": 0.01668101204502874,
+            "worst": 0.32288430523724637,
+            "count": 4
+          },
+          "macro_auc": {
+            "mean": 0.5148081578427098,
+            "standard_deviation": 0.01810767943494463,
+            "worst": 0.49482883119685533,
+            "count": 4
+          },
+          "buy_precision": {
+            "mean": 0.24589384924805985,
+            "standard_deviation": 0.015298869030485992,
+            "worst": 0.22641509433962265,
+            "count": 4
+          },
+          "buy_recall": {
+            "mean": 0.1818282808334156,
+            "standard_deviation": 0.05041320714384197,
+            "worst": 0.14634146341463414,
+            "count": 4
+          },
+          "buy_coverage": {
+            "mean": 0.16715049446791133,
+            "standard_deviation": 0.031744622560010885,
+            "worst": 0.13350125944584382,
+            "count": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.5190864204114867,
+              "standard_deviation": 0.018872721923321855,
+              "worst": 0.4930627931214173,
+              "count": 4
+            },
+            "HOLD": {
+              "mean": 0.5060683912779781,
+              "standard_deviation": 0.027647542532919688,
+              "worst": 0.4892448038148552,
+              "count": 4
+            },
+            "BUY": {
+              "mean": 0.5192696618386647,
+              "standard_deviation": 0.03045394437261049,
+              "worst": 0.49265559335601355,
+              "count": 4
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              196,
+              257,
+              83
+            ],
+            [
+              221,
+              328,
+              113
+            ],
+            [
+              130,
+              163,
+              64
+            ]
+          ],
+          "pooled_buy_precision": 0.24615384615384617,
+          "pooled_buy_recall": 0.1792717086834734,
+          "pooled_buy_coverage": 0.16720257234726688,
+          "buy_prediction_count": 260
+        },
+        "loso": {
+          "evaluations": 20,
+          "samples": 1555,
+          "macro_f1": {
+            "mean": 0.32432048545384823,
+            "standard_deviation": 0.06554020375231544,
+            "worst": 0.18538668538668537,
+            "count": 20
+          },
+          "macro_auc": {
+            "mean": 0.5076709331553154,
+            "standard_deviation": 0.061542309446646105,
+            "worst": 0.4104553400929587,
+            "count": 20
+          },
+          "buy_precision": {
+            "mean": 0.2626292893552955,
+            "standard_deviation": 0.11898651150793489,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_recall": {
+            "mean": 0.18474513065964437,
+            "standard_deviation": 0.11265956893150565,
+            "worst": 0.0,
+            "count": 20
+          },
+          "buy_coverage": {
+            "mean": 0.1588284162703994,
+            "standard_deviation": 0.06474873244020957,
+            "worst": 0.07407407407407407,
+            "count": 20
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.49089769081994505,
+              "standard_deviation": 0.05778879914575546,
+              "worst": 0.3769100169779287,
+              "count": 20
+            },
+            "HOLD": {
+              "mean": 0.4926358996176511,
+              "standard_deviation": 0.06873739155535681,
+              "worst": 0.37129987129987124,
+              "count": 20
+            },
+            "BUY": {
+              "mean": 0.5394792090283499,
+              "standard_deviation": 0.10460908857394016,
+              "worst": 0.39210526315789473,
+              "count": 20
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              183,
+              270,
+              83
+            ],
+            [
+              228,
+              332,
+              102
+            ],
+            [
+              112,
+              182,
+              63
+            ]
+          ],
+          "pooled_buy_precision": 0.2540322580645161,
+          "pooled_buy_recall": 0.17647058823529413,
+          "pooled_buy_coverage": 0.1594855305466238,
+          "buy_prediction_count": 248
+        }
+      },
+      "gru": {
+        "walk_forward": {
+          "evaluations": 4,
+          "samples": 1555,
+          "macro_f1": {
+            "mean": 0.3500341043194409,
+            "standard_deviation": 0.030439296402917197,
+            "worst": 0.32054576836003107,
+            "count": 4
+          },
+          "macro_auc": {
+            "mean": 0.5187087485398458,
+            "standard_deviation": 0.03737468675049958,
+            "worst": 0.48942374842138553,
+            "count": 4
+          },
+          "buy_precision": {
+            "mean": 0.25682168238873126,
+            "standard_deviation": 0.05481618300065481,
+            "worst": 0.211864406779661,
+            "count": 4
+          },
+          "buy_recall": {
+            "mean": 0.29878774853478474,
+            "standard_deviation": 0.058906645554940386,
+            "worst": 0.23170731707317074,
+            "count": 4
+          },
+          "buy_coverage": {
+            "mean": 0.26988442066059654,
+            "standard_deviation": 0.04905723264676238,
+            "worst": 0.1964735516372796,
+            "count": 4
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.5024220647563657,
+              "standard_deviation": 0.030606414451367227,
+              "worst": 0.4718603439291298,
+              "count": 4
+            },
+            "HOLD": {
+              "mean": 0.5203871295602047,
+              "standard_deviation": 0.0606984172810452,
+              "worst": 0.4410557184750733,
+              "count": 4
+            },
+            "BUY": {
+              "mean": 0.533317051302967,
+              "standard_deviation": 0.05213659146986912,
+              "worst": 0.4771495591684866,
+              "count": 4
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              225,
+              164,
+              147
+            ],
+            [
+              260,
+              237,
+              165
+            ],
+            [
+              125,
+              125,
+              107
+            ]
+          ],
+          "pooled_buy_precision": 0.2553699284009546,
+          "pooled_buy_recall": 0.29971988795518206,
+          "pooled_buy_coverage": 0.2694533762057878,
+          "buy_prediction_count": 419
+        },
+        "loso": {
+          "evaluations": 20,
+          "samples": 1555,
+          "macro_f1": {
+            "mean": 0.32192876161525097,
+            "standard_deviation": 0.04315005291030724,
+            "worst": 0.26438746438746435,
+            "count": 20
+          },
+          "macro_auc": {
+            "mean": 0.5096370985873978,
+            "standard_deviation": 0.05713927188720332,
+            "worst": 0.3702038121740869,
+            "count": 20
+          },
+          "buy_precision": {
+            "mean": 0.2435417743964655,
+            "standard_deviation": 0.07650428091394743,
+            "worst": 0.10526315789473684,
+            "count": 20
+          },
+          "buy_recall": {
+            "mean": 0.29919173038241315,
+            "standard_deviation": 0.11952908395902737,
+            "worst": 0.11764705882352941,
+            "count": 20
+          },
+          "buy_coverage": {
+            "mean": 0.2807190995244793,
+            "standard_deviation": 0.07372184975856957,
+            "worst": 0.125,
+            "count": 20
+          },
+          "individual_auc": {
+            "SELL": {
+              "mean": 0.48479219595749523,
+              "standard_deviation": 0.07163696103620092,
+              "worst": 0.33786078098471983,
+              "count": 20
+            },
+            "HOLD": {
+              "mean": 0.5063200906227429,
+              "standard_deviation": 0.10249315034975919,
+              "worst": 0.3141025641025641,
+              "count": 20
+            },
+            "BUY": {
+              "mean": 0.5377990091819556,
+              "standard_deviation": 0.09508466729248043,
+              "worst": 0.36593406593406597,
+              "count": 20
+            }
+          },
+          "confusion_matrix_sum": [
+            [
+              234,
+              150,
+              152
+            ],
+            [
+              300,
+              187,
+              175
+            ],
+            [
+              144,
+              106,
+              107
+            ]
+          ],
+          "pooled_buy_precision": 0.2465437788018433,
+          "pooled_buy_recall": 0.29971988795518206,
+          "pooled_buy_coverage": 0.2790996784565916,
+          "buy_prediction_count": 434
+        }
+      }
+    }
+  }
+}

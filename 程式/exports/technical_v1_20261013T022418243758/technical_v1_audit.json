@@ -1,0 +1,429 @@
+{
+  "generated_at": "2026-10-13T02:24:18+08:00",
+  "run_id": "20261013T022418243758",
+  "experiment_id": "technical-v1-20261010-v1",
+  "config_path": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\configs\\technical_v1_research.json",
+  "config_fingerprint": "2775109cd5d7ae95f0e906a6b628d0cc2f4e6d9eb60449e1b86f957e616c0f04",
+  "requested_role": "training",
+  "queried_roles": [
+    "training"
+  ],
+  "forbidden_roles_queried": [],
+  "locked_periods": {
+    "validation": "NOT_QUERIED_THIS_ROUND",
+    "additional_holdout": "LOCKED_NOT_QUERIED",
+    "development_seen": "NOT_QUERIED_THIS_ROUND",
+    "final_out_of_sample": "LOCKED_NOT_QUERIED"
+  },
+  "preflight_only": true,
+  "freeze_manifest_created": false,
+  "outputs": [
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\exports\\technical_v1_20261013T022418243758\\technical_v1_audit.json"
+  ],
+  "market_data_preflight": {
+    "status": "BLOCKED_MISSING_DATA",
+    "complete": false,
+    "database_path": "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\data\\market_data.sqlite3",
+    "reason": "2303: 每日根數／首末棒／5 分鐘間隔異常 3 日；2330: 每日根數／首末棒／5 分鐘間隔異常 3 日；2454: 每日根數／首末棒／5 分鐘間隔異常 4 日；2317: 每日根數／首末棒／5 分鐘間隔異常 3 日；2382: 相對共同交易日曆缺少 1 日；2382: 每日根數／首末棒／5 分鐘間隔異常 2 日",
+    "schema_columns": [
+      "stock_code",
+      "freq_minutes",
+      "range_start",
+      "range_end",
+      "kbar_timestamp",
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume"
+    ],
+    "schema_initialized": false,
+    "query_role": "training",
+    "query_period": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    },
+    "query_timestamp_bounds": {
+      "lower_inclusive": 1672502400,
+      "upper_exclusive": 1735660800
+    },
+    "forbidden_roles_queried": [],
+    "non_five_minute_rows_ignored": 0,
+    "calendar_basis": "union_of_confirmed_universe",
+    "calendar_day_count": 482,
+    "stock_checks": [
+      {
+        "stock_code": "2303",
+        "bar_count": 26453,
+        "actual_first_timestamp": "2023-01-03T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-31T13:30:00+08:00",
+        "trading_day_count": 482,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [
+          {
+            "date": "2023-07-13",
+            "bar_count": 52,
+            "first_bar_time": "09:00",
+            "last_bar_time": "13:25",
+            "cadence_errors": 1
+          },
+          {
+            "date": "2024-01-10",
+            "bar_count": 53,
+            "first_bar_time": "09:00",
+            "last_bar_time": "13:25",
+            "cadence_errors": 1
+          },
+          {
+            "date": "2024-12-01",
+            "bar_count": 1,
+            "first_bar_time": "09:00",
+            "last_bar_time": "09:00",
+            "cadence_errors": 0
+          }
+        ],
+        "cadence_error_count": 2,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 6215,
+            "evaluation_bar_count": 6928,
+            "evaluation_trading_day_count": 126,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 13143,
+            "evaluation_bar_count": 6434,
+            "evaluation_trading_day_count": 117,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 19577,
+            "evaluation_bar_count": 6876,
+            "evaluation_trading_day_count": 126,
+            "complete": true,
+            "problems": []
+          }
+        ],
+        "complete": false,
+        "problems": [
+          "每日根數／首末棒／5 分鐘間隔異常 3 日"
+        ]
+      },
+      {
+        "stock_code": "2330",
+        "bar_count": 26453,
+        "actual_first_timestamp": "2023-01-03T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-31T13:30:00+08:00",
+        "trading_day_count": 482,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [
+          {
+            "date": "2023-07-13",
+            "bar_count": 52,
+            "first_bar_time": "09:00",
+            "last_bar_time": "13:25",
+            "cadence_errors": 1
+          },
+          {
+            "date": "2024-01-10",
+            "bar_count": 53,
+            "first_bar_time": "09:00",
+            "last_bar_time": "13:25",
+            "cadence_errors": 1
+          },
+          {
+            "date": "2024-12-01",
+            "bar_count": 1,
+            "first_bar_time": "09:00",
+            "last_bar_time": "09:00",
+            "cadence_errors": 0
+          }
+        ],
+        "cadence_error_count": 2,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 6215,
+            "evaluation_bar_count": 6928,
+            "evaluation_trading_day_count": 126,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 13143,
+            "evaluation_bar_count": 6434,
+            "evaluation_trading_day_count": 117,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 19577,
+            "evaluation_bar_count": 6876,
+            "evaluation_trading_day_count": 126,
+            "complete": true,
+            "problems": []
+          }
+        ],
+        "complete": false,
+        "problems": [
+          "每日根數／首末棒／5 分鐘間隔異常 3 日"
+        ]
+      },
+      {
+        "stock_code": "2454",
+        "bar_count": 26451,
+        "actual_first_timestamp": "2023-01-03T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-31T13:30:00+08:00",
+        "trading_day_count": 482,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [
+          {
+            "date": "2023-07-13",
+            "bar_count": 52,
+            "first_bar_time": "09:00",
+            "last_bar_time": "13:25",
+            "cadence_errors": 1
+          },
+          {
+            "date": "2024-01-10",
+            "bar_count": 52,
+            "first_bar_time": "09:00",
+            "last_bar_time": "13:25",
+            "cadence_errors": 2
+          },
+          {
+            "date": "2024-10-30",
+            "bar_count": 53,
+            "first_bar_time": "09:00",
+            "last_bar_time": "13:25",
+            "cadence_errors": 1
+          },
+          {
+            "date": "2024-12-01",
+            "bar_count": 1,
+            "first_bar_time": "09:00",
+            "last_bar_time": "09:00",
+            "cadence_errors": 0
+          }
+        ],
+        "cadence_error_count": 4,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 6215,
+            "evaluation_bar_count": 6928,
+            "evaluation_trading_day_count": 126,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 13143,
+            "evaluation_bar_count": 6433,
+            "evaluation_trading_day_count": 117,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 19576,
+            "evaluation_bar_count": 6875,
+            "evaluation_trading_day_count": 126,
+            "complete": true,
+            "problems": []
+          }
+        ],
+        "complete": false,
+        "problems": [
+          "每日根數／首末棒／5 分鐘間隔異常 4 日"
+        ]
+      },
+      {
+        "stock_code": "2317",
+        "bar_count": 26452,
+        "actual_first_timestamp": "2023-01-03T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-31T13:30:00+08:00",
+        "trading_day_count": 482,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [],
+        "incomplete_trading_days": [
+          {
+            "date": "2023-07-13",
+            "bar_count": 52,
+            "first_bar_time": "09:00",
+            "last_bar_time": "13:25",
+            "cadence_errors": 1
+          },
+          {
+            "date": "2024-01-10",
+            "bar_count": 52,
+            "first_bar_time": "09:00",
+            "last_bar_time": "13:25",
+            "cadence_errors": 2
+          },
+          {
+            "date": "2024-12-01",
+            "bar_count": 1,
+            "first_bar_time": "09:00",
+            "last_bar_time": "09:00",
+            "cadence_errors": 0
+          }
+        ],
+        "cadence_error_count": 3,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 6215,
+            "evaluation_bar_count": 6928,
+            "evaluation_trading_day_count": 126,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 13143,
+            "evaluation_bar_count": 6433,
+            "evaluation_trading_day_count": 117,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 19576,
+            "evaluation_bar_count": 6876,
+            "evaluation_trading_day_count": 126,
+            "complete": true,
+            "problems": []
+          }
+        ],
+        "complete": false,
+        "problems": [
+          "每日根數／首末棒／5 分鐘間隔異常 3 日"
+        ]
+      },
+      {
+        "stock_code": "2382",
+        "bar_count": 26452,
+        "actual_first_timestamp": "2023-01-03T09:00:00+08:00",
+        "actual_last_timestamp": "2024-12-31T13:30:00+08:00",
+        "trading_day_count": 481,
+        "duplicate_timestamp_count": 0,
+        "missing_trading_days": [
+          "2024-12-01"
+        ],
+        "incomplete_trading_days": [
+          {
+            "date": "2023-07-13",
+            "bar_count": 52,
+            "first_bar_time": "09:00",
+            "last_bar_time": "13:25",
+            "cadence_errors": 1
+          },
+          {
+            "date": "2024-01-10",
+            "bar_count": 53,
+            "first_bar_time": "09:00",
+            "last_bar_time": "13:25",
+            "cadence_errors": 1
+          }
+        ],
+        "cadence_error_count": 2,
+        "invalid_ohlcv_count": 0,
+        "fold_checks": [
+          {
+            "fold_id": "WF1",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2023-07-01",
+            "evaluate_end": "2023-12-31",
+            "warmup_bar_count": 6215,
+            "evaluation_bar_count": 6928,
+            "evaluation_trading_day_count": 126,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF2",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-01-01",
+            "evaluate_end": "2024-06-30",
+            "warmup_bar_count": 13143,
+            "evaluation_bar_count": 6434,
+            "evaluation_trading_day_count": 117,
+            "complete": true,
+            "problems": []
+          },
+          {
+            "fold_id": "WF3",
+            "load_start": "2023-01-01",
+            "evaluate_start": "2024-07-01",
+            "evaluate_end": "2024-12-31",
+            "warmup_bar_count": 19577,
+            "evaluation_bar_count": 6875,
+            "evaluation_trading_day_count": 125,
+            "complete": true,
+            "problems": []
+          }
+        ],
+        "complete": false,
+        "problems": [
+          "相對共同交易日曆缺少 1 日",
+          "每日根數／首末棒／5 分鐘間隔異常 2 日"
+        ]
+      }
+    ],
+    "import_command": "uv run python \"C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\scripts\\import_technical_v1_training_kbars.py\" --database \"C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\data\\market_data.sqlite3\""
+  },
+  "status": "BLOCKED_MISSING_DATA",
+  "reason": "2303: 每日根數／首末棒／5 分鐘間隔異常 3 日；2330: 每日根數／首末棒／5 分鐘間隔異常 3 日；2454: 每日根數／首末棒／5 分鐘間隔異常 4 日；2317: 每日根數／首末棒／5 分鐘間隔異常 3 日；2382: 相對共同交易日曆缺少 1 日；2382: 每日根數／首末棒／5 分鐘間隔異常 2 日",
+  "conclusion": "資料缺少或不完整；只產生 audit，未執行回測、未產生績效檔、未凍結候選。"
+}

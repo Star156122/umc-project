@@ -1,0 +1,156 @@
+{
+  "experiment_id": "ml-v1-temporal-round2-preflight-20261012",
+  "status": "PREFLIGHT_REVIEW_REQUIRED_NOT_AUTHORIZED_FOR_TRAINING",
+  "scope": "machine_learning_only",
+  "hypothesis": "Past three trading sessions of the existing intraday sequence may better match the fixed three-session prediction horizon than Day T alone.",
+  "baseline": {
+    "research_config": "configs/ml_v1_research.json",
+    "phase_b_config": "configs/ml_v1_phase_b.json",
+    "walk_forward_protocol": "configs/ml_training_protocol_v3.json",
+    "label_version": "ml_v1_fixed_1pct",
+    "baseline_sequence_policy": "EXACT_24_BARS_11_35_TO_13_30",
+    "baseline_timesteps": 24,
+    "model_ready_samples": 4532
+  },
+  "data": {
+    "role": "train",
+    "start": "2023-01-01",
+    "end": "2024-12-31",
+    "database": "data/market_data.sqlite3",
+    "read_only": true
+  },
+  "stock_universe": {
+    "technology": ["2303", "2330", "2379", "2454", "3034"],
+    "financial": ["2881", "2882", "2884", "2886", "2891"]
+  },
+  "fixed_contract": {
+    "classes": ["SELL", "HOLD", "BUY"],
+    "decision_time": "13:30:00",
+    "prediction_horizon_sessions": 3,
+    "target": "Day T+1 Open to Day T+3 Close",
+    "label_thresholds": {"SELL": -0.01, "BUY": 0.01},
+    "core_feature_version": "feature_set_a_v3_24",
+    "core_feature_count": 24,
+    "gru_static_features": ["volume_trend_5d", "volume_trend_20d"],
+    "context_round1_features_used": false,
+    "probability_threshold_search": false,
+    "hyperparameters_unchanged": true
+  },
+  "session": {
+    "raw_bar_timestamp_semantics": "five_minute_bucket_start; 13:30 is a closing-auction one-price bar",
+    "first_timestamp": "09:00:00",
+    "last_timestamp": "13:30:00",
+    "expected_raw_bars": 55,
+    "raw_times": [
+      "09:00:00", "09:05:00", "09:10:00", "09:15:00", "09:20:00", "09:25:00",
+      "09:30:00", "09:35:00", "09:40:00", "09:45:00", "09:50:00", "09:55:00",
+      "10:00:00", "10:05:00", "10:10:00", "10:15:00", "10:20:00", "10:25:00",
+      "10:30:00", "10:35:00", "10:40:00", "10:45:00", "10:50:00", "10:55:00",
+      "11:00:00", "11:05:00", "11:10:00", "11:15:00", "11:20:00", "11:25:00",
+      "11:30:00", "11:35:00", "11:40:00", "11:45:00", "11:50:00", "11:55:00",
+      "12:00:00", "12:05:00", "12:10:00", "12:15:00", "12:20:00", "12:25:00",
+      "12:30:00", "12:35:00", "12:40:00", "12:45:00", "12:50:00", "12:55:00",
+      "13:00:00", "13:05:00", "13:10:00", "13:15:00", "13:20:00", "13:25:00",
+      "13:30:00"
+    ]
+  },
+  "candidate": {
+    "design_status": "PROPOSED_OPTION_A_REQUIRES_USER_DECISION",
+    "only_change": "historical_intraday_context_sessions",
+    "historical_sessions": 3,
+    "session_offsets": [-2, -1, 0],
+    "trading_day_shift_only": true,
+    "per_session_sequence_policy": "EXACT_24_BARS_11_35_TO_13_30",
+    "per_session_times": [
+      "11:35:00", "11:40:00", "11:45:00", "11:50:00", "11:55:00", "12:00:00",
+      "12:05:00", "12:10:00", "12:15:00", "12:20:00", "12:25:00", "12:30:00",
+      "12:35:00", "12:40:00", "12:45:00", "12:50:00", "12:55:00", "13:00:00",
+      "13:05:00", "13:10:00", "13:15:00", "13:20:00", "13:25:00", "13:30:00"
+    ],
+    "timesteps": 72,
+    "missing_policy": "EXCLUDE_NO_FILL",
+    "nonfinite_policy": "EXCLUDE_NO_FILL",
+    "representation": {
+      "random_forest": "flatten 72 x 24 to 1728; no static context",
+      "xgboost": "flatten 72 x 24 to 1728; no static context",
+      "gru": "sequential 72 x 24 plus unchanged Day T static volume_trend_5d and volume_trend_20d"
+    },
+    "full_165_bar_representation_rejected_for_round2": "Feature Set A is calculated within each day and has early-session rolling warmup NaN; using all 55 bars would require changing feature semantics or filling values."
+  },
+  "representation_review": {
+    "status": "REVIEW_REQUIRED",
+    "option_a_recommended": "Use the existing exact 24-bar late-day window for T-2, T-1 and T, producing 72 timesteps while preserving all feature definitions.",
+    "option_b_not_recommended": "Use all 55 stored timestamps for each of three sessions, producing 165 timesteps, but this requires a new early-session feature warmup/representation and would no longer isolate historical coverage as the only change.",
+    "decision_required": "Confirm whether three-session late-day context (72 timesteps) is acceptable for Round 2."
+  },
+  "sample_alignment": {
+    "policy": "BASELINE_READY_AND_ROUND2_READY_INTERSECTION",
+    "key": ["stock_code", "decision_date"],
+    "baseline_and_candidate_must_match": true
+  },
+  "validation": {
+    "walk_forward_protocol_unchanged": true,
+    "walk_forward_folds": 4,
+    "shuffle": false,
+    "industry_loso_unchanged": true,
+    "fold_local_scaler": true,
+    "fold_local_preprocessing": true,
+    "fold_local_class_weight": true,
+    "gru_early_stopping": "inner_fold_training_validation_only",
+    "gru_inner_validation_start_by_fold": {
+      "1": "2023-07-20",
+      "2": "2023-10-26",
+      "3": "2024-01-22",
+      "4": "2024-05-09"
+    },
+    "expected_fold_4_inner_validation_start": "2024-05-09"
+  },
+  "success_policy": {
+    "preregistered_before_training": true,
+    "material_improvement": 0.02,
+    "primary_metrics": ["macro_f1", "macro_auc_ovr"],
+    "supporting_metrics": ["buy_precision", "buy_recall", "sell_precision", "sell_recall"],
+    "model_support_rule": {
+      "one_primary_mean_delta_at_least": 0.02,
+      "other_primary_mean_delta_at_least": -0.005,
+      "each_primary_worst_delta_at_least": -0.01,
+      "each_primary_std_increase_at_most": 0.01,
+      "buy_or_sell_metric_max_drop": 0.02,
+      "minimum_nonworse_loso_stocks": 3,
+      "minimum_loso_stocks_improving_by_0_01": 2
+    },
+    "industry_pass_rule": "at least 2 of 3 models support the candidate in both walk-forward and LOSO",
+    "overall_pass_rule": "both technology and financial pass; improvement is not driven by one fold or one stock",
+    "review_required_rule": "mixed cross-model or cross-industry evidence without a stability failure",
+    "fail_rule": "no material consistent gain or stability worsens",
+    "allowed_final_status": ["PASS", "FAIL", "REVIEW_REQUIRED"],
+    "no_sequence_length_search_after_fail": true
+  },
+  "forbidden": {
+    "formal_training_in_preflight": true,
+    "walk_forward_in_preflight": true,
+    "loso_in_preflight": true,
+    "validation_2025_h1": true,
+    "additional_holdout_2025_h2": true,
+    "development_2026_h1": true,
+    "final_oos_2026_h2_onward": true,
+    "label_change": true,
+    "horizon_change": true,
+    "decision_time_change": true,
+    "universe_change": true,
+    "hyperparameter_change": true,
+    "probability_threshold_search": true,
+    "context_round1_features": true,
+    "forward_fill": true,
+    "backfill": true,
+    "synthetic_bars": true,
+    "database_write": true,
+    "baseline_export_overwrite": true
+  },
+  "output": {
+    "directory": "exports/ml_v1_temporal_round2_preflight_20261012",
+    "report": "temporal_round2_preflight.json",
+    "common_samples": "round2_common_samples.csv",
+    "exclusions": "round2_exclusions.csv"
+  }
+}

@@ -1,0 +1,366 @@
+{
+  "recommended_label": "fixed_1pct",
+  "evidence_sufficient_to_replace_fixed": false,
+  "freeze_label_now": true,
+  "freeze_rationale": "Evidence is mixed or insufficient; preregistered fallback keeps Fixed ±1% and no further K search is permitted.",
+  "selection_basis": "Prediction Quality + Generalization + Stability only",
+  "trading_metrics_used": false,
+  "by_industry": {
+    "technology": {
+      "supporting_models": 0,
+      "required_models": 2,
+      "supports_volatility_k_0_50": false,
+      "models": {
+        "random_forest": {
+          "supports_volatility_k_0_50": false,
+          "checks": {
+            "buy_precision_not_worse": false,
+            "buy_recall_not_collapsed": false,
+            "buy_coverage_not_collapsed": false,
+            "walk_means_not_worse": false,
+            "loso_means_not_worse": true,
+            "worst_folds_not_worse": true,
+            "standard_deviation_not_worse": true,
+            "cross_stock_not_single_name": true,
+            "has_positive_evidence": true
+          },
+          "deltas": {
+            "walk_macro_f1": -0.013818608213459871,
+            "walk_macro_auc": -0.014520135419622271,
+            "loso_macro_f1": 0.009119153241698097,
+            "loso_macro_auc": 0.013077697442034408,
+            "loso_buy_precision": -0.08492796378993309,
+            "loso_buy_recall": -0.11561279853962783,
+            "loso_buy_coverage": -0.10823071937783538
+          },
+          "nonworse_heldout_stocks": 4,
+          "positive_heldout_stocks": 4,
+          "per_stock_deltas": {
+            "2303": {
+              "macro_f1_delta": -0.002592872168513116,
+              "macro_auc_delta": 0.007965340691252099,
+              "nonworse": true,
+              "positive": true
+            },
+            "2330": {
+              "macro_f1_delta": 0.024249195305423632,
+              "macro_auc_delta": 0.009783197056450144,
+              "nonworse": true,
+              "positive": true
+            },
+            "2379": {
+              "macro_f1_delta": 0.04906475701171187,
+              "macro_auc_delta": 0.034227288885265716,
+              "nonworse": true,
+              "positive": true
+            },
+            "2454": {
+              "macro_f1_delta": -0.0010476042716773826,
+              "macro_auc_delta": 0.009739799814906969,
+              "nonworse": true,
+              "positive": true
+            },
+            "3034": {
+              "macro_f1_delta": -0.02407770966845424,
+              "macro_auc_delta": 0.0036728607622967813,
+              "nonworse": false,
+              "positive": false
+            }
+          }
+        },
+        "xgboost": {
+          "supports_volatility_k_0_50": false,
+          "checks": {
+            "buy_precision_not_worse": false,
+            "buy_recall_not_collapsed": false,
+            "buy_coverage_not_collapsed": false,
+            "walk_means_not_worse": true,
+            "loso_means_not_worse": true,
+            "worst_folds_not_worse": true,
+            "standard_deviation_not_worse": true,
+            "cross_stock_not_single_name": true,
+            "has_positive_evidence": true
+          },
+          "deltas": {
+            "walk_macro_f1": -0.0024044278496742066,
+            "walk_macro_auc": -0.0010195974477663627,
+            "loso_macro_f1": 0.0029389881357196335,
+            "loso_macro_auc": 0.00919818174323267,
+            "loso_buy_precision": -0.09301050708085884,
+            "loso_buy_recall": -0.09552704674655896,
+            "loso_buy_coverage": -0.08489954633830202
+          },
+          "nonworse_heldout_stocks": 3,
+          "positive_heldout_stocks": 4,
+          "per_stock_deltas": {
+            "2303": {
+              "macro_f1_delta": -0.0558056215212801,
+              "macro_auc_delta": -0.018108273337208547,
+              "nonworse": false,
+              "positive": false
+            },
+            "2330": {
+              "macro_f1_delta": 0.00047114430984951383,
+              "macro_auc_delta": 0.03471742251714721,
+              "nonworse": true,
+              "positive": true
+            },
+            "2379": {
+              "macro_f1_delta": 0.024378088607903636,
+              "macro_auc_delta": 0.028832699444197696,
+              "nonworse": true,
+              "positive": true
+            },
+            "2454": {
+              "macro_f1_delta": 0.01860735195457497,
+              "macro_auc_delta": 0.012550032409513134,
+              "nonworse": true,
+              "positive": true
+            },
+            "3034": {
+              "macro_f1_delta": 0.027043977327550095,
+              "macro_auc_delta": -0.012000972317486314,
+              "nonworse": false,
+              "positive": true
+            }
+          }
+        },
+        "gru": {
+          "supports_volatility_k_0_50": false,
+          "checks": {
+            "buy_precision_not_worse": false,
+            "buy_recall_not_collapsed": true,
+            "buy_coverage_not_collapsed": true,
+            "walk_means_not_worse": false,
+            "loso_means_not_worse": true,
+            "worst_folds_not_worse": false,
+            "standard_deviation_not_worse": false,
+            "cross_stock_not_single_name": true,
+            "has_positive_evidence": false
+          },
+          "deltas": {
+            "walk_macro_f1": -0.015465173098676732,
+            "walk_macro_auc": -0.005675647860058086,
+            "loso_macro_f1": 0.0007858124247968057,
+            "loso_macro_auc": -0.004929791184031362,
+            "loso_buy_precision": -0.07329805996472663,
+            "loso_buy_recall": -0.03980528370772274,
+            "loso_buy_coverage": -0.03564484769928708
+          },
+          "nonworse_heldout_stocks": 3,
+          "positive_heldout_stocks": 3,
+          "per_stock_deltas": {
+            "2303": {
+              "macro_f1_delta": 0.006886738555788141,
+              "macro_auc_delta": 0.001450226488955153,
+              "nonworse": true,
+              "positive": true
+            },
+            "2330": {
+              "macro_f1_delta": 0.017825861854212754,
+              "macro_auc_delta": -0.007026878335083142,
+              "nonworse": true,
+              "positive": true
+            },
+            "2379": {
+              "macro_f1_delta": -0.019803482405287787,
+              "macro_auc_delta": -0.022976156274878756,
+              "nonworse": false,
+              "positive": false
+            },
+            "2454": {
+              "macro_f1_delta": 0.026908627742732394,
+              "macro_auc_delta": 0.0344693175173732,
+              "nonworse": true,
+              "positive": true
+            },
+            "3034": {
+              "macro_f1_delta": -0.02788868362346092,
+              "macro_auc_delta": -0.030565465316522933,
+              "nonworse": false,
+              "positive": false
+            }
+          }
+        }
+      }
+    },
+    "financial": {
+      "supporting_models": 0,
+      "required_models": 2,
+      "supports_volatility_k_0_50": false,
+      "models": {
+        "random_forest": {
+          "supports_volatility_k_0_50": false,
+          "checks": {
+            "buy_precision_not_worse": false,
+            "buy_recall_not_collapsed": true,
+            "buy_coverage_not_collapsed": true,
+            "walk_means_not_worse": false,
+            "loso_means_not_worse": false,
+            "worst_folds_not_worse": false,
+            "standard_deviation_not_worse": true,
+            "cross_stock_not_single_name": false,
+            "has_positive_evidence": false
+          },
+          "deltas": {
+            "walk_macro_f1": -0.03920286873960854,
+            "walk_macro_auc": -0.020954326261878098,
+            "loso_macro_f1": -0.017013156161958032,
+            "loso_macro_auc": -0.012720027837754111,
+            "loso_buy_precision": -0.028277886497064614,
+            "loso_buy_recall": -0.03811959566435269,
+            "loso_buy_coverage": -0.007717041800643087
+          },
+          "nonworse_heldout_stocks": 2,
+          "positive_heldout_stocks": 1,
+          "per_stock_deltas": {
+            "2881": {
+              "macro_f1_delta": 0.027288681910723533,
+              "macro_auc_delta": 0.022605416449869076,
+              "nonworse": true,
+              "positive": true
+            },
+            "2882": {
+              "macro_f1_delta": 0.00017414492502554335,
+              "macro_auc_delta": -0.018025765289450102,
+              "nonworse": false,
+              "positive": false
+            },
+            "2884": {
+              "macro_f1_delta": -0.002365122772780892,
+              "macro_auc_delta": -0.000984146932167529,
+              "nonworse": true,
+              "positive": false
+            },
+            "2886": {
+              "macro_f1_delta": -0.024652782637870685,
+              "macro_auc_delta": -0.0026384946477441273,
+              "nonworse": false,
+              "positive": false
+            },
+            "2891": {
+              "macro_f1_delta": -0.08551070223488771,
+              "macro_auc_delta": -0.06455714876927832,
+              "nonworse": false,
+              "positive": false
+            }
+          }
+        },
+        "xgboost": {
+          "supports_volatility_k_0_50": false,
+          "checks": {
+            "buy_precision_not_worse": true,
+            "buy_recall_not_collapsed": true,
+            "buy_coverage_not_collapsed": true,
+            "walk_means_not_worse": true,
+            "loso_means_not_worse": true,
+            "worst_folds_not_worse": false,
+            "standard_deviation_not_worse": false,
+            "cross_stock_not_single_name": true,
+            "has_positive_evidence": true
+          },
+          "deltas": {
+            "walk_macro_f1": -0.0066829888542553895,
+            "walk_macro_auc": -0.003858490769973688,
+            "loso_macro_f1": 0.007542828886599573,
+            "loso_macro_auc": 0.0024889704150431458,
+            "loso_buy_precision": -0.0018919125515975965,
+            "loso_buy_recall": 0.019948849104859334,
+            "loso_buy_coverage": 0.023794212218649524
+          },
+          "nonworse_heldout_stocks": 4,
+          "positive_heldout_stocks": 4,
+          "per_stock_deltas": {
+            "2881": {
+              "macro_f1_delta": 0.038872323204936554,
+              "macro_auc_delta": 0.005056637148253662,
+              "nonworse": true,
+              "positive": true
+            },
+            "2882": {
+              "macro_f1_delta": 0.021178670842919634,
+              "macro_auc_delta": -0.005767504012532232,
+              "nonworse": true,
+              "positive": true
+            },
+            "2884": {
+              "macro_f1_delta": 0.009701970317992303,
+              "macro_auc_delta": 0.009395974713069966,
+              "nonworse": true,
+              "positive": true
+            },
+            "2886": {
+              "macro_f1_delta": 0.009439426563567999,
+              "macro_auc_delta": 0.03130719658507419,
+              "nonworse": true,
+              "positive": true
+            },
+            "2891": {
+              "macro_f1_delta": -0.041478246496418625,
+              "macro_auc_delta": -0.02754745235865025,
+              "nonworse": false,
+              "positive": false
+            }
+          }
+        },
+        "gru": {
+          "supports_volatility_k_0_50": false,
+          "checks": {
+            "buy_precision_not_worse": true,
+            "buy_recall_not_collapsed": true,
+            "buy_coverage_not_collapsed": true,
+            "walk_means_not_worse": true,
+            "loso_means_not_worse": false,
+            "worst_folds_not_worse": true,
+            "standard_deviation_not_worse": true,
+            "cross_stock_not_single_name": false,
+            "has_positive_evidence": false
+          },
+          "deltas": {
+            "walk_macro_f1": -0.0009713851401305651,
+            "walk_macro_auc": -0.00944841772308136,
+            "loso_macro_f1": -0.007707996532553718,
+            "loso_macro_auc": -0.011545800218958457,
+            "loso_buy_precision": -0.0016314036799085219,
+            "loso_buy_recall": 0.0040677140421385705,
+            "loso_buy_coverage": 0.014790996784565913
+          },
+          "nonworse_heldout_stocks": 2,
+          "positive_heldout_stocks": 1,
+          "per_stock_deltas": {
+            "2881": {
+              "macro_f1_delta": 0.003037796902957024,
+              "macro_auc_delta": 0.013796010337747855,
+              "nonworse": true,
+              "positive": true
+            },
+            "2882": {
+              "macro_f1_delta": -0.025663253240722883,
+              "macro_auc_delta": -0.013075460840037856,
+              "nonworse": false,
+              "positive": false
+            },
+            "2884": {
+              "macro_f1_delta": -0.0014308976392991557,
+              "macro_auc_delta": -0.0037642409304234348,
+              "nonworse": true,
+              "positive": false
+            },
+            "2886": {
+              "macro_f1_delta": -0.006381243886865784,
+              "macro_auc_delta": -0.030834485441553094,
+              "nonworse": false,
+              "positive": false
+            },
+            "2891": {
+              "macro_f1_delta": -0.00810238479883768,
+              "macro_auc_delta": -0.023850824220525535,
+              "nonworse": false,
+              "positive": false
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "policy": "EXCLUDE_NO_FILL",
+  "source_database": "data/market_data.sqlite3",
+  "technical_database": "data/technical_v1_training_clean.sqlite3",
+  "stock_universe": [
+    "2303",
+    "2330",
+    "2454",
+    "2317",
+    "2382"
+  ],
+  "session": "09:00-13:25",
+  "expected_bars_per_day": 54,
+  "common_complete_trading_days": 478,
+  "excluded_trading_days": [
+    "2023-07-13",
+    "2024-01-10",
+    "2024-10-30"
+  ],
+  "synthetic_fill": false,
+  "forward_fill": false,
+  "backward_fill": false,
+  "interpolation": false
+}

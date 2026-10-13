@@ -9,13 +9,19 @@
     "confirmed_at": "2026-10-10",
     "source": "technical-generalization-20261006-v1_and_user_confirmation",
     "scope_description": "跨半導體、其他電子、電腦及週邊設備的廣義科技股研究集合",
-    "stock_codes": ["2303", "2330", "2454", "2317", "2382"],
+    "stock_codes": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
     "stock_names": {
-      "2303": "聯電",
-      "2330": "台積電",
-      "2454": "聯發科",
-      "2317": "鴻海",
-      "2382": "廣達"
+      "2303": "??",
+      "2330": "???",
+      "2379": "??",
+      "2454": "???",
+      "3034": "??"
     },
     "industries": {
       "2303": "半導體",
@@ -79,8 +85,8 @@
   "data_quality": {
     "minimum_warmup_bars": 400,
     "minimum_evaluation_bars": 1000,
-    "minimum_training_trading_days": 470,
-    "minimum_evaluation_trading_days": 100,
+    "minimum_training_trading_days": 400,
+    "minimum_evaluation_trading_days": 90,
     "expected_bars_per_trading_day": 54,
     "expected_first_bar_time": "09:00",
     "expected_last_bar_time": "13:25",
@@ -371,7 +377,7 @@
     "decision": "第一輪停用；不得在本輪追加 ATR 候選或參數搜尋"
   },
   "candidate_signal_schema_version": "technical_candidate_v1",
-  "market_data_path": "data/market_data.sqlite3",
+  "market_data_path": "data/technical_v1_mltech_clean.sqlite3",
   "output_policy": {
     "overwrite_existing": false,
     "directory_template": "exports/technical_v1_<run_id>",

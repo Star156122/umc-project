@@ -1,0 +1,90 @@
+{
+  "variants": {
+    "technical_alone": {
+      "evaluation_count": 15,
+      "trade_count_total": 248,
+      "total_return_mean": -0.017375066716666672,
+      "total_return_median": -0.021963455500000003,
+      "total_return_std": 0.09214265580121059,
+      "total_return_worst": -0.15621757225000002,
+      "win_rate_mean": 0.2934873949579832,
+      "profit_factor_mean": 0.9115137637137263,
+      "max_drawdown_worst": 0.20087828167564695,
+      "sharpe_mean": -0.8148028024665118,
+      "transaction_cost_total": 116103.60007500001,
+      "profitable_evaluations": 6,
+      "entry_reduction_vs_technical": 0.0
+    },
+    "hybrid_random_forest": {
+      "evaluation_count": 15,
+      "trade_count_total": 58,
+      "total_return_mean": 0.009353803441666668,
+      "total_return_median": 0.0,
+      "total_return_std": 0.0419049604151427,
+      "total_return_worst": -0.076814736,
+      "win_rate_mean": 0.3341269841269841,
+      "profit_factor_mean": 1.5082250507837232,
+      "max_drawdown_worst": 0.10655402519673202,
+      "sharpe_mean": 0.027999448624802793,
+      "transaction_cost_total": 27839.794837499998,
+      "profitable_evaluations": 7,
+      "entry_reduction_vs_technical": 0.7661290322580645
+    },
+    "hybrid_xgboost": {
+      "evaluation_count": 15,
+      "trade_count_total": 48,
+      "total_return_mean": 0.014351544991666668,
+      "total_return_median": 0.0,
+      "total_return_std": 0.06406821796624348,
+      "total_return_worst": -0.030364725999999995,
+      "win_rate_mean": 0.2733333333333333,
+      "profit_factor_mean": 1.4538484402295495,
+      "max_drawdown_worst": 0.10137690898633796,
+      "sharpe_mean": -0.15775563181889218,
+      "transaction_cost_total": 23154.182512500003,
+      "profitable_evaluations": 6,
+      "entry_reduction_vs_technical": 0.8064516129032258
+    },
+    "hybrid_gru": {
+      "evaluation_count": 15,
+      "trade_count_total": 51,
+      "total_return_mean": -0.0006763538166666662,
+      "total_return_median": -0.014886990000000001,
+      "total_return_std": 0.03666722109288394,
+      "total_return_worst": -0.040022327249999996,
+      "win_rate_mean": 0.33666666666666667,
+      "profit_factor_mean": 1.492289631728922,
+      "max_drawdown_worst": 0.0725930682721226,
+      "sharpe_mean": -0.4140380893758285,
+      "transaction_cost_total": 25199.530724999997,
+      "profitable_evaluations": 5,
+      "entry_reduction_vs_technical": 0.7943548387096774
+    }
+  },
+  "decision_counts": {
+    "gru": {
+      "NO_ML_MATCH": 74,
+      "BLOCK_SELL": 212,
+      "BLOCK_HOLD": 142,
+      "ENTRY": 51
+    },
+    "random_forest": {
+      "NO_ML_MATCH": 74,
+      "BLOCK_SELL": 253,
+      "ENTRY": 58,
+      "BLOCK_HOLD": 86
+    },
+    "xgboost": {
+      "NO_ML_MATCH": 74,
+      "BLOCK_SELL": 266,
+      "ENTRY": 48,
+      "BLOCK_HOLD": 88
+    }
+  },
+  "status": "COMPLETED_POC_ONLY",
+  "candidate_id": "BR_SENS_RANGE55_BB20_2",
+  "technical_alone_reproduced": true,
+  "optimization_performed": false,
+  "final_candidate_selected": false,
+  "training_only": true
+}

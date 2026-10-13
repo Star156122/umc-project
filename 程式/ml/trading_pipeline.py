@@ -14,6 +14,7 @@ import pandas as pd
 
 from ml.data_pipeline import PreparedData, _rsi
 from ml.data_roles import ACTIVE_ROLE_NAMES, assert_ml_read_period, validate_active_periods
+from ml.ml_v1_sequence import SEQUENCE_COMPLETE, SEQUENCE_POLICY, select_exact_sequence
 from trading_system.research_guard import assert_development_period, assert_payload
 
 TAIPEI = ZoneInfo("Asia/Taipei")
@@ -186,9 +187,17 @@ def _samples_for_split(featured: pd.DataFrame, plan: dict[str, Any]) -> tuple[li
         for i in range(0, len(days) - holding):
             day = days.loc[i, "trade_date"]
             bars = bars_by_day[day]
-            if len(bars) < seq_len:
-                rejected += 1; continue
-            window = bars[names].tail(seq_len).to_numpy(dtype=np.float64)
+            if plan.get("sequence_policy") == SEQUENCE_POLICY:
+                selected, eligibility = select_exact_sequence(bars)
+                if eligibility.status != SEQUENCE_COMPLETE or selected is None:
+                    rejected += 1; continue
+                if seq_len != len(selected):
+                    raise ValueError("ML V1 exact sequence policy must contain exactly 24 bars")
+                window = selected[names].to_numpy(dtype=np.float64)
+            else:
+                if len(bars) < seq_len:
+                    rejected += 1; continue
+                window = bars[names].iloc[-seq_len:].to_numpy(dtype=np.float64)
             if not np.isfinite(window).all():
                 rejected += 1; continue
             entry = float(days.loc[i + 1, "open"])

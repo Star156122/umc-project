@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><title>Technical Strategy V1 Training 報告</title>
+<style>body{font-family:system-ui,sans-serif;max-width:1180px;margin:32px auto;padding:0 20px;color:#182026}table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #ccd3d8;padding:8px;text-align:left;vertical-align:top}th{background:#edf2f4}code{background:#eef1f3;padding:2px 4px}.note{border-left:4px solid #167d74;padding:8px 12px;background:#f2f8f7}</style></head>
+<body><h1>Technical Strategy V1：Training Walk-Forward</h1>
+<p>Run ID：<code>20261013T024919303843</code></p>
+<p class="note">本報告只使用 2023–2024 Training。Validation、Additional Holdout、Development Seen 與 Final Out-of-Sample 均未查詢。五檔為跨半導體、其他電子、電腦及週邊設備的廣義科技股集合，所有股票共用參數、成本與風險控制。</p>
+<p>選擇結果：<strong>BR_BASE_RANGE60_BB20_2</strong>（NEW_CANDIDATE_STABLY_BEATS_LEGACY_ON_PREREGISTERED_PRIORITY）</p>
+<table><thead><tr><th>候選</th><th>策略</th><th>交易數</th><th>跨組合報酬中位數</th><th>最差 Fold</th><th>WF 標準差</th><th>最差最大回撤</th><th>警示</th></tr></thead><tbody><tr><td>BR_BASE_RANGE60_BB20_2</td><td>breakout</td><td>251</td><td>-2.20%</td><td>-6.25%</td><td>3.12%</td><td>20.69%</td><td>單一股票正獲利集中度 94.10% 過高</td></tr><tr><td>BR_SENS_RANGE55_BB20_2</td><td>breakout</td><td>248</td><td>-2.20%</td><td>-5.76%</td><td>3.38%</td><td>20.09%</td><td>單一股票正獲利集中度 62.42% 過高</td></tr><tr><td>LEGACY_VOTE_2_OF_3</td><td>Legacy Baseline（既有 2-of-3 多數決）</td><td>567</td><td>-13.59%</td><td>-17.43%</td><td>3.22%</td><td>27.33%</td><td>無</td></tr><tr><td>MV_BASE_2_OF_3</td><td>2-of-3 多數決 + 長期趨勢濾網</td><td>793</td><td>-18.93%</td><td>-21.15%</td><td>2.19%</td><td>31.54%</td><td>無</td></tr><tr><td>MV_SENS_3_OF_3</td><td>2-of-3 多數決 + 長期趨勢濾網</td><td>603</td><td>-12.20%</td><td>-15.45%</td><td>1.29%</td><td>27.75%</td><td>無</td></tr><tr><td>TM_BASE_20_60_120_RSI55_70</td><td>trend_momentum</td><td>300</td><td>-6.56%</td><td>-6.56%</td><td>1.17%</td><td>18.29%</td><td>單一股票正獲利集中度 100.00% 過高</td></tr><tr><td>TM_SENS_RSI55_68</td><td>trend_momentum</td><td>297</td><td>-7.55%</td><td>-6.52%</td><td>1.04%</td><td>17.94%</td><td>單一股票正獲利集中度 100.00% 過高</td></tr></tbody></table>
+<h2>研究限制</h2><ul>
+<li>Legacy Baseline 與新的 Majority Vote V1 分開；後者為「2-of-3 多數決 + 長期趨勢濾網」。</li>
+<li>停損為五分 K 收盤價觸發，不是盤中真實停損單；新 V1 的 162 根上限等於 3 個台股交易時段（54 根／日）。</li>
+<li>滑價固定為 0，結果可能低估成交摩擦；手續費、一般交易稅與僅限同日平倉的當沖稅已納入。</li>
+<li>每日最多一次進場、冷卻 6 根、至少持有 2 根、12:30 後不新進場，期末強制平倉。</li>
+<li>目前 ML Candidate 股票集合尚未與本研究集合凍結對齊；本輪未修改或重訓 ML，Hybrid 開始前必須先對齊 ML V1 或取得另行核准。</li>
+</ul></body></html>

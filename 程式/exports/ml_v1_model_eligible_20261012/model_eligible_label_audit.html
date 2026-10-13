@@ -1,0 +1,120 @@
+<!doctype html><html lang='zh-Hant'><head><meta charset='utf-8'><title>ML V1 Model-Eligible Audit</title>
+<style>body{font-family:system-ui;max-width:1200px;margin:30px auto}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd;padding:7px}th{background:#eef}</style></head><body>
+<h1>ML V1 Model-Eligible Label Audit</h1><pre>{
+  &quot;label_eligible_before_sequence_rule&quot;: 4580,
+  &quot;model_eligible_samples&quot;: 4542,
+  &quot;excluded_incomplete_samples&quot;: 38,
+  &quot;per_stock_model_eligible_samples&quot;: {
+    &quot;2303&quot;: 457,
+    &quot;2330&quot;: 457,
+    &quot;2379&quot;: 437,
+    &quot;2454&quot;: 456,
+    &quot;3034&quot;: 450,
+    &quot;2881&quot;: 457,
+    &quot;2882&quot;: 457,
+    &quot;2884&quot;: 457,
+    &quot;2886&quot;: 457,
+    &quot;2891&quot;: 457
+  },
+  &quot;sequence_policy&quot;: &quot;EXACT_24_BARS_11_35_TO_13_30&quot;,
+  &quot;missing_sequence_policy&quot;: &quot;EXCLUDE_NO_FILL&quot;,
+  &quot;shared_by_models&quot;: [
+    &quot;random_forest&quot;,
+    &quot;xgboost&quot;,
+    &quot;gru&quot;
+  ],
+  &quot;shared_by_labels&quot;: [
+    &quot;fixed_1pct&quot;,
+    &quot;volatility_k_0_50&quot;
+  ],
+  &quot;model_eligible_label_audit&quot;: &quot;PASS&quot;,
+  &quot;pre_phase_b_data_conditions_pass&quot;: true,
+  &quot;phase_b_started&quot;: false,
+  &quot;models_trained&quot;: false
+}</pre>
+<table><tr><th>股票</th><th>Label</th><th>Samples</th><th>SELL</th><th>HOLD</th><th>BUY</th><th>Flag</th></tr><tr><td>2303</td><td>fixed_1pct</td><td>457</td><td>44.86%</td><td>32.82%</td><td>22.32%</td><td>-</td></tr><tr><td>2303</td><td>volatility_k_0_50</td><td>457</td><td>40.48%</td><td>39.82%</td><td>19.69%</td><td>-</td></tr><tr><td>2330</td><td>fixed_1pct</td><td>457</td><td>38.73%</td><td>33.26%</td><td>28.01%</td><td>-</td></tr><tr><td>2330</td><td>volatility_k_0_50</td><td>457</td><td>30.85%</td><td>44.42%</td><td>24.73%</td><td>-</td></tr><tr><td>2379</td><td>fixed_1pct</td><td>437</td><td>37.76%</td><td>29.75%</td><td>32.49%</td><td>-</td></tr><tr><td>2379</td><td>volatility_k_0_50</td><td>437</td><td>28.83%</td><td>48.51%</td><td>22.65%</td><td>-</td></tr><tr><td>2454</td><td>fixed_1pct</td><td>456</td><td>38.82%</td><td>26.75%</td><td>34.43%</td><td>-</td></tr><tr><td>2454</td><td>volatility_k_0_50</td><td>456</td><td>28.95%</td><td>47.59%</td><td>23.46%</td><td>-</td></tr><tr><td>2881</td><td>fixed_1pct</td><td>457</td><td>35.45%</td><td>41.14%</td><td>23.41%</td><td>-</td></tr><tr><td>2881</td><td>volatility_k_0_50</td><td>457</td><td>37.86%</td><td>38.29%</td><td>23.85%</td><td>-</td></tr><tr><td>2882</td><td>fixed_1pct</td><td>457</td><td>35.89%</td><td>43.11%</td><td>21.01%</td><td>-</td></tr><tr><td>2882</td><td>volatility_k_0_50</td><td>457</td><td>35.67%</td><td>43.11%</td><td>21.23%</td><td>-</td></tr><tr><td>2884</td><td>fixed_1pct</td><td>457</td><td>31.07%</td><td>51.64%</td><td>17.29%</td><td>-</td></tr><tr><td>2884</td><td>volatility_k_0_50</td><td>457</td><td>38.29%</td><td>42.23%</td><td>19.47%</td><td>-</td></tr><tr><td>2886</td><td>fixed_1pct</td><td>457</td><td>31.73%</td><td>49.02%</td><td>19.26%</td><td>-</td></tr><tr><td>2886</td><td>volatility_k_0_50</td><td>457</td><td>33.70%</td><td>44.20%</td><td>22.10%</td><td>-</td></tr><tr><td>2891</td><td>fixed_1pct</td><td>457</td><td>28.45%</td><td>46.83%</td><td>24.73%</td><td>-</td></tr><tr><td>2891</td><td>volatility_k_0_50</td><td>457</td><td>28.45%</td><td>48.14%</td><td>23.41%</td><td>-</td></tr><tr><td>3034</td><td>fixed_1pct</td><td>450</td><td>40.00%</td><td>32.22%</td><td>27.78%</td><td>-</td></tr><tr><td>3034</td><td>volatility_k_0_50</td><td>450</td><td>30.67%</td><td>49.11%</td><td>20.22%</td><td>-</td></tr></table>
+<h2>Industry Aggregate</h2><pre>{
+  &quot;technology&quot;: {
+    &quot;samples&quot;: 2257,
+    &quot;fixed_1pct&quot;: {
+      &quot;samples&quot;: 2257,
+      &quot;classes&quot;: {
+        &quot;SELL&quot;: {
+          &quot;count&quot;: 904,
+          &quot;proportion&quot;: 0.40053167922020383
+        },
+        &quot;HOLD&quot;: {
+          &quot;count&quot;: 699,
+          &quot;proportion&quot;: 0.30970314576871955
+        },
+        &quot;BUY&quot;: {
+          &quot;count&quot;: 654,
+          &quot;proportion&quot;: 0.2897651750110766
+        }
+      },
+      &quot;buy_coverage&quot;: 0.2897651750110766,
+      &quot;flags&quot;: []
+    },
+    &quot;volatility_k_0_50&quot;: {
+      &quot;samples&quot;: 2257,
+      &quot;classes&quot;: {
+        &quot;SELL&quot;: {
+          &quot;count&quot;: 722,
+          &quot;proportion&quot;: 0.3198936641559592
+        },
+        &quot;HOLD&quot;: {
+          &quot;count&quot;: 1035,
+          &quot;proportion&quot;: 0.45857332742578644
+        },
+        &quot;BUY&quot;: {
+          &quot;count&quot;: 500,
+          &quot;proportion&quot;: 0.22153300841825432
+        }
+      },
+      &quot;buy_coverage&quot;: 0.22153300841825432,
+      &quot;flags&quot;: []
+    }
+  },
+  &quot;financial&quot;: {
+    &quot;samples&quot;: 2285,
+    &quot;fixed_1pct&quot;: {
+      &quot;samples&quot;: 2285,
+      &quot;classes&quot;: {
+        &quot;SELL&quot;: {
+          &quot;count&quot;: 743,
+          &quot;proportion&quot;: 0.325164113785558
+        },
+        &quot;HOLD&quot;: {
+          &quot;count&quot;: 1059,
+          &quot;proportion&quot;: 0.46345733041575493
+        },
+        &quot;BUY&quot;: {
+          &quot;count&quot;: 483,
+          &quot;proportion&quot;: 0.21137855579868708
+        }
+      },
+      &quot;buy_coverage&quot;: 0.21137855579868708,
+      &quot;flags&quot;: []
+    },
+    &quot;volatility_k_0_50&quot;: {
+      &quot;samples&quot;: 2285,
+      &quot;classes&quot;: {
+        &quot;SELL&quot;: {
+          &quot;count&quot;: 795,
+          &quot;proportion&quot;: 0.3479212253829322
+        },
+        &quot;HOLD&quot;: {
+          &quot;count&quot;: 987,
+          &quot;proportion&quot;: 0.43194748358862145
+        },
+        &quot;BUY&quot;: {
+          &quot;count&quot;: 503,
+          &quot;proportion&quot;: 0.2201312910284464
+        }
+      },
+      &quot;buy_coverage&quot;: 0.2201312910284464,
+      &quot;flags&quot;: []
+    }
+  }
+}</pre>
+</body></html>

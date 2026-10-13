@@ -1,0 +1,17 @@
+{
+  "experiment_id": "ml-v1-label-confirmatory-20261012",
+  "phase": "A_LABEL_DISTRIBUTION_AUDIT",
+  "config": "configs/ml_v1_research.json",
+  "only_label_versions": [
+    "ml_v1_fixed_1pct",
+    "ml_v1_volatility_k_0_50"
+  ],
+  "phase_b_started": false,
+  "output_files": [
+    "label_audit.json",
+    "data_quality.json",
+    "label_distribution.csv",
+    "return_volatility_stats.csv",
+    "label_audit.html"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "freeze_scope": "ML_V1_LABEL_ONLY",
+  "status": "FROZEN_AFTER_CONFIRMATORY_PHASE_B",
+  "frozen_at": "2026-10-12T10:30:51+08:00",
+  "experiment_id": "ml-v1-phase-b-label-confirmatory-20261012",
+  "selected_label": "fixed_1pct",
+  "label_rule": {
+    "SELL": "future_net_return <= -0.01",
+    "HOLD": "-0.01 < future_net_return < 0.01",
+    "BUY": "future_net_return >= 0.01"
+  },
+  "target": "Day T+1 open to Day T+3 close, cost-aware net return",
+  "decision_time": "13:30:00 Asia/Taipei",
+  "training_period": ["2023-01-01", "2024-12-31"],
+  "stock_universe": {
+    "technology": ["2303", "2330", "2379", "2454", "3034"],
+    "financial": ["2881", "2882", "2884", "2886", "2891"]
+  },
+  "sequence_eligible_samples": 4542,
+  "model_ready_samples": 4532,
+  "excluded_nonfinite_feature_samples": 10,
+  "comparison": "fixed_1pct_vs_volatility_k_0_50",
+  "technology_support_for_k_0_50": "0_of_3_models",
+  "financial_support_for_k_0_50": "0_of_3_models",
+  "decision": "KEEP_FIXED_1PCT",
+  "reason": "K=0.5 did not obtain consistent cross-model, cross-stock and cross-industry support; its BUY precision/recall/coverage deteriorated materially in Technology and evidence remained mixed in Financial.",
+  "further_k_search_allowed": false,
+  "final_model_selected": false,
+  "hybrid_started": false,
+  "locked_data_used": false,
+  "artifacts": {
+    "report": "exports/ml_v1_phase_b_20261012/phase_b_report.html",
+    "recommendation": "exports/ml_v1_phase_b_20261012/recommendation.json",
+    "summary": "exports/ml_v1_phase_b_20261012/label_comparison_summary.csv",
+    "nonfinite_exclusions": "exports/ml_v1_phase_b_20261012/excluded_nonfinite_features.csv"
+  },
+  "sha256": {
+    "phase_b_config": "C738E7E645595AFA4CE7F39F74F02003B27D01EFE978F5066E4B7A5086A1AC2C",
+    "phase_b_runner": "30771DE5EB274E1CB8AD863E9B57E3DAA76ED45C439E4F83840AD83D66423398",
+    "recommendation": "85BC660A0EDC360B8480DC9D24BBBBFCD6CEA264940526DC92233C6C1836985A",
+    "report": "87E9E5643957AD75AA14105B1FB9F3346C79F94A0C008DFDCA0376A86F75F690",
+    "summary_csv": "DD9C7CBB41BADAF973EFC9262B9758B36B3E106EAF2C337F2FD2C64F2C22EB9E",
+    "sequence_manifest": "099B244D396A42983C6544BBD10E8A312A85D251ADE53D757F0563A375840696",
+    "market_database": "F17F0C6885770621207A24744320FAC687DF5CA192934B3AC379CF4BB16118F0"
+  }
+}

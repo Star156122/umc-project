@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from typing import Any
 
+import numpy as np
 import pandas as pd
 
 
@@ -64,3 +65,81 @@ def leave_one_stock_out_industry_return(daily_returns: pd.DataFrame, config: dic
     counts = frame.groupby(["industry", "trade_date"])[value].transform("count")
     peers = counts - frame[value].notna().astype(int)
     return (totals - frame[value].fillna(0)) / peers.replace(0, pd.NA)
+
+
+def validate_context_proxy_universe(
+    industry_groups: dict[str, list[str]], core_universe: list[str]
+) -> dict[str, str]:
+    """Validate the fixed ML V1 universe and return stock-to-industry membership."""
+    normalized_core = list(map(str, core_universe))
+    if not normalized_core or len(normalized_core) != len(set(normalized_core)):
+        raise ValueError("Core universe must be non-empty and contain unique stocks")
+
+    membership: dict[str, str] = {}
+    for industry, members in industry_groups.items():
+        normalized_members = list(map(str, members))
+        if len(normalized_members) != 5 or len(set(normalized_members)) != 5:
+            raise ValueError(f"Industry {industry} must contain exactly five unique stocks")
+        for code in normalized_members:
+            if code in membership:
+                raise ValueError(f"Stock {code} belongs to more than one industry")
+            membership[code] = str(industry)
+    if set(membership) != set(normalized_core):
+        raise ValueError("Industry groups must exactly cover the core universe")
+    return membership
+
+
+def build_leave_one_out_proxy_daily_returns(
+    daily_stock: pd.DataFrame,
+    industry_groups: dict[str, list[str]],
+    core_universe: list[str],
+) -> pd.DataFrame:
+    """Attach strict leave-one-stock-out industry and market daily-return proxies.
+
+    A proxy is available only when every required peer has a finite return for
+    that date. Missing components remain NaN; no fill or synthetic return is
+    created.
+    """
+    required = {"stock_code", "trade_date", "stock_return_1d"}
+    missing = sorted(required - set(daily_stock.columns))
+    if missing:
+        raise ValueError(f"Proxy input is missing columns: {missing}")
+
+    membership = validate_context_proxy_universe(industry_groups, core_universe)
+    core = list(map(str, core_universe))
+    frame = daily_stock.copy()
+    frame["stock_code"] = frame["stock_code"].astype(str)
+    frame = frame.loc[frame["stock_code"].isin(core)].copy()
+    if frame[["stock_code", "trade_date"]].duplicated().any():
+        raise ValueError("Proxy input contains duplicate stock-date rows")
+    if set(frame["stock_code"].unique()) != set(core):
+        raise ValueError("Proxy input does not contain the complete core universe")
+
+    pivot = frame.pivot(index="trade_date", columns="stock_code", values="stock_return_1d")
+    pivot = pivot.reindex(columns=core)
+    industry_values: list[float] = []
+    market_values: list[float] = []
+    industry_counts: list[int] = []
+    market_counts: list[int] = []
+
+    normalized_groups = {name: list(map(str, stocks)) for name, stocks in industry_groups.items()}
+    for row in frame.itertuples(index=False):
+        code = str(row.stock_code)
+        date = row.trade_date
+        industry_peers = [peer for peer in normalized_groups[membership[code]] if peer != code]
+        market_peers = [peer for peer in core if peer != code]
+
+        industry_returns = pd.to_numeric(pivot.loc[date, industry_peers], errors="coerce").to_numpy(dtype=float)
+        market_returns = pd.to_numeric(pivot.loc[date, market_peers], errors="coerce").to_numpy(dtype=float)
+        industry_valid = int(np.isfinite(industry_returns).sum())
+        market_valid = int(np.isfinite(market_returns).sum())
+        industry_counts.append(industry_valid)
+        market_counts.append(market_valid)
+        industry_values.append(float(industry_returns.mean()) if industry_valid == 4 else np.nan)
+        market_values.append(float(market_returns.mean()) if market_valid == 9 else np.nan)
+
+    frame["industry_proxy_return_1d"] = industry_values
+    frame["market_proxy_return_1d"] = market_values
+    frame["industry_proxy_component_count"] = industry_counts
+    frame["market_proxy_component_count"] = market_counts
+    return frame

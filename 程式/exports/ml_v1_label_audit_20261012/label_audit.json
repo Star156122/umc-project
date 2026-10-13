@@ -1,0 +1,2309 @@
+{
+  "report_name": "ML V1 Confirmatory Label Experiment - Phase A",
+  "generated_at": "2026-10-12T00:58:48+08:00",
+  "config": "configs/ml_v1_research.json",
+  "experiment_id": "ml-v1-label-confirmatory-20261012",
+  "data_role": "train",
+  "training_period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "historical_experiment_recorded": {
+    "experiment_id": "ml-v4a-label-exploratory-20261005",
+    "classification": "Historical Exploratory Experiment",
+    "stock_universe": [
+      "2002",
+      "2303",
+      "2330",
+      "2412",
+      "2881",
+      "2882"
+    ],
+    "label_versions": [
+      "fixed_1pct",
+      "volatility_k_0_50",
+      "volatility_k_0_75",
+      "volatility_k_1_00"
+    ],
+    "decision": "retained_fixed_1pct",
+    "must_not_delete_or_overwrite": true
+  },
+  "data_quality": {
+    "status": "REVIEW_REQUIRED_NON_TRADING_DATE_ROWS|REVIEW_REQUIRED_MISSING_INTRADAY_KBARS",
+    "issues": [
+      "REVIEW_REQUIRED_NON_TRADING_DATE_ROWS",
+      "REVIEW_REQUIRED_MISSING_INTRADAY_KBARS"
+    ],
+    "expected_regular_times": [
+      "09:00:00",
+      "09:05:00",
+      "09:10:00",
+      "09:15:00",
+      "09:20:00",
+      "09:25:00",
+      "09:30:00",
+      "09:35:00",
+      "09:40:00",
+      "09:45:00",
+      "09:50:00",
+      "09:55:00",
+      "10:00:00",
+      "10:05:00",
+      "10:10:00",
+      "10:15:00",
+      "10:20:00",
+      "10:25:00",
+      "10:30:00",
+      "10:35:00",
+      "10:40:00",
+      "10:45:00",
+      "10:50:00",
+      "10:55:00",
+      "11:00:00",
+      "11:05:00",
+      "11:10:00",
+      "11:15:00",
+      "11:20:00",
+      "11:25:00",
+      "11:30:00",
+      "11:35:00",
+      "11:40:00",
+      "11:45:00",
+      "11:50:00",
+      "11:55:00",
+      "12:00:00",
+      "12:05:00",
+      "12:10:00",
+      "12:15:00",
+      "12:20:00",
+      "12:25:00",
+      "12:30:00",
+      "12:35:00",
+      "12:40:00",
+      "12:45:00",
+      "12:50:00",
+      "12:55:00",
+      "13:00:00",
+      "13:05:00",
+      "13:10:00",
+      "13:15:00",
+      "13:20:00",
+      "13:25:00",
+      "13:30:00"
+    ],
+    "expected_regular_kbars_per_day": 55,
+    "universe_union_trading_days": 481,
+    "duplicate_timestamp_rows": 0,
+    "invalid_ohlcv_rows": 0,
+    "weekend_rows": 8,
+    "missing_regular_intraday_kbars": 122,
+    "unresolved_full_day_gaps": 0,
+    "by_stock": {
+      "2303": {
+        "rows": 26453,
+        "raw_distinct_dates": 482,
+        "valid_weekday_trading_days": 481,
+        "first_timestamp": "2023-01-03T09:00:00+08:00",
+        "last_timestamp": "2024-12-31T13:30:00+08:00",
+        "duplicate_timestamp_rows": 0,
+        "invalid_ohlcv_rows": 0,
+        "negative_volume_rows": 0,
+        "weekend_rows": 1,
+        "weekend_observations": [
+          {
+            "datetime": "2024-12-01T09:00:00+08:00",
+            "open": 47.9,
+            "high": 47.9,
+            "low": 47.9,
+            "close": 47.9,
+            "volume": 65.0
+          }
+        ],
+        "missing_dates_against_universe_union": [],
+        "missing_date_reason": null,
+        "daily_kbar_count_distribution": {
+          "53": 1,
+          "54": 1,
+          "55": 479
+        },
+        "nonstandard_days": [
+          {
+            "trade_date": "2023-07-13",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:00:00",
+              "11:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-01-10",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:55:00"
+            ],
+            "extra_times": []
+          }
+        ],
+        "missing_clock_time_counts": {
+          "11:00:00": 1,
+          "11:05:00": 1,
+          "11:55:00": 1
+        },
+        "extra_clock_time_counts": {}
+      },
+      "2330": {
+        "rows": 26453,
+        "raw_distinct_dates": 482,
+        "valid_weekday_trading_days": 481,
+        "first_timestamp": "2023-01-03T09:00:00+08:00",
+        "last_timestamp": "2024-12-31T13:30:00+08:00",
+        "duplicate_timestamp_rows": 0,
+        "invalid_ohlcv_rows": 0,
+        "negative_volume_rows": 0,
+        "weekend_rows": 1,
+        "weekend_observations": [
+          {
+            "datetime": "2024-12-01T09:00:00+08:00",
+            "open": 1000.0,
+            "high": 1020.0,
+            "low": 1000.0,
+            "close": 1020.0,
+            "volume": 31.0
+          }
+        ],
+        "missing_dates_against_universe_union": [],
+        "missing_date_reason": null,
+        "daily_kbar_count_distribution": {
+          "53": 1,
+          "54": 1,
+          "55": 479
+        },
+        "nonstandard_days": [
+          {
+            "trade_date": "2023-07-13",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:00:00",
+              "11:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-01-10",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:55:00"
+            ],
+            "extra_times": []
+          }
+        ],
+        "missing_clock_time_counts": {
+          "11:00:00": 1,
+          "11:05:00": 1,
+          "11:55:00": 1
+        },
+        "extra_clock_time_counts": {}
+      },
+      "2379": {
+        "rows": 26384,
+        "raw_distinct_dates": 481,
+        "valid_weekday_trading_days": 481,
+        "first_timestamp": "2023-01-03T09:00:00+08:00",
+        "last_timestamp": "2024-12-31T13:30:00+08:00",
+        "duplicate_timestamp_rows": 0,
+        "invalid_ohlcv_rows": 0,
+        "negative_volume_rows": 0,
+        "weekend_rows": 0,
+        "weekend_observations": [],
+        "missing_dates_against_universe_union": [],
+        "missing_date_reason": null,
+        "daily_kbar_count_distribution": {
+          "49": 1,
+          "50": 1,
+          "51": 1,
+          "52": 3,
+          "53": 10,
+          "54": 27,
+          "55": 438
+        },
+        "nonstandard_days": [
+          {
+            "trade_date": "2023-01-03",
+            "kbar_count": 54,
+            "missing_times": [
+              "10:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-03-27",
+            "kbar_count": 52,
+            "missing_times": [
+              "10:25:00",
+              "11:35:00",
+              "12:45:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-03-30",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:00:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-04-07",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:20:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-05-11",
+            "kbar_count": 53,
+            "missing_times": [
+              "10:20:00",
+              "11:25:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-05-15",
+            "kbar_count": 49,
+            "missing_times": [
+              "09:55:00",
+              "10:40:00",
+              "11:05:00",
+              "11:10:00",
+              "11:35:00",
+              "12:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-05-17",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:40:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-05-19",
+            "kbar_count": 54,
+            "missing_times": [
+              "12:10:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-06-14",
+            "kbar_count": 54,
+            "missing_times": [
+              "12:30:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-06-15",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:05:00",
+              "11:20:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-07-11",
+            "kbar_count": 54,
+            "missing_times": [
+              "12:00:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-07-13",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:00:00",
+              "11:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-08-21",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:55:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-08-23",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:40:00",
+              "11:45:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-10-06",
+            "kbar_count": 54,
+            "missing_times": [
+              "10:30:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-10-31",
+            "kbar_count": 54,
+            "missing_times": [
+              "10:35:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-11-01",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:20:00",
+              "11:50:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-11-06",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:15:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-11-07",
+            "kbar_count": 54,
+            "missing_times": [
+              "09:15:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-12-07",
+            "kbar_count": 54,
+            "missing_times": [
+              "09:40:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-12-28",
+            "kbar_count": 54,
+            "missing_times": [
+              "12:20:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-12-29",
+            "kbar_count": 50,
+            "missing_times": [
+              "10:35:00",
+              "11:00:00",
+              "11:35:00",
+              "11:40:00",
+              "11:45:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-01-10",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:55:00",
+              "12:10:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-01-12",
+            "kbar_count": 54,
+            "missing_times": [
+              "12:35:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-01-26",
+            "kbar_count": 51,
+            "missing_times": [
+              "10:40:00",
+              "10:45:00",
+              "11:10:00",
+              "11:40:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-01-29",
+            "kbar_count": 54,
+            "missing_times": [
+              "09:15:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-08-23",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:00:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-08-26",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:25:00",
+              "13:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-08-29",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:50:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-08-30",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:25:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-09-03",
+            "kbar_count": 54,
+            "missing_times": [
+              "09:45:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-09-11",
+            "kbar_count": 52,
+            "missing_times": [
+              "09:25:00",
+              "10:45:00",
+              "10:55:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-09-12",
+            "kbar_count": 54,
+            "missing_times": [
+              "10:55:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-09-30",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:15:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-10-15",
+            "kbar_count": 52,
+            "missing_times": [
+              "10:45:00",
+              "11:35:00",
+              "11:40:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-10-30",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-11-05",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:55:00",
+              "12:00:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-11-14",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:20:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-11-15",
+            "kbar_count": 54,
+            "missing_times": [
+              "12:55:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-12-13",
+            "kbar_count": 54,
+            "missing_times": [
+              "09:25:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-12-23",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:30:00",
+              "11:35:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-12-24",
+            "kbar_count": 54,
+            "missing_times": [
+              "09:45:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-12-25",
+            "kbar_count": 53,
+            "missing_times": [
+              "10:00:00",
+              "12:10:00"
+            ],
+            "extra_times": []
+          }
+        ],
+        "missing_clock_time_counts": {
+          "09:15:00": 2,
+          "09:25:00": 2,
+          "09:40:00": 1,
+          "09:45:00": 2,
+          "09:55:00": 1,
+          "10:00:00": 1,
+          "10:05:00": 1,
+          "10:20:00": 1,
+          "10:25:00": 1,
+          "10:30:00": 1,
+          "10:35:00": 2,
+          "10:40:00": 2,
+          "10:45:00": 3,
+          "10:55:00": 2,
+          "11:00:00": 4,
+          "11:05:00": 4,
+          "11:10:00": 2,
+          "11:15:00": 2,
+          "11:20:00": 4,
+          "11:25:00": 3,
+          "11:30:00": 1,
+          "11:35:00": 5,
+          "11:40:00": 5,
+          "11:45:00": 2,
+          "11:50:00": 2,
+          "11:55:00": 3,
+          "12:00:00": 2,
+          "12:05:00": 1,
+          "12:10:00": 3,
+          "12:20:00": 1,
+          "12:30:00": 1,
+          "12:35:00": 1,
+          "12:45:00": 1,
+          "12:55:00": 1,
+          "13:05:00": 1
+        },
+        "extra_clock_time_counts": {}
+      },
+      "2454": {
+        "rows": 26451,
+        "raw_distinct_dates": 482,
+        "valid_weekday_trading_days": 481,
+        "first_timestamp": "2023-01-03T09:00:00+08:00",
+        "last_timestamp": "2024-12-31T13:30:00+08:00",
+        "duplicate_timestamp_rows": 0,
+        "invalid_ohlcv_rows": 0,
+        "negative_volume_rows": 0,
+        "weekend_rows": 1,
+        "weekend_observations": [
+          {
+            "datetime": "2024-12-01T09:00:00+08:00",
+            "open": 1260.0,
+            "high": 1260.0,
+            "low": 1255.0,
+            "close": 1255.0,
+            "volume": 2.0
+          }
+        ],
+        "missing_dates_against_universe_union": [],
+        "missing_date_reason": null,
+        "daily_kbar_count_distribution": {
+          "53": 2,
+          "54": 1,
+          "55": 478
+        },
+        "nonstandard_days": [
+          {
+            "trade_date": "2023-07-13",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:00:00",
+              "11:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-01-10",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:55:00",
+              "12:10:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-10-30",
+            "kbar_count": 54,
+            "missing_times": [
+              "12:00:00"
+            ],
+            "extra_times": []
+          }
+        ],
+        "missing_clock_time_counts": {
+          "11:00:00": 1,
+          "11:05:00": 1,
+          "11:55:00": 1,
+          "12:00:00": 1,
+          "12:10:00": 1
+        },
+        "extra_clock_time_counts": {}
+      },
+      "3034": {
+        "rows": 26434,
+        "raw_distinct_dates": 482,
+        "valid_weekday_trading_days": 481,
+        "first_timestamp": "2023-01-03T09:00:00+08:00",
+        "last_timestamp": "2024-12-31T13:30:00+08:00",
+        "duplicate_timestamp_rows": 0,
+        "invalid_ohlcv_rows": 0,
+        "negative_volume_rows": 0,
+        "weekend_rows": 1,
+        "weekend_observations": [
+          {
+            "datetime": "2024-12-01T09:00:00+08:00",
+            "open": 481.0,
+            "high": 481.0,
+            "low": 481.0,
+            "close": 481.0,
+            "volume": 2.0
+          }
+        ],
+        "missing_dates_against_universe_union": [],
+        "missing_date_reason": null,
+        "daily_kbar_count_distribution": {
+          "53": 3,
+          "54": 16,
+          "55": 462
+        },
+        "nonstandard_days": [
+          {
+            "trade_date": "2023-07-13",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:00:00",
+              "11:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-08-31",
+            "kbar_count": 54,
+            "missing_times": [
+              "12:40:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2023-10-27",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-01-10",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:55:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-08-27",
+            "kbar_count": 54,
+            "missing_times": [
+              "09:30:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-09-23",
+            "kbar_count": 54,
+            "missing_times": [
+              "12:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-09-24",
+            "kbar_count": 54,
+            "missing_times": [
+              "10:55:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-09-27",
+            "kbar_count": 54,
+            "missing_times": [
+              "12:15:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-10-14",
+            "kbar_count": 54,
+            "missing_times": [
+              "12:00:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-10-15",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:50:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-10-17",
+            "kbar_count": 53,
+            "missing_times": [
+              "10:50:00",
+              "10:55:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-10-25",
+            "kbar_count": 54,
+            "missing_times": [
+              "10:40:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-12-05",
+            "kbar_count": 54,
+            "missing_times": [
+              "12:00:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-12-06",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:20:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-12-09",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:40:00",
+              "12:00:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-12-11",
+            "kbar_count": 54,
+            "missing_times": [
+              "09:45:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-12-12",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:10:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-12-27",
+            "kbar_count": 54,
+            "missing_times": [
+              "10:55:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-12-31",
+            "kbar_count": 54,
+            "missing_times": [
+              "10:25:00"
+            ],
+            "extra_times": []
+          }
+        ],
+        "missing_clock_time_counts": {
+          "09:30:00": 1,
+          "09:45:00": 1,
+          "10:25:00": 1,
+          "10:40:00": 1,
+          "10:50:00": 1,
+          "10:55:00": 3,
+          "11:00:00": 1,
+          "11:05:00": 2,
+          "11:10:00": 1,
+          "11:20:00": 1,
+          "11:40:00": 1,
+          "11:50:00": 1,
+          "11:55:00": 1,
+          "12:00:00": 3,
+          "12:05:00": 1,
+          "12:15:00": 1,
+          "12:40:00": 1
+        },
+        "extra_clock_time_counts": {}
+      },
+      "2881": {
+        "rows": 26452,
+        "raw_distinct_dates": 482,
+        "valid_weekday_trading_days": 481,
+        "first_timestamp": "2023-01-03T09:00:00+08:00",
+        "last_timestamp": "2024-12-31T13:30:00+08:00",
+        "duplicate_timestamp_rows": 0,
+        "invalid_ohlcv_rows": 0,
+        "negative_volume_rows": 0,
+        "weekend_rows": 1,
+        "weekend_observations": [
+          {
+            "datetime": "2024-12-01T09:00:00+08:00",
+            "open": 88.0,
+            "high": 89.4,
+            "low": 88.0,
+            "close": 89.4,
+            "volume": 5.0
+          }
+        ],
+        "missing_dates_against_universe_union": [],
+        "missing_date_reason": null,
+        "daily_kbar_count_distribution": {
+          "53": 2,
+          "55": 479
+        },
+        "nonstandard_days": [
+          {
+            "trade_date": "2023-07-13",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:00:00",
+              "11:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-01-10",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:55:00",
+              "12:10:00"
+            ],
+            "extra_times": []
+          }
+        ],
+        "missing_clock_time_counts": {
+          "11:00:00": 1,
+          "11:05:00": 1,
+          "11:55:00": 1,
+          "12:10:00": 1
+        },
+        "extra_clock_time_counts": {}
+      },
+      "2882": {
+        "rows": 26452,
+        "raw_distinct_dates": 482,
+        "valid_weekday_trading_days": 481,
+        "first_timestamp": "2023-01-03T09:00:00+08:00",
+        "last_timestamp": "2024-12-31T13:30:00+08:00",
+        "duplicate_timestamp_rows": 0,
+        "invalid_ohlcv_rows": 0,
+        "negative_volume_rows": 0,
+        "weekend_rows": 1,
+        "weekend_observations": [
+          {
+            "datetime": "2024-12-01T09:00:00+08:00",
+            "open": 72.0,
+            "high": 72.0,
+            "low": 70.0,
+            "close": 70.0,
+            "volume": 19.0
+          }
+        ],
+        "missing_dates_against_universe_union": [],
+        "missing_date_reason": null,
+        "daily_kbar_count_distribution": {
+          "53": 2,
+          "55": 479
+        },
+        "nonstandard_days": [
+          {
+            "trade_date": "2023-07-13",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:00:00",
+              "11:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-01-10",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:55:00",
+              "12:10:00"
+            ],
+            "extra_times": []
+          }
+        ],
+        "missing_clock_time_counts": {
+          "11:00:00": 1,
+          "11:05:00": 1,
+          "11:55:00": 1,
+          "12:10:00": 1
+        },
+        "extra_clock_time_counts": {}
+      },
+      "2884": {
+        "rows": 26451,
+        "raw_distinct_dates": 481,
+        "valid_weekday_trading_days": 481,
+        "first_timestamp": "2023-01-03T09:00:00+08:00",
+        "last_timestamp": "2024-12-31T13:30:00+08:00",
+        "duplicate_timestamp_rows": 0,
+        "invalid_ohlcv_rows": 0,
+        "negative_volume_rows": 0,
+        "weekend_rows": 0,
+        "weekend_observations": [],
+        "missing_dates_against_universe_union": [],
+        "missing_date_reason": null,
+        "daily_kbar_count_distribution": {
+          "53": 2,
+          "55": 479
+        },
+        "nonstandard_days": [
+          {
+            "trade_date": "2023-07-13",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:00:00",
+              "11:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-01-10",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:55:00",
+              "12:10:00"
+            ],
+            "extra_times": []
+          }
+        ],
+        "missing_clock_time_counts": {
+          "11:00:00": 1,
+          "11:05:00": 1,
+          "11:55:00": 1,
+          "12:10:00": 1
+        },
+        "extra_clock_time_counts": {}
+      },
+      "2886": {
+        "rows": 26453,
+        "raw_distinct_dates": 482,
+        "valid_weekday_trading_days": 481,
+        "first_timestamp": "2023-01-03T09:00:00+08:00",
+        "last_timestamp": "2024-12-31T13:30:00+08:00",
+        "duplicate_timestamp_rows": 0,
+        "invalid_ohlcv_rows": 0,
+        "negative_volume_rows": 0,
+        "weekend_rows": 1,
+        "weekend_observations": [
+          {
+            "datetime": "2024-12-01T09:00:00+08:00",
+            "open": 36.0,
+            "high": 36.0,
+            "low": 36.0,
+            "close": 36.0,
+            "volume": 2.0
+          }
+        ],
+        "missing_dates_against_universe_union": [],
+        "missing_date_reason": null,
+        "daily_kbar_count_distribution": {
+          "53": 1,
+          "54": 1,
+          "55": 479
+        },
+        "nonstandard_days": [
+          {
+            "trade_date": "2023-07-13",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:00:00",
+              "11:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-01-10",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:55:00"
+            ],
+            "extra_times": []
+          }
+        ],
+        "missing_clock_time_counts": {
+          "11:00:00": 1,
+          "11:05:00": 1,
+          "11:55:00": 1
+        },
+        "extra_clock_time_counts": {}
+      },
+      "2891": {
+        "rows": 26453,
+        "raw_distinct_dates": 482,
+        "valid_weekday_trading_days": 481,
+        "first_timestamp": "2023-01-03T09:00:00+08:00",
+        "last_timestamp": "2024-12-31T13:30:00+08:00",
+        "duplicate_timestamp_rows": 0,
+        "invalid_ohlcv_rows": 0,
+        "negative_volume_rows": 0,
+        "weekend_rows": 1,
+        "weekend_observations": [
+          {
+            "datetime": "2024-12-01T09:00:00+08:00",
+            "open": 40.0,
+            "high": 40.0,
+            "low": 40.0,
+            "close": 40.0,
+            "volume": 8.0
+          }
+        ],
+        "missing_dates_against_universe_union": [],
+        "missing_date_reason": null,
+        "daily_kbar_count_distribution": {
+          "53": 1,
+          "54": 1,
+          "55": 479
+        },
+        "nonstandard_days": [
+          {
+            "trade_date": "2023-07-13",
+            "kbar_count": 53,
+            "missing_times": [
+              "11:00:00",
+              "11:05:00"
+            ],
+            "extra_times": []
+          },
+          {
+            "trade_date": "2024-01-10",
+            "kbar_count": 54,
+            "missing_times": [
+              "11:55:00"
+            ],
+            "extra_times": []
+          }
+        ],
+        "missing_clock_time_counts": {
+          "11:00:00": 1,
+          "11:05:00": 1,
+          "11:55:00": 1
+        },
+        "extra_clock_time_counts": {}
+      }
+    },
+    "no_automatic_fill": true,
+    "label_audit_excludes_weekend_rows": true,
+    "day_count_difference_explanation": "2379 and 2884 have 481 raw dates. The other eight stocks have one extra 2024-12-01 Sunday row, so all ten have the same 481 weekday trading dates. The difference is an extra non-trading-date observation in eight stocks, not a missing weekday in 2379/2884."
+  },
+  "label_construction_audit": {
+    "target_complete_samples": 4780,
+    "eligible_common_samples": 4580,
+    "warmup_excluded_total": 200,
+    "warmup_by_stock": {
+      "2303": {
+        "target_complete_samples": 478,
+        "eligible_samples": 458,
+        "warmup_excluded": 20
+      },
+      "2330": {
+        "target_complete_samples": 478,
+        "eligible_samples": 458,
+        "warmup_excluded": 20
+      },
+      "2379": {
+        "target_complete_samples": 478,
+        "eligible_samples": 458,
+        "warmup_excluded": 20
+      },
+      "2454": {
+        "target_complete_samples": 478,
+        "eligible_samples": 458,
+        "warmup_excluded": 20
+      },
+      "2881": {
+        "target_complete_samples": 478,
+        "eligible_samples": 458,
+        "warmup_excluded": 20
+      },
+      "2882": {
+        "target_complete_samples": 478,
+        "eligible_samples": 458,
+        "warmup_excluded": 20
+      },
+      "2884": {
+        "target_complete_samples": 478,
+        "eligible_samples": 458,
+        "warmup_excluded": 20
+      },
+      "2886": {
+        "target_complete_samples": 478,
+        "eligible_samples": 458,
+        "warmup_excluded": 20
+      },
+      "2891": {
+        "target_complete_samples": 478,
+        "eligible_samples": 458,
+        "warmup_excluded": 20
+      },
+      "3034": {
+        "target_complete_samples": 478,
+        "eligible_samples": 458,
+        "warmup_excluded": 20
+      }
+    },
+    "sigma_formula": "trailing non-centered per-stock std(ddof=1) of 20 daily close returns through Day T",
+    "sigma_3d_formula": "sigma_20d * sqrt(3)",
+    "candidate_k": 0.5,
+    "cost_formula": "target_close*(1-commission-tax)/(entry_open*(1+commission))-1",
+    "cost_deducted_once": true,
+    "future_fill_used": false,
+    "backward_fill_used": false,
+    "global_mean_fill_used": false,
+    "common_sample_set_for_both_labels": true,
+    "leakage_tests_pass": true,
+    "runtime_formula_guardrails": {
+      "passed": true,
+      "sigma_no_future_leakage": true,
+      "cost_formula_exactly_once": true,
+      "day_t1_open_to_day_t3_close": true,
+      "twenty_valid_returns_required": true
+    }
+  },
+  "label_audit": {
+    "by_stock": {
+      "2303": {
+        "fixed_1pct": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 205,
+              "proportion": 0.44759825327510916
+            },
+            "HOLD": {
+              "count": 151,
+              "proportion": 0.3296943231441048
+            },
+            "BUY": {
+              "count": 102,
+              "proportion": 0.22270742358078602
+            }
+          },
+          "flags": []
+        },
+        "volatility_k_0_50": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 185,
+              "proportion": 0.4039301310043668
+            },
+            "HOLD": {
+              "count": 183,
+              "proportion": 0.39956331877729256
+            },
+            "BUY": {
+              "count": 90,
+              "proportion": 0.1965065502183406
+            }
+          },
+          "flags": []
+        },
+        "future_net_return": {
+          "count": 458,
+          "mean": -0.006734281437325671,
+          "median": -0.007285976334326538,
+          "standard_deviation": 0.02339179723573575,
+          "min": -0.08418060548896045,
+          "max": 0.07277544913913081,
+          "q10": -0.035443988093222835,
+          "q25": -0.021801467284120107,
+          "q50": -0.007285976334326538,
+          "q75": 0.008069595711340971,
+          "q90": 0.0223287061066344
+        },
+        "sigma_20d": {
+          "count": 458,
+          "mean": 0.015038992123363026,
+          "median": 0.013859650951266029,
+          "standard_deviation": 0.003960318700989261,
+          "min": 0.009590854572779165,
+          "max": 0.027155327232181052,
+          "q10": 0.010825829507002893,
+          "q25": 0.01226054971857032,
+          "q50": 0.013859650951266029,
+          "q75": 0.01642530943836921,
+          "q90": 0.02065732776116247
+        },
+        "sigma_3d": {
+          "count": 458,
+          "mean": 0.026048298452292912,
+          "median": 0.02400561962276308,
+          "standard_deviation": 0.006859473204278576,
+          "min": 0.016611847408057812,
+          "max": 0.04703440646229631,
+          "q10": 0.01875088674020734,
+          "q25": 0.021235895041288092,
+          "q50": 0.02400561962276308,
+          "q75": 0.028449470477296093,
+          "q90": 0.03577954123093644
+        },
+        "z_return": {
+          "count": 458,
+          "mean": -0.28218061086608837,
+          "median": -0.2753490102137508,
+          "standard_deviation": 1.0035397380909796,
+          "min": -4.034645539705022,
+          "max": 3.1163246447720634,
+          "q10": -1.4375146919297983,
+          "q25": -0.8932192895958481,
+          "q50": -0.2753490102137508,
+          "q75": 0.3359165380445565,
+          "q90": 0.9038674305364834
+        }
+      },
+      "2330": {
+        "fixed_1pct": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 177,
+              "proportion": 0.3864628820960699
+            },
+            "HOLD": {
+              "count": 153,
+              "proportion": 0.33406113537117904
+            },
+            "BUY": {
+              "count": 128,
+              "proportion": 0.2794759825327511
+            }
+          },
+          "flags": []
+        },
+        "volatility_k_0_50": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 141,
+              "proportion": 0.3078602620087336
+            },
+            "HOLD": {
+              "count": 204,
+              "proportion": 0.44541484716157204
+            },
+            "BUY": {
+              "count": 113,
+              "proportion": 0.24672489082969432
+            }
+          },
+          "flags": []
+        },
+        "future_net_return": {
+          "count": 458,
+          "mean": -0.002405902481722843,
+          "median": -0.0041186924051575535,
+          "standard_deviation": 0.025813031545297908,
+          "min": -0.1638400058039069,
+          "max": 0.09467354201936806,
+          "q10": -0.029541755863876418,
+          "q25": -0.017549167558010392,
+          "q50": -0.0041186924051575535,
+          "q75": 0.013064805365288201,
+          "q90": 0.029707777561876106
+        },
+        "sigma_20d": {
+          "count": 458,
+          "mean": 0.017051643738323307,
+          "median": 0.016343657305301768,
+          "standard_deviation": 0.006856734465089528,
+          "min": 0.006252116501152779,
+          "max": 0.04343605977271731,
+          "q10": 0.009853431565388518,
+          "q25": 0.012591823644097444,
+          "q50": 0.016343657305301768,
+          "q75": 0.019933003831967187,
+          "q90": 0.02470217041962512
+        },
+        "sigma_3d": {
+          "count": 458,
+          "mean": 0.029534313307339678,
+          "median": 0.028308044834276902,
+          "standard_deviation": 0.011876212467543671,
+          "min": 0.010828983434836374,
+          "max": 0.07523346240694505,
+          "q10": 0.017066644100155848,
+          "q25": 0.02180967831152386,
+          "q50": 0.028308044834276902,
+          "q75": 0.03452497538443229,
+          "q90": 0.042785414224015716
+        },
+        "z_return": {
+          "count": 458,
+          "mean": -0.10249565989788367,
+          "median": -0.16438364661691773,
+          "standard_deviation": 0.9563773203239412,
+          "min": -3.529715497223864,
+          "max": 4.431241456734859,
+          "q10": -1.19150102774735,
+          "q25": -0.6510913845386211,
+          "q50": -0.16438364661691773,
+          "q75": 0.4949419446483384,
+          "q90": 0.9663315198931491
+        }
+      },
+      "2379": {
+        "fixed_1pct": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 174,
+              "proportion": 0.3799126637554585
+            },
+            "HOLD": {
+              "count": 136,
+              "proportion": 0.29694323144104806
+            },
+            "BUY": {
+              "count": 148,
+              "proportion": 0.3231441048034934
+            }
+          },
+          "flags": []
+        },
+        "volatility_k_0_50": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 132,
+              "proportion": 0.28820960698689957
+            },
+            "HOLD": {
+              "count": 221,
+              "proportion": 0.48253275109170307
+            },
+            "BUY": {
+              "count": 105,
+              "proportion": 0.2292576419213974
+            }
+          },
+          "flags": []
+        },
+        "future_net_return": {
+          "count": 458,
+          "mean": -0.003482146432889814,
+          "median": -0.0021830685045730047,
+          "standard_deviation": 0.031432190229874056,
+          "min": -0.130111466160721,
+          "max": 0.12939689187974635,
+          "q10": -0.03901639378294606,
+          "q25": -0.020945611725374125,
+          "q50": -0.0021830685045730047,
+          "q75": 0.014961893886939193,
+          "q90": 0.03385008502684794
+        },
+        "sigma_20d": {
+          "count": 458,
+          "mean": 0.0199307460598377,
+          "median": 0.019131116207319276,
+          "standard_deviation": 0.005125938980569506,
+          "min": 0.011017994066190698,
+          "max": 0.03323813452418796,
+          "q10": 0.014084938389198314,
+          "q25": 0.015538074172267876,
+          "q50": 0.019131116207319276,
+          "q75": 0.023615144836400124,
+          "q90": 0.028135726831378702
+        },
+        "sigma_3d": {
+          "count": 458,
+          "mean": 0.03452106480839211,
+          "median": 0.03313606527658139,
+          "standard_deviation": 0.008878386750844201,
+          "min": 0.019083725520134695,
+          "max": 0.05757013774470273,
+          "q10": 0.024395828911568822,
+          "q25": 0.02691273391814169,
+          "q50": 0.03313606527658139,
+          "q75": 0.04090263068474284,
+          "q90": 0.0487325083798268
+        },
+        "z_return": {
+          "count": 458,
+          "mean": -0.11292032764950927,
+          "median": -0.06618459390948767,
+          "standard_deviation": 1.0263499283478517,
+          "min": -4.875181688978691,
+          "max": 3.873152596665669,
+          "q10": -1.2565119055729956,
+          "q25": -0.5980734959836083,
+          "q50": -0.06618459390948767,
+          "q75": 0.4270847600369516,
+          "q90": 1.002108964426748
+        }
+      },
+      "2454": {
+        "fixed_1pct": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 178,
+              "proportion": 0.388646288209607
+            },
+            "HOLD": {
+              "count": 122,
+              "proportion": 0.2663755458515284
+            },
+            "BUY": {
+              "count": 158,
+              "proportion": 0.34497816593886466
+            }
+          },
+          "flags": []
+        },
+        "volatility_k_0_50": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 133,
+              "proportion": 0.2903930131004367
+            },
+            "HOLD": {
+              "count": 217,
+              "proportion": 0.4737991266375546
+            },
+            "BUY": {
+              "count": 108,
+              "proportion": 0.23580786026200873
+            }
+          },
+          "flags": []
+        },
+        "future_net_return": {
+          "count": 458,
+          "mean": -0.0023015021394300213,
+          "median": -0.0007473556954665783,
+          "standard_deviation": 0.03710086903142712,
+          "min": -0.1891268317133682,
+          "max": 0.14902720909136624,
+          "q10": -0.04323816635101224,
+          "q25": -0.02272339914859048,
+          "q50": -0.0007473556954665783,
+          "q75": 0.017820484306366957,
+          "q90": 0.03821959680467808
+        },
+        "sigma_20d": {
+          "count": 458,
+          "mean": 0.022488193145587698,
+          "median": 0.021465283763438738,
+          "standard_deviation": 0.007514121485117081,
+          "min": 0.009448470990996032,
+          "max": 0.04636511685744796,
+          "q10": 0.012694198384402767,
+          "q25": 0.017328211913118827,
+          "q50": 0.021465283763438738,
+          "q75": 0.02753218352034177,
+          "q90": 0.030786968274342408
+        },
+        "sigma_3d": {
+          "count": 458,
+          "mean": 0.03895069309858007,
+          "median": 0.03717896207715917,
+          "standard_deviation": 0.01301484018646769,
+          "min": 0.016365231810245788,
+          "max": 0.0803067380959681,
+          "q10": 0.02198699656314435,
+          "q25": 0.0300133434378421,
+          "q50": 0.03717896207715917,
+          "q75": 0.047687140700542495,
+          "q90": 0.05332459326217217
+        },
+        "z_return": {
+          "count": 458,
+          "mean": -0.06209260853761007,
+          "median": -0.02251351782927452,
+          "standard_deviation": 1.0757579609751071,
+          "min": -4.520030526187439,
+          "max": 4.312377369081368,
+          "q10": -1.222451160584942,
+          "q25": -0.6079168359374899,
+          "q50": -0.02251351782927452,
+          "q75": 0.4667740921801792,
+          "q90": 1.0896024730274172
+        }
+      },
+      "2881": {
+        "fixed_1pct": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 162,
+              "proportion": 0.3537117903930131
+            },
+            "HOLD": {
+              "count": 189,
+              "proportion": 0.4126637554585153
+            },
+            "BUY": {
+              "count": 107,
+              "proportion": 0.2336244541484716
+            }
+          },
+          "flags": []
+        },
+        "volatility_k_0_50": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 173,
+              "proportion": 0.3777292576419214
+            },
+            "HOLD": {
+              "count": 176,
+              "proportion": 0.38427947598253276
+            },
+            "BUY": {
+              "count": 109,
+              "proportion": 0.23799126637554585
+            }
+          },
+          "flags": []
+        },
+        "future_net_return": {
+          "count": 458,
+          "mean": -0.002837345761731728,
+          "median": -0.0026060076461696946,
+          "standard_deviation": 0.020380417528904723,
+          "min": -0.11754485812772975,
+          "max": 0.06814219969102164,
+          "q10": -0.024048291668785814,
+          "q25": -0.014575037087275033,
+          "q50": -0.0026060076461696946,
+          "q75": 0.00844245159642143,
+          "q90": 0.021018228280703054
+        },
+        "sigma_20d": {
+          "count": 458,
+          "mean": 0.0117622248190098,
+          "median": 0.010525200628344795,
+          "standard_deviation": 0.005379336987384026,
+          "min": 0.004535147045032476,
+          "max": 0.03193182658941959,
+          "q10": 0.007297888211352115,
+          "q25": 0.00808514976636994,
+          "q50": 0.010525200628344795,
+          "q75": 0.013330361499854669,
+          "q90": 0.019431438468468728
+        },
+        "sigma_3d": {
+          "count": 458,
+          "mean": 0.020372770996572614,
+          "median": 0.018230182248149054,
+          "standard_deviation": 0.009317284973183633,
+          "min": 0.007855105101792107,
+          "max": 0.05530754603135355,
+          "q10": 0.01264031317001982,
+          "q25": 0.014003890182156373,
+          "q50": 0.018230182248149054,
+          "q75": 0.02308886340100835,
+          "q90": 0.03365623869153621
+        },
+        "z_return": {
+          "count": 458,
+          "mean": -0.13956848867059718,
+          "median": -0.13951787953015363,
+          "standard_deviation": 1.0336832055148402,
+          "min": -3.9167121704009777,
+          "max": 3.76109192651782,
+          "q10": -1.309394819687582,
+          "q25": -0.7569788410077516,
+          "q50": -0.13951787953015363,
+          "q75": 0.4270867446164096,
+          "q90": 1.118936382614367
+        }
+      },
+      "2882": {
+        "fixed_1pct": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 164,
+              "proportion": 0.35807860262008734
+            },
+            "HOLD": {
+              "count": 198,
+              "proportion": 0.43231441048034935
+            },
+            "BUY": {
+              "count": 96,
+              "proportion": 0.2096069868995633
+            }
+          },
+          "flags": []
+        },
+        "volatility_k_0_50": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 164,
+              "proportion": 0.35807860262008734
+            },
+            "HOLD": {
+              "count": 197,
+              "proportion": 0.43013100436681223
+            },
+            "BUY": {
+              "count": 97,
+              "proportion": 0.21179039301310043
+            }
+          },
+          "flags": []
+        },
+        "future_net_return": {
+          "count": 458,
+          "mean": -0.0030540721636203682,
+          "median": -0.003616111597779803,
+          "standard_deviation": 0.020517983055391854,
+          "min": -0.12122094060478916,
+          "max": 0.08400367393948893,
+          "q10": -0.023775604186422106,
+          "q25": -0.015850785385136706,
+          "q50": -0.003616111597779803,
+          "q75": 0.0078042756031300176,
+          "q90": 0.019960290016423188
+        },
+        "sigma_20d": {
+          "count": 458,
+          "mean": 0.012451036944470898,
+          "median": 0.011503983295763465,
+          "standard_deviation": 0.0052827906721561865,
+          "min": 0.005464974012906836,
+          "max": 0.03136035803433199,
+          "q10": 0.007133887083936943,
+          "q25": 0.009444241849094745,
+          "q50": 0.011503983295763465,
+          "q75": 0.013268182770106812,
+          "q90": 0.02127474291573803
+        },
+        "sigma_3d": {
+          "count": 458,
+          "mean": 0.02156582859474074,
+          "median": 0.01992548355768598,
+          "standard_deviation": 0.009150061849925456,
+          "min": 0.009465612652398214,
+          "max": 0.05431773345901384,
+          "q10": 0.012356254884838165,
+          "q25": 0.01635790672160034,
+          "q50": 0.01992548355768598,
+          "q75": 0.022981166681934964,
+          "q90": 0.03684893564802431
+        },
+        "z_return": {
+          "count": 458,
+          "mean": -0.17545990222424182,
+          "median": -0.15326460610690174,
+          "standard_deviation": 0.9993954524804599,
+          "min": -3.4320133387944156,
+          "max": 3.656315331419626,
+          "q10": -1.3487173329105284,
+          "q25": -0.8061643375539526,
+          "q50": -0.15326460610690174,
+          "q75": 0.37588417395195267,
+          "q90": 0.9800065477003391
+        }
+      },
+      "2884": {
+        "fixed_1pct": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 142,
+              "proportion": 0.31004366812227074
+            },
+            "HOLD": {
+              "count": 237,
+              "proportion": 0.517467248908297
+            },
+            "BUY": {
+              "count": 79,
+              "proportion": 0.17248908296943233
+            }
+          },
+          "flags": []
+        },
+        "volatility_k_0_50": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 176,
+              "proportion": 0.38427947598253276
+            },
+            "HOLD": {
+              "count": 193,
+              "proportion": 0.42139737991266374
+            },
+            "BUY": {
+              "count": 89,
+              "proportion": 0.1943231441048035
+            }
+          },
+          "flags": []
+        },
+        "future_net_return": {
+          "count": 458,
+          "mean": -0.004382983255169031,
+          "median": -0.0039462338051227674,
+          "standard_deviation": 0.01599728626467356,
+          "min": -0.10926083016265586,
+          "max": 0.04648244672394486,
+          "q10": -0.021345119267422108,
+          "q25": -0.013755955606398113,
+          "q50": -0.0039462338051227674,
+          "q75": 0.005093837512051003,
+          "q90": 0.014764598607450607
+        },
+        "sigma_20d": {
+          "count": 458,
+          "mean": 0.009790621900759149,
+          "median": 0.008655630216059352,
+          "standard_deviation": 0.004199704678014098,
+          "min": 0.004613709597032014,
+          "max": 0.02728313899823088,
+          "q10": 0.005990831856009911,
+          "q25": 0.007184855710599008,
+          "q50": 0.008655630216059352,
+          "q75": 0.0113698625412403,
+          "q90": 0.014075548684847044
+        },
+        "sigma_3d": {
+          "count": 458,
+          "mean": 0.016957854569811418,
+          "median": 0.014991991305743173,
+          "standard_deviation": 0.00727410187910511,
+          "min": 0.007991179433427578,
+          "max": 0.04725578293489972,
+          "q10": 0.01037642515421132,
+          "q25": 0.01244453513580887,
+          "q50": 0.014991991305743173,
+          "q75": 0.019693179596502387,
+          "q90": 0.02437956546656437
+        },
+        "z_return": {
+          "count": 458,
+          "mean": -0.29729234111738906,
+          "median": -0.2717855322415087,
+          "standard_deviation": 1.1094056664538687,
+          "min": -10.06539410032821,
+          "max": 2.9783154832621386,
+          "q10": -1.3435787896576254,
+          "q25": -0.8529010302130626,
+          "q50": -0.2717855322415087,
+          "q75": 0.27897126946697265,
+          "q90": 0.9967889954755498
+        }
+      },
+      "2886": {
+        "fixed_1pct": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 146,
+              "proportion": 0.31877729257641924
+            },
+            "HOLD": {
+              "count": 224,
+              "proportion": 0.4890829694323144
+            },
+            "BUY": {
+              "count": 88,
+              "proportion": 0.19213973799126638
+            }
+          },
+          "flags": []
+        },
+        "volatility_k_0_50": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 155,
+              "proportion": 0.3384279475982533
+            },
+            "HOLD": {
+              "count": 202,
+              "proportion": 0.4410480349344978
+            },
+            "BUY": {
+              "count": 101,
+              "proportion": 0.2205240174672489
+            }
+          },
+          "flags": []
+        },
+        "future_net_return": {
+          "count": 458,
+          "mean": -0.0035495697260139836,
+          "median": -0.003308788161583087,
+          "standard_deviation": 0.01651040081983487,
+          "min": -0.07728545288250466,
+          "max": 0.05198684078158933,
+          "q10": -0.022862858093495343,
+          "q25": -0.013279269061537535,
+          "q50": -0.003308788161583087,
+          "q75": 0.006722820367092652,
+          "q90": 0.015778763591782076
+        },
+        "sigma_20d": {
+          "count": 458,
+          "mean": 0.010276526421384274,
+          "median": 0.009572986773746989,
+          "standard_deviation": 0.003647343888389218,
+          "min": 0.004688469749494539,
+          "max": 0.02467411004664915,
+          "q10": 0.007012477430911288,
+          "q25": 0.007961830430689102,
+          "q50": 0.009572986773746989,
+          "q75": 0.011713827655932547,
+          "q90": 0.013865510994454242
+        },
+        "sigma_3d": {
+          "count": 458,
+          "mean": 0.017799465887161536,
+          "median": 0.01658089947231465,
+          "standard_deviation": 0.0063173849273659545,
+          "min": 0.008120667815874267,
+          "max": 0.042736812232342006,
+          "q10": 0.012145967197268423,
+          "q25": 0.013790294827201522,
+          "q50": 0.01658089947231465,
+          "q75": 0.02028894465118062,
+          "q90": 0.024015769515299615
+        },
+        "z_return": {
+          "count": 458,
+          "mean": -0.17731204490094765,
+          "median": -0.15860529931019363,
+          "standard_deviation": 1.018071301355053,
+          "min": -3.9553044533886594,
+          "max": 6.4017937884327125,
+          "q10": -1.3345753250229655,
+          "q25": -0.7741886169629059,
+          "q50": -0.15860529931019363,
+          "q75": 0.4098372687299402,
+          "q90": 0.9249067527029246
+        }
+      },
+      "2891": {
+        "fixed_1pct": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 130,
+              "proportion": 0.2838427947598253
+            },
+            "HOLD": {
+              "count": 215,
+              "proportion": 0.46943231441048033
+            },
+            "BUY": {
+              "count": 113,
+              "proportion": 0.24672489082969432
+            }
+          },
+          "flags": []
+        },
+        "volatility_k_0_50": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 131,
+              "proportion": 0.28602620087336245
+            },
+            "HOLD": {
+              "count": 220,
+              "proportion": 0.48034934497816595
+            },
+            "BUY": {
+              "count": 107,
+              "proportion": 0.2336244541484716
+            }
+          },
+          "flags": []
+        },
+        "future_net_return": {
+          "count": 458,
+          "mean": -0.0018315939069943863,
+          "median": -0.0018900166943482954,
+          "standard_deviation": 0.021779761905050633,
+          "min": -0.11063506348114138,
+          "max": 0.09534083559360873,
+          "q10": -0.024516048400147025,
+          "q25": -0.011885357756176024,
+          "q50": -0.0018900166943482954,
+          "q75": 0.009404666752992952,
+          "q90": 0.022402762433463907
+        },
+        "sigma_20d": {
+          "count": 458,
+          "mean": 0.012768958908736371,
+          "median": 0.011544499836459604,
+          "standard_deviation": 0.005258794600693055,
+          "min": 0.005588909503581784,
+          "max": 0.02864600165014011,
+          "q10": 0.007782384052308264,
+          "q25": 0.009243283662132645,
+          "q50": 0.011544499836459604,
+          "q75": 0.01465706036787424,
+          "q90": 0.019122534074411387
+        },
+        "sigma_3d": {
+          "count": 458,
+          "mean": 0.02211648558969064,
+          "median": 0.019995660264718627,
+          "standard_deviation": 0.009108499434969258,
+          "min": 0.009680275219108202,
+          "max": 0.049616330291744566,
+          "q10": 0.013479484582611681,
+          "q25": 0.016009836931585055,
+          "q50": 0.019995660264718627,
+          "q75": 0.02538677324676236,
+          "q90": 0.03312120058634761
+        },
+        "z_return": {
+          "count": 458,
+          "mean": -0.07635324742046559,
+          "median": -0.10408073160090514,
+          "standard_deviation": 1.0646705773703662,
+          "min": -5.4561643718458575,
+          "max": 3.3243521985981577,
+          "q10": -1.1600493090536197,
+          "q25": -0.5643496404588425,
+          "q50": -0.10408073160090514,
+          "q75": 0.450473704665497,
+          "q90": 1.1148055976766285
+        }
+      },
+      "3034": {
+        "fixed_1pct": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 181,
+              "proportion": 0.3951965065502183
+            },
+            "HOLD": {
+              "count": 148,
+              "proportion": 0.3231441048034934
+            },
+            "BUY": {
+              "count": 129,
+              "proportion": 0.2816593886462882
+            }
+          },
+          "flags": []
+        },
+        "volatility_k_0_50": {
+          "samples": 458,
+          "classes": {
+            "SELL": {
+              "count": 139,
+              "proportion": 0.3034934497816594
+            },
+            "HOLD": {
+              "count": 225,
+              "proportion": 0.4912663755458515
+            },
+            "BUY": {
+              "count": 94,
+              "proportion": 0.2052401746724891
+            }
+          },
+          "flags": []
+        },
+        "future_net_return": {
+          "count": 458,
+          "mean": -0.0036991606340432124,
+          "median": -0.0028472198093962287,
+          "standard_deviation": 0.02830196951681125,
+          "min": -0.10661626658094225,
+          "max": 0.14876168585749538,
+          "q10": -0.03527526705353186,
+          "q25": -0.019020487986382034,
+          "q50": -0.0028472198093962287,
+          "q75": 0.011711515427912933,
+          "q90": 0.028529090061875505
+        },
+        "sigma_20d": {
+          "count": 458,
+          "mean": 0.018075074046331394,
+          "median": 0.018089288621697917,
+          "standard_deviation": 0.004449511087510403,
+          "min": 0.008506834581754415,
+          "max": 0.029365420061642653,
+          "q10": 0.012705357424548739,
+          "q25": 0.014409324981888193,
+          "q50": 0.018089288621697917,
+          "q75": 0.02114324695290292,
+          "q90": 0.02464970428564787
+        },
+        "sigma_3d": {
+          "count": 458,
+          "mean": 0.03130694659881554,
+          "median": 0.031331566965558375,
+          "standard_deviation": 0.007706779272409067,
+          "min": 0.014734269707182586,
+          "max": 0.050862399532367465,
+          "q10": 0.022006324587640874,
+          "q25": 0.024957682971401843,
+          "q50": 0.031331566965558375,
+          "q75": 0.03662117795940371,
+          "q90": 0.04269454021429041
+        },
+        "z_return": {
+          "count": 458,
+          "mean": -0.13030647832278394,
+          "median": -0.11109889802756508,
+          "standard_deviation": 1.00140193820255,
+          "min": -3.6002517774463243,
+          "max": 5.02549845089318,
+          "q10": -1.2231143414752557,
+          "q25": -0.625642078164366,
+          "q50": -0.11109889802756508,
+          "q75": 0.38675248565033193,
+          "q90": 0.8989125954525963
+        }
+      }
+    },
+    "by_industry": {
+      "technology": {
+        "stock_codes": [
+          "2303",
+          "2330",
+          "2379",
+          "2454",
+          "3034"
+        ],
+        "fixed_1pct": {
+          "samples": 2290,
+          "classes": {
+            "SELL": {
+              "count": 915,
+              "proportion": 0.39956331877729256
+            },
+            "HOLD": {
+              "count": 710,
+              "proportion": 0.31004366812227074
+            },
+            "BUY": {
+              "count": 665,
+              "proportion": 0.2903930131004367
+            }
+          },
+          "flags": []
+        },
+        "volatility_k_0_50": {
+          "samples": 2290,
+          "classes": {
+            "SELL": {
+              "count": 730,
+              "proportion": 0.31877729257641924
+            },
+            "HOLD": {
+              "count": 1050,
+              "proportion": 0.4585152838427948
+            },
+            "BUY": {
+              "count": 510,
+              "proportion": 0.22270742358078602
+            }
+          },
+          "flags": []
+        }
+      },
+      "financial": {
+        "stock_codes": [
+          "2881",
+          "2882",
+          "2884",
+          "2886",
+          "2891"
+        ],
+        "fixed_1pct": {
+          "samples": 2290,
+          "classes": {
+            "SELL": {
+              "count": 744,
+              "proportion": 0.32489082969432315
+            },
+            "HOLD": {
+              "count": 1063,
+              "proportion": 0.4641921397379913
+            },
+            "BUY": {
+              "count": 483,
+              "proportion": 0.2109170305676856
+            }
+          },
+          "flags": []
+        },
+        "volatility_k_0_50": {
+          "samples": 2290,
+          "classes": {
+            "SELL": {
+              "count": 799,
+              "proportion": 0.34890829694323144
+            },
+            "HOLD": {
+              "count": 988,
+              "proportion": 0.4314410480349345
+            },
+            "BUY": {
+              "count": 503,
+              "proportion": 0.21965065502183406
+            }
+          },
+          "flags": []
+        }
+      }
+    },
+    "cross_stock_proportion_spread": {
+      "fixed_1pct": {
+        "SELL": {
+          "min": 0.2838427947598253,
+          "max": 0.44759825327510916,
+          "range": 0.16375545851528384
+        },
+        "HOLD": {
+          "min": 0.2663755458515284,
+          "max": 0.517467248908297,
+          "range": 0.2510917030567686
+        },
+        "BUY": {
+          "min": 0.17248908296943233,
+          "max": 0.34497816593886466,
+          "range": 0.17248908296943233
+        }
+      },
+      "volatility_k_0_50": {
+        "SELL": {
+          "min": 0.28602620087336245,
+          "max": 0.4039301310043668,
+          "range": 0.11790393013100436
+        },
+        "HOLD": {
+          "min": 0.38427947598253276,
+          "max": 0.4912663755458515,
+          "range": 0.10698689956331875
+        },
+        "BUY": {
+          "min": 0.1943231441048035,
+          "max": 0.24672489082969432,
+          "range": 0.05240174672489081
+        }
+      }
+    },
+    "severe_class_imbalance": false
+  },
+  "phase_a_gate": {
+    "data_quality_normal": false,
+    "no_industry_severe_class_imbalance": true,
+    "label_leakage_tests_pass": true,
+    "phase_b_allowed_without_further_action": false,
+    "phase_b_technical_conditions_pass": false,
+    "phase_b_requires_explicit_user_authorization": true,
+    "decision": "STOP_AFTER_PHASE_A",
+    "blocking_reasons": [
+      "REVIEW_REQUIRED_NON_TRADING_DATE_ROWS",
+      "REVIEW_REQUIRED_MISSING_INTRADAY_KBARS"
+    ]
+  },
+  "execution_confirmation": {
+    "models_trained": false,
+    "phase_b_started": false,
+    "controlled_validation_used": false,
+    "development_used": false,
+    "additional_holdout_used": false,
+    "final_oos_used": false,
+    "k_search_performed": false,
+    "feature_search_performed": false,
+    "hyperparameter_search_performed": false,
+    "technical_modified": false,
+    "hybrid_backtest_run": false
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "experiment_id": "ml-v1-improvement-round1-context-20261012",
+  "status": "PREFLIGHT_IMPLEMENTED_NOT_TRAINED",
+  "scope": "machine_learning_context_candidate_only",
+  "research_question": "Does the short 5-minute input lack medium-term stock, industry, and market context for a three-session target?",
+  "parent_phase": "ml-v1-phase-b-label-confirmatory-20261012",
+  "data": {
+    "role": "training",
+    "start": "2023-01-01",
+    "end": "2024-12-31",
+    "database": "data/market_data.sqlite3",
+    "read_only": true
+  },
+  "stock_universe": {
+    "technology": ["2303", "2330", "2379", "2454", "3034"],
+    "financial": ["2881", "2882", "2884", "2886", "2891"]
+  },
+  "fixed_settings": {
+    "label": "fixed_1pct",
+    "classes": ["SELL", "HOLD", "BUY"],
+    "prediction_horizon_sessions": 3,
+    "decision_time": "13:30:00",
+    "sequence_policy": "EXACT_24_BARS_11_35_TO_13_30",
+    "sequence_bars": 24,
+    "model_hyperparameters": "UNCHANGED_FROM_PHASE_B",
+    "random_forest": "UNCHANGED_FROM_PHASE_B",
+    "xgboost": "UNCHANGED_FROM_PHASE_B",
+    "gru": "UNCHANGED_FROM_PHASE_B"
+  },
+  "candidate_features": [
+    "stock_return_5d",
+    "stock_return_20d",
+    "stock_volatility_20d",
+    "industry_proxy_return_5d",
+    "industry_proxy_return_20d",
+    "stock_vs_industry_proxy_5d",
+    "market_proxy_return_5d",
+    "market_proxy_return_20d",
+    "stock_vs_market_proxy_5d"
+  ],
+  "proxy_policy": {
+    "daily_return_definition": "close_t / close_t_minus_1 - 1",
+    "industry_proxy": "equal_weight_daily_return_of_other_4_industry_stocks",
+    "market_proxy": "equal_weight_daily_return_of_other_9_core_universe_stocks",
+    "target_stock_excluded": true,
+    "required_industry_components": 4,
+    "required_market_components": 9,
+    "return_5d": "compound_5_trailing_proxy_daily_returns",
+    "return_20d": "compound_20_trailing_proxy_daily_returns",
+    "rolling_centered": false,
+    "forward_fill": false,
+    "backward_fill": false,
+    "interpolation": false,
+    "synthetic_data": false,
+    "missing_component_policy": "EXCLUDE_NO_FILL"
+  },
+  "sample_alignment": {
+    "sequence_manifest": "exports/ml_v1_model_eligible_20261012/model_eligible_samples.csv",
+    "phase_b_nonfinite_exclusions": "exports/ml_v1_phase_b_20261012/excluded_nonfinite_features.csv",
+    "policy": "BASELINE_AND_CANDIDATE_USE_IDENTICAL_INTERSECTION",
+    "expected_phase_b_model_ready_samples": 4532,
+    "hardcode_final_candidate_count": false
+  },
+  "output": {
+    "directory": "exports/ml_v1_context_round1_20261012",
+    "eligible_samples": "context_eligible_samples.csv",
+    "audit": "context_preflight.json"
+  },
+  "forbidden": {
+    "model_training": true,
+    "walk_forward": true,
+    "loso": true,
+    "locked_period_access": true,
+    "label_change": true,
+    "horizon_change": true,
+    "decision_time_change": true,
+    "hyperparameter_change": true,
+    "raw_database_write": true,
+    "tenth_context_feature": true
+  }
+}
