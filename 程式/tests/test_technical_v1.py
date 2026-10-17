@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import contextlib
 import json
+import math
 import sqlite3
 import tempfile
 import unittest
@@ -12,10 +13,17 @@ from zoneinfo import ZoneInfo
 
 import polars as pl
 
-from trading_system.backtest import AppConfig, add_indicators, taipei_timestamp
+from trading_system.backtest import (
+    AppConfig,
+    MarketDataStats,
+    add_indicators,
+    replay_kbars,
+    taipei_timestamp,
+)
 from trading_system.technical_v1 import (
     TechnicalV1Error,
     TechnicalV1Strategy,
+    _load_fold_frame,
     assert_complete_execution_matrix,
     assert_execution_ready,
     assert_role_can_execute,
@@ -104,6 +112,7 @@ def create_compact_market_database(path: Path, config: dict) -> None:
         date(2023, 7, 3),
         date(2024, 1, 3),
         date(2024, 7, 3),
+        date(2024, 12, 30),
     )
     rows = []
     for stock in config["stock_universe"]["stock_codes"]:
@@ -139,7 +148,48 @@ class TechnicalV1Tests(unittest.TestCase):
             ("trend_momentum", "breakout", "majority_vote"),
         )
         self.assertEqual(self.config["stock_universe"]["status"], "confirmed")
+        self.assertEqual(
+            self.config["stock_universe"]["stock_codes"],
+            ["2303", "2330", "2454", "2317", "2382"],
+        )
+        self.assertEqual(self.config["market_data_path"], "data/market_data.sqlite3")
         assert_execution_ready(self.config)
+
+    def test_unknown_backtest_setting_is_rejected_instead_of_silently_ignored(self) -> None:
+        changed = copy.deepcopy(self.config)
+        changed["common_backtest"]["misspelled_stop_loss"] = 0.01
+        with self.assertRaises(TechnicalV1Error):
+            validate_config(changed)
+
+    def test_common_capital_position_cost_and_zero_slippage_are_fixed(self) -> None:
+        _, _, candidate = candidate_by_id(self.config, "TM_BASE_20_60_120_RSI55_70")
+        app = build_app_config(self.config, candidate, "2303", "2023-01-01", "2024-12-31")
+        self.assertEqual(app.initial_capital, 100_000)
+        self.assertEqual(app.lots, 1)
+        self.assertEqual(app.quantity, 1_000)
+        self.assertEqual(app.capital_utilization, 0.95)
+        self.assertEqual(app.stock_fee_rate, 0.001425)
+        self.assertEqual(app.stock_tax_rate, 0.003)
+        self.assertEqual(app.day_trade_tax_rate, 0.0015)
+        self.assertEqual(self.config["common_backtest"]["slippage_rate"], 0.0)
+
+    def test_technical_candidates_disable_the_legacy_rsi_63_to_66_block(self) -> None:
+        candidates = [
+            self.config["legacy_baseline"]["candidate"],
+            *[
+                candidate
+                for family in self.config["strategy_families"].values()
+                for candidate in family["candidates"]
+            ],
+        ]
+        rsi_candidates = [
+            candidate
+            for candidate in candidates
+            if candidate["params"].get("use_rsi", True)
+        ]
+        self.assertTrue(
+            all(candidate["params"].get("use_rsi_block") is False for candidate in rsi_candidates)
+        )
 
     def test_locked_roles_are_always_rejected(self) -> None:
         for role in ("additional_holdout", "final_out_of_sample"):
@@ -204,8 +254,8 @@ class TechnicalV1Tests(unittest.TestCase):
                 Path(directory), self.config, database, initialize_schema=True
             )
             self.assertTrue(first["schema_initialized"])
-            self.assertEqual(first["status"], "BLOCKED_MISSING_DATA")
-            self.assertEqual(second["status"], "BLOCKED_MISSING_DATA")
+            self.assertEqual(first["status"], "BLOCKED_INCOMPLETE_DATA")
+            self.assertEqual(second["status"], "BLOCKED_INCOMPLETE_DATA")
             with contextlib.closing(sqlite3.connect(database)) as connection:
                 tables = {
                     row[0] for row in connection.execute(
@@ -224,6 +274,12 @@ class TechnicalV1Tests(unittest.TestCase):
             self.assertEqual(report["query_role"], "training")
             self.assertEqual(report["forbidden_roles_queried"], [])
             self.assertTrue(all(check["complete"] for check in report["stock_checks"]))
+            self.assertTrue(
+                all(check["timestamp_monotonic_increasing"] for check in report["stock_checks"])
+            )
+            self.assertTrue(
+                all(check["loaded_outside_training_row_count"] == 0 for check in report["stock_checks"])
+            )
 
     def test_preflight_rejects_partial_day_duplicate_and_bad_ohlcv(self) -> None:
         config = compact_preflight_config(self.config)
@@ -255,17 +311,58 @@ class TechnicalV1Tests(unittest.TestCase):
                 )
                 connection.execute(
                     """DELETE FROM market_kbars
-                       WHERE stock_code='2379' AND kbar_timestamp>=? AND kbar_timestamp<?""",
+                       WHERE stock_code='2317' AND kbar_timestamp>=? AND kbar_timestamp<?""",
                     (stamp, stamp + 86400),
                 )
                 connection.commit()
             report = inspect_training_market_data(Path(directory), config, database)
             self.assertFalse(report["complete"])
+            self.assertEqual(report["status"], "BLOCKED_INCOMPLETE_DATA")
             checks = {row["stock_code"]: row for row in report["stock_checks"]}
             self.assertTrue(checks["2303"]["incomplete_trading_days"])
             self.assertGreater(checks["2330"]["duplicate_timestamp_count"], 0)
             self.assertGreater(checks["2454"]["invalid_ohlcv_count"], 0)
-            self.assertTrue(checks["2379"]["missing_trading_days"])
+            self.assertTrue(checks["2317"]["missing_trading_days"])
+
+    def test_fold_loader_uses_same_session_as_preflight(self) -> None:
+        config = compact_preflight_config(self.config)
+        with tempfile.TemporaryDirectory() as directory:
+            database = Path(directory) / "market.sqlite3"
+            create_compact_market_database(database, config)
+            with contextlib.closing(sqlite3.connect(database)) as connection:
+                rows = []
+                for trading_day in (
+                    date(2023, 1, 3),
+                    date(2023, 7, 3),
+                    date(2024, 1, 3),
+                    date(2024, 7, 3),
+                    date(2024, 12, 30),
+                ):
+                    stamp = int(datetime.combine(trading_day, time(13, 30), tzinfo=TAIPEI).timestamp())
+                    rows.append((
+                        "2303", 5, "2023-01-01", "2024-12-31", stamp,
+                        100.0, 101.0, 99.0, 100.5, 1000,
+                    ))
+                connection.executemany(
+                    """INSERT INTO market_kbars(
+                           stock_code,freq_minutes,range_start,range_end,kbar_timestamp,
+                           open,high,low,close,volume
+                       ) VALUES(?,?,?,?,?,?,?,?,?,?)""",
+                    rows,
+                )
+                connection.commit()
+                connection.row_factory = sqlite3.Row
+                _, _, candidate = candidate_by_id(config, "TM_BASE_20_60_120_RSI55_70")
+                full, evaluation, _, _, _ = _load_fold_frame(
+                    connection,
+                    config,
+                    candidate,
+                    "2303",
+                    config["walk_forward_folds"][0],
+                )
+            self.assertEqual(full.height, 108)
+            self.assertEqual(evaluation.height, 54)
+            self.assertNotIn("13:30", set(full["kbar_time"].dt.strftime("%H:%M").to_list()))
 
     def test_missing_data_workflow_writes_audit_only(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -389,6 +486,45 @@ class TechnicalV1Tests(unittest.TestCase):
         self.assertEqual(result["BREAKOUT_HIGH"][2], 11.0)
         self.assertNotEqual(result["BREAKOUT_HIGH"][2], 15.0)
 
+    def test_ma_rsi_macd_and_bands_do_not_change_past_when_future_close_changes(self) -> None:
+        closes = [100.0 + index / 10 for index in range(300)]
+        base = pl.DataFrame(
+            {
+                "Open": closes,
+                "High": [value + 1 for value in closes],
+                "Low": [value - 1 for value in closes],
+                "Close": closes,
+                "Volume": [1000 + index for index in range(300)],
+            }
+        )
+        changed_closes = list(closes)
+        changed_closes[-1] = 9999.0
+        changed = base.with_columns(pl.Series("Close", changed_closes))
+        app = AppConfig(
+            ma_fast_period=20,
+            ma_mid_period=60,
+            ma_slow_period=120,
+            trend_ma_period=240,
+            trend_slope_lookback=24,
+        )
+        original_result = add_indicators(base, app)
+        changed_result = add_indicators(changed, app)
+        def comparable(values: list[float | None]) -> list[float | str | None]:
+            return [
+                "NaN" if isinstance(value, float) and math.isnan(value) else value
+                for value in values
+            ]
+
+        for column in (
+            "MA_FAST", "MA_MID", "MA_SLOW", "RSI", "MACD", "MACD_SIGNAL",
+            "BB_MIDDLE", "BB_UPPER", "BB_LOWER", "TREND_MA", "TREND_SLOPE",
+        ):
+            self.assertEqual(
+                comparable(original_result[column][:-1].to_list()),
+                comparable(changed_result[column][:-1].to_list()),
+                column,
+            )
+
     def test_majority_vote_keeps_two_of_three_baseline(self) -> None:
         strategy = strategy_for(self.config, "MV_BASE_2_OF_3")
         self.assertIn("長期趨勢", self.config["strategy_families"]["majority_vote"]["display_name"])
@@ -450,6 +586,7 @@ class TechnicalV1Tests(unittest.TestCase):
             "qty": 0,
         }
         completed = {
+            "kbar_timestamp": int(datetime(2024, 1, 2, 9, 0, tzinfo=TAIPEI).timestamp()),
             "Open": 100.0,
             "High": 102.0,
             "Low": 99.0,
@@ -466,6 +603,68 @@ class TechnicalV1Tests(unittest.TestCase):
         self.assertEqual(row["timezone"], "Asia/Taipei")
         self.assertTrue(row["signal_time"].endswith("+08:00"))
         self.assertFalse({"forward_return", "label", "target"}.intersection(row))
+
+    def test_replay_executes_entry_at_next_bar_open(self) -> None:
+        strategy = strategy_for(self.config, "TM_BASE_20_60_120_RSI55_70")
+        first_time = datetime(2024, 1, 2, 9, 0, tzinfo=TAIPEI)
+        second_time = datetime(2024, 1, 2, 9, 5, tzinfo=TAIPEI)
+        rows = []
+        for bar_time, open_price, close_price in (
+            (first_time, 100.0, 101.5),
+            (second_time, 103.0, 103.5),
+        ):
+            row = {
+                "kbar_timestamp": int(bar_time.timestamp()),
+                "kbar_time": bar_time.replace(tzinfo=None),
+                "Open": open_price,
+                "High": max(open_price, close_price) + 1,
+                "Low": min(open_price, close_price) - 1,
+                "Close": close_price,
+                "Volume": 1200,
+            }
+            row.update({
+                key: value
+                for key, value in snapshot(CLOSE=close_price, OPEN=open_price).items()
+                if key not in {"OPEN", "HIGH", "LOW", "CLOSE", "VOLUME"}
+            })
+            rows.append(row)
+        frame = pl.DataFrame(rows)
+        stats = MarketDataStats(
+            tick_count=2,
+            first_timestamp=float(first_time.timestamp()),
+            last_timestamp=float(second_time.timestamp()),
+        )
+        replay_kbars(strategy, frame, stats)
+        self.assertEqual(strategy.local_trades[0]["action"], "Buy")
+        self.assertEqual(strategy.local_trades[0]["price"], 103.0)
+
+    def test_candidate_signal_bar_end_does_not_jump_across_overnight_gap(self) -> None:
+        strategy = strategy_for(self.config, "TM_BASE_20_60_120_RSI55_70")
+        decision_time = datetime(2024, 1, 3, 9, 0, tzinfo=TAIPEI)
+        strategy.last_tick = {
+            "timestamp": taipei_timestamp(decision_time),
+            "market_type": "Stock",
+            "code": "2303",
+            "close": 101.6,
+            "qty": 0,
+        }
+        completed = {
+            "kbar_timestamp": int(datetime(2024, 1, 2, 13, 25, tzinfo=TAIPEI).timestamp()),
+            "Open": 100.0,
+            "High": 102.0,
+            "Low": 99.0,
+            "Close": 101.5,
+            "Volume": 1200,
+            **{
+                key: value
+                for key, value in snapshot().items()
+                if key not in {"OPEN", "HIGH", "LOW", "CLOSE", "VOLUME"}
+            },
+        }
+        strategy.process_completed_kbar("2303", decision_time, completed)
+        row = strategy.candidate_signals[0]
+        self.assertEqual(row["signal_bar_end_time"], "2024-01-02T13:29:59.999999+08:00")
+        self.assertEqual(row["earliest_entry_time"], "2024-01-03T09:00:00.000000+08:00")
 
     def test_candidate_signal_rejects_future_evaluation_fields(self) -> None:
         row = {

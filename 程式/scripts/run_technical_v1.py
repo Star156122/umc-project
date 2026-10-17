@@ -56,7 +56,10 @@ def main() -> int:
     }, ensure_ascii=False, indent=2))
     if audit["status"] in {"COMPLETED", "PREFLIGHT_READY"}:
         return 0
-    return 2 if audit["status"] == "BLOCKED_MISSING_DATA" else 1
+    return 2 if audit["status"] in {
+        "BLOCKED_MISSING_DATA",
+        "BLOCKED_INCOMPLETE_DATA",
+    } else 1
 
 
 if __name__ == "__main__":

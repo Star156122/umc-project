@@ -104,6 +104,7 @@ def create_compact_market_database(path: Path, config: dict) -> None:
         date(2023, 7, 3),
         date(2024, 1, 3),
         date(2024, 7, 3),
+        date(2024, 12, 30),
     )
     rows = []
     for stock in config["stock_universe"]["stock_codes"]:
@@ -204,8 +205,8 @@ class TechnicalV1Tests(unittest.TestCase):
                 Path(directory), self.config, database, initialize_schema=True
             )
             self.assertTrue(first["schema_initialized"])
-            self.assertEqual(first["status"], "BLOCKED_MISSING_DATA")
-            self.assertEqual(second["status"], "BLOCKED_MISSING_DATA")
+            self.assertEqual(first["status"], "BLOCKED_INCOMPLETE_DATA")
+            self.assertEqual(second["status"], "BLOCKED_INCOMPLETE_DATA")
             with contextlib.closing(sqlite3.connect(database)) as connection:
                 tables = {
                     row[0] for row in connection.execute(
@@ -450,6 +451,7 @@ class TechnicalV1Tests(unittest.TestCase):
             "qty": 0,
         }
         completed = {
+            "kbar_timestamp": int(datetime(2024, 1, 2, 9, 0, tzinfo=TAIPEI).timestamp()),
             "Open": 100.0,
             "High": 102.0,
             "Low": 99.0,

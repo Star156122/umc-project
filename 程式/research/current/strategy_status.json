@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12",
+  "updated_at": "2026-10-17",
   "formal_research_direction": "Technical Candidate -> ML Filter -> Hybrid",
   "current_workstreams": {
     "technical_v1": {
@@ -8,7 +8,7 @@
       "data_role": "training",
       "period": ["2023-01-01", "2024-12-31"],
       "stock_codes": ["2303", "2330", "2454", "2317", "2382"],
-      "preflight_audit": "exports/technical_v1_20261011T004423133302/technical_v1_audit.json",
+      "preflight_audit": "exports/technical_v1_20261017T165100795466/technical_v1_audit.json",
       "backtest_executed": false,
       "frozen": false
     },

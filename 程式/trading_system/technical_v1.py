@@ -12,7 +12,7 @@ import math
 import sqlite3
 import statistics
 from collections import defaultdict
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, time, timedelta
 from pathlib import Path
 from typing import Any, Iterable
 from zoneinfo import ZoneInfo
@@ -30,6 +30,7 @@ from trading_system.research_guard import assert_development_period
 
 FAMILY_NAMES = ("trend_momentum", "breakout", "majority_vote")
 LEGACY_FAMILY_NAME = "legacy_vote"
+FORMAL_STOCK_CODES = ("2303", "2330", "2454", "2317", "2382")
 TAIPEI = ZoneInfo("Asia/Taipei")
 PERIOD_POLICY = {
     "training": ("2023-01-01", "2024-12-31"),
@@ -76,6 +77,7 @@ FORBIDDEN_REALTIME_FIELDS = {
     "label",
     "target",
 }
+TECHNICAL_ONLY_CONFIG_KEYS = {"slippage_rate"}
 
 
 class TechnicalV1Error(ValueError):
@@ -237,6 +239,11 @@ def _validate_candidate_app_config(config: dict[str, Any], candidate: dict[str, 
         "backtest_end": PERIOD_POLICY["training"][1],
     }
     fields = {field.name for field in dataclasses.fields(AppConfig)}
+    unknown_common = set(config.get("common_backtest", {})) - fields - TECHNICAL_ONLY_CONFIG_KEYS
+    unknown_candidate = set(candidate["params"]) - fields
+    if unknown_common or unknown_candidate:
+        unknown = sorted(unknown_common | unknown_candidate)
+        raise TechnicalV1Error("Technical V1 含未生效的回測設定：" + ", ".join(unknown))
     app = AppConfig(**{key: value for key, value in values.items() if key in fields})
     validate_app_config(app)
 
@@ -246,12 +253,16 @@ def validate_config(config: dict[str, Any]) -> None:
         raise TechnicalV1Error("本設定只能用於 Technical Strategy")
     universe = config.get("stock_universe", {})
     stocks = [str(code) for code in universe.get("stock_codes", [])]
-    if len(stocks) < 2 or len(stocks) != len(set(stocks)):
-        raise TechnicalV1Error("股票集合至少兩檔且不可重複")
+    if tuple(stocks) != FORMAL_STOCK_CODES:
+        raise TechnicalV1Error("Technical V1 正式股票集合必須固定為 2303、2330、2454、2317、2382")
     if universe.get("status") != "confirmed":
         raise TechnicalV1Error("Technical V1 正式股票集合必須已確認")
     if set(universe.get("stock_names", {})) != set(stocks):
         raise TechnicalV1Error("股票名稱與代號集合不一致")
+    if set(universe.get("industries", {})) != set(stocks):
+        raise TechnicalV1Error("股票產業與代號集合不一致")
+    if any(not str(name).strip() or "?" in str(name) for name in universe["stock_names"].values()):
+        raise TechnicalV1Error("股票名稱不可空白或使用佔位字元")
     _validate_periods(config)
     _validate_walk_forward(config)
     _validate_candidates(config)
@@ -268,6 +279,17 @@ def validate_config(config: dict[str, Any]) -> None:
         raise TechnicalV1Error("Technical V1 K 棒間隔必須為 300 秒")
     if int(quality.get("minimum_training_trading_days", 0)) < 400:
         raise TechnicalV1Error("Training 完整性必須設定合理的最低交易日數")
+    if int(quality.get("maximum_training_boundary_gap_days", -1)) < 0:
+        raise TechnicalV1Error("Training 首末涵蓋容許缺口不可為負數")
+    try:
+        first_bar_time = time.fromisoformat(str(quality.get("expected_first_bar_time", "")))
+        last_bar_time = time.fromisoformat(str(quality.get("expected_last_bar_time", "")))
+    except ValueError as exc:
+        raise TechnicalV1Error("預期首末 K 棒時間必須使用 HH:MM") from exc
+    if first_bar_time >= last_bar_time:
+        raise TechnicalV1Error("預期第一根 K 棒時間必須早於最後一根")
+    if config.get("market_data_path") != "data/market_data.sqlite3":
+        raise TechnicalV1Error("Technical V1 正式行情路徑必須為 data/market_data.sqlite3")
     if config.get("atr", {}).get("enabled") is not False:
         raise TechnicalV1Error("本輪 ATR 必須停用")
     if config.get("output_policy", {}).get("overwrite_existing") is not False:
@@ -653,7 +675,16 @@ class TechnicalV1Strategy(MovingAverageTsst):
                 if decision_time.tzinfo is None
                 else decision_time.astimezone(TAIPEI)
             )
-            bar_end = aware_decision - timedelta(microseconds=1)
+            if completed_timestamp is None:
+                raise TechnicalV1Error("Candidate Signal 缺少完成 K 棒 timestamp")
+            bar_start = datetime.fromtimestamp(int(completed_timestamp), TAIPEI)
+            bar_end = (
+                bar_start
+                + timedelta(minutes=int(self.config.kbar_freq))
+                - timedelta(microseconds=1)
+            )
+            if bar_end >= aware_decision:
+                raise TechnicalV1Error("完成 K 棒結束時間不得晚於下一個可成交時間")
             close = number_or_none(completed_kbar.get("Close"))
             row = {
                 "technical_version": self.study_config["technical_version"],
@@ -827,6 +858,20 @@ def _timestamp_bounds(start: str, end: str) -> tuple[int, int]:
     return int(first.timestamp()), int(last.timestamp())
 
 
+def _session_clock_bounds(config: dict[str, Any]) -> tuple[time, time]:
+    quality = config["data_quality"]
+    return (
+        time.fromisoformat(str(quality["expected_first_bar_time"])),
+        time.fromisoformat(str(quality["expected_last_bar_time"])),
+    )
+
+
+def _in_configured_session(timestamp: int, config: dict[str, Any]) -> bool:
+    first, last = _session_clock_bounds(config)
+    current = datetime.fromtimestamp(timestamp, TAIPEI).time().replace(tzinfo=None)
+    return first <= current <= last
+
+
 def _readonly_connection(path: Path) -> sqlite3.Connection:
     connection = sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True)
     connection.row_factory = sqlite3.Row
@@ -843,11 +888,12 @@ def _blocked_preflight(
     project_root: Path,
     reason: str,
     *,
+    status: str = "BLOCKED_MISSING_DATA",
     schema_columns: Iterable[str] = (),
     schema_initialized: bool = False,
 ) -> dict[str, Any]:
     return {
-        "status": "BLOCKED_MISSING_DATA",
+        "status": status,
         "complete": False,
         "database_path": str(database_path),
         "reason": reason,
@@ -936,14 +982,6 @@ def inspect_training_market_data(
             schema_initialized=schema_initialized,
         )
 
-    rows_by_stock: dict[str, list[sqlite3.Row]] = {stock: [] for stock in stocks}
-    non_five_minute = 0
-    for row in all_rows:
-        if int(row["freq_minutes"]) != int(config["common_backtest"]["kbar_freq"]):
-            non_five_minute += 1
-            continue
-        rows_by_stock[str(row["stock_code"])].append(row)
-
     quality = config["data_quality"]
     expected_count = int(quality["expected_bars_per_trading_day"])
     expected_first = str(quality["expected_first_bar_time"])
@@ -953,14 +991,40 @@ def inspect_training_market_data(
     minimum_evaluation = int(quality["minimum_evaluation_bars"])
     minimum_training_days = int(quality["minimum_training_trading_days"])
     minimum_evaluation_days = int(quality["minimum_evaluation_trading_days"])
+    maximum_boundary_gap_days = int(quality["maximum_training_boundary_gap_days"])
+
+    rows_by_stock: dict[str, list[sqlite3.Row]] = {stock: [] for stock in stocks}
+    non_five_minute = 0
+    for row in all_rows:
+        try:
+            frequency = int(row["freq_minutes"])
+        except (TypeError, ValueError):
+            non_five_minute += 1
+            continue
+        if frequency != int(config["common_backtest"]["kbar_freq"]):
+            non_five_minute += 1
+            continue
+        rows_by_stock[str(row["stock_code"])].append(row)
 
     stock_days: dict[str, set[str]] = {}
     normalized: dict[str, dict[int, sqlite3.Row]] = {}
     duplicate_counts: dict[str, int] = {}
+    monotonic_checks: dict[str, bool] = {}
+    outside_session_counts: dict[str, int] = {}
     for stock, rows in rows_by_stock.items():
+        session_rows = [
+            row for row in rows
+            if _in_configured_session(int(row["kbar_timestamp"]), config)
+        ]
+        outside_session_counts[stock] = len(rows) - len(session_rows)
+        ordered_timestamps = [int(row["kbar_timestamp"]) for row in session_rows]
+        monotonic_checks[stock] = all(
+            previous < current
+            for previous, current in zip(ordered_timestamps, ordered_timestamps[1:])
+        )
         unique: dict[int, sqlite3.Row] = {}
         duplicates = 0
-        for row in rows:
+        for row in session_rows:
             stamp = int(row["kbar_timestamp"])
             if stamp in unique:
                 duplicates += 1
@@ -980,20 +1044,33 @@ def inspect_training_market_data(
         timestamps = sorted(unique)
         by_day: dict[str, list[int]] = defaultdict(list)
         invalid_ohlcv = 0
+        null_ohlcv = 0
+        negative_volume = 0
+        invalid_price_relation = 0
         for stamp in timestamps:
             row = unique[stamp]
             current = datetime.fromtimestamp(stamp, TAIPEI)
             by_day[current.date().isoformat()].append(stamp)
-            values = [float(row[key]) for key in ("open", "high", "low", "close")]
-            volume = float(row["volume"])
+            raw_values = [row[key] for key in ("open", "high", "low", "close", "volume")]
+            if any(value is None for value in raw_values):
+                null_ohlcv += 1
+                invalid_ohlcv += 1
+                continue
+            try:
+                values = [float(row[key]) for key in ("open", "high", "low", "close")]
+                volume = float(row["volume"])
+            except (TypeError, ValueError):
+                invalid_ohlcv += 1
+                continue
             open_, high, low, close = values
-            if (
-                not all(math.isfinite(value) and value > 0 for value in values)
-                or not math.isfinite(volume)
-                or volume < 0
-                or high < max(open_, low, close)
-                or low > min(open_, high, close)
-            ):
+            finite_prices = all(math.isfinite(value) and value > 0 for value in values)
+            finite_volume = math.isfinite(volume)
+            if finite_volume and volume < 0:
+                negative_volume += 1
+            relation_invalid = high < max(open_, low, close) or low > min(open_, high, close)
+            if relation_invalid:
+                invalid_price_relation += 1
+            if not finite_prices or not finite_volume or volume < 0 or relation_invalid:
                 invalid_ohlcv += 1
         incomplete_days: list[dict[str, Any]] = []
         cadence_errors = 0
@@ -1041,6 +1118,20 @@ def inspect_training_market_data(
                     }
                 )
         missing_days = sorted(calendar_days - stock_days[stock])
+        outside_training_count = sum(not lower <= stamp < upper for stamp in timestamps)
+        coverage_ratio = (
+            len(stock_days[stock]) / len(calendar_days) if calendar_days else 0.0
+        )
+        first_date = datetime.fromtimestamp(timestamps[0], TAIPEI).date() if timestamps else None
+        last_date = datetime.fromtimestamp(timestamps[-1], TAIPEI).date() if timestamps else None
+        start_gap_days = (
+            (first_date - _parse_date(training_start, "training.start")).days
+            if first_date is not None else None
+        )
+        end_gap_days = (
+            (_parse_date(training_end, "training.end") - last_date).days
+            if last_date is not None else None
+        )
         fold_checks = []
         for fold in config["walk_forward_folds"]:
             load_lower, _ = _timestamp_bounds(fold["train_start"], fold["train_end"])
@@ -1083,28 +1174,54 @@ def inspect_training_market_data(
             problems.append(f"Training 交易日 {len(by_day)} < {minimum_training_days}")
         if duplicate_counts[stock]:
             problems.append(f"重複 timestamp {duplicate_counts[stock]} 筆")
+        if not monotonic_checks[stock]:
+            problems.append("實際載入 timestamp 非嚴格單調遞增")
+        if outside_training_count:
+            problems.append(f"實際載入混入 Training 以外資料 {outside_training_count} 筆")
+        if start_gap_days is not None and start_gap_days > maximum_boundary_gap_days:
+            problems.append(f"Training 起點涵蓋延遲 {start_gap_days} 日")
+        if end_gap_days is not None and end_gap_days > maximum_boundary_gap_days:
+            problems.append(f"Training 終點提前缺少 {end_gap_days} 日")
         if missing_days:
             problems.append(f"相對共同交易日曆缺少 {len(missing_days)} 日")
         if incomplete_days:
             problems.append(f"每日根數／首末棒／5 分鐘間隔異常 {len(incomplete_days)} 日")
+        if null_ohlcv:
+            problems.append(f"OHLCV 空值 {null_ohlcv} 筆")
+        if negative_volume:
+            problems.append(f"Volume 負值 {negative_volume} 筆")
+        if invalid_price_relation:
+            problems.append(f"OHLC 價格關係不合法 {invalid_price_relation} 筆")
         if invalid_ohlcv:
             problems.append(f"OHLCV 不合理 {invalid_ohlcv} 筆")
         for fold_check in fold_checks:
             problems.extend(f"{fold_check['fold_id']} {item}" for item in fold_check["problems"])
         check = {
             "stock_code": stock,
+            "queried_row_count": len(rows_by_stock[stock]),
             "bar_count": len(timestamps),
+            "outside_session_rows_ignored": outside_session_counts[stock],
             "actual_first_timestamp": (
                 datetime.fromtimestamp(timestamps[0], TAIPEI).isoformat() if timestamps else None
             ),
             "actual_last_timestamp": (
                 datetime.fromtimestamp(timestamps[-1], TAIPEI).isoformat() if timestamps else None
             ),
+            "actual_first_date": first_date.isoformat() if first_date else None,
+            "actual_last_date": last_date.isoformat() if last_date else None,
+            "training_coverage_ratio_against_union_calendar": coverage_ratio,
+            "training_start_gap_days": start_gap_days,
+            "training_end_gap_days": end_gap_days,
             "trading_day_count": len(by_day),
             "duplicate_timestamp_count": duplicate_counts[stock],
+            "timestamp_monotonic_increasing": monotonic_checks[stock],
+            "loaded_outside_training_row_count": outside_training_count,
             "missing_trading_days": missing_days,
             "incomplete_trading_days": incomplete_days,
             "cadence_error_count": cadence_errors,
+            "null_ohlcv_count": null_ohlcv,
+            "negative_volume_count": negative_volume,
+            "invalid_price_relation_count": invalid_price_relation,
             "invalid_ohlcv_count": invalid_ohlcv,
             "fold_checks": fold_checks,
             "complete": not problems,
@@ -1115,7 +1232,7 @@ def inspect_training_market_data(
 
     complete = bool(checks) and all(check["complete"] for check in checks)
     return {
-        "status": "READY" if complete else "BLOCKED_MISSING_DATA",
+        "status": "READY" if complete else "BLOCKED_INCOMPLETE_DATA",
         "complete": complete,
         "database_path": str(database_path),
         "reason": "" if complete else "；".join(all_problems),
@@ -1124,6 +1241,11 @@ def inspect_training_market_data(
         "query_role": "training",
         "query_period": {"start": training_start, "end": training_end},
         "query_timestamp_bounds": {"lower_inclusive": lower, "upper_exclusive": upper},
+        "actual_backtest_session_filter": {
+            "first_bar_time": expected_first,
+            "last_bar_time": expected_last,
+            "inclusive": True,
+        },
         "forbidden_roles_queried": [],
         "non_five_minute_rows_ignored": non_five_minute,
         "calendar_basis": quality["missing_day_calendar_basis"],
@@ -1159,11 +1281,23 @@ def _load_fold_frame(
     ).fetchall()
     raw = []
     seen: set[int] = set()
+    previous_stamp: int | None = None
     for row in rows:
         stamp = int(row["kbar_timestamp"])
+        if not lower <= stamp < upper:
+            raise TechnicalV1Error(
+                f"{stock_code}/{fold['id']} 實際載入混入登記區間以外 K 棒：{stamp}"
+            )
+        if not _in_configured_session(stamp, config):
+            continue
         if stamp in seen:
             raise TechnicalV1Error(f"{stock_code}/{fold['id']} 有重複 K 棒 timestamp：{stamp}")
+        if previous_stamp is not None and stamp <= previous_stamp:
+            raise TechnicalV1Error(f"{stock_code}/{fold['id']} K 棒時間未嚴格遞增")
         seen.add(stamp)
+        previous_stamp = stamp
+        if any(row[key] is None for key in ("open", "high", "low", "close", "volume")):
+            raise TechnicalV1Error(f"{stock_code}/{fold['id']} OHLCV 含空值：{stamp}")
         raw.append(
             {
                 "kbar_timestamp": stamp,
@@ -1175,7 +1309,9 @@ def _load_fold_frame(
             }
         )
     if not raw:
-        raise TechnicalV1Error(f"{stock_code}/{fold['id']} 沒有可回放的 Training 5 分 K")
+        raise TechnicalV1Error(
+            f"{stock_code}/{fold['id']} 沒有 09:00–13:25 可回放的 Training 5 分 K"
+        )
     frame = pl.DataFrame(raw).with_columns(
         pl.col("kbar_timestamp")
         .map_elements(bt.taipei_datetime_from_timestamp, return_dtype=pl.Datetime)
@@ -1277,6 +1413,8 @@ def _simulate_candidate(
     )
     gross_profit = float(metrics["gross_profit"])
     completed_trades = int(metrics["completed_trades"])
+    evaluation_first_stamp = int(evaluation["kbar_timestamp"][0])
+    evaluation_last_stamp = int(evaluation["kbar_timestamp"][-1])
     result = {
         "experiment_id": config["experiment_id"],
         "technical_version": config["technical_version"],
@@ -1292,10 +1430,20 @@ def _simulate_candidate(
         "load_start": fold["train_start"],
         "evaluate_start": fold["evaluate_start"],
         "evaluate_end": fold["evaluate_end"],
+        "actual_load_first_timestamp": datetime.fromtimestamp(first_stamp, TAIPEI).isoformat(),
+        "actual_load_last_timestamp": datetime.fromtimestamp(last_stamp, TAIPEI).isoformat(),
+        "actual_evaluation_first_timestamp": datetime.fromtimestamp(
+            evaluation_first_stamp, TAIPEI
+        ).isoformat(),
+        "actual_evaluation_last_timestamp": datetime.fromtimestamp(
+            evaluation_last_stamp, TAIPEI
+        ).isoformat(),
         "warmup_bar_count": warmup_count,
         "evaluation_bar_count": evaluation.height,
         "total_return": float(metrics["total_return"]),
+        "gross_pnl": float(metrics["gross_pnl"]),
         "net_pnl": float(metrics["net_pnl"]),
+        "final_equity": float(metrics["ending_capital"]),
         "win_rate": float(metrics["win_rate"]),
         "profit_factor": float(metrics["profit_factor"]),
         "max_drawdown": float(metrics["max_drawdown"]),
@@ -1304,7 +1452,11 @@ def _simulate_candidate(
         "average_profit_per_trade": (
             float(metrics["net_pnl"]) / completed_trades if completed_trades else 0.0
         ),
+        "average_win": float(metrics["average_win"]),
+        "average_loss": float(metrics["average_loss"]),
+        "payoff_ratio": float(metrics["payoff_ratio"]),
         "gross_profit": gross_profit,
+        "gross_loss": float(metrics["gross_loss"]),
         "transaction_cost": float(metrics["transaction_cost"]),
         "cost_to_gross_profit": (
             float(metrics["transaction_cost"]) / gross_profit if gross_profit > 0 else None
@@ -1388,6 +1540,19 @@ def aggregate_training_results(
             stock: sum(float(row["net_pnl"]) for row in stock_rows)
             for stock, stock_rows in by_stock.items()
         }
+        stock_profit_factors = {}
+        stock_drawdowns = {}
+        stock_trade_counts = {}
+        for stock, stock_rows in by_stock.items():
+            stock_gross_profit = sum(float(row["gross_profit"]) for row in stock_rows)
+            stock_gross_loss = sum(float(row["gross_loss"]) for row in stock_rows)
+            stock_profit_factors[stock] = (
+                stock_gross_profit / abs(stock_gross_loss)
+                if stock_gross_loss < 0
+                else 0.0
+            )
+            stock_drawdowns[stock] = max(float(row["max_drawdown"]) for row in stock_rows)
+            stock_trade_counts[stock] = sum(int(row["trade_count"]) for row in stock_rows)
         positive_stock_profit = {stock: max(value, 0.0) for stock, value in stock_net.items()}
         positive_total = sum(positive_stock_profit.values())
         concentration = (
@@ -1442,6 +1607,9 @@ def aggregate_training_results(
                 "sharpe_std": _standard_deviation(sharpes),
                 "max_drawdown_worst": max(drawdowns),
                 "cross_stock_return_median": statistics.median(stock_returns.values()),
+                "cross_stock_return_std": _standard_deviation(stock_returns.values()),
+                "profitable_stock_count": sum(value > 0 for value in stock_net.values()),
+                "stock_count": len(stock_net),
                 "worst_stock": min(stock_returns, key=stock_returns.get),
                 "worst_stock_return": min(stock_returns.values()),
                 "worst_fold": min(fold_returns, key=fold_returns.get),
@@ -1449,6 +1617,9 @@ def aggregate_training_results(
                 "walk_forward_return_mean": _mean(fold_returns.values()),
                 "walk_forward_return_std": _standard_deviation(fold_returns.values()),
                 "stock_return_means": stock_returns,
+                "stock_profit_factors": stock_profit_factors,
+                "stock_max_drawdowns": stock_drawdowns,
+                "stock_trade_counts": stock_trade_counts,
                 "fold_return_means": fold_returns,
                 "single_stock_profit_concentration": concentration,
                 "transaction_cost": transaction_cost,
@@ -1555,6 +1726,7 @@ def _write_summary_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         "parameter_fingerprint", "result_count", "trade_count_total", "total_return_mean",
         "total_return_median", "total_return_std", "total_return_worst", "sharpe_mean",
         "sharpe_median", "sharpe_std", "max_drawdown_worst", "cross_stock_return_median",
+        "cross_stock_return_std", "profitable_stock_count", "stock_count",
         "worst_stock", "worst_stock_return", "worst_fold", "worst_fold_return",
         "walk_forward_return_mean", "walk_forward_return_std",
         "single_stock_profit_concentration", "transaction_cost", "cost_to_gross_profit",
@@ -1603,7 +1775,7 @@ def render_training_report(
 <li>Legacy Baseline 與新的 Majority Vote V1 分開；後者為「2-of-3 多數決 + 長期趨勢濾網」。</li>
 <li>停損為五分 K 收盤價觸發，不是盤中真實停損單；新 V1 的 162 根上限等於 3 個台股交易時段（54 根／日）。</li>
 <li>滑價固定為 0，結果可能低估成交摩擦；手續費、一般交易稅與僅限同日平倉的當沖稅已納入。</li>
-<li>每日最多一次進場、冷卻 6 根、至少持有 2 根、12:30 後不新進場，期末強制平倉。</li>
+<li>每日最多一次進場、冷卻 6 根；技術面出場至少持有 2 根，但收盤價停損／停利可優先觸發；12:30 後不新進場，Swing 模式不做每日收盤平倉，只在回測期末強制平倉。</li>
 <li>目前 ML Candidate 股票集合尚未與本研究集合凍結對齊；本輪未修改或重訓 ML，Hybrid 開始前必須先對齊 ML V1 或取得另行核准。</li>
 </ul></body></html>"""
 
@@ -1659,7 +1831,7 @@ def run_training_workflow(
         if not preflight["complete"]:
             audit.update(
                 {
-                    "status": "BLOCKED_MISSING_DATA",
+                    "status": preflight["status"],
                     "reason": preflight["reason"],
                     "conclusion": "資料缺少或不完整；只產生 audit，未執行回測、未產生績效檔、未凍結候選。",
                 }
@@ -1688,7 +1860,9 @@ def run_training_workflow(
                 "disclosures": {
                     "majority_vote": "2-of-3 多數決 + 長期趨勢濾網",
                     "stop_loss": "五分 K 收盤價觸發，不是盤中真實停損單",
+                    "minimum_holding": "最少持有 2 根只限制技術面出場；停損／停利可優先觸發",
                     "max_hold_bars": "162 根等於 3 個台股交易時段（54 根／日）",
+                    "overnight_holding": "Swing 模式允許跨日；不在每日收盤前強制平倉，僅於回測期末平倉",
                     "slippage": "固定為 0；可能低估成交摩擦",
                     "ml_universe": "尚未凍結對齊；本輪未修改或重訓 ML",
                 },

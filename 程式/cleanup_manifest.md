@@ -52,6 +52,8 @@
 | `exports/routing_simulation_*`、`regime_validation_*`、`four_group_*`、`risk_candidate_*` | 舊 Technical 探索輸出，但 Dashboard 與文件仍有直接連結。 |
 | `configs/ml_v4_research_matrix.json`、一次性診斷／V4 腳本與對應測試 | 已不屬新主線，但仍互相引用並可重建本次刪除的輸出；後續可整批移入 archive 或刪除。 |
 | `data/llm_cache/`、`trading_system/llm_analysis.py`、`scripts/build_unified_analysis.py` | LLM 已退出本輪範圍，但前端／統一分析仍可能引用；本次不刪。 |
+| 既有 `exports/technical_v1_*/`（含多份 `technical_v1_audit.json`） | 目前已有檔案被 Git 追蹤，且部分 audit 被 Registry 引用；可盤點重複的 preflight／測試產物，但未確認正式研究證據與引用前不得刪除或解除追蹤。後續新產物已由 `.gitignore` 排除。 |
+| `tests/test_technical_v1_before_*.py`、`trading_system/technical_v1_before_*.py`、`configs/technical_v1_research_before_*.json` | 目前是被 Git 追蹤的除錯前快照，其中測試檔仍會被 pytest 收集而重複執行；本輪只同步必要介面預期，未刪除。後續應確認研究引用後移入 archive 或停止測試收集。 |
 | 舊進度 Markdown 與教師講稿 | 不參與執行，但仍是會議與研究決策紀錄；待另行決定是否移至 `docs/archive/`。 |
 
 ## 刪除後執行紀錄

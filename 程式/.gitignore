@@ -7,6 +7,7 @@ __pycache__/
 .venv/
 venv/
 .uv-cache/
+tmp/
 
 # Secrets
 .env
@@ -22,6 +23,7 @@ data/*.sqlite3-wal
 data/llm_cache/
 logs/
 reports/
+exports/technical_v1_*/
 *.log
 
 # Build / editor / OS
