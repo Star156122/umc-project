@@ -1,22 +1,57 @@
 {
-  "updated_at": "2026-10-17",
+  "updated_at": "2026-10-19",
   "formal_research_direction": "Technical Candidate -> ML Filter -> Hybrid",
   "current_workstreams": {
     "technical_v1": {
-      "status": "BLOCKED_MISSING_DATA",
+      "status": "PREFLIGHT_READY_COVERAGE_GUARDRAIL_RESTORED",
       "experiment_id": "technical-v1-20261010-v1",
       "data_role": "training",
-      "period": ["2023-01-01", "2024-12-31"],
-      "stock_codes": ["2303", "2330", "2454", "2317", "2382"],
-      "preflight_audit": "exports/technical_v1_20261017T165100795466/technical_v1_audit.json",
+      "period": [
+        "2023-01-01",
+        "2024-12-31"
+      ],
+      "stock_codes": [
+        "2303",
+        "2330",
+        "2379",
+        "2454",
+        "3034"
+      ],
+      "database": "data/technical_v1_mltech_clean.sqlite3",
+      "coverage_guardrail": {
+        "minimum_training_trading_days": 400,
+        "minimum_evaluation_trading_days": 90,
+        "reason": "恢復既有 Research Coverage Guardrail，使目前固定 ML-Tech Universe 與 EXCLUDE_NO_FILL clean dataset 的研究設定一致。",
+        "evidence_commit": "ea8c43f",
+        "changed_by_sync_commit": "35ec22e"
+      },
+      "preflight_audit": "exports/technical_v1_20261017T232930995429/technical_v1_audit.json",
       "backtest_executed": false,
       "frozen": false
     },
     "ml_candidate": {
       "status": "PHASE_B_COMPLETE_LABEL_FROZEN_FIXED_1PCT",
       "experiment_id": "ml-v1-label-confirmatory-20261012",
-      "current_stock_codes": ["2303", "2330", "2379", "2454", "3034", "2881", "2882", "2884", "2886", "2891"],
-      "technical_universe_aligned": false,
+      "current_stock_codes": [
+        "2303",
+        "2330",
+        "2379",
+        "2454",
+        "3034",
+        "2881",
+        "2882",
+        "2884",
+        "2886",
+        "2891"
+      ],
+      "technology_stock_codes": [
+        "2303",
+        "2330",
+        "2379",
+        "2454",
+        "3034"
+      ],
+      "technical_universe_aligned": true,
       "label_audit": "exports/ml_v1_label_audit_20261012/label_audit.json",
       "model_eligible_label_audit": "exports/ml_v1_model_eligible_20261012/model_eligible_label_audit.json",
       "model_eligible_manifest": "exports/ml_v1_model_eligible_20261012/model_eligible_samples.csv",
@@ -41,13 +76,77 @@
       "next_stage": "decide_separate_final_model_for_technology_and_financial_without_parameter_search"
     },
     "hybrid": {
-      "status": "NOT_STARTED",
-      "blocked_by": ["technical_v1_not_complete", "ml_v1_not_frozen_or_universe_aligned"]
+      "status": "COMMON_COVERAGE_COMPLETED_MIXED",
+      "source_run": "exports/hybrid_poc_v1_20261013T041540804059",
+      "common_coverage_run": "exports/hybrid_common_coverage_20261017T233825838996",
+      "stock_codes": [
+        "2303",
+        "2330",
+        "2379",
+        "2454",
+        "3034"
+      ],
+      "technical_candidate": "BR_SENS_RANGE55_BB20_2",
+      "original_technical_candidate_count": 248,
+      "common_candidate_count": 192,
+      "common_missing_predictions": 0,
+      "common_invalid_alignments": 0,
+      "common_coverage_decision": "COMMON_COVERAGE_MIXED",
+      "logic_unchanged_during_reconciliation": true,
+      "optimization_performed": false,
+      "forbidden_roles_used": false
+    },
+    "strategy_v2_technical_batch": {
+      "status": "COMPLETED_TRAINING_ONLY_BATCH",
+      "experiment_ids": [
+        "strategy-v2-technical-batch-20261019",
+        "strategy-v2-technical-exp-a",
+        "strategy-v2-technical-exp-b",
+        "strategy-v2-technical-exp-c"
+      ],
+      "run_directory": "exports/strategy_v2_technical_batch_20261019T094810074002",
+      "period": [
+        "2023-01-01",
+        "2024-12-31"
+      ],
+      "models": [
+        "random_forest",
+        "xgboost",
+        "gru"
+      ],
+      "stock_codes": [
+        "2303",
+        "2330",
+        "2379",
+        "2454",
+        "3034"
+      ],
+      "execution_contract": "completed_kbar_signal_to_next_tradable_5min_bar_open",
+      "control_reproduction": "PASS",
+      "classifications": {
+        "TECH_V2_A": "MIXED",
+        "TECH_V2_B": "SUPPORTED",
+        "TECH_V2_C": "MIXED"
+      },
+      "parameter_search_performed": false,
+      "ml_retrained": false,
+      "hybrid_gate_changed": false,
+      "risk_parameters_changed": false,
+      "2025_used": false,
+      "2026_used": false,
+      "final_oos_used": false,
+      "combinations_run": false
     }
   },
-  "development_period": ["2026-01-01", "2026-06-30"],
+  "development_period": [
+    "2026-01-01",
+    "2026-06-30"
+  ],
   "holdout": {
-    "period": ["2025-07-01", "2025-12-31"],
+    "period": [
+      "2025-07-01",
+      "2025-12-31"
+    ],
     "status": "locked_unseen",
     "access": "forbidden"
   },
@@ -78,17 +177,148 @@
       "clean_validation": "FAIL",
       "next_stage": "await_user_decision_no_rerun",
       "development_summary": {
-        "average_return_pct": 9.70,
+        "average_return_pct": 9.7,
         "median_return_pct": 1.25,
         "profitable_stocks": "4/6",
         "trade_count": 51,
         "profit_factor": 2.22,
         "average_max_drawdown_pct": 7.72,
         "sharpe": 0.409,
-        "insufficient_samples": ["2412: 2筆", "2002: 4筆"]
+        "insufficient_samples": [
+          "2412: 2筆",
+          "2002: 4筆"
+        ]
       },
       "plan_sha256": "E3D7097C530124920D86C9B92158B93C737E675F0B52886E78AFA73166DA8134",
       "implementation_sha256": "895DDBFF317A2C319B9A57576968B3FB92CE5410FCD2CBF66C65620263EBF809"
     }
-  ]
+  ],
+  "strategy_v2_baseline": {
+    "status": "BASELINE_READY_FOR_V2",
+    "candidate": "BR_SENS_RANGE55_BB20_2",
+    "candidate_reason": "END_TO_END_BASELINE_CONTINUITY_NOT_PERFORMANCE_SELECTION",
+    "sv2_01_resolved": true,
+    "sv2_03_resolved": true,
+    "data_parity_status": "PASS_WITH_EXPECTED_DIFFERENCES",
+    "technical_date_eligibility": "GLOBAL_INTERSECTION_OF_ALL_STOCKS_WITH_COMPLETE_SESSION",
+    "missing_date_breakdown": {
+      "expected_global_intersection": 226,
+      "expected_session_incomplete": 69,
+      "unexplained_removal": 0,
+      "bug": 0
+    },
+    "provenance_status": "INFERRED_FROM_OUTPUT_SET_GENERATOR_NOT_FOUND",
+    "remaining_baseline_issues": 0,
+    "baseline_manifest": "research/strategy_v2_baseline_manifest.json",
+    "closure": "research/strategy_v2_baseline_closure.md",
+    "strategy_v2_experiment_started": false
+  },
+  "strategy_v2_phase1": {
+    "execution_timing": {
+      "experiment_id": "strategy-v2-exp001-next-bar-open",
+      "status": "BLOCKED_PRE_RUN",
+      "classification": "BLOCKED",
+      "reason": "Current replay and historical POC artifacts indicate next-bar Open execution; 248/248 matched Technical-only fills equal the entry-bar Open. No distinct Same-Bar Close control exists.",
+      "audit": "exports/strategy_v2_exp001_20261019T053628581/exp001_audit.json",
+      "user_report": "exports/strategy_v2_exp001_20261019T053628581/exp001_user_analysis.html",
+      "performance_run": false,
+      "signal_parity": "NOT_EVALUATED",
+      "hybrid_gate_parity": "NOT_EVALUATED",
+      "execution_sensitive": null
+    },
+    "technical_v2_a": {
+      "status": "PREREGISTERED",
+      "performance_run": false,
+      "preregistration": "research/strategy_v2_technical_expA.md"
+    },
+    "technical_v2_b": {
+      "status": "PREREGISTERED",
+      "performance_run": false,
+      "preregistration": "research/strategy_v2_technical_expB.md"
+    },
+    "technical_v2_c": {
+      "status": "PREREGISTERED",
+      "performance_run": false,
+      "preregistration": "research/strategy_v2_technical_expC.md"
+    },
+    "batch_runner": {
+      "status": "PLAN_ONLY_PREPARED",
+      "path": "hybrid/scripts/run_strategy_v2_batch.py",
+      "performance_execution_available": false
+    },
+    "forbidden_roles_used": false,
+    "ml_retrained": false,
+    "parameter_search_performed": false
+  },
+  "ml_v2_improvement_stage": {
+    "status": "CLOSED",
+    "candidate_specific_ml_v2_adopted": false,
+    "sell_veto_gate_adopted": false,
+    "current_ml_gate": "RF_ML_V1_BUY_ONLY",
+    "selection_reason": "DEVELOPMENT_EVIDENCE_AND_PREREGISTERED_COMPARISON",
+    "closure": "research/ml_v2_improvement_closure.md"
+  },
+  "hybrid_v2_development_candidate": {
+    "status": "FROZEN_DEVELOPMENT_CANDIDATE",
+    "technical": "BR_SENS_RANGE55_BB20_2 + TECH_V2_B_MARKET_REGIME_FILTER",
+    "ml": "ML V1 Random Forest OOF",
+    "gate": "BUY_ONLY",
+    "sell_is_short": false,
+    "portfolio_enabled": false,
+    "final_oos": false,
+    "freeze": "research/hybrid_v2_development_freeze.md"
+  },
+  "strategy_v2_risk_exp001": {
+    "status": "COMPLETED_TRAINING_ONLY",
+    "experiment_id": "strategy-v2-risk-exp001-atr-adaptive",
+    "classification": "RISK_V2_MIXED",
+    "run_directory": "exports/risk_v2_exp001_20261019T180446688808",
+    "preregistration": "research/strategy_v2_risk_exp001_preregistration.md",
+    "period": [
+      "2023-01-01",
+      "2024-12-31"
+    ],
+    "stock_codes": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "technical": "TECH_V2_B",
+    "ml": "RF ML V1 BUY-only; OOF reused",
+    "risk_v1_reproduction": "PASS",
+    "signal_parity": "PASS",
+    "executed_entry_candidate_parity": "PASS",
+    "atr_leakage_check": "PASS",
+    "execution_parity": "PASS",
+    "atr_lookback": 14,
+    "atr_multiplier": 2.0,
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "parameter_search_performed": false,
+    "ml_retrained": false,
+    "2025_used": false,
+    "2026_used": false,
+    "final_oos_used": false
+  },
+  "strategy_v2_single_stock_freeze": {
+    "status": "FROZEN_DEVELOPMENT_CANDIDATE",
+    "freeze": "research/strategy_v2_single_stock_freeze.md",
+    "manifest": "research/strategy_v2_freeze_manifest.json",
+    "validation_plan": "research/strategy_v2_validation_plan.md",
+    "export_directory": "exports/strategy_v2_development_freeze_20261019T181513514684",
+    "final_oos_available_now": false,
+    "final_oos_used": false,
+    "data_exposure": {
+      "2023_2024": "EXPOSED",
+      "2025_H1": "EXPOSED",
+      "2025_H2": "UNKNOWN",
+      "2026_H1": "EXPOSED",
+      "2026_H2_later": "PARTIALLY_EXPOSED"
+    },
+    "new_backtest_run": false,
+    "ml_retrained": false,
+    "parameter_search_performed": false
+  }
 }

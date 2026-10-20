@@ -1,0 +1,461 @@
+{
+  "audit_date": "2026-10-19",
+  "repository": "umc-project",
+  "scope": "frontend and integration audit; source tree excludes node_modules, virtual environments, and raw large datasets",
+  "implementation": {
+    "frontend": {
+      "directory": "前端",
+      "framework": "Expo / React Native / React Native Web",
+      "versions": {
+        "expo": "~54.0.35",
+        "expo_router": "~6.0.24",
+        "react": "19.1.0",
+        "react_native": "0.81.5",
+        "react_native_web": "~0.21.0"
+      },
+      "entry": "expo-router/entry",
+      "run_commands": [
+        "cd 前端 && npm run web",
+        "cd 前端 && npm start (then press w)"
+      ],
+      "routes": [
+        {
+          "route": "/login",
+          "source": "src/app/login.tsx -> screens/AuthScreen.js",
+          "status": "IMPLEMENTED"
+        },
+        {
+          "route": "/register",
+          "source": "src/app/register.tsx -> screens/RegisterScreen.js",
+          "status": "IMPLEMENTED"
+        },
+        {
+          "route": "/(tabs)",
+          "source": "src/app/(tabs)/index.tsx -> screens/HomeScreen.js",
+          "status": "IMPLEMENTED"
+        },
+        {
+          "route": "/(tabs)/analysis",
+          "source": "src/app/(tabs)/analysis.tsx -> screens/AnalysisScreen.js",
+          "status": "IMPLEMENTED_LEGACY_BACKTEST"
+        },
+        {
+          "route": "/(tabs)/watch",
+          "source": "src/app/(tabs)/watch.tsx -> screens/WatchListScreen.js",
+          "status": "IMPLEMENTED"
+        },
+        {
+          "route": "/(tabs)/setting",
+          "source": "src/app/(tabs)/setting.tsx -> screens/SettingScreen.js",
+          "status": "PARTIAL"
+        }
+      ],
+      "source_directories": {
+        "src/app": [
+          "_layout.tsx",
+          "index.tsx",
+          "login.tsx",
+          "register.tsx",
+          "(tabs)/_layout.tsx",
+          "(tabs)/index.tsx",
+          "(tabs)/analysis.tsx",
+          "(tabs)/watch.tsx",
+          "(tabs)/setting.tsx"
+        ],
+        "src/config": [
+          "api.js"
+        ],
+        "src/components": [
+          "app-tabs.tsx",
+          "app-tabs.web.tsx",
+          "animated-icon.tsx",
+          "animated-icon.web.tsx",
+          "themed-text.tsx",
+          "themed-view.tsx",
+          "hint-row.tsx",
+          "external-link.tsx",
+          "web-badge.tsx",
+          "ui/collapsible.tsx"
+        ],
+        "screens": [
+          "AuthScreen.js",
+          "RegisterScreen.js",
+          "HomeScreen.js",
+          "AnalysisScreen.js",
+          "WatchListScreen.js",
+          "SettingScreen.js"
+        ],
+        "components": [
+          "MarketHeader.js",
+          "MarketStockRow.js",
+          "MarketTrendChart.js",
+          "SmallStock.js",
+          "Sparkline.js",
+          "StockCard.js",
+          "StockNewsPanel.js",
+          "HtmlReportPanel.js",
+          "Header.js",
+          "TabBar.js"
+        ],
+        "styles": [
+          "marketTheme.js",
+          "styles.js"
+        ],
+        "assets": [
+          "images/*",
+          "expo.icon/*"
+        ]
+      },
+      "key_files": [
+        "package.json",
+        "package-lock.json",
+        "app.json",
+        "README.md",
+        "README_DATABASE_SETUP.md",
+        "README_MARKET_HOME.md",
+        "README_YAHOO_FAVORITES.md",
+        "AGENTS.md"
+      ]
+    },
+    "express_api": {
+      "directory": "前端/server",
+      "framework": "Node.js / Express / MySQL",
+      "run_command": "cd 前端/server && npm start",
+      "port": "PORT environment variable, default defined by server source",
+      "source_files": [
+        "src/server.js",
+        "src/db.js",
+        "src/marketService.js",
+        "src/favoriteService.js",
+        "src/pythonBacktestService.js",
+        "src/reportService.js",
+        "src/databaseReportService.js",
+        "src/reportHtmlService.js",
+        "src/stockNewsService.js",
+        "src/stockNames.js"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/api/health",
+          "auth": false,
+          "purpose": "MySQL/Python/backend status"
+        },
+        {
+          "method": "POST",
+          "path": "/api/auth/register",
+          "auth": false,
+          "input": "username,email,password"
+        },
+        {
+          "method": "POST",
+          "path": "/api/auth/login",
+          "auth": false,
+          "input": "email,password",
+          "output": "JWT and user"
+        },
+        {
+          "method": "GET",
+          "path": "/api/market/hot",
+          "auth": false,
+          "purpose": "Yahoo hot stocks/index/history"
+        },
+        {
+          "method": "GET",
+          "path": "/api/market/search?q=",
+          "auth": false,
+          "purpose": "Yahoo stock search"
+        },
+        {
+          "method": "GET",
+          "path": "/api/favorites/codes",
+          "auth": true,
+          "purpose": "current user favorite codes"
+        },
+        {
+          "method": "GET",
+          "path": "/api/favorites",
+          "auth": true,
+          "purpose": "favorite stock rows/quotes"
+        },
+        {
+          "method": "POST",
+          "path": "/api/favorites",
+          "auth": true,
+          "input": "code,yahooSymbol"
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/favorites/:code",
+          "auth": true
+        },
+        {
+          "method": "GET",
+          "path": "/api/backtests/strategies",
+          "auth": true,
+          "purpose": "legacy six strategy catalog"
+        },
+        {
+          "method": "POST",
+          "path": "/api/backtests/run",
+          "auth": true,
+          "input": "code,strategy,startDate?,endDate?",
+          "purpose": "legacy Python backtest and persist report"
+        },
+        {
+          "method": "GET",
+          "path": "/api/reports",
+          "auth": true,
+          "query": "code?,strategy?"
+        },
+        {
+          "method": "GET",
+          "path": "/api/reports/latest/:code",
+          "auth": true,
+          "query": "strategy?"
+        },
+        {
+          "method": "GET",
+          "path": "/api/reports/analysis/:analysisId",
+          "auth": true
+        },
+        {
+          "method": "GET",
+          "path": "/api/reports/history/:code",
+          "auth": true,
+          "query": "strategy?"
+        },
+        {
+          "method": "GET",
+          "path": "/api/reports/analysis/:analysisId/news/:mode",
+          "auth": true
+        },
+        {
+          "method": "POST",
+          "path": "/api/reports/analysis/:analysisId/news/:mode/summary",
+          "auth": true
+        },
+        {
+          "method": "GET",
+          "path": "/api/reports/analysis/:analysisId/html",
+          "auth": true
+        },
+        {
+          "method": "GET",
+          "path": "/api/reports/:code/:reportId",
+          "auth": true,
+          "purpose": "legacy report lookup"
+        }
+      ],
+      "not_implemented": [
+        "V2 current analysis",
+        "V2 summary/trades normalized endpoints",
+        "V2 ML prediction API",
+        "V2 Technical/Hybrid/Risk API",
+        "dedicated historical research candle API"
+      ]
+    },
+    "research_workbench": {
+      "server": "程式/scripts/research.py",
+      "page": "程式/web/research.html",
+      "default_port": 8765,
+      "routes": [
+        "/api/options",
+        "/api/research?run_id=",
+        "/api/ml/latest",
+        "/api/analysis/latest"
+      ],
+      "warning": "/api/ml/latest reads a fixed legacy ml_baseline_20260927/results.json path; it is separate from Expo API and is not the current frozen V2 prediction API"
+    }
+  },
+  "technical": {
+    "frontend_selectable_count": 6,
+    "frontend_selectable": [
+      "ma",
+      "rsi",
+      "macd",
+      "bollinger",
+      "breakout",
+      "vote"
+    ],
+    "internal_test_helper": "fixed",
+    "v2_frozen_candidate": "BR_SENS_RANGE55_BB20_2 + TECH_V2_B_MARKET_REGIME_FILTER",
+    "v2_is_six_strategy_fusion": false,
+    "v2_source_files": [
+      "程式/configs/technical_v2_candidate.json",
+      "程式/research/strategy_v2_single_stock_freeze.md",
+      "程式/research/strategy_v2_freeze_manifest.json"
+    ]
+  },
+  "frozen_strategy_v2": {
+    "status": "FROZEN_DEVELOPMENT_CANDIDATE",
+    "technical": "BR_SENS_RANGE55_BB20_2 + TECH_V2_B_MARKET_REGIME_FILTER",
+    "ml": "ML V1 Random Forest OOF",
+    "gate": {
+      "BUY": "ALLOW_LONG_ENTRY",
+      "HOLD": "BLOCK",
+      "SELL": "BLOCK; not short"
+    },
+    "risk": {
+      "version": "Risk V1",
+      "risk_per_trade": 0.01,
+      "stop_loss_pct": 0.025,
+      "max_position_fraction": 0.4
+    },
+    "execution": "completed 5-minute signal -> next tradable 5-minute bar open",
+    "universe": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "data_role": "EXPOSED_DEVELOPMENT",
+    "period": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    },
+    "final_oos_available": false
+  },
+  "data_sources": {
+    "current_quotes_and_1d_5m_history": "Yahoo Finance via 前端/server/src/marketService.js",
+    "legacy_backtest": "程式/app_backtest.py, reports persisted through MySQL",
+    "v2_research": "程式/exports and research manifest/snapshot; not exposed via Expo API",
+    "stock_news": "Google News RSS via 前端/server/src/stockNewsService.js",
+    "news_headline_summary": "Gemini configured from runtime .env; .env secrets not read during audit"
+  },
+  "status_flags": {
+    "frontend_api_status": "IMPLEMENTED_FOR_LEGACY_APP",
+    "v2_api_status": "NOT_IMPLEMENTED",
+    "current_analysis_status": "NOT_IMPLEMENTED",
+    "backtest_status": "IMPLEMENTED_FOR_LEGACY_SINGLE_STOCK_STRATEGIES",
+    "kline_status": "PARTIAL_YAHOO_CURRENT_DAY_5M_ONLY",
+    "trade_log_status": "AVAILABLE_IN_LEGACY_REPORT; V2 EXPORT ONLY",
+    "llm_status": "PARTIAL_LEGACY_BACKTEST_AND_NEWS_HEADLINE_SUMMARY",
+    "news_status": "IMPLEMENTED_STOCK_RSS; NO_INDUSTRY_SENTIMENT"
+  },
+  "audit_files": [
+    "程式/research/frontend_integration_audit.md",
+    "程式/research/frontend_data_contract_proposal.md",
+    "程式/research/frontend_gap_analysis.md",
+    "程式/research/frontend_repository_inventory.json"
+  ],
+  "audit_constraints": {
+    "code_changed": false,
+    "strategy_changed": false,
+    "database_changed": false,
+    "training_run": false,
+    "backtest_run": false
+  },
+  "frontend_file_inventory": [
+    "前端/tsconfig.json",
+    "前端/styles/styles.js",
+    "前端/styles/marketTheme.js",
+    "前端/src/hooks/use-theme.ts",
+    "前端/src/hooks/use-color-scheme.web.ts",
+    "前端/src/hooks/use-color-scheme.ts",
+    "前端/src/global.css",
+    "前端/src/constants/theme.ts",
+    "前端/src/config/api.js",
+    "前端/src/components/web-badge.tsx",
+    "前端/src/components/ui/collapsible.tsx",
+    "前端/src/components/themed-view.tsx",
+    "前端/src/components/themed-text.tsx",
+    "前端/src/components/hint-row.tsx",
+    "前端/src/components/external-link.tsx",
+    "前端/src/components/app-tabs.web.tsx",
+    "前端/src/components/app-tabs.tsx",
+    "前端/src/components/animated-icon.web.tsx",
+    "前端/src/components/animated-icon.tsx",
+    "前端/src/components/animated-icon.module.css",
+    "前端/src/app/_layout.tsx",
+    "前端/src/app/register.tsx",
+    "前端/src/app/login.tsx",
+    "前端/src/app/index.tsx",
+    "前端/src/app/(tabs)/_layout.tsx",
+    "前端/src/app/(tabs)/watch.tsx",
+    "前端/src/app/(tabs)/setting.tsx",
+    "前端/src/app/(tabs)/index.tsx",
+    "前端/src/app/(tabs)/analysis.tsx",
+    "前端/package-lock.json",
+    "前端/npm.cmd",
+    "前端/LICENSE",
+    "前端/eslint.config.js",
+    "前端/server/tests/integration.test.cjs",
+    "前端/server/src/stockNewsService.js",
+    "前端/server/src/stockNames.js",
+    "前端/server/src/server.js",
+    "前端/server/src/reportService.js",
+    "前端/server/src/reportHtmlService.js",
+    "前端/server/src/pythonBacktestService.js",
+    "前端/server/src/marketService.js",
+    "前端/server/src/favoriteService.js",
+    "前端/server/src/db.js",
+    "前端/server/src/databaseReportService.js",
+    "前端/components/TabBar.js",
+    "前端/components/StockNewsPanel.js",
+    "前端/components/StockCard.js",
+    "前端/components/Sparkline.js",
+    "前端/components/SmallStock.js",
+    "前端/components/MarketTrendChart.js",
+    "前端/components/MarketStockRow.js",
+    "前端/components/MarketHeader.js",
+    "前端/components/HtmlReportPanel.js",
+    "前端/components/Header.js",
+    "前端/CLAUDE.md",
+    "前端/assets/images/tutorial-web.png",
+    "前端/assets/images/tabIcons/home@3x.png",
+    "前端/assets/images/tabIcons/home@2x.png",
+    "前端/assets/images/tabIcons/home.png",
+    "前端/assets/images/tabIcons/explore@3x.png",
+    "前端/assets/images/tabIcons/explore@2x.png",
+    "前端/assets/images/tabIcons/explore.png",
+    "前端/assets/images/splash-icon.png",
+    "前端/assets/images/react-logo@3x.png",
+    "前端/assets/images/react-logo@2x.png",
+    "前端/assets/images/react-logo.png",
+    "前端/assets/images/logo-glow.png",
+    "前端/assets/images/icon.png",
+    "前端/assets/images/favicon.png",
+    "前端/assets/images/expo-logo.png",
+    "前端/assets/images/expo-badge.png",
+    "前端/assets/images/expo-badge-white.png",
+    "前端/assets/images/android-icon-monochrome.png",
+    "前端/assets/images/android-icon-foreground.png",
+    "前端/assets/images/android-icon-background.png",
+    "前端/App.js",
+    "前端/AGENTS.md",
+    "前端/app.json",
+    "前端/README_MARKET_HOME.md",
+    "前端/README_DATABASE_SETUP.md",
+    "前端/README_COMPACT_UI_AND_NAMES.md",
+    "前端/README_CHINESE_DARK_STYLE.md",
+    "前端/README.md",
+    "前端/package.json",
+    "前端/server/package-lock.json",
+    "前端/server/package.json",
+    "前端/README_YAHOO_FAVORITES.md",
+    "前端/scripts/reset-project.js",
+    "前端/server/database/ai_stock_system_team_20260824.sql",
+    "前端/assets/expo.icon/icon.json",
+    "前端/screens/WatchListScreen.js",
+    "前端/screens/SettingScreen.js",
+    "前端/screens/RegisterScreen.js",
+    "前端/screens/HomeScreen.js",
+    "前端/screens/AuthScreen.js",
+    "前端/screens/AnalysisScreen.js",
+    "前端/server/python-backtest/uv.lock",
+    "前端/assets/expo.icon/Assets/grid.png",
+    "前端/assets/expo.icon/Assets/expo-symbol 2.svg",
+    "前端/server/python-backtest/pyproject.toml",
+    "前端/server/python-backtest/main02.py",
+    "前端/server/python-backtest/main.py",
+    "前端/server/python-backtest/README.md",
+    "前端/server/python-backtest/run_batch.py",
+    "前端/server/python-backtest/.env.example",
+    "前端/server/python-backtest/backtest_config.json",
+    "前端/server/python-backtest/docs/PROJECT_STRUCTURE.md",
+    "前端/server/python-backtest/tests/test_strategy_rules.py"
+  ],
+  "frontend_file_count_excluding_generated": 108
+}

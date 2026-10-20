@@ -232,6 +232,7 @@ class TechnicalV1Tests(unittest.TestCase):
             database = Path(directory) / "market.sqlite3"
             create_compact_market_database(database, config)
             with contextlib.closing(sqlite3.connect(database)) as connection:
+                missing_stock = config["stock_universe"]["stock_codes"][-1]
                 stamp = connection.execute(
                     "SELECT MIN(kbar_timestamp) FROM market_kbars WHERE stock_code='2303'"
                 ).fetchone()[0]
@@ -256,8 +257,8 @@ class TechnicalV1Tests(unittest.TestCase):
                 )
                 connection.execute(
                     """DELETE FROM market_kbars
-                       WHERE stock_code='2317' AND kbar_timestamp>=? AND kbar_timestamp<?""",
-                    (stamp, stamp + 86400),
+                       WHERE stock_code=? AND kbar_timestamp>=? AND kbar_timestamp<?""",
+                    (missing_stock, stamp, stamp + 86400),
                 )
                 connection.commit()
             report = inspect_training_market_data(Path(directory), config, database)
@@ -266,7 +267,7 @@ class TechnicalV1Tests(unittest.TestCase):
             self.assertTrue(checks["2303"]["incomplete_trading_days"])
             self.assertGreater(checks["2330"]["duplicate_timestamp_count"], 0)
             self.assertGreater(checks["2454"]["invalid_ohlcv_count"], 0)
-            self.assertTrue(checks["2317"]["missing_trading_days"])
+            self.assertTrue(checks[missing_stock]["missing_trading_days"])
 
     def test_missing_data_workflow_writes_audit_only(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

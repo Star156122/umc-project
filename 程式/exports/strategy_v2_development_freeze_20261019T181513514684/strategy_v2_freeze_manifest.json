@@ -1,0 +1,243 @@
+{
+  "freeze_id": "strategy-v2-single-stock-development-freeze-20261019T181513514684",
+  "created_at": "2026-10-19T18:15:13.514684+08:00",
+  "strategy_v2_status": "FROZEN_DEVELOPMENT_CANDIDATE",
+  "scope": "Single-stock, long-only, exposed 2023-2024 development evidence; not Final OOS.",
+  "git": {
+    "commit": "35ec22eea83cabcacaf22a45e0fc66a4eb1209d3",
+    "working_tree_status": "DIRTY",
+    "working_tree_note": "Working tree was already dirty before this freeze; hashes below identify the frozen current files. Freeze files themselves also make the tree dirty."
+  },
+  "candidate": {
+    "technical": "BR_SENS_RANGE55_BB20_2 + TECH_V2_B_MARKET_REGIME_FILTER",
+    "technical_candidate_id": "BR_SENS_RANGE55_BB20_2",
+    "technical_parameters": {
+      "ma_fast_period": 20,
+      "ma_mid_period": 60,
+      "ma_slow_period": 240,
+      "trend_ma_period": 120,
+      "trend_slope_lookback": 12,
+      "require_trend_filter": true,
+      "bollinger_period": 20,
+      "bollinger_stddev": 2.0,
+      "breakout_entry_period": 55,
+      "breakout_exit_period": 30,
+      "breakout_require_cross": true,
+      "breakout_volume_ratio": 0.0,
+      "volume_ma_period": 20,
+      "use_rsi": false,
+      "use_macd": false
+    },
+    "ml_model": "ML V1 Random Forest OOF",
+    "ml_gate": {
+      "BUY": "ALLOW_LONG_ENTRY",
+      "HOLD": "BLOCK",
+      "SELL": "BLOCK",
+      "short": false
+    },
+    "risk": {
+      "version": "Risk V1",
+      "risk_per_trade": 0.01,
+      "stop_loss_pct": 0.025,
+      "max_position_fraction": 0.4
+    },
+    "execution_contract": "COMPLETED_5_MINUTE_SIGNAL_TO_NEXT_TRADABLE_5_MINUTE_BAR_OPEN",
+    "short": false,
+    "portfolio": false
+  },
+  "research_data": {
+    "role": "EXPOSED_DEVELOPMENT",
+    "period": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    },
+    "stock_universe": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "folds": [
+      {
+        "id": "WF1",
+        "train_start": "2023-01-01",
+        "train_end": "2023-06-30",
+        "evaluate_start": "2023-07-01",
+        "evaluate_end": "2023-12-31"
+      },
+      {
+        "id": "WF2",
+        "train_start": "2023-01-01",
+        "train_end": "2023-12-31",
+        "evaluate_start": "2024-01-01",
+        "evaluate_end": "2024-06-30"
+      },
+      {
+        "id": "WF3",
+        "train_start": "2023-01-01",
+        "train_end": "2024-06-30",
+        "evaluate_start": "2024-07-01",
+        "evaluate_end": "2024-12-31"
+      }
+    ],
+    "walk_forward_fold_ids": [
+      "WF1",
+      "WF2",
+      "WF3"
+    ]
+  },
+  "transaction_cost": 0.001425,
+  "transaction_costs": {
+    "stock_fee_rate": 0.001425,
+    "stock_tax_rate": 0.003,
+    "day_trade_tax_rate": 0.0015,
+    "apply_day_trade_tax": true,
+    "slippage_rate": 0.0
+  },
+  "source_identity": {
+    "technical_config": {
+      "path": "configs/technical_v2_candidate.json",
+      "sha256": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5"
+    },
+    "technical_source": {
+      "path": "trading_system/technical_v1.py",
+      "sha256": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36"
+    },
+    "ml_oof": {
+      "path": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
+      "sha256": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b"
+    },
+    "risk_config": {
+      "path": "hybrid/config/risk_v1.json",
+      "sha256": "9035e97a0c9dff8f481af47d69147566712422e46222f9b1db5bbe66135d59ec"
+    },
+    "technical_database": {
+      "path": "data/technical_v1_mltech_clean.sqlite3",
+      "sha256": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+      "hash_source": "existing parity audit snapshot; raw DB not opened by this freeze"
+    },
+    "ml_database": {
+      "path": "data/market_data.sqlite3",
+      "sha256": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+      "hash_source": "existing parity audit snapshot; raw DB not opened by this freeze"
+    }
+  },
+  "data_exposure": {
+    "2023-2024": {
+      "classification": "EXPOSED",
+      "evidence": "Dataset registry records Training data used/viewed in ML and Technical experiments."
+    },
+    "2025-H1": {
+      "classification": "EXPOSED",
+      "evidence": "Dataset registry marks ML Validation rows results_viewed=true and participated_in_development=true."
+    },
+    "2025-H2": {
+      "classification": "UNKNOWN",
+      "evidence": "Registry row is locked with results_viewed=false, but that metadata does not prove no access occurred outside the recorded experiments."
+    },
+    "2026-H1": {
+      "classification": "EXPOSED",
+      "evidence": "Dataset registry marks Development Seen rows results_viewed=true and participated_in_development=true."
+    },
+    "2026-07-onward": {
+      "classification": "PARTIALLY_EXPOSED",
+      "evidence": "Per-stock registry rows for 2026-07-01 through 2026-09-24 have results_viewed=true; the aggregate Final OOS row says false, so the full range is not clean or proven unused."
+    },
+    "final_oos_used_this_closure": false,
+    "metadata_policy_access": "forbidden"
+  },
+  "rejected_or_non_adopted": [
+    {
+      "experiment": "Technical A Volume Confirmation",
+      "classification": "MIXED",
+      "decision": "NOT_ADOPTED",
+      "reason": "Evidence was mixed; frozen Technical V2-B is the supported structural component."
+    },
+    {
+      "experiment": "Technical C EMA20 Exit",
+      "classification": "MIXED",
+      "decision": "NOT_ADOPTED",
+      "reason": "Evidence was mixed and did not justify replacing the existing exit."
+    },
+    {
+      "experiment": "Hybrid SELL-Veto",
+      "decision": "NOT_ADOPTED",
+      "reason": "No model was classified supported, so evidence did not justify changing the BUY-only gate.",
+      "classification_by_model": {
+        "random_forest": "BALANCED_GATE_MIXED",
+        "xgboost": "BALANCED_GATE_NOT_SUPPORTED",
+        "gru": "BALANCED_GATE_MIXED"
+      }
+    },
+    {
+      "experiment": "Candidate-specific ML V2",
+      "classification": "MIXED_OR_UNSUPPORTED",
+      "decision": "NOT_ADOPTED",
+      "reason": "The candidate-specific comparison did not support replacing ML V1 RF.",
+      "classification_by_model": {
+        "random_forest": "NOT_SUPPORTED",
+        "xgboost": "NOT_SUPPORTED",
+        "gru": "MIXED"
+      }
+    },
+    {
+      "experiment": "Risk V2 ATR Adaptive",
+      "classification": "RISK_V2_MIXED",
+      "decision": "NOT_ADOPTED",
+      "reason": "Worst drawdown improved, but average return and Sharpe fell relative to Risk V1."
+    }
+  ],
+  "reproduction_evidence": {
+    "status": "VERIFIED_FROM_EXISTING_REPRODUCTION_AUDITS",
+    "technical_candidate_audit": "exports/strategy_v2_technical_candidate_20261019T103707108020/technical_v2_candidate_audit.json",
+    "risk_v1_reproduction_audit": "exports/risk_v2_exp001_20261019T180446688808/risk_v2_exp001_audit.json",
+    "risk_v1_reproduction": "PASS",
+    "metric_match_checks": {
+      "total_return": true,
+      "max_drawdown": true,
+      "win_rate": true,
+      "profit_factor": true,
+      "sharpe_ratio": true,
+      "trade_count": true,
+      "net_pnl": true,
+      "transaction_cost": true,
+      "gross_pnl": true,
+      "final_equity": true
+    },
+    "new_backtest_run_this_freeze": false
+  },
+  "final_oos": {
+    "available_now": false,
+    "status": "NO_EXISTING_PROVEN_CLEAN_UNEXPOSED_RANGE",
+    "used": false
+  },
+  "immutability": {
+    "strategy_changed": false,
+    "ml_retrained": false,
+    "parameter_search": false,
+    "new_experiment": false,
+    "forbidden_period_data_read": false
+  },
+  "freeze_invariants": {
+    "technical_parameters_frozen": true,
+    "ml_model_frozen": true,
+    "ml_gate_frozen": true,
+    "risk_v1_frozen": true,
+    "execution_frozen": true,
+    "transaction_cost_frozen": true,
+    "stock_universe_frozen": true,
+    "no_short": true,
+    "no_portfolio": true,
+    "candidate_ml_v2_included": false,
+    "sell_veto_included": false,
+    "risk_v2_atr_included": false,
+    "final_oos_used": false
+  },
+  "validation_data_status": {
+    "2025_H1": "EXPOSED",
+    "2025_H2": "UNKNOWN",
+    "2026_H1": "EXPOSED",
+    "2026_H2_later": "PARTIALLY_EXPOSED"
+  }
+}

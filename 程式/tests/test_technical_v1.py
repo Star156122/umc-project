@@ -150,10 +150,20 @@ class TechnicalV1Tests(unittest.TestCase):
         self.assertEqual(self.config["stock_universe"]["status"], "confirmed")
         self.assertEqual(
             self.config["stock_universe"]["stock_codes"],
-            ["2303", "2330", "2454", "2317", "2382"],
+            ["2303", "2330", "2379", "2454", "3034"],
         )
-        self.assertEqual(self.config["market_data_path"], "data/market_data.sqlite3")
+        self.assertEqual(
+            self.config["market_data_path"],
+            "data/technical_v1_mltech_clean.sqlite3",
+        )
         assert_execution_ready(self.config)
+
+    def test_formal_universe_aligns_with_ml_technology_and_hybrid(self) -> None:
+        ml_config = json.loads((ROOT / "configs/ml_v1_research.json").read_text(encoding="utf-8"))
+        hybrid_config = json.loads((ROOT / "hybrid/config/hybrid_poc_v1.json").read_text(encoding="utf-8"))
+        technical = self.config["stock_universe"]["stock_codes"]
+        self.assertEqual(technical, ml_config["stock_universe"]["technology"])
+        self.assertEqual(technical, hybrid_config["stock_universe"])
 
     def test_unknown_backtest_setting_is_rejected_instead_of_silently_ignored(self) -> None:
         changed = copy.deepcopy(self.config)
@@ -287,6 +297,7 @@ class TechnicalV1Tests(unittest.TestCase):
             database = Path(directory) / "market.sqlite3"
             create_compact_market_database(database, config)
             with contextlib.closing(sqlite3.connect(database)) as connection:
+                missing_stock = config["stock_universe"]["stock_codes"][-1]
                 stamp = connection.execute(
                     "SELECT MIN(kbar_timestamp) FROM market_kbars WHERE stock_code='2303'"
                 ).fetchone()[0]
@@ -311,8 +322,8 @@ class TechnicalV1Tests(unittest.TestCase):
                 )
                 connection.execute(
                     """DELETE FROM market_kbars
-                       WHERE stock_code='2317' AND kbar_timestamp>=? AND kbar_timestamp<?""",
-                    (stamp, stamp + 86400),
+                       WHERE stock_code=? AND kbar_timestamp>=? AND kbar_timestamp<?""",
+                    (missing_stock, stamp, stamp + 86400),
                 )
                 connection.commit()
             report = inspect_training_market_data(Path(directory), config, database)
@@ -322,7 +333,7 @@ class TechnicalV1Tests(unittest.TestCase):
             self.assertTrue(checks["2303"]["incomplete_trading_days"])
             self.assertGreater(checks["2330"]["duplicate_timestamp_count"], 0)
             self.assertGreater(checks["2454"]["invalid_ohlcv_count"], 0)
-            self.assertTrue(checks["2317"]["missing_trading_days"])
+            self.assertTrue(checks[missing_stock]["missing_trading_days"])
 
     def test_fold_loader_uses_same_session_as_preflight(self) -> None:
         config = compact_preflight_config(self.config)

@@ -1,0 +1,589 @@
+{
+  "status": "COMPLETED",
+  "experiment_id": "strategy-v2-candidate-specific-ml-v2",
+  "generated_at": "2026-10-19T14:27:44+08:00",
+  "preregistration": "research/ml_v2_candidate_specific_preregistration.md",
+  "preregistration_sha256": "f8bc779ec0cf0171d7013a99cedbe7b5424e11565456737061b97df23d027916",
+  "phase_a_audit": "exports\\ml_candidate_error_audit_20261019T134230804119",
+  "phase_a_status": "PASS",
+  "technical_candidate": "BR_SENS_RANGE55_BB20_2 + TECH_V2_B_MARKET_REGIME_FILTER",
+  "technical_candidate_frozen": true,
+  "technical_validation_reproduction": {
+    "generated_count": 138,
+    "frozen_count": 138,
+    "matching_event_count": 138,
+    "missing": 0,
+    "extra": 0,
+    "status": "PASS"
+  },
+  "technical_candidate_count": 138,
+  "candidate_training_pool_policy": "Replayed frozen V2-B candidates through each WF training cutoff; previous-session V1 features, Fixed ±1% label, target end no later than cutoff.",
+  "training_period": [
+    "2023-01-01",
+    "2024-12-31"
+  ],
+  "data_role": "TRAINING_ONLY",
+  "stocks": [
+    "2303",
+    "2330",
+    "2379",
+    "2454",
+    "3034"
+  ],
+  "models": [
+    "random_forest",
+    "xgboost",
+    "gru"
+  ],
+  "folds": [
+    "WF1",
+    "WF2",
+    "WF3"
+  ],
+  "feature_policy": "Complete ML V1 frozen feature pipeline; no feature selection or lookback change.",
+  "label_policy": "ML V1 Fixed ±1%; T+1 Open to T+3 Close after frozen one-round-trip cost.",
+  "fold_preflight": [
+    {
+      "fold_id": "WF1",
+      "train_candidate_count": 51,
+      "validation_candidate_count": 48,
+      "train_class_counts": {
+        "SELL": 11,
+        "HOLD": 23,
+        "BUY": 17
+      },
+      "validation_class_counts": {
+        "SELL": 10,
+        "HOLD": 20,
+        "BUY": 18
+      },
+      "per_stock_train": {
+        "2303": 8,
+        "2330": 8,
+        "2379": 13,
+        "2454": 7,
+        "3034": 15
+      },
+      "per_stock_validation": {
+        "2303": 11,
+        "2330": 11,
+        "2379": 9,
+        "2454": 8,
+        "3034": 9
+      },
+      "train_has_all_classes": true,
+      "status": "READY"
+    },
+    {
+      "fold_id": "WF2",
+      "train_candidate_count": 108,
+      "validation_candidate_count": 66,
+      "train_class_counts": {
+        "SELL": 25,
+        "HOLD": 45,
+        "BUY": 38
+      },
+      "validation_class_counts": {
+        "SELL": 23,
+        "HOLD": 11,
+        "BUY": 32
+      },
+      "per_stock_train": {
+        "2303": 21,
+        "2330": 19,
+        "2379": 23,
+        "2454": 17,
+        "3034": 28
+      },
+      "per_stock_validation": {
+        "2303": 12,
+        "2330": 13,
+        "2379": 14,
+        "2454": 13,
+        "3034": 14
+      },
+      "train_has_all_classes": true,
+      "status": "READY"
+    },
+    {
+      "fold_id": "WF3",
+      "train_candidate_count": 173,
+      "validation_candidate_count": 24,
+      "train_class_counts": {
+        "SELL": 48,
+        "HOLD": 54,
+        "BUY": 71
+      },
+      "validation_class_counts": {
+        "SELL": 5,
+        "HOLD": 8,
+        "BUY": 11
+      },
+      "per_stock_train": {
+        "2303": 33,
+        "2330": 32,
+        "2379": 36,
+        "2454": 31,
+        "3034": 41
+      },
+      "per_stock_validation": {
+        "2303": 4,
+        "2330": 6,
+        "2379": 5,
+        "2454": 4,
+        "3034": 5
+      },
+      "train_has_all_classes": true,
+      "status": "READY"
+    }
+  ],
+  "model_fold_results": [
+    {
+      "model": "random_forest",
+      "fold_id": "WF1",
+      "status": "COMPLETED",
+      "training_candidate_count": 51,
+      "validation_candidate_count": 48,
+      "train_class_counts": {
+        "SELL": 11,
+        "HOLD": 23,
+        "BUY": 17
+      },
+      "validation_metrics": {
+        "model": "random_forest",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF1",
+        "samples": 48,
+        "accuracy": 0.3333333333333333,
+        "macro_f1": 0.31706644609870416,
+        "sell_precision": 0.125,
+        "sell_recall": 0.2,
+        "sell_f1": 0.15384615384615385,
+        "actual_sell_count": 10,
+        "predicted_sell_count": 16,
+        "hold_precision": 0.42105263157894735,
+        "hold_recall": 0.4,
+        "hold_f1": 0.41025641025641024,
+        "actual_hold_count": 20,
+        "predicted_hold_count": 19,
+        "buy_precision": 0.46153846153846156,
+        "buy_recall": 0.3333333333333333,
+        "buy_f1": 0.3870967741935484,
+        "actual_buy_count": 18,
+        "predicted_buy_count": 13
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "random_forest",
+      "fold_id": "WF2",
+      "status": "COMPLETED",
+      "training_candidate_count": 108,
+      "validation_candidate_count": 66,
+      "train_class_counts": {
+        "SELL": 25,
+        "HOLD": 45,
+        "BUY": 38
+      },
+      "validation_metrics": {
+        "model": "random_forest",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF2",
+        "samples": 66,
+        "accuracy": 0.30303030303030304,
+        "macro_f1": 0.28312512883941454,
+        "sell_precision": 0.38461538461538464,
+        "sell_recall": 0.43478260869565216,
+        "sell_f1": 0.40816326530612246,
+        "actual_sell_count": 23,
+        "predicted_sell_count": 26,
+        "hold_precision": 0.09090909090909091,
+        "hold_recall": 0.18181818181818182,
+        "hold_f1": 0.12121212121212122,
+        "actual_hold_count": 11,
+        "predicted_hold_count": 22,
+        "buy_precision": 0.4444444444444444,
+        "buy_recall": 0.25,
+        "buy_f1": 0.32,
+        "actual_buy_count": 32,
+        "predicted_buy_count": 18
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "random_forest",
+      "fold_id": "WF3",
+      "status": "COMPLETED",
+      "training_candidate_count": 173,
+      "validation_candidate_count": 24,
+      "train_class_counts": {
+        "SELL": 48,
+        "HOLD": 54,
+        "BUY": 71
+      },
+      "validation_metrics": {
+        "model": "random_forest",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF3",
+        "samples": 24,
+        "accuracy": 0.4583333333333333,
+        "macro_f1": 0.4182206682206682,
+        "sell_precision": 0.3333333333333333,
+        "sell_recall": 0.4,
+        "sell_f1": 0.36363636363636365,
+        "actual_sell_count": 5,
+        "predicted_sell_count": 6,
+        "hold_precision": 0.4,
+        "hold_recall": 0.25,
+        "hold_f1": 0.3076923076923077,
+        "actual_hold_count": 8,
+        "predicted_hold_count": 5,
+        "buy_precision": 0.5384615384615384,
+        "buy_recall": 0.6363636363636364,
+        "buy_f1": 0.5833333333333334,
+        "actual_buy_count": 11,
+        "predicted_buy_count": 13
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "xgboost",
+      "fold_id": "WF1",
+      "status": "COMPLETED",
+      "training_candidate_count": 51,
+      "validation_candidate_count": 48,
+      "train_class_counts": {
+        "SELL": 11,
+        "HOLD": 23,
+        "BUY": 17
+      },
+      "validation_metrics": {
+        "model": "xgboost",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF1",
+        "samples": 48,
+        "accuracy": 0.3125,
+        "macro_f1": 0.2611111111111111,
+        "sell_precision": 0.0,
+        "sell_recall": 0.0,
+        "sell_f1": 0.0,
+        "actual_sell_count": 10,
+        "predicted_sell_count": 10,
+        "hold_precision": 0.45,
+        "hold_recall": 0.45,
+        "hold_f1": 0.45,
+        "actual_hold_count": 20,
+        "predicted_hold_count": 20,
+        "buy_precision": 0.3333333333333333,
+        "buy_recall": 0.3333333333333333,
+        "buy_f1": 0.3333333333333333,
+        "actual_buy_count": 18,
+        "predicted_buy_count": 18
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "xgboost",
+      "fold_id": "WF2",
+      "status": "COMPLETED",
+      "training_candidate_count": 108,
+      "validation_candidate_count": 66,
+      "train_class_counts": {
+        "SELL": 25,
+        "HOLD": 45,
+        "BUY": 38
+      },
+      "validation_metrics": {
+        "model": "xgboost",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF2",
+        "samples": 66,
+        "accuracy": 0.24242424242424243,
+        "macro_f1": 0.23676307886834203,
+        "sell_precision": 0.42857142857142855,
+        "sell_recall": 0.2608695652173913,
+        "sell_f1": 0.32432432432432434,
+        "actual_sell_count": 23,
+        "predicted_sell_count": 14,
+        "hold_precision": 0.07407407407407407,
+        "hold_recall": 0.18181818181818182,
+        "hold_f1": 0.10526315789473684,
+        "actual_hold_count": 11,
+        "predicted_hold_count": 27,
+        "buy_precision": 0.32,
+        "buy_recall": 0.25,
+        "buy_f1": 0.2807017543859649,
+        "actual_buy_count": 32,
+        "predicted_buy_count": 25
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "xgboost",
+      "fold_id": "WF3",
+      "status": "COMPLETED",
+      "training_candidate_count": 173,
+      "validation_candidate_count": 24,
+      "train_class_counts": {
+        "SELL": 48,
+        "HOLD": 54,
+        "BUY": 71
+      },
+      "validation_metrics": {
+        "model": "xgboost",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF3",
+        "samples": 24,
+        "accuracy": 0.4583333333333333,
+        "macro_f1": 0.38539238539238535,
+        "sell_precision": 0.16666666666666666,
+        "sell_recall": 0.2,
+        "sell_f1": 0.18181818181818182,
+        "actual_sell_count": 5,
+        "predicted_sell_count": 6,
+        "hold_precision": 0.4,
+        "hold_recall": 0.25,
+        "hold_f1": 0.3076923076923077,
+        "actual_hold_count": 8,
+        "predicted_hold_count": 5,
+        "buy_precision": 0.6153846153846154,
+        "buy_recall": 0.7272727272727273,
+        "buy_f1": 0.6666666666666666,
+        "actual_buy_count": 11,
+        "predicted_buy_count": 13
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "gru",
+      "fold_id": "WF1",
+      "status": "COMPLETED",
+      "training_candidate_count": 51,
+      "validation_candidate_count": 48,
+      "train_class_counts": {
+        "SELL": 11,
+        "HOLD": 23,
+        "BUY": 17
+      },
+      "validation_metrics": {
+        "model": "gru",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF1",
+        "samples": 48,
+        "accuracy": 0.3333333333333333,
+        "macro_f1": 0.3333333333333333,
+        "sell_precision": 0.19230769230769232,
+        "sell_recall": 0.5,
+        "sell_f1": 0.2777777777777778,
+        "actual_sell_count": 10,
+        "predicted_sell_count": 26,
+        "hold_precision": 0.4375,
+        "hold_recall": 0.35,
+        "hold_f1": 0.3888888888888889,
+        "actual_hold_count": 20,
+        "predicted_hold_count": 16,
+        "buy_precision": 0.6666666666666666,
+        "buy_recall": 0.2222222222222222,
+        "buy_f1": 0.3333333333333333,
+        "actual_buy_count": 18,
+        "predicted_buy_count": 6
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "gru",
+      "fold_id": "WF2",
+      "status": "COMPLETED",
+      "training_candidate_count": 108,
+      "validation_candidate_count": 66,
+      "train_class_counts": {
+        "SELL": 25,
+        "HOLD": 45,
+        "BUY": 38
+      },
+      "validation_metrics": {
+        "model": "gru",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF2",
+        "samples": 66,
+        "accuracy": 0.25757575757575757,
+        "macro_f1": 0.23691707902234216,
+        "sell_precision": 0.3235294117647059,
+        "sell_recall": 0.4782608695652174,
+        "sell_f1": 0.38596491228070173,
+        "actual_sell_count": 23,
+        "predicted_sell_count": 34,
+        "hold_precision": 0.16,
+        "hold_recall": 0.36363636363636365,
+        "hold_f1": 0.2222222222222222,
+        "actual_hold_count": 11,
+        "predicted_hold_count": 25,
+        "buy_precision": 0.2857142857142857,
+        "buy_recall": 0.0625,
+        "buy_f1": 0.10256410256410256,
+        "actual_buy_count": 32,
+        "predicted_buy_count": 7
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "gru",
+      "fold_id": "WF3",
+      "status": "COMPLETED",
+      "training_candidate_count": 173,
+      "validation_candidate_count": 24,
+      "train_class_counts": {
+        "SELL": 48,
+        "HOLD": 54,
+        "BUY": 71
+      },
+      "validation_metrics": {
+        "model": "gru",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF3",
+        "samples": 24,
+        "accuracy": 0.20833333333333334,
+        "macro_f1": 0.1812865497076023,
+        "sell_precision": 0.23076923076923078,
+        "sell_recall": 0.6,
+        "sell_f1": 0.3333333333333333,
+        "actual_sell_count": 5,
+        "predicted_sell_count": 13,
+        "hold_precision": 0.0,
+        "hold_recall": 0.0,
+        "hold_f1": 0.0,
+        "actual_hold_count": 8,
+        "predicted_hold_count": 3,
+        "buy_precision": 0.25,
+        "buy_recall": 0.18181818181818182,
+        "buy_f1": 0.21052631578947367,
+        "actual_buy_count": 11,
+        "predicted_buy_count": 8
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    }
+  ],
+  "insufficient_folds": [],
+  "candidate_oof_count": 414,
+  "fair_coverage": {
+    "candidate_oof_count": 414,
+    "fair_model_rows": 414,
+    "all_model_common_coverage": 138,
+    "coverage_by_model": {
+      "gru": 138,
+      "random_forest": 138,
+      "xgboost": 138
+    },
+    "coverage_by_model_fold": {
+      "gru|WF1": 48,
+      "gru|WF2": 66,
+      "gru|WF3": 24,
+      "random_forest|WF1": 48,
+      "random_forest|WF2": 66,
+      "random_forest|WF3": 24,
+      "xgboost|WF1": 48,
+      "xgboost|WF2": 66,
+      "xgboost|WF3": 24
+    }
+  },
+  "classification_comparison": [
+    {
+      "model": "random_forest",
+      "version": "ML_V1",
+      "samples": 138,
+      "accuracy": 0.3115942028985507,
+      "macro_f1": 0.3039961013645224,
+      "buy_precision": 0.4827586206896552,
+      "buy_recall": 0.2295081967213114,
+      "buy_f1": 0.3111111111111111
+    },
+    {
+      "model": "random_forest",
+      "version": "CANDIDATE_ML_V2",
+      "samples": 138,
+      "accuracy": 0.3405797101449275,
+      "macro_f1": 0.3359781121751026,
+      "buy_precision": 0.4772727272727273,
+      "buy_recall": 0.3442622950819672,
+      "buy_f1": 0.4
+    },
+    {
+      "model": "xgboost",
+      "version": "ML_V1",
+      "samples": 138,
+      "accuracy": 0.3115942028985507,
+      "macro_f1": 0.3029292948755001,
+      "buy_precision": 0.52,
+      "buy_recall": 0.2131147540983606,
+      "buy_f1": 0.3023255813953488
+    },
+    {
+      "model": "xgboost",
+      "version": "CANDIDATE_ML_V2",
+      "samples": 138,
+      "accuracy": 0.3043478260869565,
+      "macro_f1": 0.2892216715746127,
+      "buy_precision": 0.3928571428571428,
+      "buy_recall": 0.360655737704918,
+      "buy_f1": 0.376068376068376
+    },
+    {
+      "model": "gru",
+      "version": "ML_V1",
+      "samples": 138,
+      "accuracy": 0.3188405797101449,
+      "macro_f1": 0.3197268376337594,
+      "buy_precision": 0.4583333333333333,
+      "buy_recall": 0.180327868852459,
+      "buy_f1": 0.2588235294117647
+    },
+    {
+      "model": "gru",
+      "version": "CANDIDATE_ML_V2",
+      "samples": 138,
+      "accuracy": 0.2753623188405797,
+      "macro_f1": 0.2675081781752366,
+      "buy_precision": 0.3809523809523809,
+      "buy_recall": 0.1311475409836065,
+      "buy_f1": 0.1951219512195122
+    }
+  ],
+  "trade_classification": {
+    "random_forest": "NOT_SUPPORTED",
+    "xgboost": "NOT_SUPPORTED",
+    "gru": "MIXED"
+  },
+  "gru_inner_validation": "Chronological 20% of fold training candidate dates; outer fold validation did not control early stopping.",
+  "model_parameters_tuned": false,
+  "feature_selection_performed": false,
+  "label_changed": false,
+  "technical_changed": false,
+  "risk_changed": false,
+  "threshold_changed": false,
+  "2025_used": false,
+  "2026_used": false,
+  "final_oos_used": false,
+  "database_modified": false,
+  "backtest_scope": "fair candidate coverage only",
+  "parameter_search": false,
+  "audit_note": "CSV outputs contain the completed model and fair-coverage results. The original run stopped only during JSON serialization after CSV persistence; this final audit was reconstructed and validated from those CSVs.",
+  "source_sha256": {
+    "configs\\technical_v1_research.json": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+    "configs\\technical_v2_candidate.json": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+    "exports\\strategy_v2_technical_candidate_20261019T103707108020\\technical_v2_candidate_gate_decisions.csv": "66fa69ece5871dccb7d7e72fdad491c25e87cf6f0a141b89cff69999ac7845f3",
+    "exports\\hybrid_poc_v1_20261013T041540804059\\ml_v1_baseline_oof_predictions.csv": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b",
+    "data\\market_data.sqlite3": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+    "data\\technical_v1_mltech_clean.sqlite3": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+    "exports\\strategy_v2_ml_exp001_20261019T123507275634\\ml_v2_common_coverage.csv": "6f21d57d671bf902848efca74273569e40499d9d2fbdce8cf8e88331a20444fb",
+    "exports\\strategy_v2_hybrid_exp002_20261019T132413877488\\hybrid_v2_exp002_common_coverage.csv": "6f21d57d671bf902848efca74273569e40499d9d2fbdce8cf8e88331a20444fb"
+  }
+}

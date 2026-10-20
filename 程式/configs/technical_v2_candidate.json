@@ -1,0 +1,162 @@
+{
+  "strategy_version": "technical_v2",
+  "status": "FROZEN_CANDIDATE",
+  "qualification": "QUALIFIED_FOR_TECHNICAL_V2_FREEZE",
+  "qualification_report": "exports\\strategy_v2_technical_candidate_20261019T103707108020\\technical_v2_candidate_audit.json",
+  "selection_basis": "SUPPORTED_STRUCTURAL_COMPONENT_SELECTION",
+  "base_candidate": "BR_SENS_RANGE55_BB20_2",
+  "candidate_parameters": {
+    "ma_fast_period": 20,
+    "ma_mid_period": 60,
+    "ma_slow_period": 240,
+    "trend_ma_period": 120,
+    "trend_slope_lookback": 12,
+    "require_trend_filter": true,
+    "bollinger_period": 20,
+    "bollinger_stddev": 2.0,
+    "breakout_entry_period": 55,
+    "breakout_exit_period": 30,
+    "breakout_require_cross": true,
+    "breakout_volume_ratio": 0.0,
+    "volume_ma_period": 20,
+    "use_rsi": false,
+    "use_macd": false
+  },
+  "strategy_family": "breakout",
+  "entry_rule_id": "breakout_range_trigger_ma_direction_bb_upper_v1",
+  "exit_rule_id": "breakout_close_below_prior_range_low_or_risk_v1",
+  "execution_mode": "next_tradable_bar_open",
+  "market_regime_filter": {
+    "enabled": true,
+    "type": "target_excluded_peer_market_sma",
+    "peer_weighting": "equal_weight",
+    "lookback_sessions": 20,
+    "reference": "latest_prior_completed_session",
+    "condition": "peer_proxy_close > peer_proxy_sma20",
+    "target_excluded": true,
+    "peer_stock_codes": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "daily_close_eligibility": "all five stocks have complete 54-bar 09:00-13:25 session",
+    "missing_data_policy": "EXCLUDE_NO_FILL"
+  },
+  "volume_confirmation": {
+    "enabled": false
+  },
+  "ema20_exit": {
+    "enabled": false
+  },
+  "preserved_common_backtest": {
+    "kbar_unit": "m",
+    "kbar_freq": 5,
+    "initial_capital": 100000,
+    "lots": 1,
+    "position_sizing": "cash_fraction",
+    "capital_utilization": 0.95,
+    "holding_mode": "swing",
+    "stock_fee_rate": 0.001425,
+    "stock_tax_rate": 0.003,
+    "day_trade_tax_rate": 0.0015,
+    "apply_day_trade_tax": true,
+    "slippage_rate": 0.0,
+    "stop_loss_pct": 0.025,
+    "take_profit_pct": 0.0,
+    "min_hold_bars": 2,
+    "max_hold_bars": 162,
+    "cooldown_bars": 6,
+    "max_entries_per_day": 1,
+    "entry_start_hour": 9,
+    "entry_start_minute": 0,
+    "entry_cutoff_hour": 12,
+    "entry_cutoff_minute": 30,
+    "use_entry_block": false
+  },
+  "risk_v1": {
+    "version": "risk_v1",
+    "status": "POC_RISK_FIXED_NOT_OPTIMIZED",
+    "data_role": "training",
+    "period": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    },
+    "stock_universe": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "technical_candidate_id": "BR_SENS_RANGE55_BB20_2",
+    "common_coverage_source": "exports/hybrid_common_coverage_20261018T121416162413",
+    "baseline_reference": "exports/hybrid_common_coverage_20261017T233825838996",
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_source": "existing_technical_v1",
+    "stop_loss_pct": 0.025,
+    "quantity_rule": "integer_shares_from_existing_engine",
+    "parameter_search": false,
+    "optimization_performed": false,
+    "forbidden_roles": [
+      "2025",
+      "2026",
+      "final_oos",
+      "holdout",
+      "development",
+      "controlled_validation"
+    ]
+  },
+  "walk_forward_folds": [
+    {
+      "id": "WF1",
+      "train_start": "2023-01-01",
+      "train_end": "2023-06-30",
+      "evaluate_start": "2023-07-01",
+      "evaluate_end": "2023-12-31"
+    },
+    {
+      "id": "WF2",
+      "train_start": "2023-01-01",
+      "train_end": "2023-12-31",
+      "evaluate_start": "2024-01-01",
+      "evaluate_end": "2024-06-30"
+    },
+    {
+      "id": "WF3",
+      "train_start": "2023-01-01",
+      "train_end": "2024-06-30",
+      "evaluate_start": "2024-07-01",
+      "evaluate_end": "2024-12-31"
+    }
+  ],
+  "stock_universe": [
+    "2303",
+    "2330",
+    "2379",
+    "2454",
+    "3034"
+  ],
+  "data_period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31",
+    "role": "exposed_training_development"
+  },
+  "ml_gate": {
+    "models": [
+      "random_forest",
+      "xgboost",
+      "gru"
+    ],
+    "oof_reused": true,
+    "rule": "previous_trading_day_oof_buy_allows_long_entry"
+  },
+  "parameter_search": false,
+  "final_oos_used": false,
+  "source_config": "configs\\technical_v1_research.json",
+  "source_config_sha256": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+  "technical_source": "trading_system\\technical_v1.py",
+  "technical_source_sha256": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36"
+}

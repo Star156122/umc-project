@@ -1,0 +1,871 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Hybrid Common Coverage</title>
+<style>body{font-family:Arial,'Microsoft JhengHei',sans-serif;background:#071521;color:#eaf4ff;margin:0;line-height:1.6}main{max-width:1250px;margin:auto;padding:28px}section{background:#0d2232;border:1px solid #27465b;border-radius:14px;padding:20px;margin:16px 0;overflow:auto}h1,h2{color:#72c7ff}.notice{background:#4b2b16;padding:12px;border-radius:9px}table.data{border-collapse:collapse;width:100%;font-size:13px}table.data th,table.data td{border:1px solid #315268;padding:7px;text-align:right}table.data th:first-child,table.data td:first-child{text-align:left}pre{white-space:pre-wrap;max-height:400px;overflow:auto;background:#06101a;padding:12px;border-radius:8px}.pass{color:#83efad}</style></head><body><main>
+<h1>Technical × ML Common-Coverage 公平比較</h1><p class="notice">此結果為 2023–2024 Training OOF Common-Coverage 公平比較，不是 Final OOS。</p>
+<section><h2>共同範圍</h2><p>原 Technical Candidate：248；Common Candidate：192；共同候選上每模型有效 OOF：192；Missing：0；Invalid：0。</p>
+<p>共同 Candidate 的 ML BUY 數：RF 43、XGBoost 39、GRU 38。</p><p>資料角色：2023–2024 Training only。Technical baseline 只限制 Entry Schedule，出場與風險規則沿用原 Technical V1。</p></section>
+<section><h2>整體比較</h2><table class="dataframe data">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variant</th>
+      <th>Average Return</th>
+      <th>Win Rate</th>
+      <th>Profit Factor</th>
+      <th>Worst MDD</th>
+      <th>Sharpe</th>
+      <th>Trade Count</th>
+      <th>Transaction Cost</th>
+      <th>Final Equity (mean)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Technical Common-Coverage</td>
+      <td>-0.0087</td>
+      <td>0.2960</td>
+      <td>0.9154</td>
+      <td>0.1991</td>
+      <td>-0.7104</td>
+      <td>192</td>
+      <td>90899.9188</td>
+      <td>99127.5387</td>
+    </tr>
+    <tr>
+      <td>Hybrid RF</td>
+      <td>0.0113</td>
+      <td>0.2796</td>
+      <td>1.8671</td>
+      <td>0.0856</td>
+      <td>-0.0014</td>
+      <td>43</td>
+      <td>21349.7001</td>
+      <td>101130.6867</td>
+    </tr>
+    <tr>
+      <td>Hybrid XGBoost</td>
+      <td>0.0156</td>
+      <td>0.2694</td>
+      <td>0.9744</td>
+      <td>0.0557</td>
+      <td>-0.1595</td>
+      <td>39</td>
+      <td>19318.2330</td>
+      <td>101561.6845</td>
+    </tr>
+    <tr>
+      <td>Hybrid GRU</td>
+      <td>-0.0084</td>
+      <td>0.2544</td>
+      <td>0.8522</td>
+      <td>0.0700</td>
+      <td>-0.7761</td>
+      <td>38</td>
+      <td>19115.1230</td>
+      <td>99157.0585</td>
+    </tr>
+  </tbody>
+</table></section>
+<section><h2>每檔股票（同一共同候選集）</h2><table class="dataframe data">
+  <thead>
+    <tr style="text-align: right;">
+      <th>stock_code</th>
+      <th>variant</th>
+      <th>evaluation_count</th>
+      <th>trade_count</th>
+      <th>average_return</th>
+      <th>median_return</th>
+      <th>return_std</th>
+      <th>win_rate</th>
+      <th>profit_factor</th>
+      <th>worst_mdd</th>
+      <th>sharpe</th>
+      <th>transaction_cost</th>
+      <th>final_equity_mean</th>
+      <th>gross_pnl</th>
+      <th>net_pnl</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2303</td>
+      <td>technical_common_coverage</td>
+      <td>3</td>
+      <td>37</td>
+      <td>-0.0294</td>
+      <td>-0.0449</td>
+      <td>0.0296</td>
+      <td>0.1736</td>
+      <td>0.5334</td>
+      <td>0.0615</td>
+      <td>-1.3479</td>
+      <td>10364.8913</td>
+      <td>97061.7029</td>
+      <td>1550.0000</td>
+      <td>-8814.8913</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>technical_common_coverage</td>
+      <td>3</td>
+      <td>47</td>
+      <td>-0.0143</td>
+      <td>-0.0098</td>
+      <td>0.1039</td>
+      <td>0.3056</td>
+      <td>0.9273</td>
+      <td>0.1413</td>
+      <td>-1.1436</td>
+      <td>23754.2574</td>
+      <td>98572.5809</td>
+      <td>19472.0000</td>
+      <td>-4282.2574</td>
+    </tr>
+    <tr>
+      <td>2379</td>
+      <td>technical_common_coverage</td>
+      <td>3</td>
+      <td>33</td>
+      <td>0.0227</td>
+      <td>0.0032</td>
+      <td>0.0521</td>
+      <td>0.4028</td>
+      <td>1.2056</td>
+      <td>0.0824</td>
+      <td>0.3689</td>
+      <td>17178.2354</td>
+      <td>102269.5882</td>
+      <td>23987.0000</td>
+      <td>6808.7646</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>technical_common_coverage</td>
+      <td>3</td>
+      <td>35</td>
+      <td>0.0329</td>
+      <td>0.0428</td>
+      <td>0.1145</td>
+      <td>0.3611</td>
+      <td>1.2709</td>
+      <td>0.1151</td>
+      <td>0.0590</td>
+      <td>19006.7866</td>
+      <td>103291.4045</td>
+      <td>28881.0000</td>
+      <td>9874.2134</td>
+    </tr>
+    <tr>
+      <td>3034</td>
+      <td>technical_common_coverage</td>
+      <td>3</td>
+      <td>40</td>
+      <td>-0.0556</td>
+      <td>-0.0588</td>
+      <td>0.0674</td>
+      <td>0.2370</td>
+      <td>0.6399</td>
+      <td>0.1991</td>
+      <td>-1.4882</td>
+      <td>20595.7481</td>
+      <td>94442.4173</td>
+      <td>3923.0000</td>
+      <td>-16672.7481</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>hybrid_random_forest_common</td>
+      <td>3</td>
+      <td>6</td>
+      <td>-0.0041</td>
+      <td>-0.0047</td>
+      <td>0.0012</td>
+      <td>0.0833</td>
+      <td>0.2072</td>
+      <td>0.0150</td>
+      <td>-1.1416</td>
+      <td>1579.6538</td>
+      <td>99590.1154</td>
+      <td>350.0000</td>
+      <td>-1229.6538</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>hybrid_random_forest_common</td>
+      <td>3</td>
+      <td>14</td>
+      <td>0.0421</td>
+      <td>0.0443</td>
+      <td>0.0411</td>
+      <td>0.3481</td>
+      <td>2.9202</td>
+      <td>0.0481</td>
+      <td>1.2603</td>
+      <td>7415.0507</td>
+      <td>104212.3164</td>
+      <td>20052.0000</td>
+      <td>12636.9493</td>
+    </tr>
+    <tr>
+      <td>2379</td>
+      <td>hybrid_random_forest_common</td>
+      <td>3</td>
+      <td>5</td>
+      <td>0.0317</td>
+      <td>0.0046</td>
+      <td>0.0510</td>
+      <td>0.3889</td>
+      <td>2.7505</td>
+      <td>0.0425</td>
+      <td>0.7244</td>
+      <td>2777.9880</td>
+      <td>103170.5040</td>
+      <td>12289.5000</td>
+      <td>9511.5120</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>hybrid_random_forest_common</td>
+      <td>3</td>
+      <td>9</td>
+      <td>0.0028</td>
+      <td>-0.0164</td>
+      <td>0.0407</td>
+      <td>0.2889</td>
+      <td>2.0732</td>
+      <td>0.0514</td>
+      <td>-0.2566</td>
+      <td>4923.5390</td>
+      <td>100275.1537</td>
+      <td>5749.0000</td>
+      <td>825.4610</td>
+    </tr>
+    <tr>
+      <td>3034</td>
+      <td>hybrid_random_forest_common</td>
+      <td>3</td>
+      <td>9</td>
+      <td>-0.0159</td>
+      <td>-0.0113</td>
+      <td>0.0587</td>
+      <td>0.2889</td>
+      <td>1.3845</td>
+      <td>0.0856</td>
+      <td>-0.5936</td>
+      <td>4653.4687</td>
+      <td>98405.3438</td>
+      <td>-130.5000</td>
+      <td>-4783.9687</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>hybrid_xgboost_common</td>
+      <td>3</td>
+      <td>4</td>
+      <td>0.0001</td>
+      <td>0.0001</td>
+      <td>0.0001</td>
+      <td>0.4444</td>
+      <td>0.3461</td>
+      <td>0.0108</td>
+      <td>0.0288</td>
+      <td>1156.0050</td>
+      <td>100014.6650</td>
+      <td>1200.0000</td>
+      <td>43.9950</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>hybrid_xgboost_common</td>
+      <td>3</td>
+      <td>19</td>
+      <td>0.0255</td>
+      <td>0.0359</td>
+      <td>0.0337</td>
+      <td>0.2583</td>
+      <td>1.2161</td>
+      <td>0.0557</td>
+      <td>0.3211</td>
+      <td>9604.7003</td>
+      <td>102553.0999</td>
+      <td>17264.0000</td>
+      <td>7659.2998</td>
+    </tr>
+    <tr>
+      <td>2379</td>
+      <td>hybrid_xgboost_common</td>
+      <td>3</td>
+      <td>4</td>
+      <td>-0.0137</td>
+      <td>-0.0108</td>
+      <td>0.0154</td>
+      <td>0.1111</td>
+      <td>0.0569</td>
+      <td>0.0522</td>
+      <td>-0.7947</td>
+      <td>1915.7217</td>
+      <td>98628.4261</td>
+      <td>-2199.0000</td>
+      <td>-4114.7217</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>hybrid_xgboost_common</td>
+      <td>3</td>
+      <td>6</td>
+      <td>0.0654</td>
+      <td>0.0000</td>
+      <td>0.1403</td>
+      <td>0.2000</td>
+      <td>3.2528</td>
+      <td>0.0367</td>
+      <td>0.1836</td>
+      <td>3615.8863</td>
+      <td>106541.0379</td>
+      <td>23239.0000</td>
+      <td>19623.1137</td>
+    </tr>
+    <tr>
+      <td>3034</td>
+      <td>hybrid_xgboost_common</td>
+      <td>3</td>
+      <td>6</td>
+      <td>0.0007</td>
+      <td>-0.0243</td>
+      <td>0.0438</td>
+      <td>0.3333</td>
+      <td>0.0000</td>
+      <td>0.0336</td>
+      <td>-0.5362</td>
+      <td>3025.9197</td>
+      <td>100071.1934</td>
+      <td>3239.5000</td>
+      <td>213.5803</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>hybrid_gru_common</td>
+      <td>3</td>
+      <td>4</td>
+      <td>-0.0056</td>
+      <td>-0.0052</td>
+      <td>0.0015</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0125</td>
+      <td>-1.5238</td>
+      <td>1035.3338</td>
+      <td>99438.2221</td>
+      <td>-650.0000</td>
+      <td>-1685.3338</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>hybrid_gru_common</td>
+      <td>3</td>
+      <td>11</td>
+      <td>-0.0256</td>
+      <td>-0.0159</td>
+      <td>0.0239</td>
+      <td>0.3000</td>
+      <td>0.3301</td>
+      <td>0.0700</td>
+      <td>-1.3978</td>
+      <td>5639.3571</td>
+      <td>97440.8810</td>
+      <td>-2038.0000</td>
+      <td>-7677.3571</td>
+    </tr>
+    <tr>
+      <td>2379</td>
+      <td>hybrid_gru_common</td>
+      <td>3</td>
+      <td>12</td>
+      <td>0.0242</td>
+      <td>0.0310</td>
+      <td>0.0547</td>
+      <td>0.5056</td>
+      <td>2.8212</td>
+      <td>0.0435</td>
+      <td>0.5440</td>
+      <td>6553.9506</td>
+      <td>102419.5165</td>
+      <td>13812.5000</td>
+      <td>7258.5494</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>hybrid_gru_common</td>
+      <td>3</td>
+      <td>5</td>
+      <td>-0.0098</td>
+      <td>-0.0110</td>
+      <td>0.0215</td>
+      <td>0.3333</td>
+      <td>1.0738</td>
+      <td>0.0328</td>
+      <td>-0.5501</td>
+      <td>2743.7454</td>
+      <td>99023.4182</td>
+      <td>-186.0000</td>
+      <td>-2929.7454</td>
+    </tr>
+    <tr>
+      <td>3034</td>
+      <td>hybrid_gru_common</td>
+      <td>3</td>
+      <td>6</td>
+      <td>-0.0254</td>
+      <td>-0.0332</td>
+      <td>0.0225</td>
+      <td>0.1333</td>
+      <td>0.0357</td>
+      <td>0.0627</td>
+      <td>-0.9527</td>
+      <td>3142.7361</td>
+      <td>97463.2546</td>
+      <td>-4467.5000</td>
+      <td>-7610.2361</td>
+    </tr>
+  </tbody>
+</table></section>
+<section><h2>WF1 / WF2 / WF3</h2><table class="dataframe data">
+  <thead>
+    <tr style="text-align: right;">
+      <th>fold_id</th>
+      <th>variant</th>
+      <th>evaluation_count</th>
+      <th>trade_count</th>
+      <th>average_return</th>
+      <th>median_return</th>
+      <th>return_std</th>
+      <th>win_rate</th>
+      <th>profit_factor</th>
+      <th>worst_mdd</th>
+      <th>sharpe</th>
+      <th>transaction_cost</th>
+      <th>final_equity_mean</th>
+      <th>gross_pnl</th>
+      <th>net_pnl</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>WF1</td>
+      <td>technical_common_coverage</td>
+      <td>5</td>
+      <td>55</td>
+      <td>-0.0152</td>
+      <td>0.0048</td>
+      <td>0.0625</td>
+      <td>0.2989</td>
+      <td>0.9728</td>
+      <td>0.1254</td>
+      <td>-0.6349</td>
+      <td>24939.8739</td>
+      <td>98476.7252</td>
+      <td>17323.5000</td>
+      <td>-7616.3739</td>
+    </tr>
+    <tr>
+      <td>WF2</td>
+      <td>technical_common_coverage</td>
+      <td>5</td>
+      <td>88</td>
+      <td>0.0408</td>
+      <td>0.0817</td>
+      <td>0.0893</td>
+      <td>0.3727</td>
+      <td>1.3233</td>
+      <td>0.1991</td>
+      <td>0.3471</td>
+      <td>43310.0251</td>
+      <td>104083.7950</td>
+      <td>63729.0000</td>
+      <td>20418.9749</td>
+    </tr>
+    <tr>
+      <td>WF3</td>
+      <td>technical_common_coverage</td>
+      <td>5</td>
+      <td>49</td>
+      <td>-0.0518</td>
+      <td>-0.0449</td>
+      <td>0.0521</td>
+      <td>0.2164</td>
+      <td>0.4501</td>
+      <td>0.1413</td>
+      <td>-1.8433</td>
+      <td>22650.0198</td>
+      <td>94822.0960</td>
+      <td>-3239.5000</td>
+      <td>-25889.5198</td>
+    </tr>
+    <tr>
+      <td>WF1</td>
+      <td>hybrid_random_forest_common</td>
+      <td>5</td>
+      <td>9</td>
+      <td>0.0179</td>
+      <td>0.0046</td>
+      <td>0.0250</td>
+      <td>0.3667</td>
+      <td>2.2241</td>
+      <td>0.0285</td>
+      <td>0.4612</td>
+      <td>4617.0676</td>
+      <td>101793.1865</td>
+      <td>13583.0000</td>
+      <td>8965.9324</td>
+    </tr>
+    <tr>
+      <td>WF2</td>
+      <td>hybrid_random_forest_common</td>
+      <td>5</td>
+      <td>26</td>
+      <td>0.0057</td>
+      <td>-0.0049</td>
+      <td>0.0643</td>
+      <td>0.3522</td>
+      <td>2.0576</td>
+      <td>0.0856</td>
+      <td>0.0301</td>
+      <td>12613.1939</td>
+      <td>100566.7612</td>
+      <td>15447.0000</td>
+      <td>2833.8061</td>
+    </tr>
+    <tr>
+      <td>WF3</td>
+      <td>hybrid_random_forest_common</td>
+      <td>5</td>
+      <td>8</td>
+      <td>0.0103</td>
+      <td>-0.0028</td>
+      <td>0.0406</td>
+      <td>0.1200</td>
+      <td>1.3197</td>
+      <td>0.0366</td>
+      <td>-0.4956</td>
+      <td>4119.4386</td>
+      <td>101032.1123</td>
+      <td>9280.0000</td>
+      <td>5160.5614</td>
+    </tr>
+    <tr>
+      <td>WF1</td>
+      <td>hybrid_xgboost_common</td>
+      <td>5</td>
+      <td>6</td>
+      <td>0.0057</td>
+      <td>0.0000</td>
+      <td>0.0261</td>
+      <td>0.4667</td>
+      <td>0.0341</td>
+      <td>0.0217</td>
+      <td>0.0611</td>
+      <td>2783.6143</td>
+      <td>100570.5771</td>
+      <td>5636.5000</td>
+      <td>2852.8857</td>
+    </tr>
+    <tr>
+      <td>WF2</td>
+      <td>hybrid_xgboost_common</td>
+      <td>5</td>
+      <td>22</td>
+      <td>0.0416</td>
+      <td>0.0003</td>
+      <td>0.1066</td>
+      <td>0.2667</td>
+      <td>2.5158</td>
+      <td>0.0557</td>
+      <td>0.2015</td>
+      <td>11026.1671</td>
+      <td>104157.9666</td>
+      <td>31816.0000</td>
+      <td>20789.8328</td>
+    </tr>
+    <tr>
+      <td>WF3</td>
+      <td>hybrid_xgboost_common</td>
+      <td>5</td>
+      <td>11</td>
+      <td>-0.0004</td>
+      <td>0.0000</td>
+      <td>0.0329</td>
+      <td>0.0750</td>
+      <td>0.3731</td>
+      <td>0.0481</td>
+      <td>-0.7410</td>
+      <td>5508.4515</td>
+      <td>99956.5097</td>
+      <td>5291.0000</td>
+      <td>-217.4515</td>
+    </tr>
+    <tr>
+      <td>WF1</td>
+      <td>hybrid_gru_common</td>
+      <td>5</td>
+      <td>16</td>
+      <td>-0.0225</td>
+      <td>-0.0332</td>
+      <td>0.0259</td>
+      <td>0.2300</td>
+      <td>0.6652</td>
+      <td>0.0548</td>
+      <td>-1.3094</td>
+      <td>8178.4091</td>
+      <td>97750.6182</td>
+      <td>-3068.5000</td>
+      <td>-11246.9091</td>
+    </tr>
+    <tr>
+      <td>WF2</td>
+      <td>hybrid_gru_common</td>
+      <td>5</td>
+      <td>9</td>
+      <td>-0.0027</td>
+      <td>-0.0080</td>
+      <td>0.0461</td>
+      <td>0.2333</td>
+      <td>1.2262</td>
+      <td>0.0627</td>
+      <td>-0.7244</td>
+      <td>4065.1805</td>
+      <td>99726.7639</td>
+      <td>2699.0000</td>
+      <td>-1366.1805</td>
+    </tr>
+    <tr>
+      <td>WF3</td>
+      <td>hybrid_gru_common</td>
+      <td>5</td>
+      <td>13</td>
+      <td>-0.0001</td>
+      <td>-0.0044</td>
+      <td>0.0184</td>
+      <td>0.3000</td>
+      <td>0.6651</td>
+      <td>0.0700</td>
+      <td>-0.2944</td>
+      <td>6871.5333</td>
+      <td>99993.7933</td>
+      <td>6840.5000</td>
+      <td>-31.0333</td>
+    </tr>
+  </tbody>
+</table></section>
+<section><h2>客觀比較與判讀</h2><p><b>COMMON_COVERAGE_MIXED</b></p><p>Common coverage 下 RF 與 XGBoost 平均報酬高於 Technical，GRU 僅略高；三個 Hybrid 的最差回撤都較低且交易數明顯減少，但勝率都較低，個股與 Fold 的報酬方向不完全一致，因此整體判為 MIXED。</p><pre>{
+  &quot;random_forest&quot;: {
+    &quot;average_return_higher_than_technical&quot;: true,
+    &quot;average_return_difference&quot;: 0.020031479116666674,
+    &quot;worst_mdd_lower_than_technical&quot;: true,
+    &quot;worst_mdd_difference&quot;: -0.11351897683990343,
+    &quot;trade_count&quot;: 43,
+    &quot;trade_reduction_count&quot;: 149,
+    &quot;trade_reduction_rate&quot;: 0.7760416666666666,
+    &quot;stocks_with_higher_average_return&quot;: 4,
+    &quot;folds_with_higher_average_return&quot;: 2,
+    &quot;folds_with_lower_worst_mdd&quot;: 3,
+    &quot;average_win_rate_higher_than_technical&quot;: false,
+    &quot;average_profit_factor_higher_than_technical&quot;: true
+  },
+  &quot;xgboost&quot;: {
+    &quot;average_return_higher_than_technical&quot;: true,
+    &quot;average_return_difference&quot;: 0.02434145720833334,
+    &quot;worst_mdd_lower_than_technical&quot;: true,
+    &quot;worst_mdd_difference&quot;: -0.14333952279552303,
+    &quot;trade_count&quot;: 39,
+    &quot;trade_reduction_count&quot;: 153,
+    &quot;trade_reduction_rate&quot;: 0.796875,
+    &quot;stocks_with_higher_average_return&quot;: 4,
+    &quot;folds_with_higher_average_return&quot;: 3,
+    &quot;folds_with_lower_worst_mdd&quot;: 3,
+    &quot;average_win_rate_higher_than_technical&quot;: false,
+    &quot;average_profit_factor_higher_than_technical&quot;: true
+  },
+  &quot;gru&quot;: {
+    &quot;average_return_higher_than_technical&quot;: true,
+    &quot;average_return_difference&quot;: 0.00029519721666667123,
+    &quot;worst_mdd_lower_than_technical&quot;: true,
+    &quot;worst_mdd_difference&quot;: -0.12908688125288542,
+    &quot;trade_count&quot;: 38,
+    &quot;trade_reduction_count&quot;: 154,
+    &quot;trade_reduction_rate&quot;: 0.8020833333333334,
+    &quot;stocks_with_higher_average_return&quot;: 3,
+    &quot;folds_with_higher_average_return&quot;: 1,
+    &quot;folds_with_lower_worst_mdd&quot;: 3,
+    &quot;average_win_rate_higher_than_technical&quot;: false,
+    &quot;average_profit_factor_higher_than_technical&quot;: false
+  }
+}</pre></section>
+<section><h2>可重現稽核</h2><pre>{
+  &quot;status&quot;: &quot;PASS&quot;,
+  &quot;technical_candidate_count&quot;: 248,
+  &quot;common_candidate_count&quot;: 192,
+  &quot;excluded_candidate_count&quot;: 56,
+  &quot;excluded_reasons&quot;: {
+    &quot;MISSING_RANDOM_FOREST_OOF&quot;: 41,
+    &quot;MISSING_XGBOOST_OOF&quot;: 41,
+    &quot;MISSING_GRU_OOF&quot;: 41,
+    &quot;INVALID_RANDOM_FOREST_PRIOR_SESSION&quot;: 15,
+    &quot;INVALID_XGBOOST_PRIOR_SESSION&quot;: 15,
+    &quot;INVALID_GRU_PRIOR_SESSION&quot;: 15
+  },
+  &quot;models&quot;: [
+    &quot;random_forest&quot;,
+    &quot;xgboost&quot;,
+    &quot;gru&quot;
+  ],
+  &quot;valid_candidate_count_by_model&quot;: {
+    &quot;random_forest&quot;: 192,
+    &quot;xgboost&quot;: 192,
+    &quot;gru&quot;: 192
+  },
+  &quot;decisions_per_model&quot;: {
+    &quot;random_forest&quot;: 192,
+    &quot;xgboost&quot;: 192,
+    &quot;gru&quot;: 192
+  },
+  &quot;missing&quot;: 0,
+  &quot;invalid&quot;: 0,
+  &quot;non_oof&quot;: 0,
+  &quot;training_only&quot;: true,
+  &quot;date_min&quot;: &quot;2023-09-04&quot;,
+  &quot;date_max&quot;: &quot;2024-12-20&quot;,
+  &quot;previous_actual_trading_session_checked&quot;: true,
+  &quot;experiment_id&quot;: &quot;hybrid-common-coverage-20261017T233825838996&quot;,
+  &quot;created_at&quot;: &quot;2026-10-17T23:38:25.839998+08:00&quot;,
+  &quot;purpose&quot;: &quot;Training-only fair comparison on Technical × RF × XGBoost × GRU common OOF coverage.&quot;,
+  &quot;scope&quot;: {
+    &quot;data_role&quot;: &quot;training&quot;,
+    &quot;period&quot;: [
+      &quot;2023-01-01&quot;,
+      &quot;2024-12-31&quot;
+    ],
+    &quot;stock_universe&quot;: [
+      &quot;2303&quot;,
+      &quot;2330&quot;,
+      &quot;2379&quot;,
+      &quot;2454&quot;,
+      &quot;3034&quot;
+    ]
+  },
+  &quot;coverage_guardrail&quot;: {
+    &quot;previous_successful_training_days&quot;: 422,
+    &quot;previous_successful_wf3_evaluation_days&quot;: 94,
+    &quot;source_commit&quot;: &quot;ea8c43f&quot;,
+    &quot;training_threshold&quot;: 400,
+    &quot;evaluation_threshold&quot;: 90,
+    &quot;reason&quot;: &quot;恢復既有 Research Coverage Guardrail，使目前固定 ML-Tech Universe 與 EXCLUDE_NO_FILL clean dataset 的研究設定一致。&quot;,
+    &quot;evidence&quot;: [
+      &quot;git:ea8c43f:程式/configs/technical_v1_research.json specifies 400/90 and clean SQLite&quot;,
+      &quot;exports/technical_v1_20261013T024919303843/technical_v1_audit.json records READY with 422 days and WF3=94&quot;,
+      &quot;exports/hybrid_poc_v1_20261013T041540804059/hybrid_poc_audit.json references that Technical source and matching hashes&quot;
+    ],
+    &quot;latest_preflight&quot;: &quot;exports\\technical_v1_20261017T232930995429\\technical_v1_audit.json&quot;,
+    &quot;latest_preflight_status&quot;: &quot;PREFLIGHT_READY&quot;
+  },
+  &quot;inputs&quot;: {
+    &quot;technical_source_run&quot;: &quot;exports\\technical_v1_20261013T024919303843&quot;,
+    &quot;technical_source_hashes&quot;: {
+      &quot;technical_v1_audit.json&quot;: &quot;9fa41b1b867013b61d90f5be59190950b6136764382c16168eb86778fe9ac8cb&quot;,
+      &quot;technical_v1_results.json&quot;: &quot;46400f793fb235e3f0a98cc2e2368577535615efaf58de0b016b4d34184762a6&quot;,
+      &quot;technical_v1_signals.csv&quot;: &quot;47e5d90cfff4ecd9e73960a6e85ded42a5b0a60b10942cf538f4bc4e04837eb2&quot;
+    },
+    &quot;poc_audit&quot;: &quot;exports\\hybrid_poc_v1_20261013T041540804059\\hybrid_poc_audit.json&quot;,
+    &quot;oof_artifact&quot;: &quot;exports\\hybrid_poc_v1_20261013T041540804059\\ml_v1_baseline_oof_predictions.csv&quot;,
+    &quot;oof_sha256&quot;: &quot;d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b&quot;,
+    &quot;existing_poc_export_hashes&quot;: {
+      &quot;hybrid_poc_alignment.csv&quot;: &quot;6c14cc18bcce1af4a9a8b8c38df54ea1bfaec8fef9c9d6bec6c0607e10f24e8b&quot;,
+      &quot;hybrid_poc_audit.json&quot;: &quot;517b099c0ab93e6515dfee784457552bf5ee012f41196312287d3813c39c035d&quot;,
+      &quot;hybrid_poc_decisions.csv&quot;: &quot;bb64ac81766e78a5fd8b1921f9074ba73b1ea3bda36af29752a2acf605026262&quot;,
+      &quot;hybrid_poc_report.html&quot;: &quot;b26950a2d85049eb3fd4ccc16172cbc767cd91e207e4da885e2cc7550b45a532&quot;,
+      &quot;hybrid_poc_results.csv&quot;: &quot;d88e1e505faccfbf6b3c312fc1f1201f6ec699450a3c66a96a059e54e6457ccd&quot;,
+      &quot;hybrid_poc_results.json&quot;: &quot;2b309eec6dc37c5f6a387b95c2a6f6816f3eff42f091f150a8a5db1018d96628&quot;,
+      &quot;hybrid_poc_summary.csv&quot;: &quot;04d4844955815192c11f229938f549a2e68e64ce0a28387de0666af1ebb254ca&quot;,
+      &quot;hybrid_poc_trades.csv&quot;: &quot;208b39a0bd76def9276e02821e7f5b9aceca5c5933ba756f34d218e49b67d1e1&quot;,
+      &quot;hybrid_poc_user_report.html&quot;: &quot;3581d639a5a53c79078a5beed870815932d8c3b28c347bcb785a6ea285ae320e&quot;,
+      &quot;ml_v1_baseline_oof_predictions.csv&quot;: &quot;d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b&quot;,
+      &quot;technical_signal_input.csv&quot;: &quot;1f6bf6fb970910a12b1d3a1a540b718b051200abea3efe8bd245f776afad94ba&quot;
+    },
+    &quot;database&quot;: &quot;data\\technical_v1_mltech_clean.sqlite3&quot;,
+    &quot;database_sha256_before&quot;: &quot;aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717&quot;,
+    &quot;database_sha256_after&quot;: &quot;aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717&quot;
+  },
+  &quot;comparison_variants&quot;: [
+    &quot;technical_common_coverage&quot;,
+    &quot;hybrid_random_forest_common&quot;,
+    &quot;hybrid_xgboost_common&quot;,
+    &quot;hybrid_gru_common&quot;
+  ],
+  &quot;candidate_schedule_restriction_only&quot;: true,
+  &quot;technical_exit_or_risk_changed&quot;: false,
+  &quot;ml_parameters_changed&quot;: false,
+  &quot;hybrid_gate_changed&quot;: false,
+  &quot;buy_counts&quot;: {
+    &quot;random_forest&quot;: 43,
+    &quot;xgboost&quot;: 39,
+    &quot;gru&quot;: 38
+  },
+  &quot;result_classification&quot;: &quot;COMMON_COVERAGE_MIXED&quot;,
+  &quot;interpretation&quot;: &quot;Common coverage 下 RF 與 XGBoost 平均報酬高於 Technical，GRU 僅略高；三個 Hybrid 的最差回撤都較低且交易數明顯減少，但勝率都較低，個股與 Fold 的報酬方向不完全一致，因此整體判為 MIXED。&quot;,
+  &quot;objective_findings&quot;: {
+    &quot;random_forest&quot;: {
+      &quot;average_return_higher_than_technical&quot;: true,
+      &quot;average_return_difference&quot;: 0.020031479116666674,
+      &quot;worst_mdd_lower_than_technical&quot;: true,
+      &quot;worst_mdd_difference&quot;: -0.11351897683990343,
+      &quot;trade_count&quot;: 43,
+      &quot;trade_reduction_count&quot;: 149,
+      &quot;trade_reduction_rate&quot;: 0.7760416666666666,
+      &quot;stocks_with_higher_average_return&quot;: 4,
+      &quot;folds_with_higher_average_return&quot;: 2,
+      &quot;folds_with_lower_worst_mdd&quot;: 3,
+      &quot;average_win_rate_higher_than_technical&quot;: false,
+      &quot;average_profit_factor_higher_than_technical&quot;: true
+    },
+    &quot;xgboost&quot;: {
+      &quot;average_return_higher_than_technical&quot;: true,
+      &quot;average_return_difference&quot;: 0.02434145720833334,
+      &quot;worst_mdd_lower_than_technical&quot;: true,
+      &quot;worst_mdd_difference&quot;: -0.14333952279552303,
+      &quot;trade_count&quot;: 39,
+      &quot;trade_reduction_count&quot;: 153,
+      &quot;trade_reduction_rate&quot;: 0.796875,
+      &quot;stocks_with_higher_average_return&quot;: 4,
+      &quot;folds_with_higher_average_return&quot;: 3,
+      &quot;folds_with_lower_worst_mdd&quot;: 3,
+      &quot;average_win_rate_higher_than_technical&quot;: false,
+      &quot;average_profit_factor_higher_than_technical&quot;: true
+    },
+    &quot;gru&quot;: {
+      &quot;average_return_higher_than_technical&quot;: true,
+      &quot;average_return_difference&quot;: 0.00029519721666667123,
+      &quot;worst_mdd_lower_than_technical&quot;: true,
+      &quot;worst_mdd_difference&quot;: -0.12908688125288542,
+      &quot;trade_count&quot;: 38,
+      &quot;trade_reduction_count&quot;: 154,
+      &quot;trade_reduction_rate&quot;: 0.8020833333333334,
+      &quot;stocks_with_higher_average_return&quot;: 3,
+      &quot;folds_with_higher_average_return&quot;: 1,
+      &quot;folds_with_lower_worst_mdd&quot;: 3,
+      &quot;average_win_rate_higher_than_technical&quot;: false,
+      &quot;average_profit_factor_higher_than_technical&quot;: false
+    }
+  },
+  &quot;runtime_decision_count_by_model&quot;: {
+    &quot;random_forest&quot;: 192,
+    &quot;xgboost&quot;: 192,
+    &quot;gru&quot;: 192
+  },
+  &quot;controlled_validation_used&quot;: false,
+  &quot;development_used&quot;: false,
+  &quot;additional_holdout_used&quot;: false,
+  &quot;final_oos_used&quot;: false,
+  &quot;forbidden_roles_used&quot;: false,
+  &quot;raw_database_modified&quot;: false,
+  &quot;existing_poc_exports_overwritten&quot;: false,
+  &quot;candidate_selected&quot;: false,
+  &quot;optimization_performed&quot;: false,
+  &quot;research_logic_changed&quot;: false
+}</pre></section></main></body></html>

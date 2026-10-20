@@ -1,0 +1,168 @@
+<!doctype html><html lang='zh-Hant'><meta charset='utf-8'><title>Technical V2 Candidate Qualification</title><body><h1>Technical V2 Candidate Qualification</h1><pre>{
+  "status": "QUALIFIED_FOR_TECHNICAL_V2_FREEZE",
+  "qualification": "QUALIFIED_FOR_TECHNICAL_V2_FREEZE",
+  "generated_at": "2026-10-19T10:37:07+08:00",
+  "period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31",
+    "role": "EXPOSED_TRAINING_DEVELOPMENT"
+  },
+  "candidate": "BR_SENS_RANGE55_BB20_2 + TECH_V2_B_MARKET_REGIME_FILTER",
+  "candidate_reason": "SUPPORTED_STRUCTURAL_COMPONENT_SELECTION",
+  "execution_contract": "completed_kbar_signal_to_next_tradable_5min_bar_open",
+  "models": [
+    "random_forest",
+    "xgboost",
+    "gru"
+  ],
+  "stocks": [
+    "2303",
+    "2330",
+    "2379",
+    "2454",
+    "3034"
+  ],
+  "folds": [
+    "WF1",
+    "WF2",
+    "WF3"
+  ],
+  "control_reproduction_status": "PASS",
+  "control_reproduction": {
+    "random_forest": {
+      "status": "PASS",
+      "row_count": 15,
+      "metrics_match": {
+        "total_return": true,
+        "max_drawdown": true,
+        "win_rate": true,
+        "profit_factor": true,
+        "sharpe_ratio": true,
+        "trade_count": true,
+        "net_pnl": true,
+        "transaction_cost": true,
+        "gross_pnl": true,
+        "final_equity": true
+      }
+    },
+    "xgboost": {
+      "status": "PASS",
+      "row_count": 15,
+      "metrics_match": {
+        "total_return": true,
+        "max_drawdown": true,
+        "win_rate": true,
+        "profit_factor": true,
+        "sharpe_ratio": true,
+        "trade_count": true,
+        "net_pnl": true,
+        "transaction_cost": true,
+        "gross_pnl": true,
+        "final_equity": true
+      }
+    },
+    "gru": {
+      "status": "PASS",
+      "row_count": 15,
+      "metrics_match": {
+        "total_return": true,
+        "max_drawdown": true,
+        "win_rate": true,
+        "profit_factor": true,
+        "sharpe_ratio": true,
+        "trade_count": true,
+        "net_pnl": true,
+        "transaction_cost": true,
+        "gross_pnl": true,
+        "final_equity": true
+      }
+    }
+  },
+  "tech_v2_b_reproduction_status": "PASS",
+  "tech_v2_b_reproduction": {
+    "status": "PASS",
+    "rows": 45,
+    "metrics_match": {
+      "total_return": true,
+      "max_drawdown": true,
+      "win_rate": true,
+      "profit_factor": true,
+      "sharpe_ratio": true,
+      "trade_count": true,
+      "gross_pnl": true,
+      "net_pnl": true,
+      "transaction_cost": true,
+      "final_equity": true
+    }
+  },
+  "prior_batch_b_classification": "SUPPORTED",
+  "reproduced_b_classification": "SUPPORTED",
+  "hybrid_gate_parity_status": "PASS",
+  "hybrid_gate_parity": {
+    "random_forest": {
+      "shared_candidate_decisions": 138,
+      "matches": true
+    },
+    "xgboost": {
+      "shared_candidate_decisions": 138,
+      "matches": true
+    },
+    "gru": {
+      "shared_candidate_decisions": 138,
+      "matches": true
+    }
+  },
+  "no_future_leakage": {
+    "status": "PASS",
+    "target_date_contexts_checked": 595,
+    "strict_prior_session": true,
+    "fill_or_interpolation": false,
+    "target_excluded": true
+  },
+  "regime_context_audit": {
+    "daily_dates_in_period": 422,
+    "complete_global_intersection_days": 422,
+    "candidate_dates": 119,
+    "target_date_contexts": 595,
+    "missing_20_session_contexts": 0,
+    "source_rule": "equal-weight arithmetic mean of other four completed closes; common complete 54-bar days; strict prior date; no fill"
+  },
+  "filter_audit": {
+    "TECH_V2_B": {
+      "candidate_checks": 576,
+      "rejected": 162,
+      "missing_context": 0,
+      "accepted": 414,
+      "rejected_candidate_count": 162
+    }
+  },
+  "result_rows": 90,
+  "candidate_matrix_rows": 45,
+  "parameter_search_performed": false,
+  "ml_changed": false,
+  "ml_retrained": false,
+  "risk_parameters_changed": false,
+  "2025_used": false,
+  "2026_used": false,
+  "final_oos_used": false,
+  "additional_holdout_used": false,
+  "short_implemented": false,
+  "portfolio_implemented": false,
+  "candidate_selection_basis": "SUPPORTED_STRUCTURAL_COMPONENT_SELECTION",
+  "versioned_config_created_after_all_qualification_checks": true,
+  "technical_v2_config": "configs\\technical_v2_candidate.json",
+  "technical_v2_freeze_document": "research\\strategy_v2_technical_freeze.md",
+  "ml_hybrid_next_plan": "research\\strategy_v2_ml_hybrid_next_plan.md",
+  "output_files": [
+    "technical_v2_candidate_audit.json",
+    "technical_v2_candidate_results.csv",
+    "technical_v2_candidate_per_stock.csv",
+    "technical_v2_candidate_per_fold.csv",
+    "technical_v2_candidate_comparison.csv",
+    "technical_v2_candidate_trades.csv",
+    "technical_v2_candidate_gate_decisions.csv",
+    "technical_v2_candidate_risk_decisions.csv",
+    "technical_v2_candidate_report.html",
+    "technical_v2_candidate_user_analysis.html"
+  ]
+}</pre></body></html>

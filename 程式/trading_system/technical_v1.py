@@ -30,7 +30,7 @@ from trading_system.research_guard import assert_development_period
 
 FAMILY_NAMES = ("trend_momentum", "breakout", "majority_vote")
 LEGACY_FAMILY_NAME = "legacy_vote"
-FORMAL_STOCK_CODES = ("2303", "2330", "2454", "2317", "2382")
+FORMAL_STOCK_CODES = ("2303", "2330", "2379", "2454", "3034")
 TAIPEI = ZoneInfo("Asia/Taipei")
 PERIOD_POLICY = {
     "training": ("2023-01-01", "2024-12-31"),
@@ -254,7 +254,7 @@ def validate_config(config: dict[str, Any]) -> None:
     universe = config.get("stock_universe", {})
     stocks = [str(code) for code in universe.get("stock_codes", [])]
     if tuple(stocks) != FORMAL_STOCK_CODES:
-        raise TechnicalV1Error("Technical V1 正式股票集合必須固定為 2303、2330、2454、2317、2382")
+        raise TechnicalV1Error("Technical V1 正式股票集合必須固定為 2303、2330、2379、2454、3034")
     if universe.get("status") != "confirmed":
         raise TechnicalV1Error("Technical V1 正式股票集合必須已確認")
     if set(universe.get("stock_names", {})) != set(stocks):
@@ -288,8 +288,11 @@ def validate_config(config: dict[str, Any]) -> None:
         raise TechnicalV1Error("預期首末 K 棒時間必須使用 HH:MM") from exc
     if first_bar_time >= last_bar_time:
         raise TechnicalV1Error("預期第一根 K 棒時間必須早於最後一根")
-    if config.get("market_data_path") != "data/market_data.sqlite3":
-        raise TechnicalV1Error("Technical V1 正式行情路徑必須為 data/market_data.sqlite3")
+    if config.get("market_data_path") != "data/technical_v1_mltech_clean.sqlite3":
+        raise TechnicalV1Error(
+            "Technical V1 正式 Training 行情路徑必須為 "
+            "data/technical_v1_mltech_clean.sqlite3"
+        )
     if config.get("atr", {}).get("enabled") is not False:
         raise TechnicalV1Error("本輪 ATR 必須停用")
     if config.get("output_policy", {}).get("overwrite_existing") is not False:

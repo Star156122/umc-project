@@ -1,0 +1,3411 @@
+<!doctype html><html lang='zh-Hant'><meta charset='utf-8'><title>Candidate ML V2 Report</title><body><h1>Candidate-Specific ML V2 Research Report</h1><pre>{
+  "status": "COMPLETED",
+  "experiment_id": "strategy-v2-candidate-specific-ml-v2",
+  "generated_at": "2026-10-19T14:27:44+08:00",
+  "preregistration": "research/ml_v2_candidate_specific_preregistration.md",
+  "preregistration_sha256": "f8bc779ec0cf0171d7013a99cedbe7b5424e11565456737061b97df23d027916",
+  "phase_a_audit": "exports\\ml_candidate_error_audit_20261019T134230804119",
+  "phase_a_status": "PASS",
+  "technical_candidate": "BR_SENS_RANGE55_BB20_2 + TECH_V2_B_MARKET_REGIME_FILTER",
+  "technical_candidate_frozen": true,
+  "technical_validation_reproduction": {
+    "generated_count": 138,
+    "frozen_count": 138,
+    "matching_event_count": 138,
+    "missing": 0,
+    "extra": 0,
+    "status": "PASS"
+  },
+  "technical_candidate_count": 138,
+  "candidate_training_pool_policy": "Replayed frozen V2-B candidates through each WF training cutoff; previous-session V1 features, Fixed ±1% label, target end no later than cutoff.",
+  "training_period": [
+    "2023-01-01",
+    "2024-12-31"
+  ],
+  "data_role": "TRAINING_ONLY",
+  "stocks": [
+    "2303",
+    "2330",
+    "2379",
+    "2454",
+    "3034"
+  ],
+  "models": [
+    "random_forest",
+    "xgboost",
+    "gru"
+  ],
+  "folds": [
+    "WF1",
+    "WF2",
+    "WF3"
+  ],
+  "feature_policy": "Complete ML V1 frozen feature pipeline; no feature selection or lookback change.",
+  "label_policy": "ML V1 Fixed ±1%; T+1 Open to T+3 Close after frozen one-round-trip cost.",
+  "fold_preflight": [
+    {
+      "fold_id": "WF1",
+      "train_candidate_count": 51,
+      "validation_candidate_count": 48,
+      "train_class_counts": {
+        "SELL": 11,
+        "HOLD": 23,
+        "BUY": 17
+      },
+      "validation_class_counts": {
+        "SELL": 10,
+        "HOLD": 20,
+        "BUY": 18
+      },
+      "per_stock_train": {
+        "2303": 8,
+        "2330": 8,
+        "2379": 13,
+        "2454": 7,
+        "3034": 15
+      },
+      "per_stock_validation": {
+        "2303": 11,
+        "2330": 11,
+        "2379": 9,
+        "2454": 8,
+        "3034": 9
+      },
+      "train_has_all_classes": true,
+      "status": "READY"
+    },
+    {
+      "fold_id": "WF2",
+      "train_candidate_count": 108,
+      "validation_candidate_count": 66,
+      "train_class_counts": {
+        "SELL": 25,
+        "HOLD": 45,
+        "BUY": 38
+      },
+      "validation_class_counts": {
+        "SELL": 23,
+        "HOLD": 11,
+        "BUY": 32
+      },
+      "per_stock_train": {
+        "2303": 21,
+        "2330": 19,
+        "2379": 23,
+        "2454": 17,
+        "3034": 28
+      },
+      "per_stock_validation": {
+        "2303": 12,
+        "2330": 13,
+        "2379": 14,
+        "2454": 13,
+        "3034": 14
+      },
+      "train_has_all_classes": true,
+      "status": "READY"
+    },
+    {
+      "fold_id": "WF3",
+      "train_candidate_count": 173,
+      "validation_candidate_count": 24,
+      "train_class_counts": {
+        "SELL": 48,
+        "HOLD": 54,
+        "BUY": 71
+      },
+      "validation_class_counts": {
+        "SELL": 5,
+        "HOLD": 8,
+        "BUY": 11
+      },
+      "per_stock_train": {
+        "2303": 33,
+        "2330": 32,
+        "2379": 36,
+        "2454": 31,
+        "3034": 41
+      },
+      "per_stock_validation": {
+        "2303": 4,
+        "2330": 6,
+        "2379": 5,
+        "2454": 4,
+        "3034": 5
+      },
+      "train_has_all_classes": true,
+      "status": "READY"
+    }
+  ],
+  "model_fold_results": [
+    {
+      "model": "random_forest",
+      "fold_id": "WF1",
+      "status": "COMPLETED",
+      "training_candidate_count": 51,
+      "validation_candidate_count": 48,
+      "train_class_counts": {
+        "SELL": 11,
+        "HOLD": 23,
+        "BUY": 17
+      },
+      "validation_metrics": {
+        "model": "random_forest",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF1",
+        "samples": 48,
+        "accuracy": 0.3333333333333333,
+        "macro_f1": 0.31706644609870416,
+        "sell_precision": 0.125,
+        "sell_recall": 0.2,
+        "sell_f1": 0.15384615384615385,
+        "actual_sell_count": 10,
+        "predicted_sell_count": 16,
+        "hold_precision": 0.42105263157894735,
+        "hold_recall": 0.4,
+        "hold_f1": 0.41025641025641024,
+        "actual_hold_count": 20,
+        "predicted_hold_count": 19,
+        "buy_precision": 0.46153846153846156,
+        "buy_recall": 0.3333333333333333,
+        "buy_f1": 0.3870967741935484,
+        "actual_buy_count": 18,
+        "predicted_buy_count": 13
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "random_forest",
+      "fold_id": "WF2",
+      "status": "COMPLETED",
+      "training_candidate_count": 108,
+      "validation_candidate_count": 66,
+      "train_class_counts": {
+        "SELL": 25,
+        "HOLD": 45,
+        "BUY": 38
+      },
+      "validation_metrics": {
+        "model": "random_forest",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF2",
+        "samples": 66,
+        "accuracy": 0.30303030303030304,
+        "macro_f1": 0.28312512883941454,
+        "sell_precision": 0.38461538461538464,
+        "sell_recall": 0.43478260869565216,
+        "sell_f1": 0.40816326530612246,
+        "actual_sell_count": 23,
+        "predicted_sell_count": 26,
+        "hold_precision": 0.09090909090909091,
+        "hold_recall": 0.18181818181818182,
+        "hold_f1": 0.12121212121212122,
+        "actual_hold_count": 11,
+        "predicted_hold_count": 22,
+        "buy_precision": 0.4444444444444444,
+        "buy_recall": 0.25,
+        "buy_f1": 0.32,
+        "actual_buy_count": 32,
+        "predicted_buy_count": 18
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "random_forest",
+      "fold_id": "WF3",
+      "status": "COMPLETED",
+      "training_candidate_count": 173,
+      "validation_candidate_count": 24,
+      "train_class_counts": {
+        "SELL": 48,
+        "HOLD": 54,
+        "BUY": 71
+      },
+      "validation_metrics": {
+        "model": "random_forest",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF3",
+        "samples": 24,
+        "accuracy": 0.4583333333333333,
+        "macro_f1": 0.4182206682206682,
+        "sell_precision": 0.3333333333333333,
+        "sell_recall": 0.4,
+        "sell_f1": 0.36363636363636365,
+        "actual_sell_count": 5,
+        "predicted_sell_count": 6,
+        "hold_precision": 0.4,
+        "hold_recall": 0.25,
+        "hold_f1": 0.3076923076923077,
+        "actual_hold_count": 8,
+        "predicted_hold_count": 5,
+        "buy_precision": 0.5384615384615384,
+        "buy_recall": 0.6363636363636364,
+        "buy_f1": 0.5833333333333334,
+        "actual_buy_count": 11,
+        "predicted_buy_count": 13
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "xgboost",
+      "fold_id": "WF1",
+      "status": "COMPLETED",
+      "training_candidate_count": 51,
+      "validation_candidate_count": 48,
+      "train_class_counts": {
+        "SELL": 11,
+        "HOLD": 23,
+        "BUY": 17
+      },
+      "validation_metrics": {
+        "model": "xgboost",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF1",
+        "samples": 48,
+        "accuracy": 0.3125,
+        "macro_f1": 0.2611111111111111,
+        "sell_precision": 0.0,
+        "sell_recall": 0.0,
+        "sell_f1": 0.0,
+        "actual_sell_count": 10,
+        "predicted_sell_count": 10,
+        "hold_precision": 0.45,
+        "hold_recall": 0.45,
+        "hold_f1": 0.45,
+        "actual_hold_count": 20,
+        "predicted_hold_count": 20,
+        "buy_precision": 0.3333333333333333,
+        "buy_recall": 0.3333333333333333,
+        "buy_f1": 0.3333333333333333,
+        "actual_buy_count": 18,
+        "predicted_buy_count": 18
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "xgboost",
+      "fold_id": "WF2",
+      "status": "COMPLETED",
+      "training_candidate_count": 108,
+      "validation_candidate_count": 66,
+      "train_class_counts": {
+        "SELL": 25,
+        "HOLD": 45,
+        "BUY": 38
+      },
+      "validation_metrics": {
+        "model": "xgboost",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF2",
+        "samples": 66,
+        "accuracy": 0.24242424242424243,
+        "macro_f1": 0.23676307886834203,
+        "sell_precision": 0.42857142857142855,
+        "sell_recall": 0.2608695652173913,
+        "sell_f1": 0.32432432432432434,
+        "actual_sell_count": 23,
+        "predicted_sell_count": 14,
+        "hold_precision": 0.07407407407407407,
+        "hold_recall": 0.18181818181818182,
+        "hold_f1": 0.10526315789473684,
+        "actual_hold_count": 11,
+        "predicted_hold_count": 27,
+        "buy_precision": 0.32,
+        "buy_recall": 0.25,
+        "buy_f1": 0.2807017543859649,
+        "actual_buy_count": 32,
+        "predicted_buy_count": 25
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "xgboost",
+      "fold_id": "WF3",
+      "status": "COMPLETED",
+      "training_candidate_count": 173,
+      "validation_candidate_count": 24,
+      "train_class_counts": {
+        "SELL": 48,
+        "HOLD": 54,
+        "BUY": 71
+      },
+      "validation_metrics": {
+        "model": "xgboost",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF3",
+        "samples": 24,
+        "accuracy": 0.4583333333333333,
+        "macro_f1": 0.38539238539238535,
+        "sell_precision": 0.16666666666666666,
+        "sell_recall": 0.2,
+        "sell_f1": 0.18181818181818182,
+        "actual_sell_count": 5,
+        "predicted_sell_count": 6,
+        "hold_precision": 0.4,
+        "hold_recall": 0.25,
+        "hold_f1": 0.3076923076923077,
+        "actual_hold_count": 8,
+        "predicted_hold_count": 5,
+        "buy_precision": 0.6153846153846154,
+        "buy_recall": 0.7272727272727273,
+        "buy_f1": 0.6666666666666666,
+        "actual_buy_count": 11,
+        "predicted_buy_count": 13
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "gru",
+      "fold_id": "WF1",
+      "status": "COMPLETED",
+      "training_candidate_count": 51,
+      "validation_candidate_count": 48,
+      "train_class_counts": {
+        "SELL": 11,
+        "HOLD": 23,
+        "BUY": 17
+      },
+      "validation_metrics": {
+        "model": "gru",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF1",
+        "samples": 48,
+        "accuracy": 0.3333333333333333,
+        "macro_f1": 0.3333333333333333,
+        "sell_precision": 0.19230769230769232,
+        "sell_recall": 0.5,
+        "sell_f1": 0.2777777777777778,
+        "actual_sell_count": 10,
+        "predicted_sell_count": 26,
+        "hold_precision": 0.4375,
+        "hold_recall": 0.35,
+        "hold_f1": 0.3888888888888889,
+        "actual_hold_count": 20,
+        "predicted_hold_count": 16,
+        "buy_precision": 0.6666666666666666,
+        "buy_recall": 0.2222222222222222,
+        "buy_f1": 0.3333333333333333,
+        "actual_buy_count": 18,
+        "predicted_buy_count": 6
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "gru",
+      "fold_id": "WF2",
+      "status": "COMPLETED",
+      "training_candidate_count": 108,
+      "validation_candidate_count": 66,
+      "train_class_counts": {
+        "SELL": 25,
+        "HOLD": 45,
+        "BUY": 38
+      },
+      "validation_metrics": {
+        "model": "gru",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF2",
+        "samples": 66,
+        "accuracy": 0.25757575757575757,
+        "macro_f1": 0.23691707902234216,
+        "sell_precision": 0.3235294117647059,
+        "sell_recall": 0.4782608695652174,
+        "sell_f1": 0.38596491228070173,
+        "actual_sell_count": 23,
+        "predicted_sell_count": 34,
+        "hold_precision": 0.16,
+        "hold_recall": 0.36363636363636365,
+        "hold_f1": 0.2222222222222222,
+        "actual_hold_count": 11,
+        "predicted_hold_count": 25,
+        "buy_precision": 0.2857142857142857,
+        "buy_recall": 0.0625,
+        "buy_f1": 0.10256410256410256,
+        "actual_buy_count": 32,
+        "predicted_buy_count": 7
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    },
+    {
+      "model": "gru",
+      "fold_id": "WF3",
+      "status": "COMPLETED",
+      "training_candidate_count": 173,
+      "validation_candidate_count": 24,
+      "train_class_counts": {
+        "SELL": 48,
+        "HOLD": 54,
+        "BUY": 71
+      },
+      "validation_metrics": {
+        "model": "gru",
+        "version": "CANDIDATE_ML_V2",
+        "scope": "fold",
+        "value": "WF3",
+        "samples": 24,
+        "accuracy": 0.20833333333333334,
+        "macro_f1": 0.1812865497076023,
+        "sell_precision": 0.23076923076923078,
+        "sell_recall": 0.6,
+        "sell_f1": 0.3333333333333333,
+        "actual_sell_count": 5,
+        "predicted_sell_count": 13,
+        "hold_precision": 0.0,
+        "hold_recall": 0.0,
+        "hold_f1": 0.0,
+        "actual_hold_count": 8,
+        "predicted_hold_count": 3,
+        "buy_precision": 0.25,
+        "buy_recall": 0.18181818181818182,
+        "buy_f1": 0.21052631578947367,
+        "actual_buy_count": 11,
+        "predicted_buy_count": 8
+      },
+      "training_log_note": "Fold prediction metrics were retained; per-epoch GRU log was not persisted by the execution script."
+    }
+  ],
+  "insufficient_folds": [],
+  "candidate_oof_count": 414,
+  "fair_coverage": {
+    "candidate_oof_count": 414,
+    "fair_model_rows": 414,
+    "all_model_common_coverage": 138,
+    "coverage_by_model": {
+      "gru": 138,
+      "random_forest": 138,
+      "xgboost": 138
+    },
+    "coverage_by_model_fold": {
+      "gru|WF1": 48,
+      "gru|WF2": 66,
+      "gru|WF3": 24,
+      "random_forest|WF1": 48,
+      "random_forest|WF2": 66,
+      "random_forest|WF3": 24,
+      "xgboost|WF1": 48,
+      "xgboost|WF2": 66,
+      "xgboost|WF3": 24
+    }
+  },
+  "classification_comparison": [
+    {
+      "model": "random_forest",
+      "version": "ML_V1",
+      "samples": 138,
+      "accuracy": 0.3115942028985507,
+      "macro_f1": 0.3039961013645224,
+      "buy_precision": 0.4827586206896552,
+      "buy_recall": 0.2295081967213114,
+      "buy_f1": 0.3111111111111111
+    },
+    {
+      "model": "random_forest",
+      "version": "CANDIDATE_ML_V2",
+      "samples": 138,
+      "accuracy": 0.3405797101449275,
+      "macro_f1": 0.3359781121751026,
+      "buy_precision": 0.4772727272727273,
+      "buy_recall": 0.3442622950819672,
+      "buy_f1": 0.4
+    },
+    {
+      "model": "xgboost",
+      "version": "ML_V1",
+      "samples": 138,
+      "accuracy": 0.3115942028985507,
+      "macro_f1": 0.3029292948755001,
+      "buy_precision": 0.52,
+      "buy_recall": 0.2131147540983606,
+      "buy_f1": 0.3023255813953488
+    },
+    {
+      "model": "xgboost",
+      "version": "CANDIDATE_ML_V2",
+      "samples": 138,
+      "accuracy": 0.3043478260869565,
+      "macro_f1": 0.2892216715746127,
+      "buy_precision": 0.3928571428571428,
+      "buy_recall": 0.360655737704918,
+      "buy_f1": 0.376068376068376
+    },
+    {
+      "model": "gru",
+      "version": "ML_V1",
+      "samples": 138,
+      "accuracy": 0.3188405797101449,
+      "macro_f1": 0.3197268376337594,
+      "buy_precision": 0.4583333333333333,
+      "buy_recall": 0.180327868852459,
+      "buy_f1": 0.2588235294117647
+    },
+    {
+      "model": "gru",
+      "version": "CANDIDATE_ML_V2",
+      "samples": 138,
+      "accuracy": 0.2753623188405797,
+      "macro_f1": 0.2675081781752366,
+      "buy_precision": 0.3809523809523809,
+      "buy_recall": 0.1311475409836065,
+      "buy_f1": 0.1951219512195122
+    }
+  ],
+  "trade_classification": {
+    "random_forest": "NOT_SUPPORTED",
+    "xgboost": "NOT_SUPPORTED",
+    "gru": "MIXED"
+  },
+  "gru_inner_validation": "Chronological 20% of fold training candidate dates; outer fold validation did not control early stopping.",
+  "model_parameters_tuned": false,
+  "feature_selection_performed": false,
+  "label_changed": false,
+  "technical_changed": false,
+  "risk_changed": false,
+  "threshold_changed": false,
+  "2025_used": false,
+  "2026_used": false,
+  "final_oos_used": false,
+  "database_modified": false,
+  "backtest_scope": "fair candidate coverage only",
+  "parameter_search": false,
+  "audit_note": "CSV outputs contain the completed model and fair-coverage results. The original run stopped only during JSON serialization after CSV persistence; this final audit was reconstructed and validated from those CSVs.",
+  "source_sha256": {
+    "configs\\technical_v1_research.json": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+    "configs\\technical_v2_candidate.json": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+    "exports\\strategy_v2_technical_candidate_20261019T103707108020\\technical_v2_candidate_gate_decisions.csv": "66fa69ece5871dccb7d7e72fdad491c25e87cf6f0a141b89cff69999ac7845f3",
+    "exports\\hybrid_poc_v1_20261013T041540804059\\ml_v1_baseline_oof_predictions.csv": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b",
+    "data\\market_data.sqlite3": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+    "data\\technical_v1_mltech_clean.sqlite3": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+    "exports\\strategy_v2_ml_exp001_20261019T123507275634\\ml_v2_common_coverage.csv": "6f21d57d671bf902848efca74273569e40499d9d2fbdce8cf8e88331a20444fb",
+    "exports\\strategy_v2_hybrid_exp002_20261019T132413877488\\hybrid_v2_exp002_common_coverage.csv": "6f21d57d671bf902848efca74273569e40499d9d2fbdce8cf8e88331a20444fb"
+  }
+}</pre><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>version</th>
+      <th>scope</th>
+      <th>value</th>
+      <th>samples</th>
+      <th>accuracy</th>
+      <th>macro_f1</th>
+      <th>sell_precision</th>
+      <th>sell_recall</th>
+      <th>sell_f1</th>
+      <th>actual_sell_count</th>
+      <th>predicted_sell_count</th>
+      <th>hold_precision</th>
+      <th>hold_recall</th>
+      <th>hold_f1</th>
+      <th>actual_hold_count</th>
+      <th>predicted_hold_count</th>
+      <th>buy_precision</th>
+      <th>buy_recall</th>
+      <th>buy_f1</th>
+      <th>actual_buy_count</th>
+      <th>predicted_buy_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>overall</td>
+      <td>ALL</td>
+      <td>138</td>
+      <td>0.311594</td>
+      <td>0.303996</td>
+      <td>0.263158</td>
+      <td>0.526316</td>
+      <td>0.350877</td>
+      <td>38</td>
+      <td>76</td>
+      <td>0.272727</td>
+      <td>0.230769</td>
+      <td>0.250000</td>
+      <td>39</td>
+      <td>33</td>
+      <td>0.482759</td>
+      <td>0.229508</td>
+      <td>0.311111</td>
+      <td>61</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>2303</td>
+      <td>27</td>
+      <td>0.185185</td>
+      <td>0.152778</td>
+      <td>0.266667</td>
+      <td>0.444444</td>
+      <td>0.333333</td>
+      <td>9</td>
+      <td>15</td>
+      <td>0.142857</td>
+      <td>0.111111</td>
+      <td>0.125000</td>
+      <td>9</td>
+      <td>7</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>9</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>2330</td>
+      <td>30</td>
+      <td>0.366667</td>
+      <td>0.365455</td>
+      <td>0.285714</td>
+      <td>0.444444</td>
+      <td>0.347826</td>
+      <td>9</td>
+      <td>14</td>
+      <td>0.250000</td>
+      <td>0.200000</td>
+      <td>0.222222</td>
+      <td>10</td>
+      <td>8</td>
+      <td>0.625000</td>
+      <td>0.454545</td>
+      <td>0.526316</td>
+      <td>11</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>2379</td>
+      <td>28</td>
+      <td>0.392857</td>
+      <td>0.392857</td>
+      <td>0.294118</td>
+      <td>0.714286</td>
+      <td>0.416667</td>
+      <td>7</td>
+      <td>17</td>
+      <td>0.500000</td>
+      <td>0.375000</td>
+      <td>0.428571</td>
+      <td>8</td>
+      <td>6</td>
+      <td>0.600000</td>
+      <td>0.230769</td>
+      <td>0.333333</td>
+      <td>13</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>2454</td>
+      <td>25</td>
+      <td>0.280000</td>
+      <td>0.261664</td>
+      <td>0.142857</td>
+      <td>0.500000</td>
+      <td>0.222222</td>
+      <td>4</td>
+      <td>14</td>
+      <td>0.200000</td>
+      <td>0.166667</td>
+      <td>0.181818</td>
+      <td>6</td>
+      <td>5</td>
+      <td>0.666667</td>
+      <td>0.266667</td>
+      <td>0.380952</td>
+      <td>15</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>3034</td>
+      <td>28</td>
+      <td>0.321429</td>
+      <td>0.309972</td>
+      <td>0.312500</td>
+      <td>0.555556</td>
+      <td>0.400000</td>
+      <td>9</td>
+      <td>16</td>
+      <td>0.285714</td>
+      <td>0.333333</td>
+      <td>0.307692</td>
+      <td>6</td>
+      <td>7</td>
+      <td>0.400000</td>
+      <td>0.153846</td>
+      <td>0.222222</td>
+      <td>13</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>fold</td>
+      <td>WF1</td>
+      <td>48</td>
+      <td>0.250000</td>
+      <td>0.255444</td>
+      <td>0.148148</td>
+      <td>0.400000</td>
+      <td>0.216216</td>
+      <td>10</td>
+      <td>27</td>
+      <td>0.307692</td>
+      <td>0.200000</td>
+      <td>0.242424</td>
+      <td>20</td>
+      <td>13</td>
+      <td>0.500000</td>
+      <td>0.222222</td>
+      <td>0.307692</td>
+      <td>18</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>fold</td>
+      <td>WF2</td>
+      <td>66</td>
+      <td>0.348485</td>
+      <td>0.294444</td>
+      <td>0.378378</td>
+      <td>0.608696</td>
+      <td>0.466667</td>
+      <td>23</td>
+      <td>37</td>
+      <td>0.076923</td>
+      <td>0.090909</td>
+      <td>0.083333</td>
+      <td>11</td>
+      <td>13</td>
+      <td>0.500000</td>
+      <td>0.250000</td>
+      <td>0.333333</td>
+      <td>32</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>fold</td>
+      <td>WF3</td>
+      <td>24</td>
+      <td>0.333333</td>
+      <td>0.339542</td>
+      <td>0.166667</td>
+      <td>0.400000</td>
+      <td>0.235294</td>
+      <td>5</td>
+      <td>12</td>
+      <td>0.571429</td>
+      <td>0.500000</td>
+      <td>0.533333</td>
+      <td>8</td>
+      <td>7</td>
+      <td>0.400000</td>
+      <td>0.181818</td>
+      <td>0.250000</td>
+      <td>11</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>overall</td>
+      <td>ALL</td>
+      <td>138</td>
+      <td>0.340580</td>
+      <td>0.335978</td>
+      <td>0.291667</td>
+      <td>0.368421</td>
+      <td>0.325581</td>
+      <td>38</td>
+      <td>48</td>
+      <td>0.260870</td>
+      <td>0.307692</td>
+      <td>0.282353</td>
+      <td>39</td>
+      <td>46</td>
+      <td>0.477273</td>
+      <td>0.344262</td>
+      <td>0.400000</td>
+      <td>61</td>
+      <td>44</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>2303</td>
+      <td>27</td>
+      <td>0.222222</td>
+      <td>0.204545</td>
+      <td>0.307692</td>
+      <td>0.444444</td>
+      <td>0.363636</td>
+      <td>9</td>
+      <td>13</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>9</td>
+      <td>7</td>
+      <td>0.285714</td>
+      <td>0.222222</td>
+      <td>0.250000</td>
+      <td>9</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>2330</td>
+      <td>30</td>
+      <td>0.300000</td>
+      <td>0.277778</td>
+      <td>0.200000</td>
+      <td>0.111111</td>
+      <td>0.142857</td>
+      <td>9</td>
+      <td>5</td>
+      <td>0.277778</td>
+      <td>0.500000</td>
+      <td>0.357143</td>
+      <td>10</td>
+      <td>18</td>
+      <td>0.428571</td>
+      <td>0.272727</td>
+      <td>0.333333</td>
+      <td>11</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>2379</td>
+      <td>28</td>
+      <td>0.250000</td>
+      <td>0.250794</td>
+      <td>0.214286</td>
+      <td>0.428571</td>
+      <td>0.285714</td>
+      <td>7</td>
+      <td>14</td>
+      <td>0.285714</td>
+      <td>0.250000</td>
+      <td>0.266667</td>
+      <td>8</td>
+      <td>7</td>
+      <td>0.285714</td>
+      <td>0.153846</td>
+      <td>0.200000</td>
+      <td>13</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>2454</td>
+      <td>25</td>
+      <td>0.560000</td>
+      <td>0.467065</td>
+      <td>0.250000</td>
+      <td>0.250000</td>
+      <td>0.250000</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.428571</td>
+      <td>0.500000</td>
+      <td>0.461538</td>
+      <td>6</td>
+      <td>7</td>
+      <td>0.714286</td>
+      <td>0.666667</td>
+      <td>0.689655</td>
+      <td>15</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>3034</td>
+      <td>28</td>
+      <td>0.392857</td>
+      <td>0.382506</td>
+      <td>0.416667</td>
+      <td>0.555556</td>
+      <td>0.476190</td>
+      <td>9</td>
+      <td>12</td>
+      <td>0.285714</td>
+      <td>0.333333</td>
+      <td>0.307692</td>
+      <td>6</td>
+      <td>7</td>
+      <td>0.444444</td>
+      <td>0.307692</td>
+      <td>0.363636</td>
+      <td>13</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>fold</td>
+      <td>WF1</td>
+      <td>48</td>
+      <td>0.333333</td>
+      <td>0.317066</td>
+      <td>0.125000</td>
+      <td>0.200000</td>
+      <td>0.153846</td>
+      <td>10</td>
+      <td>16</td>
+      <td>0.421053</td>
+      <td>0.400000</td>
+      <td>0.410256</td>
+      <td>20</td>
+      <td>19</td>
+      <td>0.461538</td>
+      <td>0.333333</td>
+      <td>0.387097</td>
+      <td>18</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>fold</td>
+      <td>WF2</td>
+      <td>66</td>
+      <td>0.303030</td>
+      <td>0.283125</td>
+      <td>0.384615</td>
+      <td>0.434783</td>
+      <td>0.408163</td>
+      <td>23</td>
+      <td>26</td>
+      <td>0.090909</td>
+      <td>0.181818</td>
+      <td>0.121212</td>
+      <td>11</td>
+      <td>22</td>
+      <td>0.444444</td>
+      <td>0.250000</td>
+      <td>0.320000</td>
+      <td>32</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>fold</td>
+      <td>WF3</td>
+      <td>24</td>
+      <td>0.458333</td>
+      <td>0.418221</td>
+      <td>0.333333</td>
+      <td>0.400000</td>
+      <td>0.363636</td>
+      <td>5</td>
+      <td>6</td>
+      <td>0.400000</td>
+      <td>0.250000</td>
+      <td>0.307692</td>
+      <td>8</td>
+      <td>5</td>
+      <td>0.538462</td>
+      <td>0.636364</td>
+      <td>0.583333</td>
+      <td>11</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>overall</td>
+      <td>ALL</td>
+      <td>138</td>
+      <td>0.311594</td>
+      <td>0.302929</td>
+      <td>0.259259</td>
+      <td>0.552632</td>
+      <td>0.352941</td>
+      <td>38</td>
+      <td>81</td>
+      <td>0.281250</td>
+      <td>0.230769</td>
+      <td>0.253521</td>
+      <td>39</td>
+      <td>32</td>
+      <td>0.520000</td>
+      <td>0.213115</td>
+      <td>0.302326</td>
+      <td>61</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>2303</td>
+      <td>27</td>
+      <td>0.185185</td>
+      <td>0.147009</td>
+      <td>0.235294</td>
+      <td>0.444444</td>
+      <td>0.307692</td>
+      <td>9</td>
+      <td>17</td>
+      <td>0.166667</td>
+      <td>0.111111</td>
+      <td>0.133333</td>
+      <td>9</td>
+      <td>6</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>9</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>2330</td>
+      <td>30</td>
+      <td>0.300000</td>
+      <td>0.301435</td>
+      <td>0.230769</td>
+      <td>0.333333</td>
+      <td>0.272727</td>
+      <td>9</td>
+      <td>13</td>
+      <td>0.222222</td>
+      <td>0.200000</td>
+      <td>0.210526</td>
+      <td>10</td>
+      <td>9</td>
+      <td>0.500000</td>
+      <td>0.363636</td>
+      <td>0.421053</td>
+      <td>11</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>2379</td>
+      <td>28</td>
+      <td>0.464286</td>
+      <td>0.450980</td>
+      <td>0.368421</td>
+      <td>1.000000</td>
+      <td>0.538462</td>
+      <td>7</td>
+      <td>19</td>
+      <td>0.600000</td>
+      <td>0.375000</td>
+      <td>0.461538</td>
+      <td>8</td>
+      <td>5</td>
+      <td>0.750000</td>
+      <td>0.230769</td>
+      <td>0.352941</td>
+      <td>13</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>2454</td>
+      <td>25</td>
+      <td>0.320000</td>
+      <td>0.300957</td>
+      <td>0.187500</td>
+      <td>0.750000</td>
+      <td>0.300000</td>
+      <td>4</td>
+      <td>16</td>
+      <td>0.200000</td>
+      <td>0.166667</td>
+      <td>0.181818</td>
+      <td>6</td>
+      <td>5</td>
+      <td>1.000000</td>
+      <td>0.266667</td>
+      <td>0.421053</td>
+      <td>15</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>3034</td>
+      <td>28</td>
+      <td>0.285714</td>
+      <td>0.283305</td>
+      <td>0.250000</td>
+      <td>0.444444</td>
+      <td>0.320000</td>
+      <td>9</td>
+      <td>16</td>
+      <td>0.285714</td>
+      <td>0.333333</td>
+      <td>0.307692</td>
+      <td>6</td>
+      <td>7</td>
+      <td>0.400000</td>
+      <td>0.153846</td>
+      <td>0.222222</td>
+      <td>13</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>fold</td>
+      <td>WF1</td>
+      <td>48</td>
+      <td>0.250000</td>
+      <td>0.252807</td>
+      <td>0.151515</td>
+      <td>0.500000</td>
+      <td>0.232558</td>
+      <td>10</td>
+      <td>33</td>
+      <td>0.444444</td>
+      <td>0.200000</td>
+      <td>0.275862</td>
+      <td>20</td>
+      <td>9</td>
+      <td>0.500000</td>
+      <td>0.166667</td>
+      <td>0.250000</td>
+      <td>18</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>fold</td>
+      <td>WF2</td>
+      <td>66</td>
+      <td>0.363636</td>
+      <td>0.322780</td>
+      <td>0.378378</td>
+      <td>0.608696</td>
+      <td>0.466667</td>
+      <td>23</td>
+      <td>37</td>
+      <td>0.133333</td>
+      <td>0.181818</td>
+      <td>0.153846</td>
+      <td>11</td>
+      <td>15</td>
+      <td>0.571429</td>
+      <td>0.250000</td>
+      <td>0.347826</td>
+      <td>32</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>fold</td>
+      <td>WF3</td>
+      <td>24</td>
+      <td>0.291667</td>
+      <td>0.291667</td>
+      <td>0.181818</td>
+      <td>0.400000</td>
+      <td>0.250000</td>
+      <td>5</td>
+      <td>11</td>
+      <td>0.375000</td>
+      <td>0.375000</td>
+      <td>0.375000</td>
+      <td>8</td>
+      <td>8</td>
+      <td>0.400000</td>
+      <td>0.181818</td>
+      <td>0.250000</td>
+      <td>11</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>overall</td>
+      <td>ALL</td>
+      <td>138</td>
+      <td>0.304348</td>
+      <td>0.289222</td>
+      <td>0.233333</td>
+      <td>0.184211</td>
+      <td>0.205882</td>
+      <td>38</td>
+      <td>30</td>
+      <td>0.250000</td>
+      <td>0.333333</td>
+      <td>0.285714</td>
+      <td>39</td>
+      <td>52</td>
+      <td>0.392857</td>
+      <td>0.360656</td>
+      <td>0.376068</td>
+      <td>61</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>2303</td>
+      <td>27</td>
+      <td>0.259259</td>
+      <td>0.259947</td>
+      <td>0.375000</td>
+      <td>0.333333</td>
+      <td>0.352941</td>
+      <td>9</td>
+      <td>8</td>
+      <td>0.111111</td>
+      <td>0.111111</td>
+      <td>0.111111</td>
+      <td>9</td>
+      <td>9</td>
+      <td>0.300000</td>
+      <td>0.333333</td>
+      <td>0.315789</td>
+      <td>9</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>2330</td>
+      <td>30</td>
+      <td>0.300000</td>
+      <td>0.239057</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>9</td>
+      <td>2</td>
+      <td>0.352941</td>
+      <td>0.600000</td>
+      <td>0.444444</td>
+      <td>10</td>
+      <td>17</td>
+      <td>0.272727</td>
+      <td>0.272727</td>
+      <td>0.272727</td>
+      <td>11</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>2379</td>
+      <td>28</td>
+      <td>0.321429</td>
+      <td>0.307890</td>
+      <td>0.250000</td>
+      <td>0.285714</td>
+      <td>0.266667</td>
+      <td>7</td>
+      <td>8</td>
+      <td>0.200000</td>
+      <td>0.250000</td>
+      <td>0.222222</td>
+      <td>8</td>
+      <td>10</td>
+      <td>0.500000</td>
+      <td>0.384615</td>
+      <td>0.434783</td>
+      <td>13</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>2454</td>
+      <td>25</td>
+      <td>0.360000</td>
+      <td>0.261905</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.250000</td>
+      <td>0.333333</td>
+      <td>0.285714</td>
+      <td>6</td>
+      <td>8</td>
+      <td>0.538462</td>
+      <td>0.466667</td>
+      <td>0.500000</td>
+      <td>15</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>3034</td>
+      <td>28</td>
+      <td>0.285714</td>
+      <td>0.280336</td>
+      <td>0.250000</td>
+      <td>0.222222</td>
+      <td>0.235294</td>
+      <td>9</td>
+      <td>8</td>
+      <td>0.250000</td>
+      <td>0.333333</td>
+      <td>0.285714</td>
+      <td>6</td>
+      <td>8</td>
+      <td>0.333333</td>
+      <td>0.307692</td>
+      <td>0.320000</td>
+      <td>13</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>fold</td>
+      <td>WF1</td>
+      <td>48</td>
+      <td>0.312500</td>
+      <td>0.261111</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>10</td>
+      <td>10</td>
+      <td>0.450000</td>
+      <td>0.450000</td>
+      <td>0.450000</td>
+      <td>20</td>
+      <td>20</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>18</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>fold</td>
+      <td>WF2</td>
+      <td>66</td>
+      <td>0.242424</td>
+      <td>0.236763</td>
+      <td>0.428571</td>
+      <td>0.260870</td>
+      <td>0.324324</td>
+      <td>23</td>
+      <td>14</td>
+      <td>0.074074</td>
+      <td>0.181818</td>
+      <td>0.105263</td>
+      <td>11</td>
+      <td>27</td>
+      <td>0.320000</td>
+      <td>0.250000</td>
+      <td>0.280702</td>
+      <td>32</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>fold</td>
+      <td>WF3</td>
+      <td>24</td>
+      <td>0.458333</td>
+      <td>0.385392</td>
+      <td>0.166667</td>
+      <td>0.200000</td>
+      <td>0.181818</td>
+      <td>5</td>
+      <td>6</td>
+      <td>0.400000</td>
+      <td>0.250000</td>
+      <td>0.307692</td>
+      <td>8</td>
+      <td>5</td>
+      <td>0.615385</td>
+      <td>0.727273</td>
+      <td>0.666667</td>
+      <td>11</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>overall</td>
+      <td>ALL</td>
+      <td>138</td>
+      <td>0.318841</td>
+      <td>0.319727</td>
+      <td>0.242857</td>
+      <td>0.447368</td>
+      <td>0.314815</td>
+      <td>38</td>
+      <td>70</td>
+      <td>0.363636</td>
+      <td>0.410256</td>
+      <td>0.385542</td>
+      <td>39</td>
+      <td>44</td>
+      <td>0.458333</td>
+      <td>0.180328</td>
+      <td>0.258824</td>
+      <td>61</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>2303</td>
+      <td>27</td>
+      <td>0.407407</td>
+      <td>0.342105</td>
+      <td>0.500000</td>
+      <td>0.555556</td>
+      <td>0.526316</td>
+      <td>9</td>
+      <td>10</td>
+      <td>0.400000</td>
+      <td>0.666667</td>
+      <td>0.500000</td>
+      <td>9</td>
+      <td>15</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>9</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>2330</td>
+      <td>30</td>
+      <td>0.233333</td>
+      <td>0.241745</td>
+      <td>0.153846</td>
+      <td>0.222222</td>
+      <td>0.181818</td>
+      <td>9</td>
+      <td>13</td>
+      <td>0.181818</td>
+      <td>0.200000</td>
+      <td>0.190476</td>
+      <td>10</td>
+      <td>11</td>
+      <td>0.500000</td>
+      <td>0.272727</td>
+      <td>0.352941</td>
+      <td>11</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>2379</td>
+      <td>28</td>
+      <td>0.321429</td>
+      <td>0.338550</td>
+      <td>0.142857</td>
+      <td>0.285714</td>
+      <td>0.190476</td>
+      <td>7</td>
+      <td>14</td>
+      <td>0.600000</td>
+      <td>0.375000</td>
+      <td>0.461538</td>
+      <td>8</td>
+      <td>5</td>
+      <td>0.444444</td>
+      <td>0.307692</td>
+      <td>0.363636</td>
+      <td>13</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>2454</td>
+      <td>25</td>
+      <td>0.320000</td>
+      <td>0.349378</td>
+      <td>0.133333</td>
+      <td>0.500000</td>
+      <td>0.210526</td>
+      <td>4</td>
+      <td>15</td>
+      <td>0.571429</td>
+      <td>0.666667</td>
+      <td>0.615385</td>
+      <td>6</td>
+      <td>7</td>
+      <td>0.666667</td>
+      <td>0.133333</td>
+      <td>0.222222</td>
+      <td>15</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>stock</td>
+      <td>3034</td>
+      <td>28</td>
+      <td>0.321429</td>
+      <td>0.282135</td>
+      <td>0.333333</td>
+      <td>0.666667</td>
+      <td>0.444444</td>
+      <td>9</td>
+      <td>18</td>
+      <td>0.166667</td>
+      <td>0.166667</td>
+      <td>0.166667</td>
+      <td>6</td>
+      <td>6</td>
+      <td>0.500000</td>
+      <td>0.153846</td>
+      <td>0.235294</td>
+      <td>13</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>fold</td>
+      <td>WF1</td>
+      <td>48</td>
+      <td>0.354167</td>
+      <td>0.345113</td>
+      <td>0.166667</td>
+      <td>0.300000</td>
+      <td>0.214286</td>
+      <td>10</td>
+      <td>18</td>
+      <td>0.444444</td>
+      <td>0.400000</td>
+      <td>0.421053</td>
+      <td>20</td>
+      <td>18</td>
+      <td>0.500000</td>
+      <td>0.333333</td>
+      <td>0.400000</td>
+      <td>18</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>fold</td>
+      <td>WF2</td>
+      <td>66</td>
+      <td>0.242424</td>
+      <td>0.217106</td>
+      <td>0.282051</td>
+      <td>0.478261</td>
+      <td>0.354839</td>
+      <td>23</td>
+      <td>39</td>
+      <td>0.181818</td>
+      <td>0.363636</td>
+      <td>0.242424</td>
+      <td>11</td>
+      <td>22</td>
+      <td>0.200000</td>
+      <td>0.031250</td>
+      <td>0.054054</td>
+      <td>32</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>fold</td>
+      <td>WF3</td>
+      <td>24</td>
+      <td>0.458333</td>
+      <td>0.481481</td>
+      <td>0.230769</td>
+      <td>0.600000</td>
+      <td>0.333333</td>
+      <td>5</td>
+      <td>13</td>
+      <td>1.000000</td>
+      <td>0.500000</td>
+      <td>0.666667</td>
+      <td>8</td>
+      <td>4</td>
+      <td>0.571429</td>
+      <td>0.363636</td>
+      <td>0.444444</td>
+      <td>11</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>overall</td>
+      <td>ALL</td>
+      <td>138</td>
+      <td>0.275362</td>
+      <td>0.267508</td>
+      <td>0.260274</td>
+      <td>0.500000</td>
+      <td>0.342342</td>
+      <td>38</td>
+      <td>73</td>
+      <td>0.250000</td>
+      <td>0.282051</td>
+      <td>0.265060</td>
+      <td>39</td>
+      <td>44</td>
+      <td>0.380952</td>
+      <td>0.131148</td>
+      <td>0.195122</td>
+      <td>61</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>2303</td>
+      <td>27</td>
+      <td>0.296296</td>
+      <td>0.253968</td>
+      <td>0.333333</td>
+      <td>0.444444</td>
+      <td>0.380952</td>
+      <td>9</td>
+      <td>12</td>
+      <td>0.333333</td>
+      <td>0.444444</td>
+      <td>0.380952</td>
+      <td>9</td>
+      <td>12</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>9</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>2330</td>
+      <td>30</td>
+      <td>0.400000</td>
+      <td>0.390263</td>
+      <td>0.375000</td>
+      <td>0.666667</td>
+      <td>0.480000</td>
+      <td>9</td>
+      <td>16</td>
+      <td>0.333333</td>
+      <td>0.300000</td>
+      <td>0.315789</td>
+      <td>10</td>
+      <td>9</td>
+      <td>0.600000</td>
+      <td>0.272727</td>
+      <td>0.375000</td>
+      <td>11</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>2379</td>
+      <td>28</td>
+      <td>0.178571</td>
+      <td>0.171992</td>
+      <td>0.214286</td>
+      <td>0.428571</td>
+      <td>0.285714</td>
+      <td>7</td>
+      <td>14</td>
+      <td>0.090909</td>
+      <td>0.125000</td>
+      <td>0.105263</td>
+      <td>8</td>
+      <td>11</td>
+      <td>0.333333</td>
+      <td>0.076923</td>
+      <td>0.125000</td>
+      <td>13</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>2454</td>
+      <td>25</td>
+      <td>0.280000</td>
+      <td>0.298096</td>
+      <td>0.142857</td>
+      <td>0.500000</td>
+      <td>0.222222</td>
+      <td>4</td>
+      <td>14</td>
+      <td>0.428571</td>
+      <td>0.500000</td>
+      <td>0.461538</td>
+      <td>6</td>
+      <td>7</td>
+      <td>0.500000</td>
+      <td>0.133333</td>
+      <td>0.210526</td>
+      <td>15</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>stock</td>
+      <td>3034</td>
+      <td>28</td>
+      <td>0.214286</td>
+      <td>0.172740</td>
+      <td>0.235294</td>
+      <td>0.444444</td>
+      <td>0.307692</td>
+      <td>9</td>
+      <td>17</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>6</td>
+      <td>5</td>
+      <td>0.333333</td>
+      <td>0.153846</td>
+      <td>0.210526</td>
+      <td>13</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>fold</td>
+      <td>WF1</td>
+      <td>48</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.192308</td>
+      <td>0.500000</td>
+      <td>0.277778</td>
+      <td>10</td>
+      <td>26</td>
+      <td>0.437500</td>
+      <td>0.350000</td>
+      <td>0.388889</td>
+      <td>20</td>
+      <td>16</td>
+      <td>0.666667</td>
+      <td>0.222222</td>
+      <td>0.333333</td>
+      <td>18</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>fold</td>
+      <td>WF2</td>
+      <td>66</td>
+      <td>0.257576</td>
+      <td>0.236917</td>
+      <td>0.323529</td>
+      <td>0.478261</td>
+      <td>0.385965</td>
+      <td>23</td>
+      <td>34</td>
+      <td>0.160000</td>
+      <td>0.363636</td>
+      <td>0.222222</td>
+      <td>11</td>
+      <td>25</td>
+      <td>0.285714</td>
+      <td>0.062500</td>
+      <td>0.102564</td>
+      <td>32</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>fold</td>
+      <td>WF3</td>
+      <td>24</td>
+      <td>0.208333</td>
+      <td>0.181287</td>
+      <td>0.230769</td>
+      <td>0.600000</td>
+      <td>0.333333</td>
+      <td>5</td>
+      <td>13</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>8</td>
+      <td>3</td>
+      <td>0.250000</td>
+      <td>0.181818</td>
+      <td>0.210526</td>
+      <td>11</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>classification</th>
+      <th>fair_candidate_oof_count</th>
+      <th>average_return</th>
+      <th>worst_mdd</th>
+      <th>profit_factor</th>
+      <th>sharpe</th>
+      <th>trade_count</th>
+      <th>net_pnl</th>
+      <th>transaction_cost</th>
+      <th>version</th>
+      <th>return_improved_stocks</th>
+      <th>return_improved_folds</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>random_forest</td>
+      <td>NOT_SUPPORTED</td>
+      <td>138</td>
+      <td>0.004236</td>
+      <td>0.054874</td>
+      <td>1.072813</td>
+      <td>-0.328447</td>
+      <td>138.0</td>
+      <td>6354.299369</td>
+      <td>29994.850631</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>NOT_SUPPORTED</td>
+      <td>138</td>
+      <td>0.007207</td>
+      <td>0.018284</td>
+      <td>2.088827</td>
+      <td>0.365812</td>
+      <td>29.0</td>
+      <td>10810.843605</td>
+      <td>6474.256395</td>
+      <td>ML_V1</td>
+      <td>2.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>NOT_SUPPORTED</td>
+      <td>138</td>
+      <td>0.001321</td>
+      <td>0.028988</td>
+      <td>0.630548</td>
+      <td>-0.421300</td>
+      <td>44.0</td>
+      <td>1980.917581</td>
+      <td>9666.032419</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>2.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>NOT_SUPPORTED</td>
+      <td>138</td>
+      <td>0.004236</td>
+      <td>0.054874</td>
+      <td>1.072813</td>
+      <td>-0.328447</td>
+      <td>138.0</td>
+      <td>6354.299369</td>
+      <td>29994.850631</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>NOT_SUPPORTED</td>
+      <td>138</td>
+      <td>0.004842</td>
+      <td>0.022246</td>
+      <td>1.910566</td>
+      <td>-0.093477</td>
+      <td>25.0</td>
+      <td>7262.281307</td>
+      <td>5451.218692</td>
+      <td>ML_V1</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>NOT_SUPPORTED</td>
+      <td>138</td>
+      <td>-0.003927</td>
+      <td>0.027134</td>
+      <td>1.305986</td>
+      <td>-0.732245</td>
+      <td>56.0</td>
+      <td>-5890.897078</td>
+      <td>11916.797077</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>MIXED</td>
+      <td>138</td>
+      <td>0.004236</td>
+      <td>0.054874</td>
+      <td>1.072813</td>
+      <td>-0.328447</td>
+      <td>138.0</td>
+      <td>6354.299369</td>
+      <td>29994.850631</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>MIXED</td>
+      <td>138</td>
+      <td>-0.001354</td>
+      <td>0.019751</td>
+      <td>0.776915</td>
+      <td>-0.469200</td>
+      <td>24.0</td>
+      <td>-2031.593820</td>
+      <td>5284.793820</td>
+      <td>ML_V1</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>MIXED</td>
+      <td>138</td>
+      <td>-0.004111</td>
+      <td>0.024038</td>
+      <td>0.306364</td>
+      <td>-0.691577</td>
+      <td>21.0</td>
+      <td>-6166.420875</td>
+      <td>4385.620875</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+  </tbody>
+</table><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>version</th>
+      <th>stock_code</th>
+      <th>evaluation_count</th>
+      <th>trade_count</th>
+      <th>average_return</th>
+      <th>median_return</th>
+      <th>return_std</th>
+      <th>worst_mdd</th>
+      <th>win_rate</th>
+      <th>profit_factor</th>
+      <th>sharpe</th>
+      <th>net_pnl</th>
+      <th>gross_pnl</th>
+      <th>transaction_cost</th>
+      <th>final_equity_mean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>2303</td>
+      <td>3</td>
+      <td>5</td>
+      <td>-0.001995</td>
+      <td>-0.002337</td>
+      <td>0.001936</td>
+      <td>0.008825</td>
+      <td>0.111111</td>
+      <td>0.338001</td>
+      <td>-0.904147</td>
+      <td>-598.645220</td>
+      <td>516.10</td>
+      <td>1114.745220</td>
+      <td>99800.451593</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>2303</td>
+      <td>3</td>
+      <td>7</td>
+      <td>0.000209</td>
+      <td>-0.002481</td>
+      <td>0.006063</td>
+      <td>0.016066</td>
+      <td>0.111111</td>
+      <td>0.712536</td>
+      <td>-0.541163</td>
+      <td>62.742694</td>
+      <td>1644.45</td>
+      <td>1581.707306</td>
+      <td>100020.914231</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>2330</td>
+      <td>3</td>
+      <td>8</td>
+      <td>0.014275</td>
+      <td>0.020881</td>
+      <td>0.012374</td>
+      <td>0.013540</td>
+      <td>0.416667</td>
+      <td>3.433388</td>
+      <td>1.099034</td>
+      <td>4282.413200</td>
+      <td>6050.00</td>
+      <td>1767.586800</td>
+      <td>101427.471067</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>2330</td>
+      <td>3</td>
+      <td>7</td>
+      <td>-0.002013</td>
+      <td>0.000000</td>
+      <td>0.005717</td>
+      <td>0.019269</td>
+      <td>0.305556</td>
+      <td>0.727595</td>
+      <td>-0.134618</td>
+      <td>-603.912625</td>
+      <td>887.00</td>
+      <td>1490.912625</td>
+      <td>99798.695792</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>2379</td>
+      <td>3</td>
+      <td>5</td>
+      <td>0.013384</td>
+      <td>0.002010</td>
+      <td>0.021465</td>
+      <td>0.018284</td>
+      <td>0.388889</td>
+      <td>2.884955</td>
+      <td>0.725674</td>
+      <td>4015.211800</td>
+      <td>5158.00</td>
+      <td>1142.788200</td>
+      <td>101338.403933</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>2379</td>
+      <td>3</td>
+      <td>7</td>
+      <td>-0.011327</td>
+      <td>-0.012095</td>
+      <td>0.008643</td>
+      <td>0.028981</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>-1.478140</td>
+      <td>-3398.012700</td>
+      <td>-2019.00</td>
+      <td>1379.012700</td>
+      <td>98867.329100</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>2454</td>
+      <td>3</td>
+      <td>6</td>
+      <td>0.007873</td>
+      <td>0.002939</td>
+      <td>0.011189</td>
+      <td>0.008545</td>
+      <td>0.333333</td>
+      <td>2.347605</td>
+      <td>0.627083</td>
+      <td>2362.042450</td>
+      <td>3760.00</td>
+      <td>1397.957550</td>
+      <td>100787.347483</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>2454</td>
+      <td>3</td>
+      <td>14</td>
+      <td>0.026238</td>
+      <td>0.040025</td>
+      <td>0.035409</td>
+      <td>0.028988</td>
+      <td>0.587302</td>
+      <td>1.445941</td>
+      <td>0.944096</td>
+      <td>7871.532500</td>
+      <td>11120.00</td>
+      <td>3248.467500</td>
+      <td>102623.844167</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>3034</td>
+      <td>3</td>
+      <td>5</td>
+      <td>0.002499</td>
+      <td>0.000000</td>
+      <td>0.012564</td>
+      <td>0.013617</td>
+      <td>0.277778</td>
+      <td>1.440187</td>
+      <td>0.281414</td>
+      <td>749.821375</td>
+      <td>1801.00</td>
+      <td>1051.178625</td>
+      <td>100249.940458</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>3034</td>
+      <td>3</td>
+      <td>9</td>
+      <td>-0.006505</td>
+      <td>-0.004119</td>
+      <td>0.004250</td>
+      <td>0.018664</td>
+      <td>0.333333</td>
+      <td>0.266667</td>
+      <td>-0.896676</td>
+      <td>-1951.432288</td>
+      <td>14.50</td>
+      <td>1965.932288</td>
+      <td>99349.522571</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>2303</td>
+      <td>3</td>
+      <td>4</td>
+      <td>0.000069</td>
+      <td>0.000089</td>
+      <td>0.000062</td>
+      <td>0.008825</td>
+      <td>0.444444</td>
+      <td>0.338001</td>
+      <td>0.017762</td>
+      <td>20.681232</td>
+      <td>963.50</td>
+      <td>942.818768</td>
+      <td>100006.893744</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>2303</td>
+      <td>3</td>
+      <td>10</td>
+      <td>-0.004389</td>
+      <td>-0.000144</td>
+      <td>0.007914</td>
+      <td>0.022568</td>
+      <td>0.150000</td>
+      <td>0.349011</td>
+      <td>-0.677869</td>
+      <td>-1316.725065</td>
+      <td>902.40</td>
+      <td>2219.125065</td>
+      <td>99561.091645</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>2330</td>
+      <td>3</td>
+      <td>8</td>
+      <td>0.007918</td>
+      <td>0.006936</td>
+      <td>0.013561</td>
+      <td>0.013540</td>
+      <td>0.361111</td>
+      <td>2.652360</td>
+      <td>0.344910</td>
+      <td>2375.254850</td>
+      <td>4070.00</td>
+      <td>1694.745150</td>
+      <td>100791.751617</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>2330</td>
+      <td>3</td>
+      <td>11</td>
+      <td>-0.006098</td>
+      <td>-0.008464</td>
+      <td>0.004393</td>
+      <td>0.022331</td>
+      <td>0.283333</td>
+      <td>0.502130</td>
+      <td>-1.044976</td>
+      <td>-1829.519250</td>
+      <td>468.00</td>
+      <td>2297.519250</td>
+      <td>99390.160250</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>2379</td>
+      <td>3</td>
+      <td>4</td>
+      <td>-0.005777</td>
+      <td>-0.004571</td>
+      <td>0.006465</td>
+      <td>0.022246</td>
+      <td>0.111111</td>
+      <td>0.056543</td>
+      <td>-0.796921</td>
+      <td>-1733.090038</td>
+      <td>-924.50</td>
+      <td>808.590037</td>
+      <td>99422.303321</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>2379</td>
+      <td>3</td>
+      <td>10</td>
+      <td>-0.004701</td>
+      <td>-0.004693</td>
+      <td>0.002154</td>
+      <td>0.023201</td>
+      <td>0.522222</td>
+      <td>0.477103</td>
+      <td>-0.757850</td>
+      <td>-1410.310350</td>
+      <td>618.00</td>
+      <td>2028.310350</td>
+      <td>99529.896550</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>2454</td>
+      <td>3</td>
+      <td>4</td>
+      <td>0.019731</td>
+      <td>0.000000</td>
+      <td>0.045682</td>
+      <td>0.012770</td>
+      <td>0.222222</td>
+      <td>6.505926</td>
+      <td>0.069792</td>
+      <td>5919.216650</td>
+      <td>6878.00</td>
+      <td>958.783350</td>
+      <td>101973.072217</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>2454</td>
+      <td>3</td>
+      <td>13</td>
+      <td>0.005279</td>
+      <td>-0.007821</td>
+      <td>0.023465</td>
+      <td>0.025807</td>
+      <td>0.416667</td>
+      <td>4.945789</td>
+      <td>0.244624</td>
+      <td>1583.796825</td>
+      <td>4473.00</td>
+      <td>2889.203175</td>
+      <td>100527.932275</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>3034</td>
+      <td>3</td>
+      <td>5</td>
+      <td>0.002267</td>
+      <td>-0.004566</td>
+      <td>0.016961</td>
+      <td>0.014144</td>
+      <td>0.333333</td>
+      <td>0.000000</td>
+      <td>-0.102931</td>
+      <td>680.218612</td>
+      <td>1726.50</td>
+      <td>1046.281387</td>
+      <td>100226.739538</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>3034</td>
+      <td>3</td>
+      <td>12</td>
+      <td>-0.009727</td>
+      <td>-0.006867</td>
+      <td>0.007462</td>
+      <td>0.027134</td>
+      <td>0.253968</td>
+      <td>0.255896</td>
+      <td>-1.425155</td>
+      <td>-2918.139238</td>
+      <td>-435.50</td>
+      <td>2482.639238</td>
+      <td>99027.286921</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>2303</td>
+      <td>3</td>
+      <td>2</td>
+      <td>-0.002345</td>
+      <td>-0.003190</td>
+      <td>0.002057</td>
+      <td>0.007780</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>-0.879191</td>
+      <td>-703.517920</td>
+      <td>-296.80</td>
+      <td>406.717920</td>
+      <td>99765.494027</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>2303</td>
+      <td>3</td>
+      <td>3</td>
+      <td>-0.003121</td>
+      <td>-0.003845</td>
+      <td>0.002830</td>
+      <td>0.008504</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>-1.011883</td>
+      <td>-936.373075</td>
+      <td>-296.80</td>
+      <td>639.573075</td>
+      <td>99687.875642</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>2330</td>
+      <td>3</td>
+      <td>6</td>
+      <td>-0.006507</td>
+      <td>-0.006770</td>
+      <td>0.006379</td>
+      <td>0.017575</td>
+      <td>0.111111</td>
+      <td>0.216126</td>
+      <td>-0.971705</td>
+      <td>-1951.987125</td>
+      <td>-639.00</td>
+      <td>1312.987125</td>
+      <td>99349.337625</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>2330</td>
+      <td>3</td>
+      <td>5</td>
+      <td>0.000696</td>
+      <td>0.002061</td>
+      <td>0.009190</td>
+      <td>0.011301</td>
+      <td>0.500000</td>
+      <td>1.156864</td>
+      <td>-0.017532</td>
+      <td>208.732150</td>
+      <td>1252.00</td>
+      <td>1043.267850</td>
+      <td>100069.577383</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>2379</td>
+      <td>3</td>
+      <td>9</td>
+      <td>0.009587</td>
+      <td>0.001358</td>
+      <td>0.019555</td>
+      <td>0.018589</td>
+      <td>0.555556</td>
+      <td>2.681440</td>
+      <td>0.475488</td>
+      <td>2876.069625</td>
+      <td>4887.00</td>
+      <td>2010.930375</td>
+      <td>100958.689875</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>2379</td>
+      <td>3</td>
+      <td>3</td>
+      <td>0.001126</td>
+      <td>0.000086</td>
+      <td>0.001877</td>
+      <td>0.018589</td>
+      <td>0.500000</td>
+      <td>0.337766</td>
+      <td>0.507136</td>
+      <td>337.883800</td>
+      <td>982.00</td>
+      <td>644.116200</td>
+      <td>100112.627933</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>2454</td>
+      <td>3</td>
+      <td>3</td>
+      <td>-0.002525</td>
+      <td>0.000000</td>
+      <td>0.009237</td>
+      <td>0.013686</td>
+      <td>0.166667</td>
+      <td>0.970604</td>
+      <td>-0.384326</td>
+      <td>-757.465675</td>
+      <td>-67.00</td>
+      <td>690.465675</td>
+      <td>99747.511442</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>2454</td>
+      <td>3</td>
+      <td>4</td>
+      <td>-0.011305</td>
+      <td>-0.009876</td>
+      <td>0.012083</td>
+      <td>0.024038</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>-1.406330</td>
+      <td>-3391.498050</td>
+      <td>-2538.00</td>
+      <td>853.498050</td>
+      <td>98869.500650</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>3034</td>
+      <td>3</td>
+      <td>4</td>
+      <td>-0.004982</td>
+      <td>0.000000</td>
+      <td>0.008630</td>
+      <td>0.019751</td>
+      <td>0.083333</td>
+      <td>0.016403</td>
+      <td>-0.586267</td>
+      <td>-1494.692725</td>
+      <td>-631.00</td>
+      <td>863.692725</td>
+      <td>99501.769092</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>3034</td>
+      <td>3</td>
+      <td>6</td>
+      <td>-0.007951</td>
+      <td>-0.008546</td>
+      <td>0.001504</td>
+      <td>0.012951</td>
+      <td>0.166667</td>
+      <td>0.037190</td>
+      <td>-1.529277</td>
+      <td>-2385.165700</td>
+      <td>-1180.00</td>
+      <td>1205.165700</td>
+      <td>99204.944767</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>2303</td>
+      <td>3</td>
+      <td>27</td>
+      <td>-0.007211</td>
+      <td>-0.011628</td>
+      <td>0.014043</td>
+      <td>0.038899</td>
+      <td>0.204545</td>
+      <td>0.641188</td>
+      <td>-0.621443</td>
+      <td>-2163.234431</td>
+      <td>3783.15</td>
+      <td>5946.384431</td>
+      <td>99278.921856</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>2330</td>
+      <td>3</td>
+      <td>30</td>
+      <td>0.001586</td>
+      <td>0.001296</td>
+      <td>0.044578</td>
+      <td>0.045176</td>
+      <td>0.346542</td>
+      <td>1.319188</td>
+      <td>-0.839352</td>
+      <td>475.687200</td>
+      <td>6834.00</td>
+      <td>6358.312800</td>
+      <td>100158.562400</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>2379</td>
+      <td>3</td>
+      <td>28</td>
+      <td>0.010018</td>
+      <td>0.003017</td>
+      <td>0.021255</td>
+      <td>0.036715</td>
+      <td>0.411111</td>
+      <td>1.156814</td>
+      <td>0.218505</td>
+      <td>3005.481925</td>
+      <td>9010.00</td>
+      <td>6004.518075</td>
+      <td>101001.827308</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>2454</td>
+      <td>3</td>
+      <td>25</td>
+      <td>0.021409</td>
+      <td>0.022398</td>
+      <td>0.037249</td>
+      <td>0.029805</td>
+      <td>0.403846</td>
+      <td>1.568554</td>
+      <td>0.464749</td>
+      <td>6422.748625</td>
+      <td>12139.00</td>
+      <td>5716.251375</td>
+      <td>102140.916208</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>3034</td>
+      <td>3</td>
+      <td>28</td>
+      <td>-0.004621</td>
+      <td>-0.013103</td>
+      <td>0.016635</td>
+      <td>0.054874</td>
+      <td>0.259788</td>
+      <td>0.678322</td>
+      <td>-0.864696</td>
+      <td>-1386.383950</td>
+      <td>4583.00</td>
+      <td>5969.383950</td>
+      <td>99537.872017</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>2303</td>
+      <td>3</td>
+      <td>27</td>
+      <td>-0.007211</td>
+      <td>-0.011628</td>
+      <td>0.014043</td>
+      <td>0.038899</td>
+      <td>0.204545</td>
+      <td>0.641188</td>
+      <td>-0.621443</td>
+      <td>-2163.234431</td>
+      <td>3783.15</td>
+      <td>5946.384431</td>
+      <td>99278.921856</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>2330</td>
+      <td>3</td>
+      <td>30</td>
+      <td>0.001586</td>
+      <td>0.001296</td>
+      <td>0.044578</td>
+      <td>0.045176</td>
+      <td>0.346542</td>
+      <td>1.319188</td>
+      <td>-0.839352</td>
+      <td>475.687200</td>
+      <td>6834.00</td>
+      <td>6358.312800</td>
+      <td>100158.562400</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>2379</td>
+      <td>3</td>
+      <td>28</td>
+      <td>0.010018</td>
+      <td>0.003017</td>
+      <td>0.021255</td>
+      <td>0.036715</td>
+      <td>0.411111</td>
+      <td>1.156814</td>
+      <td>0.218505</td>
+      <td>3005.481925</td>
+      <td>9010.00</td>
+      <td>6004.518075</td>
+      <td>101001.827308</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>2454</td>
+      <td>3</td>
+      <td>25</td>
+      <td>0.021409</td>
+      <td>0.022398</td>
+      <td>0.037249</td>
+      <td>0.029805</td>
+      <td>0.403846</td>
+      <td>1.568554</td>
+      <td>0.464749</td>
+      <td>6422.748625</td>
+      <td>12139.00</td>
+      <td>5716.251375</td>
+      <td>102140.916208</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>3034</td>
+      <td>3</td>
+      <td>28</td>
+      <td>-0.004621</td>
+      <td>-0.013103</td>
+      <td>0.016635</td>
+      <td>0.054874</td>
+      <td>0.259788</td>
+      <td>0.678322</td>
+      <td>-0.864696</td>
+      <td>-1386.383950</td>
+      <td>4583.00</td>
+      <td>5969.383950</td>
+      <td>99537.872017</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>2303</td>
+      <td>3</td>
+      <td>27</td>
+      <td>-0.007211</td>
+      <td>-0.011628</td>
+      <td>0.014043</td>
+      <td>0.038899</td>
+      <td>0.204545</td>
+      <td>0.641188</td>
+      <td>-0.621443</td>
+      <td>-2163.234431</td>
+      <td>3783.15</td>
+      <td>5946.384431</td>
+      <td>99278.921856</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>2330</td>
+      <td>3</td>
+      <td>30</td>
+      <td>0.001586</td>
+      <td>0.001296</td>
+      <td>0.044578</td>
+      <td>0.045176</td>
+      <td>0.346542</td>
+      <td>1.319188</td>
+      <td>-0.839352</td>
+      <td>475.687200</td>
+      <td>6834.00</td>
+      <td>6358.312800</td>
+      <td>100158.562400</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>2379</td>
+      <td>3</td>
+      <td>28</td>
+      <td>0.010018</td>
+      <td>0.003017</td>
+      <td>0.021255</td>
+      <td>0.036715</td>
+      <td>0.411111</td>
+      <td>1.156814</td>
+      <td>0.218505</td>
+      <td>3005.481925</td>
+      <td>9010.00</td>
+      <td>6004.518075</td>
+      <td>101001.827308</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>2454</td>
+      <td>3</td>
+      <td>25</td>
+      <td>0.021409</td>
+      <td>0.022398</td>
+      <td>0.037249</td>
+      <td>0.029805</td>
+      <td>0.403846</td>
+      <td>1.568554</td>
+      <td>0.464749</td>
+      <td>6422.748625</td>
+      <td>12139.00</td>
+      <td>5716.251375</td>
+      <td>102140.916208</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>3034</td>
+      <td>3</td>
+      <td>28</td>
+      <td>-0.004621</td>
+      <td>-0.013103</td>
+      <td>0.016635</td>
+      <td>0.054874</td>
+      <td>0.259788</td>
+      <td>0.678322</td>
+      <td>-0.864696</td>
+      <td>-1386.383950</td>
+      <td>4583.00</td>
+      <td>5969.383950</td>
+      <td>99537.872017</td>
+    </tr>
+  </tbody>
+</table><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>version</th>
+      <th>fold_id</th>
+      <th>evaluation_count</th>
+      <th>trade_count</th>
+      <th>average_return</th>
+      <th>median_return</th>
+      <th>return_std</th>
+      <th>worst_mdd</th>
+      <th>win_rate</th>
+      <th>profit_factor</th>
+      <th>sharpe</th>
+      <th>net_pnl</th>
+      <th>gross_pnl</th>
+      <th>transaction_cost</th>
+      <th>final_equity_mean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>WF1</td>
+      <td>5</td>
+      <td>8</td>
+      <td>0.007016</td>
+      <td>0.002010</td>
+      <td>0.010720</td>
+      <td>0.010999</td>
+      <td>0.333333</td>
+      <td>2.210176</td>
+      <td>0.440668</td>
+      <td>3507.796592</td>
+      <td>5276.50</td>
+      <td>1768.703407</td>
+      <td>100701.559319</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>WF1</td>
+      <td>5</td>
+      <td>13</td>
+      <td>0.003980</td>
+      <td>-0.003984</td>
+      <td>0.020624</td>
+      <td>0.016727</td>
+      <td>0.266667</td>
+      <td>0.032872</td>
+      <td>-0.358278</td>
+      <td>1990.231195</td>
+      <td>4864.00</td>
+      <td>2873.768805</td>
+      <td>100398.046239</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>WF2</td>
+      <td>5</td>
+      <td>16</td>
+      <td>0.010897</td>
+      <td>0.002939</td>
+      <td>0.018879</td>
+      <td>0.018284</td>
+      <td>0.483333</td>
+      <td>3.151949</td>
+      <td>0.564187</td>
+      <td>5448.589770</td>
+      <td>9033.60</td>
+      <td>3585.010230</td>
+      <td>101089.717954</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>WF2</td>
+      <td>5</td>
+      <td>18</td>
+      <td>0.006257</td>
+      <td>0.002425</td>
+      <td>0.028059</td>
+      <td>0.028981</td>
+      <td>0.352381</td>
+      <td>1.590498</td>
+      <td>-0.068746</td>
+      <td>3128.568319</td>
+      <td>7039.95</td>
+      <td>3911.381681</td>
+      <td>100625.713664</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>ML_V1</td>
+      <td>WF3</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0.003709</td>
+      <td>0.000000</td>
+      <td>0.009653</td>
+      <td>0.013153</td>
+      <td>0.100000</td>
+      <td>0.904356</td>
+      <td>0.092580</td>
+      <td>1854.457243</td>
+      <td>2975.00</td>
+      <td>1120.542758</td>
+      <td>100370.891448</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>WF3</td>
+      <td>5</td>
+      <td>13</td>
+      <td>-0.006276</td>
+      <td>-0.004119</td>
+      <td>0.004974</td>
+      <td>0.028988</td>
+      <td>0.183333</td>
+      <td>0.268274</td>
+      <td>-0.836877</td>
+      <td>-3137.881932</td>
+      <td>-257.00</td>
+      <td>2880.881932</td>
+      <td>99372.423613</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>WF1</td>
+      <td>5</td>
+      <td>6</td>
+      <td>0.002400</td>
+      <td>0.000000</td>
+      <td>0.011001</td>
+      <td>0.009238</td>
+      <td>0.466667</td>
+      <td>0.033926</td>
+      <td>0.060615</td>
+      <td>1199.957175</td>
+      <td>2489.40</td>
+      <td>1289.442825</td>
+      <td>100239.991435</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>WF1</td>
+      <td>5</td>
+      <td>18</td>
+      <td>0.000126</td>
+      <td>-0.006867</td>
+      <td>0.018450</td>
+      <td>0.019818</td>
+      <td>0.270000</td>
+      <td>2.881298</td>
+      <td>-0.902049</td>
+      <td>63.031404</td>
+      <td>3906.95</td>
+      <td>3843.918596</td>
+      <td>100012.606281</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>WF2</td>
+      <td>5</td>
+      <td>14</td>
+      <td>0.014205</td>
+      <td>0.000089</td>
+      <td>0.035065</td>
+      <td>0.022246</td>
+      <td>0.350000</td>
+      <td>5.262032</td>
+      <td>0.258885</td>
+      <td>7102.273495</td>
+      <td>10222.60</td>
+      <td>3120.326505</td>
+      <td>101420.454699</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>WF2</td>
+      <td>5</td>
+      <td>25</td>
+      <td>-0.006860</td>
+      <td>-0.006860</td>
+      <td>0.007417</td>
+      <td>0.027134</td>
+      <td>0.422381</td>
+      <td>0.697765</td>
+      <td>-0.518475</td>
+      <td>-3429.846531</td>
+      <td>1821.95</td>
+      <td>5251.796531</td>
+      <td>99314.030694</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>ML_V1</td>
+      <td>WF3</td>
+      <td>5</td>
+      <td>5</td>
+      <td>-0.002080</td>
+      <td>0.000000</td>
+      <td>0.007253</td>
+      <td>0.013332</td>
+      <td>0.066667</td>
+      <td>0.435740</td>
+      <td>-0.599932</td>
+      <td>-1039.949363</td>
+      <td>1.50</td>
+      <td>1041.449363</td>
+      <td>99792.010128</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>WF3</td>
+      <td>5</td>
+      <td>13</td>
+      <td>-0.005048</td>
+      <td>-0.004693</td>
+      <td>0.003332</td>
+      <td>0.020662</td>
+      <td>0.283333</td>
+      <td>0.338894</td>
+      <td>-0.776213</td>
+      <td>-2524.081950</td>
+      <td>297.00</td>
+      <td>2821.081950</td>
+      <td>99495.183610</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>WF1</td>
+      <td>5</td>
+      <td>12</td>
+      <td>-0.005404</td>
+      <td>-0.004508</td>
+      <td>0.008473</td>
+      <td>0.019751</td>
+      <td>0.216667</td>
+      <td>0.713471</td>
+      <td>-0.764525</td>
+      <td>-2701.871550</td>
+      <td>-42.00</td>
+      <td>2659.871550</td>
+      <td>99459.625690</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>WF1</td>
+      <td>5</td>
+      <td>6</td>
+      <td>-0.005043</td>
+      <td>-0.006240</td>
+      <td>0.004799</td>
+      <td>0.013048</td>
+      <td>0.100000</td>
+      <td>0.022314</td>
+      <td>-0.972504</td>
+      <td>-2521.715450</td>
+      <td>-1256.00</td>
+      <td>1265.715450</td>
+      <td>99495.656910</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>WF2</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0.003061</td>
+      <td>0.000000</td>
+      <td>0.016949</td>
+      <td>0.013686</td>
+      <td>0.133333</td>
+      <td>1.245398</td>
+      <td>-0.213110</td>
+      <td>1530.522445</td>
+      <td>2597.80</td>
+      <td>1067.277555</td>
+      <td>100306.104489</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>WF2</td>
+      <td>5</td>
+      <td>7</td>
+      <td>-0.006215</td>
+      <td>-0.003845</td>
+      <td>0.011041</td>
+      <td>0.024038</td>
+      <td>0.400000</td>
+      <td>0.000000</td>
+      <td>-0.527039</td>
+      <td>-3107.462055</td>
+      <td>-1672.20</td>
+      <td>1435.262055</td>
+      <td>99378.507589</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>ML_V1</td>
+      <td>WF3</td>
+      <td>5</td>
+      <td>7</td>
+      <td>-0.001720</td>
+      <td>0.000000</td>
+      <td>0.003281</td>
+      <td>0.018589</td>
+      <td>0.200000</td>
+      <td>0.371875</td>
+      <td>-0.429965</td>
+      <td>-860.244715</td>
+      <td>697.40</td>
+      <td>1557.644715</td>
+      <td>99827.951057</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>CANDIDATE_ML_V2</td>
+      <td>WF3</td>
+      <td>5</td>
+      <td>8</td>
+      <td>-0.001074</td>
+      <td>0.000000</td>
+      <td>0.006895</td>
+      <td>0.018589</td>
+      <td>0.200000</td>
+      <td>0.896778</td>
+      <td>-0.575188</td>
+      <td>-537.243370</td>
+      <td>1147.40</td>
+      <td>1684.643370</td>
+      <td>99892.551326</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>WF1</td>
+      <td>5</td>
+      <td>48</td>
+      <td>-0.004405</td>
+      <td>0.003017</td>
+      <td>0.024968</td>
+      <td>0.045176</td>
+      <td>0.302020</td>
+      <td>1.075818</td>
+      <td>-0.642467</td>
+      <td>-2202.405994</td>
+      <td>8022.75</td>
+      <td>10225.155994</td>
+      <td>99559.518801</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>WF2</td>
+      <td>5</td>
+      <td>66</td>
+      <td>0.026877</td>
+      <td>0.033891</td>
+      <td>0.030073</td>
+      <td>0.054874</td>
+      <td>0.436813</td>
+      <td>1.733458</td>
+      <td>0.785247</td>
+      <td>13438.333423</td>
+      <td>28001.90</td>
+      <td>14563.566577</td>
+      <td>102687.666684</td>
+    </tr>
+    <tr>
+      <td>random_forest</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>WF3</td>
+      <td>5</td>
+      <td>24</td>
+      <td>-0.009763</td>
+      <td>-0.011628</td>
+      <td>0.007211</td>
+      <td>0.029055</td>
+      <td>0.236667</td>
+      <td>0.409165</td>
+      <td>-1.128122</td>
+      <td>-4881.628060</td>
+      <td>324.50</td>
+      <td>5206.128060</td>
+      <td>99023.674388</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>WF1</td>
+      <td>5</td>
+      <td>48</td>
+      <td>-0.004405</td>
+      <td>0.003017</td>
+      <td>0.024968</td>
+      <td>0.045176</td>
+      <td>0.302020</td>
+      <td>1.075818</td>
+      <td>-0.642467</td>
+      <td>-2202.405994</td>
+      <td>8022.75</td>
+      <td>10225.155994</td>
+      <td>99559.518801</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>WF2</td>
+      <td>5</td>
+      <td>66</td>
+      <td>0.026877</td>
+      <td>0.033891</td>
+      <td>0.030073</td>
+      <td>0.054874</td>
+      <td>0.436813</td>
+      <td>1.733458</td>
+      <td>0.785247</td>
+      <td>13438.333423</td>
+      <td>28001.90</td>
+      <td>14563.566577</td>
+      <td>102687.666684</td>
+    </tr>
+    <tr>
+      <td>xgboost</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>WF3</td>
+      <td>5</td>
+      <td>24</td>
+      <td>-0.009763</td>
+      <td>-0.011628</td>
+      <td>0.007211</td>
+      <td>0.029055</td>
+      <td>0.236667</td>
+      <td>0.409165</td>
+      <td>-1.128122</td>
+      <td>-4881.628060</td>
+      <td>324.50</td>
+      <td>5206.128060</td>
+      <td>99023.674388</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>WF1</td>
+      <td>5</td>
+      <td>48</td>
+      <td>-0.004405</td>
+      <td>0.003017</td>
+      <td>0.024968</td>
+      <td>0.045176</td>
+      <td>0.302020</td>
+      <td>1.075818</td>
+      <td>-0.642467</td>
+      <td>-2202.405994</td>
+      <td>8022.75</td>
+      <td>10225.155994</td>
+      <td>99559.518801</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>WF2</td>
+      <td>5</td>
+      <td>66</td>
+      <td>0.026877</td>
+      <td>0.033891</td>
+      <td>0.030073</td>
+      <td>0.054874</td>
+      <td>0.436813</td>
+      <td>1.733458</td>
+      <td>0.785247</td>
+      <td>13438.333423</td>
+      <td>28001.90</td>
+      <td>14563.566577</td>
+      <td>102687.666684</td>
+    </tr>
+    <tr>
+      <td>gru</td>
+      <td>TECHNICAL_V2_ALONE</td>
+      <td>WF3</td>
+      <td>5</td>
+      <td>24</td>
+      <td>-0.009763</td>
+      <td>-0.011628</td>
+      <td>0.007211</td>
+      <td>0.029055</td>
+      <td>0.236667</td>
+      <td>0.409165</td>
+      <td>-1.128122</td>
+      <td>-4881.628060</td>
+      <td>324.50</td>
+      <td>5206.128060</td>
+      <td>99023.674388</td>
+    </tr>
+  </tbody>
+</table></body></html>

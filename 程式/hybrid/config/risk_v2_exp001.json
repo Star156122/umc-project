@@ -1,0 +1,17 @@
+{
+  "experiment_id": "strategy-v2-risk-exp001-atr-adaptive",
+  "status": "PREREGISTERED",
+  "technical_candidate": "BR_SENS_RANGE55_BB20_2 + TECH_V2_B_MARKET_REGIME_FILTER",
+  "ml_model": "random_forest",
+  "ml_source": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
+  "gate": {"BUY": "ALLOW_LONG_ENTRY", "HOLD": "BLOCK", "SELL": "BLOCK", "short": false},
+  "risk_v1_control": {"risk_per_trade": 0.01, "stop_loss_pct": 0.025, "max_position_fraction": 0.4},
+  "risk_v2": {"atr_lookback": 14, "atr_multiplier": 2.0, "minimum_stop_distance": 0.025, "risk_per_trade": 0.01, "max_position_fraction": 0.4, "atr_method": "WILDER_SMOOTHING", "daily_session": ["09:00", "13:25"], "daily_bar_requirement": 54, "date_rule": "STRICTLY_PRIOR_COMPLETED_SESSION"},
+  "data": {"role": "exposed_training_development", "start": "2023-01-01", "end": "2024-12-31", "stock_codes": ["2303", "2330", "2379", "2454", "3034"], "folds": ["WF1", "WF2", "WF3"], "database": "data/market_data.sqlite3", "missing_atr_policy": "EXCLUDE_FROM_BOTH"},
+  "execution_contract": "COMPLETED_5M_SIGNAL_TO_NEXT_TRADABLE_5M_BAR_OPEN",
+  "parameter_search": false,
+  "ml_retrained": false,
+  "technical_changed": false,
+  "gate_changed": false,
+  "forbidden_periods": ["2025", "2026", "Final OOS"]
+}

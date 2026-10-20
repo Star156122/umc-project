@@ -1,0 +1,93 @@
+{
+  "experiment_id": "strategy-v2-exp001-next-bar-open",
+  "generated_at": "2026-10-19T05:36:28+08:00",
+  "status": "BLOCKED_PRE_RUN",
+  "classification": "BLOCKED",
+  "blocking_reason": "The current replay implementation already fills a completed-bar signal at the next bar Open. The frozen baseline does not provide a distinct Same-Bar Close control, so the preregistered comparison cannot be executed without redefining its control.",
+  "data_range": {
+    "role": "training_development_exposed",
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "stock_universe": [
+    "2303",
+    "2330",
+    "2379",
+    "2454",
+    "3034"
+  ],
+  "technical_candidate": "BR_SENS_RANGE55_BB20_2",
+  "technical_config_hash": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+  "technical_source_hash": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36",
+  "technical_db_hash": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "ml_db_hash": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+  "git_commit": "35ec22eea83cabcacaf22a45e0fc66a4eb1209d3",
+  "working_tree_status": "DIRTY",
+  "execution_control": "same_bar_close",
+  "execution_experiment": "next_tradable_bar_open",
+  "existing_replay_execution": "next_bar_open",
+  "next_bar_open_implemented": true,
+  "signal_parity": "NOT_EVALUATED",
+  "hybrid_gate_parity": "NOT_EVALUATED",
+  "missing_next_bar_rule": "NO ENTRY; not evaluated because run blocked",
+  "missing_next_bar_count": null,
+  "models": [
+    "random_forest",
+    "xgboost",
+    "gru"
+  ],
+  "folds": [
+    "ML_WF1",
+    "ML_WF2",
+    "ML_WF3",
+    "ML_WF4"
+  ],
+  "risk_parameters": {
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025
+  },
+  "execution_sensitive": null,
+  "metrics_available": false,
+  "outputs_are_empty_schemas_only": true,
+  "2025_used": false,
+  "2026_used": false,
+  "final_oos_used": false,
+  "parameter_search_performed": false,
+  "ml_retrained": false,
+  "technical_baseline_changed": false,
+  "hybrid_gate_changed": false,
+  "risk_parameters_changed": false,
+  "performance_backtest_run": false,
+  "source_evidence": {
+    "replay_kbars": {
+      "path": "trading_system/backtest.py",
+      "lines": "2076-2085",
+      "finding": "Each current row sets last_tick.close from current Open, then passes previous completed K-bar to process_completed_kbar."
+    },
+    "local_market_order_fill": {
+      "path": "trading_system/backtest.py",
+      "lines": "630-640",
+      "finding": "Local market order uses last_tick.close as fill reference."
+    },
+    "current_source_sha256": "94c2eb8da35dccf19f4a7c8cc3b542f22cf62a0b927e7f1a404cd33bb7f842c8",
+    "historical_poc_artifacts": {
+      "trades": "exports/hybrid_poc_v1_20261013T041540804059/hybrid_poc_trades.csv",
+      "signals": "exports/hybrid_poc_v1_20261013T041540804059/technical_signal_input.csv",
+      "matched_entries": 248,
+      "all_entry_bar_open_matches": true
+    }
+  },
+  "required_to_unblock": "Establish a valid same-bar-close control baseline and register a reviewed experiment definition; do not reinterpret this blocked experiment after seeing performance.",
+  "historical_poc_fill_audit": {
+    "source_trades": "exports/hybrid_poc_v1_20261013T041540804059/hybrid_poc_trades.csv",
+    "source_signals": "exports/hybrid_poc_v1_20261013T041540804059/technical_signal_input.csv",
+    "read_scope": "Training 2023-2024 only; execution timing identity audit, not performance evaluation",
+    "matched_technical_alone_entries": 248,
+    "fill_price_matches_entry_bar_open": 248,
+    "fill_price_matches_signal_bar_close": 163,
+    "fill_price_matches_neither": 0,
+    "missing_entry_bar_data": 0,
+    "finding": "Existing POC trade timestamps are earliest-entry/next-bar timestamps, and all 248 matched fills equal that entry bar Open. Thus the historical POC artifacts do not provide a distinct Same-Bar Close control. In 163 cases signal close happens to equal next-bar Open, so price equality alone can be ambiguous."
+  }
+}

@@ -1,0 +1,465 @@
+{
+  "baseline_id": "strategy_v1_hybrid_risk_poc_20261013_20261018",
+  "created_at": "2026-10-19",
+  "status": "FROZEN_POC_BASELINE",
+  "freeze_scope": "Historical POC artifacts and their recorded identities are frozen as an archival reference. This does not claim that the current working tree reproduces the historical run byte-for-byte.",
+  "reproducibility_status": "ARCHIVED_OUTPUTS_VERIFIABLE_HISTORICAL_TECHNICAL_CONFIG_NOT_RECOVERED_CLEANER_GENERATOR_NOT_FOUND_EXPECTED_PARITY_DIFFERENCES",
+  "research_period": {
+    "role": "training",
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "technical": {
+    "historical_poc": {
+      "experiment_id": "technical-v1-20261010-v1",
+      "run_id": "20261013T024919303843",
+      "status": "COMPLETED",
+      "export": "exports/technical_v1_20261013T024919303843",
+      "audit": "exports/technical_v1_20261013T024919303843/technical_v1_audit.json",
+      "config": "configs/technical_v1_research.json",
+      "historical_config_sha256_recorded_by_hybrid_poc": "a637c56fd98524668570803854302dbfe658753f27268854371deaa6234d9a46",
+      "historical_config_fingerprint_recorded_by_technical_audit": "3f9f66ad8071dccc171dd2be5665466310783518699f3099ed266598bc5879c7",
+      "historical_config_snapshot_available": false,
+      "dataset": {
+        "path": "data/technical_v1_mltech_clean.sqlite3",
+        "evidence": "Technical V1 audit market_data_preflight.database_path",
+        "sha256": null,
+        "note": "No database content hash is copied into the Technical audit. This manifest did not read or hash the database."
+      },
+      "stock_universe": [
+        "2303",
+        "2330",
+        "2379",
+        "2454",
+        "3034"
+      ],
+      "technical_export_selected_candidate": "BR_BASE_RANGE60_BB20_2",
+      "candidate_used_by_hybrid_poc": "BR_SENS_RANGE55_BB20_2",
+      "hybrid_candidate_parameter_fingerprint": "24dbe3030fe335b8e62684e908fbe139315933add7a904c38fae07e0e24707bf",
+      "exact_numeric_parameters_recovered_from_historical_config": false,
+      "session_evidence": {
+        "bar_minutes": 5,
+        "training_observed_first_bar": "09:00",
+        "training_observed_last_bar": "13:25",
+        "entry_window_and_exit_details": null,
+        "note": "The historical Technical audit records data coverage and configuration fingerprints, but the historical Config bytes are unavailable. Current Working Version values are recorded separately below."
+      },
+      "source_hashes_recorded_by_hybrid_poc": {
+        "technical_v1_audit.json": "9fa41b1b867013b61d90f5be59190950b6136764382c16168eb86778fe9ac8cb",
+        "technical_v1_results.json": "46400f793fb235e3f0a98cc2e2368577535615efaf58de0b016b4d34184762a6",
+        "technical_v1_signals.csv": "47e5d90cfff4ecd9e73960a6e85ded42a5b0a60b10942cf538f4bc4e04837eb2"
+      }
+    },
+    "current_working_version": {
+      "git_commit": "35ec22eea83cabcacaf22a45e0fc66a4eb1209d3",
+      "working_tree_dirty": true,
+      "config": "configs/technical_v1_research.json",
+      "config_sha256": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+      "source": "trading_system/technical_v1.py",
+      "source_sha256": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36",
+      "latest_preflight_run": "exports/technical_v1_20261017T232930995429/technical_v1_audit.json",
+      "status": "preregistered_training_only; latest Technical run is PREFLIGHT_READY, not a replacement end-to-end POC",
+      "dataset": "data/technical_v1_mltech_clean.sqlite3",
+      "stock_universe": [
+        "2303",
+        "2330",
+        "2379",
+        "2454",
+        "3034"
+      ],
+      "selected_candidate": null,
+      "candidate_pool_includes": [
+        "BR_BASE_RANGE60_BB20_2",
+        "BR_SENS_RANGE55_BB20_2"
+      ],
+      "candidate_parameters_from_current_config": {
+        "BR_SENS_RANGE55_BB20_2": {
+          "ma_fast_period": 20,
+          "ma_mid_period": 60,
+          "ma_slow_period": 240,
+          "trend_ma_period": 120,
+          "trend_slope_lookback": 12,
+          "require_trend_filter": true,
+          "bollinger_period": 20,
+          "bollinger_stddev": 2.0,
+          "breakout_entry_period": 55,
+          "breakout_exit_period": 30,
+          "breakout_require_cross": true,
+          "breakout_volume_ratio": 0.0,
+          "volume_ma_period": 20,
+          "use_rsi": false,
+          "use_macd": false
+        }
+      },
+      "session_and_execution_contract_from_current_config_and_audit": {
+        "bar_minutes": 5,
+        "expected_bars_per_trading_day": 54,
+        "first_bar": "09:00",
+        "last_bar": "13:25",
+        "entry_start": "09:00",
+        "entry_cutoff": "12:30",
+        "signal_event": "completed_kbar",
+        "simulated_fill_reference": "current_tick_close",
+        "exit_rule": "breakout_close_below_prior_range_low_or_risk_v1",
+        "stop_loss_pct": 0.025,
+        "take_profit_pct": 0.0,
+        "min_hold_bars": 2,
+        "max_hold_bars": 162,
+        "cooldown_bars": 6,
+        "max_entries_per_day": 1,
+        "coverage_thresholds": {
+          "minimum_training_trading_days": 400,
+          "minimum_evaluation_trading_days": 90,
+          "minimum_warmup_bars": 400,
+          "minimum_evaluation_bars": 1000
+        },
+        "costs": {
+          "stock_fee_rate": 0.001425,
+          "stock_tax_rate": 0.003,
+          "day_trade_tax_rate": 0.0015,
+          "apply_day_trade_tax": true,
+          "slippage_rate": 0.0
+        },
+        "capital_and_original_quantity": {
+          "initial_capital": 100000,
+          "lots": 1,
+          "max_shares_from_lots": 1000,
+          "capital_utilization": 0.95,
+          "position_sizing": "cash_fraction"
+        }
+      }
+    },
+    "candidate_alignment": {
+      "technical_export_selected": "BR_BASE_RANGE60_BB20_2",
+      "hybrid_poc_candidate": "BR_SENS_RANGE55_BB20_2",
+      "v2_control_candidate": "BR_SENS_RANGE55_BB20_2",
+      "v2_control_selection_reason": "END_TO_END_BASELINE_CONTINUITY_NOT_PERFORMANCE_SELECTION",
+      "classification": "V2_CONTROL_DECLARED_HISTORICAL_SELECTION_PRESERVED",
+      "note": "BR_BASE_RANGE60_BB20_2 remains HISTORICAL_TECHNICAL_SELECTION. BR_SENS_RANGE55_BB20_2 is formally designated as V2 control because it continues the completed end-to-end Hybrid POC -> Common Coverage -> Risk V1 chain; this is not a performance selection."
+    }
+  },
+  "ml": {
+    "version": "ML V1 Phase B; label freeze is Fixed ±1%",
+    "models": [
+      "random_forest",
+      "xgboost",
+      "gru"
+    ],
+    "training_period": "2023-01-01/2024-12-31",
+    "industry_training": "industry_specific_training",
+    "full_ml_universe": {
+      "technology": [
+        "2303",
+        "2330",
+        "2379",
+        "2454",
+        "3034"
+      ],
+      "financial": [
+        "2881",
+        "2882",
+        "2884",
+        "2886",
+        "2891"
+      ]
+    },
+    "poc_applied_industry": "technology",
+    "poc_applied_universe": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "poc_universe_difference_classification": "EXPECTED_DIFFERENCE",
+    "label": {
+      "version": "fixed_1pct",
+      "SELL": "future_net_return <= -0.01",
+      "HOLD": "-0.01 < future_net_return < 0.01",
+      "BUY": "future_net_return >= 0.01",
+      "entry_price": "Day T+1 open",
+      "exit_price": "Day T+3 close",
+      "prediction_horizon_trading_sessions": 3,
+      "decision_time": "13:30:00 Asia/Taipei"
+    },
+    "oof_source": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
+    "oof_original_reuse_source": "exports/hybrid_poc_v1_20261013T041446912699/ml_v1_baseline_oof_predictions.csv",
+    "oof_sha256": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b",
+    "oof_validation_from_existing_audit": {
+      "status": "PASS",
+      "models": [
+        "gru",
+        "random_forest",
+        "xgboost"
+      ],
+      "stocks": [
+        "2303",
+        "2330",
+        "2379",
+        "2454",
+        "3034"
+      ],
+      "folds": [
+        "ML_WF1",
+        "ML_WF2",
+        "ML_WF3",
+        "ML_WF4"
+      ],
+      "in_sample_predictions_used": false,
+      "forbidden_roles_used": false
+    },
+    "database_path_in_current_ml_config": "data/market_data.sqlite3",
+    "historical_ml_config_hash_recorded_by_poc": null,
+    "feature_and_label_change_in_poc": false,
+    "parameter_change_in_poc": false
+  },
+  "hybrid": {
+    "experiment_id": "technical-ml-hybrid-poc-v1",
+    "status": "POC_ONLY_NOT_FROZEN",
+    "source": "exports/hybrid_poc_v1_20261013T041540804059",
+    "config": "hybrid/config/hybrid_poc_v1.json",
+    "config_sha256": "8da41c882d533f2b708ceda49fa48fa4d1c06bf732beda0d49fe42c122669a0e",
+    "config_hash_matches_poc_audit": true,
+    "technical_candidate": "BR_SENS_RANGE55_BB20_2",
+    "ml_oof_source": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
+    "gate_semantics": {
+      "BUY": "allow_long_entry",
+      "HOLD": "no_entry",
+      "SELL": "block_long_entry",
+      "short_enabled": false
+    },
+    "alignment": "Day T 13:30 OOF may gate only the recorded Day T+1 Technical BUY_CANDIDATE",
+    "common_coverage_source": "exports/hybrid_common_coverage_20261018T121416162413"
+  },
+  "common_coverage": {
+    "primary_registry_experiment_id": "hybrid-common-coverage-20261017",
+    "primary_source": "exports/hybrid_common_coverage_20261017T233825838996",
+    "risk_v1_consumed_source": "exports/hybrid_common_coverage_20261018T121416162413",
+    "baseline_reference": "exports/hybrid_common_coverage_20261017T233825838996",
+    "status": "Training common-coverage audit PASS; no candidate selection or tuning"
+  },
+  "risk": {
+    "version": "Risk V1",
+    "classification": "RISK_BASELINE",
+    "source": "exports/hybrid_risk_v1_20261018T122032419364",
+    "config": "hybrid/config/risk_v1.json",
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss": 0.025,
+    "common_coverage_source": "exports/hybrid_common_coverage_20261018T121416162413",
+    "parameter_search_performed": false
+  },
+  "data_exposure": {
+    "2023-2024": {
+      "classification": "EXPOSED",
+      "evidence": "Dataset registry records Training data used/viewed in ML and Technical experiments."
+    },
+    "2025-H1": {
+      "classification": "EXPOSED",
+      "evidence": "Dataset registry marks ML Validation rows results_viewed=true and participated_in_development=true."
+    },
+    "2025-H2": {
+      "classification": "UNKNOWN",
+      "evidence": "Registry row is locked with results_viewed=false, but that metadata does not prove no access occurred outside the recorded experiments."
+    },
+    "2026-H1": {
+      "classification": "EXPOSED",
+      "evidence": "Dataset registry marks Development Seen rows results_viewed=true and participated_in_development=true."
+    },
+    "2026-07-onward": {
+      "classification": "PARTIALLY_EXPOSED",
+      "evidence": "Per-stock registry rows for 2026-07-01 through 2026-09-24 have results_viewed=true; the aggregate Final OOS row says false, so the full range is not clean or proven unused."
+    },
+    "final_oos_used_this_closure": false,
+    "metadata_policy_access": "forbidden"
+  },
+  "research_scope": {
+    "single_stock": true,
+    "long_only": true,
+    "short_enabled": false,
+    "portfolio_enabled": false,
+    "portfolio_deferred": true,
+    "final_oos_used_this_closure": false,
+    "parameter_search_performed": false
+  },
+  "source_evidence": [
+    "research/strategy_v2_single_stock_plan.md",
+    "research/strategy_v2_audit.md",
+    "exports/technical_v1_20261013T024919303843/technical_v1_audit.json",
+    "exports/hybrid_poc_v1_20261013T041540804059/hybrid_poc_audit.json",
+    "exports/hybrid_common_coverage_20261017T233825838996/common_coverage_audit.json",
+    "exports/hybrid_common_coverage_20261018T121416162413/common_coverage_audit.json",
+    "exports/hybrid_risk_v1_20261018T122032419364/risk_v1_audit.json",
+    "research/registries/dataset_registry.csv",
+    "research/registries/experiment_registry.csv",
+    "configs/holdout_policy.json"
+  ],
+  "v2_readiness": {
+    "ready": true,
+    "blocking_issue_ids": [],
+    "note": "SV2-01 candidate is declared and SV2-03 is resolved as PASS_WITH_EXPECTED_DIFFERENCES. Historical cleaner/generator provenance remains incomplete and is not claimed fully reproducible. Readiness is for the declared Training-only V2 baseline; exposure classifications and Final OOS policy are unchanged."
+  },
+  "v2_control": {
+    "status": "CANDIDATE_DECLARED_DATA_PARITY_PASS_WITH_EXPECTED_DIFFERENCES",
+    "candidate": "BR_SENS_RANGE55_BB20_2",
+    "candidate_selection_reason": "END_TO_END_BASELINE_CONTINUITY",
+    "candidate_reason_code": "END_TO_END_BASELINE_CONTINUITY_NOT_PERFORMANCE_SELECTION",
+    "historical_poc_reference": {
+      "classification": "HISTORICAL_POC_REFERENCE",
+      "candidate": "BR_SENS_RANGE55_BB20_2",
+      "parameter_fingerprint": "24dbe3030fe335b8e62684e908fbe139315933add7a904c38fae07e0e24707bf",
+      "technical_config_snapshot_available": false,
+      "byte_for_byte_equivalence_claimed": false
+    },
+    "current_v2_control_definition": {
+      "classification": "CURRENT_V2_CONTROL_DEFINITION",
+      "snapshot_kind": "CURRENT_WORKING_TREE_SNAPSHOT_NOT_COMMITTED",
+      "candidate_id": "BR_SENS_RANGE55_BB20_2",
+      "candidate_fingerprint": "14bffa1e7d4e610fcac4471139e829210372fdc42c3540ca4ff347045e79b3a7",
+      "candidate_parameters": {
+        "ma_fast_period": 20,
+        "ma_mid_period": 60,
+        "ma_slow_period": 240,
+        "trend_ma_period": 120,
+        "trend_slope_lookback": 12,
+        "require_trend_filter": true,
+        "bollinger_period": 20,
+        "bollinger_stddev": 2.0,
+        "breakout_entry_period": 55,
+        "breakout_exit_period": 30,
+        "breakout_require_cross": true,
+        "breakout_volume_ratio": 0.0,
+        "volume_ma_period": 20,
+        "use_rsi": false,
+        "use_macd": false
+      },
+      "candidate_definition": {
+        "id": "BR_SENS_RANGE55_BB20_2",
+        "kind": "sensitivity",
+        "base_strategy": "breakout",
+        "single_change": "breakout_entry_period:60->55",
+        "trade_reason": "只調整鄰近區間長度，檢查 60 根設定是否形成孤立參數尖峰。",
+        "params": {
+          "ma_fast_period": 20,
+          "ma_mid_period": 60,
+          "ma_slow_period": 240,
+          "trend_ma_period": 120,
+          "trend_slope_lookback": 12,
+          "require_trend_filter": true,
+          "bollinger_period": 20,
+          "bollinger_stddev": 2.0,
+          "breakout_entry_period": 55,
+          "breakout_exit_period": 30,
+          "breakout_require_cross": true,
+          "breakout_volume_ratio": 0.0,
+          "volume_ma_period": 20,
+          "use_rsi": false,
+          "use_macd": false
+        }
+      },
+      "technical_config_path": "configs/technical_v1_research.json",
+      "current_config_sha256": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+      "technical_source_path": "trading_system/technical_v1.py",
+      "current_source_sha256": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36",
+      "technical_dataset_path": "data/technical_v1_mltech_clean.sqlite3",
+      "technical_database_sha256": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+      "ml_dataset_path": "data/market_data.sqlite3",
+      "ml_database_sha256": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+      "git_commit": "35ec22eea83cabcacaf22a45e0fc66a4eb1209d3",
+      "working_tree_state": {
+        "status": "DIRTY",
+        "technical_config_modified": true,
+        "technical_source_modified": true,
+        "note": "本輪開始前已存在未提交變更；Current V2 Control 以以上檔案 SHA-256 識別。",
+        "git_status_short_at_snapshot": [
+          " M configs/technical_v1_research.json",
+          " D exports/hybrid_poc_v1_20261013T041540804059.zip",
+          " M research/current/strategy_status.json",
+          " M research/registries/dataset_registry.csv",
+          " M research/registries/experiment_registry.csv",
+          " M tests/test_technical_v1.py",
+          " M tests/test_technical_v1_before_55bar_fix.py",
+          " M tests/test_technical_v1_before_mltech_test_fix.py",
+          " M trading_system/technical_v1.py",
+          "?? exports/hybrid_common_coverage_20261017T233825838996.zip",
+          "?? exports/hybrid_common_coverage_20261017T233825838996/",
+          "?? exports/hybrid_common_coverage_20261018T121416162413/",
+          "?? exports/hybrid_risk_v1_20261018T122032419364.zip",
+          "?? exports/hybrid_risk_v1_20261018T122032419364/",
+          "?? hybrid/config/risk_v1.json",
+          "?? hybrid/core/common_coverage.py",
+          "?? hybrid/core/risk_v1.py",
+          "?? hybrid/scripts/build_hybrid_user_report.py",
+          "?? hybrid/scripts/run_hybrid_common_coverage.py",
+          "?? hybrid/scripts/run_hybrid_risk_v1.py",
+          "?? hybrid/tests/test_common_coverage.py",
+          "?? hybrid/tests/test_risk_v1.py",
+          "?? research/strategy_v2_audit.md",
+          "?? research/strategy_v2_baseline_closure.md",
+          "?? research/strategy_v2_baseline_manifest.json",
+          "?? research/strategy_v2_data_parity_audit.md",
+          "?? research/strategy_v2_single_stock_plan.md"
+        ]
+      }
+    },
+    "data_parity_status": "PASS_WITH_EXPECTED_DIFFERENCES",
+    "data_parity_report": "research/strategy_v2_data_parity_audit.md",
+    "data_parity_report_sha256": "ce6e8ebadc0ca009da93d497b27619067694ecf9c4acf19e69b2542febba0ab8",
+    "data_parity_summary": {
+      "training_period": {
+        "start": "2023-01-01",
+        "end": "2024-12-31"
+      },
+      "stock_universe": [
+        "2303",
+        "2330",
+        "2379",
+        "2454",
+        "3034"
+      ],
+      "ohlcv_rows_compared": 113940,
+      "ohlcv_mismatch_rows": 0,
+      "data_parity_status": "PASS_WITH_EXPECTED_DIFFERENCES",
+      "expected_differences": [
+        "ML 13:30 bar is retained by the ML feature contract; Technical session ends at 13:25.",
+        "Technical dates are the five-stock intersection of complete 09:00-13:25 sessions.",
+        "295 weekday stock-dates are classified: 226 global-intersection exclusions and 69 own-session-incomplete exclusions."
+      ],
+      "unexplained_differences": 0,
+      "historical_cleaner_provenance": "INCOMPLETE; GENERATOR NOT FOUND; NOT FULLY_REPRODUCIBLE",
+      "common_coverage_candidate_alignment": {
+        "candidate_count": 192,
+        "decision_rows": 576,
+        "prior_trading_day_alignment": "PASS"
+      },
+      "raw_data_sample_parity": "PASS_WITH_EXPECTED_DIFFERENCES"
+    },
+    "training_period": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    },
+    "single_stock": true,
+    "long_only": true,
+    "portfolio_enabled": false,
+    "short_enabled": false,
+    "sv2_01_resolved": true,
+    "sv2_03_resolved": true,
+    "remaining_baseline_issues": [],
+    "baseline_ready_for_v2": true,
+    "root_cause_report": "research/strategy_v2_missing_date_root_cause.md",
+    "technical_date_eligibility": "GLOBAL_INTERSECTION_OF_ALL_STOCKS_WITH_COMPLETE_SESSION",
+    "technical_session": "09:00-13:25",
+    "expected_bars_per_day": 54,
+    "incomplete_session_policy": "EXCLUDE_NO_FILL",
+    "global_intersection_behavior": "IF_ANY_STOCK_IN_UNIVERSE_IS_INCOMPLETE, EXCLUDE_THAT_DATE_FOR_ALL_FIVE_STOCKS",
+    "provenance_status": "INFERRED_FROM_OUTPUT_SET_GENERATOR_NOT_FOUND",
+    "canonical_raw_source": "data/market_data.sqlite3",
+    "canonical_raw_source_status": "RECOMMENDED",
+    "missing_date_breakdown": {
+      "expected_global_intersection": 226,
+      "expected_session_incomplete": 69,
+      "unexplained_removal": 0,
+      "bug": 0
+    }
+  }
+}

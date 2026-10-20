@@ -1,0 +1,383 @@
+{
+  "status": "COMPLETED",
+  "experiment_id": "strategy-v2-technical-batch-20261019T094810074002",
+  "generated_at": "2026-10-19T10:06:14+08:00",
+  "classification": "BATCH_COMPLETED",
+  "classifications": {
+    "TECH_V2_A": "MIXED",
+    "TECH_V2_B": "SUPPORTED",
+    "TECH_V2_C": "MIXED"
+  },
+  "classification_rule_source": "research/strategy_v2_technical_batch_execution.md",
+  "execution_contract": "NEXT_TRADABLE_BAR_OPEN",
+  "data_role": "training_development_exposed",
+  "period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "stock_universe": [
+    "2303",
+    "2330",
+    "2379",
+    "2454",
+    "3034"
+  ],
+  "technical_candidate": "BR_SENS_RANGE55_BB20_2",
+  "models": [
+    "random_forest",
+    "xgboost",
+    "gru"
+  ],
+  "folds": [
+    "WF1",
+    "WF2",
+    "WF3"
+  ],
+  "common_coverage_candidate_count": 192,
+  "result_matrix_rows": 180,
+  "risk_parameters": {
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025
+  },
+  "technical_config_sha256": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+  "technical_source_sha256": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36",
+  "technical_database_sha256_before": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "technical_database_sha256_after": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "oof_path": "exports\\hybrid_poc_v1_20261013T041540804059\\ml_v1_baseline_oof_predictions.csv",
+  "oof_sha256": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b",
+  "common_coverage_path": "exports\\hybrid_common_coverage_20261018T121416162413",
+  "common_coverage_audit": {
+    "status": "PASS",
+    "technical_candidate_count": 248,
+    "common_candidate_count": 192,
+    "excluded_candidate_count": 56,
+    "excluded_reasons": {
+      "MISSING_RANDOM_FOREST_OOF": 41,
+      "MISSING_XGBOOST_OOF": 41,
+      "MISSING_GRU_OOF": 41,
+      "INVALID_RANDOM_FOREST_PRIOR_SESSION": 15,
+      "INVALID_XGBOOST_PRIOR_SESSION": 15,
+      "INVALID_GRU_PRIOR_SESSION": 15
+    },
+    "models": [
+      "random_forest",
+      "xgboost",
+      "gru"
+    ],
+    "valid_candidate_count_by_model": {
+      "random_forest": 192,
+      "xgboost": 192,
+      "gru": 192
+    },
+    "decisions_per_model": {
+      "random_forest": 192,
+      "xgboost": 192,
+      "gru": 192
+    },
+    "missing": 0,
+    "invalid": 0,
+    "non_oof": 0,
+    "training_only": true,
+    "date_min": "2023-09-04",
+    "date_max": "2024-12-20",
+    "previous_actual_trading_session_checked": true,
+    "experiment_id": "hybrid-common-coverage-20261018T121416162413",
+    "created_at": "2026-10-18T12:14:16.163919+08:00",
+    "purpose": "Training-only fair comparison on Technical × RF × XGBoost × GRU common OOF coverage.",
+    "scope": {
+      "data_role": "training",
+      "period": [
+        "2023-01-01",
+        "2024-12-31"
+      ],
+      "stock_universe": [
+        "2303",
+        "2330",
+        "2379",
+        "2454",
+        "3034"
+      ]
+    },
+    "coverage_guardrail": {
+      "previous_successful_training_days": 422,
+      "previous_successful_wf3_evaluation_days": 94,
+      "source_commit": "ea8c43f",
+      "training_threshold": 400,
+      "evaluation_threshold": 90,
+      "reason": "恢復既有 Research Coverage Guardrail，使目前固定 ML-Tech Universe 與 EXCLUDE_NO_FILL clean dataset 的研究設定一致。",
+      "evidence": [
+        "git:ea8c43f:程式/configs/technical_v1_research.json specifies 400/90 and clean SQLite",
+        "exports/technical_v1_20261013T024919303843/technical_v1_audit.json records READY with 422 days and WF3=94",
+        "exports/hybrid_poc_v1_20261013T041540804059/hybrid_poc_audit.json references that Technical source and matching hashes"
+      ],
+      "latest_preflight": "exports\\technical_v1_20261017T232930995429\\technical_v1_audit.json",
+      "latest_preflight_status": "PREFLIGHT_READY"
+    },
+    "inputs": {
+      "technical_source_run": "exports\\technical_v1_20261013T024919303843",
+      "technical_source_hashes": {
+        "technical_v1_audit.json": "9fa41b1b867013b61d90f5be59190950b6136764382c16168eb86778fe9ac8cb",
+        "technical_v1_results.json": "46400f793fb235e3f0a98cc2e2368577535615efaf58de0b016b4d34184762a6",
+        "technical_v1_signals.csv": "47e5d90cfff4ecd9e73960a6e85ded42a5b0a60b10942cf538f4bc4e04837eb2"
+      },
+      "poc_audit": "exports\\hybrid_poc_v1_20261013T041540804059\\hybrid_poc_audit.json",
+      "oof_artifact": "exports\\hybrid_poc_v1_20261013T041540804059\\ml_v1_baseline_oof_predictions.csv",
+      "oof_sha256": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b",
+      "existing_poc_export_hashes": {
+        "hybrid_poc_alignment.csv": "6c14cc18bcce1af4a9a8b8c38df54ea1bfaec8fef9c9d6bec6c0607e10f24e8b",
+        "hybrid_poc_audit.json": "517b099c0ab93e6515dfee784457552bf5ee012f41196312287d3813c39c035d",
+        "hybrid_poc_decisions.csv": "bb64ac81766e78a5fd8b1921f9074ba73b1ea3bda36af29752a2acf605026262",
+        "hybrid_poc_report.html": "b26950a2d85049eb3fd4ccc16172cbc767cd91e207e4da885e2cc7550b45a532",
+        "hybrid_poc_results.csv": "d88e1e505faccfbf6b3c312fc1f1201f6ec699450a3c66a96a059e54e6457ccd",
+        "hybrid_poc_results.json": "2b309eec6dc37c5f6a387b95c2a6f6816f3eff42f091f150a8a5db1018d96628",
+        "hybrid_poc_summary.csv": "04d4844955815192c11f229938f549a2e68e64ce0a28387de0666af1ebb254ca",
+        "hybrid_poc_trades.csv": "208b39a0bd76def9276e02821e7f5b9aceca5c5933ba756f34d218e49b67d1e1",
+        "hybrid_poc_user_report.html": "3581d639a5a53c79078a5beed870815932d8c3b28c347bcb785a6ea285ae320e",
+        "ml_v1_baseline_oof_predictions.csv": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b",
+        "technical_signal_input.csv": "1f6bf6fb970910a12b1d3a1a540b718b051200abea3efe8bd245f776afad94ba"
+      },
+      "database": "data\\technical_v1_mltech_clean.sqlite3",
+      "database_sha256_before": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+      "database_sha256_after": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717"
+    },
+    "comparison_variants": [
+      "technical_common_coverage",
+      "hybrid_random_forest_common",
+      "hybrid_xgboost_common",
+      "hybrid_gru_common"
+    ],
+    "candidate_schedule_restriction_only": true,
+    "technical_exit_or_risk_changed": false,
+    "ml_parameters_changed": false,
+    "hybrid_gate_changed": false,
+    "buy_counts": {
+      "random_forest": 43,
+      "xgboost": 39,
+      "gru": 38
+    },
+    "result_classification": "COMMON_COVERAGE_MIXED",
+    "interpretation": "Common coverage 下 RF 與 XGBoost 平均報酬高於 Technical，GRU 僅略高；三個 Hybrid 的最差回撤都較低且交易數明顯減少，但勝率都較低，個股與 Fold 的報酬方向不完全一致，因此整體判為 MIXED。",
+    "objective_findings": {
+      "random_forest": {
+        "average_return_higher_than_technical": true,
+        "average_return_difference": 0.020031479116666674,
+        "worst_mdd_lower_than_technical": true,
+        "worst_mdd_difference": -0.11351897683990343,
+        "trade_count": 43,
+        "trade_reduction_count": 149,
+        "trade_reduction_rate": 0.7760416666666666,
+        "stocks_with_higher_average_return": 4,
+        "folds_with_higher_average_return": 2,
+        "folds_with_lower_worst_mdd": 3,
+        "average_win_rate_higher_than_technical": false,
+        "average_profit_factor_higher_than_technical": true
+      },
+      "xgboost": {
+        "average_return_higher_than_technical": true,
+        "average_return_difference": 0.02434145720833334,
+        "worst_mdd_lower_than_technical": true,
+        "worst_mdd_difference": -0.14333952279552303,
+        "trade_count": 39,
+        "trade_reduction_count": 153,
+        "trade_reduction_rate": 0.796875,
+        "stocks_with_higher_average_return": 4,
+        "folds_with_higher_average_return": 3,
+        "folds_with_lower_worst_mdd": 3,
+        "average_win_rate_higher_than_technical": false,
+        "average_profit_factor_higher_than_technical": true
+      },
+      "gru": {
+        "average_return_higher_than_technical": true,
+        "average_return_difference": 0.00029519721666667123,
+        "worst_mdd_lower_than_technical": true,
+        "worst_mdd_difference": -0.12908688125288542,
+        "trade_count": 38,
+        "trade_reduction_count": 154,
+        "trade_reduction_rate": 0.8020833333333334,
+        "stocks_with_higher_average_return": 3,
+        "folds_with_higher_average_return": 1,
+        "folds_with_lower_worst_mdd": 3,
+        "average_win_rate_higher_than_technical": false,
+        "average_profit_factor_higher_than_technical": false
+      }
+    },
+    "runtime_decision_count_by_model": {
+      "random_forest": 192,
+      "xgboost": 192,
+      "gru": 192
+    },
+    "controlled_validation_used": false,
+    "development_used": false,
+    "additional_holdout_used": false,
+    "final_oos_used": false,
+    "forbidden_roles_used": false,
+    "raw_database_modified": false,
+    "existing_poc_exports_overwritten": false,
+    "candidate_selected": false,
+    "optimization_performed": false,
+    "research_logic_changed": false
+  },
+  "control_reproduction_against_risk_v1": {
+    "random_forest": {
+      "status": "PASS",
+      "row_count": 15,
+      "metrics_match": {
+        "total_return": true,
+        "max_drawdown": true,
+        "win_rate": true,
+        "profit_factor": true,
+        "sharpe_ratio": true,
+        "trade_count": true,
+        "net_pnl": true,
+        "transaction_cost": true,
+        "gross_pnl": true,
+        "final_equity": true
+      }
+    },
+    "xgboost": {
+      "status": "PASS",
+      "row_count": 15,
+      "metrics_match": {
+        "total_return": true,
+        "max_drawdown": true,
+        "win_rate": true,
+        "profit_factor": true,
+        "sharpe_ratio": true,
+        "trade_count": true,
+        "net_pnl": true,
+        "transaction_cost": true,
+        "gross_pnl": true,
+        "final_equity": true
+      }
+    },
+    "gru": {
+      "status": "PASS",
+      "row_count": 15,
+      "metrics_match": {
+        "total_return": true,
+        "max_drawdown": true,
+        "win_rate": true,
+        "profit_factor": true,
+        "sharpe_ratio": true,
+        "trade_count": true,
+        "net_pnl": true,
+        "transaction_cost": true,
+        "gross_pnl": true,
+        "final_equity": true
+      }
+    }
+  },
+  "hybrid_gate_parity_on_shared_candidate_decisions": {
+    "random_forest": {
+      "TECH_V2_A": {
+        "shared_candidate_decisions": 185,
+        "matches_on_shared_decisions": true
+      },
+      "TECH_V2_B": {
+        "shared_candidate_decisions": 138,
+        "matches_on_shared_decisions": true
+      },
+      "TECH_V2_C": {
+        "shared_candidate_decisions": 192,
+        "matches_on_shared_decisions": true
+      }
+    },
+    "xgboost": {
+      "TECH_V2_A": {
+        "shared_candidate_decisions": 185,
+        "matches_on_shared_decisions": true
+      },
+      "TECH_V2_B": {
+        "shared_candidate_decisions": 138,
+        "matches_on_shared_decisions": true
+      },
+      "TECH_V2_C": {
+        "shared_candidate_decisions": 192,
+        "matches_on_shared_decisions": true
+      }
+    },
+    "gru": {
+      "TECH_V2_A": {
+        "shared_candidate_decisions": 185,
+        "matches_on_shared_decisions": true
+      },
+      "TECH_V2_B": {
+        "shared_candidate_decisions": 138,
+        "matches_on_shared_decisions": true
+      },
+      "TECH_V2_C": {
+        "shared_candidate_decisions": 192,
+        "matches_on_shared_decisions": true
+      }
+    }
+  },
+  "v2b_regime_context": {
+    "daily_dates_in_period": 422,
+    "complete_global_intersection_days": 422,
+    "candidate_dates": 119,
+    "target_date_contexts": 595,
+    "missing_20_session_contexts": 0,
+    "source_rule": "equal-weight arithmetic mean of other four completed closes; common complete 54-bar days; strict prior date; no fill"
+  },
+  "filter_audit": {
+    "CONTROL": {
+      "candidate_checks": 0,
+      "rejected": 0,
+      "missing_context": 0
+    },
+    "TECH_V2_A": {
+      "candidate_checks": 576,
+      "rejected": 21,
+      "missing_context": 0
+    },
+    "TECH_V2_B": {
+      "candidate_checks": 576,
+      "rejected": 162,
+      "missing_context": 0
+    },
+    "TECH_V2_C": {
+      "candidate_checks": 0,
+      "rejected": 0,
+      "missing_context": 0
+    }
+  },
+  "variant_rules": {
+    "CONTROL": "unchanged Technical V2 control",
+    "TECH_V2_A": "completed signal volume > mean of preceding 20 completed bars; signal bar excluded",
+    "TECH_V2_B": "target-excluded equal-weight peer close proxy above trailing 20 common-session SMA using latest prior session",
+    "TECH_V2_C": "replace breakout low-30 exit with completed close below EMA20; retain stop/min hold/other safety exits"
+  },
+  "independent_variants_only": true,
+  "combination_variants_run": false,
+  "parameter_search_performed": false,
+  "ml_retrained": false,
+  "oof_reused": true,
+  "hybrid_gate_changed": false,
+  "risk_parameters_changed": false,
+  "technical_database_modified": false,
+  "technical_source_modified": false,
+  "2025_used": false,
+  "2026_used": false,
+  "final_oos_used": false,
+  "short_implemented": false,
+  "portfolio_enabled": false,
+  "control_signal_parity": "PASS_SOURCE_CANDIDATE_IDENTITY_FROZEN",
+  "no_future_bar_used_before_signal": true,
+  "output_files": [
+    "technical_v2_comparison.csv",
+    "technical_v2_control.csv",
+    "technical_v2_expA.csv",
+    "technical_v2_expB.csv",
+    "technical_v2_expC.csv",
+    "technical_v2_gate_decisions.csv",
+    "technical_v2_per_fold.csv",
+    "technical_v2_per_stock.csv",
+    "technical_v2_results.csv",
+    "technical_v2_risk_decisions.csv",
+    "technical_v2_trades.csv",
+    "technical_v2_report.html",
+    "technical_v2_user_analysis.html",
+    "technical_v2_batch_audit.json"
+  ]
+}

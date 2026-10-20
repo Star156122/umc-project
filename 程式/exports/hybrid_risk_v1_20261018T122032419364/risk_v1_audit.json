@@ -1,0 +1,173 @@
+{
+  "status": "COMPLETED",
+  "experiment_id": "hybrid-risk-v1-20261018T122032419364",
+  "data_role": "training",
+  "period": [
+    "2023-01-01",
+    "2024-12-31"
+  ],
+  "stock_universe": [
+    "2303",
+    "2330",
+    "2379",
+    "2454",
+    "3034"
+  ],
+  "common_candidate_count": 192,
+  "baseline_reproduction": "PASS",
+  "baseline_reproduction_metrics": {
+    "technical_common_coverage": {
+      "average_return": {
+        "reference": -0.0087246125166666,
+        "reproduced": -0.008724612516666673,
+        "match": true
+      },
+      "trade_count": {
+        "reference": 192.0,
+        "reproduced": 192.0,
+        "match": true
+      },
+      "net_pnl": {
+        "reference": -13086.918775000004,
+        "reproduced": -13086.918775000004,
+        "match": true
+      },
+      "transaction_cost": {
+        "reference": 90899.918775,
+        "reproduced": 90899.918775,
+        "match": true
+      },
+      "worst_mdd": {
+        "reference": 0.1990874397528854,
+        "reproduced": 0.19908743975288548,
+        "match": true
+      }
+    },
+    "hybrid_random_forest_common": {
+      "average_return": {
+        "reference": 0.0113068666,
+        "reproduced": 0.011306866600000002,
+        "match": true
+      },
+      "trade_count": {
+        "reference": 43.0,
+        "reproduced": 43.0,
+        "match": true
+      },
+      "net_pnl": {
+        "reference": 16960.299899999995,
+        "reproduced": 16960.299899999995,
+        "match": true
+      },
+      "transaction_cost": {
+        "reference": 21349.7001,
+        "reproduced": 21349.7001,
+        "match": true
+      },
+      "worst_mdd": {
+        "reference": 0.085568462912982,
+        "reproduced": 0.08556846291298205,
+        "match": true
+      }
+    },
+    "hybrid_xgboost_common": {
+      "average_return": {
+        "reference": 0.0156168446916666,
+        "reproduced": 0.015616844691666666,
+        "match": true
+      },
+      "trade_count": {
+        "reference": 39.0,
+        "reproduced": 39.0,
+        "match": true
+      },
+      "net_pnl": {
+        "reference": 23425.267037499994,
+        "reproduced": 23425.267037499994,
+        "match": true
+      },
+      "transaction_cost": {
+        "reference": 19318.23296250001,
+        "reproduced": 19318.232962500006,
+        "match": true
+      },
+      "worst_mdd": {
+        "reference": 0.0557479169573624,
+        "reproduced": 0.05574791695736246,
+        "match": true
+      }
+    },
+    "hybrid_gru_common": {
+      "average_return": {
+        "reference": -0.0084294153,
+        "reproduced": -0.008429415300000001,
+        "match": true
+      },
+      "trade_count": {
+        "reference": 38.0,
+        "reproduced": 38.0,
+        "match": true
+      },
+      "net_pnl": {
+        "reference": -12644.12295,
+        "reproduced": -12644.12295,
+        "match": true
+      },
+      "transaction_cost": {
+        "reference": 19115.12295,
+        "reproduced": 19115.12295,
+        "match": true
+      },
+      "worst_mdd": {
+        "reference": 0.0700005585,
+        "reproduced": 0.07000055850000005,
+        "match": true
+      }
+    }
+  },
+  "risk_per_trade": 0.01,
+  "max_position_fraction": 0.4,
+  "existing_stop_loss_pct": 0.025,
+  "gate_parity_by_model": {
+    "random_forest": true,
+    "xgboost": true,
+    "gru": true
+  },
+  "trade_timing_parity": {
+    "matched_entry_exit_pairs": 120,
+    "baseline_pairs_without_risk_trade": 0
+  },
+  "zero_quantity_blocks": 0,
+  "risk_reduced_entries": 120,
+  "classification_rule": "SUPPORTIVE: all 3 models reduce worst MDD and retain >=50% absolute average-return magnitude; NOT_SUPPORTIVE: no model reduces worst MDD, or fewer than 2 improve while all retain <50%; otherwise MIXED.",
+  "models_with_improved_worst_mdd": 3,
+  "return_magnitude_retained_by_model": {
+    "random_forest": false,
+    "xgboost": false,
+    "gru": false
+  },
+  "result_classification": "RISK_V1_MIXED",
+  "interpretation": "最差 MDD 在 3/3 個模型降低；1% 風險預算與 40% Exposure 上限為事前固定，報酬與風險變化須一併解讀。",
+  "technical_strategy_changed": false,
+  "technical_parameters_changed": false,
+  "ml_changed": false,
+  "hybrid_gate_changed": false,
+  "stop_loss_changed": false,
+  "exit_logic_changed": false,
+  "common_coverage_changed": false,
+  "risk_position_sizing_added": true,
+  "optimization_performed": false,
+  "parameter_search_performed": false,
+  "final_oos_used": false,
+  "controlled_validation_used": false,
+  "development_used": false,
+  "additional_holdout_used": false,
+  "forbidden_roles_used": false,
+  "database_sha256_before": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "database_sha256_after": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "common_coverage_source": "exports\\hybrid_common_coverage_20261018T121416162413",
+  "baseline_reference": "exports\\hybrid_common_coverage_20261017T233825838996",
+  "technical_preflight": "exports\\technical_v1_20261017T232930995429\\technical_v1_audit.json",
+  "existing_common_exports_overwritten": false,
+  "parameter_search": false
+}

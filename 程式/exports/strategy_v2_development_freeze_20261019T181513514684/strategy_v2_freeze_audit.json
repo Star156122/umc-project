@@ -1,0 +1,60 @@
+{
+  "status": "COMPLETED_FROM_EXISTING_EVIDENCE",
+  "freeze_id": "strategy-v2-single-stock-development-freeze-20261019T181513514684",
+  "generated_at": "2026-10-19T18:15:13.514684+08:00",
+  "input_source_directory": "exports\\risk_v2_exp001_20261019T180446688808",
+  "input_files": {
+    "risk_v2_exp001_overall.csv": "1a1f9a6344d4800dc236e552eb50e49197dbd05fb4da86c10f6e084457044b6e",
+    "risk_v2_exp001_per_stock.csv": "0dc7efc9fccb2f7f46a13ec5ad8cada7118414c68ea500962a24ca7d22bf040a",
+    "risk_v2_exp001_per_fold.csv": "9d04fecb3a03d2b4b9027a205a6afc389190db8ad403fd47b404dc2ee3ce46d7",
+    "risk_v2_exp001_audit.json": "9ad8842fcab3cf3627f63dbd938d36d1586192398f5ef186045f7b10548c282f"
+  },
+  "rows_copied": {
+    "overall": 1,
+    "per_stock": 5,
+    "per_fold": 3
+  },
+  "risk_v1_reproduction": "PASS",
+  "data_period": [
+    "2023-01-01",
+    "2024-12-31"
+  ],
+  "data_roles_opened": [
+    "EXPOSED_DEVELOPMENT_2023_2024_EXISTING_EXPORTS_ONLY"
+  ],
+  "raw_database_opened": false,
+  "forbidden_period_data_read": false,
+  "final_oos_used": false,
+  "ml_retrained": false,
+  "backtest_run": false,
+  "parameter_search_performed": false,
+  "strategy_changed": false,
+  "source_hashes": {
+    "technical_config": {
+      "path": "configs/technical_v2_candidate.json",
+      "sha256": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5"
+    },
+    "technical_source": {
+      "path": "trading_system/technical_v1.py",
+      "sha256": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36"
+    },
+    "ml_oof": {
+      "path": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
+      "sha256": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b"
+    },
+    "risk_config": {
+      "path": "hybrid/config/risk_v1.json",
+      "sha256": "9035e97a0c9dff8f481af47d69147566712422e46222f9b1db5bbe66135d59ec"
+    },
+    "technical_database": {
+      "path": "data/technical_v1_mltech_clean.sqlite3",
+      "sha256": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+      "hash_source": "existing parity audit snapshot; raw DB not opened by this freeze"
+    },
+    "ml_database": {
+      "path": "data/market_data.sqlite3",
+      "sha256": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+      "hash_source": "existing parity audit snapshot; raw DB not opened by this freeze"
+    }
+  }
+}

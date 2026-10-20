@@ -1,0 +1,4 @@
+﻿fold_id,train_candidate_count,validation_candidate_count,train_class_counts,validation_class_counts,per_stock_train,per_stock_validation,train_has_all_classes,status
+WF1,51,48,"{'SELL': 11, 'HOLD': 23, 'BUY': 17}","{'SELL': 10, 'HOLD': 20, 'BUY': 18}","{'2303': 8, '2330': 8, '2379': 13, '2454': 7, '3034': 15}","{'2303': 11, '2330': 11, '2379': 9, '2454': 8, '3034': 9}",True,READY
+WF2,108,66,"{'SELL': 25, 'HOLD': 45, 'BUY': 38}","{'SELL': 23, 'HOLD': 11, 'BUY': 32}","{'2303': 21, '2330': 19, '2379': 23, '2454': 17, '3034': 28}","{'2303': 12, '2330': 13, '2379': 14, '2454': 13, '3034': 14}",True,READY
+WF3,173,24,"{'SELL': 48, 'HOLD': 54, 'BUY': 71}","{'SELL': 5, 'HOLD': 8, 'BUY': 11}","{'2303': 33, '2330': 32, '2379': 36, '2454': 31, '3034': 41}","{'2303': 4, '2330': 6, '2379': 5, '2454': 4, '3034': 5}",True,READY
