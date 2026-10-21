@@ -1,0 +1,4 @@
+﻿model,block_reason,candidate_count,scope
+gru,NO_ENGINE_CANDIDATE_EVENT,11,ML BUY candidates after regime pass
+random_forest,NO_ENGINE_CANDIDATE_EVENT,19,ML BUY candidates after regime pass
+xgboost,NO_ENGINE_CANDIDATE_EVENT,16,ML BUY candidates after regime pass

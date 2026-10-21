@@ -1,0 +1,318 @@
+{
+  "status": "COMPLETED",
+  "experiment_id": "strategy-representative-benchmark-exp001",
+  "generated_at": "2026-10-20T11:23:02+08:00",
+  "data_role": "EXPOSED_TRAINING_DEVELOPMENT",
+  "period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "subjects": [
+    {
+      "stock_code": "2330",
+      "stock_name": "台積電"
+    },
+    {
+      "stock_code": "2454",
+      "stock_name": "聯發科"
+    },
+    {
+      "stock_code": "2303",
+      "stock_name": "聯電"
+    }
+  ],
+  "proxy_only_codes": [
+    "2379",
+    "3034"
+  ],
+  "proxy_only_use_authorized": true,
+  "proxy_only_individual_metrics_computed": false,
+  "proxy_only_performance_used": false,
+  "technical_candidate": "BR_SENS_RANGE55_BB20_2",
+  "technical_variant": "TECH_V2_B_MARKET_REGIME_FILTER",
+  "models": [
+    "random_forest",
+    "xgboost",
+    "gru"
+  ],
+  "folds": [
+    {
+      "id": "WF1",
+      "train_start": "2023-01-01",
+      "train_end": "2023-06-30",
+      "evaluate_start": "2023-07-01",
+      "evaluate_end": "2023-12-31"
+    },
+    {
+      "id": "WF2",
+      "train_start": "2023-01-01",
+      "train_end": "2023-12-31",
+      "evaluate_start": "2024-01-01",
+      "evaluate_end": "2024-06-30"
+    },
+    {
+      "id": "WF3",
+      "train_start": "2023-01-01",
+      "train_end": "2024-06-30",
+      "evaluate_start": "2024-07-01",
+      "evaluate_end": "2024-12-31"
+    }
+  ],
+  "common_coverage_status": "PASS",
+  "common_coverage_candidate_count": 119,
+  "common_coverage_exclusion_count": 28,
+  "coverage_exclusion_reasons": {
+    "MISSING_RANDOM_FOREST_OOF; MISSING_XGBOOST_OOF; MISSING_GRU_OOF": 18,
+    "INVALID_RANDOM_FOREST_PRIOR_SESSION; INVALID_XGBOOST_PRIOR_SESSION; INVALID_GRU_PRIOR_SESSION": 10
+  },
+  "walk_forward_account_count": 9,
+  "result_row_count": 45,
+  "technical_only_candidate_schedule_shared_with_hybrid": true,
+  "execution_contract": "completed_signal_kbar_to_next_tradable_5min_bar_open",
+  "risk_v1": {
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025,
+    "quantity_rule": "integer_shares_from_existing_engine"
+  },
+  "buy_hold_quantity_rule": "maximum affordable whole-share quantity after purchase commission; no 1,000-share cap",
+  "transaction_cost_source": "configs/technical_v1_research.json; buy/sell commission and sell tax",
+  "regime_context_audit": {
+    "proxy_rule": "equal-weight completed close of other four Core Universe stocks; target excluded",
+    "complete_common_session_count": 422,
+    "context_target_stock_count": 3,
+    "context_target_dates": 276,
+    "proxy_only_codes": [
+      "2379",
+      "3034"
+    ],
+    "proxy_only_outcomes_computed": false,
+    "date_bounds_queried": [
+      "2023-01-01",
+      "2024-12-31"
+    ]
+  },
+  "technical_only_filter_audits": {
+    "TECHNICAL_ONLY/2330/WF1": {
+      "candidate_checks": 12,
+      "rejected": 1,
+      "missing_context": 0
+    },
+    "TECHNICAL_ONLY/2454/WF1": {
+      "candidate_checks": 9,
+      "rejected": 1,
+      "missing_context": 0
+    },
+    "TECHNICAL_ONLY/2303/WF1": {
+      "candidate_checks": 12,
+      "rejected": 1,
+      "missing_context": 0
+    },
+    "TECHNICAL_ONLY/2330/WF2": {
+      "candidate_checks": 21,
+      "rejected": 8,
+      "missing_context": 0
+    },
+    "TECHNICAL_ONLY/2454/WF2": {
+      "candidate_checks": 18,
+      "rejected": 5,
+      "missing_context": 0
+    },
+    "TECHNICAL_ONLY/2303/WF2": {
+      "candidate_checks": 16,
+      "rejected": 4,
+      "missing_context": 0
+    },
+    "TECHNICAL_ONLY/2330/WF3": {
+      "candidate_checks": 14,
+      "rejected": 8,
+      "missing_context": 0
+    },
+    "TECHNICAL_ONLY/2454/WF3": {
+      "candidate_checks": 8,
+      "rejected": 4,
+      "missing_context": 0
+    },
+    "TECHNICAL_ONLY/2303/WF3": {
+      "candidate_checks": 9,
+      "rejected": 5,
+      "missing_context": 0
+    }
+  },
+  "hybrid_classifications": {
+    "random_forest": "MIXED",
+    "xgboost": "CLEARLY_STRONGER",
+    "gru": "MIXED"
+  },
+  "hybrid_incremental_evidence": [
+    {
+      "model": "random_forest",
+      "hybrid_strategy": "HYBRID_RF",
+      "classification": "MIXED",
+      "paired_cells": 9,
+      "mean_return_delta": 0.0014562322624999977,
+      "return_improve_or_tie_cells": 5,
+      "mdd_improve_or_tie_cells": 9,
+      "sharpe_improve_or_tie_cells": 7,
+      "stocks_with_strict_any_improvement": 3,
+      "folds_with_strict_any_improvement": 3
+    },
+    {
+      "model": "xgboost",
+      "hybrid_strategy": "HYBRID_XGB",
+      "classification": "CLEARLY_STRONGER",
+      "paired_cells": 9,
+      "mean_return_delta": 0.0039777237097222105,
+      "return_improve_or_tie_cells": 6,
+      "mdd_improve_or_tie_cells": 9,
+      "sharpe_improve_or_tie_cells": 6,
+      "stocks_with_strict_any_improvement": 3,
+      "folds_with_strict_any_improvement": 3
+    },
+    {
+      "model": "gru",
+      "hybrid_strategy": "HYBRID_GRU",
+      "classification": "MIXED",
+      "paired_cells": 9,
+      "mean_return_delta": -0.009053524570833329,
+      "return_improve_or_tie_cells": 4,
+      "mdd_improve_or_tie_cells": 9,
+      "sharpe_improve_or_tie_cells": 2,
+      "stocks_with_strict_any_improvement": 3,
+      "folds_with_strict_any_improvement": 3
+    }
+  ],
+  "hybrid_v2b_reproduction_against_frozen_batch": [
+    {
+      "model": "random_forest",
+      "status": "PASS",
+      "metrics": {
+        "total_return": {
+          "max_abs_diff": 3.469446951953614e-18,
+          "match": true
+        },
+        "max_drawdown": {
+          "max_abs_diff": 7.112366251504909e-17,
+          "match": true
+        },
+        "sharpe_ratio": {
+          "max_abs_diff": 2.220446049250313e-16,
+          "match": true
+        },
+        "trade_count": {
+          "max_abs_diff": 0.0,
+          "match": true
+        },
+        "net_pnl": {
+          "max_abs_diff": 0.0,
+          "match": true
+        },
+        "transaction_cost": {
+          "max_abs_diff": 0.0,
+          "match": true
+        }
+      }
+    },
+    {
+      "model": "xgboost",
+      "status": "PASS",
+      "metrics": {
+        "total_return": {
+          "max_abs_diff": 9.71445146547012e-17,
+          "match": true
+        },
+        "max_drawdown": {
+          "max_abs_diff": 9.627715291671279e-17,
+          "match": true
+        },
+        "sharpe_ratio": {
+          "max_abs_diff": 4.440892098500626e-16,
+          "match": true
+        },
+        "trade_count": {
+          "max_abs_diff": 0.0,
+          "match": true
+        },
+        "net_pnl": {
+          "max_abs_diff": 9.094947017729282e-13,
+          "match": true
+        },
+        "transaction_cost": {
+          "max_abs_diff": 2.842170943040401e-14,
+          "match": true
+        }
+      }
+    },
+    {
+      "model": "gru",
+      "status": "PASS",
+      "metrics": {
+        "total_return": {
+          "max_abs_diff": 8.500145032286355e-17,
+          "match": true
+        },
+        "max_drawdown": {
+          "max_abs_diff": 8.933825901280557e-17,
+          "match": true
+        },
+        "sharpe_ratio": {
+          "max_abs_diff": 1.1102230246251565e-16,
+          "match": true
+        },
+        "trade_count": {
+          "max_abs_diff": 0.0,
+          "match": true
+        },
+        "net_pnl": {
+          "max_abs_diff": 0.0,
+          "match": true
+        },
+        "transaction_cost": {
+          "max_abs_diff": 2.842170943040401e-14,
+          "match": true
+        }
+      }
+    }
+  ],
+  "execution_fill_audit": {
+    "status": "PASS",
+    "entry_fills_checked": 128,
+    "entry_fills_at_next_bar_open": 128,
+    "failures": []
+  },
+  "overall_aggregation": "arithmetic mean across independent stock-fold accounts; not portfolio return",
+  "forbidden_access": {
+    "2025_used": false,
+    "2026_used": false,
+    "final_oos_used": false,
+    "controlled_validation_used": false,
+    "additional_holdout_used": false
+  },
+  "research_actions": {
+    "parameter_search_performed": false,
+    "ml_retrained": false,
+    "technical_changed": false,
+    "hybrid_gate_changed": false,
+    "risk_parameters_changed": false,
+    "portfolio_enabled": false,
+    "short_implemented": false,
+    "v3_started": false
+  },
+  "database_path": "data\\technical_v1_mltech_clean.sqlite3",
+  "database_sha256_before": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "database_sha256_after": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "source_hashes": {
+    "exports\\hybrid_common_coverage_20261018T121416162413\\common_coverage_audit.json": "3794b3c4b31b251de6b59f853873e802292143cbd2377faabeca8afdd5b171e8",
+    "exports\\hybrid_common_coverage_20261018T121416162413\\common_coverage_candidates.csv": "e66c808eb73c9aef37cfeba411f0e8bfd3ce8b98cf49fe7d4f82ca1f7badbaca",
+    "exports\\hybrid_common_coverage_20261018T121416162413\\common_coverage_exclusions.csv": "2a37bb0fdf822318c5b41853f027712d26897932fb4bcef6df3c98b7f2d586c3",
+    "exports\\hybrid_poc_v1_20261013T041540804059\\ml_v1_baseline_oof_predictions.csv": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b",
+    "exports\\strategy_v2_technical_batch_20261019T094810074002\\technical_v2_results.csv": "e514c901f68a5f34f818d52d183acf5036e8322cb8cab33738d98946cba1fae8",
+    "hybrid\\config\\risk_v1.json": "9035e97a0c9dff8f481af47d69147566712422e46222f9b1db5bbe66135d59ec",
+    "configs\\technical_v1_research.json": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+    "research\\strategy_representative_benchmark_exp001.md": "ec032f59f97ce4eecc51fa58dac0dd662b059cc2f1a5dedd9142e41913686c86"
+  },
+  "source_export_hashes_unchanged": true,
+  "output_directory": "exports\\representative_benchmark_exp001_20261020T111920272910",
+  "classification_rule": "research/strategy_representative_benchmark_exp001.md",
+  "interpretation": "random_forest=MIXED; xgboost=CLEARLY_STRONGER; gru=MIXED"
+}

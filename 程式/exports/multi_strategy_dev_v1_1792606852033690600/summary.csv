@@ -1,0 +1,2 @@
+﻿strategy_id,initial_capital,final_equity,total_return_pct,net_pnl,realized_net_pnl,unrealized_pnl,win_rate_pct,win_rate_reason,trade_count,max_drawdown_pct,profit_factor,profit_factor_reason
+rf,100000.0,99254.94564999998,-0.7450543500000184,-745.0543500000203,-745.0543499999999,-2.0463630789890885e-11,33.33333333333333,,3,2.6750633195865237,0.6524983881415727,

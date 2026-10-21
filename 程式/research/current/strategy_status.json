@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19",
+  "updated_at": "2026-10-21",
   "formal_research_direction": "Technical Candidate -> ML Filter -> Hybrid",
   "current_workstreams": {
     "technical_v1": {
@@ -147,8 +147,16 @@
       "2025-07-01",
       "2025-12-31"
     ],
-    "status": "locked_unseen",
-    "access": "forbidden"
+    "status": "UNKNOWN",
+    "access": "forbidden",
+    "unseen_status": "NOT_PROVABLY_UNSEEN",
+    "oos_classification": "NOT_FINAL_OOS",
+    "final_oos_available": false,
+    "legacy_status": {
+      "deprecated": true,
+      "previous_status": "locked_unseen",
+      "note": "Superseded by current exposure metadata; this period is UNKNOWN and is not Final OOS."
+    }
   },
   "strategies": [
     {
@@ -319,6 +327,283 @@
     },
     "new_backtest_run": false,
     "ml_retrained": false,
-    "parameter_search_performed": false
+    "parameter_search_performed": false,
+    "data_exposure_assurance": {
+      "2025_H2": {
+        "unseen_status": "NOT_PROVABLY_UNSEEN",
+        "oos_classification": "NOT_FINAL_OOS"
+      }
+    }
+  },
+  "current_strategy_issues_and_roadmap": {
+    "status": "DEVELOPMENT_RESEARCH_STAGE",
+    "document": "research/strategy_current_issues_and_roadmap.md",
+    "based_on": [
+      "strategy-representative-benchmark-exp001",
+      "strategy-representative-filter-funnel-exp001"
+    ],
+    "issues_registry_status": "COMPLETED",
+    "research_priority": [
+      "P0_CURRENT_ISSUES_REGISTRY_COMPLETED",
+      "P1_ENTRY_SENSITIVITY_AUDIT",
+      "P2_ENTRY_CANDIDATE_DECISION_AFTER_P1",
+      "P3_EXIT_SENSITIVITY_AUDIT_AFTER_P2",
+      "P4_CROSS_MODEL_TECHNICAL_HYBRID_COMPARISON",
+      "P5_ML_TARGET_ALIGNMENT_DIAGNOSTIC",
+      "P6_GRU_MODEL_DIAGNOSTIC",
+      "P7_NEW_STRATEGY_CANDIDATE_ONLY_IF_STRUCTURAL_EVIDENCE"
+    ],
+    "next_experiment": {
+      "name": "ENTRY_SENSITIVITY_AUDIT",
+      "status": "PREREGISTERED_NOT_EXECUTED",
+      "breakout_values": [
+        40,
+        55,
+        70
+      ],
+      "control": 55,
+      "exit_fixed": 30,
+      "market_regime_fixed": "TECH_V2_B",
+      "ml_models": [
+        "random_forest",
+        "xgboost",
+        "gru"
+      ],
+      "risk_fixed": "RISK_V1",
+      "stocks": [
+        "2330",
+        "2454",
+        "2303"
+      ],
+      "parameter_search": false,
+      "experiment_id": "strategy-entry-sensitivity-exp001",
+      "preregistration": "research/strategy_entry_sensitivity_exp001_preregistration.md"
+    },
+    "current_findings": {
+      "market_regime_b": "KEEP_FROZEN_FOR_NOW",
+      "main_low_exposure_source": "ML_GATE",
+      "random_forest": "PRECISE_FILTER_EVIDENCE",
+      "xgboost": "PRECISE_FILTER_EVIDENCE",
+      "gru": "OVER_CONSERVATIVE_EVIDENCE",
+      "technical_cost_pressure": "COST_IS_53_8_PERCENT_OF_GROSS_POSITIVE_PNL",
+      "breakout_55_too_late": "HYPOTHESIS_NOT_TESTED",
+      "exit_30_suboptimal": "DEFERRED_HYPOTHESIS",
+      "ml_target_alignment": "HYPOTHESIS_NOT_TESTED"
+    },
+    "strategy_status": "DEVELOPMENT_RESEARCH_STAGE",
+    "strategy_changed": false,
+    "parameter_search_performed": false,
+    "ml_retrained": false,
+    "2025_used": false,
+    "2026_used": false,
+    "final_oos_used": false,
+    "portfolio_enabled": false,
+    "short_enabled": false
+  },
+  "final_oos_available": false,
+  "entry_sensitivity_exp001": {
+    "experiment_id": "strategy-entry-sensitivity-exp001",
+    "status": "COMPLETED",
+    "preregistration": "research/strategy_entry_sensitivity_exp001_preregistration.md",
+    "values": [
+      40,
+      55,
+      70
+    ],
+    "control": 55,
+    "exit_fixed": 30,
+    "market_regime_fixed": "TECH_V2_B_MARKET_REGIME_FILTER",
+    "risk_fixed": "RISK_V1",
+    "models": [
+      "random_forest",
+      "xgboost",
+      "gru"
+    ],
+    "stocks": [
+      "2330",
+      "2454",
+      "2303"
+    ],
+    "proxy_only_stocks": [
+      "2379",
+      "3034"
+    ],
+    "folds": [
+      "WF1",
+      "WF2",
+      "WF3"
+    ],
+    "data_role": "EXPOSED_DEVELOPMENT_DATA",
+    "period": [
+      "2023-01-01",
+      "2024-12-31"
+    ],
+    "backtest_executed": true,
+    "parameter_search_performed": false,
+    "ml_retrained": false,
+    "2025_used": false,
+    "2026_used": false,
+    "final_oos_used": false,
+    "strategy_changed": false,
+    "export_directory": "exports/strategy_entry_sensitivity_exp001_20261021T135328414093+0800",
+    "report": "research/strategy_entry_sensitivity_exp001.md",
+    "classification": {
+      "overall": "MIXED",
+      "tags": [
+        "EARLIER_ENTRY_NOT_SUPPORTED",
+        "EARLIER_ENTRY_SUPPORTED",
+        "FOLD_SENSITIVE",
+        "MIXED",
+        "POSSIBLE_PARAMETER_SENSITIVITY"
+      ],
+      "by_strategy": {
+        "TECHNICAL": {
+          "classification": [
+            "MIXED"
+          ],
+          "entry40_stock_edge_support_count": 2,
+          "entry40_fold_edge_support_count": 2,
+          "entry40_stock_exposure_support_count": 3,
+          "entry40_fold_exposure_support_count": 3,
+          "entry40_stock_return_support_count": 2,
+          "entry40_fold_return_support_count": 2,
+          "entry40_stock_mdd_not_worse_count": 2,
+          "entry40_fold_mdd_not_worse_count": 1,
+          "entry40_stock_cost_ratio_not_worse_count": 1,
+          "entry40_fold_cost_ratio_not_worse_count": 3,
+          "entry70_reduced_trades": false,
+          "entry70_edge_pf_sharpe_cost_direction": [
+            51.79538870426821,
+            1.132379731573682,
+            -0.2991857937319231,
+            0.4412001914001535
+          ],
+          "cross_stock_fold_direction": {
+            "40": {
+              "edge_support_stocks": 2,
+              "edge_support_folds": 2,
+              "return_support_stocks": 2,
+              "return_support_folds": 2
+            },
+            "70": {
+              "edge_support_stocks": 1,
+              "edge_support_folds": 1,
+              "return_support_stocks": 1,
+              "return_support_folds": 1
+            }
+          }
+        },
+        "RF": {
+          "classification": [
+            "EARLIER_ENTRY_SUPPORTED"
+          ],
+          "entry40_stock_edge_support_count": 3,
+          "entry40_fold_edge_support_count": 3,
+          "entry40_stock_exposure_support_count": 3,
+          "entry40_fold_exposure_support_count": 2,
+          "entry40_stock_return_support_count": 3,
+          "entry40_fold_return_support_count": 3,
+          "entry40_stock_mdd_not_worse_count": 2,
+          "entry40_fold_mdd_not_worse_count": 2,
+          "entry40_stock_cost_ratio_not_worse_count": 3,
+          "entry40_fold_cost_ratio_not_worse_count": 3,
+          "entry70_reduced_trades": false,
+          "entry70_edge_pf_sharpe_cost_direction": [
+            278.559417368421,
+            1.7626775332593598,
+            0.2158146868359353,
+            0.384696944294953
+          ],
+          "cross_stock_fold_direction": {
+            "40": {
+              "edge_support_stocks": 3,
+              "edge_support_folds": 3,
+              "return_support_stocks": 3,
+              "return_support_folds": 3
+            },
+            "70": {
+              "edge_support_stocks": 2,
+              "edge_support_folds": 2,
+              "return_support_stocks": 2,
+              "return_support_folds": 2
+            }
+          }
+        },
+        "XGBOOST": {
+          "classification": [
+            "EARLIER_ENTRY_SUPPORTED",
+            "EARLIER_ENTRY_NOT_SUPPORTED"
+          ],
+          "entry40_stock_edge_support_count": 3,
+          "entry40_fold_edge_support_count": 2,
+          "entry40_stock_exposure_support_count": 3,
+          "entry40_fold_exposure_support_count": 3,
+          "entry40_stock_return_support_count": 3,
+          "entry40_fold_return_support_count": 3,
+          "entry40_stock_mdd_not_worse_count": 2,
+          "entry40_fold_mdd_not_worse_count": 2,
+          "entry40_stock_cost_ratio_not_worse_count": 3,
+          "entry40_fold_cost_ratio_not_worse_count": 2,
+          "entry70_reduced_trades": true,
+          "entry70_edge_pf_sharpe_cost_direction": [
+            643.5938630357139,
+            3.0246428552576905,
+            0.35516715386491,
+            0.2353213178338213
+          ],
+          "cross_stock_fold_direction": {
+            "40": {
+              "edge_support_stocks": 3,
+              "edge_support_folds": 2,
+              "return_support_stocks": 3,
+              "return_support_folds": 3
+            },
+            "70": {
+              "edge_support_stocks": 2,
+              "edge_support_folds": 3,
+              "return_support_stocks": 2,
+              "return_support_folds": 2
+            }
+          }
+        },
+        "GRU": {
+          "classification": [
+            "EARLIER_ENTRY_NOT_SUPPORTED"
+          ],
+          "entry40_stock_edge_support_count": 3,
+          "entry40_fold_edge_support_count": 2,
+          "entry40_stock_exposure_support_count": 3,
+          "entry40_fold_exposure_support_count": 3,
+          "entry40_stock_return_support_count": 3,
+          "entry40_fold_return_support_count": 2,
+          "entry40_stock_mdd_not_worse_count": 2,
+          "entry40_fold_mdd_not_worse_count": 1,
+          "entry40_stock_cost_ratio_not_worse_count": 2,
+          "entry40_fold_cost_ratio_not_worse_count": 1,
+          "entry70_reduced_trades": false,
+          "entry70_edge_pf_sharpe_cost_direction": [
+            -275.37110749999937,
+            0.4269367373239887,
+            -0.7123481689424787,
+            0.9270583578448948
+          ],
+          "cross_stock_fold_direction": {
+            "40": {
+              "edge_support_stocks": 3,
+              "edge_support_folds": 2,
+              "return_support_stocks": 3,
+              "return_support_folds": 2
+            },
+            "70": {
+              "edge_support_stocks": 3,
+              "edge_support_folds": 3,
+              "return_support_stocks": 3,
+              "return_support_folds": 3
+            }
+          }
+        }
+      },
+      "note": "No preregistered quantitative tolerance defines materially/broadly similar; ambiguous pattern remains MIXED. These labels diagnose and do not select a final Entry."
+    }
   }
 }

@@ -1,0 +1,106 @@
+{
+  "audit_id": "strategy-v2-representative-stock-selection",
+  "generated_at": "2026-10-20T10:42:45.673731+08:00",
+  "data_access": {
+    "source_query_period": "2023-01-01 through 2024-12-31 inclusive only",
+    "stocks": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "market_rows_period_after_2024_read": false,
+    "restricted_period_cache_metadata_only_preflight_access": true,
+    "restricted_period_ohlcv_rows_read": false,
+    "strategy_results_read": false,
+    "technical_results_read": false,
+    "ml_results_read": false,
+    "hybrid_results_read": false,
+    "risk_results_read": false,
+    "2025_used": false,
+    "2026_used": false,
+    "final_oos_used": false,
+    "parameter_search": false,
+    "strategy_changed": false,
+    "database_modified": false,
+    "buy_and_hold_benchmark_experiment_started": false
+  },
+  "input": {
+    "db_file": "data/market_data.sqlite3",
+    "db_connection": "sqlite read-only mode",
+    "table_queried": "market_kbars",
+    "query_filters": {
+      "stock_codes": [
+        "2303",
+        "2330",
+        "2379",
+        "2454",
+        "3034"
+      ],
+      "freq_minutes": 5,
+      "cache_range_start": "2023-01-01",
+      "cache_range_end": "2024-12-31",
+      "timestamp_local_start_inclusive": "2023-01-01",
+      "timestamp_local_end_inclusive": "2024-12-31"
+    },
+    "raw_rows_read": 132175,
+    "non_session_bars_excluded_including_13_30": 2405,
+    "per_stock_complete_session_counts_before_intersection": {
+      "2303": 479,
+      "2330": 479,
+      "2379": 438,
+      "2454": 478,
+      "3034": 462
+    },
+    "eligible_shared_session_count": 422,
+    "eligible_dates_first": "2023-01-04",
+    "eligible_dates_last": "2024-12-30",
+    "eligibility_policy": "GLOBAL_INTERSECTION_OF_ALL_FIVE_STOCKS_WITH_EXACT_54_BARS_09_00_TO_13_25",
+    "missing_data_policy": "EXCLUDE_NO_FILL; no forward/back fill, interpolation, or synthetic bars"
+  },
+  "validation": {
+    "three_unique_representatives": true,
+    "all_stocks_same_complete_session_set": true,
+    "adequate_observations": true,
+    "all_metric_values_finite": true,
+    "strategy_result_columns_queried": false,
+    "strategy_performance_used_for_selection": false,
+    "daily_data_future_leakage": false,
+    "complete_only_no_fill": true
+  },
+  "calculation_method": {
+    "total_return_pct": "(last eligible daily close / first eligible daily close - 1) * 100; price-only",
+    "annualized_volatility_pct": "sample standard deviation of daily close-to-close returns * sqrt(252) * 100",
+    "atr_pct": "Wilder ATR(14) / daily close * 100; initial ATR is arithmetic mean of first 14 true ranges",
+    "trend_slope_log_per_session": "OLS slope of log(close) against zero-based eligible trading-session index",
+    "annualized_trend_slope_pct": "(exp(slope * 252) - 1) * 100",
+    "trend_r2": "OLS coefficient of determination",
+    "positive_20d_ratio_pct": "share of eligible 20-session close-to-close returns > 0; zeros in denominator but not numerator",
+    "negative_20d_ratio_pct": "share of eligible 20-session close-to-close returns < 0; zeros in denominator but not numerator",
+    "reversal_10d_count": "number of sign changes between consecutive non-zero 10-session close-to-close returns; zero values omitted",
+    "reversal_10d_rate_pct": "sign change count / adjacent non-zero sign comparisons * 100",
+    "price_max_drawdown_pct": "min(close / running maximum close - 1) * 100; buy-and-hold price series only",
+    "z_score": "population standard deviation across the five stocks; zero if standard deviation is zero",
+    "tie_break": "descending score, then ascending stock_code",
+    "flat_direction": "absolute OLS slope <= 1e-12; otherwise sign of slope"
+  },
+  "selection_formulas": {
+    "TREND_SCORE": "0.40*Z(total_return_pct)+0.30*Z(annualized_trend_slope_pct)+0.20*Z(trend_r2)+0.10*Z(positive_20d_ratio_pct); only total_return_pct>0 eligible",
+    "SWING_SCORE": "0.40*Z(annualized_volatility_pct)+0.30*Z(mean_atr_pct)+0.30*Z(reversal_10d_rate_pct); exclude TREND stock",
+    "SIDEWAYS_SCORE": "0.40*Z(-abs(total_return_pct))+0.30*Z(-abs(annualized_trend_slope_pct))+0.20*Z(-trend_r2)+0.10*Z(reversal_10d_rate_pct); exclude prior selections"
+  },
+  "selection_based_on_strategy_performance": false,
+  "technical_results_used": false,
+  "ml_results_used": false,
+  "hybrid_results_used": false,
+  "risk_results_used": false,
+  "2025_used": false,
+  "2026_used": false,
+  "final_oos_used": false,
+  "parameter_search": false,
+  "strategy_changed": false,
+  "database_modified": false,
+  "buy_and_hold_benchmark_experiment_started": false,
+  "output_directory": "exports/representative_stock_selection_20261020T104245668731+0800"
+}

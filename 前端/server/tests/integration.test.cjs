@@ -7,6 +7,7 @@ const { EventEmitter } = require('node:events');
 const writes = []; const spawned = [];
 const connection = {
  beginTransaction: async()=>{}, commit: async()=>{}, rollback: async()=>{}, release:()=>{},
+ query: async(sql,args)=>{ writes.push({sql,args}); return [[{maxPacket:64*1024*1024}]]; },
  execute: async(sql,args)=>{ writes.push({sql,args}); return [{insertId:17}]; }
 };
 const original = Module._load;

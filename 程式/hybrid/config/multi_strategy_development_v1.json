@@ -1,0 +1,52 @@
+{
+  "experiment_id": "multi-strategy-development-v1",
+  "run_mode": "historical_development_only",
+  "data_role": "historical_development",
+  "stock_universe": ["2303", "2330", "2379", "2454", "3034"],
+  "periods": {
+    "training": {"start": "2023-01-01", "end": "2023-12-31"},
+    "validation": {"start": "2024-01-01", "end": "2024-06-30"},
+    "backtest": {"start": "2024-07-01", "end": "2024-12-30"}
+  },
+  "technical": {
+    "candidate_id": "BR_SENS_RANGE55_BB20_2",
+    "variant": "TECH_V2_B",
+    "config": "configs/technical_v1_research.json",
+    "candidate_config": "configs/technical_v2_candidate.json",
+    "execution_contract": "completed_kbar_next_tradable_bar_open",
+    "data_path": "data/technical_v1_mltech_clean.sqlite3"
+  },
+  "ml": {
+    "config": "configs/ml_v1_research.json",
+    "input_data_path": "data/market_data.sqlite3",
+    "label": "fixed_1pct",
+    "sequence_policy": "EXACT_24_BARS_11_35_TO_13_30",
+    "missing_sequence_policy": "EXCLUDE_NO_FILL",
+    "decision_time": "13:30:00",
+    "horizon_sessions": 3,
+    "model_parameters_source": "configs/ml_v1_research.json",
+    "model_parameters_source_sha256": "8aa8e3e069c9b95b450e4582e73c9566295423d26f730fe56a54303acf24fb00",
+    "train_once": true,
+    "retrain_during_backtest": false,
+    "validation_is_diagnostic_only": true
+  },
+  "risk": {
+    "config": "hybrid/config/risk_v1.json",
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025
+  },
+  "execution": {
+    "initial_capital": 100000,
+    "commission_rate": 0.001425,
+    "transaction_tax_rate": 0.003,
+    "slippage_rate": 0.0,
+    "slippage_note": "Existing V2 candidate setting is zero; no real slippage is simulated."
+  },
+  "data_protection": {
+    "maximum_date": "2024-12-31",
+    "prohibited_start": "2025-01-01",
+    "final_oos_used": false,
+    "holdout_policy_modified": false
+  }
+}

@@ -1,0 +1,1 @@
+此輸出已作廢：執行層狀態擷取器未綁定，所有 ML BUY 被誤列為 NO_ENGINE_CANDIDATE_EVENT。請勿引用本資料夾的 funnel / execution blocker / classification；待後續 corrected output。保存的 shadow_diagnostic_candidates.csv 僅供本任務重新彙整同一批 119 個單筆診斷。

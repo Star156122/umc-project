@@ -1,0 +1,16 @@
+﻿model,stage,removed_opportunities,percent_of_total_candidates,estimated_contribution_to_low_exposure,remaining_or_pass_count
+random_forest,Technical common-coverage opportunities,0,0.0,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,119
+random_forest,Market Regime blocked,37,0.31092436974789917,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,82
+random_forest,RF ML blocked,63,0.5294117647058824,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,19
+random_forest,Execution blocked among BUY,19,0.15966386554621848,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,0
+random_forest,Holding duration / path conflicts,0,0.0,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,19
+xgboost,Technical common-coverage opportunities,0,0.0,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,119
+xgboost,Market Regime blocked,37,0.31092436974789917,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,82
+xgboost,XGBOOST ML blocked,66,0.5546218487394958,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,16
+xgboost,Execution blocked among BUY,16,0.13445378151260504,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,0
+xgboost,Holding duration / path conflicts,0,0.0,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,16
+gru,Technical common-coverage opportunities,0,0.0,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,119
+gru,Market Regime blocked,37,0.31092436974789917,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,82
+gru,GRU ML blocked,71,0.5966386554621849,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,11
+gru,Execution blocked among BUY,11,0.09243697478991597,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,0
+gru,Holding duration / path conflicts,0,0.0,COUNT_ATTRIBUTION_ONLY; exposure is path-dependent,11

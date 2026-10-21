@@ -1,0 +1,4 @@
+﻿model,hybrid_strategy,classification,paired_cells,mean_return_delta,return_improve_or_tie_cells,mdd_improve_or_tie_cells,sharpe_improve_or_tie_cells,stocks_with_strict_any_improvement,folds_with_strict_any_improvement
+random_forest,HYBRID_RF,MIXED,9,0.0014562322624999977,5,9,7,3,3
+xgboost,HYBRID_XGB,CLEARLY_STRONGER,9,0.0039777237097222105,6,9,6,3,3
+gru,HYBRID_GRU,MIXED,9,-0.009053524570833329,4,9,2,3,3

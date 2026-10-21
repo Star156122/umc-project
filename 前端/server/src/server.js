@@ -28,6 +28,13 @@ const {
 } = require("./pythonBacktestService");
 
 const { loadReportHtml } = require("./reportHtmlService");
+const { createTechnicalV2ResearchRouter } = require("./technicalV2ResearchService");
+const { createMlV1OofResearchRouter } = require("./mlV1OofResearchService");
+const { createHybridRiskV1ResearchRouter } = require("./hybridRiskV1ResearchService");
+const {
+  createMultiStrategyBacktestRouter,
+  createMultiStrategyBacktestService,
+} = require("./multiStrategyBacktestService");
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
@@ -85,6 +92,14 @@ app.use((req, _res, next) => {
   console.log(`[API] ${req.method} ${req.originalUrl}`);
   next();
 });
+app.use("/api/research", createTechnicalV2ResearchRouter({ express, authenticate }));
+app.use("/api/research", createMlV1OofResearchRouter({ express, authenticate }));
+app.use("/api/research", createHybridRiskV1ResearchRouter({ express, authenticate }));
+app.use("/api/backtests/multi", createMultiStrategyBacktestRouter({
+  express,
+  authenticate,
+  service: createMultiStrategyBacktestService(),
+}));
 
 app.get("/api/health", async (_req, res) => {
   try {
