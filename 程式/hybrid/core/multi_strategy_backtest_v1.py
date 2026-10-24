@@ -276,6 +276,101 @@ def build_buy_and_hold_result(*, connection, stock_code: str, period: dict[str, 
     }
 
 
+def build_exposure_matched_buy_and_hold_result(
+    *, connection, stock_code: str, period: dict[str, str], initial_capital: float,
+    commission_rate: float, transaction_tax_rate: float,
+    max_position_fraction: float,
+) -> dict[str, Any]:
+    """Buy-and-hold comparator capped at the active strategy's entry exposure.
+
+    Unlike the original benchmark, this comparator explicitly liquidates at
+    the final close so both entry and exit costs are included.  The original
+    100% benchmark remains unchanged and is still reported separately.
+    """
+    from datetime import date, datetime, time, timedelta
+    from zoneinfo import ZoneInfo
+
+    if not 0 < max_position_fraction <= 1:
+        raise DevelopmentBacktestBlocked("BLOCKED_INVALID_EXPOSURE_MATCH_FRACTION")
+    tz = ZoneInfo("Asia/Taipei")
+    start_day = date.fromisoformat(period["start"])
+    end_day = date.fromisoformat(period["end"])
+    lower = int(datetime.combine(start_day, time.min, tz).timestamp())
+    upper = int(datetime.combine(end_day + timedelta(days=1), time.min, tz).timestamp())
+    rows = connection.execute(
+        "SELECT kbar_timestamp, open, high, low, close FROM market_kbars "
+        "WHERE stock_code=? AND freq_minutes=5 AND kbar_timestamp>=? AND kbar_timestamp<? "
+        "ORDER BY kbar_timestamp",
+        (str(stock_code).zfill(4), lower, upper),
+    ).fetchall()
+    if not rows:
+        raise DevelopmentBacktestBlocked("BLOCKED_EXPOSURE_MATCHED_BUY_AND_HOLD_NO_BACKTEST_BARS")
+    first_open = float(rows[0]["open"])
+    final_close = float(rows[-1]["close"])
+    quantity = int(
+        initial_capital * max_position_fraction
+        / (first_open * (1.0 + commission_rate))
+    )
+    if quantity <= 0:
+        raise DevelopmentBacktestBlocked("BLOCKED_EXPOSURE_MATCHED_BUY_AND_HOLD_INSUFFICIENT_CAPITAL")
+    buy_gross = quantity * first_open
+    buy_fee = buy_gross * commission_rate
+    sell_gross = quantity * final_close
+    sell_fee = sell_gross * commission_rate
+    sell_tax = sell_gross * transaction_tax_rate
+    buy = {
+        "timestamp": int(rows[0]["kbar_timestamp"]), "action": "Buy", "quantity": quantity,
+        "gross_amount": buy_gross, "fee": buy_fee, "tax": 0.0,
+        "net_cash_flow": -(buy_gross + buy_fee), "price": first_open,
+    }
+    sell = {
+        "timestamp": int(rows[-1]["kbar_timestamp"]), "action": "Sell", "quantity": quantity,
+        "gross_amount": sell_gross, "fee": sell_fee, "tax": sell_tax,
+        "net_cash_flow": sell_gross - sell_fee - sell_tax, "price": final_close,
+    }
+    bars = [{
+        "time": int(row["kbar_timestamp"]),
+        "datetime": datetime.fromtimestamp(int(row["kbar_timestamp"]), tz).strftime("%Y-%m-%d %H:%M:%S"),
+        "open": float(row["open"]), "high": float(row["high"]),
+        "low": float(row["low"]), "close": float(row["close"]),
+    } for row in rows]
+    curve = derive_equity_curve(bars, [buy, sell], initial_capital)
+    gross_pnl = sell_gross - buy_gross
+    total_cost = buy_fee + sell_fee + sell_tax
+    pnl = [{
+        "gross_pnl": gross_pnl, "fee": buy_fee + sell_fee, "tax": sell_tax,
+        "slippage": 0.0, "net_pnl": gross_pnl - total_cost,
+        "return_pct": (gross_pnl - total_cost) / buy_gross if buy_gross else None,
+    }]
+    summary = summary_from_curve(curve, pnl, initial_capital)
+    return {
+        "strategy_id": "exposure_matched_buy_and_hold",
+        "strategy_version": "exposure_matched_buy_and_hold_v1",
+        "stock_code": str(stock_code).zfill(4), "period": dict(period),
+        "data_role": "historical_development", "summary": summary,
+        "details": {
+            "commission_total": buy_fee + sell_fee,
+            "transaction_tax_total": sell_tax,
+            "total_transaction_cost": total_cost,
+            "transaction_count": 2,
+            "shares_held": quantity,
+            "entry_price": first_open,
+            "exit_price": final_close,
+            "entry_exposure_fraction": buy_gross / initial_capital if initial_capital else None,
+            "maximum_entry_exposure_fraction": max_position_fraction,
+            "risk_contract": None,
+        },
+        "trades": [buy, sell], "completed_trade_pnl": pnl, "equity_curve": curve,
+        "audit": {
+            "benchmark": True,
+            "entry_execution": "first available in-period 5-minute bar open",
+            "exit_execution": "final available in-period 5-minute bar close with commission and tax",
+            "max_position_fraction": max_position_fraction,
+            "risk_v1_applied": False,
+        },
+    }
+
+
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, allow_nan=False, default=str), encoding="utf-8")
 
@@ -309,6 +404,21 @@ def train_fixed_model_set(config: dict[str, Any], selected_models: Iterable[str]
         raise DevelopmentBacktestBlocked("BLOCKED_EMPTY_TRAIN_OR_VALIDATION")
     if set(np.unique(label[train_idx])) != {0, 1, 2}:
         raise DevelopmentBacktestBlocked("BLOCKED_TRAINING_MISSING_CLASS")
+    label_names = ("SELL", "HOLD", "BUY")
+    training_label_counts = {
+        label_names[index]: int((label[train_idx] == index).sum())
+        for index in range(3)
+    }
+    selected_universe_feature_audit = {
+        "scope": "frozen Technical V2-B stock universe after shared feature cleaning",
+        "model_ready_samples": int(stock_mask.sum()),
+        "model_ready_samples_by_stock": {
+            str(code): int(count)
+            for code, count in (
+                meta.loc[stock_mask, "stock_code"].astype(str).str.zfill(4).value_counts().sort_index().items()
+            )
+        },
+    }
 
     # Build inference-only rows from exact feature sequences, independent of
     # whether a future target/label is mature. Labels are never created here.
@@ -420,6 +530,7 @@ def train_fixed_model_set(config: dict[str, Any], selected_models: Iterable[str]
         model_audit[name] = {
             "model_version": "ml-v1-draft-20261012", "training_parameters": params_by_model[name],
             "training_samples": int(len(train_idx)), "validation_samples": int(len(val_idx)),
+            "training_label_counts": training_label_counts,
             "training_signal_range": [str(meta.iloc[train_idx].signal_date.min()), str(meta.iloc[train_idx].signal_date.max())],
             "training_target_max": str(meta.iloc[train_idx].target_date.max()),
             "validation_signal_range": [str(meta.iloc[val_idx].signal_date.min()), str(meta.iloc[val_idx].signal_date.max())],
@@ -427,13 +538,35 @@ def train_fixed_model_set(config: dict[str, Any], selected_models: Iterable[str]
             "validation_metrics_diagnostic_only": val_metrics, "training_seconds": float(seconds),
             "fit_epochs": extra.get("epochs_completed", fixed_epochs),
             "early_stopping_source": extra.get("early_stopping_source"),
-            "scaler_fit_on": "2023 training samples only", "fixed_parameters": True,
+            "scaler_fit_on": "2023 training samples only",
+            "scaler_fit_on_training_only": True,
+            "scaler_fit_sample_count": int(len(train_idx)),
+            "model_source": "fitted_in_process",
+            "model_load_failure_fallback_used": False,
+            "model_failure_policy": "RAISE_BLOCKED_ERROR_NO_DEFAULT_HOLD",
+            "sequence_alignment": {
+                "bars_per_sequence": int(inference_X.shape[1]),
+                "decision_time": "13:30 Asia/Taipei on signal_date",
+                "entry_session": "next actual trading session",
+                "chronology_assertion": "signal_date < entry_date",
+            },
+            "future_leakage_checks": {
+                "training_target_dates_bounded_before_validation": True,
+                "inference_labels_created": False,
+                "validation_used_for_selection": False,
+                "scaler_fit_on_training_only": True,
+            },
+            "fixed_parameters": True,
             "validation_used_for_selection": False,
             "prediction_rows_for_backtest": len(lookup),
             "inference_sequence_eligible_samples": int(len(inference_rows)),
             "inference_sequence_exclusions": inference_exclusions,
         }
-    return models, {"input_audit": input_audit, "models": model_audit}
+    return models, {
+        "input_audit": input_audit,
+        "selected_universe_feature_audit": selected_universe_feature_audit,
+        "models": model_audit,
+    }
 
 
 def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, strategy_id: str,
@@ -545,6 +678,7 @@ def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, str
     with contextlib.redirect_stdout(io.StringIO()):
         bt.replay_kbars(strategy, full, stats)
     trade_rows = bt._build_trade_rows(strategy, app)
+    signal_rows = bt._build_signal_rows(strategy)
     pnl_rows = bt._build_pnl_rows(trade_rows)
     bars = bt.build_kbar_rows_from_frame(evaluation, app)
     curve = derive_equity_curve(bars, trade_rows, app.initial_capital)
@@ -577,6 +711,7 @@ def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, str
     for value in completed:
         streak = streak + 1 if value < 0 else 0
         max_loss_streak = max(max_loss_streak, streak)
+    from hybrid.core.multi_strategy_diagnostics import exposure_metrics, pnl_decomposition
     details = {
         "commission_total": fees, "transaction_tax_total": tax, "total_transaction_cost": fees + tax,
         "risk_contract": {"version": "risk_v1", "risk_per_trade": 0.01,
@@ -598,23 +733,27 @@ def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, str
         "open_position_quantity_at_end": int(strategy.local_position),
         "slippage_rate": float(candidate_cfg["preserved_common_backtest"]["slippage_rate"]),
         "slippage_simulated": bool(candidate_cfg["preserved_common_backtest"]["slippage_rate"]),
+        "performance_decomposition": pnl_decomposition(pnl_rows, app.initial_capital),
+        "exposure": exposure_metrics(curve, pnl_rows, app.initial_capital),
     }
     return {
         "strategy_id": strategy_id, "strategy_version": "technical_v2_b+risk_v1" if strategy_id == "technical" else f"technical_v2_b+ml_v1_{strategy_id}+risk_v1",
         "stock_code": stock_code, "period": config["periods"]["backtest"], "data_role": "historical_development",
-        "summary": summary, "details": details, "trades": trade_rows, "completed_trade_pnl": pnl_rows,
+        "summary": summary, "details": details, "trades": trade_rows, "signals": signal_rows,
+        "completed_trade_pnl": pnl_rows,
         "equity_curve": curve, "audit": {"candidate_id": candidate["id"], "variant": "TECH_V2_B",
             "entry_execution": "completed K-bar signal -> next tradable bar open",
             "prediction_source": "fixed newly trained model" if strategy_id != "technical" else None,
             "prediction_oof_claimed": False, "warmup_bars": int(warmup_count), "bars": len(bars),
             "candidate_schedule_size": len(candidate_schedule),
             "candidate_signal_hash": hashlib.sha256("\n".join(sorted(candidate_schedule)).encode("utf-8")).hexdigest()},
+        "_diagnostic_bars": bars,
     }
 
 
 def discover_v2b_candidates(*, connection, config: dict[str, Any], stock_code: str,
-                            regime_context: dict[str, Any]) -> tuple[set[str], list[dict[str, Any]]]:
-    """Create one state-independent V2-B signal schedule shared by all four runs."""
+                            regime_context: dict[str, Any]) -> tuple[set[str], list[dict[str, Any]], list[dict[str, Any]]]:
+    """Create raw and post-regime candidate ledgers plus the shared schedule."""
     import contextlib
     import io
     from datetime import datetime, timedelta
@@ -645,6 +784,7 @@ def discover_v2b_candidates(*, connection, config: dict[str, Any], stock_code: s
             super().__init__(*args, **kwargs)
             self.candidate_schedule = all_bar_decisions
             self.regime_context = regime_context
+            self.regime_audit_by_time: dict[str, dict[str, Any]] = {}
         def _try_entry(self, code, tick_time, close, snapshot):
             reasons = self._entry_reasons(close, snapshot)
             if not reasons:
@@ -654,11 +794,23 @@ def discover_v2b_candidates(*, connection, config: dict[str, Any], stock_code: s
             if signal_time.isoformat(timespec="microseconds") not in self.candidate_schedule:
                 return
             context = self.regime_context.get((str(code), signal_time.date().isoformat()))
-            if not context or context.get("eligible") is not True:
-                return
-            prior = context.get("last_20_proxy_closes", [])
-            if len(prior) != 20 or float(prior[-1]) <= sum(float(x) for x in prior) / 20:
-                return
+            prior = [] if not context else context.get("last_20_proxy_closes", [])
+            passed = bool(
+                context and context.get("eligible") is True and len(prior) == 20
+                and float(prior[-1]) > sum(float(x) for x in prior) / 20
+            )
+            self.regime_audit_by_time[signal_time.isoformat(timespec="microseconds")] = {
+                "market_regime": "PRIOR_PEER_PROXY_ABOVE_SMA20" if passed else "PRIOR_PEER_PROXY_NOT_ABOVE_SMA20",
+                "market_regime_pass": passed,
+                "market_regime_reason": (
+                    "PASS_PRIOR_PROXY_ABOVE_SMA20" if passed
+                    else "BLOCK_MISSING_OR_NON_BULLISH_PRIOR_PROXY"
+                ),
+                "market_regime_proxy_close": float(prior[-1]) if len(prior) == 20 else None,
+                "market_regime_proxy_sma20": (
+                    sum(float(x) for x in prior) / 20 if len(prior) == 20 else None
+                ),
+            }
             self.record_signal(code=code, action="Buy", signal_type="entry", signal_time=tick_time,
                                price=close, reason=", ".join(reasons), indicators=snapshot)
 
@@ -673,10 +825,19 @@ def discover_v2b_candidates(*, connection, config: dict[str, Any], stock_code: s
         first_timestamp=float(full["kbar_timestamp"][0]), last_timestamp=float(full["kbar_timestamp"][-1]))
     with contextlib.redirect_stdout(io.StringIO()):
         bt.replay_kbars(strategy, full, stats)
-    rows = [dict(row) for row in strategy.candidate_signals]
+    raw_rows = []
+    for source in strategy.candidate_signals:
+        row = dict(source)
+        row.update(strategy.regime_audit_by_time.get(str(row["earliest_entry_time"]), {
+            "market_regime": "UNKNOWN", "market_regime_pass": False,
+            "market_regime_reason": "BLOCK_MISSING_REGIME_AUDIT",
+            "market_regime_proxy_close": None, "market_regime_proxy_sma20": None,
+        }))
+        raw_rows.append(row)
+    rows = [row for row in raw_rows if row["market_regime_pass"]]
     schedule = {str(row["earliest_entry_time"]) for row in rows}
     if not schedule:
         raise DevelopmentBacktestBlocked("BLOCKED_NO_V2B_CANDIDATES_IN_SELECTED_PERIOD")
     if len(schedule) != len(rows):
         raise DevelopmentBacktestBlocked("BLOCKED_DUPLICATE_TECHNICAL_CANDIDATE_TIMES")
-    return schedule, rows
+    return schedule, rows, raw_rows

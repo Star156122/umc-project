@@ -8,7 +8,11 @@ from typing import Any
 
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score, roc_auc_score
+from sklearn.metrics import (
+    accuracy_score, average_precision_score, confusion_matrix, f1_score,
+    precision_recall_fscore_support, precision_score, recall_score, roc_auc_score,
+)
+from sklearn.preprocessing import label_binarize
 from sklearn.utils.class_weight import compute_class_weight, compute_sample_weight
 
 
@@ -119,6 +123,10 @@ def run_model(name: str, data, params: dict[str, Any]):
 def evaluate_multiclass(y: np.ndarray, probabilities: np.ndarray) -> dict[str, Any]:
     pred = probabilities.argmax(axis=1)
     labels = [0, 1, 2]
+    per_class_precision, per_class_recall, per_class_f1, _ = precision_recall_fscore_support(
+        y, pred, labels=labels, average=None, zero_division=0,
+    )
+    one_hot = label_binarize(y, classes=labels)
     result = {
         "samples": int(len(y)),
         "accuracy": float(accuracy_score(y, pred)),
@@ -136,6 +144,18 @@ def evaluate_multiclass(y: np.ndarray, probabilities: np.ndarray) -> dict[str, A
         if set(np.unique(y)) == set(labels) else None
     )
     label_names = {0: "SELL", 1: "HOLD", 2: "BUY"}
+    result["per_class"] = {
+        label_names[label]: {
+            "precision": float(per_class_precision[label]),
+            "recall": float(per_class_recall[label]),
+            "f1": float(per_class_f1[label]),
+            "pr_auc": (
+                float(average_precision_score(one_hot[:, label], probabilities[:, label]))
+                if len(np.unique(one_hot[:, label])) == 2 else None
+            ),
+        }
+        for label in labels
+    }
     result["individual_roc_auc_ovr"] = {
         label_names[label]: (
             float(roc_auc_score((y == label).astype(int), probabilities[:, label]))

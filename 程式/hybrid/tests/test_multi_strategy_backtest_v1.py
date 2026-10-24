@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sqlite3
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
@@ -12,6 +13,9 @@ from hybrid.core.multi_strategy_backtest_v1 import (
     DevelopmentBacktestBlocked, assert_no_target_leakage, build_buy_and_hold_result, derive_equity_curve,
     gate_audit_fields, mature_label_mask, open_readonly_sqlite, prediction_precedes_candidate,
     summary_from_curve, validate_request,
+)
+from hybrid.scripts.run_multi_strategy_backtest_v1 import (
+    CONFIG_PATH, load_model_gate_artifact,
 )
 
 
@@ -151,3 +155,34 @@ def test_gate_audit_distinguishes_pure_technical_from_ml_gate():
     assert rf["gate_not_evaluated_candidate_count"] == 16
     assert rf["gate_entry_count"] == 1
     assert rf["gate_block_counts"]["HOLD"] == 1
+
+
+def test_prepared_model_gate_artifact_loads_strictly_without_hold_fallback(tmp_path):
+    config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+    artifact = {
+        "schema_version": "multi_strategy_model_gate_artifact_v1",
+        "experiment_id": config["experiment_id"],
+        "data_role": config["data_role"],
+        "stock_universe": config["stock_universe"],
+        "periods": config["periods"],
+        "model_parameters_source_sha256": config["ml"]["model_parameters_source_sha256"],
+        "selected_strategies": ["gru"],
+        "model_training": {"models": {"gru": {"model_source": "fitted_in_process"}}},
+        "prediction_rows_by_strategy": {"gru": [{
+            "stock_code": "2330", "signal_date": "2024-06-28",
+            "entry_date": "2024-07-01", "decision_time": "2024-06-28T13:30:00+08:00",
+            "prediction": "SELL", "prob_sell": 0.6, "prob_hold": 0.3, "prob_buy": 0.1,
+        }]},
+        "final_oos_used": False,
+    }
+    path = tmp_path / "model-gate.json"
+    path.write_text(json.dumps(artifact), encoding="utf-8")
+    models, audit = load_model_gate_artifact(config, ["gru"], path)
+    assert models["gru"]["prediction_lookup"][("2330", "2024-07-01")]["prediction"] == "SELL"
+    assert audit["models"]["gru"]["runtime_source"] == "loaded_prepared_gate_artifact"
+    assert audit["models"]["gru"]["model_load_failure_fallback_used"] is False
+
+    artifact["experiment_id"] = "wrong-experiment"
+    path.write_text(json.dumps(artifact), encoding="utf-8")
+    with pytest.raises(DevelopmentBacktestBlocked, match="ARTIFACT_IDENTITY_MISMATCH"):
+        load_model_gate_artifact(config, ["gru"], path)

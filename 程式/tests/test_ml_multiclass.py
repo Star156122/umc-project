@@ -25,6 +25,9 @@ class MlMulticlassTests(unittest.TestCase):
         result = evaluate_multiclass(y, probability)
         self.assertEqual(result["accuracy"], 1.0)
         self.assertEqual(result["predicted_class_counts"], {"0": 1, "1": 1, "2": 1})
+        self.assertEqual(set(result["per_class"]), {"SELL", "HOLD", "BUY"})
+        self.assertEqual(result["per_class"]["BUY"]["precision"], 1.0)
+        self.assertIsNotNone(result["per_class"]["BUY"]["pr_auc"])
 
     def test_v3_changes_features_only(self):
         v2 = load_trading_plan(ROOT / "configs/ml_trading_v2_20261004.json")

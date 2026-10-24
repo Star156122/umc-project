@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-21",
+  "updated_at": "2026-10-24",
   "formal_research_direction": "Technical Candidate -> ML Filter -> Hybrid",
   "current_workstreams": {
     "technical_v1": {
@@ -399,6 +399,36 @@
     "final_oos_used": false,
     "portfolio_enabled": false,
     "short_enabled": false
+  },
+  "multi_strategy_diagnostics_20261024": {
+    "experiment_id": "multi-strategy-diagnostics-20261024",
+    "status": "BLOCKED_MISSING_DATA",
+    "scope": "BASELINE_REPRODUCTION_AND_DIAGNOSTIC_OBSERVABILITY_ONLY",
+    "stock_code": "2330",
+    "legacy_subperiods": {
+      "training": ["2023-01-01", "2023-12-31"],
+      "diagnostic_validation": ["2024-01-01", "2024-06-30"],
+      "development_backtest": ["2024-07-01", "2024-12-30"]
+    },
+    "registry_role": "training_exposed",
+    "missing_items": [
+      "data/technical_v1_mltech_clean.sqlite3",
+      "data/market_data.sqlite3"
+    ],
+    "preserved_evidence_source": "exports/multi_strategy_dev_v1_1792611377073116500",
+    "fresh_backtest_executed": false,
+    "diagnostic_code_added": true,
+    "preflight_only_supported": true,
+    "prepared_model_gate_artifact_supported": true,
+    "lightweight_tests_passed": 40,
+    "strategy_changed": false,
+    "parameter_search_performed": false,
+    "ml_retrained": false,
+    "improvement_experiment_executed": false,
+    "report": "research/multi_strategy_diagnostics_20261024.md",
+    "2025_used": false,
+    "2026_used": false,
+    "final_oos_used": false
   },
   "final_oos_available": false,
   "entry_sensitivity_exp001": {
