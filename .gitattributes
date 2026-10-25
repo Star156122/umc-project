@@ -1,1 +1,2 @@
 程式/data/market_data.sqlite3 filter=lfs diff=lfs merge=lfs -text
+程式/data/technical_v1_mltech_clean.sqlite3 filter=lfs diff=lfs merge=lfs -text
