@@ -40,8 +40,9 @@ export async function apiRequest(path, options = {}) {
       : { message: await response.text() };
 
     if (!response.ok) {
-      const error = new Error(data.message || "伺服器回應失敗");
+      const error = new Error(data.error?.message || data.message || "伺服器回應失敗");
       error.status = response.status;
+      error.code = data.error?.code;
       error.data = data;
       throw error;
     }

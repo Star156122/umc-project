@@ -411,6 +411,30 @@ async function getYahooStockBySymbol(symbol, overrides = {}) {
   const result = extractChartResult(payload, normalized);
   const stock = normalizeChartStock(result, normalized, overrides);
 
+  // Display-only fallback: keep the latest actual Taipei trading session.
+  // Never substitute daily candles for five-minute bars or fabricate prices.
+  if (!stock.history.length) {
+    try {
+      const recent = await fetchYahoo(
+        `/v8/finance/chart/${encodeURIComponent(normalized)}`,
+        { range: "5d", interval: "5m", includePrePost: "false" }
+      );
+      const recentStock = normalizeChartStock(extractChartResult(recent, normalized), normalized, overrides);
+      const taipeiDay = (time) => new Date(Date.parse(time) + 8 * 3600000).toISOString().slice(0, 10);
+      const latestDay = recentStock.history.map((point) => taipeiDay(point.time)).sort().at(-1);
+      if (latestDay) {
+        stock.history = recentStock.history.filter((point) => taipeiDay(point.time) === latestDay);
+        stock.historyDate = latestDay;
+        stock.historyFallback = true;
+        // A five-day chart's previous close belongs to the range, not this session.
+        stock.chartPrevClose = null;
+      }
+    } catch (error) {
+      stock.historyError = "最近交易日分時資料暫時無法取得";
+    }
+  }
+
+
   cache.symbols.set(normalized, {
     data: stock,
     expiresAt: Date.now() + SYMBOL_CACHE_MS,

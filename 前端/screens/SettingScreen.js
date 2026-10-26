@@ -14,9 +14,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import MarketHeader from "../components/MarketHeader";
 import { marketColors } from "../styles/marketTheme";
 
+import SettingsPanel from "../components/SettingsPanel";
+
 function SettingItem({ icon, title, subtitle, onPress }) {
   return (
     <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={title}
       onPress={onPress}
       style={({ pressed }) => [styles.item, pressed && styles.itemPressed]}
     >
@@ -35,6 +39,7 @@ function SettingItem({ icon, title, subtitle, onPress }) {
 }
 
 export default function SettingScreen() {
+  const [section,setSection]=useState(null);
   const [user, setUser] = useState({ name: "使用者", email: "尚未登入" });
 
   useEffect(() => {
@@ -56,6 +61,7 @@ export default function SettingScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      {section&&<SettingsPanel section={section} onClose={()=>setSection(null)} onLogout={handleLogout}/>}
       <StatusBar barStyle="light-content" backgroundColor={marketColors.background} />
       <ScrollView
         style={styles.scrollView}
@@ -78,7 +84,7 @@ export default function SettingScreen() {
               <Text style={styles.email}>{user.email || "尚未登入"}</Text>
               <View style={styles.loginStatus}>
                 <View style={styles.statusDot} />
-                <Text style={styles.statusText}>帳號已連接 MySQL</Text>
+                <Text style={styles.statusText}>目前登入帳號</Text>
               </View>
             </View>
           </View>
@@ -88,25 +94,28 @@ export default function SettingScreen() {
             <SettingItem
               icon="shield-checkmark-outline"
               title="帳號與安全"
+              onPress={()=>setSection("account")}
               subtitle="修改密碼與登入安全"
             />
             <View style={styles.divider} />
             <SettingItem
               icon="notifications-outline"
               title="通知設定"
-              subtitle="買賣訊號與分析完成提醒"
+              onPress={()=>setSection("notifications")}
+              subtitle="回測完成提醒與瀏覽器通知"
             />
             <View style={styles.divider} />
             <SettingItem
               icon="star-outline"
               title="自選股管理"
-              subtitle="管理 favorite_stocks 收藏標的"
+              subtitle="查看、新增及移除收藏股票"
               onPress={() => router.push("/(tabs)/watch")}
             />
             <View style={styles.divider} />
             <SettingItem
               icon="options-outline"
               title="分析偏好"
+              onPress={()=>setSection("analysis")}
               subtitle="預設策略與報告顯示內容"
             />
           </View>
@@ -116,12 +125,14 @@ export default function SettingScreen() {
             <SettingItem
               icon="lock-closed-outline"
               title="資料與隱私"
+              onPress={()=>setSection("privacy")}
               subtitle="資料使用設定與隱私管理"
             />
             <View style={styles.divider} />
             <SettingItem
               icon="information-circle-outline"
               title="關於系統"
+              onPress={()=>setSection("about")}
               subtitle="行情來源為 Yahoo Finance"
             />
           </View>
@@ -132,7 +143,7 @@ export default function SettingScreen() {
             </View>
             <View style={styles.versionTextBox}>
               <Text style={styles.versionTitle}>系統版本</Text>
-              <Text style={styles.versionText}>v1.2.0・中英名稱自動顯示版</Text>
+              <Text style={styles.versionText}>多策略回測與個人設定版</Text>
             </View>
           </View>
 

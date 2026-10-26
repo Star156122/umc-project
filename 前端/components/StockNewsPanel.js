@@ -3,23 +3,24 @@ import { ActivityIndicator, Linking, Pressable, StyleSheet, Text, View } from 'r
 import { apiRequest } from '../src/config/api';
 import { marketColors as colors } from '../styles/marketTheme';
 
-function NewsGroup({analysisId, mode, onSaved}) {
+function NewsGroup({analysisId, mode, onSaved,apiBase}) {
   const [data,setData]=useState(null);
   const [error,setError]=useState('');
+  const [blocked,setBlocked]=useState(false);
   const [loading,setLoading]=useState(false);
   const [summarizing,setSummarizing]=useState(false);
   const sequence=useRef(0);
   async function load(summarize=false) {
     const id=++sequence.current;
-    setError('');
+    setError('');setBlocked(false);
     summarize?setSummarizing(true):setLoading(true);
     try {
-      const result=await apiRequest(`/api/reports/analysis/${analysisId}/news/${mode}${summarize?'/summary':''}`,{method:summarize?'POST':'GET',timeoutMs:summarize?150000:25000});
+      const result=await apiRequest(`${apiBase || `/api/reports/analysis/${analysisId}`}/news/${mode}${summarize?'/summary':''}`,{method:summarize?'POST':'GET',timeoutMs:summarize?150000:25000});
       if(sequence.current===id) {setData(result.news); onSaved?.();}
-    } catch(e) {if(sequence.current===id) setError(e.message);}
+    } catch(e) {if(sequence.current===id) {setError(e.message);if(e.status===403){setBlocked(true);setData(null);}}}
     finally {if(sequence.current===id) {setLoading(false);setSummarizing(false);}}
   }
-  useEffect(()=>{load();return ()=>{sequence.current++;};},[analysisId,mode]);
+  useEffect(()=>{load();return ()=>{sequence.current++;};},[analysisId,mode,apiBase]);
   return <View style={styles.card}>
     <Text style={styles.title}>{mode==='latest'?'最新消息｜最近 30 天':'回測期間消息'}</Text>
     {data && <Text style={styles.meta}>{data.start} ～ {data.end} · 查詢於 {new Date(data.fetchedAt).toLocaleString('zh-TW')}</Text>}
@@ -38,18 +39,19 @@ function NewsGroup({analysisId, mode, onSaved}) {
     </Pressable>)}
     {data && !data.items.length && <Text style={styles.text}>此期間未找到符合條件的新聞；不代表沒有事件發生。</Text>}
     {!!data?.coverage && <Text style={styles.meta}>{data.coverage}</Text>}
-    <View style={styles.actions}>
+    {!blocked && <View style={styles.actions}>
       <Pressable disabled={loading||summarizing} onPress={()=>load()} style={styles.button}><Text style={styles.link}>重新載入新聞</Text></Pressable>
       {!!data?.items?.length && !data.summary && <Pressable disabled={loading||summarizing} onPress={()=>load(true)} style={styles.button}><Text style={styles.link}>{summarizing?'Gemini 正在整理…':'產生 Gemini 摘要'}</Text></Pressable>}
     </View>
+    }
     {!data?.summary && !!data?.items?.length && <Text style={styles.meta}>產生摘要會將上述公開標題送至 Gemini，使用已設定的 API；可能產生費用。</Text>}
   </View>;
 }
-export default function StockNewsPanel({report,onSaved}) {
+export default function StockNewsPanel({report,onSaved,apiBase}) {
   return <View>
     <Text style={styles.heading}>個股新聞與事件</Text>
-    <NewsGroup key={`${report.analysisId}:latest`} analysisId={report.analysisId} mode="latest" onSaved={onSaved}/>
-    <NewsGroup key={`${report.analysisId}:historical`} analysisId={report.analysisId} mode="historical" onSaved={onSaved}/>
+    <NewsGroup key={`${report.analysisId}:latest`} analysisId={report.analysisId} mode="latest" onSaved={onSaved} apiBase={apiBase}/>
+    <NewsGroup key={`${report.analysisId}:historical`} analysisId={report.analysisId} mode="historical" onSaved={onSaved} apiBase={apiBase}/>
   </View>;
 }
 const styles=StyleSheet.create({

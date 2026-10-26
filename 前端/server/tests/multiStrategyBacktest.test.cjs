@@ -24,7 +24,7 @@ function fixtureRoot() {
 
 function invokeRouter(router, method, url, body = {}, authorization = "Bearer test-session") {
   const req = Object.assign(Object.create(express.request), {
-    method, url, originalUrl: url, baseUrl: "", body,
+    method, url, originalUrl: url, baseUrl: "", body, user:{userId:1},
     headers: authorization ? { authorization } : {},
   });
   const res = Object.assign(Object.create(express.response), {

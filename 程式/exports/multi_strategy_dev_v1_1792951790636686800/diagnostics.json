@@ -1,0 +1,690 @@
+{
+  "schema_version": "multi_strategy_diagnostics_v1",
+  "data_flow": {
+    "five_minute_kbar_rows_by_source": {
+      "technical_bars": 22788,
+      "ml_features": 26453
+    },
+    "feature_sample_counts": {
+      "sequence_eligible_samples": 4542,
+      "nonfinite_feature_exclusions": 10,
+      "model_ready_samples": 4532,
+      "shared_input_scope": "full ML V1 configured source universe",
+      "selected_universe_model_ready_samples": 2256,
+      "selected_universe_model_ready_samples_by_stock": {
+        "2303": 457,
+        "2330": 457,
+        "2379": 437,
+        "2454": 455,
+        "3034": 450
+      }
+    },
+    "ml_training_samples_per_model": 1070,
+    "training_label_counts_by_model": {
+      "random_forest": {
+        "SELL": 408,
+        "HOLD": 365,
+        "BUY": 297
+      },
+      "xgboost": {
+        "SELL": 408,
+        "HOLD": 365,
+        "BUY": 297
+      },
+      "gru": {
+        "SELL": 408,
+        "HOLD": 365,
+        "BUY": 297
+      }
+    },
+    "technical_raw_candidates": 32,
+    "technical_after_market_regime": 18,
+    "ml_gate_counts": {
+      "rf": {
+        "ENTRY": 3,
+        "BLOCK_HOLD": 5,
+        "BLOCK_SELL": 10,
+        "BLOCK_MISSING_OR_LATE_PREDICTION": 0
+      },
+      "xgboost": {
+        "ENTRY": 1,
+        "BLOCK_HOLD": 8,
+        "BLOCK_SELL": 9,
+        "BLOCK_MISSING_OR_LATE_PREDICTION": 0
+      },
+      "gru": {
+        "ENTRY": 0,
+        "BLOCK_HOLD": 3,
+        "BLOCK_SELL": 15,
+        "BLOCK_MISSING_OR_LATE_PREDICTION": 0
+      }
+    },
+    "execution_counts_by_strategy": {
+      "technical": {
+        "risk_v1_evaluated": 11,
+        "risk_v1_approved": 11,
+        "risk_v1_rejected": 0,
+        "actual_entries": 11,
+        "completed_closes": 11
+      },
+      "rf": {
+        "risk_v1_evaluated": 3,
+        "risk_v1_approved": 3,
+        "risk_v1_rejected": 0,
+        "actual_entries": 3,
+        "completed_closes": 3
+      },
+      "xgboost": {
+        "risk_v1_evaluated": 1,
+        "risk_v1_approved": 1,
+        "risk_v1_rejected": 0,
+        "actual_entries": 1,
+        "completed_closes": 1
+      },
+      "gru": {
+        "risk_v1_evaluated": 0,
+        "risk_v1_approved": 0,
+        "risk_v1_rejected": 0,
+        "actual_entries": 0,
+        "completed_closes": 0
+      }
+    },
+    "sample_definition_note": "ML training samples are labeled feature sequences used to fit a classifier; actual entries and completed closes are execution events and are not training samples."
+  },
+  "technical_candidates": {
+    "raw_candidate_count": 32,
+    "market_regime_passed_count": 18,
+    "fixed_horizon_evaluated_count": 32,
+    "gross_return_distribution": {
+      "count": 32,
+      "min": -0.009661835748792313,
+      "max": 0.009433962264151052,
+      "mean": -0.0009770846883765498,
+      "median": 0.0,
+      "p10": -0.00929801894918172,
+      "p25": -0.003438753254063176,
+      "p75": 0.0012815363133835134,
+      "p90": 0.004798621190130615
+    },
+    "net_return_distribution": {
+      "count": 32,
+      "min": -0.015447070050781608,
+      "max": 0.0035371765046128267,
+      "mean": -0.006813052488833939,
+      "median": -0.005841675612252573,
+      "p10": -0.015085378550896644,
+      "p25": -0.009260340785294946,
+      "p75": -0.004567625618297322,
+      "p90": -0.0010710864105007987
+    },
+    "positive_gross_return_ratio": 0.28125,
+    "positive_net_return_ratio": 0.0625,
+    "market_regime_pass_net_expectancy": -0.006902093570355144,
+    "by_market_regime": {
+      "PRIOR_PEER_PROXY_ABOVE_SMA20": {
+        "candidate_count": 18,
+        "net_expectancy": -0.006902093570355144
+      },
+      "PRIOR_PEER_PROXY_NOT_ABOVE_SMA20": {
+        "candidate_count": 14,
+        "net_expectancy": -0.006698571098306675
+      }
+    }
+  },
+  "ml_gates": {
+    "rf": {
+      "label_names": {
+        "0": "SELL",
+        "1": "HOLD",
+        "2": "BUY"
+      },
+      "training_label_counts": {
+        "SELL": 408,
+        "HOLD": 365,
+        "BUY": 297
+      },
+      "training_samples": 1070,
+      "validation": {
+        "samples": 562,
+        "accuracy": 0.3736654804270463,
+        "macro_precision": 0.36136248439861496,
+        "macro_recall": 0.35913978494623655,
+        "macro_f1": 0.3566286570382832,
+        "confusion_matrix": [
+          [
+            114,
+            59,
+            49
+          ],
+          [
+            75,
+            43,
+            37
+          ],
+          [
+            79,
+            53,
+            53
+          ]
+        ],
+        "actual_class_counts": {
+          "0": 222,
+          "1": 155,
+          "2": 185
+        },
+        "predicted_class_counts": {
+          "0": 268,
+          "1": 155,
+          "2": 139
+        },
+        "actual_class_proportions": {
+          "0": 0.39501779359430605,
+          "1": 0.27580071174377224,
+          "2": 0.3291814946619217
+        },
+        "predicted_class_proportions": {
+          "0": 0.47686832740213525,
+          "1": 0.27580071174377224,
+          "2": 0.24733096085409254
+        },
+        "macro_roc_auc_ovr": 0.5211891978266382,
+        "per_class": {
+          "SELL": {
+            "precision": 0.4253731343283582,
+            "recall": 0.5135135135135135,
+            "f1": 0.46530612244897956,
+            "pr_auc": 0.4132567357407706
+          },
+          "HOLD": {
+            "precision": 0.27741935483870966,
+            "recall": 0.27741935483870966,
+            "f1": 0.27741935483870966,
+            "pr_auc": 0.31858130672975277
+          },
+          "BUY": {
+            "precision": 0.381294964028777,
+            "recall": 0.2864864864864865,
+            "f1": 0.3271604938271605,
+            "pr_auc": 0.3512156910891483
+          }
+        },
+        "individual_roc_auc_ovr": {
+          "SELL": 0.5308161102278749,
+          "HOLD": 0.5102480779900135,
+          "BUY": 0.522503405262026
+        }
+      },
+      "candidate_predicted_class_counts": {
+        "BUY": 3,
+        "HOLD": 5,
+        "SELL": 10
+      },
+      "buy_probability": {
+        "count": 18,
+        "min": 0.2353434165856061,
+        "max": 0.37725133507275976,
+        "mean": 0.3036096352005276,
+        "median": 0.3106625359382649,
+        "p10": 0.25696236873870987,
+        "p25": 0.2578514060473022,
+        "p75": 0.3310458976271847,
+        "p90": 0.35792498755217667
+      },
+      "gate_rule": "ARGMAX_SELL_HOLD_BUY",
+      "gate_threshold": null,
+      "gate_action_counts": {
+        "ENTRY": 3,
+        "BLOCK_HOLD": 5,
+        "BLOCK_SELL": 10,
+        "BLOCK_MISSING_OR_LATE_PREDICTION": 0
+      },
+      "model_source": "fitted_in_process",
+      "runtime_source": "fitted_in_current_process",
+      "model_load_failure_fallback_used": false,
+      "model_failure_policy": "RAISE_BLOCKED_ERROR_NO_DEFAULT_HOLD",
+      "scaler_fit_on_training_only": true,
+      "sequence_alignment": {
+        "bars_per_sequence": 24,
+        "decision_time": "13:30 Asia/Taipei on signal_date",
+        "entry_session": "next actual trading session",
+        "chronology_assertion": "signal_date < entry_date"
+      },
+      "future_leakage_checks": {
+        "training_target_dates_bounded_before_validation": true,
+        "inference_labels_created": false,
+        "validation_used_for_selection": false,
+        "scaler_fit_on_training_only": true
+      },
+      "passed_candidate_net_expectancy": -0.003869432498528854,
+      "blocked_candidate_net_expectancy": -0.007508625784720402
+    },
+    "xgboost": {
+      "label_names": {
+        "0": "SELL",
+        "1": "HOLD",
+        "2": "BUY"
+      },
+      "training_label_counts": {
+        "SELL": 408,
+        "HOLD": 365,
+        "BUY": 297
+      },
+      "training_samples": 1070,
+      "validation": {
+        "samples": 562,
+        "accuracy": 0.36298932384341637,
+        "macro_precision": 0.34781044463477356,
+        "macro_recall": 0.35196163905841327,
+        "macro_f1": 0.3385649538654898,
+        "confusion_matrix": [
+          [
+            117,
+            66,
+            39
+          ],
+          [
+            73,
+            56,
+            26
+          ],
+          [
+            97,
+            57,
+            31
+          ]
+        ],
+        "actual_class_counts": {
+          "0": 222,
+          "1": 155,
+          "2": 185
+        },
+        "predicted_class_counts": {
+          "0": 287,
+          "1": 179,
+          "2": 96
+        },
+        "actual_class_proportions": {
+          "0": 0.39501779359430605,
+          "1": 0.27580071174377224,
+          "2": 0.3291814946619217
+        },
+        "predicted_class_proportions": {
+          "0": 0.5106761565836299,
+          "1": 0.3185053380782918,
+          "2": 0.1708185053380783
+        },
+        "macro_roc_auc_ovr": 0.5058757372750046,
+        "per_class": {
+          "SELL": {
+            "precision": 0.4076655052264808,
+            "recall": 0.527027027027027,
+            "f1": 0.45972495088408644,
+            "pr_auc": 0.39806648427897734
+          },
+          "HOLD": {
+            "precision": 0.3128491620111732,
+            "recall": 0.36129032258064514,
+            "f1": 0.33532934131736525,
+            "pr_auc": 0.3096214359081962
+          },
+          "BUY": {
+            "precision": 0.3229166666666667,
+            "recall": 0.16756756756756758,
+            "f1": 0.2206405693950178,
+            "pr_auc": 0.33176791831909536
+          }
+        },
+        "individual_roc_auc_ovr": {
+          "SELL": 0.5135532591414944,
+          "HOLD": 0.5178885630498534,
+          "BUY": 0.48618538963366553
+        }
+      },
+      "candidate_predicted_class_counts": {
+        "BUY": 1,
+        "HOLD": 8,
+        "SELL": 9
+      },
+      "buy_probability": {
+        "count": 18,
+        "min": 0.09239944815635681,
+        "max": 0.4222750663757324,
+        "mean": 0.20351710046331087,
+        "median": 0.1682070568203926,
+        "p10": 0.10822179913520813,
+        "p25": 0.11678292229771614,
+        "p75": 0.27691464126110077,
+        "p90": 0.34103295505046843
+      },
+      "gate_rule": "ARGMAX_SELL_HOLD_BUY",
+      "gate_threshold": null,
+      "gate_action_counts": {
+        "ENTRY": 1,
+        "BLOCK_HOLD": 8,
+        "BLOCK_SELL": 9,
+        "BLOCK_MISSING_OR_LATE_PREDICTION": 0
+      },
+      "model_source": "fitted_in_process",
+      "runtime_source": "fitted_in_current_process",
+      "model_load_failure_fallback_used": false,
+      "model_failure_policy": "RAISE_BLOCKED_ERROR_NO_DEFAULT_HOLD",
+      "scaler_fit_on_training_only": true,
+      "sequence_alignment": {
+        "bars_per_sequence": 24,
+        "decision_time": "13:30 Asia/Taipei on signal_date",
+        "entry_session": "next actual trading session",
+        "chronology_assertion": "signal_date < entry_date"
+      },
+      "future_leakage_checks": {
+        "training_target_dates_bounded_before_validation": true,
+        "inference_labels_created": false,
+        "validation_used_for_selection": false,
+        "scaler_fit_on_training_only": true
+      },
+      "passed_candidate_net_expectancy": -0.004846522134387077,
+      "blocked_candidate_net_expectancy": -0.0070230095371767946
+    },
+    "gru": {
+      "label_names": {
+        "0": "SELL",
+        "1": "HOLD",
+        "2": "BUY"
+      },
+      "training_label_counts": {
+        "SELL": 408,
+        "HOLD": 365,
+        "BUY": 297
+      },
+      "training_samples": 1070,
+      "validation": {
+        "samples": 562,
+        "accuracy": 0.3309608540925267,
+        "macro_precision": 0.3156871262640493,
+        "macro_recall": 0.3174464787368013,
+        "macro_f1": 0.30788904748787554,
+        "confusion_matrix": [
+          [
+            110,
+            71,
+            41
+          ],
+          [
+            79,
+            44,
+            32
+          ],
+          [
+            99,
+            54,
+            32
+          ]
+        ],
+        "actual_class_counts": {
+          "0": 222,
+          "1": 155,
+          "2": 185
+        },
+        "predicted_class_counts": {
+          "0": 288,
+          "1": 169,
+          "2": 105
+        },
+        "actual_class_proportions": {
+          "0": 0.39501779359430605,
+          "1": 0.27580071174377224,
+          "2": 0.3291814946619217
+        },
+        "predicted_class_proportions": {
+          "0": 0.5124555160142349,
+          "1": 0.30071174377224197,
+          "2": 0.18683274021352314
+        },
+        "macro_roc_auc_ovr": 0.48361606925207007,
+        "per_class": {
+          "SELL": {
+            "precision": 0.3819444444444444,
+            "recall": 0.4954954954954955,
+            "f1": 0.43137254901960786,
+            "pr_auc": 0.39328136190361007
+          },
+          "HOLD": {
+            "precision": 0.2603550295857988,
+            "recall": 0.2838709677419355,
+            "f1": 0.2716049382716049,
+            "pr_auc": 0.2785158937196576
+          },
+          "BUY": {
+            "precision": 0.3047619047619048,
+            "recall": 0.17297297297297298,
+            "f1": 0.2206896551724138,
+            "pr_auc": 0.33344416875305594
+          }
+        },
+        "individual_roc_auc_ovr": {
+          "SELL": 0.48461844197138315,
+          "HOLD": 0.5032575097091225,
+          "BUY": 0.46297225607570436
+        }
+      },
+      "candidate_predicted_class_counts": {
+        "BUY": 0,
+        "HOLD": 3,
+        "SELL": 15
+      },
+      "buy_probability": {
+        "count": 18,
+        "min": 0.2527403235435486,
+        "max": 0.3353964686393738,
+        "mean": 0.2915833012925254,
+        "median": 0.29363828897476196,
+        "p10": 0.2527403235435486,
+        "p25": 0.2633802890777588,
+        "p75": 0.32107290625572205,
+        "p90": 0.32650560736656187
+      },
+      "gate_rule": "ARGMAX_SELL_HOLD_BUY",
+      "gate_threshold": null,
+      "gate_action_counts": {
+        "ENTRY": 0,
+        "BLOCK_HOLD": 3,
+        "BLOCK_SELL": 15,
+        "BLOCK_MISSING_OR_LATE_PREDICTION": 0
+      },
+      "model_source": "fitted_in_process",
+      "runtime_source": "fitted_in_current_process",
+      "model_load_failure_fallback_used": false,
+      "model_failure_policy": "RAISE_BLOCKED_ERROR_NO_DEFAULT_HOLD",
+      "scaler_fit_on_training_only": true,
+      "sequence_alignment": {
+        "bars_per_sequence": 24,
+        "decision_time": "13:30 Asia/Taipei on signal_date",
+        "entry_session": "next actual trading session",
+        "chronology_assertion": "signal_date < entry_date"
+      },
+      "future_leakage_checks": {
+        "training_target_dates_bounded_before_validation": true,
+        "inference_labels_created": false,
+        "validation_used_for_selection": false,
+        "scaler_fit_on_training_only": true
+      },
+      "passed_candidate_net_expectancy": null,
+      "blocked_candidate_net_expectancy": -0.006902093570355144
+    }
+  },
+  "strategies": {
+    "technical": {
+      "pnl": {
+        "gross_pnl": -251.0,
+        "commission": 1220.7134250000001,
+        "tax": 1053.585,
+        "slippage": 0.0,
+        "total_cost": 2274.298425,
+        "net_pnl": -2525.298425,
+        "identity_delta": 0.0,
+        "completed_trade_count": 11,
+        "average_cost_per_trade": 206.75440227272728,
+        "positive_gross_profit": 3449.0,
+        "cost_to_positive_gross_profit_ratio": 0.6594080675558133,
+        "cost_to_absolute_gross_pnl_ratio": 9.060949900398406,
+        "cost_to_initial_capital_ratio": 0.02274298425
+      },
+      "exposure": {
+        "time_in_market": 0.16883372734436564,
+        "average_exposure": 0.0669338149211186,
+        "max_exposure": 0.4096812899931117,
+        "average_invested_capital_when_active": 39173.82147024504,
+        "return_on_invested_capital": -0.0644639284660579,
+        "gross_return": -0.00251,
+        "total_cost": 2274.298425,
+        "net_return": -0.02525298425
+      },
+      "trade_count": 11,
+      "average_holding_bars": 78.9090909090909,
+      "exit_reasons": {
+        "technical_exit": {
+          "count": 8,
+          "gross_pnl": 1040.0,
+          "cost": 1587.1312500000001,
+          "net_pnl": -547.13125
+        },
+        "max_holding_period": {
+          "count": 1,
+          "gross_pnl": 1599.0,
+          "cost": 234.99742500000002,
+          "net_pnl": 1364.002575
+        },
+        "stop_loss": {
+          "count": 2,
+          "gross_pnl": -2890.0,
+          "cost": 452.16975,
+          "net_pnl": -3342.16975
+        }
+      },
+      "undefined_no_trade_metrics_are_null": true
+    },
+    "rf": {
+      "pnl": {
+        "gross_pnl": -42.0,
+        "commission": 342.54435,
+        "tax": 360.51,
+        "slippage": 0.0,
+        "total_cost": 703.05435,
+        "net_pnl": -745.0543499999999,
+        "identity_delta": -1.1368683772161603e-13,
+        "completed_trade_count": 3,
+        "average_cost_per_trade": 234.35145,
+        "positive_gross_profit": 1640.0,
+        "cost_to_positive_gross_profit_ratio": 0.4286916768292683,
+        "cost_to_absolute_gross_pnl_ratio": 16.739389285714285,
+        "cost_to_initial_capital_ratio": 0.0070305435
+      },
+      "exposure": {
+        "time_in_market": 0.05614657210401891,
+        "average_exposure": 0.022485485965581208,
+        "max_exposure": 0.41183311459275046,
+        "average_invested_capital_when_active": 40394.29122807018,
+        "return_on_invested_capital": -0.018444545685759137,
+        "gross_return": -0.00042,
+        "total_cost": 703.05435,
+        "net_return": -0.0074505434999999984
+      },
+      "trade_count": 3,
+      "average_holding_bars": 96.0,
+      "exit_reasons": {
+        "max_holding_period": {
+          "count": 1,
+          "gross_pnl": 1640.0,
+          "cost": 241.023,
+          "net_pnl": 1398.977
+        },
+        "technical_exit": {
+          "count": 1,
+          "gross_pnl": -82.0,
+          "cost": 232.77135,
+          "net_pnl": -314.77135000000004
+        },
+        "stop_loss": {
+          "count": 1,
+          "gross_pnl": -1600.0,
+          "cost": 229.26000000000002,
+          "net_pnl": -1829.26
+        }
+      },
+      "undefined_no_trade_metrics_are_null": true
+    },
+    "xgboost": {
+      "pnl": {
+        "gross_pnl": 1640.0,
+        "commission": 116.223,
+        "tax": 124.8,
+        "slippage": 0.0,
+        "total_cost": 241.023,
+        "net_pnl": 1398.977,
+        "identity_delta": 0.0,
+        "completed_trade_count": 1,
+        "average_cost_per_trade": 241.023,
+        "positive_gross_profit": 1640.0,
+        "cost_to_positive_gross_profit_ratio": 0.14696524390243904,
+        "cost_to_absolute_gross_pnl_ratio": 0.14696524390243904,
+        "cost_to_initial_capital_ratio": 0.0024102299999999998
+      },
+      "exposure": {
+        "time_in_market": 0.031914893617021274,
+        "average_exposure": 0.012883486267085978,
+        "max_exposure": 0.41183311459275046,
+        "average_invested_capital_when_active": 40610.864197530864,
+        "return_on_invested_capital": 0.03444834350718047,
+        "gross_return": 0.0164,
+        "total_cost": 241.023,
+        "net_return": 0.01398977
+      },
+      "trade_count": 1,
+      "average_holding_bars": 163.0,
+      "exit_reasons": {
+        "max_holding_period": {
+          "count": 1,
+          "gross_pnl": 1640.0,
+          "cost": 241.023,
+          "net_pnl": 1398.977
+        }
+      },
+      "undefined_no_trade_metrics_are_null": true
+    },
+    "gru": {
+      "pnl": {
+        "gross_pnl": 0,
+        "commission": 0,
+        "tax": 0,
+        "slippage": 0,
+        "total_cost": 0,
+        "net_pnl": 0,
+        "identity_delta": 0,
+        "completed_trade_count": 0,
+        "average_cost_per_trade": null,
+        "positive_gross_profit": 0,
+        "cost_to_positive_gross_profit_ratio": null,
+        "cost_to_absolute_gross_pnl_ratio": null,
+        "cost_to_initial_capital_ratio": 0.0
+      },
+      "exposure": {
+        "time_in_market": 0.0,
+        "average_exposure": 0.0,
+        "max_exposure": 0.0,
+        "average_invested_capital_when_active": null,
+        "return_on_invested_capital": null,
+        "gross_return": 0.0,
+        "total_cost": 0,
+        "net_return": 0.0
+      },
+      "trade_count": 0,
+      "average_holding_bars": null,
+      "exit_reasons": {},
+      "undefined_no_trade_metrics_are_null": true
+    }
+  },
+  "notes": {
+    "outcome_fields_are_diagnostic_only": true,
+    "gate_threshold_note": "Current frozen baseline uses argmax; no probability threshold was selected in this run.",
+    "final_oos_used": false
+  }
+}

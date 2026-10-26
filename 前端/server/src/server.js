@@ -7,6 +7,8 @@ const fs = require("fs");
 const path = require("path");
 const jwt = require("jsonwebtoken");
 const pool = require("./db");
+const {createAccountService,createAccountRouter}=require("./accountService");
+const accountService=createAccountService(pool);
 const { getHotMarket, searchStocks } = require("./marketService");
 const {
   listFavoriteCodes,
@@ -36,6 +38,8 @@ const {
   createMultiStrategyBacktestService,
 } = require("./multiStrategyBacktestService");
 
+const {createMultiInsightsRouter}=require("./multiInsightsService");
+const multiStrategyService=createMultiStrategyBacktestService();
 const app = express();
 const port = Number(process.env.PORT || 3000);
 const jwtSecret = process.env.JWT_SECRET || "development-secret";
@@ -66,7 +70,7 @@ function verifyPassword(password, storedValue) {
   return crypto.timingSafeEqual(calculatedHash, savedHashBuffer);
 }
 
-function authenticate(req, res, next) {
+async function authenticate(req, res, next) {
   const header = String(req.headers.authorization || "");
   const token = header.startsWith("Bearer ") ? header.slice(7).trim() : "";
 
@@ -76,12 +80,15 @@ function authenticate(req, res, next) {
 
   try {
     const payload = jwt.verify(token, jwtSecret);
+    const account = await accountService.read(Number(payload.userId));
+    if(Number(payload.sessionVersion || 0)!==account.version)return res.status(401).json({message:"登入已撤銷，請重新登入"});
     req.user = {
       userId: Number(payload.userId),
       email: payload.email,
     };
     return next();
   } catch (_error) {
+    if (!["JsonWebTokenError","TokenExpiredError","NotBeforeError"].includes(_error.name)) return res.status(503).json({message:"無法確認登入狀態，請確認資料庫連線後重試"});
     return res.status(401).json({ message: "登入憑證已過期，請重新登入" });
   }
 }
@@ -92,14 +99,17 @@ app.use((req, _res, next) => {
   console.log(`[API] ${req.method} ${req.originalUrl}`);
   next();
 });
+app.use("/api/account", createAccountRouter({express,pool,authenticate,service:accountService,hashPassword,verifyPassword}));
 app.use("/api/research", createTechnicalV2ResearchRouter({ express, authenticate }));
 app.use("/api/research", createMlV1OofResearchRouter({ express, authenticate }));
 app.use("/api/research", createHybridRiskV1ResearchRouter({ express, authenticate }));
 app.use("/api/backtests/multi", createMultiStrategyBacktestRouter({
   express,
   authenticate,
-  service: createMultiStrategyBacktestService(),
+  service: multiStrategyService,
 }));
+
+app.use("/api/backtests/multi",createMultiInsightsRouter({express,authenticate,service:multiStrategyService}));
 
 app.get("/api/health", async (_req, res) => {
   try {
@@ -212,8 +222,12 @@ app.post("/api/auth/login", async (req, res) => {
       [user.user_id]
     );
 
+    const account = await accountService.read(user.user_id);
+    // Re-read credentials after reading the session version to close password-change races.
+    const [fresh] = await pool.execute("SELECT password_hash FROM users WHERE user_id = ?",[user.user_id]);
+    if(!fresh[0] || !verifyPassword(password,fresh[0].password_hash))return res.status(401).json({message:"密碼已變更，請重新登入"});
     const token = jwt.sign(
-      { userId: user.user_id, email: user.email },
+      { userId: user.user_id, email: user.email, sessionVersion:account.version },
       jwtSecret,
       { expiresIn: "7d" }
     );
@@ -430,19 +444,19 @@ app.get("/api/reports/history/:code", authenticate, async (req, res) => {
   }
 });
 
-const { getNews, summarizeNews } = require("./stockNewsService");
+const { getNews, summarizeNews, newsErrorResponse } = require("./stockNewsService");
 app.get("/api/reports/analysis/:analysisId/news/:mode", authenticate, async (req,res)=>{
   try {
     const report=await loadDatabaseReportByAnalysisId(req.user.userId,req.params.analysisId);
     res.set("Cache-Control","no-store");
     return res.json({news:await getNews(report,req.params.mode)});
-  } catch(error) {return res.status(error.status||502).json({message:error.status?error.message:"讀取新聞失敗，請稍後重試"});}
+  } catch(error) {const failure=newsErrorResponse(error); return res.status(failure.status).json({message:failure.message});}
 });
 app.post("/api/reports/analysis/:analysisId/news/:mode/summary", authenticate, async (req,res)=>{
   try {
     const report=await loadDatabaseReportByAnalysisId(req.user.userId,req.params.analysisId);
     return res.json({news:await summarizeNews(report,req.params.mode)});
-  } catch(error) {return res.status(error.status||502).json({message:error.status?error.message:"新聞摘要暫時無法產生，請稍後重試"});}
+  } catch(error) {const failure=newsErrorResponse(error); return res.status(failure.status).json({message:failure.message});}
 });
 app.get("/api/reports/analysis/:analysisId/html", authenticate, async (req, res) => {
   try {

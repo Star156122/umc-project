@@ -3,7 +3,7 @@ import { Modal, Platform, Pressable, Text, View } from 'react-native';
 
 export function buildMarketChart(stock, candles = false) {
   const points = (stock?.history || []).filter(p => typeof p.time === 'string' && p.time.includes('T') && Number.isFinite(Date.parse(p.time)) && p.value != null && Number.isFinite(Number(p.value)));
-  const json = JSON.stringify({points,prevClose:stock?.prevClose,candles}).replace(/</g,'\\u003c');
+  const json = JSON.stringify({points,prevClose:stock?.historyFallback ? null : stock?.prevClose,candles}).replace(/</g,'\\u003c');
   return `<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0;height:100%;font:13px Microsoft JhengHei,Arial;background:#080b10;color:#e2e8f0}#info{height:32px;padding:8px 12px;box-sizing:border-box;white-space:nowrap;overflow:hidden}#chart{height:calc(100% - 32px)}#error{padding:24px}button{float:right;border:0;background:#222a35;color:#ff626b;padding:2px 8px;cursor:pointer}</style><div id="info"><button id="reset">重設視野</button><span id="quote">載入走勢…</span></div><div id="chart"></div><script src="https://unpkg.com/lightweight-charts@4.2.1/dist/lightweight-charts.standalone.production.js" onerror="document.getElementById('quote').textContent='圖表載入失敗，請檢查網路後重試'"></script><script>
   const input=${json};
   const fmt=t=>new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(t*1000));
@@ -40,7 +40,7 @@ export default function MarketTrendChart({stock,height=240}) {
     <Modal visible={expanded} onRequestClose={()=>setExpanded(false)} animationType="fade">
       <View style={{flex:1,backgroundColor:'#080b10',padding:16}}>
         <View style={{flexDirection:'row',flexWrap:'wrap',gap:16,alignItems:'center',marginBottom:12}}>
-          <Text style={{flex:1,fontSize:20,fontWeight:'700',color:'#e2e8f0'}}>{stock?.code} {stock?.name} · 當日 5 分 K</Text>
+          <Text style={{flex:1,fontSize:20,fontWeight:'700',color:'#e2e8f0'}}>{stock?.code} {stock?.name} · {stock?.historyDate || "最近交易日"} 5 分 K</Text>
           {[['candles','K 線'],['line','分時線']].map(([key,label])=><Pressable key={key} onPress={()=>setMode(key)} style={{padding:10,backgroundColor:mode===key?'#51212b':'#202630',borderRadius:8}}><Text style={{color:'#e2e8f0'}}>{label}</Text></Pressable>)}
           <Pressable accessibilityRole="button" onPress={()=>setExpanded(false)} style={{padding:10}}><Text style={{color:'#e2e8f0'}}>關閉 ✕</Text></Pressable>
         </View>

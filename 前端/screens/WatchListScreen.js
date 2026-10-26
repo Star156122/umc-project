@@ -8,6 +8,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,6 +19,7 @@ import { apiRequest } from "../src/config/api";
 import { marketColors } from "../styles/marketTheme";
 
 export default function WatchListScreen() {
+  const [newCode,setNewCode]=useState(""),[adding,setAdding]=useState(false),[filter,setFilter]=useState("");
   const [stocks, setStocks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -94,11 +96,17 @@ export default function WatchListScreen() {
     });
   })();
 
+  async function addStock(){
+    if(adding)return;
+    if(!/^\d{4,6}$/.test(newCode.trim())){setError("請輸入 4～6 位股票代號");return;}
+    setAdding(true);setError("");
+    try{await apiRequest("/api/favorites",{method:"POST",body:JSON.stringify({code:newCode.trim()}),timeoutMs:30000});setNewCode("");await loadFavorites({silent:true});}catch(e){setError(e.message);}finally{setAdding(false);}
+  }
   const header = (
     <View>
       <MarketHeader
         title="我的自選股"
-        subtitle="收藏存入 MySQL favorite_stocks，行情由 Yahoo Finance 讀取"
+        subtitle="管理收藏股票，行情來源為 Yahoo Finance"
         icon="star"
         rightContent={
           <View style={styles.countBadge}>
@@ -108,6 +116,11 @@ export default function WatchListScreen() {
         }
       />
 
+      <View style={{gap:12,marginVertical:16}}>
+        <TextInput accessibilityLabel="新增自選股票代號" placeholder="輸入股票代號，例如 2330" placeholderTextColor="#91a6b9" value={newCode} onChangeText={setNewCode} keyboardType="number-pad" maxLength={6} style={{padding:12,color:"white",borderWidth:1,borderColor:"#45647d",borderRadius:10}}/>
+        <Pressable disabled={adding} onPress={addStock} style={{padding:12,backgroundColor:"#184873",borderRadius:10}}><Text style={{color:"white"}}>{adding?"加入中…":"加入自選股"}</Text></Pressable>
+        <TextInput accessibilityLabel="篩選自選股" placeholder="依代號或名稱篩選" placeholderTextColor="#91a6b9" value={filter} onChangeText={setFilter} style={{padding:12,color:"white",borderWidth:1,borderColor:"#45647d",borderRadius:10}}/>
+      </View>
       <View style={styles.sectionRow}>
         <View style={styles.sectionTitleBox}>
           <Ionicons name="star" size={19} color="#ffd54a" />
@@ -145,7 +158,7 @@ export default function WatchListScreen() {
       <View style={styles.emptyIconBox}>
         <Ionicons name="star-outline" size={39} color="#ffd54a" />
       </View>
-      <Text style={styles.emptyTitle}>還沒有自選股</Text>
+      <Text style={styles.emptyTitle}>{filter.trim()?"沒有符合篩選的股票":"還沒有自選股"}</Text>
       <Text style={styles.emptySubtitle}>
         回到首頁，在股票右上角按下星號，就會存入 favorite_stocks 並顯示在這裡。
       </Text>
@@ -157,7 +170,7 @@ export default function WatchListScreen() {
       <StatusBar barStyle="light-content" backgroundColor={marketColors.background} />
       <FlatList
         style={styles.list}
-        data={stocks}
+        data={stocks.filter(x=>(String(x.code)+String(x.name)).toLowerCase().includes(filter.trim().toLowerCase()))}
         keyExtractor={(item) => String(item.favoriteId || item.yahooSymbol || item.code)}
         renderItem={({ item }) => (
           <MarketStockRow

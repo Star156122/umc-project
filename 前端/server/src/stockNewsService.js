@@ -16,7 +16,12 @@ const day = value => new Date(new Date(value).getTime() + 86400000).toISOString(
 function guard(start, end) {
   const policy = JSON.parse(fs.readFileSync(path.join(PYTHON_BACKTEST_ROOT, 'configs/holdout_policy.json'), 'utf8'));
   if (start > end) throw fail('新聞起訖日期顛倒');
-  if (start <= policy.holdout.end && end >= policy.holdout.start) throw fail('此期間包含研究保留資料，新聞查詢維持鎖定', 403);
+  const blocked = Object.values(policy.roles || {}).filter(role => role.access === 'forbidden');
+  if (!blocked.length && policy.holdout) blocked.push(policy.holdout);
+  if (policy.final_test?.access === 'forbidden') blocked.push(policy.final_test);
+  if (blocked.some(role => start <= (role.end || '9999-12-31') && end >= role.start)) {
+    throw fail('這段新聞期間落在研究鎖定範圍，暫不讀取。請改看核准的歷史期間；需由研究負責人決定是否開放。', 403);
+  }
 }
 function context(report, mode, now = new Date()) {
   if (!['latest', 'historical'].includes(mode)) throw fail('新聞模式無效');
@@ -25,7 +30,9 @@ function context(report, mode, now = new Date()) {
   const today = new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Taipei', year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
   const end = mode === 'latest' ? today : date(report.endDate);
   const start = mode === 'latest' ? new Date(Date.parse(end) - 29*86400000).toISOString().slice(0,10) : date(report.startDate);
-  guard(start, end);
+  // User authorized unrestricted display-only news on 2026-10-26.
+  // Keep guard() available for research-result analysis; news never enters training.
+  if (start > end) throw fail("新聞起訖日期顛倒");
   const name = stockName(code, report.stockName);
   return { code, name, mode, start, end, key: crypto.createHash('sha256').update(JSON.stringify([code,name,mode,start,end])).digest('hex') };
 }
@@ -76,7 +83,9 @@ async function fetchNews(ctx) {
   const query = `${ctx.name ? '"'+ctx.name+'"' : ctx.code+' 股票'} after:${ctx.start} before:${day(ctx.end)}`;
   const url = new URL('https://news.google.com/rss/search');
   url.search = new URLSearchParams({q:query,hl:'zh-TW',gl:'TW',ceid:'TW:zh-Hant'});
-  const response = await fetch(url,{signal:AbortSignal.timeout(15000)});
+  let response;
+  try { response = await fetch(url,{signal:AbortSignal.timeout(15000)}); }
+  catch (error) { throw fail(error.name === 'TimeoutError' || error.name === 'AbortError' ? '外部新聞來源連線逾時，請稍後重試。' : '無法連接外部新聞來源，請檢查網路或 DNS。', 502); }
   if (!response.ok) throw fail('新聞來源暫時無法連線，請稍後重試',502);
   const xml = await response.text();
   if (xml.length > 2000000) throw fail('新聞回應過大',502);
@@ -136,12 +145,21 @@ async function appendNewsHtml(html, report) {
   const sections = [];
   for (const mode of ['latest','historical']) {
     let ctx, data;
-    try { ctx=context(report,mode); data=await cached(ctx); } catch { /* A locked period remains unavailable. */ }
-    sections.push(`<h3>${mode==='latest'?'最新消息':'回測期間消息'}</h3>${data ? `<p>${escape(data.start)} ～ ${escape(data.end)} · 查詢時間 ${escape(data.fetchedAt)}</p><p>${escape(data.note)} ${escape(data.coverage)}</p>${data.summary?`<h4>Gemini 新聞標題摘要</h4><p style="white-space:pre-wrap">${escape(data.summary.text)}</p>`:''}<ol>${data.items.map(x=>`<li><a href="${escape(x.url)}" target="_blank" rel="noopener noreferrer">${escape(x.title)}</a><br>${escape(x.publishedDate)} · ${escape(x.source)}</li>`).join('')}</ol>${!data.items.length?'<p>此期間未找到符合條件的新聞，這不代表沒有事件發生。</p>':''}`:'<p>尚未保存此期間新聞，請在回測分析頁面載入新聞；研究保留期間維持鎖定。</p>'}`);
+    try { ctx=context(report,mode); data=await cached(ctx); } catch { /* Unavailable cache must not prevent report rendering. */ }
+    sections.push(`<h3>${mode==='latest'?'最新消息':'回測期間消息'}</h3>${data ? `<p>${escape(data.start)} ～ ${escape(data.end)} · 查詢時間 ${escape(data.fetchedAt)}</p><p>${escape(data.note)} ${escape(data.coverage)}</p>${data.summary?`<h4>Gemini 新聞標題摘要</h4><p style="white-space:pre-wrap">${escape(data.summary.text)}</p>`:''}<ol>${data.items.map(x=>`<li><a href="${escape(x.url)}" target="_blank" rel="noopener noreferrer">${escape(x.title)}</a><br>${escape(x.publishedDate)} · ${escape(x.source)}</li>`).join('')}</ol>${!data.items.length?'<p>此期間未找到符合條件的新聞，這不代表沒有事件發生。</p>':''}`:'<p>尚未保存此期間新聞，請在回測分析頁面載入新聞。</p>'}`);
   }
   const section = `<section id="stock-news-context" style="padding:24px;margin:24px 0;border:1px solid #94a3b8;border-radius:12px"><h2>個股新聞與事件</h2>${sections.join('')}</section>`;
   // Replace the original optional-news placeholder without changing other report sections.
   const pattern = /<div class="d-flex align-items-center section-title">\s*<i class="ri-newspaper-fill me-2"><\/i>\s*個股近期資訊（選配）[\s\S]*?<div class="small text-muted mt-2">[\s\S]*?<\/div>/;
   return pattern.test(html) ? html.replace(pattern,()=>section) : html.replace(/<\/body>/i,()=>section+'</body>');
 }
-module.exports={context,guard,parseFeed,getNews,summarizeNews,appendNewsHtml};
+function newsErrorResponse(error) {
+  if (error.status) return {status:error.status,message:error.message};
+  const code=error.code || error.cause?.code;
+  if (['ECONNREFUSED','ETIMEDOUT','ENOTFOUND'].includes(code)) return {status:503,message:'新聞需要資料庫連線。請先啟動 XAMPP 的 MySQL，再檢查 API 資料庫位址。'};
+  if (['ER_ACCESS_DENIED_ERROR','ER_DBACCESS_DENIED_ERROR'].includes(code)) return {status:503,message:'API 無法登入資料庫，請確認後端資料庫帳號與密碼設定。'};
+  if (code==='ER_BAD_DB_ERROR') return {status:503,message:'找不到專題資料庫，請確認資料庫已匯入及 DB_NAME 設定。'};
+  if (['ER_TABLEACCESS_DENIED_ERROR','ER_CREATE_DB_DENIED'].includes(code)) return {status:503,message:'新聞快取資料表權限不足，請由資料庫管理者檢查權限。'};
+  return {status:502,message:'新聞讀取暫時失敗，請稍後重試；回測不受影響。'};
+}
+module.exports={context,guard,parseFeed,getNews,summarizeNews,appendNewsHtml,newsErrorResponse};

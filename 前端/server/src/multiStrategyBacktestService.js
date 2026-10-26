@@ -218,6 +218,7 @@ function createMultiStrategyBacktestRouter({ express, authenticate, service }) {
   router.post("/run", authenticate, (req, res) => {
     try {
       const job = service.submit(req.body || {});
+      job.ownerUserId=req.user.userId;
       return res.status(202).json({
         run_id: job.run_id, status: job.status,
         status_url: `/api/backtests/multi/${job.run_id}/status`,
@@ -230,14 +231,14 @@ function createMultiStrategyBacktestRouter({ express, authenticate, service }) {
   });
   router.get("/:runId/status", authenticate, (req, res) => {
     const job = service.getJob(req.params.runId);
-    if (!job) return res.status(404).json({ error: { code: "BACKTEST_RUN_NOT_FOUND", message: "找不到此回測工作" } });
+    if (!job || job.ownerUserId!==req.user.userId) return res.status(404).json({ error: { code: "BACKTEST_RUN_NOT_FOUND", message: "找不到此回測工作" } });
     return res.json({ run_id: job.run_id, status: job.status, stock_code: job.stock_code,
       strategies: job.strategies, created_at: job.created_at, updated_at: job.updated_at || job.created_at,
       error: job.error ? { code: job.error.code, message: job.error.message } : null });
   });
   router.get("/:runId/result", authenticate, (req, res) => {
     const job = service.getJob(req.params.runId);
-    if (!job) return res.status(404).json({ error: { code: "BACKTEST_RUN_NOT_FOUND", message: "找不到此回測工作" } });
+    if (!job || job.ownerUserId!==req.user.userId) return res.status(404).json({ error: { code: "BACKTEST_RUN_NOT_FOUND", message: "找不到此回測工作" } });
     if (job.status === "completed") return res.json(job.result);
     if (job.status === "blocked" || job.status === "failed") {
       return res.status(409).json({ error: { code: job.error?.code || "BACKTEST_NOT_COMPLETED", message: job.error?.message || "回測尚未完成" }, run_id: job.run_id, status: job.status });
