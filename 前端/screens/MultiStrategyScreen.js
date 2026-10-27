@@ -5,17 +5,19 @@ import {STRATEGIES,STOCKS,METRICS,formatMetric,strategyInfo,resultRows,explainEr
 import {loadPreferences,subscribePreferences,DEFAULT_PREFERENCES,notifyBacktestCompleted} from '../src/features/preferences';
 import {marketColors} from '../styles/marketTheme';
 import StockNewsPanel from '../components/StockNewsPanel';
+import MultiReportHistory from '../components/MultiReportHistory';
 import MultiGeminiPanel from '../components/MultiGeminiPanel';
 import MultiStrategyCharts from '../components/MultiStrategyCharts';
 import MultiStrategyDetails from '../components/MultiStrategyDetails';
 const STATUS={pending:'等待執行',running:'執行中',completed:'執行完成',failed:'執行失敗',blocked:'資料不足或研究政策限制',paused:'連線暫停',expired:'工作已失效',submitting:'正在提交'};
 export default function MultiStrategyScreen(){
+ const [historyVersion,setHistoryVersion]=useState(0),[opening,setOpening]=useState(false),[saving,setSaving]=useState(false);
  const [preferences,setPreferences]=useState(DEFAULT_PREFERENCES),[notice,setNotice]=useState('');
  const [stock,setStock]=useState('2330'),[selected,setSelected]=useState(['technical','rf','xgboost','gru']);
  const [job,setJob]=useState(null),[status,setStatus]=useState(''),[result,setResult]=useState(null),[error,setError]=useState(''),[elapsed,setElapsed]=useState(0),[history,setHistory]=useState([]);
  const token=useRef(0),timer=useRef(null),mounted=useRef(true),busy=useRef(false),failures=useRef(0);
  const active=['pending','running','submitting'].includes(status);
- const unresolved=active||status==='paused';
+ const unresolved=active||status==='paused'||opening||saving;
  const rows=useMemo(()=>resultRows(result),[result]);
  useEffect(()=>{let alive=true;const apply=p=>{if(!alive)return;setPreferences(p);if(!busy.current){setStock(p.stock);setSelected(p.strategies);}};loadPreferences().then(apply).catch(()=>{});const off=subscribePreferences(apply);return()=>{alive=false;off();};},[]);
  useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;token.current++;clearTimeout(timer.current);};},[]);
@@ -28,7 +30,7 @@ export default function MultiStrategyScreen(){
    failures.current=0;setError('');setStatus(update.status);
    if(update.status==='completed'){
     notifyBacktestCompleted(current.stock_code).then(show=>{if(show&&mounted.current&&serial===token.current)setNotice(current.stock_code+' 的多策略回測已完成，可查看下方結果。');});
-    setResult(update.result);setHistory(old=>[update.result,...old.filter(r=>r.run_id!==update.result.run_id)].slice(0,5));busy.current=false;return;
+    setHistoryVersion(v=>v+1);setResult(update.result);setHistory(old=>[update.result,...old.filter(r=>r.run_id!==update.result.run_id)].slice(0,5));busy.current=false;return;
    }
    if(update.status==='failed'||update.status==='blocked'){
     setError(explainError({code:update.error?.code,message:update.error?.message||STATUS[update.status]}));busy.current=false;return;
@@ -56,6 +58,14 @@ export default function MultiStrategyScreen(){
    setJob(current);setStatus(response.status==='running'?'running':'pending');poll(current,serial);
   }catch(e){if(mounted.current&&serial===token.current){setStatus('failed');setError(explainError(e)+(!e.status?'。提交結果不明，伺服器可能仍在執行，請勿連續重複送出。':''));}busy.current=false;}
  }
+ async function openHistory(entry){
+  if(busy.current||unresolved)return;busy.current=true;setOpening(true);setError('');
+  try{const saved=await apiRequest(`/api/backtests/multi/${encodeURIComponent(entry.run_id)}/result`,{timeoutMs:45000});
+   if(saved.status!=='completed'||saved.run_id!==entry.run_id||saved.stock_code!==entry.stock_code)throw Error('歷史報告格式不符，請重新整理清單');
+   token.current++;clearTimeout(timer.current);setResult(saved);setJob(null);setStatus('');setNotice('已讀取資料庫歷史報告');
+  }catch(e){setError(e.message);}finally{busy.current=false;setOpening(false);}
+ }
+ async function retrySave(){if(!result||saving)return;setSaving(true);try{const response=await apiRequest(`/api/backtests/multi/${encodeURIComponent(result.run_id)}/save`,{method:'POST',timeoutMs:30000});setResult(old=>({...old,persistence:response.persistence}));setHistoryVersion(v=>v+1);}catch(e){setError(e.message);}finally{setSaving(false);}}
  function resume(){if(!job||busy.current)return;busy.current=true;failures.current=0;setStatus('running');setError('');poll(job,++token.current);}
  return <ScrollView style={{flex:1,backgroundColor:marketColors.background}} contentContainerStyle={s.page}>
   {!!notice&&<Pressable onPress={()=>setNotice('')}><Text accessibilityLiveRegion="polite" style={s.period}>{notice}（點擊關閉）</Text></Pressable>}
@@ -67,15 +77,17 @@ export default function MultiStrategyScreen(){
   </View>
   {!!status&&<View style={s.card} accessibilityLiveRegion="polite"><View style={s.wrap}>{active&&<ActivityIndicator color="#73b9ff"/>}<Text style={s.heading}>{STATUS[status]||status}</Text></View>{job&&<><Text style={s.note}>本次股票 {job.stock_code} {STOCKS[job.stock_code]||''}　已等待 {Math.floor(elapsed/60)} 分 {elapsed%60} 秒</Text><Text selectable style={s.note}>工作編號：{job.run_id}</Text></>}{active&&<Text style={s.note}>正在等待伺服器完成，頁面會自動更新。模型計算可能需要數分鐘；後端未提供百分比進度。</Text>}{status==='paused'&&<Pressable onPress={resume} style={s.chip}><Text style={s.text}>繼續查詢</Text></Pressable>}</View>}
   {!!error&&<Text accessibilityRole="alert" style={s.error}>{error}</Text>}
-  <Text style={s.note}>本頁暫存最近 5 次已完成結果；離開或重新整理頁面可能清除。伺服器重啟後工作編號可能失效，新版結果尚未加入永久歷史資料庫。</Text>
+  <MultiReportHistory onSelect={openHistory} disabled={unresolved} refreshKey={historyVersion}/>
+  {opening&&<ActivityIndicator color="#73b9ff"/>}
   {history.length>0&&<View style={s.wrap}>{history.map(r=><Pressable disabled={unresolved} key={r.run_id} style={[s.chip,result?.run_id===r.run_id&&s.chosen]} onPress={()=>setResult(r)}><Text style={s.text}>{r.stock_code} · {r.strategies.length} 策略 · {r.run_id.slice(-8)}</Text></Pressable>)}</View>}
   {result&&<>
+   <View style={s.card}><Text style={result.persistence?.status==='saved'?s.note:s.error}>{result.persistence?.status==='saved'?'此報告已永久存入資料庫，可從歷史清單重新開啟。':result.persistence?.message||'此報告尚未確認存入資料庫，請重試儲存。'}</Text>{result.persistence?.status!=='saved'&&<Pressable accessibilityRole="button" disabled={saving} onPress={retrySave} style={s.chip}><Text style={s.text}>{saving?'儲存中…':'重試儲存報告'}</Text></Pressable>}</View>
    <View style={s.card}><Text style={s.heading}>{result.stock_code} {STOCKS[result.stock_code]||''} · 回測結果</Text><Text style={s.note}>{result.backtest_period.start} ～ {result.backtest_period.end}</Text><Text style={s.note}>資料角色：{result.data_role}（歷史開發）</Text><Text style={s.note}>工作編號：{result.run_id}</Text><Text style={s.note}>無交易或不適用的數據顯示「不適用」；0 代表後端明確回傳的零值。</Text>
    <ScrollView horizontal><View><View style={s.tableRow}><Text style={[s.cell,s.label]}>基本績效</Text>{rows.map(r=><Text key={r.strategy_id} style={[s.cell,{color:strategyInfo(r.strategy_id).color,fontWeight:'700'}]}>{strategyInfo(r.strategy_id).name}</Text>)}</View>{METRICS.map(([key,name,unit])=><View key={key} style={s.tableRow}><Text style={[s.cell,s.label]}>{name}</Text>{rows.map(r=><Text selectable key={r.strategy_id} style={s.cell}>{formatMetric(r.summary?.[key],unit)}</Text>)}</View>)}</View></ScrollView>
    {METRICS.map(([,name,,meaning])=><Text key={name} style={s.note}>{name}：{meaning}</Text>)}
    <Text style={s.note}>Buy & Hold 期末仍持有股票，損益包含未實現損益，未計期末賣出成本；曝險比例也與 Risk V1 策略不同。</Text></View>
    {preferences.showCharts&&<View style={s.card}><MultiStrategyCharts rows={rows}/></View>}
-   <MultiGeminiPanel key={'ai:'+result.run_id} result={result}/>
+   <MultiGeminiPanel key={'ai:'+result.run_id} result={result} onSaved={()=>setHistoryVersion(v=>v+1)}/>
    <StockNewsPanel key={'news:'+result.run_id} report={{analysisId:result.run_id}} apiBase={`/api/backtests/multi/${encodeURIComponent(result.run_id)}`} />
    <Text style={s.heading}>策略專業細節</Text>{rows.map(r=><MultiStrategyDetails key={result.run_id+':'+r.strategy_id} row={r} audit={result.audit} defaultExpanded={preferences.expandDetails}/>)}
   </>}

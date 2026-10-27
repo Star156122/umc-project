@@ -39,7 +39,8 @@ const {
 } = require("./multiStrategyBacktestService");
 
 const {createMultiInsightsRouter}=require("./multiInsightsService");
-const multiStrategyService=createMultiStrategyBacktestService();
+const {createMultiReportStore}=require("./multiReportStore");
+const multiStrategyService=createMultiStrategyBacktestService({reportStore:createMultiReportStore(pool)});
 const app = express();
 const port = Number(process.env.PORT || 3000);
 const jwtSecret = process.env.JWT_SECRET || "development-secret";

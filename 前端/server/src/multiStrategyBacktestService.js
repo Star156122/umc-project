@@ -96,6 +96,7 @@ function createMultiStrategyBacktestService({
   pythonCommand,
   pythonArgs = [],
   schedule = setImmediate,
+  reportStore = null,
 } = {}) {
   const jobs = new Map();
   let activeJobId = null;
@@ -110,6 +111,27 @@ function createMultiStrategyBacktestService({
 
   function getJob(id) { return jobs.get(id) || null; }
 
+  async function resolveJob(id,userId){
+    const existing=getJob(id);
+    if(existing)return existing.ownerUserId===userId?existing:null;
+    if(!reportStore)return null;
+    const saved=await reportStore.load(id,userId);
+    if(saved)jobs.set(id,saved);
+    return saved;
+  }
+  async function persistJob(job){
+    if(!reportStore){job.persistence={status:'unavailable'};return;}
+    if(job.savePending)return job.savePending;
+    job.persistence={status:'saving'};
+    job.savePending=(async()=>{try{await reportStore.saveResult(job);job.persistence={status:'saved'};}catch{job.persistence={status:'failed',message:'回測已完成，但歷史報告儲存失敗。請確認 MySQL 後按「重試儲存」，不要關閉伺服器。'};}finally{job.savePending=null;}})();
+    await job.savePending;
+  }
+  async function persistAnalysis(job){
+    if(!reportStore){job.analysisPersistence={status:'unavailable'};return;}
+    await persistJob(job);
+    try{if(job.persistence.status!=='saved')throw Error('result not saved');await reportStore.saveAnalysis(job);job.analysisPersistence={status:'saved'};}catch{job.analysisPersistence={status:'failed',message:'分析已產生，但存入資料庫失敗。可重試保存，不會重新呼叫 Gemini。'};}
+  }
+  async function listHistory(userId,page){if(!reportStore)return {reports:[],hasMore:false,page};return reportStore.list(userId,page);}
   function submit(body) {
     pruneJobs();
     const config = readDevelopmentConfig(root);
@@ -201,20 +223,30 @@ function createMultiStrategyBacktestService({
     });
   }
 
-  function finishJob(job, status, result, error) {
-    job.status = status;
+  async function finishJob(job, status, result, error) {
+    if(job.status!=="running"&&job.status!=="pending")return;
+    job.status = status === "completed" && reportStore ? "running" : status;
     job.result = result;
     job.error = error;
+    if(status==="completed"&&reportStore)await persistJob(job);
+    job.status=status;
     job.updated_at = new Date().toISOString();
     job.updated_at_ms = Date.now();
     if (activeJobId === job.run_id) activeJobId = null;
   }
 
-  return { submit, getJob };
+  return { submit, getJob, resolveJob, persistJob, persistAnalysis, listHistory };
 }
 
 function createMultiStrategyBacktestRouter({ express, authenticate, service }) {
   const router = express.Router();
+  const safe=fn=>async(req,res)=>{try{await fn(req,res);}catch{res.status(503).json({message:"無法讀取歷史報告，請確認 MySQL 連線"});}};
+  const resolve=(req)=>service.resolveJob?service.resolveJob(req.params.runId,req.user.userId):service.getJob(req.params.runId);
+  router.get("/history",authenticate,safe(async(req,res)=>{
+    const page=Number(req.query.page||0);if(!Number.isInteger(page)||page<0||page>100000)return res.status(400).json({message:"頁碼無效"});
+    res.json(await service.listHistory(req.user.userId,page));
+  }));
+  router.post("/:runId/save",authenticate,safe(async(req,res)=>{const job=await resolve(req);if(!job||job.ownerUserId!==req.user.userId)return res.status(404).json({message:"找不到此報告"});if(job.status!=="completed")return res.status(409).json({message:"回測尚未完成"});await service.persistJob(job);res.json({persistence:job.persistence});}));
   router.post("/run", authenticate, (req, res) => {
     try {
       const job = service.submit(req.body || {});
@@ -229,22 +261,22 @@ function createMultiStrategyBacktestRouter({ express, authenticate, service }) {
       return res.status(error.status || 500).json({ error: { code: error.code || "BACKTEST_REQUEST_FAILED", message: error.message } });
     }
   });
-  router.get("/:runId/status", authenticate, (req, res) => {
-    const job = service.getJob(req.params.runId);
+  router.get("/:runId/status", authenticate, safe(async (req, res) => {
+    const job = await resolve(req);
     if (!job || job.ownerUserId!==req.user.userId) return res.status(404).json({ error: { code: "BACKTEST_RUN_NOT_FOUND", message: "找不到此回測工作" } });
     return res.json({ run_id: job.run_id, status: job.status, stock_code: job.stock_code,
       strategies: job.strategies, created_at: job.created_at, updated_at: job.updated_at || job.created_at,
       error: job.error ? { code: job.error.code, message: job.error.message } : null });
-  });
-  router.get("/:runId/result", authenticate, (req, res) => {
-    const job = service.getJob(req.params.runId);
+  }));
+  router.get("/:runId/result", authenticate, safe(async (req, res) => {
+    const job = await resolve(req);
     if (!job || job.ownerUserId!==req.user.userId) return res.status(404).json({ error: { code: "BACKTEST_RUN_NOT_FOUND", message: "找不到此回測工作" } });
-    if (job.status === "completed") return res.json(job.result);
+    if (job.status === "completed") return res.json({...job.result,persistence:job.persistence});
     if (job.status === "blocked" || job.status === "failed") {
       return res.status(409).json({ error: { code: job.error?.code || "BACKTEST_NOT_COMPLETED", message: job.error?.message || "回測尚未完成" }, run_id: job.run_id, status: job.status });
     }
     return res.status(202).json({ run_id: job.run_id, status: job.status, message: "回測仍在執行中，請稍後查詢" });
-  });
+  }));
   return router;
 }
 

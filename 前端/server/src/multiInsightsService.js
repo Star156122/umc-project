@@ -36,12 +36,12 @@ async function generateAnalysis(result,{fetchImpl=fetch,readConfig}={}){
 }
 function createMultiInsightsRouter({express,authenticate,service,newsService=news,generate=generateAnalysis}){
  const router=express.Router();router.use(authenticate);
- router.use('/:runId',(req,res,next)=>{const job=service.getJob(req.params.runId);if(!job||job.ownerUserId!==req.user.userId)return res.status(404).json({message:'找不到此回測工作，可能已過期；請重新執行回測'});if(job.status!=='completed'||!job.result)return res.status(409).json({message:'請等待回測完成後再查看新聞與分析'});req.backtestJob=job;next();});
+ router.use('/:runId',async(req,res,next)=>{let job;try{job=service.resolveJob?await service.resolveJob(req.params.runId,req.user.userId):service.getJob(req.params.runId);}catch{return res.status(503).json({message:'無法讀取歷史報告，請確認資料庫連線'});}if(!job||job.ownerUserId!==req.user.userId)return res.status(404).json({message:'找不到此回測報告，請從歷史清單重新選擇'});if(job.status!=='completed'||!job.result)return res.status(409).json({message:'請等待回測完成後再查看新聞與分析'});req.backtestJob=job;next();});
  const wrap=fn=>async(req,res)=>{try{await fn(req,res);}catch(e){const response=newsService.newsErrorResponse(e);res.status(response.status||e.status||500).json({message:response.message});}};
  router.get('/:runId/news/:mode',wrap(async(req,res)=>res.json({news:await newsService.getNews(reportContext(req.backtestJob.result),req.params.mode)})));
  router.post('/:runId/news/:mode/summary',wrap(async(req,res)=>res.json({news:await newsService.summarizeNews(reportContext(req.backtestJob.result),req.params.mode)})));
- router.get('/:runId/analysis',wrap(async(req,res)=>res.json({analysis:req.backtestJob.geminiAnalysis||null})));
- router.post('/:runId/analysis',wrap(async(req,res)=>{const job=req.backtestJob;if(!job.geminiAnalysis){if(!job.geminiPending)job.geminiPending=generate(job.result).then(value=>{job.geminiAnalysis=value;return value;}).finally(()=>{job.geminiPending=null;});await job.geminiPending;}res.json({analysis:job.geminiAnalysis});}));
+ router.get('/:runId/analysis',wrap(async(req,res)=>res.json({analysis:req.backtestJob.geminiAnalysis||null,persistence:req.backtestJob.analysisPersistence})));
+ router.post('/:runId/analysis',wrap(async(req,res)=>{const job=req.backtestJob;if(!job.geminiAnalysis){if(!job.geminiPending)job.geminiPending=generate(job.result).then(value=>{job.geminiAnalysis=value;return value;}).finally(()=>{job.geminiPending=null;});await job.geminiPending;}if(service.persistAnalysis)await service.persistAnalysis(job);res.json({analysis:job.geminiAnalysis,persistence:job.analysisPersistence});}));
  return router;
 }
 module.exports={analysisInput,reportContext,generateAnalysis,createMultiInsightsRouter};

@@ -143,3 +143,12 @@ test("Python policy rejection becomes blocked and result endpoint does not claim
   assert.equal(result.body.status, "blocked");
   fs.rmSync(root, { recursive: true, force: true });
 });
+
+test('completed runner automatically saves before completed status is exposed', async()=>{
+ const root=fixtureRoot();let saved=null;
+ const store={saveResult:async job=>{await new Promise(resolve=>setTimeout(resolve,15));saved=JSON.parse(JSON.stringify({owner:job.ownerUserId,result:job.result}));}};
+ const service=createMultiStrategyBacktestService({root,spawnImpl:makeFakeSpawn(root),reportStore:store});
+ const job=service.submit({stock_code:'2330',strategies:['technical']});job.ownerUserId=7;
+ for(let i=0;i<50&&job.status!=='completed';i++)await new Promise(resolve=>setTimeout(resolve,5));
+ assert.equal(job.status,'completed');assert.equal(job.persistence.status,'saved');assert.equal(saved.owner,7);assert.equal(saved.result.stock_code,'2330');
+});

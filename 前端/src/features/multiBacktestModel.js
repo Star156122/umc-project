@@ -31,7 +31,7 @@ export function validateResult(result,expected) {
 export function explainError(error) {
   const code=error?.data?.error?.code||error?.code;
   const message=error?.data?.error?.message||error?.message||'請求失敗';
-  const hints={BACKTEST_RUN_NOT_FOUND:'這份工作已失效，可能是 API 重新啟動或工作超過保存期限。請重新執行；舊版歷史報告仍可查閱。',BACKTEST_QUEUE_BUSY:'伺服器正在處理另一份回測，請等它結束後再提交。',BACKTEST_BLOCKED:'資料不足或研究政策限制，這次無法執行。',DEVELOPMENT_DEFAULTS_ONLY:'目前僅支援固定的 2024 年歷史開發期間。'};
+  const hints={BACKTEST_RUN_NOT_FOUND:'找不到此工作或報告。請先重新整理歷史報告清單；未完成或未保存的工作可能在伺服器重啟後失效。',BACKTEST_QUEUE_BUSY:'伺服器正在處理另一份回測，請等它結束後再提交。',BACKTEST_BLOCKED:'資料不足或研究政策限制，這次無法執行。',DEVELOPMENT_DEFAULTS_ONLY:'目前僅支援固定的 2024 年歷史開發期間。'};
   return hints[code]?`${hints[code]}${code==='BACKTEST_BLOCKED'?' '+message:''}`:message;
 }
 export async function fetchRunUpdate(request,job) {
