@@ -1,0 +1,21 @@
+........................................................................ [ 18%]
+.............................................................................................................................................. [ 53%]
+.................F............................................... [ 69%]
+........................................................................ [ 87%]
+.................................................                        [100%]
+================================== FAILURES ===================================
+______ test_config_only_enables_a_b_and_forbidden_roles_are_never_loaded ______
+
+    def test_config_only_enables_a_b_and_forbidden_roles_are_never_loaded():
+        config = json.loads((ROOT / "configs/ml_v4_research_matrix.json").read_text(encoding="utf-8"))
+>       assert [item["id"] for item in config["experiments"] if item["enabled"]] == ["A_all_stocks", "B_all_stocks"]
+E       AssertionError: assert ['A_all_stock...B_all_stocks'] == ['A_all_stock...B_all_stocks']
+E         
+E         At index 1 diff: 'VOL_all_stocks' != 'B_all_stocks'
+E         Left contains 4 more items, first extra item: 'TREND_all_stocks'
+E         Use -v to get more diff
+
+tests\test_ml_v4_research_framework.py:139: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_ml_v4_research_framework.py::test_config_only_enables_a_b_and_forbidden_roles_are_never_loaded
+1 failed, 399 passed, 9 subtests passed in 10.13s

@@ -18,6 +18,16 @@ class DevelopmentBacktestBlocked(RuntimeError):
     """Raised when the development-mode data/period contract is not met."""
 
 
+def ohlc_stop_fill(entry_price: float, stop_loss_pct: float, opening: float, low: float) -> dict[str, Any] | None:
+    """Return the conservative stop fill for a completed OHLC bar."""
+    stop = float(entry_price) * (1.0 - float(stop_loss_pct))
+    if float(opening) <= stop:
+        return {"reference_price": float(opening), "reason_code": "STOP_GAP_OPEN", "stop_price": stop}
+    if float(low) <= stop:
+        return {"reference_price": stop, "reason_code": "STOP_INTRABAR", "stop_price": stop}
+    return None
+
+
 def validate_request(stock_code: str, strategies: Iterable[str], config: dict[str, Any]) -> list[str]:
     code = str(stock_code).zfill(4)
     if code not in config["stock_universe"]:
@@ -205,8 +215,35 @@ def summary_from_curve(curve: list[dict[str, Any]], completed_pnl: list[dict[str
     }
 
 
+def daily_risk_metrics(curve: list[dict[str, Any]], initial_capital: float) -> dict[str, Any]:
+    by_day = {}
+    for point in curve:
+        by_day[str(point["timestamp"])[:10]] = float(point["equity"])
+    returns = []
+    previous = float(initial_capital)
+    for day in sorted(by_day):
+        current = by_day[day]
+        returns.append(current / previous - 1.0 if previous else 0.0)
+        previous = current
+    if len(returns) < 2:
+        sharpe, sharpe_reason = None, "FEWER_THAN_TWO_DAILY_RETURNS"
+    else:
+        deviation = float(np.std(returns, ddof=0))
+        sharpe = float(np.mean(returns) / deviation * np.sqrt(252)) if deviation else None
+        sharpe_reason = None if deviation else "ZERO_DAILY_RETURN_VARIANCE"
+    downside = float(np.sqrt(np.mean(np.square(np.minimum(returns, 0.0))))) if returns else 0.0
+    sortino = float(np.mean(returns) / downside * np.sqrt(252)) if downside else None
+    return {
+        "sharpe_ratio": sharpe, "sharpe_reason": sharpe_reason,
+        "sortino_ratio": sortino,
+        "sortino_reason": None if sortino is not None else ("NO_DAILY_RETURNS" if not returns else "NO_DOWNSIDE_DEVIATION"),
+        "risk_metric_basis": "daily mark-to-market close returns; annualization sqrt(252)",
+    }
+
+
 def build_buy_and_hold_result(*, connection, stock_code: str, period: dict[str, str],
-                              initial_capital: float, commission_rate: float) -> dict[str, Any]:
+                              initial_capital: float, commission_rate: float,
+                              slippage_bps: float = 0.0) -> dict[str, Any]:
     """Build a same-bars, long-only mark-to-market benchmark without Risk V1.
 
     The benchmark buys the maximum whole-share quantity affordable after entry
@@ -233,15 +270,17 @@ def build_buy_and_hold_result(*, connection, stock_code: str, period: dict[str, 
     first_open = float(rows[0]["open"])
     if first_open <= 0:
         raise DevelopmentBacktestBlocked("BLOCKED_BUY_AND_HOLD_INVALID_ENTRY_PRICE")
-    quantity = int(initial_capital / (first_open * (1.0 + commission_rate)))
+    entry_price = first_open * (1.0 + slippage_bps / 10000.0)
+    quantity = int(initial_capital / (entry_price * (1.0 + commission_rate)))
     if quantity <= 0:
         raise DevelopmentBacktestBlocked("BLOCKED_BUY_AND_HOLD_INSUFFICIENT_CAPITAL")
-    gross = quantity * first_open
+    gross = quantity * entry_price
     fee = gross * commission_rate
     fill = {
         "timestamp": int(rows[0]["kbar_timestamp"]), "action": "Buy", "quantity": quantity,
         "gross_amount": gross, "fee": fee, "tax": 0.0,
-        "net_cash_flow": -(gross + fee), "price": first_open,
+        "net_cash_flow": -(gross + fee), "price": entry_price,
+        "reference_price": first_open, "slippage_cost": quantity * (entry_price - first_open),
     }
     bars = [{
         "time": int(row["kbar_timestamp"]),
@@ -260,16 +299,18 @@ def build_buy_and_hold_result(*, connection, stock_code: str, period: dict[str, 
         "data_role": "historical_development", "summary": summary,
         "details": {
             "profit_factor": None, "profit_factor_reason": "BUY_AND_HOLD_HAS_NO_CLOSED_TRADES",
-            "sharpe_ratio": None, "sharpe_reason": "NOT_COMPUTED_FOR_PASSIVE_BENCHMARK",
+            **daily_risk_metrics(curve, initial_capital),
             "payoff_ratio": None, "commission_total": fee, "transaction_tax_total": 0.0,
-            "total_transaction_cost": fee, "transaction_count": 1,
+            "total_transaction_cost": fee + quantity * (entry_price - first_open), "transaction_count": 1,
+            "slippage_total": quantity * (entry_price - first_open),
             "shares_held": quantity, "entry_timestamp": bars[0]["datetime"],
-            "entry_price": first_open, "mark_to_market_exit": True,
+            "entry_price": entry_price, "mark_to_market_exit": True,
             "risk_contract": None,
             "exposure_assumption": "Maximum affordable whole shares; no Risk V1 stop or 40% position cap; held to final close and marked to market without liquidation.",
         },
         "trades": [fill], "completed_trade_pnl": [], "equity_curve": curve,
-        "audit": {"benchmark": True, "entry_execution": "first available in-period 5-minute bar open",
+        "audit": {"benchmark": True, "slippage_bps": slippage_bps,
+                  "entry_execution": "first available in-period 5-minute bar open",
                   "price_source": "same Technical V2-B clean 5-minute bar database and backtest period",
                   "exit_execution": "marked to market at final close; no sale executed",
                   "risk_v1_applied": False},
@@ -279,7 +320,7 @@ def build_buy_and_hold_result(*, connection, stock_code: str, period: dict[str, 
 def build_exposure_matched_buy_and_hold_result(
     *, connection, stock_code: str, period: dict[str, str], initial_capital: float,
     commission_rate: float, transaction_tax_rate: float,
-    max_position_fraction: float,
+    max_position_fraction: float, slippage_bps: float = 0.0,
 ) -> dict[str, Any]:
     """Buy-and-hold comparator capped at the active strategy's entry exposure.
 
@@ -307,26 +348,30 @@ def build_exposure_matched_buy_and_hold_result(
         raise DevelopmentBacktestBlocked("BLOCKED_EXPOSURE_MATCHED_BUY_AND_HOLD_NO_BACKTEST_BARS")
     first_open = float(rows[0]["open"])
     final_close = float(rows[-1]["close"])
+    entry_price = first_open * (1.0 + slippage_bps / 10000.0)
+    exit_price = final_close * (1.0 - slippage_bps / 10000.0)
     quantity = int(
         initial_capital * max_position_fraction
-        / (first_open * (1.0 + commission_rate))
+        / (entry_price * (1.0 + commission_rate))
     )
     if quantity <= 0:
         raise DevelopmentBacktestBlocked("BLOCKED_EXPOSURE_MATCHED_BUY_AND_HOLD_INSUFFICIENT_CAPITAL")
-    buy_gross = quantity * first_open
+    buy_gross = quantity * entry_price
     buy_fee = buy_gross * commission_rate
-    sell_gross = quantity * final_close
+    sell_gross = quantity * exit_price
     sell_fee = sell_gross * commission_rate
     sell_tax = sell_gross * transaction_tax_rate
     buy = {
         "timestamp": int(rows[0]["kbar_timestamp"]), "action": "Buy", "quantity": quantity,
         "gross_amount": buy_gross, "fee": buy_fee, "tax": 0.0,
-        "net_cash_flow": -(buy_gross + buy_fee), "price": first_open,
+        "net_cash_flow": -(buy_gross + buy_fee), "price": entry_price,
+        "reference_price": first_open, "slippage_cost": quantity * (entry_price - first_open),
     }
     sell = {
         "timestamp": int(rows[-1]["kbar_timestamp"]), "action": "Sell", "quantity": quantity,
         "gross_amount": sell_gross, "fee": sell_fee, "tax": sell_tax,
-        "net_cash_flow": sell_gross - sell_fee - sell_tax, "price": final_close,
+        "net_cash_flow": sell_gross - sell_fee - sell_tax, "price": exit_price,
+        "reference_price": final_close, "slippage_cost": quantity * (final_close - exit_price),
     }
     bars = [{
         "time": int(row["kbar_timestamp"]),
@@ -335,11 +380,14 @@ def build_exposure_matched_buy_and_hold_result(
         "low": float(row["low"]), "close": float(row["close"]),
     } for row in rows]
     curve = derive_equity_curve(bars, [buy, sell], initial_capital)
-    gross_pnl = sell_gross - buy_gross
-    total_cost = buy_fee + sell_fee + sell_tax
+    gross_pnl = quantity * (final_close - first_open)
+    slippage_cost = quantity * (entry_price - first_open + final_close - exit_price)
+    total_cost = buy_fee + sell_fee + sell_tax + slippage_cost
     pnl = [{
         "gross_pnl": gross_pnl, "fee": buy_fee + sell_fee, "tax": sell_tax,
-        "slippage": 0.0, "net_pnl": gross_pnl - total_cost,
+        "slippage": slippage_cost, "buy_fee": buy_fee, "sell_fee": sell_fee,
+        "transaction_tax": sell_tax, "slippage_cost": slippage_cost,
+        "total_cost": total_cost, "net_pnl": gross_pnl - total_cost,
         "return_pct": (gross_pnl - total_cost) / buy_gross if buy_gross else None,
     }]
     summary = summary_from_curve(curve, pnl, initial_capital)
@@ -349,13 +397,15 @@ def build_exposure_matched_buy_and_hold_result(
         "stock_code": str(stock_code).zfill(4), "period": dict(period),
         "data_role": "historical_development", "summary": summary,
         "details": {
+            **daily_risk_metrics(curve, initial_capital),
             "commission_total": buy_fee + sell_fee,
             "transaction_tax_total": sell_tax,
+            "slippage_total": slippage_cost,
             "total_transaction_cost": total_cost,
             "transaction_count": 2,
             "shares_held": quantity,
-            "entry_price": first_open,
-            "exit_price": final_close,
+            "entry_price": entry_price,
+            "exit_price": exit_price,
             "entry_exposure_fraction": buy_gross / initial_capital if initial_capital else None,
             "maximum_entry_exposure_fraction": max_position_fraction,
             "risk_contract": None,
@@ -367,6 +417,7 @@ def build_exposure_matched_buy_and_hold_result(
             "exit_execution": "final available in-period 5-minute bar close with commission and tax",
             "max_position_fraction": max_position_fraction,
             "risk_v1_applied": False,
+            "slippage_bps": slippage_bps,
         },
     }
 
@@ -493,10 +544,22 @@ def train_fixed_model_set(config: dict[str, Any], selected_models: Iterable[str]
             audit_extra={"train_period": train_period, "validation_period": val_period,
                          "validation_used_for_selection": False, "scaler_fit_indices": "training_only"},
         )
+        feature_schema = list(getattr(data, "feature_names", raw["feature_names"]))
+        context_schema = list(getattr(data, "context_feature_names", []))
+        if feature_schema != list(raw["feature_names"]):
+            raise DevelopmentBacktestBlocked(f"BLOCKED_{name.upper()}_FEATURE_ORDER_MISMATCH")
+        for split_name in ("train", "validation"):
+            matrix = np.asarray(data.X[split_name])
+            expected_shape = (len(matrix), inference_X.shape[1], len(feature_schema))
+            if matrix.shape != expected_shape or matrix.dtype != np.float32 or not np.isfinite(matrix).all():
+                raise DevelopmentBacktestBlocked(f"BLOCKED_{name.upper()}_INVALID_{split_name.upper()}_FEATURES")
         # V1's fixed GRU cap is ten epochs. No validation-based early stopping
         # or epoch selection occurs in this one-shot system development run.
         fixed_epochs = int(params_by_model[name]["max_epochs"]) if name == "gru" else None
         model, seconds, predictor, extra = fit_multiclass_model(name, data, params_by_model[name], fixed_epochs=fixed_epochs)
+        model_classes = getattr(model, "classes_", None)
+        if model_classes is not None and list(np.asarray(model_classes).astype(int)) != [0, 1, 2]:
+            raise DevelopmentBacktestBlocked(f"BLOCKED_{name.upper()}_CLASS_MAPPING_MISMATCH")
         validation_context = None if data.context_X is None else data.context_X["validation"]
         validation_prob = np.asarray(predictor(data.X["validation"], validation_context), dtype=float)
         if validation_prob.shape != (len(val_idx), 3) or not np.isfinite(validation_prob).all():
@@ -550,6 +613,19 @@ def train_fixed_model_set(config: dict[str, Any], selected_models: Iterable[str]
                 "entry_session": "next actual trading session",
                 "chronology_assertion": "signal_date < entry_date",
             },
+            "feature_alignment": {
+                "feature_names_match_training_and_inference": feature_schema == feature_names,
+                "feature_order_sha256": hashlib.sha256("\n".join(feature_schema).encode("utf-8")).hexdigest(),
+                "context_feature_names": context_schema,
+                "input_dtype": str(inference_X.dtype),
+                "train_shape": list(data.X["train"].shape),
+                "validation_shape": list(data.X["validation"].shape),
+                "inference_shape": list(inference_X.shape),
+                "finite_train_validation_inference": True,
+                "class_mapping": {"0": "SELL", "1": "HOLD", "2": "BUY"},
+                "model_classes": None if model_classes is None else [int(value) for value in np.asarray(model_classes).astype(int)],
+                "predict_proba_columns": ["SELL", "HOLD", "BUY"],
+            },
             "future_leakage_checks": {
                 "training_target_dates_bounded_before_validation": True,
                 "inference_labels_created": False,
@@ -571,7 +647,7 @@ def train_fixed_model_set(config: dict[str, Any], selected_models: Iterable[str]
 
 def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, strategy_id: str,
                      model_runtime: dict[str, Any] | None, regime_context: dict[str, Any],
-                     candidate_schedule: set[str]) -> dict[str, Any]:
+                     candidate_schedule: set[str], slippage_bps: float = 0.0) -> dict[str, Any]:
     """Replay frozen V2-B using engine fills and common Risk V1 sizing."""
     import contextlib
     import io
@@ -584,6 +660,83 @@ def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, str
     from trading_system import backtest as bt
     from trading_system import technical_v1 as tv1
     from trading_system.technical_v1 import TechnicalV1Strategy
+
+    class DiagnosticV2BStrategy(TechnicalV2AloneStrategy):
+        """V2-B replay adapter with OHLC stop approximation and cost diagnostics."""
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self._diagnostic_completed_bar = None
+            self.account_state_blocks = []
+
+        def process_completed_kbar(self, code, decision_time, completed_kbar):
+            snapshot = bt.indicator_snapshot(completed_kbar)
+            close = completed_kbar.get("Close")
+            aware = decision_time if decision_time.tzinfo else decision_time.replace(tzinfo=ZoneInfo("Asia/Taipei"))
+            key = aware.astimezone(ZoneInfo("Asia/Taipei")).isoformat(timespec="microseconds")
+            if close is not None and key in self.candidate_schedule and self._entry_reasons(float(close), snapshot):
+                day_changed = self.current_trading_day != aware.date()
+                cooldown = 0 if day_changed else max(0, int(self.cooldown_remaining) - (1 if self.cooldown_remaining > 0 and not self.is_bought else 0))
+                entries_today = 0 if day_changed else int(self.entries_today)
+                reason = None
+                if self.is_bought:
+                    reason = "BLOCK_ALREADY_IN_POSITION"
+                elif cooldown > 0:
+                    reason = "BLOCK_COOLDOWN"
+                elif entries_today >= self.config.max_entries_per_day:
+                    reason = "BLOCK_DAILY_ENTRY_LIMIT"
+                else:
+                    current_minute = aware.hour * 60 + aware.minute
+                    start_minute = self.config.entry_start_hour * 60 + self.config.entry_start_minute
+                    cutoff_minute = self.config.entry_cutoff_hour * 60 + self.config.entry_cutoff_minute
+                    block_start = self.config.entry_block_start_hour * 60 + self.config.entry_block_start_minute
+                    block_end = self.config.entry_block_end_hour * 60 + self.config.entry_block_end_minute
+                    if not start_minute <= current_minute <= cutoff_minute:
+                        reason = "BLOCK_ENTRY_TIME_WINDOW"
+                    elif self.config.use_entry_block and block_start <= current_minute < block_end:
+                        reason = "BLOCK_ENTRY_TIME_BLOCK"
+                    elif self.is_entry or self.is_exit:
+                        reason = "BLOCK_ACCOUNT_STATE"
+                if reason:
+                    self.account_state_blocks.append({
+                        "technical_earliest_entry_time": key,
+                        "stock_code": str(code), "reason_code": reason,
+                    })
+            self._diagnostic_completed_bar = completed_kbar
+            try:
+                return super().process_completed_kbar(code, decision_time, completed_kbar)
+            finally:
+                self._diagnostic_completed_bar = None
+
+        def _risk_exit_signal(self, close):
+            bar = self._diagnostic_completed_bar
+            if self.entry_price is not None and bar is not None:
+                stop = float(self.entry_price) * (1.0 - float(self.config.stop_loss_pct))
+                opening = float(bar.get("Open", bar.get("open", close)))
+                low = float(bar.get("Low", bar.get("low", close)))
+                stamp = bar.get("kbar_timestamp")
+                stop_fill = ohlc_stop_fill(self.entry_price, self.config.stop_loss_pct, opening, low)
+                if stop_fill:
+                    self.local_fill_price_override = stop_fill["reference_price"]
+                    self.local_fill_reason_override = stop_fill["reason_code"]
+                    self.local_fill_timestamp_override = float(stamp) if stamp is not None else None
+                    return stop_fill["reason_code"], [
+                        f"bar open {opening:.4f}; low {low:.4f}; stop {stop_fill['stop_price']:.4f}"
+                    ]
+            return super()._risk_exit_signal(close)
+
+        def finalize_backtest(self, code, final_time, final_price, snapshot):
+            bar = getattr(self, "final_completed_kbar", None)
+            if self.entry_price is not None and bar is not None:
+                stop_fill = ohlc_stop_fill(
+                    self.entry_price, self.config.stop_loss_pct,
+                    float(bar.get("Open", final_price)), float(bar.get("Low", final_price)),
+                )
+                if stop_fill:
+                    self.local_fill_price_override = stop_fill["reference_price"]
+                    self.local_fill_reason_override = stop_fill["reason_code"]
+                    self.local_fill_timestamp_override = float(bar["kbar_timestamp"])
+                    final_price = stop_fill["reference_price"]
+            return super().finalize_backtest(code, final_time, final_price, snapshot)
 
     root = Path(__file__).resolve().parents[2]
     tech = json.loads((root / config["technical"]["config"]).read_text(encoding="utf-8"))
@@ -604,7 +757,7 @@ def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, str
         raise DevelopmentBacktestBlocked("BLOCKED_EXECUTION_COST_OR_RISK_CONTRACT_MISMATCH")
 
     if strategy_id == "technical":
-        strategy = TechnicalV2AloneStrategy(
+        strategy = DiagnosticV2BStrategy(
             config=app, study_config=tech, family_name=family_name, family=family,
             candidate=candidate, data_role="historical_development", fold_id=fold["id"],
             is_backtest=True, is_simulation=True, local_only=True,
@@ -614,7 +767,7 @@ def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, str
     else:
         if model_runtime is None:
             raise DevelopmentBacktestBlocked("BLOCKED_MODEL_RUNTIME_MISSING")
-        class FixedModelGateStrategy(TechnicalV2AloneStrategy):
+        class FixedModelGateStrategy(DiagnosticV2BStrategy):
             def __init__(self, *args, prediction_lookup, model_name, **kwargs):
                 kwargs["ml_model"] = model_name
                 kwargs["prediction_lookup"] = prediction_lookup
@@ -650,9 +803,11 @@ def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, str
                 self.hybrid_decisions.append({**base, **pred, "ml_prediction": pred["prediction"], "hybrid_action": action})
                 if action != "ENTRY":
                     return
-                current_equity = float(self.local_cash or 0.0) + int(self.local_position) * float(close)
+                raw_entry = float(self.last_tick["close"]) if self.last_tick else float(close)
+                effective_entry = raw_entry * (1.0 + float(slippage_bps) / 10000.0)
+                current_equity = float(self.local_cash or 0.0) + int(self.local_position) * raw_entry
                 original_quantity = int(TechnicalV1Strategy._order_quantity(self, close))
-                sizing = calculate_risk_size(current_equity=current_equity, entry_price=float(close),
+                sizing = calculate_risk_size(current_equity=current_equity, entry_price=effective_entry,
                     original_quantity=original_quantity, stop_loss_pct=float(self.config.stop_loss_pct))
                 self.risk_decisions.append({"timestamp": signal_time.isoformat(timespec="microseconds"),
                     "stock_code": str(code), "fold_id": str(self.fold_id), "model": self.ml_model, **sizing})
@@ -672,6 +827,8 @@ def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, str
         )
 
     strategy.configure_local_account(app)
+    strategy.local_slippage_bps = float(slippage_bps)
+    strategy.diagnostic_sizing_enabled = True
     strategy.evaluation_start_timestamp = eval_lower
     stats = bt.MarketDataStats(tick_count=full.height,
         first_timestamp=float(full["kbar_timestamp"][0]), last_timestamp=float(full["kbar_timestamp"][-1]))
@@ -704,6 +861,8 @@ def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, str
         sharpe = float(np.mean(daily_returns) / vol * np.sqrt(252)) if vol > 0 else None
         if vol == 0:
             sharpe_reason = "ZERO_DAILY_RETURN_VARIANCE"
+    downside = float(np.sqrt(np.mean(np.square(np.minimum(daily_returns, 0.0))))) if daily_returns else 0.0
+    sortino = float(np.mean(daily_returns) / downside * np.sqrt(252)) if downside > 0 else None
     wins = [float(row["net_pnl"]) for row in pnl_rows if float(row["net_pnl"]) > 0]
     losses = [float(row["net_pnl"]) for row in pnl_rows if float(row["net_pnl"]) < 0]
     completed = [float(row["net_pnl"]) for row in pnl_rows]
@@ -713,14 +872,19 @@ def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, str
         max_loss_streak = max(max_loss_streak, streak)
     from hybrid.core.multi_strategy_diagnostics import exposure_metrics, pnl_decomposition
     details = {
-        "commission_total": fees, "transaction_tax_total": tax, "total_transaction_cost": fees + tax,
+        "commission_total": fees, "transaction_tax_total": tax,
+        "slippage_total": sum(float(row.get("slippage_cost", 0.0)) for row in trade_rows),
+        "total_transaction_cost": fees + tax + sum(float(row.get("slippage_cost", 0.0)) for row in trade_rows),
         "risk_contract": {"version": "risk_v1", "risk_per_trade": 0.01,
                           "max_position_fraction": 0.4, "stop_loss_pct": float(app.stop_loss_pct),
-                          "sizing_reference": "completed_signal_bar_close", "gap_risk_note": "Next-open gaps may exceed estimated signal-price stop risk."},
+                          "sizing_reference": "next_tradable_bar_open_including_buy_slippage",
+                          "gap_risk_note": "Stop checks use completed 5-minute OHLC; intrabar path is approximate."},
         "profit_factor": (sum(wins) / abs(sum(losses))) if losses else None,
         "profit_factor_reason": None if losses else "NO_LOSING_COMPLETED_TRADES",
         "sharpe_ratio": sharpe, "sharpe_annualization": "daily mark-to-market returns, population std, sqrt(252)",
         "sharpe_reason": sharpe_reason,
+        "sortino_ratio": sortino,
+        "sortino_reason": None if sortino is not None else ("NO_DAILY_RETURNS" if not daily_returns else "NO_DOWNSIDE_DEVIATION"),
         "average_win": float(np.mean(wins)) if wins else None,
         "average_loss": float(abs(np.mean(losses))) if losses else None,
         "payoff_ratio": (float(np.mean(wins) / abs(np.mean(losses)))) if wins and losses else None,
@@ -730,9 +894,13 @@ def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, str
                             list(getattr(strategy, "hybrid_decisions", []))),
         "risk_decisions": list(getattr(strategy, "risk_decisions", [])),
         "gate_decisions": list(getattr(strategy, "hybrid_decisions", [])),
+        "account_state_blocks": list(getattr(strategy, "account_state_blocks", [])),
+        "orders_created": len(strategy.local_orders),
+        "failed_orders": sum(row.get("status_code") != "BT-00000" for row in strategy.local_orders),
         "open_position_quantity_at_end": int(strategy.local_position),
-        "slippage_rate": float(candidate_cfg["preserved_common_backtest"]["slippage_rate"]),
-        "slippage_simulated": bool(candidate_cfg["preserved_common_backtest"]["slippage_rate"]),
+        "slippage_rate": float(slippage_bps) / 10000.0,
+        "slippage_bps": float(slippage_bps),
+        "slippage_simulated": bool(slippage_bps),
         "performance_decomposition": pnl_decomposition(pnl_rows, app.initial_capital),
         "exposure": exposure_metrics(curve, pnl_rows, app.initial_capital),
     }
@@ -742,10 +910,12 @@ def run_one_strategy(*, connection, config: dict[str, Any], stock_code: str, str
         "summary": summary, "details": details, "trades": trade_rows, "signals": signal_rows,
         "completed_trade_pnl": pnl_rows,
         "equity_curve": curve, "audit": {"candidate_id": candidate["id"], "variant": "TECH_V2_B",
-            "entry_execution": "completed K-bar signal -> next tradable bar open",
+            "entry_execution": "completed K-bar signal -> next tradable bar open with adverse slippage",
+            "stop_execution": "completed 5-minute OHLC: gap uses bar open, intrabar touch uses stop; stop has priority",
             "prediction_source": "fixed newly trained model" if strategy_id != "technical" else None,
             "prediction_oof_claimed": False, "warmup_bars": int(warmup_count), "bars": len(bars),
             "candidate_schedule_size": len(candidate_schedule),
+            "raw_bars": int(full.height), "feature_complete_bars": len(bars),
             "candidate_signal_hash": hashlib.sha256("\n".join(sorted(candidate_schedule)).encode("utf-8")).hexdigest()},
         "_diagnostic_bars": bars,
     }
@@ -834,6 +1004,45 @@ def discover_v2b_candidates(*, connection, config: dict[str, Any], stock_code: s
             "market_regime_proxy_close": None, "market_regime_proxy_sma20": None,
         }))
         raw_rows.append(row)
+    # replay_kbars intentionally needs a following bar before it processes a
+    # completed-bar signal. Audit the final completed bar separately so it is
+    # visible as NO_NEXT_TRADABLE_BAR without ever creating a virtual fill.
+    last_bar = full.row(-1, named=True)
+    last_snapshot = bt.indicator_snapshot(last_bar)
+    last_close = float(last_bar["Close"])
+    final_reasons = strategy._entry_reasons(last_close, last_snapshot)
+    if final_reasons:
+        from datetime import timedelta
+        from trading_system.technical_v1 import validate_candidate_signal_row
+        bar_start = datetime.fromtimestamp(int(last_bar["kbar_timestamp"]), ZoneInfo("Asia/Taipei"))
+        bar_end = bar_start + timedelta(minutes=5) - timedelta(microseconds=1)
+        no_next_time = bar_start + timedelta(minutes=5)
+        final_context = regime_context.get((stock_code, bar_start.date().isoformat()))
+        prior = [] if not final_context else final_context.get("last_20_proxy_closes", [])
+        regime_pass = bool(
+            final_context and final_context.get("eligible") is True and len(prior) == 20
+            and float(prior[-1]) > sum(float(value) for value in prior) / 20
+        )
+        final_row = {
+            "technical_version": tech["technical_version"],
+            "strategy_family": family_name, "candidate_id": candidate["id"],
+            "parameter_fingerprint": tv1.candidate_fingerprint(tech, candidate),
+            "stock_code": stock_code, "data_role": "historical_development",
+            "fold_id": fold["id"], "timezone": "Asia/Taipei",
+            "signal_time": bar_end.isoformat(timespec="microseconds"),
+            "signal_bar_end_time": bar_end.isoformat(timespec="microseconds"),
+            "earliest_entry_time": no_next_time.isoformat(timespec="microseconds"),
+            "technical_signal": "BUY_CANDIDATE", "entry_rule_id": family["entry_rule_id"],
+            "exit_rule_id": family["exit_rule_id"], "close_at_signal": last_close,
+            "reason": ", ".join(final_reasons),
+            "market_regime": "PRIOR_PEER_PROXY_ABOVE_SMA20" if regime_pass else "PRIOR_PEER_PROXY_NOT_ABOVE_SMA20",
+            "market_regime_pass": regime_pass,
+            "market_regime_reason": "PASS_PRIOR_PROXY_ABOVE_SMA20" if regime_pass else "BLOCK_MISSING_OR_NON_BULLISH_PRIOR_PROXY",
+            "market_regime_proxy_close": float(prior[-1]) if len(prior) == 20 else None,
+            "market_regime_proxy_sma20": sum(float(value) for value in prior) / 20 if len(prior) == 20 else None,
+        }
+        validate_candidate_signal_row(final_row)
+        raw_rows.append(final_row)
     rows = [row for row in raw_rows if row["market_regime_pass"]]
     schedule = {str(row["earliest_entry_time"]) for row in rows}
     if not schedule:

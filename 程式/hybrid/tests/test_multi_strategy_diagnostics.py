@@ -82,6 +82,10 @@ def test_same_candidate_id_is_used_before_all_four_gates():
     }
     empty = lambda name: {
         "strategy_id": name, "trades": [], "signals": [], "completed_trade_pnl": [],
+        "details": {"gate_decisions": [{
+            "technical_earliest_entry_time": candidate["candidate_entry_time"],
+            "hybrid_action": "ENTRY",
+        }]},
     }
     prediction = {
         "prediction": "BUY", "prob_sell": 0.1, "prob_hold": 0.2, "prob_buy": 0.7,
@@ -96,6 +100,31 @@ def test_same_candidate_id_is_used_before_all_four_gates():
     assert len(rows) == 4
     assert {row["candidate_id"] for row in rows} == {"CAND-stable"}
     assert all(row["gate_decision"] == "ENTRY" for row in rows)
+
+
+def test_runtime_gate_decision_matches_technical_signal_time_field():
+    candidate = {
+        "candidate_id": "CAND-runtime-gate", "technical_candidate_id": "RULE",
+        "stock_code": "2330", "candidate_entry_time": "2024-07-01T09:05:00+08:00",
+        "market_regime_pass": True, "fixed_horizon_net_return": 0.0,
+    }
+    runtime_gate = {
+        "technical_signal_time": candidate["candidate_entry_time"],
+        "hybrid_action": "BLOCK_HOLD",
+    }
+    results = [{
+        "strategy_id": name, "trades": [], "signals": [], "completed_trade_pnl": [],
+        "details": {"gate_decisions": [runtime_gate]} if name == "rf" else {},
+    } for name in ("technical", "rf")]
+    row = next(row for row in build_gate_candidate_rows(
+        [candidate], results,
+        {"rf": {("2330", "2024-07-01"): {
+            "prediction": "HOLD", "prob_sell": 0.2, "prob_hold": 0.6, "prob_buy": 0.2,
+        }}},
+    ) if row["strategy_id"] == "rf")
+    assert row["gate_actually_evaluated"] is True
+    assert row["gate_decision"] == "BLOCK_HOLD"
+    assert row["not_entered_reason"] == "BLOCK_HOLD"
 
 
 def test_open_entry_is_not_misreported_as_no_entry():

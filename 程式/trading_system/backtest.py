@@ -569,6 +569,12 @@ class BacktestSafeTsst(Tsst):
         self.local_orders: list[dict[str, Any]] = []
         self.local_trades: list[dict[str, Any]] = []
         self.local_signals: list[dict[str, Any]] = []
+        # Opt-in execution diagnostics used by the isolated V2-B development replay.
+        # Legacy strategies keep zero slippage and close-based local fills.
+        self.local_slippage_bps = 0.0
+        self.local_fill_price_override: float | None = None
+        self.local_fill_reason_override: str | None = None
+        self.local_fill_timestamp_override: float | None = None
 
     def configure_local_account(self, config: AppConfig) -> None:
         """設定本地回測帳戶；下單時會檢查現金並立即扣除稅費。"""
@@ -635,7 +641,11 @@ class BacktestSafeTsst(Tsst):
         price_type = params["price_type"]
         limit_price = float(params.get("price", 0) or 0)
         quantity = int(params["quantity"])
-        tick_price = float(self.last_tick["close"]) if self.last_tick else limit_price
+        reference_price = float(self.last_tick["close"]) if self.last_tick else limit_price
+        if self.local_fill_price_override is not None:
+            reference_price = float(self.local_fill_price_override)
+        slippage_rate = max(0.0, float(self.local_slippage_bps)) / 10000.0
+        tick_price = reference_price * (1.0 + slippage_rate if action == "Buy" else 1.0 - slippage_rate)
         can_fill = price_type in {"MKT", "MKP"}
 
         if price_type == "LMT":
@@ -645,6 +655,7 @@ class BacktestSafeTsst(Tsst):
                 can_fill = tick_price >= limit_price
 
         gross = tick_price * quantity
+        slippage_cost = abs(tick_price - reference_price) * quantity
         fee = gross * self.local_fee_rate
         trade_time = (
             taipei_datetime_from_timestamp(self.last_tick["timestamp"])
@@ -687,7 +698,9 @@ class BacktestSafeTsst(Tsst):
                 "code": code,
                 "action": action,
                 "quantity": quantity,
-                "reference_price": tick_price,
+                "reference_price": reference_price,
+                "execution_price": tick_price,
+                "slippage_cost": slippage_cost,
                 "status_code": status_code,
                 "status_message": status_message,
                 "exchange_ts": self.last_tick["timestamp"] if self.last_tick else datetime.now(TAIPEI_TZ).timestamp(),
@@ -696,6 +709,9 @@ class BacktestSafeTsst(Tsst):
         self.on_order("local_order", response=response)
 
         if not can_fill:
+            self.local_fill_price_override = None
+            self.local_fill_reason_override = None
+            self.local_fill_timestamp_override = None
             return response
 
         if action == "Buy":
@@ -719,6 +735,9 @@ class BacktestSafeTsst(Tsst):
             "product_type": product_type,
             "action": action,
             "price": tick_price,
+            "reference_price": reference_price,
+            "slippage_cost": slippage_cost,
+            "execution_reason": self.local_fill_reason_override,
             "quantity": quantity,
             "gross_amount": gross,
             "fee": fee,
@@ -728,12 +747,16 @@ class BacktestSafeTsst(Tsst):
             "cash_after": self.local_cash,
             "price_type": price_type,
             "order_type": params.get("order_type"),
-            "exchange_ts": self.last_tick["timestamp"] if self.last_tick else datetime.now(TAIPEI_TZ).timestamp(),
+            "exchange_ts": (self.local_fill_timestamp_override if self.local_fill_timestamp_override is not None
+                            else self.last_tick["timestamp"] if self.last_tick else datetime.now(TAIPEI_TZ).timestamp()),
             "order_cond": params.get("order_cond"),
             "order_lot": params.get("order_lot"),
         }
         self.local_trades.append(deal)
         self.on_deal("local_deal", response=deal)
+        self.local_fill_price_override = None
+        self.local_fill_reason_override = None
+        self.local_fill_timestamp_override = None
         return response
 
 
@@ -2092,6 +2115,7 @@ def replay_kbars(
     final_timestamp = stats.last_timestamp or float(last_row["kbar_timestamp"])
     final_time = taipei_datetime_from_timestamp(final_timestamp)
     final_price = float(last_row["Close"])
+    tsst.final_completed_kbar = last_row
     tsst.last_tick = {
         "timestamp": final_timestamp,
         "market_type": "Stock",
@@ -2280,6 +2304,9 @@ def _build_trade_rows(tsst: BacktestSafeTsst, config: AppConfig) -> list[dict[st
                 "code": trade["code"],
                 "action": trade["action"],
                 "price": price,
+                "reference_price": float(trade.get("reference_price", price)),
+                "slippage_cost": float(trade.get("slippage_cost", 0.0)),
+                "execution_reason": trade.get("execution_reason"),
                 "quantity": quantity,
                 "gross_amount": gross,
                 "fee": fee,
@@ -2341,6 +2368,8 @@ def _build_pnl_rows(trades_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "datetime": row["datetime"],
                     "remaining_quantity": quantity,
                     "price": row["price"],
+                    "reference_price": row.get("reference_price", row["price"]),
+                    "remaining_slippage": row.get("slippage_cost", 0.0),
                     "remaining_fee": row["fee"],
                     "gross_amount": row["gross_amount"],
                 }
@@ -2352,12 +2381,14 @@ def _build_pnl_rows(trades_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
             lot = open_lots[0]
             lot_remaining = int(lot["remaining_quantity"])
             matched_qty = min(remaining, lot_remaining)
-            buy_cost = float(lot["price"]) * matched_qty
-            sell_value = float(row["price"]) * matched_qty
+            buy_cost = float(lot.get("reference_price", lot["price"])) * matched_qty
+            sell_value = float(row.get("reference_price", row["price"])) * matched_qty
             buy_fee = float(lot["remaining_fee"]) * matched_qty / lot_remaining if lot_remaining else 0.0
             sell_fee = float(row["fee"]) * matched_qty / quantity if quantity else 0.0
             sell_tax = float(row["tax"]) * matched_qty / quantity if quantity else 0.0
-            net_pnl = sell_value - buy_cost - buy_fee - sell_fee - sell_tax
+            buy_slippage = float(lot.get("remaining_slippage", 0.0)) * matched_qty / lot_remaining if lot_remaining else 0.0
+            sell_slippage = float(row.get("slippage_cost", 0.0)) * matched_qty / quantity if quantity else 0.0
+            net_pnl = sell_value - buy_cost - buy_fee - sell_fee - sell_tax - buy_slippage - sell_slippage
             pnl_rows.append(
                 {
                     "code": row["code"],
@@ -2371,12 +2402,19 @@ def _build_pnl_rows(trades_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "gross_pnl": sell_value - buy_cost,
                     "fee": buy_fee + sell_fee,
                     "tax": sell_tax,
+                    "slippage": buy_slippage + sell_slippage,
+                    "buy_fee": buy_fee,
+                    "sell_fee": sell_fee,
+                    "transaction_tax": sell_tax,
+                    "slippage_cost": buy_slippage + sell_slippage,
+                    "total_cost": buy_fee + sell_fee + sell_tax + buy_slippage + sell_slippage,
                     "net_pnl": net_pnl,
-                    "return_pct": net_pnl / buy_cost if buy_cost else 0.0,
+                    "return_pct": net_pnl / buy_cost if buy_cost else None,
                 }
             )
             lot["remaining_quantity"] = lot_remaining - matched_qty
             lot["remaining_fee"] = float(lot["remaining_fee"]) - buy_fee
+            lot["remaining_slippage"] = float(lot.get("remaining_slippage", 0.0)) - buy_slippage
             remaining -= matched_qty
             if lot["remaining_quantity"] <= 0:
                 open_lots.pop(0)

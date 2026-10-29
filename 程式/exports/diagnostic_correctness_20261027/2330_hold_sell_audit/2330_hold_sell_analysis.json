@@ -1,0 +1,246 @@
+{
+  "experiment_id": "2330-hold-sell-outcome-audit-20261027",
+  "stock_code": "2330",
+  "period": "2024-07-01 through 2024-12-30 historical development",
+  "data_role": "historical_development_only",
+  "protected_2025_data_read": false,
+  "technical_candidate_events": 32,
+  "market_regime_blocked": 14,
+  "market_regime_passed_candidate_events": 18,
+  "unique_model_prediction_dates": 15,
+  "runtime_gate_decisions": {
+    "rf": {
+      "BLOCK_HOLD": 5,
+      "ENTRY": 3,
+      "BLOCK_SELL": 9
+    },
+    "xgboost": {
+      "BLOCK_HOLD": 8,
+      "BLOCK_SELL": 9,
+      "ENTRY": 1
+    },
+    "gru": {
+      "BLOCK_SELL": 15,
+      "BLOCK_HOLD": 3
+    }
+  },
+  "three_session_label_outcomes_by_predicted_class": {
+    "rf:BUY": {
+      "count": 3,
+      "mean_net_return_pct": -1.5394593333333333,
+      "median_net_return_pct": -1.712727,
+      "positive_net_return_count": 1,
+      "positive_net_return_rate_pct": 33.333333333333336,
+      "actual_labels": {
+        "BUY": 1,
+        "SELL": 2
+      },
+      "unique_prediction_dates": 3
+    },
+    "rf:HOLD": {
+      "count": 5,
+      "mean_net_return_pct": 1.1072822,
+      "median_net_return_pct": 0.8226599999999998,
+      "positive_net_return_count": 4,
+      "positive_net_return_rate_pct": 80.0,
+      "actual_labels": {
+        "HOLD": 2,
+        "BUY": 2,
+        "SELL": 1
+      },
+      "unique_prediction_dates": 5
+    },
+    "rf:SELL": {
+      "count": 6,
+      "mean_net_return_pct": 0.11734499999999995,
+      "median_net_return_pct": -0.32482550000000004,
+      "positive_net_return_count": 3,
+      "positive_net_return_rate_pct": 50.0,
+      "actual_labels": {
+        "SELL": 3,
+        "HOLD": 1,
+        "BUY": 2
+      },
+      "unique_prediction_dates": 6
+    },
+    "xgboost:BUY": {
+      "count": 1,
+      "mean_net_return_pct": -5.801038,
+      "median_net_return_pct": -5.801038,
+      "positive_net_return_count": 0,
+      "positive_net_return_rate_pct": 0.0,
+      "actual_labels": {
+        "SELL": 1
+      },
+      "unique_prediction_dates": 1
+    },
+    "xgboost:HOLD": {
+      "count": 8,
+      "mean_net_return_pct": -0.36914300000000005,
+      "median_net_return_pct": -0.4838645,
+      "positive_net_return_count": 4,
+      "positive_net_return_rate_pct": 50.0,
+      "actual_labels": {
+        "HOLD": 2,
+        "BUY": 2,
+        "SELL": 4
+      },
+      "unique_prediction_dates": 8
+    },
+    "xgboost:SELL": {
+      "count": 5,
+      "mean_net_return_pct": 2.075257,
+      "median_net_return_pct": 3.203102,
+      "positive_net_return_count": 4,
+      "positive_net_return_rate_pct": 80.0,
+      "actual_labels": {
+        "BUY": 3,
+        "SELL": 1,
+        "HOLD": 1
+      },
+      "unique_prediction_dates": 5
+    },
+    "gru:BUY": {
+      "count": 0,
+      "mean_net_return_pct": null,
+      "median_net_return_pct": null,
+      "positive_net_return_count": 0,
+      "positive_net_return_rate_pct": null,
+      "actual_labels": {},
+      "unique_prediction_dates": 0
+    },
+    "gru:HOLD": {
+      "count": 3,
+      "mean_net_return_pct": -2.4475126666666664,
+      "median_net_return_pct": -2.399982,
+      "positive_net_return_count": 0,
+      "positive_net_return_rate_pct": 0.0,
+      "actual_labels": {
+        "SELL": 3
+      },
+      "unique_prediction_dates": 3
+    },
+    "gru:SELL": {
+      "count": 11,
+      "mean_net_return_pct": 0.8149673636363637,
+      "median_net_return_pct": 0.863636,
+      "positive_net_return_count": 8,
+      "positive_net_return_rate_pct": 72.72727272727273,
+      "actual_labels": {
+        "HOLD": 3,
+        "BUY": 5,
+        "SELL": 3
+      },
+      "unique_prediction_dates": 11
+    }
+  },
+  "twelve_bar_candidate_outcomes_by_predicted_class": {
+    "rf:BUY": {
+      "count": 3,
+      "mean_net_return_pct": -0.3869432498528854,
+      "median_net_return_pct": -0.4846522134387077,
+      "positive_net_return_count": 0,
+      "positive_net_return_rate_pct": 0.0,
+      "technical_candidate_events": 3,
+      "horizon_bars": 12,
+      "average_mfe_pct": 0.4680973602865827,
+      "average_mae_pct": -0.26697030730767535
+    },
+    "rf:HOLD": {
+      "count": 5,
+      "mean_net_return_pct": -0.6279200680319064,
+      "median_net_return_pct": -0.5841675612252573,
+      "positive_net_return_count": 0,
+      "positive_net_return_rate_pct": 0.0,
+      "technical_candidate_events": 5,
+      "horizon_bars": 12,
+      "average_mfe_pct": 0.2808451439005344,
+      "average_mae_pct": -0.9314488393217601
+    },
+    "rf:SELL": {
+      "count": 10,
+      "mean_net_return_pct": -0.8123338336921072,
+      "median_net_return_pct": -1.0148653157273924,
+      "positive_net_return_count": 2,
+      "positive_net_return_rate_pct": 20.0,
+      "technical_candidate_events": 10,
+      "horizon_bars": 12,
+      "average_mfe_pct": 0.38752567707021957,
+      "average_mae_pct": -0.754592059294571
+    },
+    "xgboost:BUY": {
+      "count": 1,
+      "mean_net_return_pct": -0.0920099748946912,
+      "median_net_return_pct": -0.0920099748946912,
+      "positive_net_return_count": 0,
+      "positive_net_return_rate_pct": 0.0,
+      "technical_candidate_events": 1,
+      "horizon_bars": 12,
+      "average_mfe_pct": 0.4950495049504955,
+      "average_mae_pct": -0.4950495049504955
+    },
+    "xgboost:HOLD": {
+      "count": 8,
+      "mean_net_return_pct": -0.5338032538789061,
+      "median_net_return_pct": -0.5344098873319825,
+      "positive_net_return_count": 1,
+      "positive_net_return_rate_pct": 12.5,
+      "technical_candidate_events": 8,
+      "horizon_bars": 12,
+      "average_mfe_pct": 0.3780895661446598,
+      "average_mae_pct": -0.5342126542177
+    },
+    "xgboost:SELL": {
+      "count": 9,
+      "mean_net_return_pct": -0.8957036023014798,
+      "median_net_return_pct": -1.0381211340050434,
+      "positive_net_return_count": 1,
+      "positive_net_return_rate_pct": 11.11111111111111,
+      "technical_candidate_events": 9,
+      "horizon_bars": 12,
+      "average_mfe_pct": 0.3515565041063157,
+      "average_mae_pct": -0.9150361080872712
+    },
+    "gru:BUY": {
+      "count": 0,
+      "mean_net_return_pct": null,
+      "median_net_return_pct": null,
+      "positive_net_return_count": 0,
+      "positive_net_return_rate_pct": null,
+      "technical_candidate_events": 0,
+      "horizon_bars": 12,
+      "average_mfe_pct": null,
+      "average_mae_pct": null
+    },
+    "gru:HOLD": {
+      "count": 3,
+      "mean_net_return_pct": -0.415957587554594,
+      "median_net_return_pct": -0.5841675612252573,
+      "positive_net_return_count": 1,
+      "positive_net_return_rate_pct": 33.333333333333336,
+      "technical_candidate_events": 3,
+      "horizon_bars": 12,
+      "average_mfe_pct": 0.44284406145421357,
+      "average_mae_pct": -0.5451625305000651
+    },
+    "gru:SELL": {
+      "count": 15,
+      "mean_net_return_pct": -0.7450597109316985,
+      "median_net_return_pct": -0.5841675612252573,
+      "positive_net_return_count": 1,
+      "positive_net_return_rate_pct": 6.666666666666667,
+      "technical_candidate_events": 15,
+      "horizon_bars": 12,
+      "average_mfe_pct": 0.357016159113465,
+      "average_mae_pct": -0.757905874665156
+    }
+  },
+  "risk_blocks": 0,
+  "notes": [
+    "Three-session target matches frozen ML V1 label: prior-session signal, next-session open to third-session close, less one-round-trip commission/tax; labels are SELL <= -1%, HOLD between, BUY >= +1%.",
+    "12-bar statistics are 5-minute candidate-event forward outcomes, not completed strategy trades and not a replacement for the technical exit backtest.",
+    "Repeated candidate events on one date share the same once-daily model prediction; candidate-event statistics are not independent observations.",
+    "No model, threshold, technical rule, risk setting, or execution cost was changed. Risk settings remain frozen; 0 bps scenario was used for this audit.",
+    "Unclassified diagnostic rows were corrected by joining runtime technical_signal_time to candidate_entry_time. The original report's unclassified count was a field-name join error."
+  ]
+}

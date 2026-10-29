@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-24",
+  "updated_at": "2026-10-27",
   "formal_research_direction": "Technical Candidate -> ML Filter -> Hybrid",
   "current_workstreams": {
     "technical_v1": {
@@ -354,15 +354,14 @@
       "P7_NEW_STRATEGY_CANDIDATE_ONLY_IF_STRUCTURAL_EVIDENCE"
     ],
     "next_experiment": {
-      "name": "ENTRY_SENSITIVITY_AUDIT",
+      "name": "EXIT_SENSITIVITY_AUDIT",
       "status": "PREREGISTERED_NOT_EXECUTED",
-      "breakout_values": [
-        40,
-        55,
-        70
+      "exit_values": [
+        20,
+        30,
+        40
       ],
-      "control": 55,
-      "exit_fixed": 30,
+      "control_entry": 55,
       "market_regime_fixed": "TECH_V2_B",
       "ml_models": [
         "random_forest",
@@ -376,8 +375,11 @@
         "2303"
       ],
       "parameter_search": false,
-      "experiment_id": "strategy-entry-sensitivity-exp001",
-      "preregistration": "research/strategy_entry_sensitivity_exp001_preregistration.md"
+      "previous_experiment_id": "strategy-entry-sensitivity-exp001",
+      "previous_experiment_status": "COMPLETED_MIXED",
+      "entry_decision": "RETAIN_CONTROL_55_NO_NEW_CANDIDATE",
+      "preregistration_required": false,
+      "preregistration": "research/strategy_exit_sensitivity_exp001_preregistration.md"
     },
     "current_findings": {
       "market_regime_b": "KEEP_FROZEN_FOR_NOW",
@@ -406,9 +408,18 @@
     "scope": "BASELINE_REPRODUCTION_AND_DIAGNOSTIC_OBSERVABILITY_ONLY",
     "stock_code": "2330",
     "legacy_subperiods": {
-      "training": ["2023-01-01", "2023-12-31"],
-      "diagnostic_validation": ["2024-01-01", "2024-06-30"],
-      "development_backtest": ["2024-07-01", "2024-12-30"]
+      "training": [
+        "2023-01-01",
+        "2023-12-31"
+      ],
+      "diagnostic_validation": [
+        "2024-01-01",
+        "2024-06-30"
+      ],
+      "development_backtest": [
+        "2024-07-01",
+        "2024-12-30"
+      ]
     },
     "registry_role": "training_exposed",
     "missing_items": [
@@ -635,5 +646,145 @@
       },
       "note": "No preregistered quantitative tolerance defines materially/broadly similar; ambiguous pattern remains MIXED. These labels diagnose and do not select a final Entry."
     }
+  },
+  "exit_sensitivity_exp001": {
+    "experiment_id": "strategy-exit-sensitivity-exp001",
+    "status": "COMPLETED",
+    "values": [
+      20,
+      30,
+      40
+    ],
+    "control": 30,
+    "entry_fixed": 55,
+    "market_regime_fixed": "TECH_V2_B_MARKET_REGIME_FILTER",
+    "risk_fixed": "RISK_V1",
+    "models": [
+      "random_forest",
+      "xgboost",
+      "gru"
+    ],
+    "stocks": [
+      "2330",
+      "2454",
+      "2303"
+    ],
+    "folds": [
+      "WF1",
+      "WF2",
+      "WF3"
+    ],
+    "period": [
+      "2023-01-01",
+      "2024-12-31"
+    ],
+    "data_role": "EXPOSED_DEVELOPMENT_DATA",
+    "backtest_executed": true,
+    "parameter_search_performed": false,
+    "preregistration": "research/strategy_exit_sensitivity_exp001_preregistration.md",
+    "export_directory": "exports/strategy_exit_sensitivity_exp001_20261027T194032701720+0800",
+    "report": "research/strategy_exit_sensitivity_exp001.md",
+    "classification": {
+      "overall": "MIXED",
+      "tags": [
+        "MIXED_OR_INSUFFICIENT"
+      ],
+      "by_strategy": {
+        "TECHNICAL": {
+          "20": {
+            "classification": "MIXED_OR_INSUFFICIENT",
+            "stock_cells_meeting_all_conditions": 2,
+            "fold_cells_meeting_all_conditions": 1,
+            "delta_return": -0.0008551704069444405,
+            "delta_net_edge_per_trade": -14.168907608717419,
+            "delta_profit_factor": 0.10143207685533406,
+            "delta_max_drawdown": -0.0018241482472730677,
+            "trade_count": 91
+          },
+          "40": {
+            "classification": "MIXED_OR_INSUFFICIENT",
+            "stock_cells_meeting_all_conditions": 2,
+            "fold_cells_meeting_all_conditions": 1,
+            "delta_return": 0.0030997056055555488,
+            "delta_net_edge_per_trade": 42.58612738963409,
+            "delta_profit_factor": 0.12401718327078748,
+            "delta_max_drawdown": -1.8604726343476874e-06,
+            "trade_count": 75
+          }
+        },
+        "RF": {
+          "20": {
+            "classification": "MIXED_OR_INSUFFICIENT",
+            "stock_cells_meeting_all_conditions": 0,
+            "fold_cells_meeting_all_conditions": 0,
+            "delta_return": -0.004666573761111107,
+            "delta_net_edge_per_trade": -225.90584669736822,
+            "delta_profit_factor": -0.6174817828134873,
+            "delta_max_drawdown": 0.0010353122425160767,
+            "trade_count": 20
+          },
+          "40": {
+            "classification": "MIXED_OR_INSUFFICIENT",
+            "stock_cells_meeting_all_conditions": 0,
+            "fold_cells_meeting_all_conditions": 0,
+            "delta_return": 0.001313217211111108,
+            "delta_net_edge_per_trade": 106.95862281733724,
+            "delta_profit_factor": -0.7254704725040313,
+            "delta_max_drawdown": 0.0007713798601467706,
+            "trade_count": 17
+          }
+        },
+        "XGBOOST": {
+          "20": {
+            "classification": "MIXED_OR_INSUFFICIENT",
+            "stock_cells_meeting_all_conditions": 0,
+            "fold_cells_meeting_all_conditions": 0,
+            "delta_return": -0.004521900533333328,
+            "delta_net_edge_per_trade": -296.25271670230234,
+            "delta_profit_factor": -1.7289322641812956,
+            "delta_max_drawdown": 0.0007291758632013614,
+            "trade_count": 19
+          },
+          "40": {
+            "classification": "MIXED_OR_INSUFFICIENT",
+            "stock_cells_meeting_all_conditions": 0,
+            "fold_cells_meeting_all_conditions": 0,
+            "delta_return": 0.0022344011750000062,
+            "delta_net_edge_per_trade": 217.88251064732162,
+            "delta_profit_factor": 0.06389775571759015,
+            "delta_max_drawdown": 0.0002938440120858043,
+            "trade_count": 14
+          }
+        },
+        "GRU": {
+          "20": {
+            "classification": "MIXED_OR_INSUFFICIENT",
+            "stock_cells_meeting_all_conditions": 0,
+            "fold_cells_meeting_all_conditions": 1,
+            "delta_return": 0.0006902008388888891,
+            "delta_net_edge_per_trade": 77.62090170454545,
+            "delta_profit_factor": 0.11880062433787408,
+            "delta_max_drawdown": -0.00037219902228245033,
+            "trade_count": 12
+          },
+          "40": {
+            "classification": "MIXED_OR_INSUFFICIENT",
+            "stock_cells_meeting_all_conditions": 0,
+            "fold_cells_meeting_all_conditions": 0,
+            "delta_return": 0.00039317844444444446,
+            "delta_net_edge_per_trade": -72.11869954545438,
+            "delta_profit_factor": -0.10547692847383927,
+            "delta_max_drawdown": -0.0017671888238015108,
+            "trade_count": 8
+          }
+        }
+      },
+      "note": "Development-only classification; no exit is selected automatically. Requires directionally consistent return, net edge, Profit Factor and drawdown evidence across at least two subjects and two folds, with at least five trades in each supporting cell."
+    },
+    "ml_retrained": false,
+    "2025_used": false,
+    "2026_used": false,
+    "final_oos_used": false,
+    "strategy_changed": false
   }
 }

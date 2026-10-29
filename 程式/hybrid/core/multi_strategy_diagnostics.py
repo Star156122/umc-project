@@ -251,8 +251,8 @@ def _paired_trades(result: dict[str, Any]) -> dict[int, dict[str, Any]]:
                 "exit_timestamp": int(trade["timestamp"]),
                 "exit_time": trade.get("datetime"),
                 "exit_price": float(trade["price"]),
-                "exit_reason": exit_signal.get("signal_type", "UNKNOWN"),
-                "exit_reason_detail": exit_signal.get("reason", ""),
+                "exit_reason": trade.get("execution_reason") or exit_signal.get("signal_type", "UNKNOWN"),
+                "exit_reason_detail": exit_signal.get("reason", trade.get("execution_reason", "")),
                 "realized_gross_pnl": pnl.get("gross_pnl"),
                 "realized_commission": pnl.get("fee"),
                 "realized_tax": pnl.get("tax"),
@@ -288,6 +288,11 @@ def build_gate_candidate_rows(
         for strategy_id in ("technical", "rf", "xgboost", "gru"):
             if strategy_id not in result_map:
                 continue
+            actual_decision_times = {
+                _timestamp(row.get("technical_earliest_entry_time") or row.get("technical_signal_time"))
+                for row in result_map[strategy_id].get("details", {}).get("gate_decisions", [])
+                if row.get("technical_earliest_entry_time") or row.get("technical_signal_time")
+            }
             prediction = None
             if strategy_id == "technical":
                 action, block_reason = "ENTRY", None
@@ -301,29 +306,94 @@ def build_gate_candidate_rows(
                     block_reason = None if action == "ENTRY" else action
             pair = entries[strategy_id].get(stamp)
             entered = pair is not None
+            actually_evaluated = stamp in actual_decision_times
+            predicted_action = action
+            skip_reason = None
+            if not entered and not actually_evaluated:
+                candidate_index = bar_positions.get(stamp)
+                account_blocks = {
+                    _timestamp(row["technical_earliest_entry_time"]): str(row.get("reason_code"))
+                    for row in result_map[strategy_id].get("details", {}).get("account_state_blocks", [])
+                    if row.get("technical_earliest_entry_time")
+                }
+                overlapping = False
+                cooldown = False
+                if candidate_index is not None:
+                    for pair_candidate in entries[strategy_id].values():
+                        entry_index = bar_positions.get(int(pair_candidate["entry_timestamp"]))
+                        exit_index = bar_positions.get(int(pair_candidate["exit_timestamp"])) if pair_candidate["exit_timestamp"] is not None else None
+                        if entry_index is not None and entry_index <= candidate_index and (exit_index is None or candidate_index <= exit_index):
+                            overlapping = True
+                            break
+                        if exit_index is not None and exit_index < candidate_index <= exit_index + 6:
+                            cooldown = True
+                if stamp in account_blocks:
+                    skip_reason = account_blocks[stamp]
+                elif overlapping:
+                    skip_reason = "BLOCK_ALREADY_IN_POSITION"
+                elif cooldown:
+                    skip_reason = "BLOCK_COOLDOWN"
+                elif candidate_index is None or candidate_index >= len(bar_rows) - 1:
+                    skip_reason = "NO_NEXT_TRADABLE_BAR"
+                else:
+                    skip_reason = "BLOCK_ENTRY_STATE_UNCLASSIFIED"
+                action = "NOT_EVALUATED_ACCOUNT_STATE"
+                block_reason = skip_reason
             trade_holding_bars = None
             trade_mfe = None
             trade_mae = None
+            holding_minutes = None
+            holding_trading_days = None
+            max_favorable_price = None
+            max_adverse_price = None
             if pair is not None and bar_rows:
                 left = bar_positions.get(int(pair["entry_timestamp"]))
                 right = (
                     bar_positions.get(int(pair["exit_timestamp"]))
                     if pair["exit_timestamp"] is not None else None
                 )
+                if left is not None:
+                    right = len(bar_rows) - 1 if right is None else right
                 if left is not None and right is not None and right >= left:
                     trade_window = bar_rows[left : right + 1]
                     trade_holding_bars = len(trade_window)
                     entry_price = float(pair["entry_price"])
-                    trade_mfe = max(float(item["high"]) for item in trade_window) / entry_price - 1.0
-                    trade_mae = min(float(item["low"]) for item in trade_window) / entry_price - 1.0
+                    max_favorable_price = max(float(item["high"]) for item in trade_window)
+                    max_adverse_price = min(float(item["low"]) for item in trade_window)
+                    trade_mfe = max_favorable_price / entry_price - 1.0
+                    trade_mae = max_adverse_price / entry_price - 1.0
+                    end_stamp = int(pair.get("exit_timestamp") or _timestamp(bar_rows[-1]["time"]))
+                    holding_minutes = max(0, (end_stamp - int(pair["entry_timestamp"])) // 60)
+                    holding_trading_days = len({str(item.get("datetime", ""))[:10] for item in trade_window})
             if entered:
                 final_reason = "ENTERED"
             elif not candidate.get("market_regime_pass", True):
                 final_reason = "BLOCK_MARKET_REGIME"
+            elif not actually_evaluated:
+                final_reason = skip_reason or "BLOCK_ACCOUNT_STATE"
             elif action != "ENTRY":
                 final_reason = block_reason
             else:
-                final_reason = "NOT_ENTERED_ACCOUNT_STATE_OR_RISK"
+                candidate_index = bar_positions.get(stamp)
+                overlapping = False
+                cooldown = False
+                if candidate_index is not None:
+                    for pair_candidate in entries[strategy_id].values():
+                        entry_index = bar_positions.get(int(pair_candidate["entry_timestamp"]))
+                        exit_index = bar_positions.get(int(pair_candidate["exit_timestamp"])) if pair_candidate["exit_timestamp"] is not None else None
+                        if entry_index is not None and entry_index <= candidate_index and (exit_index is None or candidate_index <= exit_index):
+                            overlapping = True
+                            break
+                        if exit_index is not None and exit_index < candidate_index <= exit_index + 6:
+                            cooldown = True
+                if overlapping:
+                    final_reason = "BLOCK_ALREADY_IN_POSITION"
+                elif cooldown:
+                    final_reason = "BLOCK_COOLDOWN"
+                elif candidate_index is None or candidate_index >= len(bar_rows) - 1:
+                    final_reason = "NO_NEXT_TRADABLE_BAR"
+                else:
+                    final_reason = "BLOCK_ENTRY_STATE_UNCLASSIFIED"
             rows.append({
                 **candidate,
                 "strategy_id": strategy_id,
@@ -334,13 +404,22 @@ def build_gate_candidate_rows(
                 "prob_hold": None if prediction is None else prediction.get("prob_hold"),
                 "prob_buy": None if prediction is None else prediction.get("prob_buy"),
                 "gate_decision": action,
+                "precomputed_prediction_action": predicted_action,
+                "gate_actually_evaluated": actually_evaluated,
                 "entered": entered,
                 "not_entered_reason": final_reason,
                 "exit_time": None if pair is None else pair["exit_time"],
                 "exit_price": None if pair is None else pair["exit_price"],
+                "entry_timestamp": None if pair is None else pair["entry_timestamp"],
+                "entry_time": None if pair is None else pair["entry_time"],
+                "entry_price": None if pair is None else pair["entry_price"],
                 "exit_reason": None if pair is None else pair["exit_reason"],
                 "exit_reason_detail": None if pair is None else pair["exit_reason_detail"],
                 "holding_bars": trade_holding_bars,
+                "holding_minutes": holding_minutes,
+                "holding_trading_days": holding_trading_days,
+                "max_favorable_price": max_favorable_price,
+                "max_adverse_price": max_adverse_price,
                 "trade_mfe": trade_mfe,
                 "trade_mae": trade_mae,
                 "realized_gross_pnl": None if pair is None else pair["realized_gross_pnl"],
@@ -452,7 +531,17 @@ def build_diagnostics(
                 float(np.mean([row["holding_bars"] for row in entered_rows if row.get("holding_bars") is not None]))
                 if any(row.get("holding_bars") is not None for row in entered_rows) else None
             ),
+            "average_holding_minutes": (
+                float(np.mean([row["holding_minutes"] for row in entered_rows if row.get("holding_minutes") is not None]))
+                if any(row.get("holding_minutes") is not None for row in entered_rows) else None
+            ),
+            "average_holding_trading_days": (
+                float(np.mean([row["holding_trading_days"] for row in entered_rows if row.get("holding_trading_days") is not None]))
+                if any(row.get("holding_trading_days") is not None for row in entered_rows) else None
+            ),
             "exit_reasons": exit_reason_summary,
+            "trade_quality": _trade_quality(entered_rows),
+            "signal_funnel": _signal_funnel(strategy_id, result, gate_rows, technical_rows),
             "undefined_no_trade_metrics_are_null": (
                 int(result["summary"].get("trade_count") or 0) > 0 or (
                     result["summary"].get("win_rate_pct") is None
@@ -598,4 +687,81 @@ def build_diagnostics(
             "gate_threshold_note": "Current frozen baseline uses argmax; no probability threshold was selected in this run.",
             "final_oos_used": False,
         },
+    }
+
+
+def _trade_quality(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    closed = [row for row in rows if row.get("realized_net_pnl") is not None]
+    winners = [row for row in closed if float(row["realized_net_pnl"]) > 0]
+    losers = [row for row in closed if float(row["realized_net_pnl"]) < 0]
+    mfe_threshold = 0.01
+    mae_threshold = -0.01
+    def stats(items, key):
+        values = [float(row[key]) for row in items if row.get(key) is not None]
+        return {"mean": float(np.mean(values)) if values else None,
+                "median": float(np.median(values)) if values else None,
+                "count": len(values)}
+    return {
+        "mfe_pct": stats(closed, "trade_mfe"), "mae_pct": stats(closed, "trade_mae"),
+        "winning_trade_mfe_pct": stats(winners, "trade_mfe"),
+        "winning_trade_mae_pct": stats(winners, "trade_mae"),
+        "losing_trade_mfe_pct": stats(losers, "trade_mfe"),
+        "losing_trade_mae_pct": stats(losers, "trade_mae"),
+        "mfe_threshold_name": "MFE_1PCT_DIAGNOSTIC_ONLY",
+        "mae_threshold_name": "MAE_MINUS_1PCT_DIAGNOSTIC_ONLY",
+        "profitable_then_lost_count": sum(
+            row.get("trade_mfe") is not None and float(row["trade_mfe"]) >= mfe_threshold
+            and float(row.get("realized_net_pnl", 0.0)) < 0 for row in closed
+        ),
+        "large_mae_then_profit_count": sum(
+            row.get("trade_mae") is not None and float(row["trade_mae"]) <= mae_threshold
+            and float(row.get("realized_net_pnl", 0.0)) > 0 for row in closed
+        ),
+        "thresholds_are_diagnostic_not_tuned": True,
+        "ohlc_intrabar_order_known": False,
+    }
+
+
+def _signal_funnel(strategy_id, result, gate_rows, technical_rows):
+    rows = [row for row in gate_rows if row.get("strategy_id") == strategy_id]
+    decisions = list(result.get("details", {}).get("gate_decisions", []))
+    actions = {key: sum(row.get("hybrid_action") == key for row in decisions)
+               for key in ("ENTRY", "BLOCK_HOLD", "BLOCK_SELL", "BLOCK_MISSING_OR_LATE_PREDICTION")}
+    risk = list(result.get("details", {}).get("risk_decisions", []))
+    trades = list(result.get("trades", []))
+    completed = list(result.get("completed_trade_pnl", []))
+    reasons = {}
+    for row in decisions:
+        reason = row.get("hybrid_action") if str(row.get("hybrid_action", "")).startswith("BLOCK_") else None
+        if reason:
+            reasons[str(reason)] = reasons.get(str(reason), 0) + 1
+    for row in rows:
+        if row.get("gate_actually_evaluated"):
+            continue
+        reason = row.get("not_entered_reason")
+        if reason and str(reason).startswith(("BLOCK_", "NO_NEXT_")):
+            reasons[str(reason)] = reasons.get(str(reason), 0) + 1
+    for row in risk:
+        if str(row.get("decision", "")).startswith("BLOCK"):
+            code = str(row.get("decision"))
+            reasons[code] = reasons.get(code, 0) + 1
+    return {
+        "raw_kbars": result.get("audit", {}).get("raw_bars"),
+        "feature_complete_kbars": result.get("audit", {}).get("feature_complete_bars"),
+        "technical_candidates": len(technical_rows),
+        "model_evaluated_candidates": len(decisions) if strategy_id != "technical" else None,
+        "model_predictions_available": sum(row.get("predicted_class") is not None for row in rows),
+        "model_output_buy": sum(row.get("predicted_class") == "BUY" for row in rows),
+        "model_output_hold": sum(row.get("predicted_class") == "HOLD" for row in rows),
+        "model_output_sell": sum(row.get("predicted_class") == "SELL" for row in rows),
+        "gate_passed": actions["ENTRY"] if strategy_id != "technical" else sum(row.get("hybrid_action") == "ENTRY" for row in decisions),
+        "risk_evaluated": len(risk),
+        "risk_blocked": sum(str(row.get("decision", "")).startswith("BLOCK") for row in risk),
+        "orders_created": result.get("details", {}).get("orders_created"),
+        "successful_fills": len(trades),
+        "completed_trades": len(completed),
+        "open_positions_at_end": result.get("details", {}).get("open_position_quantity_at_end", 0),
+        "gate_action_counts": actions,
+        "block_reasons": reasons,
+        "count_scope_note": "Funnel rows follow frozen Technical schedule; candidate counts are not unique orders when fills are partial.",
     }

@@ -1,0 +1,212 @@
+{
+  "status": "COMPLETED",
+  "experiment_id": "strategy-v2-risk-exp001-atr-adaptive",
+  "generated_at": "2026-10-27T19:32:00+08:00",
+  "data_role": "exposed_training_development",
+  "period": [
+    "2023-01-01",
+    "2024-12-31"
+  ],
+  "stock_universe": [
+    "2303",
+    "2330",
+    "2379",
+    "2454",
+    "3034"
+  ],
+  "folds": [
+    "WF1",
+    "WF2",
+    "WF3"
+  ],
+  "technical_candidate": "BR_SENS_RANGE55_BB20_2 + TECH_V2_B_MARKET_REGIME_FILTER",
+  "ml_model": "ML V1 Random Forest",
+  "ml_retrained": false,
+  "gate": "BUY_ONLY",
+  "risk_v1_reproduction": "PASS",
+  "risk_v1_reproduction_metrics_match": {
+    "total_return": true,
+    "max_drawdown": true,
+    "win_rate": true,
+    "profit_factor": true,
+    "sharpe_ratio": true,
+    "trade_count": true,
+    "net_pnl": true,
+    "transaction_cost": true,
+    "gross_pnl": true,
+    "final_equity": true
+  },
+  "risk_v2_exp001_executed": true,
+  "hybrid_v2_frozen_development_candidate": true,
+  "signal_parity": "PASS",
+  "static_b_candidate_count": 138,
+  "static_b_buy_entry_count": 29,
+  "static_b_gate_source_check": {
+    "status": "PASS",
+    "left_rows": 138,
+    "right_rows": 138,
+    "same_candidate_set": true,
+    "gate_payload_equal": true
+  },
+  "static_b_gate_source_payload_match": true,
+  "gate_decisions_checked_per_arm": {
+    "RISK_V1": 138,
+    "RISK_V2": 138
+  },
+  "executed_entry_candidate_parity": {
+    "status": "PASS",
+    "risk_v1_entries": 29,
+    "risk_v2_entries": 29,
+    "executed_entry_identity_equal": true,
+    "entries_matching_buy_gate_candidates": {
+      "RISK_V1": 29,
+      "RISK_V2": 29
+    },
+    "unmatched_entries": {
+      "RISK_V1": [],
+      "RISK_V2": []
+    }
+  },
+  "atr_leakage_check": "PASS",
+  "atr_audit": {
+    "daily_ohlc_source": "data/market_data.sqlite3 market_kbars, 5-minute bars, 09:00-13:25",
+    "session_bars_required": 54,
+    "complete_global_sessions": 422,
+    "first_complete_session": "2023-01-04",
+    "last_complete_session": "2024-12-30",
+    "incomplete_sessions_excluded": 0,
+    "atr_target_dates": 119,
+    "atr_context_count": 595,
+    "missing_atr_contexts": [],
+    "all_atr_asof_strictly_prior": true,
+    "only_2023_2024_queried": true
+  },
+  "atr_parameters": {
+    "lookback": 14,
+    "multiplier": 2.0,
+    "stop_floor": 0.025,
+    "method": "WILDER_SMOOTHING"
+  },
+  "risk_invariants": {
+    "position_cap_40pct": true,
+    "estimated_risk_at_most_1pct": true,
+    "stop_distance_at_least_2_5pct": true,
+    "high_vol_position_at_most_risk_v1": true,
+    "high_volatility_trade_count": 29,
+    "paired_sizing_decision_count": 29,
+    "risk_v1_average_position_fraction": 0.3964952680099582,
+    "risk_v2_average_position_fraction": 0.21656842255656922
+  },
+  "execution_parity": {
+    "RISK_V1": {
+      "status": "PASS",
+      "entry_fills_checked": 29,
+      "entry_fills_at_next_bar_open": 29,
+      "failures": []
+    },
+    "RISK_V2": {
+      "status": "PASS",
+      "entry_fills_checked": 29,
+      "entry_fills_at_next_bar_open": 29,
+      "failures": []
+    }
+  },
+  "classification": "RISK_V2_MIXED",
+  "classification_counts": {
+    "return_improved_stocks": 1,
+    "mdd_improved_or_equal_stocks": 5,
+    "sharpe_improved_or_equal_folds": 2
+  },
+  "interpretation": "V1/V2 共用相同 Technical V2-B 合格候選與 RF BUY-only gate。Risk V2 只依嚴格前一交易日 ATR 改變停損距離與部位；分類依事前固定的 MDD、Sharpe、PF、報酬、股票與 Fold 條件。",
+  "technical_changed": false,
+  "technical_parameters_changed": false,
+  "ml_changed": false,
+  "gate_changed": false,
+  "risk_changed": true,
+  "atr_lookback": 14,
+  "atr_multiplier": 2.0,
+  "risk_per_trade": 0.01,
+  "max_position_fraction": 0.4,
+  "parameter_search_performed": false,
+  "2025_used": false,
+  "2026_used": false,
+  "final_oos_used": false,
+  "portfolio_enabled": false,
+  "short_enabled": false,
+  "database_sha256_before": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "database_sha256_after": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "source_input_directory_hashes_before": {
+    "exports\\hybrid_common_coverage_20261018T121416162413": {
+      "common_coverage_audit.json": "3794b3c4b31b251de6b59f853873e802292143cbd2377faabeca8afdd5b171e8",
+      "common_coverage_candidates.csv": "e66c808eb73c9aef37cfeba411f0e8bfd3ce8b98cf49fe7d4f82ca1f7badbaca",
+      "common_coverage_decisions.csv": "1f41b109f1123d383286e58b96c6e755cda5dabf47f66a6587b831ab441e1eea",
+      "common_coverage_exclusions.csv": "2a37bb0fdf822318c5b41853f027712d26897932fb4bcef6df3c98b7f2d586c3",
+      "common_coverage_report.html": "e83659326a42564827e51ce4f7729cd45e468ff281a86997262518837d0440ef",
+      "common_coverage_results.csv": "f0157f810344a30e184e8fd7d433ab28cd243e8b26145a87735319978a2b7d82",
+      "common_coverage_results.json": "1e5492cb363accc468973ebafc87a9a6cefd054c25bc4fd7235c4a2a4fab22d9",
+      "common_coverage_summary.csv": "3ded12812d6b9ea34eddb2461c68ec0f746f5d403658089bfc8f34c000476295"
+    },
+    "exports\\hybrid_poc_v1_20261013T041540804059": {
+      "hybrid_poc_alignment.csv": "6c14cc18bcce1af4a9a8b8c38df54ea1bfaec8fef9c9d6bec6c0607e10f24e8b",
+      "hybrid_poc_audit.json": "517b099c0ab93e6515dfee784457552bf5ee012f41196312287d3813c39c035d",
+      "hybrid_poc_decisions.csv": "bb64ac81766e78a5fd8b1921f9074ba73b1ea3bda36af29752a2acf605026262",
+      "hybrid_poc_report.html": "b26950a2d85049eb3fd4ccc16172cbc767cd91e207e4da885e2cc7550b45a532",
+      "hybrid_poc_results.csv": "d88e1e505faccfbf6b3c312fc1f1201f6ec699450a3c66a96a059e54e6457ccd",
+      "hybrid_poc_results.json": "2b309eec6dc37c5f6a387b95c2a6f6816f3eff42f091f150a8a5db1018d96628",
+      "hybrid_poc_summary.csv": "04d4844955815192c11f229938f549a2e68e64ce0a28387de0666af1ebb254ca",
+      "hybrid_poc_trades.csv": "208b39a0bd76def9276e02821e7f5b9aceca5c5933ba756f34d218e49b67d1e1",
+      "hybrid_poc_user_report.html": "3581d639a5a53c79078a5beed870815932d8c3b28c347bcb785a6ea285ae320e",
+      "ml_v1_baseline_oof_predictions.csv": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b",
+      "technical_signal_input.csv": "1f6bf6fb970910a12b1d3a1a540b718b051200abea3efe8bd245f776afad94ba"
+    },
+    "exports\\hybrid_risk_v1_20261018T122032419364": {
+      "hybrid_user_backtest_report.html": "20d6cd5ee3945f8e57125fc02d88362f6ae8522897eb48621a387e583789f66c",
+      "risk_v1_audit.json": "3c83b1b2fde2b7c5c34d0c9e6f1a7fba35f8af3cfc25898a2f6253eff9d6437f",
+      "risk_v1_decisions.csv": "435533f1c0c9aab3734108da2c623146ecdb78db9088a148c23fd720bd589eaf",
+      "risk_v1_per_fold.csv": "19b9e3884bbdccb8d1c2aeeff7a64dfde971b5b0c2cdee49b40bedad012e3b25",
+      "risk_v1_per_stock.csv": "f22bec6966e0bb0f31de48939509f900c7722e739db50c5bb09e0fe14661cbcd",
+      "risk_v1_report.html": "6ed791ee0b77c7a58dc6190e742ebc9717bf5b4c08766e803cc304d6644791c1",
+      "risk_v1_results.csv": "f627d657f233cedc03b40d373c809556344e9360766dacdaa7a9c5cb1e3cd50f",
+      "risk_v1_results.json": "dd9ec3b7125ebcccb17ee299e2b1657cec1dd422a7ecfe84d893f185872b0797",
+      "risk_v1_summary.csv": "a453817d97512bbcadb28adc0955f98c61bda0e9e118148f43443a3337391d57",
+      "risk_v1_trades.csv": "5d67d36d37712fbcb4ff8046052f80274807990f1817a24d783478c927d7845c"
+    },
+    "exports\\strategy_v2_technical_candidate_20261019T103707108020": {
+      "technical_v2_candidate_audit.json": "2044db46469430a66480f89be05213fd411b6a1f17efa56270e35bc3ef1476d5",
+      "technical_v2_candidate_comparison.csv": "d370cb3303191bc8a0c831ba827ad091484f1af53975a8c5a157ef7e6b68df35",
+      "technical_v2_candidate_gate_decisions.csv": "66fa69ece5871dccb7d7e72fdad491c25e87cf6f0a141b89cff69999ac7845f3",
+      "technical_v2_candidate_per_fold.csv": "0787a3d40000fe8028c6a28d49354f93881c98b15972d91509941ab5780ad69b",
+      "technical_v2_candidate_per_stock.csv": "d6ac6db0571d3899efeb9346a9ebc23ff89987c991dcefa7998a066874a0dbc7",
+      "technical_v2_candidate_report.html": "8f9eca98ecb6daf16e4215b19be67f2d183dc0c8f3edbd8eb9d24201de47036b",
+      "technical_v2_candidate_results.csv": "26085a605bcaaba169d734a4acda18c4f939df02b7176e1414e2817c00e5546a",
+      "technical_v2_candidate_risk_decisions.csv": "ce0740f73ba242d4c162205d03ee5626d3418cb210a1528738fc66dfa031366b",
+      "technical_v2_candidate_trades.csv": "513d64d5d011c3db347679dacbf4b3e54990a5c888386f6f1097f86e3f9ae533",
+      "technical_v2_candidate_user_analysis.html": "3785f062d9b924cb8a0a75ae666a036a998788457c9a3adbbee82b3c8d9433e9"
+    }
+  },
+  "source_config_and_artifact_hashes": {
+    "technical_v1_config": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+    "technical_v2_config": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+    "risk_v1_config": "9035e97a0c9dff8f481af47d69147566712422e46222f9b1db5bbe66135d59ec",
+    "ml_oof": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b",
+    "risk_v2_exp001_config": "4a768bf40b24af890085957473648bc58a48677d059d2ec992bc1093210b59f2"
+  },
+  "baseline_reference": "exports/strategy_v2_technical_candidate_20261019T103707108020/technical_v2_candidate_results.csv",
+  "common_candidates": 192,
+  "result_rows": 30,
+  "output_files": [
+    "risk_v2_exp001_audit.json",
+    "risk_v2_exp001_candidate_gate_parity.csv",
+    "risk_v2_exp001_comparison.csv",
+    "risk_v2_exp001_overall.csv",
+    "risk_v2_exp001_per_fold.csv",
+    "risk_v2_exp001_per_stock.csv",
+    "risk_v2_exp001_position_sizing.csv",
+    "risk_v2_exp001_report.html",
+    "risk_v2_exp001_report.json",
+    "risk_v2_exp001_stock_fold.csv",
+    "risk_v2_exp001_trades.csv",
+    "risk_v2_exp001_user_analysis.html"
+  ],
+  "output_directory": "exports\\risk_v2_exp001_20261027T193200522564"
+}

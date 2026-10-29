@@ -649,6 +649,28 @@ class TechnicalV1Tests(unittest.TestCase):
         self.assertEqual(strategy.local_trades[0]["action"], "Buy")
         self.assertEqual(strategy.local_trades[0]["price"], 103.0)
 
+    def test_last_bar_has_no_virtual_next_bar_fill(self) -> None:
+        strategy = strategy_for(self.config, "TM_BASE_20_60_120_RSI55_70")
+        bar_time = datetime(2024, 1, 2, 9, 0, tzinfo=TAIPEI)
+        row = {
+            "kbar_timestamp": int(bar_time.timestamp()),
+            "kbar_time": bar_time.replace(tzinfo=None),
+            "Open": 100.0, "High": 103.0, "Low": 99.0, "Close": 101.5,
+            "Volume": 1200,
+            **{key: value for key, value in snapshot().items()
+               if key not in {"OPEN", "HIGH", "LOW", "CLOSE", "VOLUME"}},
+        }
+        frame = pl.DataFrame([row])
+        stats = MarketDataStats(
+            tick_count=1, first_timestamp=float(bar_time.timestamp()),
+            last_timestamp=float(bar_time.timestamp()),
+        )
+
+        replay_kbars(strategy, frame, stats)
+
+        assert strategy.local_orders == []
+        assert strategy.local_trades == []
+
     def test_candidate_signal_bar_end_does_not_jump_across_overnight_gap(self) -> None:
         strategy = strategy_for(self.config, "TM_BASE_20_60_120_RSI55_70")
         decision_time = datetime(2024, 1, 3, 9, 0, tzinfo=TAIPEI)

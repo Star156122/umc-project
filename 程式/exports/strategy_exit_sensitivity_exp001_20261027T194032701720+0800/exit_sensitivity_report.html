@@ -1,0 +1,4695 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Exit Sensitivity Audit Exp001</title><style>body{font:15px/1.6 system-ui,"Microsoft JhengHei",sans-serif;background:#08131d;color:#e9f1f7;margin:0}main{max-width:1400px;margin:auto;padding:24px}header,.card{background:#102434;border:1px solid #284459;border-radius:14px;padding:20px;margin:16px 0}h1,h2{color:#fff}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:7px;border-bottom:1px solid #294458;text-align:left;white-space:nowrap}pre{white-space:pre-wrap}.tag{display:inline-block;padding:4px 8px;background:#164767;border-radius:20px;margin:3px}</style><main><header><span class="tag">Training-only 2023–2024</span><span class="tag">Exit 20 / 30 Control / 40</span><h1>Exit Sensitivity Audit Exp001</h1><p>本報告依事前登錄比較 Exit 敏感度；結果不會自動選出或修改正式 Exit。</p><p>分類：MIXED</p></header><section class="card"><h2>Exit × Strategy</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>exit_value</th>
+      <th>strategy</th>
+      <th>return</th>
+      <th>median_return</th>
+      <th>return_std</th>
+      <th>max_drawdown</th>
+      <th>sharpe</th>
+      <th>profit_factor</th>
+      <th>win_rate</th>
+      <th>average_capital_exposure</th>
+      <th>maximum_capital_exposure</th>
+      <th>net_edge_per_trade</th>
+      <th>cost_ratio</th>
+      <th>average_holding_bars</th>
+      <th>average_entry_timing_bars_after_0900</th>
+      <th>technical_candidate_count</th>
+      <th>regime_pass_count</th>
+      <th>ml_buy_count</th>
+      <th>trade_count</th>
+      <th>gross_positive_pnl</th>
+      <th>gross_pnl</th>
+      <th>transaction_cost</th>
+      <th>net_pnl</th>
+      <th>final_equity</th>
+      <th>account_count</th>
+      <th>scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>20</td>
+      <td>GRU</td>
+      <td>-0.003102</td>
+      <td>-0.003190</td>
+      <td>0.009918</td>
+      <td>0.006891</td>
+      <td>-0.820145</td>
+      <td>0.514377</td>
+      <td>0.166667</td>
+      <td>0.005046</td>
+      <td>0.312127</td>
+      <td>-232.649164</td>
+      <td>0.890060</td>
+      <td>360.500000</td>
+      <td>9.166990</td>
+      <td>162</td>
+      <td>91</td>
+      <td>20</td>
+      <td>12</td>
+      <td>2838.00</td>
+      <td>-265.80</td>
+      <td>2525.989965</td>
+      <td>-2791.789965</td>
+      <td>99689.801115</td>
+      <td>9</td>
+      <td>overall</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>RF</td>
+      <td>0.002051</td>
+      <td>0.000000</td>
+      <td>0.008772</td>
+      <td>0.008226</td>
+      <td>-0.200098</td>
+      <td>1.422183</td>
+      <td>0.175926</td>
+      <td>0.010658</td>
+      <td>0.314799</td>
+      <td>92.294702</td>
+      <td>0.580862</td>
+      <td>375.250000</td>
+      <td>9.166990</td>
+      <td>162</td>
+      <td>91</td>
+      <td>31</td>
+      <td>20</td>
+      <td>7524.00</td>
+      <td>6216.30</td>
+      <td>4370.405955</td>
+      <td>1845.894045</td>
+      <td>100205.099338</td>
+      <td>9</td>
+      <td>overall</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>TECHNICAL</td>
+      <td>0.004406</td>
+      <td>-0.008733</td>
+      <td>0.036236</td>
+      <td>0.027629</td>
+      <td>-0.475761</td>
+      <td>1.277742</td>
+      <td>0.341053</td>
+      <td>0.043820</td>
+      <td>0.411398</td>
+      <td>43.577451</td>
+      <td>0.470274</td>
+      <td>499.614430</td>
+      <td>9.166990</td>
+      <td>162</td>
+      <td>91</td>
+      <td>0</td>
+      <td>91</td>
+      <td>41577.75</td>
+      <td>23518.50</td>
+      <td>19552.951972</td>
+      <td>3965.548028</td>
+      <td>100440.616448</td>
+      <td>9</td>
+      <td>overall</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>XGBOOST</td>
+      <td>0.004717</td>
+      <td>-0.001220</td>
+      <td>0.017967</td>
+      <td>0.008636</td>
+      <td>-0.523773</td>
+      <td>1.436497</td>
+      <td>0.231481</td>
+      <td>0.009199</td>
+      <td>0.360718</td>
+      <td>223.444329</td>
+      <td>0.375144</td>
+      <td>346.937500</td>
+      <td>9.166990</td>
+      <td>162</td>
+      <td>91</td>
+      <td>33</td>
+      <td>19</td>
+      <td>10729.90</td>
+      <td>8270.70</td>
+      <td>4025.257747</td>
+      <td>4245.442252</td>
+      <td>100471.715806</td>
+      <td>9</td>
+      <td>overall</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>GRU</td>
+      <td>-0.003792</td>
+      <td>-0.003190</td>
+      <td>0.006059</td>
+      <td>0.007263</td>
+      <td>-0.745074</td>
+      <td>0.395577</td>
+      <td>0.092593</td>
+      <td>0.005927</td>
+      <td>0.267370</td>
+      <td>-310.270065</td>
+      <td>0.962144</td>
+      <td>515.777778</td>
+      <td>9.076609</td>
+      <td>147</td>
+      <td>82</td>
+      <td>20</td>
+      <td>11</td>
+      <td>2505.00</td>
+      <td>-1002.80</td>
+      <td>2410.170720</td>
+      <td>-3412.970720</td>
+      <td>99620.781031</td>
+      <td>9</td>
+      <td>overall</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>RF</td>
+      <td>0.006718</td>
+      <td>0.000089</td>
+      <td>0.010995</td>
+      <td>0.007191</td>
+      <td>0.273990</td>
+      <td>2.039665</td>
+      <td>0.287037</td>
+      <td>0.013278</td>
+      <td>0.315673</td>
+      <td>318.200549</td>
+      <td>0.363380</td>
+      <td>538.130952</td>
+      <td>9.076609</td>
+      <td>147</td>
+      <td>82</td>
+      <td>29</td>
+      <td>19</td>
+      <td>11779.10</td>
+      <td>10326.10</td>
+      <td>4280.289570</td>
+      <td>6045.810430</td>
+      <td>100671.756714</td>
+      <td>9</td>
+      <td>overall</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>TECHNICAL</td>
+      <td>0.005261</td>
+      <td>0.001296</td>
+      <td>0.032468</td>
+      <td>0.029453</td>
+      <td>-0.332015</td>
+      <td>1.176310</td>
+      <td>0.318311</td>
+      <td>0.049030</td>
+      <td>0.413200</td>
+      <td>57.746358</td>
+      <td>0.437543</td>
+      <td>634.752363</td>
+      <td>9.076609</td>
+      <td>147</td>
+      <td>82</td>
+      <td>0</td>
+      <td>82</td>
+      <td>41186.70</td>
+      <td>22756.15</td>
+      <td>18020.948606</td>
+      <td>4735.201394</td>
+      <td>100526.133488</td>
+      <td>9</td>
+      <td>overall</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>XGBOOST</td>
+      <td>0.009239</td>
+      <td>0.000089</td>
+      <td>0.025321</td>
+      <td>0.007907</td>
+      <td>0.144155</td>
+      <td>3.165429</td>
+      <td>0.342593</td>
+      <td>0.011222</td>
+      <td>0.316796</td>
+      <td>519.697046</td>
+      <td>0.254357</td>
+      <td>716.904762</td>
+      <td>9.076609</td>
+      <td>147</td>
+      <td>82</td>
+      <td>29</td>
+      <td>16</td>
+      <td>14139.00</td>
+      <td>11911.50</td>
+      <td>3596.347268</td>
+      <td>8315.152732</td>
+      <td>100923.905859</td>
+      <td>9</td>
+      <td>overall</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>GRU</td>
+      <td>-0.003399</td>
+      <td>0.000000</td>
+      <td>0.006451</td>
+      <td>0.005496</td>
+      <td>-0.745556</td>
+      <td>0.290100</td>
+      <td>0.055556</td>
+      <td>0.003714</td>
+      <td>0.221876</td>
+      <td>-382.388765</td>
+      <td>1.828537</td>
+      <td>402.100000</td>
+      <td>10.644178</td>
+      <td>135</td>
+      <td>75</td>
+      <td>16</td>
+      <td>8</td>
+      <td>943.00</td>
+      <td>-1334.80</td>
+      <td>1724.310120</td>
+      <td>-3059.110120</td>
+      <td>99660.098876</td>
+      <td>9</td>
+      <td>overall</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>RF</td>
+      <td>0.008031</td>
+      <td>0.000089</td>
+      <td>0.014044</td>
+      <td>0.007962</td>
+      <td>0.471469</td>
+      <td>1.314194</td>
+      <td>0.453704</td>
+      <td>0.014879</td>
+      <td>0.316390</td>
+      <td>425.159172</td>
+      <td>0.319693</td>
+      <td>939.035714</td>
+      <td>10.644178</td>
+      <td>135</td>
+      <td>75</td>
+      <td>26</td>
+      <td>17</td>
+      <td>12316.80</td>
+      <td>11165.30</td>
+      <td>3937.594080</td>
+      <td>7227.705920</td>
+      <td>100803.078436</td>
+      <td>9</td>
+      <td>overall</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>TECHNICAL</td>
+      <td>0.008361</td>
+      <td>0.009477</td>
+      <td>0.036269</td>
+      <td>0.029451</td>
+      <td>-0.182451</td>
+      <td>1.300327</td>
+      <td>0.357099</td>
+      <td>0.052209</td>
+      <td>0.413040</td>
+      <td>100.332486</td>
+      <td>0.403407</td>
+      <td>762.601852</td>
+      <td>10.644178</td>
+      <td>135</td>
+      <td>75</td>
+      <td>0</td>
+      <td>75</td>
+      <td>41931.90</td>
+      <td>24440.55</td>
+      <td>16915.613561</td>
+      <td>7524.936439</td>
+      <td>100836.104049</td>
+      <td>9</td>
+      <td>overall</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>XGBOOST</td>
+      <td>0.011473</td>
+      <td>0.000000</td>
+      <td>0.029582</td>
+      <td>0.008201</td>
+      <td>0.197406</td>
+      <td>3.229327</td>
+      <td>0.305556</td>
+      <td>0.011843</td>
+      <td>0.316284</td>
+      <td>737.579556</td>
+      <td>0.204798</td>
+      <td>1052.035714</td>
+      <td>10.644178</td>
+      <td>135</td>
+      <td>75</td>
+      <td>26</td>
+      <td>14</td>
+      <td>15896.10</td>
+      <td>13581.60</td>
+      <td>3255.486210</td>
+      <td>10326.113790</td>
+      <td>101147.345977</td>
+      <td>9</td>
+      <td>overall</td>
+    </tr>
+  </tbody>
+</table></div></section><section class="card"><h2>Delta vs Control 30</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>exit_value</th>
+      <th>control</th>
+      <th>strategy</th>
+      <th>delta_return</th>
+      <th>delta_max_drawdown</th>
+      <th>delta_sharpe</th>
+      <th>delta_profit_factor</th>
+      <th>delta_win_rate</th>
+      <th>delta_trade_count</th>
+      <th>delta_average_capital_exposure</th>
+      <th>delta_net_edge_per_trade</th>
+      <th>delta_transaction_cost</th>
+      <th>delta_cost_ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>20</td>
+      <td>30</td>
+      <td>TECHNICAL</td>
+      <td>-0.000855</td>
+      <td>-0.001824</td>
+      <td>-0.143745</td>
+      <td>0.101432</td>
+      <td>0.022742</td>
+      <td>9.0</td>
+      <td>-0.005211</td>
+      <td>-14.168908</td>
+      <td>1532.003366</td>
+      <td>0.032732</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>30</td>
+      <td>TECHNICAL</td>
+      <td>0.003100</td>
+      <td>-0.000002</td>
+      <td>0.149565</td>
+      <td>0.124017</td>
+      <td>0.038787</td>
+      <td>-7.0</td>
+      <td>0.003179</td>
+      <td>42.586127</td>
+      <td>-1105.335045</td>
+      <td>-0.034136</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>30</td>
+      <td>RF</td>
+      <td>-0.004667</td>
+      <td>0.001035</td>
+      <td>-0.474088</td>
+      <td>-0.617482</td>
+      <td>-0.111111</td>
+      <td>1.0</td>
+      <td>-0.002620</td>
+      <td>-225.905847</td>
+      <td>90.116385</td>
+      <td>0.217482</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>30</td>
+      <td>RF</td>
+      <td>0.001313</td>
+      <td>0.000771</td>
+      <td>0.197479</td>
+      <td>-0.725470</td>
+      <td>0.166667</td>
+      <td>-2.0</td>
+      <td>0.001600</td>
+      <td>106.958623</td>
+      <td>-342.695490</td>
+      <td>-0.043687</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>30</td>
+      <td>XGBOOST</td>
+      <td>-0.004522</td>
+      <td>0.000729</td>
+      <td>-0.667927</td>
+      <td>-1.728932</td>
+      <td>-0.111111</td>
+      <td>3.0</td>
+      <td>-0.002024</td>
+      <td>-296.252717</td>
+      <td>428.910480</td>
+      <td>0.120787</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>30</td>
+      <td>XGBOOST</td>
+      <td>0.002234</td>
+      <td>0.000294</td>
+      <td>0.053251</td>
+      <td>0.063898</td>
+      <td>-0.037037</td>
+      <td>-2.0</td>
+      <td>0.000620</td>
+      <td>217.882511</td>
+      <td>-340.861058</td>
+      <td>-0.049559</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>30</td>
+      <td>GRU</td>
+      <td>0.000690</td>
+      <td>-0.000372</td>
+      <td>-0.075071</td>
+      <td>0.118801</td>
+      <td>0.074074</td>
+      <td>1.0</td>
+      <td>-0.000881</td>
+      <td>77.620902</td>
+      <td>115.819245</td>
+      <td>-0.072084</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>30</td>
+      <td>GRU</td>
+      <td>0.000393</td>
+      <td>-0.001767</td>
+      <td>-0.000482</td>
+      <td>-0.105477</td>
+      <td>-0.037037</td>
+      <td>-3.0</td>
+      <td>-0.002212</td>
+      <td>-72.118700</td>
+      <td>-685.860600</td>
+      <td>0.866393</td>
+    </tr>
+  </tbody>
+</table></div></section><section class="card"><h2>Per Stock</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>exit_value</th>
+      <th>strategy</th>
+      <th>stock_code</th>
+      <th>return</th>
+      <th>median_return</th>
+      <th>return_std</th>
+      <th>max_drawdown</th>
+      <th>sharpe</th>
+      <th>profit_factor</th>
+      <th>win_rate</th>
+      <th>average_capital_exposure</th>
+      <th>maximum_capital_exposure</th>
+      <th>net_edge_per_trade</th>
+      <th>cost_ratio</th>
+      <th>average_holding_bars</th>
+      <th>average_entry_timing_bars_after_0900</th>
+      <th>technical_candidate_count</th>
+      <th>regime_pass_count</th>
+      <th>ml_buy_count</th>
+      <th>trade_count</th>
+      <th>gross_positive_pnl</th>
+      <th>gross_pnl</th>
+      <th>transaction_cost</th>
+      <th>net_pnl</th>
+      <th>final_equity</th>
+      <th>account_count</th>
+      <th>scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>20</td>
+      <td>GRU</td>
+      <td>2303</td>
+      <td>0.002247</td>
+      <td>-0.003190</td>
+      <td>0.009989</td>
+      <td>0.004364</td>
+      <td>-0.376944</td>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>0.003344</td>
+      <td>0.404322</td>
+      <td>224.659253</td>
+      <td>0.376107</td>
+      <td>125.333333</td>
+      <td>8.814281</td>
+      <td>45</td>
+      <td>28</td>
+      <td>5</td>
+      <td>3</td>
+      <td>1556.00</td>
+      <td>1259.20</td>
+      <td>585.222240</td>
+      <td>673.977760</td>
+      <td>100224.659253</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>GRU</td>
+      <td>2330</td>
+      <td>-0.009363</td>
+      <td>-0.008427</td>
+      <td>0.009865</td>
+      <td>0.009658</td>
+      <td>-1.760696</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.007527</td>
+      <td>0.265688</td>
+      <td>-468.159700</td>
+      <td>5.093223</td>
+      <td>630.500000</td>
+      <td>10.633575</td>
+      <td>62</td>
+      <td>32</td>
+      <td>10</td>
+      <td>6</td>
+      <td>257.00</td>
+      <td>-1500.00</td>
+      <td>1308.958200</td>
+      <td>-2808.958200</td>
+      <td>99063.680600</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>GRU</td>
+      <td>2454</td>
+      <td>-0.002189</td>
+      <td>0.000000</td>
+      <td>0.009665</td>
+      <td>0.006651</td>
+      <td>-0.322795</td>
+      <td>1.543132</td>
+      <td>0.166667</td>
+      <td>0.004268</td>
+      <td>0.266371</td>
+      <td>-218.936508</td>
+      <td>0.616400</td>
+      <td>443.250000</td>
+      <td>8.053114</td>
+      <td>55</td>
+      <td>31</td>
+      <td>5</td>
+      <td>3</td>
+      <td>1025.00</td>
+      <td>-25.00</td>
+      <td>631.809525</td>
+      <td>-656.809525</td>
+      <td>99781.063492</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>RF</td>
+      <td>2303</td>
+      <td>-0.005431</td>
+      <td>-0.003738</td>
+      <td>0.004204</td>
+      <td>0.008877</td>
+      <td>-1.753038</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.005724</td>
+      <td>0.402470</td>
+      <td>-325.851541</td>
+      <td>NaN</td>
+      <td>196.111111</td>
+      <td>8.814281</td>
+      <td>45</td>
+      <td>28</td>
+      <td>6</td>
+      <td>5</td>
+      <td>0.00</td>
+      <td>-523.70</td>
+      <td>1105.557705</td>
+      <td>-1629.257705</td>
+      <td>99456.914098</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>RF</td>
+      <td>2330</td>
+      <td>0.009626</td>
+      <td>0.007640</td>
+      <td>0.010757</td>
+      <td>0.008929</td>
+      <td>0.966295</td>
+      <td>3.310685</td>
+      <td>0.333333</td>
+      <td>0.015945</td>
+      <td>0.273912</td>
+      <td>360.978578</td>
+      <td>0.353791</td>
+      <td>633.750000</td>
+      <td>10.633575</td>
+      <td>62</td>
+      <td>32</td>
+      <td>15</td>
+      <td>8</td>
+      <td>4978.00</td>
+      <td>4649.00</td>
+      <td>1761.171375</td>
+      <td>2887.828625</td>
+      <td>100962.609542</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>RF</td>
+      <td>2454</td>
+      <td>0.001958</td>
+      <td>0.001740</td>
+      <td>0.002075</td>
+      <td>0.006873</td>
+      <td>0.186449</td>
+      <td>0.955863</td>
+      <td>0.194444</td>
+      <td>0.010305</td>
+      <td>0.268016</td>
+      <td>83.903304</td>
+      <td>0.590604</td>
+      <td>385.458333</td>
+      <td>8.053114</td>
+      <td>55</td>
+      <td>31</td>
+      <td>10</td>
+      <td>7</td>
+      <td>2546.00</td>
+      <td>2091.00</td>
+      <td>1503.676875</td>
+      <td>587.323125</td>
+      <td>100195.774375</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>-0.005839</td>
+      <td>-0.008733</td>
+      <td>0.008163</td>
+      <td>0.028097</td>
+      <td>-0.559613</td>
+      <td>0.701775</td>
+      <td>0.333333</td>
+      <td>0.043877</td>
+      <td>0.411603</td>
+      <td>-62.557887</td>
+      <td>0.622095</td>
+      <td>443.555556</td>
+      <td>8.814281</td>
+      <td>45</td>
+      <td>28</td>
+      <td>0</td>
+      <td>28</td>
+      <td>9842.75</td>
+      <td>4371.50</td>
+      <td>6123.120848</td>
+      <td>-1751.620847</td>
+      <td>99416.126384</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>0.005982</td>
+      <td>-0.015525</td>
+      <td>0.062410</td>
+      <td>0.030211</td>
+      <td>-1.096353</td>
+      <td>2.045696</td>
+      <td>0.339827</td>
+      <td>0.042504</td>
+      <td>0.408249</td>
+      <td>56.082477</td>
+      <td>0.483162</td>
+      <td>528.543290</td>
+      <td>10.633575</td>
+      <td>62</td>
+      <td>32</td>
+      <td>0</td>
+      <td>32</td>
+      <td>13965.00</td>
+      <td>8542.00</td>
+      <td>6747.360750</td>
+      <td>1794.639250</td>
+      <td>100598.213083</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>0.013075</td>
+      <td>0.003270</td>
+      <td>0.031884</td>
+      <td>0.024579</td>
+      <td>0.228684</td>
+      <td>1.085756</td>
+      <td>0.350000</td>
+      <td>0.045077</td>
+      <td>0.414341</td>
+      <td>126.533214</td>
+      <td>0.376053</td>
+      <td>526.744444</td>
+      <td>8.053114</td>
+      <td>55</td>
+      <td>31</td>
+      <td>0</td>
+      <td>31</td>
+      <td>17770.00</td>
+      <td>10605.00</td>
+      <td>6682.470375</td>
+      <td>3922.529625</td>
+      <td>101307.509875</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>XGBOOST</td>
+      <td>2303</td>
+      <td>0.001225</td>
+      <td>0.000000</td>
+      <td>0.012102</td>
+      <td>0.006884</td>
+      <td>-0.392274</td>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>0.006741</td>
+      <td>0.271204</td>
+      <td>73.512885</td>
+      <td>0.616859</td>
+      <td>523.666667</td>
+      <td>8.814281</td>
+      <td>45</td>
+      <td>28</td>
+      <td>5</td>
+      <td>5</td>
+      <td>1802.90</td>
+      <td>1479.70</td>
+      <td>1112.135573</td>
+      <td>367.564427</td>
+      <td>100122.521476</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>XGBOOST</td>
+      <td>2330</td>
+      <td>0.002169</td>
+      <td>-0.004448</td>
+      <td>0.016770</td>
+      <td>0.010454</td>
+      <td>-0.749734</td>
+      <td>2.576260</td>
+      <td>0.250000</td>
+      <td>0.013191</td>
+      <td>0.404239</td>
+      <td>72.297167</td>
+      <td>0.554621</td>
+      <td>330.833333</td>
+      <td>10.633575</td>
+      <td>62</td>
+      <td>32</td>
+      <td>21</td>
+      <td>9</td>
+      <td>3338.00</td>
+      <td>2502.00</td>
+      <td>1851.325500</td>
+      <td>650.674500</td>
+      <td>100216.891500</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>XGBOOST</td>
+      <td>2454</td>
+      <td>0.010757</td>
+      <td>-0.001220</td>
+      <td>0.027943</td>
+      <td>0.008570</td>
+      <td>-0.429310</td>
+      <td>1.733230</td>
+      <td>0.111111</td>
+      <td>0.007665</td>
+      <td>0.406710</td>
+      <td>645.440665</td>
+      <td>0.189980</td>
+      <td>245.222222</td>
+      <td>8.053114</td>
+      <td>55</td>
+      <td>31</td>
+      <td>7</td>
+      <td>5</td>
+      <td>5589.00</td>
+      <td>4289.00</td>
+      <td>1061.796675</td>
+      <td>3227.203325</td>
+      <td>101075.734442</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>GRU</td>
+      <td>2303</td>
+      <td>-0.002345</td>
+      <td>-0.003190</td>
+      <td>0.002057</td>
+      <td>0.003709</td>
+      <td>-0.879191</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.002177</td>
+      <td>0.267733</td>
+      <td>-351.758960</td>
+      <td>NaN</td>
+      <td>162.000000</td>
+      <td>9.724537</td>
+      <td>44</td>
+      <td>27</td>
+      <td>4</td>
+      <td>2</td>
+      <td>0.00</td>
+      <td>-296.80</td>
+      <td>406.717920</td>
+      <td>-703.517920</td>
+      <td>99765.494027</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>GRU</td>
+      <td>2330</td>
+      <td>-0.006507</td>
+      <td>-0.006770</td>
+      <td>0.006379</td>
+      <td>0.010402</td>
+      <td>-0.971705</td>
+      <td>0.216126</td>
+      <td>0.111111</td>
+      <td>0.010356</td>
+      <td>0.267872</td>
+      <td>-325.331187</td>
+      <td>0.887153</td>
+      <td>872.333333</td>
+      <td>9.412698</td>
+      <td>56</td>
+      <td>30</td>
+      <td>11</td>
+      <td>6</td>
+      <td>1480.00</td>
+      <td>-639.00</td>
+      <td>1312.987125</td>
+      <td>-1951.987125</td>
+      <td>99349.337625</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>GRU</td>
+      <td>2454</td>
+      <td>-0.002525</td>
+      <td>0.000000</td>
+      <td>0.009237</td>
+      <td>0.007678</td>
+      <td>-0.384326</td>
+      <td>0.970604</td>
+      <td>0.166667</td>
+      <td>0.005248</td>
+      <td>0.266505</td>
+      <td>-252.488558</td>
+      <td>0.673625</td>
+      <td>513.000000</td>
+      <td>8.092593</td>
+      <td>47</td>
+      <td>25</td>
+      <td>5</td>
+      <td>3</td>
+      <td>1025.00</td>
+      <td>-67.00</td>
+      <td>690.465675</td>
+      <td>-757.465675</td>
+      <td>99747.511442</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>RF</td>
+      <td>2303</td>
+      <td>-0.001995</td>
+      <td>-0.002337</td>
+      <td>0.001936</td>
+      <td>0.007023</td>
+      <td>-0.904147</td>
+      <td>0.338001</td>
+      <td>0.111111</td>
+      <td>0.009668</td>
+      <td>0.403258</td>
+      <td>-119.729044</td>
+      <td>1.210233</td>
+      <td>384.111111</td>
+      <td>9.724537</td>
+      <td>44</td>
+      <td>27</td>
+      <td>6</td>
+      <td>5</td>
+      <td>921.10</td>
+      <td>516.10</td>
+      <td>1114.745220</td>
+      <td>-598.645220</td>
+      <td>99800.451593</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>RF</td>
+      <td>2330</td>
+      <td>0.014275</td>
+      <td>0.020881</td>
+      <td>0.012374</td>
+      <td>0.008897</td>
+      <td>1.099034</td>
+      <td>3.433388</td>
+      <td>0.416667</td>
+      <td>0.018089</td>
+      <td>0.274349</td>
+      <td>535.301650</td>
+      <td>0.270978</td>
+      <td>768.125000</td>
+      <td>9.412698</td>
+      <td>56</td>
+      <td>30</td>
+      <td>14</td>
+      <td>8</td>
+      <td>6523.00</td>
+      <td>6050.00</td>
+      <td>1767.586800</td>
+      <td>4282.413200</td>
+      <td>101427.471067</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>RF</td>
+      <td>2454</td>
+      <td>0.007873</td>
+      <td>0.002939</td>
+      <td>0.011189</td>
+      <td>0.005652</td>
+      <td>0.627083</td>
+      <td>2.347605</td>
+      <td>0.333333</td>
+      <td>0.012078</td>
+      <td>0.269410</td>
+      <td>393.673742</td>
+      <td>0.322482</td>
+      <td>539.166667</td>
+      <td>8.092593</td>
+      <td>47</td>
+      <td>25</td>
+      <td>9</td>
+      <td>6</td>
+      <td>4335.00</td>
+      <td>3760.00</td>
+      <td>1397.957550</td>
+      <td>2362.042450</td>
+      <td>100787.347483</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>-0.007211</td>
+      <td>-0.011628</td>
+      <td>0.014043</td>
+      <td>0.030761</td>
+      <td>-0.621443</td>
+      <td>0.641188</td>
+      <td>0.204545</td>
+      <td>0.049285</td>
+      <td>0.413425</td>
+      <td>-80.119794</td>
+      <td>0.587373</td>
+      <td>550.169192</td>
+      <td>9.724537</td>
+      <td>44</td>
+      <td>27</td>
+      <td>0</td>
+      <td>27</td>
+      <td>10123.70</td>
+      <td>3783.15</td>
+      <td>5946.384431</td>
+      <td>-2163.234431</td>
+      <td>99278.921856</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>0.001586</td>
+      <td>0.001296</td>
+      <td>0.044578</td>
+      <td>0.030670</td>
+      <td>-0.839352</td>
+      <td>1.319188</td>
+      <td>0.346542</td>
+      <td>0.046874</td>
+      <td>0.411262</td>
+      <td>15.856240</td>
+      <td>0.509766</td>
+      <td>651.623155</td>
+      <td>9.412698</td>
+      <td>56</td>
+      <td>30</td>
+      <td>0</td>
+      <td>30</td>
+      <td>12473.00</td>
+      <td>6834.00</td>
+      <td>6358.312800</td>
+      <td>475.687200</td>
+      <td>100158.562400</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>0.021409</td>
+      <td>0.022398</td>
+      <td>0.037249</td>
+      <td>0.026929</td>
+      <td>0.464749</td>
+      <td>1.568554</td>
+      <td>0.403846</td>
+      <td>0.050932</td>
+      <td>0.414914</td>
+      <td>256.909945</td>
+      <td>0.307491</td>
+      <td>702.464744</td>
+      <td>8.092593</td>
+      <td>47</td>
+      <td>25</td>
+      <td>0</td>
+      <td>25</td>
+      <td>18590.00</td>
+      <td>12139.00</td>
+      <td>5716.251375</td>
+      <td>6422.748625</td>
+      <td>102140.916208</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>XGBOOST</td>
+      <td>2303</td>
+      <td>0.000069</td>
+      <td>0.000089</td>
+      <td>0.000062</td>
+      <td>0.005031</td>
+      <td>0.017762</td>
+      <td>0.338001</td>
+      <td>0.444444</td>
+      <td>0.009519</td>
+      <td>0.270211</td>
+      <td>5.170308</td>
+      <td>0.807208</td>
+      <td>1153.666667</td>
+      <td>9.724537</td>
+      <td>44</td>
+      <td>27</td>
+      <td>4</td>
+      <td>4</td>
+      <td>1168.00</td>
+      <td>963.50</td>
+      <td>942.818768</td>
+      <td>20.681232</td>
+      <td>100006.893744</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>XGBOOST</td>
+      <td>2330</td>
+      <td>0.007918</td>
+      <td>0.006936</td>
+      <td>0.013561</td>
+      <td>0.010666</td>
+      <td>0.344910</td>
+      <td>2.652360</td>
+      <td>0.361111</td>
+      <td>0.014203</td>
+      <td>0.406729</td>
+      <td>296.906856</td>
+      <td>0.347070</td>
+      <td>480.000000</td>
+      <td>9.412698</td>
+      <td>56</td>
+      <td>30</td>
+      <td>19</td>
+      <td>8</td>
+      <td>4883.00</td>
+      <td>4070.00</td>
+      <td>1694.745150</td>
+      <td>2375.254850</td>
+      <td>100791.751617</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>XGBOOST</td>
+      <td>2454</td>
+      <td>0.019731</td>
+      <td>0.000000</td>
+      <td>0.045682</td>
+      <td>0.008024</td>
+      <td>0.069792</td>
+      <td>6.505926</td>
+      <td>0.222222</td>
+      <td>0.009945</td>
+      <td>0.273447</td>
+      <td>1479.804163</td>
+      <td>0.118544</td>
+      <td>635.500000</td>
+      <td>8.092593</td>
+      <td>47</td>
+      <td>25</td>
+      <td>6</td>
+      <td>4</td>
+      <td>8088.00</td>
+      <td>6878.00</td>
+      <td>958.783350</td>
+      <td>5919.216650</td>
+      <td>101973.072217</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>GRU</td>
+      <td>2303</td>
+      <td>-0.002345</td>
+      <td>-0.003190</td>
+      <td>0.002057</td>
+      <td>0.003709</td>
+      <td>-0.879191</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.002177</td>
+      <td>0.267733</td>
+      <td>-351.758960</td>
+      <td>NaN</td>
+      <td>162.000000</td>
+      <td>11.370370</td>
+      <td>39</td>
+      <td>25</td>
+      <td>4</td>
+      <td>2</td>
+      <td>0.00</td>
+      <td>-296.80</td>
+      <td>406.717920</td>
+      <td>-703.517920</td>
+      <td>99765.494027</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>GRU</td>
+      <td>2330</td>
+      <td>-0.009309</td>
+      <td>-0.012750</td>
+      <td>0.008152</td>
+      <td>0.009662</td>
+      <td>-1.525090</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.005093</td>
+      <td>0.263267</td>
+      <td>-698.156406</td>
+      <td>NaN</td>
+      <td>479.500000</td>
+      <td>12.351515</td>
+      <td>51</td>
+      <td>26</td>
+      <td>8</td>
+      <td>4</td>
+      <td>0.00</td>
+      <td>-1939.00</td>
+      <td>853.625625</td>
+      <td>-2792.625625</td>
+      <td>99069.124792</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>GRU</td>
+      <td>2454</td>
+      <td>0.001457</td>
+      <td>0.000000</td>
+      <td>0.002523</td>
+      <td>0.003116</td>
+      <td>0.167614</td>
+      <td>0.870299</td>
+      <td>0.166667</td>
+      <td>0.003873</td>
+      <td>0.134629</td>
+      <td>218.516712</td>
+      <td>0.492011</td>
+      <td>727.500000</td>
+      <td>8.210648</td>
+      <td>45</td>
+      <td>24</td>
+      <td>4</td>
+      <td>2</td>
+      <td>943.00</td>
+      <td>901.00</td>
+      <td>463.966575</td>
+      <td>437.033425</td>
+      <td>100145.677808</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>RF</td>
+      <td>2303</td>
+      <td>-0.000597</td>
+      <td>0.000089</td>
+      <td>0.001517</td>
+      <td>0.008223</td>
+      <td>-0.352209</td>
+      <td>0.338001</td>
+      <td>0.444444</td>
+      <td>0.013189</td>
+      <td>0.405010</td>
+      <td>-35.848666</td>
+      <td>0.978984</td>
+      <td>863.111111</td>
+      <td>11.370370</td>
+      <td>39</td>
+      <td>25</td>
+      <td>6</td>
+      <td>5</td>
+      <td>1201.80</td>
+      <td>997.30</td>
+      <td>1176.543330</td>
+      <td>-179.243330</td>
+      <td>99940.252223</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>RF</td>
+      <td>2330</td>
+      <td>0.019159</td>
+      <td>0.020589</td>
+      <td>0.018486</td>
+      <td>0.007962</td>
+      <td>1.329499</td>
+      <td>1.827844</td>
+      <td>0.583333</td>
+      <td>0.017109</td>
+      <td>0.274530</td>
+      <td>957.963792</td>
+      <td>0.184574</td>
+      <td>1261.625000</td>
+      <td>12.351515</td>
+      <td>51</td>
+      <td>26</td>
+      <td>12</td>
+      <td>6</td>
+      <td>7402.00</td>
+      <td>7114.00</td>
+      <td>1366.217250</td>
+      <td>5747.782750</td>
+      <td>101915.927583</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>RF</td>
+      <td>2454</td>
+      <td>0.005531</td>
+      <td>0.000000</td>
+      <td>0.011753</td>
+      <td>0.007702</td>
+      <td>0.437116</td>
+      <td>1.776738</td>
+      <td>0.333333</td>
+      <td>0.014338</td>
+      <td>0.269630</td>
+      <td>276.527750</td>
+      <td>0.375662</td>
+      <td>730.333333</td>
+      <td>8.210648</td>
+      <td>45</td>
+      <td>24</td>
+      <td>8</td>
+      <td>6</td>
+      <td>3713.00</td>
+      <td>3054.00</td>
+      <td>1394.833500</td>
+      <td>1659.166500</td>
+      <td>100553.055500</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>-0.006172</td>
+      <td>-0.011628</td>
+      <td>0.023408</td>
+      <td>0.029930</td>
+      <td>-0.532540</td>
+      <td>0.800397</td>
+      <td>0.268519</td>
+      <td>0.054576</td>
+      <td>0.413505</td>
+      <td>-74.069828</td>
+      <td>0.553026</td>
+      <td>668.361111</td>
+      <td>11.370370</td>
+      <td>39</td>
+      <td>25</td>
+      <td>0</td>
+      <td>25</td>
+      <td>10227.90</td>
+      <td>3804.55</td>
+      <td>5656.295711</td>
+      <td>-1851.745711</td>
+      <td>99382.751430</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>0.007513</td>
+      <td>0.015076</td>
+      <td>0.040749</td>
+      <td>0.027635</td>
+      <td>-0.392339</td>
+      <td>1.561642</td>
+      <td>0.427778</td>
+      <td>0.051066</td>
+      <td>0.409745</td>
+      <td>86.686161</td>
+      <td>0.432831</td>
+      <td>854.027778</td>
+      <td>12.351515</td>
+      <td>51</td>
+      <td>26</td>
+      <td>0</td>
+      <td>26</td>
+      <td>13218.00</td>
+      <td>7975.00</td>
+      <td>5721.159825</td>
+      <td>2253.840175</td>
+      <td>100751.280058</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>0.023743</td>
+      <td>0.009477</td>
+      <td>0.048790</td>
+      <td>0.030790</td>
+      <td>0.377526</td>
+      <td>1.538944</td>
+      <td>0.375000</td>
+      <td>0.050987</td>
+      <td>0.415869</td>
+      <td>296.785082</td>
+      <td>0.299587</td>
+      <td>765.416667</td>
+      <td>8.210648</td>
+      <td>45</td>
+      <td>24</td>
+      <td>0</td>
+      <td>24</td>
+      <td>18486.00</td>
+      <td>12661.00</td>
+      <td>5538.158025</td>
+      <td>7122.841975</td>
+      <td>102374.280658</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>XGBOOST</td>
+      <td>2303</td>
+      <td>-0.000750</td>
+      <td>0.000000</td>
+      <td>0.001377</td>
+      <td>0.005845</td>
+      <td>-0.118471</td>
+      <td>0.338001</td>
+      <td>0.111111</td>
+      <td>0.010139</td>
+      <td>0.270211</td>
+      <td>-56.281559</td>
+      <td>1.022393</td>
+      <td>1167.666667</td>
+      <td>11.370370</td>
+      <td>39</td>
+      <td>25</td>
+      <td>4</td>
+      <td>4</td>
+      <td>921.10</td>
+      <td>716.60</td>
+      <td>941.726235</td>
+      <td>-225.126235</td>
+      <td>99924.957922</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>XGBOOST</td>
+      <td>2330</td>
+      <td>0.011491</td>
+      <td>0.020589</td>
+      <td>0.017272</td>
+      <td>0.010734</td>
+      <td>0.567606</td>
+      <td>1.827844</td>
+      <td>0.583333</td>
+      <td>0.015133</td>
+      <td>0.405193</td>
+      <td>574.548188</td>
+      <td>0.236916</td>
+      <td>1225.083333</td>
+      <td>12.351515</td>
+      <td>51</td>
+      <td>26</td>
+      <td>16</td>
+      <td>6</td>
+      <td>5697.00</td>
+      <td>4797.00</td>
+      <td>1349.710875</td>
+      <td>3447.289125</td>
+      <td>101149.096375</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>XGBOOST</td>
+      <td>2454</td>
+      <td>0.023680</td>
+      <td>0.000000</td>
+      <td>0.052464</td>
+      <td>0.008024</td>
+      <td>0.143082</td>
+      <td>7.522136</td>
+      <td>0.222222</td>
+      <td>0.010256</td>
+      <td>0.273447</td>
+      <td>1775.987725</td>
+      <td>0.103907</td>
+      <td>676.833333</td>
+      <td>8.210648</td>
+      <td>45</td>
+      <td>24</td>
+      <td>6</td>
+      <td>4</td>
+      <td>9278.00</td>
+      <td>8068.00</td>
+      <td>964.049100</td>
+      <td>7103.950900</td>
+      <td>102367.983633</td>
+      <td>3</td>
+      <td>per_stock</td>
+    </tr>
+  </tbody>
+</table></div></section><section class="card"><h2>Per Fold</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>exit_value</th>
+      <th>strategy</th>
+      <th>fold_id</th>
+      <th>return</th>
+      <th>median_return</th>
+      <th>return_std</th>
+      <th>max_drawdown</th>
+      <th>sharpe</th>
+      <th>profit_factor</th>
+      <th>win_rate</th>
+      <th>average_capital_exposure</th>
+      <th>maximum_capital_exposure</th>
+      <th>net_edge_per_trade</th>
+      <th>cost_ratio</th>
+      <th>average_holding_bars</th>
+      <th>average_entry_timing_bars_after_0900</th>
+      <th>technical_candidate_count</th>
+      <th>regime_pass_count</th>
+      <th>ml_buy_count</th>
+      <th>trade_count</th>
+      <th>gross_positive_pnl</th>
+      <th>gross_pnl</th>
+      <th>transaction_cost</th>
+      <th>net_pnl</th>
+      <th>final_equity</th>
+      <th>account_count</th>
+      <th>scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>20</td>
+      <td>GRU</td>
+      <td>WF1</td>
+      <td>0.003847</td>
+      <td>0.006193</td>
+      <td>0.011285</td>
+      <td>0.005847</td>
+      <td>-0.047418</td>
+      <td>1.543132</td>
+      <td>0.500000</td>
+      <td>0.006461</td>
+      <td>0.404069</td>
+      <td>192.353284</td>
+      <td>0.458681</td>
+      <td>341.500000</td>
+      <td>7.250000</td>
+      <td>58</td>
+      <td>35</td>
+      <td>7</td>
+      <td>6</td>
+      <td>2653.00</td>
+      <td>2371.00</td>
+      <td>1216.880295</td>
+      <td>1154.119705</td>
+      <td>100384.706568</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>GRU</td>
+      <td>WF2</td>
+      <td>-0.005535</td>
+      <td>-0.003845</td>
+      <td>0.006546</td>
+      <td>0.007155</td>
+      <td>-0.916900</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.002340</td>
+      <td>0.266164</td>
+      <td>-830.311365</td>
+      <td>NaN</td>
+      <td>288.000000</td>
+      <td>10.069488</td>
+      <td>64</td>
+      <td>41</td>
+      <td>5</td>
+      <td>2</td>
+      <td>0.00</td>
+      <td>-1201.20</td>
+      <td>459.422730</td>
+      <td>-1660.622730</td>
+      <td>99446.459090</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>GRU</td>
+      <td>WF3</td>
+      <td>-0.007618</td>
+      <td>-0.003190</td>
+      <td>0.010552</td>
+      <td>0.007670</td>
+      <td>-1.496118</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.006338</td>
+      <td>0.266149</td>
+      <td>-571.321735</td>
+      <td>4.592902</td>
+      <td>461.500000</td>
+      <td>10.181481</td>
+      <td>40</td>
+      <td>15</td>
+      <td>8</td>
+      <td>4</td>
+      <td>185.00</td>
+      <td>-1435.60</td>
+      <td>849.686940</td>
+      <td>-2285.286940</td>
+      <td>99238.237687</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>RF</td>
+      <td>WF1</td>
+      <td>-0.000666</td>
+      <td>0.000000</td>
+      <td>0.002799</td>
+      <td>0.005319</td>
+      <td>-0.429497</td>
+      <td>0.427463</td>
+      <td>0.083333</td>
+      <td>0.004882</td>
+      <td>0.268280</td>
+      <td>-39.973857</td>
+      <td>0.823887</td>
+      <td>188.625000</td>
+      <td>7.250000</td>
+      <td>58</td>
+      <td>35</td>
+      <td>5</td>
+      <td>5</td>
+      <td>1196.00</td>
+      <td>785.50</td>
+      <td>985.369283</td>
+      <td>-199.869283</td>
+      <td>99933.376906</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>RF</td>
+      <td>WF2</td>
+      <td>0.005051</td>
+      <td>0.004134</td>
+      <td>0.015748</td>
+      <td>0.012102</td>
+      <td>-0.040274</td>
+      <td>3.104660</td>
+      <td>0.361111</td>
+      <td>0.016463</td>
+      <td>0.404263</td>
+      <td>151.542084</td>
+      <td>0.504753</td>
+      <td>355.000000</td>
+      <td>10.069488</td>
+      <td>64</td>
+      <td>41</td>
+      <td>19</td>
+      <td>10</td>
+      <td>4498.00</td>
+      <td>3785.80</td>
+      <td>2270.379165</td>
+      <td>1515.420835</td>
+      <td>100505.140278</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>RF</td>
+      <td>WF3</td>
+      <td>0.001768</td>
+      <td>0.000000</td>
+      <td>0.005218</td>
+      <td>0.007258</td>
+      <td>-0.130523</td>
+      <td>0.734425</td>
+      <td>0.083333</td>
+      <td>0.010629</td>
+      <td>0.271856</td>
+      <td>106.068499</td>
+      <td>0.609102</td>
+      <td>592.250000</td>
+      <td>10.181481</td>
+      <td>40</td>
+      <td>15</td>
+      <td>7</td>
+      <td>5</td>
+      <td>1830.00</td>
+      <td>1645.00</td>
+      <td>1114.657508</td>
+      <td>530.342493</td>
+      <td>100176.780831</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>TECHNICAL</td>
+      <td>WF1</td>
+      <td>-0.012061</td>
+      <td>0.003270</td>
+      <td>0.026647</td>
+      <td>0.034826</td>
+      <td>-1.386136</td>
+      <td>0.753557</td>
+      <td>0.280303</td>
+      <td>0.041883</td>
+      <td>0.406419</td>
+      <td>-103.379947</td>
+      <td>0.802632</td>
+      <td>397.896465</td>
+      <td>7.250000</td>
+      <td>58</td>
+      <td>35</td>
+      <td>0</td>
+      <td>35</td>
+      <td>8987.55</td>
+      <td>3595.40</td>
+      <td>7213.698158</td>
+      <td>-3618.298157</td>
+      <td>98793.900614</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>TECHNICAL</td>
+      <td>WF2</td>
+      <td>0.037617</td>
+      <td>0.048710</td>
+      <td>0.045262</td>
+      <td>0.022628</td>
+      <td>1.196430</td>
+      <td>2.722056</td>
+      <td>0.528571</td>
+      <td>0.063841</td>
+      <td>0.422165</td>
+      <td>275.244646</td>
+      <td>0.314668</td>
+      <td>589.565873</td>
+      <td>10.069488</td>
+      <td>64</td>
+      <td>41</td>
+      <td>0</td>
+      <td>41</td>
+      <td>29326.70</td>
+      <td>20513.20</td>
+      <td>9228.169500</td>
+      <td>11285.030500</td>
+      <td>103761.676833</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>TECHNICAL</td>
+      <td>WF3</td>
+      <td>-0.012337</td>
+      <td>-0.012755</td>
+      <td>0.003415</td>
+      <td>0.025433</td>
+      <td>-1.237575</td>
+      <td>0.357614</td>
+      <td>0.214286</td>
+      <td>0.025735</td>
+      <td>0.405609</td>
+      <td>-246.745621</td>
+      <td>0.953297</td>
+      <td>511.380952</td>
+      <td>10.181481</td>
+      <td>40</td>
+      <td>15</td>
+      <td>0</td>
+      <td>15</td>
+      <td>3263.50</td>
+      <td>-590.10</td>
+      <td>3111.084315</td>
+      <td>-3701.184315</td>
+      <td>98766.271895</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>XGBOOST</td>
+      <td>WF1</td>
+      <td>0.002742</td>
+      <td>-0.001220</td>
+      <td>0.009791</td>
+      <td>0.005313</td>
+      <td>-0.555667</td>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>0.003705</td>
+      <td>0.403126</td>
+      <td>205.626673</td>
+      <td>0.409619</td>
+      <td>268.333333</td>
+      <td>7.250000</td>
+      <td>58</td>
+      <td>35</td>
+      <td>4</td>
+      <td>4</td>
+      <td>1853.90</td>
+      <td>1581.90</td>
+      <td>759.393307</td>
+      <td>822.506692</td>
+      <td>100274.168897</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>XGBOOST</td>
+      <td>WF2</td>
+      <td>0.017904</td>
+      <td>0.021238</td>
+      <td>0.026612</td>
+      <td>0.013065</td>
+      <td>0.467667</td>
+      <td>4.309490</td>
+      <td>0.361111</td>
+      <td>0.017353</td>
+      <td>0.412478</td>
+      <td>537.129356</td>
+      <td>0.264507</td>
+      <td>449.333333</td>
+      <td>10.069488</td>
+      <td>64</td>
+      <td>41</td>
+      <td>19</td>
+      <td>10</td>
+      <td>8686.00</td>
+      <td>7668.80</td>
+      <td>2297.506440</td>
+      <td>5371.293560</td>
+      <td>101790.431187</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>XGBOOST</td>
+      <td>WF3</td>
+      <td>-0.006495</td>
+      <td>-0.009201</td>
+      <td>0.005650</td>
+      <td>0.007531</td>
+      <td>-1.483318</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.006538</td>
+      <td>0.266551</td>
+      <td>-389.671600</td>
+      <td>5.096621</td>
+      <td>311.250000</td>
+      <td>10.181481</td>
+      <td>40</td>
+      <td>15</td>
+      <td>10</td>
+      <td>5</td>
+      <td>190.00</td>
+      <td>-980.00</td>
+      <td>968.358000</td>
+      <td>-1948.358000</td>
+      <td>99350.547333</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>GRU</td>
+      <td>WF1</td>
+      <td>-0.002521</td>
+      <td>0.000000</td>
+      <td>0.009230</td>
+      <td>0.007659</td>
+      <td>-0.543604</td>
+      <td>0.970604</td>
+      <td>0.166667</td>
+      <td>0.007726</td>
+      <td>0.267707</td>
+      <td>-151.266135</td>
+      <td>1.068615</td>
+      <td>702.000000</td>
+      <td>5.388889</td>
+      <td>52</td>
+      <td>30</td>
+      <td>7</td>
+      <td>5</td>
+      <td>1025.00</td>
+      <td>339.00</td>
+      <td>1095.330675</td>
+      <td>-756.330675</td>
+      <td>99747.889775</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>GRU</td>
+      <td>WF2</td>
+      <td>-0.005535</td>
+      <td>-0.003845</td>
+      <td>0.006546</td>
+      <td>0.007155</td>
+      <td>-0.916900</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.002340</td>
+      <td>0.266164</td>
+      <td>-830.311365</td>
+      <td>NaN</td>
+      <td>288.000000</td>
+      <td>11.422950</td>
+      <td>58</td>
+      <td>38</td>
+      <td>5</td>
+      <td>2</td>
+      <td>0.00</td>
+      <td>-1201.20</td>
+      <td>459.422730</td>
+      <td>-1660.622730</td>
+      <td>99446.459090</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>GRU</td>
+      <td>WF3</td>
+      <td>-0.003320</td>
+      <td>-0.003190</td>
+      <td>0.003387</td>
+      <td>0.006974</td>
+      <td>-0.774719</td>
+      <td>0.216126</td>
+      <td>0.111111</td>
+      <td>0.007714</td>
+      <td>0.268239</td>
+      <td>-249.004329</td>
+      <td>0.577985</td>
+      <td>557.333333</td>
+      <td>10.417989</td>
+      <td>37</td>
+      <td>14</td>
+      <td>8</td>
+      <td>4</td>
+      <td>1480.00</td>
+      <td>-140.60</td>
+      <td>855.417315</td>
+      <td>-996.017315</td>
+      <td>99667.994228</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>RF</td>
+      <td>WF1</td>
+      <td>0.005648</td>
+      <td>0.000000</td>
+      <td>0.013153</td>
+      <td>0.004095</td>
+      <td>0.043550</td>
+      <td>1.895645</td>
+      <td>0.222222</td>
+      <td>0.006544</td>
+      <td>0.269644</td>
+      <td>423.579761</td>
+      <td>0.294868</td>
+      <td>341.500000</td>
+      <td>5.388889</td>
+      <td>52</td>
+      <td>30</td>
+      <td>4</td>
+      <td>4</td>
+      <td>2985.00</td>
+      <td>2574.50</td>
+      <td>880.180957</td>
+      <td>1694.319043</td>
+      <td>100564.773014</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>RF</td>
+      <td>WF2</td>
+      <td>0.008323</td>
+      <td>0.002939</td>
+      <td>0.011880</td>
+      <td>0.010258</td>
+      <td>0.624120</td>
+      <td>2.716088</td>
+      <td>0.472222</td>
+      <td>0.021018</td>
+      <td>0.405518</td>
+      <td>249.703414</td>
+      <td>0.404602</td>
+      <td>564.888889</td>
+      <td>11.422950</td>
+      <td>58</td>
+      <td>38</td>
+      <td>18</td>
+      <td>10</td>
+      <td>5634.10</td>
+      <td>4776.60</td>
+      <td>2279.565855</td>
+      <td>2497.034145</td>
+      <td>100832.344715</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>RF</td>
+      <td>WF3</td>
+      <td>0.006182</td>
+      <td>0.000000</td>
+      <td>0.012784</td>
+      <td>0.007220</td>
+      <td>0.154300</td>
+      <td>1.507261</td>
+      <td>0.166667</td>
+      <td>0.012273</td>
+      <td>0.271856</td>
+      <td>370.891448</td>
+      <td>0.354602</td>
+      <td>694.625000</td>
+      <td>10.417989</td>
+      <td>37</td>
+      <td>14</td>
+      <td>7</td>
+      <td>5</td>
+      <td>3160.00</td>
+      <td>2975.00</td>
+      <td>1120.542758</td>
+      <td>1854.457242</td>
+      <td>100618.152414</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>TECHNICAL</td>
+      <td>WF1</td>
+      <td>-0.003980</td>
+      <td>0.008510</td>
+      <td>0.034369</td>
+      <td>0.035333</td>
+      <td>-0.812738</td>
+      <td>1.201555</td>
+      <td>0.318182</td>
+      <td>0.047411</td>
+      <td>0.409286</td>
+      <td>-39.796040</td>
+      <td>0.609273</td>
+      <td>530.511364</td>
+      <td>5.388889</td>
+      <td>52</td>
+      <td>30</td>
+      <td>0</td>
+      <td>30</td>
+      <td>10461.05</td>
+      <td>5179.75</td>
+      <td>6373.631194</td>
+      <td>-1193.881194</td>
+      <td>99602.039602</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>TECHNICAL</td>
+      <td>WF2</td>
+      <td>0.028649</td>
+      <td>0.046308</td>
+      <td>0.041272</td>
+      <td>0.027471</td>
+      <td>0.747980</td>
+      <td>1.874043</td>
+      <td>0.442308</td>
+      <td>0.071993</td>
+      <td>0.422601</td>
+      <td>226.178245</td>
+      <td>0.326916</td>
+      <td>764.273504</td>
+      <td>11.422950</td>
+      <td>58</td>
+      <td>38</td>
+      <td>0</td>
+      <td>38</td>
+      <td>26426.15</td>
+      <td>17233.90</td>
+      <td>8639.126678</td>
+      <td>8594.773323</td>
+      <td>102864.924441</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>TECHNICAL</td>
+      <td>WF3</td>
+      <td>-0.008886</td>
+      <td>-0.011628</td>
+      <td>0.009125</td>
+      <td>0.025556</td>
+      <td>-0.931288</td>
+      <td>0.453332</td>
+      <td>0.194444</td>
+      <td>0.027687</td>
+      <td>0.407714</td>
+      <td>-190.406481</td>
+      <td>0.699661</td>
+      <td>609.472222</td>
+      <td>10.417989</td>
+      <td>37</td>
+      <td>14</td>
+      <td>0</td>
+      <td>14</td>
+      <td>4299.50</td>
+      <td>342.50</td>
+      <td>3008.190735</td>
+      <td>-2665.690735</td>
+      <td>99111.436422</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>XGBOOST</td>
+      <td>WF1</td>
+      <td>-0.001669</td>
+      <td>0.000000</td>
+      <td>0.002994</td>
+      <td>0.003798</td>
+      <td>-0.492275</td>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>0.001638</td>
+      <td>0.267921</td>
+      <td>-250.409881</td>
+      <td>1.651356</td>
+      <td>730.000000</td>
+      <td>5.388889</td>
+      <td>52</td>
+      <td>30</td>
+      <td>2</td>
+      <td>2</td>
+      <td>246.90</td>
+      <td>-93.10</td>
+      <td>407.719763</td>
+      <td>-500.819763</td>
+      <td>99833.060079</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>XGBOOST</td>
+      <td>WF2</td>
+      <td>0.031331</td>
+      <td>0.021943</td>
+      <td>0.036845</td>
+      <td>0.011222</td>
+      <td>1.375923</td>
+      <td>8.770054</td>
+      <td>0.583333</td>
+      <td>0.023972</td>
+      <td>0.413863</td>
+      <td>939.936637</td>
+      <td>0.187538</td>
+      <td>759.777778</td>
+      <td>11.422950</td>
+      <td>58</td>
+      <td>38</td>
+      <td>18</td>
+      <td>10</td>
+      <td>12372.10</td>
+      <td>11719.60</td>
+      <td>2320.233630</td>
+      <td>9399.366370</td>
+      <td>103133.122123</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>XGBOOST</td>
+      <td>WF3</td>
+      <td>-0.001945</td>
+      <td>0.000000</td>
+      <td>0.009996</td>
+      <td>0.008701</td>
+      <td>-0.451184</td>
+      <td>0.726233</td>
+      <td>0.111111</td>
+      <td>0.008057</td>
+      <td>0.268603</td>
+      <td>-145.848469</td>
+      <td>0.571312</td>
+      <td>639.500000</td>
+      <td>10.417989</td>
+      <td>37</td>
+      <td>14</td>
+      <td>9</td>
+      <td>4</td>
+      <td>1520.00</td>
+      <td>285.00</td>
+      <td>868.393875</td>
+      <td>-583.393875</td>
+      <td>99805.535375</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>GRU</td>
+      <td>WF1</td>
+      <td>-0.002793</td>
+      <td>0.000000</td>
+      <td>0.008895</td>
+      <td>0.007659</td>
+      <td>-0.578075</td>
+      <td>0.870299</td>
+      <td>0.166667</td>
+      <td>0.007748</td>
+      <td>0.267707</td>
+      <td>-167.593565</td>
+      <td>1.161154</td>
+      <td>702.250000</td>
+      <td>8.045118</td>
+      <td>48</td>
+      <td>27</td>
+      <td>6</td>
+      <td>5</td>
+      <td>943.00</td>
+      <td>257.00</td>
+      <td>1094.967825</td>
+      <td>-837.967825</td>
+      <td>99720.677392</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>GRU</td>
+      <td>WF2</td>
+      <td>-0.001282</td>
+      <td>0.000000</td>
+      <td>0.002220</td>
+      <td>0.002593</td>
+      <td>-0.330487</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000943</td>
+      <td>0.134287</td>
+      <td>-384.486480</td>
+      <td>NaN</td>
+      <td>277.000000</td>
+      <td>11.451389</td>
+      <td>53</td>
+      <td>36</td>
+      <td>4</td>
+      <td>1</td>
+      <td>0.00</td>
+      <td>-151.20</td>
+      <td>233.286480</td>
+      <td>-384.486480</td>
+      <td>99871.837840</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>GRU</td>
+      <td>WF3</td>
+      <td>-0.006122</td>
+      <td>-0.003190</td>
+      <td>0.008002</td>
+      <td>0.006235</td>
+      <td>-1.328104</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.002452</td>
+      <td>0.263635</td>
+      <td>-918.327907</td>
+      <td>NaN</td>
+      <td>164.500000</td>
+      <td>12.436027</td>
+      <td>34</td>
+      <td>12</td>
+      <td>6</td>
+      <td>2</td>
+      <td>0.00</td>
+      <td>-1440.60</td>
+      <td>396.055815</td>
+      <td>-1836.655815</td>
+      <td>99387.781395</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>RF</td>
+      <td>WF1</td>
+      <td>0.006495</td>
+      <td>0.000456</td>
+      <td>0.010857</td>
+      <td>0.005573</td>
+      <td>0.536694</td>
+      <td>1.541774</td>
+      <td>0.555556</td>
+      <td>0.012304</td>
+      <td>0.271615</td>
+      <td>487.113871</td>
+      <td>0.295645</td>
+      <td>1251.000000</td>
+      <td>8.045118</td>
+      <td>48</td>
+      <td>27</td>
+      <td>4</td>
+      <td>4</td>
+      <td>3183.70</td>
+      <td>2889.70</td>
+      <td>941.244518</td>
+      <td>1948.455482</td>
+      <td>100649.485161</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>RF</td>
+      <td>WF2</td>
+      <td>0.006080</td>
+      <td>0.000089</td>
+      <td>0.012628</td>
+      <td>0.012320</td>
+      <td>0.435968</td>
+      <td>2.400808</td>
+      <td>0.472222</td>
+      <td>0.022431</td>
+      <td>0.405699</td>
+      <td>182.402544</td>
+      <td>0.459163</td>
+      <td>589.750000</td>
+      <td>11.451389</td>
+      <td>53</td>
+      <td>36</td>
+      <td>17</td>
+      <td>10</td>
+      <td>4958.10</td>
+      <td>4100.60</td>
+      <td>2276.574555</td>
+      <td>1824.025445</td>
+      <td>100608.008482</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>RF</td>
+      <td>WF3</td>
+      <td>0.011517</td>
+      <td>0.000000</td>
+      <td>0.022004</td>
+      <td>0.005994</td>
+      <td>0.441744</td>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>0.009901</td>
+      <td>0.271856</td>
+      <td>1151.741664</td>
+      <td>0.172401</td>
+      <td>1151.000000</td>
+      <td>12.436027</td>
+      <td>34</td>
+      <td>12</td>
+      <td>5</td>
+      <td>3</td>
+      <td>4175.00</td>
+      <td>4175.00</td>
+      <td>719.775008</td>
+      <td>3455.224992</td>
+      <td>101151.741664</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>TECHNICAL</td>
+      <td>WF1</td>
+      <td>-0.002510</td>
+      <td>0.009477</td>
+      <td>0.029848</td>
+      <td>0.034870</td>
+      <td>-0.639231</td>
+      <td>1.095828</td>
+      <td>0.376852</td>
+      <td>0.055942</td>
+      <td>0.410321</td>
+      <td>-27.886681</td>
+      <td>0.587510</td>
+      <td>750.583333</td>
+      <td>8.045118</td>
+      <td>48</td>
+      <td>27</td>
+      <td>0</td>
+      <td>27</td>
+      <td>10363.05</td>
+      <td>5335.45</td>
+      <td>6088.390376</td>
+      <td>-752.940376</td>
+      <td>99749.019875</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>TECHNICAL</td>
+      <td>WF2</td>
+      <td>0.031885</td>
+      <td>0.043950</td>
+      <td>0.053258</td>
+      <td>0.028475</td>
+      <td>0.748225</td>
+      <td>2.128255</td>
+      <td>0.444444</td>
+      <td>0.075400</td>
+      <td>0.422601</td>
+      <td>265.708519</td>
+      <td>0.312397</td>
+      <td>827.972222</td>
+      <td>11.451389</td>
+      <td>53</td>
+      <td>36</td>
+      <td>0</td>
+      <td>36</td>
+      <td>26319.35</td>
+      <td>17787.60</td>
+      <td>8222.093325</td>
+      <td>9565.506675</td>
+      <td>103188.502225</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>TECHNICAL</td>
+      <td>WF3</td>
+      <td>-0.004292</td>
+      <td>-0.011628</td>
+      <td>0.016937</td>
+      <td>0.025010</td>
+      <td>-0.656346</td>
+      <td>0.676899</td>
+      <td>0.250000</td>
+      <td>0.025286</td>
+      <td>0.406197</td>
+      <td>-107.302488</td>
+      <td>0.496262</td>
+      <td>709.250000</td>
+      <td>12.436027</td>
+      <td>34</td>
+      <td>12</td>
+      <td>0</td>
+      <td>12</td>
+      <td>5249.50</td>
+      <td>1317.50</td>
+      <td>2605.129860</td>
+      <td>-1287.629860</td>
+      <td>99570.790047</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>XGBOOST</td>
+      <td>WF1</td>
+      <td>-0.003589</td>
+      <td>-0.002340</td>
+      <td>0.004351</td>
+      <td>0.005712</td>
+      <td>-0.757620</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.004275</td>
+      <td>0.267921</td>
+      <td>-538.393815</td>
+      <td>NaN</td>
+      <td>1024.000000</td>
+      <td>8.045118</td>
+      <td>48</td>
+      <td>27</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0.00</td>
+      <td>-612.00</td>
+      <td>464.787630</td>
+      <td>-1076.787630</td>
+      <td>99641.070790</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>XGBOOST</td>
+      <td>WF2</td>
+      <td>0.034829</td>
+      <td>0.020589</td>
+      <td>0.043639</td>
+      <td>0.011512</td>
+      <td>1.392233</td>
+      <td>9.687980</td>
+      <td>0.583333</td>
+      <td>0.025675</td>
+      <td>0.414044</td>
+      <td>1044.870242</td>
+      <td>0.173163</td>
+      <td>812.083333</td>
+      <td>11.451389</td>
+      <td>53</td>
+      <td>36</td>
+      <td>18</td>
+      <td>10</td>
+      <td>13426.10</td>
+      <td>12773.60</td>
+      <td>2324.897580</td>
+      <td>10448.702420</td>
+      <td>103482.900807</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>XGBOOST</td>
+      <td>WF3</td>
+      <td>0.003181</td>
+      <td>0.000000</td>
+      <td>0.017756</td>
+      <td>0.007378</td>
+      <td>-0.042397</td>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>0.005579</td>
+      <td>0.266886</td>
+      <td>477.099500</td>
+      <td>0.188583</td>
+      <td>1440.000000</td>
+      <td>12.436027</td>
+      <td>34</td>
+      <td>12</td>
+      <td>6</td>
+      <td>2</td>
+      <td>2470.00</td>
+      <td>1420.00</td>
+      <td>465.801000</td>
+      <td>954.199000</td>
+      <td>100318.066333</td>
+      <td>3</td>
+      <td>per_fold</td>
+    </tr>
+  </tbody>
+</table></div></section><section class="card"><h2>Common Coverage</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>exit_value</th>
+      <th>stock_code</th>
+      <th>fold_id</th>
+      <th>original_technical_candidate_count</th>
+      <th>candidates_with_valid_rf_xgb_gru_oof</th>
+      <th>dropped_missing_prediction</th>
+      <th>dropped_invalid_alignment</th>
+      <th>common_coverage_count</th>
+      <th>common_coverage_fair</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>20</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>19</td>
+      <td>12</td>
+      <td>5</td>
+      <td>2</td>
+      <td>12</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>24</td>
+      <td>23</td>
+      <td>1</td>
+      <td>0</td>
+      <td>23</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>19</td>
+      <td>15</td>
+      <td>1</td>
+      <td>3</td>
+      <td>15</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>21</td>
+      <td>13</td>
+      <td>6</td>
+      <td>2</td>
+      <td>13</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>22</td>
+      <td>21</td>
+      <td>0</td>
+      <td>1</td>
+      <td>21</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>12</td>
+      <td>8</td>
+      <td>0</td>
+      <td>4</td>
+      <td>8</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>18</td>
+      <td>13</td>
+      <td>4</td>
+      <td>1</td>
+      <td>13</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>18</td>
+      <td>16</td>
+      <td>1</td>
+      <td>1</td>
+      <td>16</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>9</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>18</td>
+      <td>12</td>
+      <td>5</td>
+      <td>1</td>
+      <td>12</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>22</td>
+      <td>21</td>
+      <td>1</td>
+      <td>0</td>
+      <td>21</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>16</td>
+      <td>14</td>
+      <td>1</td>
+      <td>1</td>
+      <td>14</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>17</td>
+      <td>9</td>
+      <td>6</td>
+      <td>2</td>
+      <td>9</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>18</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+      <td>18</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>12</td>
+      <td>8</td>
+      <td>0</td>
+      <td>4</td>
+      <td>8</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>17</td>
+      <td>12</td>
+      <td>4</td>
+      <td>1</td>
+      <td>12</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>18</td>
+      <td>16</td>
+      <td>1</td>
+      <td>1</td>
+      <td>16</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>9</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>17</td>
+      <td>11</td>
+      <td>5</td>
+      <td>1</td>
+      <td>11</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>21</td>
+      <td>20</td>
+      <td>1</td>
+      <td>0</td>
+      <td>20</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>13</td>
+      <td>11</td>
+      <td>1</td>
+      <td>1</td>
+      <td>11</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>17</td>
+      <td>9</td>
+      <td>6</td>
+      <td>2</td>
+      <td>9</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>16</td>
+      <td>16</td>
+      <td>0</td>
+      <td>0</td>
+      <td>16</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>12</td>
+      <td>8</td>
+      <td>0</td>
+      <td>4</td>
+      <td>8</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>14</td>
+      <td>10</td>
+      <td>3</td>
+      <td>1</td>
+      <td>10</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>16</td>
+      <td>15</td>
+      <td>0</td>
+      <td>1</td>
+      <td>15</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>9</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table></div></section><section class="card"><h2>Exit Timing</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>stock_code</th>
+      <th>fold_id</th>
+      <th>comparison</th>
+      <th>matched_episode_count</th>
+      <th>unmatched_a_candidates</th>
+      <th>unmatched_b_candidates</th>
+      <th>mean_bars_a_earlier</th>
+      <th>median_bars_a_earlier</th>
+      <th>matching_rule</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>20_vs_30</td>
+      <td>14</td>
+      <td>4</td>
+      <td>3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>30_vs_40</td>
+      <td>14</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>20_vs_40</td>
+      <td>14</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>20_vs_30</td>
+      <td>13</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>30_vs_40</td>
+      <td>13</td>
+      <td>5</td>
+      <td>3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>20_vs_40</td>
+      <td>13</td>
+      <td>5</td>
+      <td>3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>20_vs_30</td>
+      <td>7</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>30_vs_40</td>
+      <td>7</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>20_vs_40</td>
+      <td>7</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>20_vs_30</td>
+      <td>13</td>
+      <td>6</td>
+      <td>5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>30_vs_40</td>
+      <td>13</td>
+      <td>5</td>
+      <td>4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>20_vs_40</td>
+      <td>13</td>
+      <td>6</td>
+      <td>4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>20_vs_30</td>
+      <td>15</td>
+      <td>9</td>
+      <td>7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>30_vs_40</td>
+      <td>15</td>
+      <td>7</td>
+      <td>6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>20_vs_40</td>
+      <td>15</td>
+      <td>9</td>
+      <td>6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>20_vs_30</td>
+      <td>8</td>
+      <td>11</td>
+      <td>8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>30_vs_40</td>
+      <td>8</td>
+      <td>8</td>
+      <td>5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>20_vs_40</td>
+      <td>8</td>
+      <td>11</td>
+      <td>5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>20_vs_30</td>
+      <td>13</td>
+      <td>8</td>
+      <td>4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>30_vs_40</td>
+      <td>13</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>20_vs_40</td>
+      <td>13</td>
+      <td>8</td>
+      <td>4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>20_vs_30</td>
+      <td>13</td>
+      <td>9</td>
+      <td>5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>30_vs_40</td>
+      <td>13</td>
+      <td>5</td>
+      <td>3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>20_vs_40</td>
+      <td>13</td>
+      <td>9</td>
+      <td>3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>20_vs_30</td>
+      <td>11</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>30_vs_40</td>
+      <td>11</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>20_vs_40</td>
+      <td>11</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>stock+fold; sort signal time; group consecutive signals &lt;=162 observed tradable 5m bars apart; first signal per exit in episode; no outcomes used</td>
+    </tr>
+  </tbody>
+</table></div></section><section class="card"><h2>Candidate Overlap</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>stock_code</th>
+      <th>fold_id</th>
+      <th>exit_a</th>
+      <th>exit_b</th>
+      <th>intersection_count</th>
+      <th>union_count</th>
+      <th>overlap_ratio_jaccard</th>
+      <th>a_only_count</th>
+      <th>b_only_count</th>
+      <th>exit20_only_count</th>
+      <th>exit30_only_count</th>
+      <th>exit40_only_count</th>
+      <th>pairwise_20_30_count</th>
+      <th>pairwise_30_40_count</th>
+      <th>pairwise_20_40_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>20</td>
+      <td>30</td>
+      <td>17</td>
+      <td>18</td>
+      <td>0.944444</td>
+      <td>1</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>30</td>
+      <td>40</td>
+      <td>14</td>
+      <td>17</td>
+      <td>0.823529</td>
+      <td>3</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>20</td>
+      <td>40</td>
+      <td>14</td>
+      <td>18</td>
+      <td>0.777778</td>
+      <td>4</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>20&amp;30&amp;40</td>
+      <td>ALL</td>
+      <td>14</td>
+      <td>18</td>
+      <td>0.777778</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>17.0</td>
+      <td>14.0</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>20</td>
+      <td>30</td>
+      <td>17</td>
+      <td>19</td>
+      <td>0.894737</td>
+      <td>1</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>30</td>
+      <td>40</td>
+      <td>16</td>
+      <td>18</td>
+      <td>0.888889</td>
+      <td>2</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>20</td>
+      <td>40</td>
+      <td>15</td>
+      <td>19</td>
+      <td>0.789474</td>
+      <td>3</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>20&amp;30&amp;40</td>
+      <td>ALL</td>
+      <td>15</td>
+      <td>19</td>
+      <td>0.789474</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>17.0</td>
+      <td>16.0</td>
+      <td>15.0</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>20</td>
+      <td>30</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1.000000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>30</td>
+      <td>40</td>
+      <td>8</td>
+      <td>10</td>
+      <td>0.800000</td>
+      <td>1</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>20</td>
+      <td>40</td>
+      <td>8</td>
+      <td>10</td>
+      <td>0.800000</td>
+      <td>1</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>20&amp;30&amp;40</td>
+      <td>ALL</td>
+      <td>8</td>
+      <td>10</td>
+      <td>0.800000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>9.0</td>
+      <td>8.0</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>20</td>
+      <td>30</td>
+      <td>16</td>
+      <td>21</td>
+      <td>0.761905</td>
+      <td>3</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>30</td>
+      <td>40</td>
+      <td>16</td>
+      <td>19</td>
+      <td>0.842105</td>
+      <td>2</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>20</td>
+      <td>40</td>
+      <td>16</td>
+      <td>20</td>
+      <td>0.800000</td>
+      <td>3</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>20&amp;30&amp;40</td>
+      <td>ALL</td>
+      <td>15</td>
+      <td>21</td>
+      <td>0.714286</td>
+      <td>2</td>
+      <td>1</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>16.0</td>
+      <td>16.0</td>
+      <td>16.0</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>20</td>
+      <td>30</td>
+      <td>22</td>
+      <td>24</td>
+      <td>0.916667</td>
+      <td>2</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>30</td>
+      <td>40</td>
+      <td>21</td>
+      <td>22</td>
+      <td>0.954545</td>
+      <td>1</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>20</td>
+      <td>40</td>
+      <td>21</td>
+      <td>24</td>
+      <td>0.875000</td>
+      <td>3</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>20&amp;30&amp;40</td>
+      <td>ALL</td>
+      <td>21</td>
+      <td>24</td>
+      <td>0.875000</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>22.0</td>
+      <td>21.0</td>
+      <td>21.0</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>20</td>
+      <td>30</td>
+      <td>16</td>
+      <td>19</td>
+      <td>0.842105</td>
+      <td>3</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>30</td>
+      <td>40</td>
+      <td>13</td>
+      <td>16</td>
+      <td>0.812500</td>
+      <td>3</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>20</td>
+      <td>40</td>
+      <td>13</td>
+      <td>19</td>
+      <td>0.684211</td>
+      <td>6</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>20&amp;30&amp;40</td>
+      <td>ALL</td>
+      <td>13</td>
+      <td>19</td>
+      <td>0.684211</td>
+      <td>3</td>
+      <td>0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>16.0</td>
+      <td>13.0</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>20</td>
+      <td>30</td>
+      <td>17</td>
+      <td>21</td>
+      <td>0.809524</td>
+      <td>4</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>30</td>
+      <td>40</td>
+      <td>16</td>
+      <td>18</td>
+      <td>0.888889</td>
+      <td>1</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>20</td>
+      <td>40</td>
+      <td>16</td>
+      <td>22</td>
+      <td>0.727273</td>
+      <td>5</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>20&amp;30&amp;40</td>
+      <td>ALL</td>
+      <td>16</td>
+      <td>22</td>
+      <td>0.727273</td>
+      <td>4</td>
+      <td>0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>17.0</td>
+      <td>16.0</td>
+      <td>16.0</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>20</td>
+      <td>30</td>
+      <td>18</td>
+      <td>22</td>
+      <td>0.818182</td>
+      <td>4</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>30</td>
+      <td>40</td>
+      <td>16</td>
+      <td>18</td>
+      <td>0.888889</td>
+      <td>2</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>20</td>
+      <td>40</td>
+      <td>16</td>
+      <td>22</td>
+      <td>0.727273</td>
+      <td>6</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>20&amp;30&amp;40</td>
+      <td>ALL</td>
+      <td>16</td>
+      <td>22</td>
+      <td>0.727273</td>
+      <td>4</td>
+      <td>0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>18.0</td>
+      <td>16.0</td>
+      <td>16.0</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>20</td>
+      <td>30</td>
+      <td>12</td>
+      <td>12</td>
+      <td>1.000000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>30</td>
+      <td>40</td>
+      <td>12</td>
+      <td>12</td>
+      <td>1.000000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>20</td>
+      <td>40</td>
+      <td>12</td>
+      <td>12</td>
+      <td>1.000000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>20&amp;30&amp;40</td>
+      <td>ALL</td>
+      <td>12</td>
+      <td>12</td>
+      <td>1.000000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>12.0</td>
+      <td>12.0</td>
+      <td>12.0</td>
+    </tr>
+  </tbody>
+</table></div></section><section class="card"><h2>Audit</h2><pre>{
+  &quot;experiment_id&quot;: &quot;strategy-exit-sensitivity-exp001&quot;,
+  &quot;status&quot;: &quot;COMPLETED&quot;,
+  &quot;generated_at&quot;: &quot;2026-10-27T20:03:30+08:00&quot;,
+  &quot;preregistration_status_before&quot;: &quot;PREREGISTERED_NOT_EXECUTED&quot;,
+  &quot;preregistration_followed&quot;: true,
+  &quot;only_exit_changed&quot;: true,
+  &quot;exit_values&quot;: [
+    20,
+    30,
+    40
+  ],
+  &quot;control&quot;: 30,
+  &quot;entry_fixed&quot;: 55,
+  &quot;market_regime&quot;: &quot;TECH_V2_B_MARKET_REGIME_FILTER&quot;,
+  &quot;risk&quot;: &quot;RISK_V1&quot;,
+  &quot;models&quot;: [
+    &quot;random_forest&quot;,
+    &quot;xgboost&quot;,
+    &quot;gru&quot;
+  ],
+  &quot;stocks&quot;: [
+    &quot;2330&quot;,
+    &quot;2454&quot;,
+    &quot;2303&quot;
+  ],
+  &quot;proxy_only_stocks&quot;: [
+    &quot;2379&quot;,
+    &quot;3034&quot;
+  ],
+  &quot;folds&quot;: [
+    {
+      &quot;id&quot;: &quot;WF1&quot;,
+      &quot;train_start&quot;: &quot;2023-01-01&quot;,
+      &quot;train_end&quot;: &quot;2023-06-30&quot;,
+      &quot;evaluate_start&quot;: &quot;2023-07-01&quot;,
+      &quot;evaluate_end&quot;: &quot;2023-12-31&quot;
+    },
+    {
+      &quot;id&quot;: &quot;WF2&quot;,
+      &quot;train_start&quot;: &quot;2023-01-01&quot;,
+      &quot;train_end&quot;: &quot;2023-12-31&quot;,
+      &quot;evaluate_start&quot;: &quot;2024-01-01&quot;,
+      &quot;evaluate_end&quot;: &quot;2024-06-30&quot;
+    },
+    {
+      &quot;id&quot;: &quot;WF3&quot;,
+      &quot;train_start&quot;: &quot;2023-01-01&quot;,
+      &quot;train_end&quot;: &quot;2024-06-30&quot;,
+      &quot;evaluate_start&quot;: &quot;2024-07-01&quot;,
+      &quot;evaluate_end&quot;: &quot;2024-12-31&quot;
+    }
+  ],
+  &quot;data_role&quot;: &quot;EXPOSED_DEVELOPMENT_DATA&quot;,
+  &quot;period&quot;: [
+    &quot;2023-01-01&quot;,
+    &quot;2024-12-31&quot;
+  ],
+  &quot;technical_candidates&quot;: 444,
+  &quot;candidate_count_by_exit&quot;: {
+    &quot;20&quot;: 162,
+    &quot;30&quot;: 147,
+    &quot;40&quot;: 135
+  },
+  &quot;common_coverage_counts&quot;: {
+    &quot;20&quot;: 130,
+    &quot;30&quot;: 119,
+    &quot;40&quot;: 109
+  },
+  &quot;common_coverage_fair&quot;: true,
+  &quot;coverage_rows&quot;: [
+    {
+      &quot;exit_value&quot;: 20,
+      &quot;stock_code&quot;: &quot;2330&quot;,
+      &quot;fold_id&quot;: &quot;WF1&quot;,
+      &quot;original_technical_candidate_count&quot;: 19,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 12,
+      &quot;dropped_missing_prediction&quot;: 5,
+      &quot;dropped_invalid_alignment&quot;: 2,
+      &quot;common_coverage_count&quot;: 12,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 20,
+      &quot;stock_code&quot;: &quot;2330&quot;,
+      &quot;fold_id&quot;: &quot;WF2&quot;,
+      &quot;original_technical_candidate_count&quot;: 24,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 23,
+      &quot;dropped_missing_prediction&quot;: 1,
+      &quot;dropped_invalid_alignment&quot;: 0,
+      &quot;common_coverage_count&quot;: 23,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 20,
+      &quot;stock_code&quot;: &quot;2330&quot;,
+      &quot;fold_id&quot;: &quot;WF3&quot;,
+      &quot;original_technical_candidate_count&quot;: 19,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 15,
+      &quot;dropped_missing_prediction&quot;: 1,
+      &quot;dropped_invalid_alignment&quot;: 3,
+      &quot;common_coverage_count&quot;: 15,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 20,
+      &quot;stock_code&quot;: &quot;2454&quot;,
+      &quot;fold_id&quot;: &quot;WF1&quot;,
+      &quot;original_technical_candidate_count&quot;: 21,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 13,
+      &quot;dropped_missing_prediction&quot;: 6,
+      &quot;dropped_invalid_alignment&quot;: 2,
+      &quot;common_coverage_count&quot;: 13,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 20,
+      &quot;stock_code&quot;: &quot;2454&quot;,
+      &quot;fold_id&quot;: &quot;WF2&quot;,
+      &quot;original_technical_candidate_count&quot;: 22,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 21,
+      &quot;dropped_missing_prediction&quot;: 0,
+      &quot;dropped_invalid_alignment&quot;: 1,
+      &quot;common_coverage_count&quot;: 21,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 20,
+      &quot;stock_code&quot;: &quot;2454&quot;,
+      &quot;fold_id&quot;: &quot;WF3&quot;,
+      &quot;original_technical_candidate_count&quot;: 12,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 8,
+      &quot;dropped_missing_prediction&quot;: 0,
+      &quot;dropped_invalid_alignment&quot;: 4,
+      &quot;common_coverage_count&quot;: 8,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 20,
+      &quot;stock_code&quot;: &quot;2303&quot;,
+      &quot;fold_id&quot;: &quot;WF1&quot;,
+      &quot;original_technical_candidate_count&quot;: 18,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 13,
+      &quot;dropped_missing_prediction&quot;: 4,
+      &quot;dropped_invalid_alignment&quot;: 1,
+      &quot;common_coverage_count&quot;: 13,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 20,
+      &quot;stock_code&quot;: &quot;2303&quot;,
+      &quot;fold_id&quot;: &quot;WF2&quot;,
+      &quot;original_technical_candidate_count&quot;: 18,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 16,
+      &quot;dropped_missing_prediction&quot;: 1,
+      &quot;dropped_invalid_alignment&quot;: 1,
+      &quot;common_coverage_count&quot;: 16,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 20,
+      &quot;stock_code&quot;: &quot;2303&quot;,
+      &quot;fold_id&quot;: &quot;WF3&quot;,
+      &quot;original_technical_candidate_count&quot;: 9,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 9,
+      &quot;dropped_missing_prediction&quot;: 0,
+      &quot;dropped_invalid_alignment&quot;: 0,
+      &quot;common_coverage_count&quot;: 9,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 30,
+      &quot;stock_code&quot;: &quot;2330&quot;,
+      &quot;fold_id&quot;: &quot;WF1&quot;,
+      &quot;original_technical_candidate_count&quot;: 18,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 12,
+      &quot;dropped_missing_prediction&quot;: 5,
+      &quot;dropped_invalid_alignment&quot;: 1,
+      &quot;common_coverage_count&quot;: 12,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 30,
+      &quot;stock_code&quot;: &quot;2330&quot;,
+      &quot;fold_id&quot;: &quot;WF2&quot;,
+      &quot;original_technical_candidate_count&quot;: 22,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 21,
+      &quot;dropped_missing_prediction&quot;: 1,
+      &quot;dropped_invalid_alignment&quot;: 0,
+      &quot;common_coverage_count&quot;: 21,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 30,
+      &quot;stock_code&quot;: &quot;2330&quot;,
+      &quot;fold_id&quot;: &quot;WF3&quot;,
+      &quot;original_technical_candidate_count&quot;: 16,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 14,
+      &quot;dropped_missing_prediction&quot;: 1,
+      &quot;dropped_invalid_alignment&quot;: 1,
+      &quot;common_coverage_count&quot;: 14,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 30,
+      &quot;stock_code&quot;: &quot;2454&quot;,
+      &quot;fold_id&quot;: &quot;WF1&quot;,
+      &quot;original_technical_candidate_count&quot;: 17,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 9,
+      &quot;dropped_missing_prediction&quot;: 6,
+      &quot;dropped_invalid_alignment&quot;: 2,
+      &quot;common_coverage_count&quot;: 9,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 30,
+      &quot;stock_code&quot;: &quot;2454&quot;,
+      &quot;fold_id&quot;: &quot;WF2&quot;,
+      &quot;original_technical_candidate_count&quot;: 18,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 18,
+      &quot;dropped_missing_prediction&quot;: 0,
+      &quot;dropped_invalid_alignment&quot;: 0,
+      &quot;common_coverage_count&quot;: 18,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 30,
+      &quot;stock_code&quot;: &quot;2454&quot;,
+      &quot;fold_id&quot;: &quot;WF3&quot;,
+      &quot;original_technical_candidate_count&quot;: 12,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 8,
+      &quot;dropped_missing_prediction&quot;: 0,
+      &quot;dropped_invalid_alignment&quot;: 4,
+      &quot;common_coverage_count&quot;: 8,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 30,
+      &quot;stock_code&quot;: &quot;2303&quot;,
+      &quot;fold_id&quot;: &quot;WF1&quot;,
+      &quot;original_technical_candidate_count&quot;: 17,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 12,
+      &quot;dropped_missing_prediction&quot;: 4,
+      &quot;dropped_invalid_alignment&quot;: 1,
+      &quot;common_coverage_count&quot;: 12,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 30,
+      &quot;stock_code&quot;: &quot;2303&quot;,
+      &quot;fold_id&quot;: &quot;WF2&quot;,
+      &quot;original_technical_candidate_count&quot;: 18,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 16,
+      &quot;dropped_missing_prediction&quot;: 1,
+      &quot;dropped_invalid_alignment&quot;: 1,
+      &quot;common_coverage_count&quot;: 16,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 30,
+      &quot;stock_code&quot;: &quot;2303&quot;,
+      &quot;fold_id&quot;: &quot;WF3&quot;,
+      &quot;original_technical_candidate_count&quot;: 9,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 9,
+      &quot;dropped_missing_prediction&quot;: 0,
+      &quot;dropped_invalid_alignment&quot;: 0,
+      &quot;common_coverage_count&quot;: 9,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 40,
+      &quot;stock_code&quot;: &quot;2330&quot;,
+      &quot;fold_id&quot;: &quot;WF1&quot;,
+      &quot;original_technical_candidate_count&quot;: 17,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 11,
+      &quot;dropped_missing_prediction&quot;: 5,
+      &quot;dropped_invalid_alignment&quot;: 1,
+      &quot;common_coverage_count&quot;: 11,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 40,
+      &quot;stock_code&quot;: &quot;2330&quot;,
+      &quot;fold_id&quot;: &quot;WF2&quot;,
+      &quot;original_technical_candidate_count&quot;: 21,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 20,
+      &quot;dropped_missing_prediction&quot;: 1,
+      &quot;dropped_invalid_alignment&quot;: 0,
+      &quot;common_coverage_count&quot;: 20,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 40,
+      &quot;stock_code&quot;: &quot;2330&quot;,
+      &quot;fold_id&quot;: &quot;WF3&quot;,
+      &quot;original_technical_candidate_count&quot;: 13,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 11,
+      &quot;dropped_missing_prediction&quot;: 1,
+      &quot;dropped_invalid_alignment&quot;: 1,
+      &quot;common_coverage_count&quot;: 11,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 40,
+      &quot;stock_code&quot;: &quot;2454&quot;,
+      &quot;fold_id&quot;: &quot;WF1&quot;,
+      &quot;original_technical_candidate_count&quot;: 17,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 9,
+      &quot;dropped_missing_prediction&quot;: 6,
+      &quot;dropped_invalid_alignment&quot;: 2,
+      &quot;common_coverage_count&quot;: 9,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 40,
+      &quot;stock_code&quot;: &quot;2454&quot;,
+      &quot;fold_id&quot;: &quot;WF2&quot;,
+      &quot;original_technical_candidate_count&quot;: 16,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 16,
+      &quot;dropped_missing_prediction&quot;: 0,
+      &quot;dropped_invalid_alignment&quot;: 0,
+      &quot;common_coverage_count&quot;: 16,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 40,
+      &quot;stock_code&quot;: &quot;2454&quot;,
+      &quot;fold_id&quot;: &quot;WF3&quot;,
+      &quot;original_technical_candidate_count&quot;: 12,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 8,
+      &quot;dropped_missing_prediction&quot;: 0,
+      &quot;dropped_invalid_alignment&quot;: 4,
+      &quot;common_coverage_count&quot;: 8,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 40,
+      &quot;stock_code&quot;: &quot;2303&quot;,
+      &quot;fold_id&quot;: &quot;WF1&quot;,
+      &quot;original_technical_candidate_count&quot;: 14,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 10,
+      &quot;dropped_missing_prediction&quot;: 3,
+      &quot;dropped_invalid_alignment&quot;: 1,
+      &quot;common_coverage_count&quot;: 10,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 40,
+      &quot;stock_code&quot;: &quot;2303&quot;,
+      &quot;fold_id&quot;: &quot;WF2&quot;,
+      &quot;original_technical_candidate_count&quot;: 16,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 15,
+      &quot;dropped_missing_prediction&quot;: 0,
+      &quot;dropped_invalid_alignment&quot;: 1,
+      &quot;common_coverage_count&quot;: 15,
+      &quot;common_coverage_fair&quot;: true
+    },
+    {
+      &quot;exit_value&quot;: 40,
+      &quot;stock_code&quot;: &quot;2303&quot;,
+      &quot;fold_id&quot;: &quot;WF3&quot;,
+      &quot;original_technical_candidate_count&quot;: 9,
+      &quot;candidates_with_valid_rf_xgb_gru_oof&quot;: 9,
+      &quot;dropped_missing_prediction&quot;: 0,
+      &quot;dropped_invalid_alignment&quot;: 0,
+      &quot;common_coverage_count&quot;: 9,
+      &quot;common_coverage_fair&quot;: true
+    }
+  ],
+  &quot;candidate_matching_rule&quot;: &quot;Within each stock-fold, sort signal timestamps only; group consecutive signals &lt;=162 observed tradable 5-minute bars apart; select first signal per Exit in each episode; compare signal-time bar-index differences; never use outcomes.&quot;,
+  &quot;candidate_overlap_key&quot;: &quot;stock_code,fold_id,signal_time,earliest_entry_time(next-tradable-bar fill)&quot;,
+  &quot;regime_context_audit&quot;: {
+    &quot;proxy_rule&quot;: &quot;equal-weight completed close of other four Core Universe stocks; target excluded&quot;,
+    &quot;complete_common_session_count&quot;: 422,
+    &quot;context_target_stock_count&quot;: 3,
+    &quot;context_target_dates&quot;: 378,
+    &quot;proxy_only_codes&quot;: [
+      &quot;2379&quot;,
+      &quot;3034&quot;
+    ],
+    &quot;proxy_only_outcomes_computed&quot;: false,
+    &quot;date_bounds_queried&quot;: [
+      &quot;2023-01-01&quot;,
+      &quot;2024-12-31&quot;
+    ]
+  },
+  &quot;control_candidate_source&quot;: &quot;existing Technical V1 frozen signals export; Exit 20/40 candidates generated by replaying the same Technical V1 candidate engine with only Exit varied&quot;,
+  &quot;control_signal_source_sha256&quot;: &quot;47e5d90cfff4ecd9e73960a6e85ded42a5b0a60b10942cf538f4bc4e04837eb2&quot;,
+  &quot;execution_contract&quot;: &quot;completed signal K-bar -&gt; next tradable 5-minute bar Open&quot;,
+  &quot;execution_fill_audit&quot;: {
+    &quot;status&quot;: &quot;PASS&quot;,
+    &quot;entry_fills_checked&quot;: 384,
+    &quot;entry_fills_at_next_bar_open&quot;: 384,
+    &quot;failures&quot;: []
+  },
+  &quot;control_reproduction&quot;: [
+    {
+      &quot;strategy&quot;: &quot;TECHNICAL&quot;,
+      &quot;scope&quot;: &quot;per_stock&quot;,
+      &quot;stock_code&quot;: &quot;2303&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;TECHNICAL&quot;,
+      &quot;scope&quot;: &quot;per_stock&quot;,
+      &quot;stock_code&quot;: &quot;2330&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;TECHNICAL&quot;,
+      &quot;scope&quot;: &quot;per_stock&quot;,
+      &quot;stock_code&quot;: &quot;2454&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;TECHNICAL&quot;,
+      &quot;scope&quot;: &quot;per_fold&quot;,
+      &quot;fold_id&quot;: &quot;WF1&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;TECHNICAL&quot;,
+      &quot;scope&quot;: &quot;per_fold&quot;,
+      &quot;fold_id&quot;: &quot;WF2&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;TECHNICAL&quot;,
+      &quot;scope&quot;: &quot;per_fold&quot;,
+      &quot;fold_id&quot;: &quot;WF3&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;TECHNICAL&quot;,
+      &quot;scope&quot;: &quot;overall&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;RF&quot;,
+      &quot;scope&quot;: &quot;per_stock&quot;,
+      &quot;stock_code&quot;: &quot;2303&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;RF&quot;,
+      &quot;scope&quot;: &quot;per_stock&quot;,
+      &quot;stock_code&quot;: &quot;2330&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;RF&quot;,
+      &quot;scope&quot;: &quot;per_stock&quot;,
+      &quot;stock_code&quot;: &quot;2454&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;RF&quot;,
+      &quot;scope&quot;: &quot;per_fold&quot;,
+      &quot;fold_id&quot;: &quot;WF1&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;RF&quot;,
+      &quot;scope&quot;: &quot;per_fold&quot;,
+      &quot;fold_id&quot;: &quot;WF2&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;RF&quot;,
+      &quot;scope&quot;: &quot;per_fold&quot;,
+      &quot;fold_id&quot;: &quot;WF3&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;RF&quot;,
+      &quot;scope&quot;: &quot;overall&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;XGBOOST&quot;,
+      &quot;scope&quot;: &quot;per_stock&quot;,
+      &quot;stock_code&quot;: &quot;2303&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;XGBOOST&quot;,
+      &quot;scope&quot;: &quot;per_stock&quot;,
+      &quot;stock_code&quot;: &quot;2330&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;XGBOOST&quot;,
+      &quot;scope&quot;: &quot;per_stock&quot;,
+      &quot;stock_code&quot;: &quot;2454&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;XGBOOST&quot;,
+      &quot;scope&quot;: &quot;per_fold&quot;,
+      &quot;fold_id&quot;: &quot;WF1&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;XGBOOST&quot;,
+      &quot;scope&quot;: &quot;per_fold&quot;,
+      &quot;fold_id&quot;: &quot;WF2&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;XGBOOST&quot;,
+      &quot;scope&quot;: &quot;per_fold&quot;,
+      &quot;fold_id&quot;: &quot;WF3&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;XGBOOST&quot;,
+      &quot;scope&quot;: &quot;overall&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;GRU&quot;,
+      &quot;scope&quot;: &quot;per_stock&quot;,
+      &quot;stock_code&quot;: &quot;2303&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;GRU&quot;,
+      &quot;scope&quot;: &quot;per_stock&quot;,
+      &quot;stock_code&quot;: &quot;2330&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;GRU&quot;,
+      &quot;scope&quot;: &quot;per_stock&quot;,
+      &quot;stock_code&quot;: &quot;2454&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;GRU&quot;,
+      &quot;scope&quot;: &quot;per_fold&quot;,
+      &quot;fold_id&quot;: &quot;WF1&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;GRU&quot;,
+      &quot;scope&quot;: &quot;per_fold&quot;,
+      &quot;fold_id&quot;: &quot;WF2&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;GRU&quot;,
+      &quot;scope&quot;: &quot;per_fold&quot;,
+      &quot;fold_id&quot;: &quot;WF3&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    },
+    {
+      &quot;strategy&quot;: &quot;GRU&quot;,
+      &quot;scope&quot;: &quot;overall&quot;,
+      &quot;status&quot;: &quot;PASS&quot;
+    }
+  ],
+  &quot;control_reproduction_status&quot;: &quot;PASS&quot;,
+  &quot;classification&quot;: {
+    &quot;overall&quot;: &quot;MIXED&quot;,
+    &quot;tags&quot;: [
+      &quot;MIXED_OR_INSUFFICIENT&quot;
+    ],
+    &quot;by_strategy&quot;: {
+      &quot;TECHNICAL&quot;: {
+        &quot;20&quot;: {
+          &quot;classification&quot;: &quot;MIXED_OR_INSUFFICIENT&quot;,
+          &quot;stock_cells_meeting_all_conditions&quot;: 2,
+          &quot;fold_cells_meeting_all_conditions&quot;: 1,
+          &quot;delta_return&quot;: -0.0008551704069444405,
+          &quot;delta_net_edge_per_trade&quot;: -14.168907608717419,
+          &quot;delta_profit_factor&quot;: 0.10143207685533406,
+          &quot;delta_max_drawdown&quot;: -0.0018241482472730677,
+          &quot;trade_count&quot;: 91
+        },
+        &quot;40&quot;: {
+          &quot;classification&quot;: &quot;MIXED_OR_INSUFFICIENT&quot;,
+          &quot;stock_cells_meeting_all_conditions&quot;: 2,
+          &quot;fold_cells_meeting_all_conditions&quot;: 1,
+          &quot;delta_return&quot;: 0.0030997056055555488,
+          &quot;delta_net_edge_per_trade&quot;: 42.58612738963409,
+          &quot;delta_profit_factor&quot;: 0.12401718327078748,
+          &quot;delta_max_drawdown&quot;: -1.8604726343476874e-06,
+          &quot;trade_count&quot;: 75
+        }
+      },
+      &quot;RF&quot;: {
+        &quot;20&quot;: {
+          &quot;classification&quot;: &quot;MIXED_OR_INSUFFICIENT&quot;,
+          &quot;stock_cells_meeting_all_conditions&quot;: 0,
+          &quot;fold_cells_meeting_all_conditions&quot;: 0,
+          &quot;delta_return&quot;: -0.004666573761111107,
+          &quot;delta_net_edge_per_trade&quot;: -225.90584669736822,
+          &quot;delta_profit_factor&quot;: -0.6174817828134873,
+          &quot;delta_max_drawdown&quot;: 0.0010353122425160767,
+          &quot;trade_count&quot;: 20
+        },
+        &quot;40&quot;: {
+          &quot;classification&quot;: &quot;MIXED_OR_INSUFFICIENT&quot;,
+          &quot;stock_cells_meeting_all_conditions&quot;: 0,
+          &quot;fold_cells_meeting_all_conditions&quot;: 0,
+          &quot;delta_return&quot;: 0.001313217211111108,
+          &quot;delta_net_edge_per_trade&quot;: 106.95862281733724,
+          &quot;delta_profit_factor&quot;: -0.7254704725040313,
+          &quot;delta_max_drawdown&quot;: 0.0007713798601467706,
+          &quot;trade_count&quot;: 17
+        }
+      },
+      &quot;XGBOOST&quot;: {
+        &quot;20&quot;: {
+          &quot;classification&quot;: &quot;MIXED_OR_INSUFFICIENT&quot;,
+          &quot;stock_cells_meeting_all_conditions&quot;: 0,
+          &quot;fold_cells_meeting_all_conditions&quot;: 0,
+          &quot;delta_return&quot;: -0.004521900533333328,
+          &quot;delta_net_edge_per_trade&quot;: -296.25271670230234,
+          &quot;delta_profit_factor&quot;: -1.7289322641812956,
+          &quot;delta_max_drawdown&quot;: 0.0007291758632013614,
+          &quot;trade_count&quot;: 19
+        },
+        &quot;40&quot;: {
+          &quot;classification&quot;: &quot;MIXED_OR_INSUFFICIENT&quot;,
+          &quot;stock_cells_meeting_all_conditions&quot;: 0,
+          &quot;fold_cells_meeting_all_conditions&quot;: 0,
+          &quot;delta_return&quot;: 0.0022344011750000062,
+          &quot;delta_net_edge_per_trade&quot;: 217.88251064732162,
+          &quot;delta_profit_factor&quot;: 0.06389775571759015,
+          &quot;delta_max_drawdown&quot;: 0.0002938440120858043,
+          &quot;trade_count&quot;: 14
+        }
+      },
+      &quot;GRU&quot;: {
+        &quot;20&quot;: {
+          &quot;classification&quot;: &quot;MIXED_OR_INSUFFICIENT&quot;,
+          &quot;stock_cells_meeting_all_conditions&quot;: 0,
+          &quot;fold_cells_meeting_all_conditions&quot;: 1,
+          &quot;delta_return&quot;: 0.0006902008388888891,
+          &quot;delta_net_edge_per_trade&quot;: 77.62090170454545,
+          &quot;delta_profit_factor&quot;: 0.11880062433787408,
+          &quot;delta_max_drawdown&quot;: -0.00037219902228245033,
+          &quot;trade_count&quot;: 12
+        },
+        &quot;40&quot;: {
+          &quot;classification&quot;: &quot;MIXED_OR_INSUFFICIENT&quot;,
+          &quot;stock_cells_meeting_all_conditions&quot;: 0,
+          &quot;fold_cells_meeting_all_conditions&quot;: 0,
+          &quot;delta_return&quot;: 0.00039317844444444446,
+          &quot;delta_net_edge_per_trade&quot;: -72.11869954545438,
+          &quot;delta_profit_factor&quot;: -0.10547692847383927,
+          &quot;delta_max_drawdown&quot;: -0.0017671888238015108,
+          &quot;trade_count&quot;: 8
+        }
+      }
+    },
+    &quot;note&quot;: &quot;Development-only classification; no exit is selected automatically. Requires directionally consistent return, net edge, Profit Factor and drawdown evidence across at least two subjects and two folds, with at least five trades in each supporting cell.&quot;
+  },
+  &quot;prereg_input_hashes&quot;: {
+    &quot;configs/technical_v2_candidate.json&quot;: &quot;4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5&quot;,
+    &quot;trading_system/technical_v1.py&quot;: &quot;077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36&quot;,
+    &quot;trading_system/backtest.py&quot;: &quot;21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02&quot;,
+    &quot;hybrid/core/strategy_v2_batch.py&quot;: &quot;7ef2a7d1389ca777d9ee2a7552ac7e26b19703a1cdece7e0a3060739206ba8ab&quot;,
+    &quot;hybrid/scripts/run_strategy_v2_batch.py&quot;: &quot;1cdbf93a6519a1ef0b3d3c92cc29c4e22c9e3fa8f045d280764f23b39afb16e0&quot;,
+    &quot;hybrid/core/risk_v1.py&quot;: &quot;b7b4e292c461d338e0f1a0d7bca0d36e54e2ba03601e7d3ceed3d9072f181547&quot;,
+    &quot;hybrid/config/risk_v1.json&quot;: &quot;9035e97a0c9dff8f481af47d69147566712422e46222f9b1db5bbe66135d59ec&quot;,
+    &quot;configs/technical_v1_research.json&quot;: &quot;027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75&quot;,
+    &quot;hybrid/core/hybrid_poc_v1.py&quot;: &quot;73298e333a75cc114f0b0b7cb409016607fc1cb8425502fc51441daa2b64151b&quot;,
+    &quot;exports/hybrid_common_coverage_20261018T121416162413/common_coverage_candidates.csv&quot;: &quot;e66c808eb73c9aef37cfeba411f0e8bfd3ce8b98cf49fe7d4f82ca1f7badbaca&quot;,
+    &quot;exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv&quot;: &quot;d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b&quot;,
+    &quot;exports/strategy_v2_technical_batch_20261019T094810074002/technical_v2_results.csv&quot;: &quot;e514c901f68a5f34f818d52d183acf5036e8322cb8cab33738d98946cba1fae8&quot;,
+    &quot;data/technical_v1_mltech_clean.sqlite3&quot;: &quot;aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717&quot;
+  },
+  &quot;execution_runner_sha256&quot;: &quot;8afe558860245556e389f249e6c563d3f39edf94539a3349e235136d756ad50d&quot;,
+  &quot;git_before_performance&quot;: {
+    &quot;commit&quot;: &quot;f4cce29f38dad099eb93bbba184e1af2602ae9b1&quot;,
+    &quot;working_tree_clean&quot;: false,
+    &quot;working_tree_status_sha256&quot;: &quot;da736b81658dd26ad6f00463921291d0fb6d393460bae3ab9f2503d747f1205d&quot;,
+    &quot;working_tree_status_lines&quot;: [
+      &quot; M \&quot;\\347\\250\\213\\345\\274\\217/hybrid/core/multi_strategy_backtest_v1.py\&quot;&quot;,
+      &quot; M \&quot;\\347\\250\\213\\345\\274\\217/hybrid/core/multi_strategy_diagnostics.py\&quot;&quot;,
+      &quot; M \&quot;\\347\\250\\213\\345\\274\\217/hybrid/scripts/run_ml_v2_exp001.py\&quot;&quot;,
+      &quot; M \&quot;\\347\\250\\213\\345\\274\\217/hybrid/scripts/run_multi_strategy_backtest_v1.py\&quot;&quot;,
+      &quot; M \&quot;\\347\\250\\213\\345\\274\\217/hybrid/tests/test_multi_strategy_diagnostics.py\&quot;&quot;,
+      &quot; M \&quot;\\347\\250\\213\\345\\274\\217/research/current/strategy_status.json\&quot;&quot;,
+      &quot; M \&quot;\\347\\250\\213\\345\\274\\217/research/registries/dataset_registry.csv\&quot;&quot;,
+      &quot; M \&quot;\\347\\250\\213\\345\\274\\217/research/registries/experiment_registry.csv\&quot;&quot;,
+      &quot; M \&quot;\\347\\250\\213\\345\\274\\217/research/strategy_current_issues_and_roadmap.md\&quot;&quot;,
+      &quot; M \&quot;\\347\\250\\213\\345\\274\\217/tests/test_technical_v1.py\&quot;&quot;,
+      &quot; M \&quot;\\347\\250\\213\\345\\274\\217/trading_system/backtest.py\&quot;&quot;,
+      &quot;?? tmp/baseline_node_20261027_123708/&quot;,
+      &quot;?? tmp/baseline_pytest_20261027_123643/&quot;,
+      &quot;?? tmp/baseline_runs_20261027_123908/&quot;,
+      &quot;?? tmp/preflight_20261027_123731/&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/diagnostic_correctness_20261027/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793002435235156000/backtest_report.html\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793076110791081900/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793076253786378900/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793076395714072100/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793076882664415700/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077051646293200/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077064055604900/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077076980437300/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077089727972000/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077102011616200/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077111339043700/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077176127329000/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077188540494300/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077200501409400/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077212562313800/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077225420516500/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077237710275300/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077395908830400/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077407970475100/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077420000708900/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077432255157800/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077445074397800/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077457047288700/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077521585638600/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077533878170600/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077546031664200/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077555247976900/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077567958375500/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077580372652400/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077681605294200/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077694776385300/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077707685586200/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077720135749800/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077732443395700/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793077744835662500/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_dev_v1_1793097304118641100/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/multi_strategy_model_gate_v1_1793077034831608600.json\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/exports/risk_v2_exp001_20261027T193200522564/\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/hybrid/scripts/analyze_2330_hold_sell_candidates.py\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/hybrid/scripts/build_diagnostic_correctness_report.py\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/hybrid/scripts/run_exit_sensitivity_exp001.py\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/hybrid/tests/test_diagnostic_correctness_execution.py\&quot;&quot;,
+      &quot;?? \&quot;\\347\\250\\213\\345\\274\\217/research/strategy_exit_sensitivity_exp001_preregistration.md\&quot;&quot;
+    ]
+  },
+  &quot;database&quot;: {
+    &quot;path&quot;: &quot;data\\technical_v1_mltech_clean.sqlite3&quot;,
+    &quot;sha256_before&quot;: &quot;aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717&quot;,
+    &quot;sha256_after&quot;: &quot;aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717&quot;,
+    &quot;read_only&quot;: true
+  },
+  &quot;forbidden_access&quot;: {
+    &quot;2025_used&quot;: false,
+    &quot;2026_used&quot;: false,
+    &quot;final_oos_used&quot;: false,
+    &quot;additional_holdout_used&quot;: false
+  },
+  &quot;change_flags&quot;: {
+    &quot;exit_changed_in_memory_only&quot;: true,
+    &quot;exit_changed&quot;: true,
+    &quot;market_regime_changed&quot;: false,
+    &quot;risk_changed&quot;: false,
+    &quot;ml_changed&quot;: false,
+    &quot;ml_retrained&quot;: false,
+    &quot;threshold_changed&quot;: false,
+    &quot;label_changed&quot;: false,
+    &quot;stocks_changed&quot;: false,
+    &quot;folds_changed&quot;: false,
+    &quot;post_hoc_parameter_added&quot;: false,
+    &quot;parameter_search&quot;: false,
+    &quot;final_entry_selected&quot;: false,
+    &quot;development_candidate_modified&quot;: false
+  }
+}</pre></section></main></html>

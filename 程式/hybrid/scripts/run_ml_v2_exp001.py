@@ -210,9 +210,16 @@ class TechnicalV2AloneStrategy(RiskV1HybridStrategy):
             "regime_filter": "PASS_PRIOR_PROXY_ABOVE_SMA20",
         }
         self.hybrid_decisions.append(decision)
-        current_equity = float(self.local_cash or 0.0) + int(self.local_position) * float(close)
+        sizing_price = float(close)
+        if getattr(self, "diagnostic_sizing_enabled", False) and self.last_tick:
+            sizing_price = float(self.last_tick["close"]) * (
+                1.0 + float(getattr(self, "local_slippage_bps", 0.0)) / 10000.0
+            )
+        current_equity = float(self.local_cash or 0.0) + int(self.local_position) * (
+            float(self.last_tick["close"]) if getattr(self, "diagnostic_sizing_enabled", False) and self.last_tick else float(close)
+        )
         original_quantity = int(TechnicalV1Strategy._order_quantity(self, close))
-        sizing = calculate_risk_size(current_equity=current_equity, entry_price=float(close),
+        sizing = calculate_risk_size(current_equity=current_equity, entry_price=sizing_price,
             original_quantity=original_quantity, stop_loss_pct=float(self.config.stop_loss_pct))
         self.risk_decisions.append({"timestamp": signal_time.isoformat(timespec="microseconds"),
             "stock_code": str(code), "fold_id": str(self.fold_id), "model": "technical_only", **sizing})

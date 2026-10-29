@@ -49,9 +49,9 @@ RF 與 XGBoost 在本次漏斗的阻擋集合呈現負平均淨報酬，但各�
 | 優先順序 | 工作 | 目的與固定條件 | 狀態 |
 |---|---|---|---|
 | P0 | 建立本 Current Issues Registry 與 Roadmap | 將已確認現象、假設及研究次序集中記錄。 | `COMPLETED` |
-| P1 | Entry Sensitivity Audit | 比較 Breakout 40、55（Control）、70。每次只改 Entry；固定 Exit 30、Market Regime B、RF/XGBoost/GRU、Risk V1、成本、資金、執行方式及三檔代表股。檢查候選數、成交數、曝險、進場時間、報酬、MDD、Sharpe、PF、勝率、單筆淨 Edge、成本及跨股票／Fold 穩定性。目的在判斷 Entry 是否太慢及參數是否穩健，不按最高報酬挑選。 | `PREREGISTERED_NOT_EXECUTED` ([preregistration](strategy_entry_sensitivity_exp001_preregistration.md)) |
-| P2 | Entry Audit 後的 Entry 決策 | 按事前固定的穩定度與風險標準，判定是否建立新的 Entry Candidate；若 40/55/70 表現相近，記錄為穩健區域；若只有單點突出，標記 `POSSIBLE_PARAMETER_SENSITIVITY`，不直接採用。 | `BLOCKED_UNTIL_P1` |
-| P3 | Exit Sensitivity Audit | 只有 P1 完成並依預先規則固定 Entry 後，才比較 Exit 20、30（Control）、40；檢查過早退出、獲利回吐、持有時間與成本效率。 | `DEFERRED` |
+| P1 | Entry Sensitivity Audit | 已比較 Breakout 40、55（Control）、70；固定 Exit 30、Market Regime B、RF/XGBoost/GRU、Risk V1、成本、資金、執行方式，以及 2330、2303、2454 三檔代表股。結果為 `MIXED` 且具 Fold 敏感性；沒有選出新的 Entry。 | `COMPLETED_MIXED`（[結果](strategy_entry_sensitivity_exp001.md)；僅 2023–2024 已暴露開發資料） |
+| P2 | Entry Audit 後的 Entry 決策 | Entry 40／55／70 的結果不足以支持更換參數；保留 55 作為基準，不宣稱已證明最佳。樣本維持 2330、2303、2454。 | `DECIDED_RETAIN_CONTROL_55` |
+| P3 | Exit Sensitivity Audit | 下一項候選研究：比較 Exit 20、30（Control）、40；檢查過早退出、獲利回吐、持有時間與成本效率。執行前須另完成 preregistration，股票和其他條件保持固定。 | `PENDING_PREREGISTRATION` |
 | P4 | 固定候選的跨模型整體比較 | 在相同資料及執行條件下比較 Technical、Technical+RF、Technical+XGBoost、Technical+GRU；一起呈現報酬、MDD、Sharpe、PF、勝率、交易數、曝險、成本與單筆 Edge，並檢查跨股票／Fold 穩定性。保留 Buy & Hold 作參考，不以單一 Return 排名。 | `AFTER_P1_P3` |
 | P5 | ML Target Alignment Diagnostic | 研究原始方向分類目標與 Technical Candidate 實際交易品質的差異。先建立診斷問題與資料／評估規格；未另行 preregister 前不改 Label 或重訓。 | `DEFERRED` |
 | P6 | GRU Model Diagnostic | 分開檢查方向分類、Candidate Context 與訓練分布、有效樣本數、Sequence Feature/Label 與 Hybrid 交易目標是否匹配。不得翻轉類別或依目前結果救援性調參。 | `DEFERRED` |
@@ -75,7 +75,7 @@ Entry Audit 不以最高 Return 作為 Winner 選擇。如果 40、55、70 的�
 
 ## 本輪範圍與狀態
 
-本輪只建立研究問題清單與路線圖，並同步目前狀態索引。沒有修改 Entry／Exit、Market Regime、ML Gate、Label、Feature、模型、Risk、成本、股票或資料；沒有執行回測、訓練、參數搜尋；沒有使用 2025、2026 或 Final OOS。下一實驗尚未開始，仍需另外完成正式 preregistration 與必要的 preflight 才能執行。
+此路線圖建立後，Entry Sensitivity Audit 已另行完成，資料與結果見 P1。沒有因該結果修改策略參數；Entry 55 保留為比較基準，股票樣本維持三檔。下一項 Exit Sensitivity Audit 尚未執行，開始前須完成正式 preregistration 與必要的 preflight。Entry 實驗僅使用 2023–2024 已暴露開發資料，未使用 2025、2026 或 Final OOS。
 
 ## Evidence
 

@@ -1,0 +1,41 @@
+{
+  "trades": 11,
+  "wins": 3,
+  "losses": 8,
+  "gross_ntd": -42.25,
+  "commissions_ntd": 1226.7,
+  "tax_ntd": 1000.03,
+  "net_ntd": -2268.98,
+  "mean_net_return_pct": -0.5131,
+  "median_net_return_pct": -0.7899,
+  "exits": [
+    {
+      "reason": "max_holding_period",
+      "count": 1,
+      "net_ntd": 1364.0,
+      "wins": 1,
+      "avg_net_return_pct": 3.5009
+    },
+    {
+      "reason": "STOP_GAP_OPEN",
+      "count": 1,
+      "net_ntd": -1900.01,
+      "wins": 0,
+      "avg_net_return_pct": -4.8236
+    },
+    {
+      "reason": "STOP_INTRABAR",
+      "count": 1,
+      "net_ntd": -1173.71,
+      "wins": 0,
+      "avg_net_return_pct": -2.9277
+    },
+    {
+      "reason": "technical_exit",
+      "count": 8,
+      "net_ntd": -559.26,
+      "wins": 2,
+      "avg_net_return_pct": -0.1742
+    }
+  ]
+}

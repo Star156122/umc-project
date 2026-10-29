@@ -1,0 +1,2556 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Exit 30 vs Exit 40 逐筆診斷</title><style>body{font:15px/1.6 system-ui,"Microsoft JhengHei",sans-serif;background:#07141f;color:#edf5fb;margin:0}main{max-width:1400px;margin:auto;padding:24px}header,section{background:#102536;border:1px solid #29485d;border-radius:14px;padding:20px;margin:16px 0}h1,h2{color:#fff}.muted{color:#abc0d0}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:7px;border-bottom:1px solid #29485d;text-align:right;white-space:nowrap}td:first-child,th:first-child{text-align:left}.warning{color:#ffd98b}</style><main><header><h1>Exit 30 vs Exit 40 逐筆交易診斷</h1><p>2330、2303、2454｜2023–2024 開發資料｜相同進場時間逐筆配對</p><p class="muted">淨報酬含手續費與證交稅。MFE／MAE 由進場成交到出場成交前的 5 分 K 高低價計算。</p></header><section><h2>配對摘要</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>策略</th>
+      <th>Exit 30 筆數</th>
+      <th>Exit 40 筆數</th>
+      <th>相同進場配對數</th>
+      <th>僅 Exit 30 進場</th>
+      <th>僅 Exit 40 進場</th>
+      <th>配對淨損益差（40−30）</th>
+      <th>平均單筆報酬差（百分點）</th>
+      <th>Exit 40 較晚出場筆數</th>
+      <th>相同出場時間筆數</th>
+      <th>MFE 差（百分點）</th>
+      <th>MAE 差（百分點）</th>
+      <th>獲利回吐差（百分點）</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GRU</td>
+      <td>11</td>
+      <td>8</td>
+      <td>8</td>
+      <td>3</td>
+      <td>0</td>
+      <td>-81.637</td>
+      <td>-0.026</td>
+      <td>1</td>
+      <td>7</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.026</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>19</td>
+      <td>17</td>
+      <td>17</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2044.948</td>
+      <td>0.297</td>
+      <td>7</td>
+      <td>10</td>
+      <td>0.589</td>
+      <td>-0.025</td>
+      <td>0.273</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>82</td>
+      <td>75</td>
+      <td>74</td>
+      <td>8</td>
+      <td>1</td>
+      <td>823.190</td>
+      <td>0.029</td>
+      <td>21</td>
+      <td>53</td>
+      <td>0.190</td>
+      <td>-0.072</td>
+      <td>0.147</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>16</td>
+      <td>14</td>
+      <td>14</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2874.013</td>
+      <td>0.519</td>
+      <td>6</td>
+      <td>8</td>
+      <td>0.587</td>
+      <td>-0.073</td>
+      <td>0.044</td>
+    </tr>
+  </tbody>
+</table></div></section><section><h2>逐筆配對</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>策略</th>
+      <th>股票</th>
+      <th>Fold</th>
+      <th>配對狀態</th>
+      <th>進場時間</th>
+      <th>Exit 30 出場</th>
+      <th>Exit 40 出場</th>
+      <th>Exit 30 淨報酬%</th>
+      <th>Exit 40 淨報酬%</th>
+      <th>報酬差百分點</th>
+      <th>持有時間差分鐘</th>
+      <th>Exit 30 MFE%</th>
+      <th>Exit 40 MFE%</th>
+      <th>Exit 30 MAE%</th>
+      <th>Exit 40 MAE%</th>
+      <th>Exit 30 回吐%</th>
+      <th>Exit 40 回吐%</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GRU</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-04-10 10:00:00</td>
+      <td>2024-04-11 09:05:00</td>
+      <td>2024-04-11 09:05:00</td>
+      <td>-0.961</td>
+      <td>-0.961</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.323</td>
+      <td>1.323</td>
+      <td>-0.567</td>
+      <td>-0.567</td>
+      <td>1.701</td>
+      <td>1.701</td>
+    </tr>
+    <tr>
+      <td>GRU</td>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-09-26 09:05:00</td>
+      <td>2024-09-26 13:00:00</td>
+      <td>2024-09-26 13:00:00</td>
+      <td>-0.798</td>
+      <td>-0.798</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.364</td>
+      <td>0.364</td>
+      <td>-0.364</td>
+      <td>-0.364</td>
+      <td>0.729</td>
+      <td>0.729</td>
+    </tr>
+    <tr>
+      <td>GRU</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-09-13 09:00:00</td>
+      <td>2023-09-13 11:50:00</td>
+      <td>2023-09-13 11:50:00</td>
+      <td>-1.167</td>
+      <td>-1.167</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.550</td>
+      <td>0.550</td>
+      <td>-0.734</td>
+      <td>-0.734</td>
+      <td>1.284</td>
+      <td>1.284</td>
+    </tr>
+    <tr>
+      <td>GRU</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-10-12 10:00:00</td>
+      <td>2023-10-16 09:05:00</td>
+      <td>2023-10-16 09:05:00</td>
+      <td>-1.130</td>
+      <td>-1.130</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.095</td>
+      <td>1.095</td>
+      <td>-0.547</td>
+      <td>-0.547</td>
+      <td>1.642</td>
+      <td>1.642</td>
+    </tr>
+    <tr>
+      <td>GRU</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-01 10:00:00</td>
+      <td>2023-12-04 09:20:00</td>
+      <td>2023-12-04 09:20:00</td>
+      <td>-0.930</td>
+      <td>-0.930</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.867</td>
+      <td>0.867</td>
+      <td>-0.347</td>
+      <td>-0.347</td>
+      <td>1.213</td>
+      <td>1.213</td>
+    </tr>
+    <tr>
+      <td>GRU</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-07-09 09:35:00</td>
+      <td>2024-07-10 09:05:00</td>
+      <td>2024-07-10 09:05:00</td>
+      <td>-3.888</td>
+      <td>-3.888</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>-3.791</td>
+      <td>-3.791</td>
+      <td>3.318</td>
+      <td>3.318</td>
+    </tr>
+    <tr>
+      <td>GRU</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2024-10-11 09:15:00</td>
+      <td>2024-10-18 12:40:00</td>
+      <td>NaN</td>
+      <td>3.244</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.769</td>
+      <td>NaN</td>
+      <td>-0.481</td>
+      <td>NaN</td>
+      <td>1.923</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>GRU</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2024-11-08 09:05:00</td>
+      <td>2024-11-11 09:05:00</td>
+      <td>NaN</td>
+      <td>-1.044</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.461</td>
+      <td>NaN</td>
+      <td>-0.922</td>
+      <td>NaN</td>
+      <td>0.922</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>GRU</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-11-22 09:15:00</td>
+      <td>2023-11-23 10:25:00</td>
+      <td>2023-11-23 10:25:00</td>
+      <td>-0.692</td>
+      <td>-0.692</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.820</td>
+      <td>1.820</td>
+      <td>-0.107</td>
+      <td>-0.107</td>
+      <td>1.927</td>
+      <td>1.927</td>
+    </tr>
+    <tr>
+      <td>GRU</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-14 09:05:00</td>
+      <td>2023-12-18 09:05:00</td>
+      <td>2023-12-18 09:10:00</td>
+      <td>2.005</td>
+      <td>1.798</td>
+      <td>-0.207</td>
+      <td>5.000</td>
+      <td>3.850</td>
+      <td>3.850</td>
+      <td>-0.832</td>
+      <td>-0.832</td>
+      <td>1.249</td>
+      <td>1.457</td>
+    </tr>
+    <tr>
+      <td>GRU</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2024-05-28 09:10:00</td>
+      <td>2024-05-29 10:05:00</td>
+      <td>NaN</td>
+      <td>-3.235</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.380</td>
+      <td>NaN</td>
+      <td>-2.662</td>
+      <td>NaN</td>
+      <td>3.042</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-13 09:05:00</td>
+      <td>2023-12-13 09:20:00</td>
+      <td>2023-12-18 09:05:00</td>
+      <td>-0.935</td>
+      <td>0.114</td>
+      <td>1.049</td>
+      <td>7185.000</td>
+      <td>0.100</td>
+      <td>2.307</td>
+      <td>-0.602</td>
+      <td>-0.702</td>
+      <td>0.602</td>
+      <td>1.605</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-01-22 09:05:00</td>
+      <td>2024-01-25 09:05:00</td>
+      <td>2024-01-25 09:05:00</td>
+      <td>1.601</td>
+      <td>1.601</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>2.595</td>
+      <td>2.595</td>
+      <td>-0.798</td>
+      <td>-0.798</td>
+      <td>0.399</td>
+      <td>0.399</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-20 09:15:00</td>
+      <td>2024-02-21 09:05:00</td>
+      <td>2024-02-21 09:05:00</td>
+      <td>-1.090</td>
+      <td>-1.090</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.812</td>
+      <td>0.812</td>
+      <td>-0.711</td>
+      <td>-0.711</td>
+      <td>1.320</td>
+      <td>1.320</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-29 10:05:00</td>
+      <td>2024-03-05 10:05:00</td>
+      <td>2024-03-05 10:05:00</td>
+      <td>-0.483</td>
+      <td>-0.483</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.513</td>
+      <td>0.513</td>
+      <td>-0.615</td>
+      <td>-0.615</td>
+      <td>0.410</td>
+      <td>0.410</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-11-07 11:05:00</td>
+      <td>2024-11-08 10:55:00</td>
+      <td>2024-11-08 10:55:00</td>
+      <td>-0.585</td>
+      <td>-0.585</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.913</td>
+      <td>1.913</td>
+      <td>-0.106</td>
+      <td>-0.106</td>
+      <td>1.913</td>
+      <td>1.913</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-04-12 11:25:00</td>
+      <td>2024-04-12 13:10:00</td>
+      <td>2024-04-12 13:10:00</td>
+      <td>-1.161</td>
+      <td>-1.161</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.243</td>
+      <td>0.243</td>
+      <td>-0.850</td>
+      <td>-0.850</td>
+      <td>0.971</td>
+      <td>0.971</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-05-14 12:25:00</td>
+      <td>2024-05-15 12:35:00</td>
+      <td>2024-05-16 13:15:00</td>
+      <td>1.476</td>
+      <td>1.355</td>
+      <td>-0.121</td>
+      <td>1480.000</td>
+      <td>2.801</td>
+      <td>4.263</td>
+      <td>-0.122</td>
+      <td>-0.122</td>
+      <td>0.731</td>
+      <td>2.314</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-06-12 11:00:00</td>
+      <td>2024-06-14 09:25:00</td>
+      <td>2024-06-14 09:30:00</td>
+      <td>0.520</td>
+      <td>0.299</td>
+      <td>-0.221</td>
+      <td>5.000</td>
+      <td>3.774</td>
+      <td>3.774</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>2.664</td>
+      <td>2.886</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-06-17 10:00:00</td>
+      <td>2024-06-20 10:00:00</td>
+      <td>2024-06-20 10:00:00</td>
+      <td>4.700</td>
+      <td>4.700</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>6.609</td>
+      <td>6.609</td>
+      <td>-0.542</td>
+      <td>-0.542</td>
+      <td>1.300</td>
+      <td>1.300</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-07-04 09:05:00</td>
+      <td>2024-07-09 09:05:00</td>
+      <td>2024-07-09 09:05:00</td>
+      <td>3.501</td>
+      <td>3.501</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>5.105</td>
+      <td>5.105</td>
+      <td>-0.100</td>
+      <td>-0.100</td>
+      <td>1.001</td>
+      <td>1.001</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-10-09 09:05:00</td>
+      <td>2024-10-09 13:25:00</td>
+      <td>2024-10-18 09:05:00</td>
+      <td>-0.435</td>
+      <td>5.728</td>
+      <td>6.163</td>
+      <td>12700.000</td>
+      <td>0.976</td>
+      <td>7.317</td>
+      <td>-0.488</td>
+      <td>-0.488</td>
+      <td>0.976</td>
+      <td>0.976</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2024-10-11 09:15:00</td>
+      <td>2024-10-18 12:40:00</td>
+      <td>NaN</td>
+      <td>3.244</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.769</td>
+      <td>NaN</td>
+      <td>-0.481</td>
+      <td>NaN</td>
+      <td>1.923</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2024-11-08 09:05:00</td>
+      <td>2024-11-11 09:05:00</td>
+      <td>NaN</td>
+      <td>-1.044</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.461</td>
+      <td>NaN</td>
+      <td>-0.922</td>
+      <td>NaN</td>
+      <td>0.922</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-11-29 12:15:00</td>
+      <td>2023-11-30 09:55:00</td>
+      <td>2023-12-04 09:20:00</td>
+      <td>-1.112</td>
+      <td>-1.322</td>
+      <td>-0.211</td>
+      <td>5725.000</td>
+      <td>0.847</td>
+      <td>0.847</td>
+      <td>-0.423</td>
+      <td>-0.741</td>
+      <td>1.376</td>
+      <td>1.587</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-14 09:05:00</td>
+      <td>2023-12-18 09:05:00</td>
+      <td>2023-12-18 09:10:00</td>
+      <td>2.005</td>
+      <td>1.798</td>
+      <td>-0.207</td>
+      <td>5.000</td>
+      <td>3.850</td>
+      <td>3.850</td>
+      <td>-0.832</td>
+      <td>-0.832</td>
+      <td>1.249</td>
+      <td>1.457</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-25 09:05:00</td>
+      <td>2023-12-27 13:25:00</td>
+      <td>2023-12-27 13:25:00</td>
+      <td>4.338</td>
+      <td>4.338</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>5.954</td>
+      <td>5.954</td>
+      <td>-0.202</td>
+      <td>-0.202</td>
+      <td>1.009</td>
+      <td>1.009</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-15 09:05:00</td>
+      <td>2024-02-16 10:15:00</td>
+      <td>2024-02-16 10:15:00</td>
+      <td>-1.097</td>
+      <td>-1.097</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.514</td>
+      <td>0.514</td>
+      <td>-2.160</td>
+      <td>-2.160</td>
+      <td>1.029</td>
+      <td>1.029</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-20 10:50:00</td>
+      <td>2024-02-21 13:15:00</td>
+      <td>2024-02-21 13:15:00</td>
+      <td>-0.991</td>
+      <td>-0.991</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.612</td>
+      <td>0.612</td>
+      <td>-0.816</td>
+      <td>-0.816</td>
+      <td>1.020</td>
+      <td>1.020</td>
+    </tr>
+    <tr>
+      <td>RF</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-06-19 09:05:00</td>
+      <td>2024-06-21 09:05:00</td>
+      <td>2024-06-21 09:10:00</td>
+      <td>2.921</td>
+      <td>1.518</td>
+      <td>-1.402</td>
+      <td>5.000</td>
+      <td>5.282</td>
+      <td>5.282</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.761</td>
+      <td>3.169</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-09-05 11:25:00</td>
+      <td>2023-09-07 09:05:00</td>
+      <td>2023-09-07 09:05:00</td>
+      <td>-0.800</td>
+      <td>-0.800</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.512</td>
+      <td>1.512</td>
+      <td>-0.432</td>
+      <td>-0.432</td>
+      <td>1.728</td>
+      <td>1.728</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-09-12 09:35:00</td>
+      <td>2023-09-15 09:15:00</td>
+      <td>2023-09-15 09:15:00</td>
+      <td>1.464</td>
+      <td>1.464</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>3.034</td>
+      <td>3.034</td>
+      <td>-0.217</td>
+      <td>-0.217</td>
+      <td>0.975</td>
+      <td>0.975</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-10-17 09:05:00</td>
+      <td>2023-10-20 09:05:00</td>
+      <td>2023-10-20 09:05:00</td>
+      <td>3.168</td>
+      <td>3.168</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>4.084</td>
+      <td>4.084</td>
+      <td>-0.209</td>
+      <td>-0.209</td>
+      <td>0.314</td>
+      <td>0.314</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-11-03 09:05:00</td>
+      <td>2023-11-08 09:25:00</td>
+      <td>2023-11-08 11:45:00</td>
+      <td>0.030</td>
+      <td>-0.585</td>
+      <td>-0.615</td>
+      <td>140.000</td>
+      <td>2.160</td>
+      <td>2.160</td>
+      <td>-0.206</td>
+      <td>-0.206</td>
+      <td>1.543</td>
+      <td>2.160</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-11-17 09:15:00</td>
+      <td>2023-11-17 13:20:00</td>
+      <td>2023-11-21 09:40:00</td>
+      <td>-0.032</td>
+      <td>0.321</td>
+      <td>0.353</td>
+      <td>5540.000</td>
+      <td>1.011</td>
+      <td>3.539</td>
+      <td>-0.101</td>
+      <td>-0.101</td>
+      <td>0.607</td>
+      <td>2.629</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2023-11-20 09:05:00</td>
+      <td>2023-11-21 09:40:00</td>
+      <td>NaN</td>
+      <td>-2.156</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.986</td>
+      <td>NaN</td>
+      <td>-1.677</td>
+      <td>NaN</td>
+      <td>2.564</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-11-24 09:05:00</td>
+      <td>2023-11-24 11:35:00</td>
+      <td>2023-11-27 12:35:00</td>
+      <td>-1.804</td>
+      <td>-3.025</td>
+      <td>-1.222</td>
+      <td>4380.000</td>
+      <td>0.392</td>
+      <td>0.392</td>
+      <td>-1.373</td>
+      <td>-2.549</td>
+      <td>1.765</td>
+      <td>2.843</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-04 09:05:00</td>
+      <td>2023-12-05 09:05:00</td>
+      <td>2023-12-05 09:05:00</td>
+      <td>-1.479</td>
+      <td>-1.479</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.200</td>
+      <td>0.200</td>
+      <td>-0.998</td>
+      <td>-0.998</td>
+      <td>1.098</td>
+      <td>1.098</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-13 09:05:00</td>
+      <td>2023-12-13 09:20:00</td>
+      <td>2023-12-18 09:05:00</td>
+      <td>-0.935</td>
+      <td>0.114</td>
+      <td>1.049</td>
+      <td>7185.000</td>
+      <td>0.100</td>
+      <td>2.307</td>
+      <td>-0.602</td>
+      <td>-0.702</td>
+      <td>0.602</td>
+      <td>1.605</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2023-12-14 09:05:00</td>
+      <td>2023-12-18 09:05:00</td>
+      <td>NaN</td>
+      <td>-0.980</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.190</td>
+      <td>NaN</td>
+      <td>-0.794</td>
+      <td>NaN</td>
+      <td>1.587</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-25 09:05:00</td>
+      <td>2023-12-27 13:25:00</td>
+      <td>2023-12-27 13:25:00</td>
+      <td>5.761</td>
+      <td>5.761</td>
+      <td>-0.000</td>
+      <td>0.000</td>
+      <td>6.574</td>
+      <td>6.574</td>
+      <td>-0.896</td>
+      <td>-0.896</td>
+      <td>0.199</td>
+      <td>0.199</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-01-22 09:05:00</td>
+      <td>2024-01-25 09:05:00</td>
+      <td>2024-01-25 09:05:00</td>
+      <td>1.601</td>
+      <td>1.601</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>2.595</td>
+      <td>2.595</td>
+      <td>-0.798</td>
+      <td>-0.798</td>
+      <td>0.399</td>
+      <td>0.399</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-01-25 12:25:00</td>
+      <td>2024-01-30 09:05:00</td>
+      <td>2024-01-30 09:05:00</td>
+      <td>-5.162</td>
+      <td>-5.162</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.192</td>
+      <td>0.192</td>
+      <td>-4.981</td>
+      <td>-4.981</td>
+      <td>4.789</td>
+      <td>4.789</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-20 09:15:00</td>
+      <td>2024-02-21 09:05:00</td>
+      <td>2024-02-21 09:05:00</td>
+      <td>-1.090</td>
+      <td>-1.090</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.812</td>
+      <td>0.812</td>
+      <td>-0.711</td>
+      <td>-0.711</td>
+      <td>1.320</td>
+      <td>1.320</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-29 10:05:00</td>
+      <td>2024-03-05 10:05:00</td>
+      <td>2024-03-05 10:05:00</td>
+      <td>-0.483</td>
+      <td>-0.483</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.513</td>
+      <td>0.513</td>
+      <td>-0.615</td>
+      <td>-0.615</td>
+      <td>0.410</td>
+      <td>0.410</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-03-06 12:00:00</td>
+      <td>2024-03-11 10:15:00</td>
+      <td>2024-03-11 10:15:00</td>
+      <td>3.381</td>
+      <td>3.381</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>8.274</td>
+      <td>8.274</td>
+      <td>-0.102</td>
+      <td>-0.102</td>
+      <td>4.290</td>
+      <td>4.290</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-03-12 10:10:00</td>
+      <td>2024-03-14 09:20:00</td>
+      <td>2024-03-14 11:35:00</td>
+      <td>-0.011</td>
+      <td>-0.394</td>
+      <td>-0.383</td>
+      <td>135.000</td>
+      <td>2.308</td>
+      <td>2.308</td>
+      <td>-0.385</td>
+      <td>-0.385</td>
+      <td>1.731</td>
+      <td>2.115</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-03-20 09:05:00</td>
+      <td>2024-03-20 12:00:00</td>
+      <td>2024-03-20 13:05:00</td>
+      <td>-2.459</td>
+      <td>-2.827</td>
+      <td>-0.368</td>
+      <td>65.000</td>
+      <td>0.185</td>
+      <td>0.185</td>
+      <td>-2.030</td>
+      <td>-2.399</td>
+      <td>2.214</td>
+      <td>2.583</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-04-10 10:00:00</td>
+      <td>2024-04-11 09:05:00</td>
+      <td>2024-04-11 09:05:00</td>
+      <td>-0.961</td>
+      <td>-0.961</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.323</td>
+      <td>1.323</td>
+      <td>-0.567</td>
+      <td>-0.567</td>
+      <td>1.701</td>
+      <td>1.701</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-05-17 12:15:00</td>
+      <td>2024-05-22 12:15:00</td>
+      <td>2024-05-22 12:15:00</td>
+      <td>4.345</td>
+      <td>4.345</td>
+      <td>-0.000</td>
+      <td>0.000</td>
+      <td>5.143</td>
+      <td>5.143</td>
+      <td>-0.190</td>
+      <td>-0.190</td>
+      <td>0.190</td>
+      <td>0.190</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-05-23 12:15:00</td>
+      <td>2024-05-24 09:05:00</td>
+      <td>2024-05-24 13:25:00</td>
+      <td>-1.654</td>
+      <td>-2.900</td>
+      <td>-1.247</td>
+      <td>260.000</td>
+      <td>0.179</td>
+      <td>0.179</td>
+      <td>-1.968</td>
+      <td>-2.326</td>
+      <td>1.252</td>
+      <td>2.504</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-06-07 10:10:00</td>
+      <td>2024-06-12 09:05:00</td>
+      <td>2024-06-12 09:05:00</td>
+      <td>-0.585</td>
+      <td>-0.585</td>
+      <td>-0.000</td>
+      <td>0.000</td>
+      <td>2.018</td>
+      <td>2.018</td>
+      <td>-0.183</td>
+      <td>-0.183</td>
+      <td>2.018</td>
+      <td>2.018</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-06-21 10:05:00</td>
+      <td>2024-06-24 09:05:00</td>
+      <td>2024-06-24 09:05:00</td>
+      <td>-1.446</td>
+      <td>-1.446</td>
+      <td>-0.000</td>
+      <td>0.000</td>
+      <td>0.346</td>
+      <td>0.346</td>
+      <td>-1.211</td>
+      <td>-1.211</td>
+      <td>1.211</td>
+      <td>1.211</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-07-08 09:55:00</td>
+      <td>2024-07-10 09:30:00</td>
+      <td>2024-07-10 09:30:00</td>
+      <td>-0.036</td>
+      <td>-0.036</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>3.493</td>
+      <td>3.493</td>
+      <td>-0.368</td>
+      <td>-0.368</td>
+      <td>2.941</td>
+      <td>2.941</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-08-22 09:05:00</td>
+      <td>2024-08-22 12:20:00</td>
+      <td>2024-08-22 12:20:00</td>
+      <td>-1.501</td>
+      <td>-1.501</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.178</td>
+      <td>0.178</td>
+      <td>-1.070</td>
+      <td>-1.070</td>
+      <td>1.248</td>
+      <td>1.248</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-09-26 09:05:00</td>
+      <td>2024-09-26 13:00:00</td>
+      <td>2024-09-26 13:00:00</td>
+      <td>-0.798</td>
+      <td>-0.798</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.364</td>
+      <td>0.364</td>
+      <td>-0.364</td>
+      <td>-0.364</td>
+      <td>0.729</td>
+      <td>0.729</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2303</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-11-07 11:05:00</td>
+      <td>2024-11-08 10:55:00</td>
+      <td>2024-11-08 10:55:00</td>
+      <td>-0.585</td>
+      <td>-0.585</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.913</td>
+      <td>1.913</td>
+      <td>-0.106</td>
+      <td>-0.106</td>
+      <td>1.913</td>
+      <td>1.913</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-09-13 09:00:00</td>
+      <td>2023-09-13 11:50:00</td>
+      <td>2023-09-13 11:50:00</td>
+      <td>-1.167</td>
+      <td>-1.167</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.550</td>
+      <td>0.550</td>
+      <td>-0.734</td>
+      <td>-0.734</td>
+      <td>1.284</td>
+      <td>1.284</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-09-15 11:30:00</td>
+      <td>2023-09-18 09:05:00</td>
+      <td>2023-09-18 09:05:00</td>
+      <td>-0.947</td>
+      <td>-0.947</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.182</td>
+      <td>0.182</td>
+      <td>-0.727</td>
+      <td>-0.727</td>
+      <td>0.545</td>
+      <td>0.545</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-10-12 10:00:00</td>
+      <td>2023-10-16 09:05:00</td>
+      <td>2023-10-16 09:05:00</td>
+      <td>-1.130</td>
+      <td>-1.130</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.095</td>
+      <td>1.095</td>
+      <td>-0.547</td>
+      <td>-0.547</td>
+      <td>1.642</td>
+      <td>1.642</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-10-20 12:00:00</td>
+      <td>2023-10-23 09:05:00</td>
+      <td>2023-10-23 09:05:00</td>
+      <td>-1.485</td>
+      <td>-1.485</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.181</td>
+      <td>0.181</td>
+      <td>-0.904</td>
+      <td>-0.904</td>
+      <td>1.085</td>
+      <td>1.085</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-11-13 09:05:00</td>
+      <td>2023-11-15 11:40:00</td>
+      <td>2023-11-15 12:25:00</td>
+      <td>-0.412</td>
+      <td>-0.585</td>
+      <td>-0.173</td>
+      <td>45.000</td>
+      <td>1.040</td>
+      <td>1.040</td>
+      <td>-1.040</td>
+      <td>-1.040</td>
+      <td>0.867</td>
+      <td>1.040</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-11-29 09:30:00</td>
+      <td>2023-11-29 11:20:00</td>
+      <td>2023-11-29 11:20:00</td>
+      <td>-1.813</td>
+      <td>-1.813</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>-1.382</td>
+      <td>-1.382</td>
+      <td>1.382</td>
+      <td>1.382</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-01 10:00:00</td>
+      <td>2023-12-04 09:20:00</td>
+      <td>2023-12-04 09:20:00</td>
+      <td>-0.930</td>
+      <td>-0.930</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.867</td>
+      <td>0.867</td>
+      <td>-0.347</td>
+      <td>-0.347</td>
+      <td>1.213</td>
+      <td>1.213</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-12 09:05:00</td>
+      <td>2023-12-12 12:00:00</td>
+      <td>2023-12-15 09:05:00</td>
+      <td>-0.779</td>
+      <td>0.619</td>
+      <td>1.398</td>
+      <td>4145.000</td>
+      <td>0.173</td>
+      <td>1.209</td>
+      <td>-0.345</td>
+      <td>-0.691</td>
+      <td>0.518</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2023-12-15 09:05:00</td>
+      <td>2023-12-15 12:10:00</td>
+      <td>NaN</td>
+      <td>-1.286</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000</td>
+      <td>NaN</td>
+      <td>-0.853</td>
+      <td>NaN</td>
+      <td>0.853</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-19 09:05:00</td>
+      <td>2023-12-19 10:25:00</td>
+      <td>2023-12-21 09:05:00</td>
+      <td>-1.284</td>
+      <td>-2.111</td>
+      <td>-0.827</td>
+      <td>2800.000</td>
+      <td>0.170</td>
+      <td>0.170</td>
+      <td>-0.852</td>
+      <td>-1.874</td>
+      <td>1.022</td>
+      <td>1.704</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-27 09:05:00</td>
+      <td>2023-12-27 13:25:00</td>
+      <td>2023-12-27 13:25:00</td>
+      <td>0.244</td>
+      <td>0.244</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.852</td>
+      <td>0.852</td>
+      <td>-0.170</td>
+      <td>-0.170</td>
+      <td>0.170</td>
+      <td>0.170</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-01-25 09:05:00</td>
+      <td>2024-01-31 09:05:00</td>
+      <td>2024-01-31 09:05:00</td>
+      <td>-0.428</td>
+      <td>-0.428</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>2.050</td>
+      <td>2.050</td>
+      <td>-0.158</td>
+      <td>-0.158</td>
+      <td>1.893</td>
+      <td>1.893</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-05 09:05:00</td>
+      <td>2024-02-16 09:10:00</td>
+      <td>2024-02-16 09:10:00</td>
+      <td>7.324</td>
+      <td>7.324</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>10.436</td>
+      <td>10.436</td>
+      <td>-0.623</td>
+      <td>-0.623</td>
+      <td>2.492</td>
+      <td>2.492</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-23 09:05:00</td>
+      <td>2024-02-26 09:10:00</td>
+      <td>2024-02-27 10:20:00</td>
+      <td>-1.578</td>
+      <td>-2.003</td>
+      <td>-0.425</td>
+      <td>1510.000</td>
+      <td>0.142</td>
+      <td>0.142</td>
+      <td>-0.997</td>
+      <td>-1.425</td>
+      <td>1.140</td>
+      <td>1.567</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-03-04 10:50:00</td>
+      <td>2024-03-05 12:40:00</td>
+      <td>2024-03-06 09:05:00</td>
+      <td>0.515</td>
+      <td>-1.135</td>
+      <td>-1.650</td>
+      <td>1225.000</td>
+      <td>1.934</td>
+      <td>1.934</td>
+      <td>-0.276</td>
+      <td>-0.967</td>
+      <td>0.829</td>
+      <td>2.486</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-03-07 09:05:00</td>
+      <td>2024-03-11 09:05:00</td>
+      <td>2024-03-11 09:05:00</td>
+      <td>0.995</td>
+      <td>0.995</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>5.291</td>
+      <td>5.291</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>3.704</td>
+      <td>3.704</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-04-12 11:25:00</td>
+      <td>2024-04-12 13:10:00</td>
+      <td>2024-04-12 13:10:00</td>
+      <td>-1.161</td>
+      <td>-1.161</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.243</td>
+      <td>0.243</td>
+      <td>-0.850</td>
+      <td>-0.850</td>
+      <td>0.971</td>
+      <td>0.971</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-05-14 12:25:00</td>
+      <td>2024-05-15 12:35:00</td>
+      <td>2024-05-16 13:15:00</td>
+      <td>1.476</td>
+      <td>1.355</td>
+      <td>-0.121</td>
+      <td>1480.000</td>
+      <td>2.801</td>
+      <td>4.263</td>
+      <td>-0.122</td>
+      <td>-0.122</td>
+      <td>0.731</td>
+      <td>2.314</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2024-05-16 09:05:00</td>
+      <td>2024-05-16 11:40:00</td>
+      <td>NaN</td>
+      <td>-1.838</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.352</td>
+      <td>NaN</td>
+      <td>-1.407</td>
+      <td>NaN</td>
+      <td>1.758</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-05-22 09:05:00</td>
+      <td>2024-05-24 09:05:00</td>
+      <td>2024-05-24 09:05:00</td>
+      <td>1.889</td>
+      <td>1.889</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>3.787</td>
+      <td>3.787</td>
+      <td>-0.118</td>
+      <td>-0.118</td>
+      <td>1.302</td>
+      <td>1.302</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-06-06 09:05:00</td>
+      <td>2024-06-07 09:05:00</td>
+      <td>2024-06-07 09:05:00</td>
+      <td>-1.033</td>
+      <td>-1.033</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.125</td>
+      <td>1.125</td>
+      <td>-0.562</td>
+      <td>-0.562</td>
+      <td>1.575</td>
+      <td>1.575</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-06-12 11:00:00</td>
+      <td>2024-06-14 09:25:00</td>
+      <td>2024-06-14 09:30:00</td>
+      <td>0.520</td>
+      <td>0.299</td>
+      <td>-0.221</td>
+      <td>5.000</td>
+      <td>3.774</td>
+      <td>3.774</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>2.664</td>
+      <td>2.886</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-06-17 10:00:00</td>
+      <td>2024-06-20 10:00:00</td>
+      <td>2024-06-20 10:00:00</td>
+      <td>4.700</td>
+      <td>4.700</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>6.609</td>
+      <td>6.609</td>
+      <td>-0.542</td>
+      <td>-0.542</td>
+      <td>1.300</td>
+      <td>1.300</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-06-28 09:30:00</td>
+      <td>2024-06-28 13:25:00</td>
+      <td>2024-06-28 13:25:00</td>
+      <td>0.188</td>
+      <td>0.188</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.041</td>
+      <td>1.041</td>
+      <td>-0.312</td>
+      <td>-0.312</td>
+      <td>0.416</td>
+      <td>0.416</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-07-01 09:40:00</td>
+      <td>2024-07-01 12:15:00</td>
+      <td>2024-07-01 12:30:00</td>
+      <td>-0.945</td>
+      <td>-1.353</td>
+      <td>-0.408</td>
+      <td>15.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>-0.614</td>
+      <td>-1.024</td>
+      <td>0.512</td>
+      <td>0.921</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-07-04 09:05:00</td>
+      <td>2024-07-09 09:05:00</td>
+      <td>2024-07-09 09:05:00</td>
+      <td>3.501</td>
+      <td>3.501</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>5.105</td>
+      <td>5.105</td>
+      <td>-0.100</td>
+      <td>-0.100</td>
+      <td>1.001</td>
+      <td>1.001</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-07-09 09:35:00</td>
+      <td>2024-07-10 09:05:00</td>
+      <td>2024-07-10 09:05:00</td>
+      <td>-3.888</td>
+      <td>-3.888</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>-3.791</td>
+      <td>-3.791</td>
+      <td>3.318</td>
+      <td>3.318</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-10-09 09:05:00</td>
+      <td>2024-10-09 13:25:00</td>
+      <td>2024-10-18 09:05:00</td>
+      <td>-0.435</td>
+      <td>5.728</td>
+      <td>6.163</td>
+      <td>12700.000</td>
+      <td>0.976</td>
+      <td>7.317</td>
+      <td>-0.488</td>
+      <td>-0.488</td>
+      <td>0.976</td>
+      <td>0.976</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2024-10-11 09:15:00</td>
+      <td>2024-10-18 12:40:00</td>
+      <td>NaN</td>
+      <td>3.244</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.769</td>
+      <td>NaN</td>
+      <td>-0.481</td>
+      <td>NaN</td>
+      <td>1.923</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2024-11-08 09:05:00</td>
+      <td>2024-11-11 09:05:00</td>
+      <td>NaN</td>
+      <td>-1.044</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.461</td>
+      <td>NaN</td>
+      <td>-0.922</td>
+      <td>NaN</td>
+      <td>0.922</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-09-13 09:05:00</td>
+      <td>2023-09-14 09:05:00</td>
+      <td>2023-09-14 09:05:00</td>
+      <td>-1.802</td>
+      <td>-1.802</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.087</td>
+      <td>1.087</td>
+      <td>-1.223</td>
+      <td>-1.223</td>
+      <td>2.310</td>
+      <td>2.310</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-09-15 09:05:00</td>
+      <td>2023-09-19 09:45:00</td>
+      <td>2023-09-19 09:45:00</td>
+      <td>2.501</td>
+      <td>2.501</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>6.739</td>
+      <td>6.739</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>3.639</td>
+      <td>3.639</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2023-10-13 09:05:00</td>
+      <td>2023-10-17 11:10:00</td>
+      <td>NaN</td>
+      <td>1.111</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.893</td>
+      <td>NaN</td>
+      <td>-0.122</td>
+      <td>NaN</td>
+      <td>2.190</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>EXIT40_ONLY_ENTRY</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2023-10-17 11:10:00</td>
+      <td>NaN</td>
+      <td>-1.529</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.185</td>
+      <td>NaN</td>
+      <td>-1.066</td>
+      <td>NaN</td>
+      <td>2.133</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-11-22 09:15:00</td>
+      <td>2023-11-23 10:25:00</td>
+      <td>2023-11-23 10:25:00</td>
+      <td>-0.692</td>
+      <td>-0.692</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.820</td>
+      <td>1.820</td>
+      <td>-0.107</td>
+      <td>-0.107</td>
+      <td>1.927</td>
+      <td>1.927</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-11-24 10:00:00</td>
+      <td>2023-11-24 13:10:00</td>
+      <td>2023-11-27 10:05:00</td>
+      <td>-0.646</td>
+      <td>-0.902</td>
+      <td>-0.255</td>
+      <td>4135.000</td>
+      <td>0.742</td>
+      <td>0.848</td>
+      <td>-0.212</td>
+      <td>-0.318</td>
+      <td>0.954</td>
+      <td>1.166</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-11-29 12:15:00</td>
+      <td>2023-11-30 09:55:00</td>
+      <td>2023-12-04 09:20:00</td>
+      <td>-1.112</td>
+      <td>-1.322</td>
+      <td>-0.211</td>
+      <td>5725.000</td>
+      <td>0.847</td>
+      <td>0.847</td>
+      <td>-0.423</td>
+      <td>-0.741</td>
+      <td>1.376</td>
+      <td>1.587</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-14 09:05:00</td>
+      <td>2023-12-18 09:05:00</td>
+      <td>2023-12-18 09:10:00</td>
+      <td>2.005</td>
+      <td>1.798</td>
+      <td>-0.207</td>
+      <td>5.000</td>
+      <td>3.850</td>
+      <td>3.850</td>
+      <td>-0.832</td>
+      <td>-0.832</td>
+      <td>1.249</td>
+      <td>1.457</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-25 09:05:00</td>
+      <td>2023-12-27 13:25:00</td>
+      <td>2023-12-27 13:25:00</td>
+      <td>4.338</td>
+      <td>4.338</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>5.954</td>
+      <td>5.954</td>
+      <td>-0.202</td>
+      <td>-0.202</td>
+      <td>1.009</td>
+      <td>1.009</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-01-22 09:05:00</td>
+      <td>2024-01-22 12:50:00</td>
+      <td>2024-01-22 12:50:00</td>
+      <td>-1.930</td>
+      <td>-1.930</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.964</td>
+      <td>0.964</td>
+      <td>-1.499</td>
+      <td>-1.499</td>
+      <td>2.463</td>
+      <td>2.463</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-01-25 11:45:00</td>
+      <td>2024-02-01 09:05:00</td>
+      <td>2024-02-01 09:05:00</td>
+      <td>-0.480</td>
+      <td>-0.480</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>3.059</td>
+      <td>3.059</td>
+      <td>-1.055</td>
+      <td>-1.055</td>
+      <td>2.954</td>
+      <td>2.954</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-15 09:05:00</td>
+      <td>2024-02-16 10:15:00</td>
+      <td>2024-02-16 10:15:00</td>
+      <td>-1.097</td>
+      <td>-1.097</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.514</td>
+      <td>0.514</td>
+      <td>-2.160</td>
+      <td>-2.160</td>
+      <td>1.029</td>
+      <td>1.029</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-20 10:50:00</td>
+      <td>2024-02-21 13:15:00</td>
+      <td>2024-02-21 13:15:00</td>
+      <td>-0.991</td>
+      <td>-0.991</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.612</td>
+      <td>0.612</td>
+      <td>-0.816</td>
+      <td>-0.816</td>
+      <td>1.020</td>
+      <td>1.020</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-22 09:20:00</td>
+      <td>2024-02-27 09:20:00</td>
+      <td>2024-02-27 09:20:00</td>
+      <td>13.580</td>
+      <td>13.580</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>14.729</td>
+      <td>14.729</td>
+      <td>-0.301</td>
+      <td>-0.301</td>
+      <td>0.501</td>
+      <td>0.501</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-29 10:20:00</td>
+      <td>2024-03-01 11:00:00</td>
+      <td>2024-03-01 11:00:00</td>
+      <td>-2.759</td>
+      <td>-2.759</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.747</td>
+      <td>1.747</td>
+      <td>-2.620</td>
+      <td>-2.620</td>
+      <td>3.930</td>
+      <td>3.930</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-03-06 09:30:00</td>
+      <td>2024-03-08 11:10:00</td>
+      <td>2024-03-08 11:10:00</td>
+      <td>4.115</td>
+      <td>4.115</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>9.442</td>
+      <td>9.442</td>
+      <td>-0.429</td>
+      <td>-0.429</td>
+      <td>4.721</td>
+      <td>4.721</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-04-11 09:15:00</td>
+      <td>2024-04-11 10:40:00</td>
+      <td>2024-04-11 10:40:00</td>
+      <td>-2.877</td>
+      <td>-2.877</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.408</td>
+      <td>0.408</td>
+      <td>-3.265</td>
+      <td>-3.265</td>
+      <td>2.857</td>
+      <td>2.857</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-05-08 09:05:00</td>
+      <td>2024-05-10 09:30:00</td>
+      <td>2024-05-10 09:30:00</td>
+      <td>1.752</td>
+      <td>1.752</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>5.634</td>
+      <td>5.634</td>
+      <td>-0.469</td>
+      <td>-0.469</td>
+      <td>3.286</td>
+      <td>3.286</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-05-23 09:10:00</td>
+      <td>2024-05-27 12:30:00</td>
+      <td>2024-05-28 09:10:00</td>
+      <td>5.612</td>
+      <td>8.503</td>
+      <td>2.892</td>
+      <td>1240.000</td>
+      <td>8.714</td>
+      <td>9.129</td>
+      <td>-1.660</td>
+      <td>-1.660</td>
+      <td>2.490</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2024-05-28 09:10:00</td>
+      <td>2024-05-29 10:05:00</td>
+      <td>NaN</td>
+      <td>-3.235</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.380</td>
+      <td>NaN</td>
+      <td>-2.662</td>
+      <td>NaN</td>
+      <td>3.042</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-06-13 09:05:00</td>
+      <td>2024-06-17 09:10:00</td>
+      <td>2024-06-17 09:10:00</td>
+      <td>0.150</td>
+      <td>0.150</td>
+      <td>-0.000</td>
+      <td>0.000</td>
+      <td>3.321</td>
+      <td>3.321</td>
+      <td>-0.369</td>
+      <td>-0.369</td>
+      <td>2.583</td>
+      <td>2.583</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-06-19 09:05:00</td>
+      <td>2024-06-21 09:05:00</td>
+      <td>2024-06-21 09:10:00</td>
+      <td>2.921</td>
+      <td>1.518</td>
+      <td>-1.402</td>
+      <td>5.000</td>
+      <td>5.282</td>
+      <td>5.282</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.761</td>
+      <td>3.169</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-07-09 09:05:00</td>
+      <td>2024-07-10 09:45:00</td>
+      <td>2024-07-10 09:45:00</td>
+      <td>-0.585</td>
+      <td>-0.585</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>2.456</td>
+      <td>2.456</td>
+      <td>-0.702</td>
+      <td>-0.702</td>
+      <td>2.456</td>
+      <td>2.456</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-08-16 09:20:00</td>
+      <td>2024-08-20 13:10:00</td>
+      <td>2024-08-20 13:10:00</td>
+      <td>1.873</td>
+      <td>1.873</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>4.527</td>
+      <td>4.527</td>
+      <td>-0.412</td>
+      <td>-0.412</td>
+      <td>2.058</td>
+      <td>2.058</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-10-11 09:15:00</td>
+      <td>2024-10-16 09:05:00</td>
+      <td>2024-10-16 09:05:00</td>
+      <td>-2.135</td>
+      <td>-2.135</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.946</td>
+      <td>1.946</td>
+      <td>-1.946</td>
+      <td>-1.946</td>
+      <td>3.502</td>
+      <td>3.502</td>
+    </tr>
+    <tr>
+      <td>TECHNICAL</td>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-10-23 09:45:00</td>
+      <td>2024-10-24 09:45:00</td>
+      <td>2024-10-24 09:45:00</td>
+      <td>-3.225</td>
+      <td>-3.225</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.379</td>
+      <td>0.379</td>
+      <td>-2.652</td>
+      <td>-2.652</td>
+      <td>3.030</td>
+      <td>3.030</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2303</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-11-03 09:05:00</td>
+      <td>2023-11-08 09:25:00</td>
+      <td>2023-11-08 11:45:00</td>
+      <td>0.030</td>
+      <td>-0.585</td>
+      <td>-0.615</td>
+      <td>140.000</td>
+      <td>2.160</td>
+      <td>2.160</td>
+      <td>-0.206</td>
+      <td>-0.206</td>
+      <td>1.543</td>
+      <td>2.160</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-01-22 09:05:00</td>
+      <td>2024-01-25 09:05:00</td>
+      <td>2024-01-25 09:05:00</td>
+      <td>1.601</td>
+      <td>1.601</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>2.595</td>
+      <td>2.595</td>
+      <td>-0.798</td>
+      <td>-0.798</td>
+      <td>0.399</td>
+      <td>0.399</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-20 09:15:00</td>
+      <td>2024-02-21 09:05:00</td>
+      <td>2024-02-21 09:05:00</td>
+      <td>-1.090</td>
+      <td>-1.090</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.812</td>
+      <td>0.812</td>
+      <td>-0.711</td>
+      <td>-0.711</td>
+      <td>1.320</td>
+      <td>1.320</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2303</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-29 10:05:00</td>
+      <td>2024-03-05 10:05:00</td>
+      <td>2024-03-05 10:05:00</td>
+      <td>-0.483</td>
+      <td>-0.483</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.513</td>
+      <td>0.513</td>
+      <td>-0.615</td>
+      <td>-0.615</td>
+      <td>0.410</td>
+      <td>0.410</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2330</td>
+      <td>WF1</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2023-12-19 09:05:00</td>
+      <td>2023-12-19 10:25:00</td>
+      <td>2023-12-21 09:05:00</td>
+      <td>-1.284</td>
+      <td>-2.111</td>
+      <td>-0.827</td>
+      <td>2800.000</td>
+      <td>0.170</td>
+      <td>0.170</td>
+      <td>-0.852</td>
+      <td>-1.874</td>
+      <td>1.022</td>
+      <td>1.704</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-04-12 11:25:00</td>
+      <td>2024-04-12 13:10:00</td>
+      <td>2024-04-12 13:10:00</td>
+      <td>-1.161</td>
+      <td>-1.161</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.243</td>
+      <td>0.243</td>
+      <td>-0.850</td>
+      <td>-0.850</td>
+      <td>0.971</td>
+      <td>0.971</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-05-14 12:25:00</td>
+      <td>2024-05-15 12:35:00</td>
+      <td>2024-05-16 13:15:00</td>
+      <td>1.476</td>
+      <td>1.355</td>
+      <td>-0.121</td>
+      <td>1480.000</td>
+      <td>2.801</td>
+      <td>4.263</td>
+      <td>-0.122</td>
+      <td>-0.122</td>
+      <td>0.731</td>
+      <td>2.314</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-06-12 11:00:00</td>
+      <td>2024-06-14 09:25:00</td>
+      <td>2024-06-14 09:30:00</td>
+      <td>0.520</td>
+      <td>0.299</td>
+      <td>-0.221</td>
+      <td>5.000</td>
+      <td>3.774</td>
+      <td>3.774</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>2.664</td>
+      <td>2.886</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2330</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-06-17 10:00:00</td>
+      <td>2024-06-20 10:00:00</td>
+      <td>2024-06-20 10:00:00</td>
+      <td>4.700</td>
+      <td>4.700</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>6.609</td>
+      <td>6.609</td>
+      <td>-0.542</td>
+      <td>-0.542</td>
+      <td>1.300</td>
+      <td>1.300</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-10-09 09:05:00</td>
+      <td>2024-10-09 13:25:00</td>
+      <td>2024-10-18 09:05:00</td>
+      <td>-0.435</td>
+      <td>5.728</td>
+      <td>6.163</td>
+      <td>12700.000</td>
+      <td>0.976</td>
+      <td>7.317</td>
+      <td>-0.488</td>
+      <td>-0.488</td>
+      <td>0.976</td>
+      <td>0.976</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2024-10-11 09:15:00</td>
+      <td>2024-10-18 12:40:00</td>
+      <td>NaN</td>
+      <td>3.244</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.769</td>
+      <td>NaN</td>
+      <td>-0.481</td>
+      <td>NaN</td>
+      <td>1.923</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2330</td>
+      <td>WF3</td>
+      <td>EXIT30_ONLY_ENTRY</td>
+      <td>2024-11-08 09:05:00</td>
+      <td>2024-11-11 09:05:00</td>
+      <td>NaN</td>
+      <td>-1.044</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.461</td>
+      <td>NaN</td>
+      <td>-0.922</td>
+      <td>NaN</td>
+      <td>0.922</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-20 10:50:00</td>
+      <td>2024-02-21 13:15:00</td>
+      <td>2024-02-21 13:15:00</td>
+      <td>-0.991</td>
+      <td>-0.991</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.612</td>
+      <td>0.612</td>
+      <td>-0.816</td>
+      <td>-0.816</td>
+      <td>1.020</td>
+      <td>1.020</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-02-22 09:20:00</td>
+      <td>2024-02-27 09:20:00</td>
+      <td>2024-02-27 09:20:00</td>
+      <td>13.580</td>
+      <td>13.580</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>14.729</td>
+      <td>14.729</td>
+      <td>-0.301</td>
+      <td>-0.301</td>
+      <td>0.501</td>
+      <td>0.501</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2454</td>
+      <td>WF2</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-05-23 09:10:00</td>
+      <td>2024-05-27 12:30:00</td>
+      <td>2024-05-28 09:10:00</td>
+      <td>5.612</td>
+      <td>8.503</td>
+      <td>2.892</td>
+      <td>1240.000</td>
+      <td>8.714</td>
+      <td>9.129</td>
+      <td>-1.660</td>
+      <td>-1.660</td>
+      <td>2.490</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>XGBOOST</td>
+      <td>2454</td>
+      <td>WF3</td>
+      <td>MATCHED_ENTRY</td>
+      <td>2024-10-23 09:45:00</td>
+      <td>2024-10-24 09:45:00</td>
+      <td>2024-10-24 09:45:00</td>
+      <td>-3.225</td>
+      <td>-3.225</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.379</td>
+      <td>0.379</td>
+      <td>-2.652</td>
+      <td>-2.652</td>
+      <td>3.030</td>
+      <td>3.030</td>
+    </tr>
+  </tbody>
+</table></div></section><section><h2>解讀限制</h2><p class="warning">Exit 30 與 Exit 40 的總報酬方向不一致，仍維持 MIXED；此分析不改策略參數。</p><p>未配對的進場代表兩個 Exit 造成可交易時點不同。原始成交帳本未記錄策略出場觸發原因，因此無法可靠地逐筆判斷是技術出場、停損或持倉期限觸發；MFE／MAE 也只是期間內價格極值，不代表可成交收益。</p><p>本資料屬於已曝光開發資料，不是獨立 OOS 驗證。</p></section></main></html>

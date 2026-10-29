@@ -1,0 +1,4 @@
+
+> ai-stock-system-api@1.0.0 check
+> node --check src/server.js && node --check src/multiStrategyBacktestService.js && node --check src/db.js && node --check src/marketService.js && node --check src/favoriteService.js && node --check src/databaseReportService.js && node --check src/pythonBacktestService.js && node --check src/reportService.js
+

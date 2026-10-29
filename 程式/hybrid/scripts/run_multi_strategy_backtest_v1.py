@@ -50,6 +50,8 @@ def build_parser() -> argparse.ArgumentParser:
         "--model-artifact", type=Path,
         help="Load a gate-prediction artifact created by --prepare-models-only instead of retraining.",
     )
+    parser.add_argument("--slippage-bps", type=float, choices=(0.0, 5.0), default=0.0,
+                        help="Adverse execution slippage in basis points (0 baseline or 5 stress scenario).")
     return parser
 
 
@@ -218,17 +220,29 @@ def load_model_gate_artifact(
     for item in model_audit.get("models", {}).values():
         item["runtime_source"] = "loaded_prepared_gate_artifact"
         item["model_load_failure_fallback_used"] = False
+        alignment = item.get("feature_alignment")
+        if isinstance(alignment, dict):
+            classes = alignment.get("model_classes")
+            if classes is not None:
+                try:
+                    alignment["model_classes"] = [int(value) for value in classes]
+                except (TypeError, ValueError) as exc:
+                    raise DevelopmentBacktestBlocked("BLOCKED_MODEL_ARTIFACT_CLASS_MAPPING_INVALID") from exc
+                if alignment["model_classes"] != [0, 1, 2]:
+                    raise DevelopmentBacktestBlocked("BLOCKED_MODEL_ARTIFACT_CLASS_MAPPING_MISMATCH")
     return models, model_audit
 
 
 def run_experiment(
     config: dict, stock_code: str, strategies: list[str],
-    model_artifact: Path | None = None,
+    model_artifact: Path | None = None, slippage_bps: float = 0.0,
 ) -> Path:
     from hybrid.scripts.run_strategy_v2_batch import build_regime_context
     from trading_system import technical_v1 as tv1
 
     preflight = run_preflight(config, stock_code, strategies)
+    config = json.loads(json.dumps(config))
+    config["execution"]["slippage_rate"] = float(slippage_bps) / 10000.0
     root = Path(__file__).resolve().parents[2]
     technical_config_path = root / config["technical"]["config"]
     technical_config = tv1.read_config(technical_config_path)
@@ -288,6 +302,7 @@ def run_experiment(
                 connection=connection, config=config, stock_code=stock_code, strategy_id=strategy_id,
                 model_runtime=models.get(model_key) if model_key else None,
                 regime_context=regime_context, candidate_schedule=candidate_schedule,
+                slippage_bps=slippage_bps,
             )
             outputs.append(result)
         execution = config["execution"]
@@ -296,6 +311,7 @@ def run_experiment(
             period=config["periods"]["backtest"],
             initial_capital=float(execution["initial_capital"]),
             commission_rate=float(execution["commission_rate"]),
+            slippage_bps=slippage_bps,
         )
         exposure_matched_buy_and_hold = build_exposure_matched_buy_and_hold_result(
             connection=connection, stock_code=stock_code,
@@ -304,6 +320,7 @@ def run_experiment(
             commission_rate=float(execution["commission_rate"]),
             transaction_tax_rate=float(execution["transaction_tax_rate"]),
             max_position_fraction=float(config["risk"]["max_position_fraction"]),
+            slippage_bps=slippage_bps,
         )
     finally:
         connection.close()
@@ -398,11 +415,13 @@ def run_experiment(
         "known_limitations": [
             "All periods are historically exposed development data, not independent OOS.",
             "ML V1 model is draft/unfrozen; no model selection is performed.",
-            "Slippage is 0.0 and is not simulated.",
-            "Risk sizing is based on signal close; next-open gaps can change realized stop risk.",
+            f"Slippage is simulated at {slippage_bps:g} bps per side; 5 bps is a stress scenario only.",
+            "Risk sizing uses next tradable bar open including adverse buy slippage.",
+            "Stop prices use completed 5-minute OHLC approximation; no tick-level path reconstruction.",
             "Predictions are fixed-model historical development forecasts and are not OOF or live signals.",
         ],
         "final_oos_used": False, "holdout_policy_modified": False,
+        "slippage_bps": float(slippage_bps),
         "parameter_search_performed": False, "ml_retrained_during_backtest": False,
     }
     write_json(output / "run.json", {
@@ -453,6 +472,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         output = run_experiment(
             config, args.stock_code, args.strategies, args.model_artifact,
+            slippage_bps=args.slippage_bps,
         )
     except (RuntimeError, OSError, ValueError, KeyError) as exc:
         print(json.dumps({"status": "BLOCKED", "reason": str(exc), "preflight_status": report["status"]}, ensure_ascii=False))
