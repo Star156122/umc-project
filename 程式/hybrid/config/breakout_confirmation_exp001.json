@@ -1,0 +1,55 @@
+{
+  "experiment_id": "technical-v2b-breakout-confirmation-2303-2023-2024-exp001",
+  "status": "PREREGISTERED_RESEARCH_ONLY",
+  "data_role": "historical_development",
+  "stock_code": "2303",
+  "stock_name": "聯電",
+  "period": {"start": "2023-01-01", "end": "2024-12-31"},
+  "data_source": "data/market_data.sqlite3",
+  "data_eligibility_rule": "relaxed_data_eligibility_v1; identical real 2303 bars and strictly-prior synchronized 4-peer close proxy for both arms; no fill/imputation",
+  "technical_config": "configs/technical_v1_research.json",
+  "frozen_candidate_config": "configs/technical_v2_candidate.json",
+  "frozen_candidate_id": "BR_SENS_RANGE55_BB20_2",
+  "initial_capital": 1000000,
+  "arms": ["A_ORIGINAL_V2B", "B_ONE_BAR_CONFIRMATION"],
+  "single_change": "B waits for exactly one consecutive completed 5-minute bar after the original V2-B setup; that close must remain strictly above the saved original breakout line; entry is at the open of the immediately following actual 5-minute bar",
+  "confirmation": {
+    "setup_signal": "original V2-B technical conditions and prior-only market regime pass on completed setup bar",
+    "confirm_bar": "same session, exactly 300 seconds after setup bar; completed close > saved setup BREAKOUT_HIGH",
+    "fill_bar": "same session, exactly 300 seconds after confirmation bar; actual next tradable bar open",
+    "missing_or_nonconsecutive_bar": "EXCLUDE_NO_FILL; never substitute a later bar or cross sessions",
+    "false_breakout_definition": "Among regime-passing original V2-B setup candidates with three later observed session closes, a false breakout is any of those next three session closes at or below the saved setup breakout line. This is post-hoc descriptive only and never feeds signals."
+  },
+  "eligibility": {
+    "target_stock": "2303",
+    "session": {"start": "09:00", "end": "13:25", "expected_bars": 54},
+    "target_policy": "retain unique valid real target bars; no synthetic bars; mask affected indicator windows; missing signal/confirmation/fill bars cannot be presumed",
+    "peer_proxy": {"codes": ["2330", "2379", "2454", "3034"], "weighting": "equal_weight", "close_time": "13:25", "lookback_sessions": 20, "reference": "strictly prior synchronized peer close dates", "missing_policy": "exclude proxy observation; no imputation"},
+    "same_for_both_arms": true
+  },
+  "risk": {
+    "version": "risk_v1",
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025,
+    "max_holding_bars": 162,
+    "min_holding_bars": 2,
+    "cooldown_bars": 6,
+    "max_entries_per_day": 1
+  },
+  "execution": {
+    "signal": "completed_5m_bar_close",
+    "A_entry": "next actual 5-minute bar open",
+    "B_entry": "one full confirmation bar close, then next actual 5-minute bar open",
+    "stock_fee_rate": 0.001425,
+    "stock_tax_rate": 0.003,
+    "slippage_rate": 0.0,
+    "same_day_tax": "reuse existing engine rule"
+  },
+  "exit": "frozen V2-B prior 30-bar low and Risk V1 stop/holding rules; identical for both arms",
+  "ml_gate_used": false,
+  "parameter_search_performed": false,
+  "final_oos_used": false,
+  "additional_holdout_used": false,
+  "forbidden_roles_used": false
+}

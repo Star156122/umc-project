@@ -1,0 +1,118 @@
+{
+  "experiment_id": "technical-v2b-max-hold-2303-2023-2024-exp002",
+  "status": "PREREGISTERED",
+  "question": "Compared with the frozen 162-bar cap, do 270/540/810 observed 5-minute bars (approximately 5/10/15 complete 54-bar sessions) improve original Technical V2-B outcomes?",
+  "data_role": "historical_development",
+  "stock_code": "2303",
+  "period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "data_source": "data/technical_v1_mltech_clean.sqlite3",
+  "technical_config": "configs/technical_v1_research.json",
+  "frozen_candidate_config": "configs/technical_v2_candidate.json",
+  "frozen_candidate_id": "BR_SENS_RANGE55_BB20_2",
+  "baseline": {
+    "id": "A_ORIGINAL_V2B",
+    "max_hold_bars": 162
+  },
+  "candidates": [
+    {
+      "id": "B_MAX_HOLD_5D_EQUIVALENT",
+      "label": "5 trading-session equivalent",
+      "max_hold_bars": 270
+    },
+    {
+      "id": "C_MAX_HOLD_10D_EQUIVALENT",
+      "label": "10 trading-session equivalent",
+      "max_hold_bars": 540
+    },
+    {
+      "id": "D_MAX_HOLD_15D_EQUIVALENT",
+      "label": "15 trading-session equivalent",
+      "max_hold_bars": 810
+    }
+  ],
+  "bar_time_semantics": {
+    "complete_bars_per_session": 54,
+    "timeout_counter": "observed 5-minute bars since entry; overnight/non-trading time does not increment the counter",
+    "day_equivalence": "max_hold_bars / 54 is a complete-session equivalent; intraday entry and next-bar-open exit mean it is not guaranteed to exit exactly at the Nth session close",
+    "cross_day_measure": "number of observed trading-date transitions between actual entry-open and exit-open; inclusive session count is transitions + 1"
+  },
+  "single_change": "max_hold_bars only: 162 vs 270 vs 540 vs 810",
+  "all_other_settings": "Frozen Technical V2-B entry, 30-bar low technical exit, market proxy, Risk V1 except max holding cap, capital, sizing, fees, tax, slippage, minimum hold, cooldown, daily entry limit, data eligibility and next-tradable-open execution remain identical.",
+  "initial_capital": 1000000,
+  "risk": {
+    "version": "risk_v1",
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025,
+    "min_holding_bars": 2,
+    "cooldown_bars": 6,
+    "max_entries_per_day": 1
+  },
+  "execution": {
+    "signal": "completed_5m_bar_close",
+    "entry_exit": "next_tradable_5m_bar_open",
+    "stock_fee_rate": 0.001425,
+    "stock_tax_rate": 0.003,
+    "slippage_rate": 0.0,
+    "inherit_existing_same_day_tax": true,
+    "share_sizing": "Risk V1 helper capped by existing engine quantity and affordable cash; integer shares"
+  },
+  "market_regime_filter": {
+    "enabled": true,
+    "rule": "target_excluded_equal_weight_mean_of_other_four_close_prices_above_prior_20_complete_common_session_mean",
+    "complete_session": "09:00-13:25, exactly 54 five-minute bars for all five frozen universe stocks",
+    "missing_data_policy": "EXCLUDE_NO_FILL"
+  },
+  "data_eligibility": "Frozen Technical V2-B global intersection; all five proxy-universe stocks have exactly 54 real 09:00-13:25 bars on each included day; EXCLUDE_NO_FILL; no fills or synthetic bars.",
+  "metrics": [
+    "candidate_count",
+    "trade_count",
+    "win_rate_pct",
+    "gross_pnl",
+    "commission",
+    "transaction_tax",
+    "total_transaction_cost",
+    "net_pnl",
+    "total_return_pct",
+    "profit_factor",
+    "max_drawdown_pct",
+    "sharpe_ratio",
+    "average_holding_bars",
+    "average_holding_trading_day_intervals",
+    "average_holding_sessions_inclusive",
+    "stop_loss_exit_count",
+    "technical_exit_count",
+    "time_expiration_exit_count",
+    "end_of_backtest_exit_count",
+    "matched_original_timeout_trade_followthrough"
+  ],
+  "decision_rule": "Exploratory comparison only; do not select by net return alone. A 1-4 trade result is INSUFFICIENT. Adoption requires adequate samples and coherent improvement in net performance, PF, drawdown, exit outcomes, and across-year stability; otherwise retain frozen 162-bar version.",
+  "ml_gate_used": false,
+  "parameter_search": false,
+  "final_oos_used": false,
+  "additional_holdout_used": false,
+  "production_strategy_modified": false,
+  "preregistration_created_before_data_run": true,
+  "versions": [
+    {
+      "id": "A_ORIGINAL_V2B",
+      "max_hold_bars": 162
+    },
+    {
+      "id": "B_MAX_HOLD_5D_EQUIVALENT",
+      "max_hold_bars": 270
+    },
+    {
+      "id": "C_MAX_HOLD_10D_EQUIVALENT",
+      "max_hold_bars": 540
+    },
+    {
+      "id": "D_MAX_HOLD_15D_EQUIVALENT",
+      "max_hold_bars": 810
+    }
+  ],
+  "only_changed_parameter": "max_hold_bars"
+}

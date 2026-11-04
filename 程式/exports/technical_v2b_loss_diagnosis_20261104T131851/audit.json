@@ -1,0 +1,48 @@
+{
+  "status": "COMPLETED",
+  "experiment_id": "technical-v2b-loss-diagnosis-2303-20261104",
+  "stock_code": "2303",
+  "data_role": "training (historical_development source run)",
+  "period": {
+    "requested_start": "2023-01-01",
+    "requested_end": "2024-12-31",
+    "actual_first_session": "2023-01-04",
+    "actual_last_session": "2024-12-30"
+  },
+  "source_run": "exports\\short_swing_ab_test_20261104T123811",
+  "source_experiment_id": "short-swing-technical-ab-v1-20261104",
+  "database_path": "data\\technical_v1_mltech_clean.sqlite3",
+  "database_sha256_before": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "database_sha256_after": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "bar_count": 22788,
+  "trading_day_count": 422,
+  "trade_rows_analyzed": 236,
+  "A_trade_count": 39,
+  "final_oos_used": false,
+  "additional_holdout_used": false,
+  "strategy_replayed": false,
+  "parameter_search_performed": false,
+  "frozen_strategy_changed": false,
+  "database_modified": false,
+  "false_breakout_definition": "Among post-market-filter candidates with 3 complete following sessions, false if any of the next 3 session closes is <= prior 55 completed-bar high at signal time.",
+  "mfe_mae_definition": "Entry price to max high/min low over bars from entry timestamp inclusive to exit timestamp exclusive; for stop exits exclude the stop execution bar range and include actual stop fill in MAE.",
+  "limitations": [
+    "5-minute OHLC does not reveal intrabar high/low order",
+    "single stock and exposed 2023–2024 only",
+    "zero slippage assumption inherited",
+    "1,000-share quantity cap inherited",
+    "fixed-horizon close paths are diagnostic and may continue after actual exit"
+  ],
+  "outputs": [
+    "trade_diagnostics.csv",
+    "variant_quality.csv",
+    "candidate_outcomes.csv",
+    "entry_horizon_summary.csv",
+    "exit_reason_summary.csv",
+    "diagnosis_report.md",
+    "charts/mfe_mae_distribution.png",
+    "charts/entry_horizon_returns.png",
+    "charts/exit_reason_counts.png",
+    "charts/cost_before_after.png"
+  ]
+}

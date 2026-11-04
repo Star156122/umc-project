@@ -1,0 +1,134 @@
+{
+  "status": "COMPLETED",
+  "experiment_id": "technical-v2b-data-eligibility-2303-2023-2024-v1",
+  "data_role": "historical_development",
+  "stock_code": "2303",
+  "period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "baseline_source": "data/technical_v1_mltech_clean.sqlite3",
+  "candidate_source": "data/market_data.sqlite3",
+  "restricted_period_baseline_rows_sha256": "f5d2acb926d82b8cead4475073777daf95ea98195dbf413997229e577090a653",
+  "restricted_period_candidate_rows_sha256": "706bd3172bbb38f9e7468192cb7e61065635e2f14a28cdd8ec4fb1b02ad8a64f",
+  "ohlcv_parity": {
+    "shared_rows_compared": 113940,
+    "mismatch_count": 0,
+    "mismatch_by_column": {
+      "open": 0,
+      "high": 0,
+      "low": 0,
+      "close": 0,
+      "volume": 0
+    },
+    "tolerance": "OHLC absolute 1e-8; volume exact",
+    "samples": []
+  },
+  "global_calendar_days": 482,
+  "strict_global_complete_sessions": 422,
+  "target_complete_sessions": 479,
+  "synchronized_peer_close_sessions": 481,
+  "newly_eligible_session_count": 60,
+  "incomplete_target_sessions_with_usable_bars_retained_in_trade_replay": 3,
+  "incomplete_target_sessions_without_usable_bars": 0,
+  "per_stock_quality": {
+    "2303": {
+      "incomplete_sessions": 3,
+      "missing_expected_bars": 56,
+      "duplicate_timestamp_count": 0,
+      "invalid_ohlcv_count": 0
+    },
+    "2330": {
+      "incomplete_sessions": 3,
+      "missing_expected_bars": 56,
+      "duplicate_timestamp_count": 0,
+      "invalid_ohlcv_count": 0
+    },
+    "2379": {
+      "incomplete_sessions": 44,
+      "missing_expected_bars": 125,
+      "duplicate_timestamp_count": 0,
+      "invalid_ohlcv_count": 0
+    },
+    "2454": {
+      "incomplete_sessions": 4,
+      "missing_expected_bars": 58,
+      "duplicate_timestamp_count": 0,
+      "invalid_ohlcv_count": 0
+    },
+    "3034": {
+      "incomplete_sessions": 20,
+      "missing_expected_bars": 75,
+      "duplicate_timestamp_count": 0,
+      "invalid_ohlcv_count": 0
+    }
+  },
+  "data_quality_totals": {
+    "missing_expected_bars": 370,
+    "duplicate_timestamp_count": 0,
+    "invalid_ohlcv_count": 0
+  },
+  "indicator_gap_guard_bars": 240,
+  "candidate_counts": {
+    "A_ORIGINAL_GLOBAL_COMPLETE": {
+      "raw_breakout_triggers": 315,
+      "technical_candidates": 168,
+      "market_filter_pass_candidates": 108,
+      "risk_decisions": 39,
+      "actual_fills": 39
+    },
+    "B_TARGET_SESSION_AND_PEER_CLOSE": {
+      "raw_breakout_triggers": 315,
+      "technical_candidates": 168,
+      "market_filter_pass_candidates": 125,
+      "risk_decisions": 45,
+      "actual_fills": 45
+    }
+  },
+  "gap_exit_events": {
+    "A_ORIGINAL_GLOBAL_COMPLETE": 8,
+    "B_TARGET_SESSION_AND_PEER_CLOSE": 8
+  },
+  "strict_proxy_rule": "all five stock sessions exactly 54 bars for current-date eligibility; target excluded; equal-weight peer 13:25 closes; strict prior 20 globally complete common sessions",
+  "relaxed_proxy_rule": "target excluded; a proxy observation is formed only when all four peer 13:25 closes for that date are unique and valid; equal-weight; candidate date uses only the strict prior 20 synchronized proxy dates; current-date peer close is not used to authorize earlier target signals; no imputation",
+  "target_session_rule": "retain every unique, valid, expected-time target bar; never fill missing bars. Mask all indicator outputs if the current or prior 239 expected target-bar slots contain a gap. Missing signal/next-fill bars block that trade; open positions encountering data gaps exit at the next observed open.",
+  "comparison_design": "A/B use the same unique, valid, expected-time real target-stock bars, including usable bars from incomplete sessions. A blocks entries unless all stocks have complete sessions that day; B blocks only bars whose actual indicator lookback contains a missing slot and fills that lack the exact next bar. Market proxy uses only strictly prior synchronized peer-close dates; current-date peer close is not required for current target signals. A is not a byte-for-byte rerun of the historical cleaned-DB report.",
+  "newly_eligible_completed_trade_count": 6,
+  "execution_rule": "completed 5-minute bar; next scheduled actual bar open only; candidate fill schedule requires exactly +300 seconds",
+  "risk_v1": {
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025,
+    "max_holding_bars": 162,
+    "min_holding_bars": 2,
+    "cooldown_bars": 6,
+    "max_entries_per_day": 1
+  },
+  "costs": {
+    "signal": "completed_5m_bar_close",
+    "fill": "immediately_next_scheduled_5m_bar_open_only",
+    "slippage_rate": 0.0,
+    "stock_fee_rate": 0.001425,
+    "stock_tax_rate": 0.003,
+    "same_day_tax": "reuse_existing_engine_rule"
+  },
+  "ml_gate_used": false,
+  "final_oos_used": false,
+  "additional_holdout_used": false,
+  "validation_used": false,
+  "parameter_search_performed": false,
+  "technical_parameters_changed": false,
+  "frozen_candidate_changed": false,
+  "raw_database_modified": false,
+  "data_source_metadata_before_after_unchanged": true,
+  "output_files": [
+    "candidate_trade_diff.csv",
+    "config_snapshot.json",
+    "data_eligibility_comparison.csv",
+    "data_quality_report.md",
+    "missing_kbar_audit.csv",
+    "newly_eligible_days.csv",
+    "performance_comparison.csv",
+    "audit.json"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "experiment_id": "technical-v2b-cross-stock-2023-2024-exp001",
+  "status": "PREREGISTERED_RESEARCH_ONLY",
+  "data_role": "training",
+  "data_role_display": "historical_development",
+  "period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "stocks": [
+    "2303",
+    "2330",
+    "2382",
+    "2454",
+    "2317"
+  ],
+  "strategy": "FROZEN_TECHNICAL_V2B_BR_SENS_RANGE55_BB20_2",
+  "ml_gate_used": false,
+  "risk_version": "risk_v1",
+  "initial_capital_per_stock": 1000000,
+  "risk": {
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025,
+    "max_holding_bars": 162,
+    "min_holding_bars": 2,
+    "cooldown_bars": 6,
+    "max_entries_per_day": 1
+  },
+  "execution": {
+    "signal": "completed_5m_bar_close",
+    "entry_exit": "next_actual_tradable_5m_bar_open",
+    "slippage_rate": 0.0,
+    "stock_fee_rate": 0.001425,
+    "stock_tax_rate": 0.003,
+    "session": "09:00-13:25",
+    "expected_bars_per_session": 54
+  },
+  "eligibility": {
+    "policy": "EXACT_54_REAL_BARS_NO_FILL",
+    "common_date_intersection": true,
+    "target_and_frozen_proxy_symbols_must_all_have_complete_valid_sessions": true,
+    "duplicate_or_invalid_ohlcv": "EXCLUDE_SESSION",
+    "imputation": false
+  },
+  "market_proxy": {
+    "source": "FROZEN_TECHNICAL_V2B_PEER_POOL",
+    "peer_stock_codes": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "target_excluded": true,
+    "weighting": "equal_weight_arithmetic_mean_of_absolute_13_25_close_prices",
+    "sma_lookback_completed_sessions": 20,
+    "reference": "latest_prior_completed_common_eligible_session",
+    "condition": "proxy_close_above_prior_20_session_sma",
+    "missing_data_policy": "EXCLUDE_NO_FILL"
+  },
+  "benchmarks": {
+    "buy_and_hold": [
+      "100_percent_nominal_exposure",
+      "40_percent_nominal_exposure",
+      "strategy_average_exposure_scaled"
+    ],
+    "buy_and_hold_entry": "first_actual_tradable_bar_open",
+    "buy_and_hold_exit": "last_actual_close_in_period",
+    "costs_applied": true
+  },
+  "frozen_config_path": "configs/technical_v2_candidate.json",
+  "source_database_path": "data/technical_v1_mltech_clean.sqlite3",
+  "source_database_must_not_be_modified": true,
+  "forbidden_periods_used": false,
+  "parameter_search": false,
+  "strategy_changed": false,
+  "results_viewed": false
+}

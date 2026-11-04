@@ -1,0 +1,60 @@
+{
+  "experiment_id": "technical-v2b-expected-edge-2303-2023-2024-exp001",
+  "status": "PREREGISTERED",
+  "hypothesis": "A causal expanding mean of previously completed Technical V2-B trades can distinguish candidates whose estimated gross return exceeds round-trip fees, tax, and a conservative slippage reserve.",
+  "baseline": "Frozen BR_SENS_RANGE55_BB20_2 Technical V2-B + Risk V1, no ML gate.",
+  "single_change": "After an otherwise eligible V2-B candidate, require estimated expected net return > 0; the estimate may use only prior completed baseline trades.",
+  "stock_code": "2303",
+  "period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "data_role": "historical_development",
+  "data_source": "data/technical_v1_mltech_clean.sqlite3",
+  "data_eligibility": "Frozen V2-B global intersection: all five universe stocks have a valid complete 09:00-13:25 session of exactly 54 real 5-minute bars; EXCLUDE_NO_FILL.",
+  "candidate_id": "BR_SENS_RANGE55_BB20_2",
+  "initial_capital": 1000000,
+  "risk": {
+    "version": "risk_v1",
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025,
+    "max_holding_bars": 162,
+    "min_holding_bars": 2,
+    "cooldown_bars": 6,
+    "max_entries_per_day": 1
+  },
+  "technical_exit_lookback_bars": 30,
+  "execution": {
+    "signal": "completed_5m_bar_close",
+    "fill": "next_tradable_5m_bar_open",
+    "commission_rate": 0.001425,
+    "stock_tax_rate": 0.003,
+    "same_day_tax": "reuse_existing_engine_rule",
+    "primary_simulated_slippage_bps_per_side": 0,
+    "expected_edge_slippage_reserve_bps_per_side": 5,
+    "sensitivity_simulated_slippage_bps_per_side": [0, 5, 10]
+  },
+  "estimator": {
+    "method": "expanding_arithmetic_mean_of_prior_completed_baseline_gross_trade_returns",
+    "minimum_matured_trades": 5,
+    "maturity_rule": "baseline_exit_timestamp_strictly_less_than_candidate_signal_timestamp",
+    "insufficient_sample_action": "BLOCK_AND_LABEL_INSUFFICIENT_NOT_PREDICTED",
+    "no_random_shuffle": true,
+    "no_future_trade_outcomes": true,
+    "prediction_target": "gross entry-to-exit return under frozen V2-B exit, stop, and max-hold rules"
+  },
+  "decision_rule": "Allow only if estimated gross profit minus estimated buy fee, sell fee, ordinary sell tax, and round-trip slippage reserve is strictly positive.",
+  "evaluation": {
+    "paired_arms": ["A_FROZEN_V2B", "B_EXPECTED_EDGE_FILTER"],
+    "metrics": ["candidate_count", "filled_trade_count", "filter_rate", "gross_pnl", "fees", "tax", "slippage", "net_return", "net_pnl", "win_rate", "profit_factor", "expectancy", "max_drawdown", "sharpe", "exposure", "return_per_dollar_day", "blocked_candidate_outcomes", "prediction_error", "time_segment_metrics"],
+    "period_slices": ["2023", "2024", "half_year"],
+    "no_champion_by_single_metric": true
+  },
+  "parameter_search_performed": false,
+  "ml_gate_used": false,
+  "final_oos_used": false,
+  "additional_holdout_used": false,
+  "official_strategy_modified": false,
+  "preregistration_created_before_data_run": true
+}

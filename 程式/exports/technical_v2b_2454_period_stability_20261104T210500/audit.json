@@ -1,0 +1,55 @@
+{
+  "status": "COMPLETED_READ_ONLY_DIAGNOSIS",
+  "source_export": "exports\\technical_v2b_cross_stock_exp001_20261104T201723+0800",
+  "source_experiment_id": "technical-v2b-cross-stock-2023-2024-exp001",
+  "stock_code": "2454",
+  "data_role": "historical_development_exposed",
+  "periods": [
+    {
+      "id": "2023_H1",
+      "start": "2023-01-01",
+      "end": "2023-06-30"
+    },
+    {
+      "id": "2023_H2",
+      "start": "2023-07-01",
+      "end": "2023-12-31"
+    },
+    {
+      "id": "2024_H1",
+      "start": "2024-01-01",
+      "end": "2024-06-30"
+    },
+    {
+      "id": "2024_H2",
+      "start": "2024-07-01",
+      "end": "2024-12-31"
+    }
+  ],
+  "source_hashes": {
+    "audit.json": "6a1b298cb0664be67b2f43cc3630755962cc9d294a4779bb27f98ab76af72148",
+    "config_snapshot.json": "e2d69af798fbc6134dcc545adafb15bd3e0a3248eba877e69ddb7a1dfd8553f6",
+    "trades.csv": "c9a9c0f4863aabff8abb3ca48feb996dfdb9c6a6fe9e4dd58b46e92f28004bb4",
+    "equity_curves.csv": "75278804e9bbf4f417e6ea1dcb197dcf4c652f1151ec35c81bf1968eee143130"
+  },
+  "existing_trade_rows_used": 43,
+  "existing_equity_curve_rows_used": 45576,
+  "market_database_read": false,
+  "backtest_rerun": false,
+  "strategy_or_risk_changed": false,
+  "parameter_search": false,
+  "2025_used": false,
+  "2026_used": false,
+  "additional_holdout_used": false,
+  "final_oos_used": false,
+  "slippage_scenarios_bps_each_side": [
+    0,
+    5,
+    10,
+    20
+  ],
+  "slippage_analysis_is_engine_rerun": false,
+  "period_comparison_csv": "half_year_comparison.csv",
+  "slippage_csv": "slippage_sensitivity.csv",
+  "monthly_profit_csv": "monthly_profit_contribution.csv"
+}

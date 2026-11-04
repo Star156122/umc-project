@@ -1,0 +1,6 @@
+﻿stock_code,stock_name,raw_breakout_trigger_count,technical_candidate_count,after_market_regime_candidate_count,risk_decision_count,actual_entry_count,false_breakout_evaluated_candidates,false_breakout_count,false_breakout_pct,false_breakout_definition
+2303,聯電,290,148,107,39,39,289,172,59.515570934256054,"among next 3 observed eligible session 13:25 closes, any <= breakout line; descriptive only"
+2330,台積電,303,144,94,45,45,301,160,53.15614617940199,"among next 3 observed eligible session 13:25 closes, any <= breakout line; descriptive only"
+2382,廣達,363,173,95,48,48,361,194,53.73961218836565,"among next 3 observed eligible session 13:25 closes, any <= breakout line; descriptive only"
+2454,聯發科,346,156,118,43,43,345,212,61.44927536231884,"among next 3 observed eligible session 13:25 closes, any <= breakout line; descriptive only"
+2317,鴻海,240,130,98,42,42,238,135,56.72268907563025,"among next 3 observed eligible session 13:25 closes, any <= breakout line; descriptive only"

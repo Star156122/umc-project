@@ -1,0 +1,75 @@
+{
+  "status": "COMPLETED",
+  "experiment_id": "technical-v2b-cross-stock-2023-2024-exp001",
+  "data_role": "historical_development",
+  "requested_period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "stocks": [
+    "2303",
+    "2330",
+    "2382",
+    "2454",
+    "2317"
+  ],
+  "frozen_candidate": "BR_SENS_RANGE55_BB20_2",
+  "database_path": "data\\technical_v1_mltech_clean.sqlite3",
+  "database_sha256_before": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "database_sha256_after": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "required_symbols": [
+    "2303",
+    "2330",
+    "2382",
+    "2454",
+    "2317",
+    "2379",
+    "3034"
+  ],
+  "complete_valid_sessions_by_symbol": {
+    "2303": 422,
+    "2330": 422,
+    "2382": 479,
+    "2454": 422,
+    "2317": 479,
+    "2379": 422,
+    "3034": 422
+  },
+  "common_eligible_sessions": 422,
+  "first_common_session": "2023-01-04",
+  "last_common_session": "2024-12-30",
+  "incomplete_sessions_by_symbol": {
+    "2303": 59,
+    "2330": 59,
+    "2382": 2,
+    "2454": 59,
+    "2317": 2,
+    "2379": 59,
+    "3034": 59
+  },
+  "proxy_audit": {
+    "eligible_frozen_peer_sessions": 422,
+    "target_contexts": 2110,
+    "proxy_rule": "frozen five peers; target excluded for in-pool stocks; all five peers for external targets; prior 20 complete peer sessions; equal-weight absolute closes"
+  },
+  "technical_config_sha256": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+  "frozen_candidate_config_sha256": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+  "technical_source_sha256": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36",
+  "risk_source_sha256": "b7b4e292c461d338e0f1a0d7bca0d36e54e2ba03601e7d3ceed3d9072f181547",
+  "shared_runner_source_sha256": "3e898bc28fe71cccc171fee6087a954d504a635bcebdc549b6e5c3de278b3399",
+  "signal_execution": "completed bar close -> next actual bar open",
+  "fees_pct": 0.1425,
+  "sell_tax_pct": 0.3,
+  "slippage_pct": 0.0,
+  "market_proxy_config_unchanged": true,
+  "ml_gate_used": false,
+  "database_modified": false,
+  "strategy_config_modified": false,
+  "parameter_search": false,
+  "forbidden_periods_used": false,
+  "annual_runs_reset_capital": true,
+  "same_exposure_benchmark": "Buy & Hold 100%, nominal 40%, and B&H scaled to each strategy's average invested exposure; average exposure is not pathwise matched",
+  "incomplete_target_dates_used_for_entry": false,
+  "incomplete_target_dates_used_for_management_if_present": true,
+  "known_data_risk": "target sessions with missing bars are excluded from new candidate eligibility; actual available bars remain in replay for position management; trades overlapping incomplete sessions are flagged in report"
+}

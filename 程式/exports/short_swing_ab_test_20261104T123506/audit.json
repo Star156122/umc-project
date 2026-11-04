@@ -1,0 +1,156 @@
+{
+  "status": "COMPLETED",
+  "experiment_id": "short-swing-technical-ab-v1-20261104",
+  "data_role": "historical_development",
+  "stock_code": "2303",
+  "requested_period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "actual_first_session": "2023-01-04",
+  "actual_last_session": "2024-12-30",
+  "trading_day_count": 422,
+  "bar_count": 22788,
+  "training_warmup_bars": 0,
+  "database_path": "data\\technical_v1_mltech_clean.sqlite3",
+  "database_sha256_before": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "database_sha256_after": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "technical_config_path": "configs\\technical_v1_research.json",
+  "technical_config_sha256": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+  "frozen_candidate_config_path": "configs\\technical_v2_candidate.json",
+  "frozen_candidate_config_sha256": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+  "technical_source_sha256": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36",
+  "market_regime_source": "hybrid/scripts/run_strategy_v2_batch.py::build_regime_context",
+  "market_regime_audit": {
+    "daily_dates_in_period": 422,
+    "complete_global_intersection_days": 422,
+    "candidate_dates": 422,
+    "target_date_contexts": 2110,
+    "missing_20_session_contexts": 100,
+    "source_rule": "equal-weight arithmetic mean of other four completed closes; common complete 54-bar days; strict prior date; no fill"
+  },
+  "market_data_quality": {
+    "all_five_stocks_same_dates": true,
+    "bars_per_stock_session": 54,
+    "incomplete_sessions": 0,
+    "missing_fill_used": false
+  },
+  "variants": [
+    "A_ORIGINAL_V2B",
+    "B_NO_BOLLINGER",
+    "C_NO_MA120",
+    "D_EXIT55",
+    "E_EXIT80"
+  ],
+  "risk_v1": {
+    "version": "risk_v1",
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025,
+    "max_holding_bars": 162,
+    "min_holding_bars": 2,
+    "cooldown_bars": 6,
+    "max_entries_per_day": 1
+  },
+  "entry_execution": "completed 5-minute K-bar signal -> next actual tradable 5-minute bar open",
+  "stop_execution": "OHLC stop approximation: gap uses current bar open; intrabar low touch uses stop; stop has priority",
+  "same_day_tax": "existing engine 0.15% for eligible same-day round trips; otherwise 0.3%",
+  "position_quantity_cap": 1000,
+  "candidate_counts": {
+    "A_ORIGINAL_V2B": {
+      "raw_breakout_trigger": 290,
+      "technical_candidate": 148,
+      "after_market_filter": 107,
+      "risk_decisions": 39,
+      "buy_fills": 39
+    },
+    "B_NO_BOLLINGER": {
+      "raw_breakout_trigger": 290,
+      "technical_candidate": 186,
+      "after_market_filter": 130,
+      "risk_decisions": 44,
+      "buy_fills": 44
+    },
+    "C_NO_MA120": {
+      "raw_breakout_trigger": 290,
+      "technical_candidate": 227,
+      "after_market_filter": 153,
+      "risk_decisions": 55,
+      "buy_fills": 55
+    },
+    "D_EXIT55": {
+      "raw_breakout_trigger": 290,
+      "technical_candidate": 227,
+      "after_market_filter": 153,
+      "risk_decisions": 49,
+      "buy_fills": 49
+    },
+    "E_EXIT80": {
+      "raw_breakout_trigger": 290,
+      "technical_candidate": 227,
+      "after_market_filter": 153,
+      "risk_decisions": 49,
+      "buy_fills": 49
+    }
+  },
+  "buy_and_hold": {
+    "full_capital": {
+      "variant": "buy_and_hold_full",
+      "quantity": 24207,
+      "exposure_target_pct": 100.0,
+      "initial_capital": 1000000.0,
+      "final_equity": 1041153.32216125,
+      "total_return_pct": 4.115332216125012,
+      "net_pnl": 41153.32216125005,
+      "buy_fee": 1422.91771875,
+      "sell_fee": 1490.1829200000002,
+      "transaction_tax": 3137.2272000000003,
+      "total_cost": 6050.32783875,
+      "assumption": "buy at first available bar open, hold all shares through final close, sell at final close; odd-lot integer shares; no Risk V1 stop/position cap"
+    },
+    "initial_40pct_exposure": {
+      "variant": "buy_and_hold_40pct",
+      "quantity": 9683,
+      "exposure_target_pct": 40.0,
+      "initial_capital": 1000000.0,
+      "final_equity": 1016461.6688762499,
+      "total_return_pct": 1.6461668876250002,
+      "net_pnl": 16461.668876249925,
+      "buy_fee": 569.17884375,
+      "sell_fee": 596.0854800000001,
+      "transaction_tax": 1254.9168000000002,
+      "total_cost": 2420.1811237500006,
+      "assumption": "buy at first available bar open, hold all shares through final close, sell at final close; odd-lot integer shares; no Risk V1 stop/position cap"
+    }
+  },
+  "lookahead_checks": {
+    "current_bar_excluded_from_breakout_high": true,
+    "market_regime_uses_strict_prior_complete_sessions": true,
+    "signal_uses_completed_bar_only": true,
+    "entry_at_next_actual_tradable_open": true,
+    "OHLCV_fill_used": false
+  },
+  "final_oos_used": false,
+  "ml_gate_used": false,
+  "model_training_performed": false,
+  "parameter_search_performed": false,
+  "frozen_technical_config_modified": false,
+  "database_modified": false,
+  "comparison_is_single_stock_exploratory": true,
+  "output_files": [
+    "annual_performance.csv",
+    "candidate_audit.csv",
+    "charts/drawdown_curves.png",
+    "charts/equity_curves.png",
+    "charts/holding_duration.png",
+    "charts/net_return_comparison.png",
+    "charts/trade_count_win_rate.png",
+    "comparison.csv",
+    "config_snapshot.json",
+    "equity_curves.csv",
+    "report.md",
+    "risk_decisions.csv",
+    "trades.csv",
+    "audit.json"
+  ]
+}

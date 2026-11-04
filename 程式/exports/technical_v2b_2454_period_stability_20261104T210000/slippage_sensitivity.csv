@@ -1,0 +1,17 @@
+﻿period,slippage_bps_each_side,trade_count_by_entry_date,approx_net_pnl_fixed_quantity,approx_return_pct_vs_period_start_equity,positive_trades_after_slippage,profit_factor_after_slippage,slippage_method
+2023_H1,0,9,-5379.908100000002,-0.5379908100000003,1,0.8209705783505078,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2023_H1,5,9,-8959.72295092453,-0.895972295092453,1,0.7303159969127039,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2023_H1,10,9,-12539.537801849634,-1.2539537801849634,1,0.6554662254784892,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2023_H1,20,9,-19699.167503700024,-1.9699167503700024,1,0.5391029547880318,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2023_H2,0,12,17117.199999999997,1.7209787072872618,6,1.8511693144322519,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2023_H2,5,12,12295.324183100623,1.2361829690784898,6,1.546176253471506,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2023_H2,10,12,7473.44836620055,0.7513872308696472,6,1.2999810748062424,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2023_H2,20,12,-2170.3032675999502,-0.2182042455480735,6,0.9269649520895199,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2024_H1,0,14,70783.243771875,6.900755466606292,7,2.2522894576651873,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2024_H1,5,14,64943.098146039774,6.331391663738689,7,2.0937897266378807,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2024_H1,10,14,59102.95252020387,5.762027860871021,6,1.946524374202837,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2024_H1,20,14,47422.6612685313,4.623300255135611,6,1.687282659196184,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2024_H2,0,8,-42047.4323,-3.9300117379397195,2,0.3327026483076882,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2024_H2,5,8,-45420.10271647471,-4.2452422668904175,2,0.30689513460913653,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2024_H2,10,8,-48792.77313294969,-4.56047279584114,2,0.2829988378510415,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun
+2024_H2,20,8,-55538.113965900055,-5.190933853742624,2,0.2401492203794321,adverse price adjustment on stored buy/sell notionals; fixed original quantity; no engine rerun

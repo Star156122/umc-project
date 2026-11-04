@@ -1,0 +1,56 @@
+{
+  "status": "COMPLETED",
+  "experiment_id": "technical-v2b-max-hold-2303-2023-2024-exp002",
+  "data_role": "historical_development",
+  "stock_code": "2303",
+  "period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "actual_first_session": "2023-01-04",
+  "actual_last_session": "2024-12-30",
+  "evaluation_trading_days": 422,
+  "warmup_bars": 0,
+  "same_bar_timestamps_all_variants": true,
+  "data_source": "data\\technical_v1_mltech_clean.sqlite3",
+  "database_sha256_before": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "database_sha256_after": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "technical_config_sha256": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+  "frozen_candidate_config_sha256": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+  "market_regime_audit": {
+    "daily_dates_in_period": 422,
+    "complete_global_intersection_days": 422,
+    "candidate_dates": 422,
+    "target_date_contexts": 2110,
+    "missing_20_session_contexts": 100,
+    "source_rule": "equal-weight arithmetic mean of other four completed closes; common complete 54-bar days; strict prior date; no fill"
+  },
+  "entry_fill": "completed 5m bar signal -> next tradable bar open",
+  "ml_gate_used": false,
+  "final_oos_used": false,
+  "additional_holdout_used": false,
+  "parameter_search": false,
+  "production_strategy_modified": false,
+  "database_modified": false,
+  "holding_counter_semantics": {
+    "complete_bars_per_session": 54,
+    "timeout_counter": "observed 5-minute bars since entry; overnight/non-trading time does not increment the counter",
+    "day_equivalence": "max_hold_bars / 54 is a complete-session equivalent; intraday entry and next-bar-open exit mean it is not guaranteed to exit exactly at the Nth session close",
+    "cross_day_measure": "number of observed trading-date transitions between actual entry-open and exit-open; inclusive session count is transitions + 1"
+  },
+  "exit_priority": "inherited engine: stop/time risk exits are checked before technical exit; queued exit executes at next tradable open; end-of-backtest mark is separately labelled",
+  "source_hashes": {
+    "runner": "bbbdc30fddaf25560bba430ba04994479cedb2253451896a596481c43e54dbce",
+    "technical_engine": "21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02",
+    "strategy_source": "3e898bc28fe71cccc171fee6087a954d504a635bcebdc549b6e5c3de278b3399"
+  },
+  "classification": "NOT_ADOPTED_INSUFFICIENT_STABLE_EVIDENCE",
+  "decision_basis": {
+    "a_trades_not_taken_by_b_count": 3,
+    "a_trades_not_taken_by_b_net_pnl": -3781.57875,
+    "baseline_time_exit_trade_count": 6,
+    "paired_b_net_pnl_change_sum": -1443.5837499999996,
+    "extended_caps_270_540_810_identical_results": true,
+    "formal_strategy_adopted": false
+  }
+}

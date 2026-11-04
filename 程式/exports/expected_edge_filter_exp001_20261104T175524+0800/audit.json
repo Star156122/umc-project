@@ -1,0 +1,69 @@
+{
+  "status": "COMPLETED",
+  "experiment_id": "technical-v2b-expected-edge-2303-2023-2024-exp001",
+  "data_role": "historical_development",
+  "stock_code": "2303",
+  "period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "database_path": "data/technical_v1_mltech_clean.sqlite3",
+  "database_sha256_before": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "database_sha256_after": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "technical_config_sha256": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+  "frozen_candidate_config_sha256": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+  "technical_source_sha256": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36",
+  "backtest_source_sha256": "21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02",
+  "candidate_id": "BR_SENS_RANGE55_BB20_2",
+  "technical_params": {
+    "ma_fast_period": 20,
+    "ma_mid_period": 60,
+    "ma_slow_period": 240,
+    "trend_ma_period": 120,
+    "trend_slope_lookback": 12,
+    "require_trend_filter": true,
+    "bollinger_period": 20,
+    "bollinger_stddev": 2.0,
+    "breakout_entry_period": 55,
+    "breakout_exit_period": 30,
+    "breakout_require_cross": true,
+    "breakout_volume_ratio": 0.0,
+    "volume_ma_period": 20,
+    "use_rsi": false,
+    "use_macd": false
+  },
+  "target_bar_count": 22788,
+  "target_session_count": 422,
+  "global_complete_session_count": 422,
+  "warmup_count": 0,
+  "market_regime_audit": {
+    "daily_dates_in_period": 422,
+    "complete_global_intersection_days": 422,
+    "candidate_dates": 422,
+    "target_date_contexts": 2110,
+    "missing_20_session_contexts": 100,
+    "source_rule": "equal-weight arithmetic mean of other four completed closes; common complete 54-bar days; strict prior date; no fill"
+  },
+  "all_source_sessions_complete": true,
+  "lookahead_check": "PASS_STRICT_PRIOR_COMPLETED_BASELINE_TRADE_EXIT",
+  "lookahead_assertion_count": 321,
+  "baseline_history_method": "all baseline arm results are filtered per candidate; only exits strictly earlier than completed signal timestamp contribute",
+  "expected_cost_assumptions": {
+    "commission_rate": 0.001425,
+    "ordinary_sell_tax_rate": 0.003,
+    "slippage_bps_per_side": 5.0
+  },
+  "simulated_slippage_sensitivity_bps_per_side": [
+    0.0,
+    5.0,
+    10.0
+  ],
+  "official_strategy_modified": false,
+  "risk_v1_modified": false,
+  "ml_gate_used": false,
+  "parameter_search_performed": false,
+  "market_database_modified": false,
+  "additional_holdout_used": false,
+  "final_oos_used": false,
+  "forbidden_roles_used": false
+}

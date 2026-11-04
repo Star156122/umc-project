@@ -1,0 +1,76 @@
+{
+  "experiment_id": "technical-v2b-data-eligibility-2303-2023-2024-v1",
+  "status": "PREREGISTERED_RESEARCH_ONLY",
+  "data_role": "historical_development",
+  "stock_code": "2303",
+  "period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "baseline_data_source": "data/technical_v1_mltech_clean.sqlite3",
+  "candidate_data_source": "data/market_data.sqlite3",
+  "technical_config": "configs/technical_v1_research.json",
+  "frozen_candidate_config": "configs/technical_v2_candidate.json",
+  "frozen_candidate_id": "BR_SENS_RANGE55_BB20_2",
+  "arms": [
+    "A_ORIGINAL_GLOBAL_COMPLETE",
+    "B_TARGET_SESSION_AND_PEER_CLOSE"
+  ],
+  "single_change": "data eligibility only: A retains the original five-stock global complete-session entry rule; B retains unique valid target-stock bars and only blocks signal windows containing a missing expected bar, while peer proxy observations require valid same-date 13:25 closes",
+  "target_session": {
+    "start": "09:00",
+    "end": "13:25",
+    "expected_bars": 54,
+    "missing_policy": "RETAIN_VALID_BARS_NO_FILL_MASK_AFFECTED_WINDOWS"
+  },
+  "market_proxy": {
+    "type": "target_excluded_equal_weight_peer_close",
+    "peer_codes": [
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "close_time": "13:25",
+    "lookback_sessions": 20,
+    "reference": "strictly_prior_synchronized_peer_close_date",
+    "missing_policy": "EXCLUDE_PROXY_OBSERVATION_IF_ANY_PEER_CLOSE_MISSING_OR_INVALID",
+    "imputation": false
+  },
+  "strategy": {
+    "technical_candidate_id": "BR_SENS_RANGE55_BB20_2",
+    "ml_gate": "NONE_BOTH_ARMS",
+    "risk_version": "risk_v1"
+  },
+  "initial_capital": 1000000,
+  "risk": {
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025,
+    "max_holding_bars": 162,
+    "min_holding_bars": 2,
+    "cooldown_bars": 6,
+    "max_entries_per_day": 1
+  },
+  "execution": {
+    "signal": "completed_5m_bar_close",
+    "fill": "immediately_next_scheduled_5m_bar_open_only",
+    "slippage_rate": 0.0,
+    "stock_fee_rate": 0.001425,
+    "stock_tax_rate": 0.003,
+    "same_day_tax": "reuse_existing_engine_rule"
+  },
+  "comparison": {
+    "same_stock": true,
+    "same_requested_period": true,
+    "same_strategy_parameters": true,
+    "same_risk_and_cost": true,
+    "same_real_target_bar_stream_and_execution_timeline": true,
+    "only_data_eligibility_and_corresponding_proxy_history_differs": true,
+    "no_ml_gate": true,
+    "no_parameter_search": true
+  },
+  "forbidden_roles_used": false,
+  "parameter_search_performed": false,
+  "final_oos_used": false
+}

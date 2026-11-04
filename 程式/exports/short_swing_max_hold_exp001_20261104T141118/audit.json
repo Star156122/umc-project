@@ -1,0 +1,55 @@
+{
+  "status": "COMPLETED",
+  "experiment_id": "technical-v2b-max-hold-5d-2303-20261104",
+  "data_role": "historical_development",
+  "stock_code": "2303",
+  "period": {
+    "start": "2024-12-01",
+    "end": "2024-12-31"
+  },
+  "actual_first_session": "2024-12-02",
+  "actual_last_session": "2024-12-30",
+  "evaluation_trading_days": 11,
+  "full_frame_bar_count": 22788,
+  "evaluation_bar_count": 594,
+  "warmup_bars": 22194,
+  "complete_54_bar_sessions": true,
+  "five_stock_common_dates": true,
+  "missing_fill_used": false,
+  "market_regime_audit": {
+    "daily_dates_in_period": 422,
+    "complete_global_intersection_days": 422,
+    "candidate_dates": 422,
+    "target_date_contexts": 2110,
+    "missing_20_session_contexts": 100,
+    "source_rule": "equal-weight arithmetic mean of other four completed closes; common complete 54-bar days; strict prior date; no fill"
+  },
+  "database_path": "data\\technical_v1_mltech_clean.sqlite3",
+  "database_sha256_before": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "database_sha256_after": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "technical_config_sha256": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+  "frozen_candidate_config_sha256": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+  "runner_sha256": "85a80027f16d3aeec8422ae19852f890419e9cdf33822ab82c731f733cb023c4",
+  "shared_runner_sha256": "3e898bc28fe71cccc171fee6087a954d504a635bcebdc549b6e5c3de278b3399",
+  "technical_source_sha256": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36",
+  "versions": {
+    "A_ORIGINAL_V2B": {
+      "max_holding_bars": 162
+    },
+    "F_MAX_HOLD_270_BARS": {
+      "max_holding_bars": 270
+    }
+  },
+  "only_changed_setting": "max_holding_bars: 162 -> 270",
+  "entry_execution": "completed 5-minute bar signal -> next actual tradable 5-minute bar open",
+  "stop_execution": "same inherited OHLC stop handling; gap uses bar open; stop takes priority",
+  "slippage_rate": 0.0,
+  "final_oos_used": false,
+  "parameter_search": false,
+  "ml_gate_used": false,
+  "original_two_year_reference": {
+    "run": "exports/short_swing_ab_test_20261104T123811",
+    "trades": 39,
+    "return_pct": -0.63843425
+  }
+}

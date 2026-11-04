@@ -1,0 +1,60 @@
+{
+  "experiment_id": "technical-v2b-max-hold-5d-2303-20261104",
+  "status": "PREREGISTERED_RESEARCH_ONLY",
+  "question": "Does increasing the maximum holding cap from 162 to 270 five-minute bars improve the original Technical V2-B trade outcomes?",
+  "data_role": "historical_development",
+  "stock_code": "2303",
+  "period": {
+    "start": "2024-12-01",
+    "end": "2024-12-31"
+  },
+  "warmup_start": "2023-01-01",
+  "data_source": "data/technical_v1_mltech_clean.sqlite3",
+  "technical_config": "configs/technical_v1_research.json",
+  "frozen_candidate_config": "configs/technical_v2_candidate.json",
+  "frozen_candidate_id": "BR_SENS_RANGE55_BB20_2",
+  "baseline": {
+    "id": "A_ORIGINAL_V2B",
+    "max_holding_bars": 162
+  },
+  "candidate": {
+    "id": "F_MAX_HOLD_270_BARS",
+    "max_holding_bars": 270
+  },
+  "single_change": "max_holding_bars only; 270 five-minute bars is approximately five full 54-bar sessions, not an exact fifth-calendar-session exit",
+  "all_other_settings": "Reuse original A candidate, technical exit, market regime filter, Risk V1 except max holding cap, capital, costs, sizing, cooldown, minimum hold, entry rules, and next-tradable-open execution unchanged.",
+  "initial_capital": 1000000,
+  "risk": {
+    "version": "risk_v1",
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025,
+    "baseline_max_holding_bars": 162,
+    "candidate_max_holding_bars": 270,
+    "min_holding_bars": 2,
+    "cooldown_bars": 6,
+    "max_entries_per_day": 1
+  },
+  "execution": {
+    "signal": "completed_5m_bar_close",
+    "entry_exit": "next_tradable_5m_bar_open",
+    "slippage_rate": 0.0,
+    "stock_fee_rate": 0.001425,
+    "stock_tax_rate": 0.003,
+    "inherit_existing_same_day_tax": true,
+    "share_sizing": "Risk V1 helper capped by existing engine quantity and affordable cash; integer shares"
+  },
+  "market_regime_filter": {
+    "enabled": true,
+    "rule": "existing frozen Technical V2-B market proxy filter; target excluded; strict prior complete sessions; no fill"
+  },
+  "selection_rule": "Exploratory paired comparison only. Report net return, drawdown, trade count, win rate, profit factor, holding duration, exit reasons, cost, and year/month context. Do not declare a winner from return alone or change the production strategy.",
+  "final_oos_used": false,
+  "parameter_search": false,
+  "ml_gate_used": false,
+  "comparison_versions": [
+    "A_ORIGINAL_V2B",
+    "F_MAX_HOLD_270_BARS"
+  ],
+  "only_parameter_changed": "risk.max_holding_bars"
+}

@@ -1,0 +1,58 @@
+{
+  "experiment_id": "short-swing-technical-ab-v1-20261104",
+  "status": "RESEARCH_ONLY",
+  "data_role": "historical_development",
+  "stock_code": "2303",
+  "stock_name": "聯電",
+  "period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "data_source": "data/technical_v1_mltech_clean.sqlite3",
+  "technical_config": "configs/technical_v1_research.json",
+  "frozen_candidate_config": "configs/technical_v2_candidate.json",
+  "frozen_candidate_id": "BR_SENS_RANGE55_BB20_2",
+  "variants": [
+    "A_ORIGINAL_V2B",
+    "B_NO_BOLLINGER",
+    "C_NO_MA120",
+    "D_EXIT55",
+    "E_EXIT80"
+  ],
+  "initial_capital": 1000000,
+  "risk": {
+    "version": "risk_v1",
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025,
+    "max_holding_bars": 162,
+    "min_holding_bars": 2,
+    "cooldown_bars": 6,
+    "max_entries_per_day": 1
+  },
+  "execution": {
+    "signal": "completed_5m_bar_close",
+    "entry_exit": "next_tradable_5m_bar_open",
+    "slippage_rate": 0.0,
+    "stock_fee_rate": 0.001425,
+    "stock_tax_rate": 0.003,
+    "inherit_existing_same_day_tax": true,
+    "share_sizing": "Risk V1 helper capped by existing engine quantity and affordable cash; integer shares"
+  },
+  "market_regime_filter": {
+    "enabled": true,
+    "rule": "target_excluded_equal_weight_mean_of_other_four_close_prices_above_prior_20_complete_common_session_mean",
+    "complete_session": "09:00-13:25, exactly 54 five-minute bars for all five frozen universe stocks",
+    "missing_data_policy": "EXCLUDE_NO_FILL"
+  },
+  "rules": {
+    "A_ORIGINAL_V2B": "Frozen BR_SENS_RANGE55_BB20_2 entry and prior 30-bar low exit",
+    "B_NO_BOLLINGER": "A without only the Bollinger upper-band entry condition; prior 30-bar low exit",
+    "C_NO_MA120": "B without only MA120 and positive MA120 slope entry requirements; prior 30-bar low exit",
+    "D_EXIT55": "C with prior 55-bar low exit",
+    "E_EXIT80": "C with prior 80-bar low exit"
+  },
+  "final_oos_used": false,
+  "parameter_search": false,
+  "ml_gate_used": false
+}

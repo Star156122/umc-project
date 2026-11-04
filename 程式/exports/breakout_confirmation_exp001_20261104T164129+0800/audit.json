@@ -1,0 +1,70 @@
+{
+  "status": "COMPLETED",
+  "experiment_id": "technical-v2b-breakout-confirmation-2303-2023-2024-exp001",
+  "data_role": "historical_development",
+  "period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "stock_code": "2303",
+  "data_source": "data/market_data.sqlite3",
+  "data_source_sha256": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+  "technical_config_sha256": "027caee3f6cd623f9347d8f00376edadeb7c798666209acdf1161e9e0df25d75",
+  "frozen_v2b_config_sha256": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+  "technical_source_sha256": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36",
+  "backtest_engine_sha256": "21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02",
+  "target_bar_count": 25972,
+  "same_target_bars": true,
+  "same_peer_proxy_for_both_arms": true,
+  "peer_proxy_excluded_days": 1,
+  "market_proxy_rule": "equal-weight 13:25 closes for peers 2330/2379/2454/3034; only strictly prior synchronized observations; no target stock and no imputation",
+  "execution_timing_check": "A setup close -> immediate next actual bar open; B setup close -> next consecutive completed bar close above saved line -> following consecutive actual bar open",
+  "no_lookahead_checks": {
+    "breakout_high_uses_shifted_prior_bars": true,
+    "B_confirmation_timestamp_minus_setup_seconds": 300,
+    "B_entry_timestamp_minus_confirmation_seconds": 300,
+    "same_session_required": true,
+    "future_outcomes_used_for_signal": false,
+    "all_candidate_confirmation_rows_time_checked": true
+  },
+  "same_risk_cost_exit": true,
+  "risk_v1": {
+    "version": "risk_v1",
+    "risk_per_trade": 0.01,
+    "max_position_fraction": 0.4,
+    "stop_loss_pct": 0.025,
+    "max_holding_bars": 162,
+    "min_holding_bars": 2,
+    "cooldown_bars": 6,
+    "max_entries_per_day": 1
+  },
+  "execution": {
+    "signal": "completed_5m_bar_close",
+    "A_entry": "next actual 5-minute bar open",
+    "B_entry": "one full confirmation bar close, then next actual 5-minute bar open",
+    "stock_fee_rate": 0.001425,
+    "stock_tax_rate": 0.003,
+    "slippage_rate": 0.0,
+    "same_day_tax": "reuse existing engine rule"
+  },
+  "no_ml_gate": true,
+  "parameter_search_performed": false,
+  "final_oos_used": false,
+  "additional_holdout_used": false,
+  "validation_used": false,
+  "database_unchanged": true,
+  "frozen_config_unchanged": true,
+  "frozen_candidate_overwritten": false,
+  "raw_database_modified": false,
+  "output_files": [
+    "blocked_signal_outcomes.csv",
+    "candidate_confirmation_audit.csv",
+    "comparison.csv",
+    "config_snapshot.json",
+    "equity_curves.csv",
+    "report.md",
+    "risk_decisions.csv",
+    "trades.csv",
+    "audit.json"
+  ]
+}
