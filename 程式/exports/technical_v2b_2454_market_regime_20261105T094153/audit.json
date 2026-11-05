@@ -1,0 +1,50 @@
+{
+  "status": "COMPLETED_POST_HOC_DIAGNOSIS",
+  "experiment_id": "technical-v2b-2454-market-regime-diagnosis-2023-2024",
+  "source_export": "exports\\technical_v2b_cross_stock_exp001_20261104T201723+0800",
+  "source_experiment_id": "technical-v2b-cross-stock-2023-2024-exp001",
+  "stock_code": "2454",
+  "period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "data_role": "historical_development_exposed",
+  "db_path": "data\\technical_v1_mltech_clean.sqlite3",
+  "db_sha256_before": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "db_sha256_after": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+  "complete_common_sessions": 422,
+  "proxy_audit": {
+    "eligible_frozen_peer_sessions": 422,
+    "target_contexts": 2110,
+    "proxy_rule": "frozen five peers; target excluded for in-pool stocks; all five peers for external targets; prior 20 complete peer sessions; equal-weight absolute closes"
+  },
+  "frozen_candidate": "BR_SENS_RANGE55_BB20_2",
+  "risk_version": "risk_v1",
+  "ml_gate_used": false,
+  "market_data_read_only": true,
+  "market_data_query_bound": [
+    "2023-01-01",
+    "2024-12-31"
+  ],
+  "backtest_rerun": false,
+  "parameter_search": false,
+  "strategy_or_risk_changed": false,
+  "2025_used": false,
+  "2026_used": false,
+  "holdout_used": false,
+  "final_oos_used": false,
+  "features_from_future_for_signal": false,
+  "mfe_mae_are_post_hoc_only": true,
+  "files": [
+    "market_regime_diagnosis.md",
+    "period_performance.csv",
+    "trade_mfe_mae.csv",
+    "exit_reason_comparison.csv",
+    "winner_loser_feature_comparison.csv",
+    "candidate_signal_features.csv",
+    "market_regime_monthly.csv",
+    "charts/mfe_mae_by_period.png",
+    "charts/market_proxy_trend_volatility.png",
+    "charts/winner_loser_signal_features.png"
+  ]
+}
