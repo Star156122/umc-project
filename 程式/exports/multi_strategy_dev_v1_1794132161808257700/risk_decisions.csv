@@ -1,0 +1,3 @@
+﻿strategy_id,timestamp,stock_code,fold_id,model,current_equity,entry_price,stop_loss_pct,stop_distance_per_share,risk_per_trade,risk_budget,quantity_by_risk,quantity_by_exposure,original_quantity,final_quantity,estimated_stop_loss_amount,estimated_risk_fraction,position_fraction,decision
+technical,2024-12-03T09:05:00.000000+08:00,2330,DEV2024H2,technical_only,100000.0,1060.0,0.025,26.5,0.01,1000.0,37,37,89,37,980.5,0.009805,0.3922,REDUCE_SIZE
+technical,2024-12-30T09:10:00.000000+08:00,2330,DEV2024H2,technical_only,99954.74437500001,1095.0,0.025,27.375,0.01,999.5474437500001,36,36,86,36,985.5,0.009859461961132146,0.39437847844528584,REDUCE_SIZE
