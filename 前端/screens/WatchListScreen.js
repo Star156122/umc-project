@@ -1,3 +1,4 @@
+import usePageLayout from '../styles/usePageLayout';
 import React, { useCallback, useState } from "react";
 import {
   ActivityIndicator,
@@ -19,6 +20,7 @@ import { apiRequest } from "../src/config/api";
 import { marketColors } from "../styles/marketTheme";
 
 export default function WatchListScreen() {
+ const layout=usePageLayout();
   const [newCode,setNewCode]=useState(""),[adding,setAdding]=useState(false),[filter,setFilter]=useState("");
   const [stocks, setStocks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -106,7 +108,7 @@ export default function WatchListScreen() {
     <View>
       <MarketHeader
         title="我的自選股"
-        subtitle="管理收藏股票，行情來源為 Yahoo Finance"
+        subtitle="追蹤你的研究清單，從個股直接進入策略模擬"
         icon="star"
         rightContent={
           <View style={styles.countBadge}>
@@ -182,7 +184,7 @@ export default function WatchListScreen() {
         )}
         ListHeaderComponent={header}
         ListEmptyComponent={emptyContent}
-        contentContainerStyle={styles.listContent}
+        contentContainerStyle={[styles.listContent,layout.page]}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -204,7 +206,6 @@ const styles = StyleSheet.create({
   },
   list: {
     width: "100%",
-    maxWidth: 760,
     alignSelf: "center",
   },
   listContent: {

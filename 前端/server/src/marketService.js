@@ -693,7 +693,25 @@ function databaseRowToYahooSymbol(row) {
   return `${code}.${market === "otc" || market === "two" ? "TWO" : "TW"}`;
 }
 
+const monthCache = new Map();
+async function getMonthMarketHistory(symbol) {
+ const normalized=normalizeYahooSymbol(symbol);
+ if(!/^(?:\^TWII|\d{4,6}\.(?:TW|TWO))$/.test(normalized))throw Object.assign(new Error('股票代號格式不正確'),{status:400});
+ const old=monthCache.get(normalized);
+ if(old&&old.expiresAt>Date.now())return old.promise;
+ const promise=(async()=>{
+  const payload=await fetchYahoo(`/v8/finance/chart/${encodeURIComponent(normalized)}`,{range:'1mo',interval:'1d',includePrePost:'false',events:'div,splits'});
+  const stock=normalizeChartStock(extractChartResult(payload,normalized),normalized);
+  const day=time=>new Date(Date.parse(time)+28800000).toISOString().slice(0,10);
+  return {history:stock.history,historyRange:'1mo',interval:'1d',start:stock.history.length?day(stock.history[0].time):null,end:stock.history.length?day(stock.history.at(-1).time):null,fetchedAt:new Date().toISOString(),source:'Yahoo Finance'};
+ })();
+ if(monthCache.size>=100)monthCache.delete(monthCache.keys().next().value);
+ monthCache.set(normalized,{promise,expiresAt:Date.now()+5*60*1000});
+ try{return await promise;}catch(e){monthCache.delete(normalized);throw e;}
+}
+
 module.exports = {
+  getMonthMarketHistory,
   getHotMarket,
   searchStocks,
   getYahooStockBySymbol,

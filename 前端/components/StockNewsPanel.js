@@ -1,9 +1,11 @@
+import ReportText from './ReportText';
 import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { apiRequest } from '../src/config/api';
 import { marketColors as colors } from '../styles/marketTheme';
 
 function NewsGroup({analysisId, mode, onSaved,apiBase}) {
+  const [sourcesOpen,setSourcesOpen]=useState(false);
   const [data,setData]=useState(null);
   const [error,setError]=useState('');
   const [blocked,setBlocked]=useState(false);
@@ -25,15 +27,17 @@ function NewsGroup({analysisId, mode, onSaved,apiBase}) {
     <Text style={styles.title}>{mode==='latest'?'最新消息｜最近 30 天':'回測期間消息'}</Text>
     {data && <Text style={styles.meta}>{data.start} ～ {data.end} · 查詢於 {new Date(data.fetchedAt).toLocaleString('zh-TW')}</Text>}
     <Text style={styles.note}>{data?.note || (mode==='latest'?'現在的消息與歷史回測分開呈現。':'只顯示回測期間發布的新聞，不代替完整歷史資料。')}</Text>
+    {!data?.summary&&!loading&&<Text style={styles.text}>先產生重點摘要，快速了解公司近況、產業動態與待確認風險；來源可另外展開。</Text>}
     {loading && <ActivityIndicator color={colors.primary}/>}
     {!!error && <Text accessibilityRole="alert" style={styles.error}>{error}</Text>}
     {!!data?.warning && <Text style={styles.note}>{data.warning}</Text>}
     {!!data?.summary && <View style={styles.summary}>
-      <Text style={styles.title}>Gemini 新聞標題摘要</Text>
-      <Text style={styles.text}>{data.summary.text}</Text>
+      <Text style={styles.title}>公司與產業重點</Text>
+      <ReportText text={data.summary.text}/>
       <Text style={styles.meta}>依下列編號新聞標題整理，未讀取全文。{data.summary.model}</Text>
     </View>}
-    {data?.items?.map((item,index)=><Pressable key={item.url} accessibilityRole="link" onPress={()=>Linking.openURL(item.url).catch(()=>setError('無法開啟新聞連結'))} style={styles.item}>
+    {!!data?.items?.length&&<Pressable accessibilityRole="button" accessibilityState={{expanded:sourcesOpen}} onPress={()=>setSourcesOpen(!sourcesOpen)}><Text style={styles.link}>{sourcesOpen?"收合":"查看"}新聞來源（{data.items.length} 則）</Text></Pressable>}
+    {sourcesOpen&&data?.items?.map((item,index)=><Pressable key={item.url} accessibilityRole="link" onPress={()=>Linking.openURL(item.url).catch(()=>setError('無法開啟新聞連結'))} style={styles.item}>
       <Text style={styles.link}>[{index+1}] {item.title}</Text>
       <Text style={styles.meta}>{item.publishedDate} · {item.source} · 開啟來源 ↗</Text>
     </Pressable>)}
@@ -49,7 +53,7 @@ function NewsGroup({analysisId, mode, onSaved,apiBase}) {
 }
 export default function StockNewsPanel({report,onSaved,apiBase}) {
   return <View>
-    <Text style={styles.heading}>個股新聞與事件</Text>
+    <Text style={styles.heading}>公司近況與產業觀察</Text>
     <NewsGroup key={`${report.analysisId}:latest`} analysisId={report.analysisId} mode="latest" onSaved={onSaved} apiBase={apiBase}/>
     <NewsGroup key={`${report.analysisId}:historical`} analysisId={report.analysisId} mode="historical" onSaved={onSaved} apiBase={apiBase}/>
   </View>;

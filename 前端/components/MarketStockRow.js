@@ -1,3 +1,4 @@
+import {router} from 'expo-router';
 import React from "react";
 import {
   ActivityIndicator,
@@ -63,7 +64,7 @@ export default function MarketStockRow({
   style,
 }) {
   const { width } = useWindowDimensions();
-  const compact = width < 520;
+  const compact = width < 760;
   const change = Number(stock?.change);
   const rising = Number.isFinite(change) ? change >= 0 : true;
   const trendColor = rising ? marketColors.rising : marketColors.falling;
@@ -148,6 +149,7 @@ export default function MarketStockRow({
           </View>
         )}
 
+        <Pressable accessibilityRole="button" onPress={()=>router.push({pathname:'/analysis',params:{stock:String(stock.code)}})} style={{paddingVertical:12}}><Text style={{color:'#83c4ff',fontWeight:'700'}}>模擬這檔股票的策略 →</Text></Pressable>
         <View style={styles.volumeRow}>
           <Ionicons name="bar-chart-outline" size={15} color={marketColors.textMuted} />
           <Text style={styles.volumeText}>成交量 {formatVolume(stock?.volume)}</Text>

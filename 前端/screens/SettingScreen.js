@@ -1,3 +1,4 @@
+import usePageLayout from '../styles/usePageLayout';
 import React, { useEffect, useState } from "react";
 import {
   Pressable,
@@ -39,6 +40,7 @@ function SettingItem({ icon, title, subtitle, onPress }) {
 }
 
 export default function SettingScreen() {
+ const layout=usePageLayout();
   const [section,setSection]=useState(null);
   const [user, setUser] = useState({ name: "使用者", email: "尚未登入" });
 
@@ -68,10 +70,10 @@ export default function SettingScreen() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.content}>
+        <View style={[styles.content,layout.page]}>
           <MarketHeader
             title="系統設定"
-            subtitle="帳號、自選股、通知與分析偏好"
+            subtitle="管理帳號安全，設定你的預設股票、策略與報告閱讀方式"
             icon="settings"
           />
 
@@ -174,7 +176,6 @@ const styles = StyleSheet.create({
   },
   content: {
     width: "100%",
-    maxWidth: 760,
     alignSelf: "center",
     paddingHorizontal: 12,
     paddingTop: 14,

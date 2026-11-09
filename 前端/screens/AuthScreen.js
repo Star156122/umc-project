@@ -1,3 +1,4 @@
+import usePageLayout from '../styles/usePageLayout';
 import React, { useState } from "react";
 import {
   SafeAreaView,
@@ -19,6 +20,7 @@ import { apiRequest } from "../src/config/api";
 import { marketColors } from "../styles/marketTheme";
 
 export default function AuthScreen() {
+ const layout=usePageLayout();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -58,7 +60,7 @@ export default function AuthScreen() {
       setMessage("登入成功，正在進入系統…");
 
       setTimeout(() => {
-        router.replace("/(tabs)");
+        router.replace("/analysis");
       }, 400);
     } catch (error) {
       if (error.status === 404) {
@@ -81,31 +83,31 @@ export default function AuthScreen() {
         behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
         <ScrollView
-          contentContainerStyle={styles.container}
+          contentContainerStyle={[styles.container,layout.page]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.brandPanel}>
+          <View style={[styles.brandPanel,layout.compact&&{flexDirection:"column",alignItems:"flex-start",gap:12}]}>
             <View style={styles.logoBox}>
               <Ionicons name="trending-up" size={44} color={marketColors.white} />
             </View>
             <View style={styles.brandTextBox}>
               <Text
                 style={styles.title}
-                numberOfLines={1}
+
                 adjustsFontSizeToFit
                 minimumFontScale={0.72}
               >
                 AI 股票預測分析系統
               </Text>
-              <Text style={styles.subtitle}>即時行情・策略回測・自選管理</Text>
+              <Text style={styles.subtitle}>策略模擬・交易回放・智慧分析</Text>
             </View>
           </View>
 
-          <View style={styles.loginCard}>
+          <View style={[styles.loginCard,layout.card]}>
             <View style={styles.cardHeader}>
               <Text style={styles.cardTitle}>歡迎回來</Text>
-              <Text style={styles.cardSubtitle}>登入後查看行情與分析紀錄</Text>
+              <Text style={styles.cardSubtitle}>登入策略研究工作台，查看模擬交易與歷史報告</Text>
             </View>
 
             <Text style={styles.label}>電子郵件</Text>
@@ -242,7 +244,6 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     width: "100%",
-    maxWidth: 620,
     alignSelf: "center",
     justifyContent: "center",
     paddingHorizontal: 20,
@@ -255,7 +256,7 @@ const styles = StyleSheet.create({
     backgroundColor: marketColors.header,
     borderWidth: 1,
     borderColor: marketColors.headerAccent,
-    borderRadius: 24,
+    borderRadius: 20,
     padding: 18,
     marginBottom: 16,
   },
@@ -268,7 +269,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginRight: 14,
   },
-  brandTextBox: { flex: 1 },
+  brandTextBox: { flex: 1, minWidth:0 },
   title: {
     color: marketColors.text,
     fontSize: 25,
@@ -283,7 +284,7 @@ const styles = StyleSheet.create({
   loginCard: {
     width: "100%",
     backgroundColor: marketColors.surface,
-    borderRadius: 24,
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: marketColors.border,
     padding: 20,

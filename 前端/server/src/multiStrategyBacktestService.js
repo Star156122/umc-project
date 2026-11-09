@@ -30,7 +30,7 @@ function validateMultiRunRequest(body, config) {
   if (!config.stock_universe.map((item) => String(item).padStart(4, "0")).includes(stockCode)) {
     throw apiError(422, "BACKTEST_BLOCKED", "此股票不在目前核准的歷史開發資料範圍");
   }
-  if (["start_date", "end_date", "backtest_period", "data_role", "initial_capital"].some((key) => body && Object.hasOwn(body, key))) {
+  if (["backtest_period", "data_role", "initial_capital"].some((key) => body && Object.hasOwn(body, key))) {
     throw apiError(400, "DEVELOPMENT_DEFAULTS_ONLY", "目前僅允許使用核准的歷史開發日期與資金設定");
   }
   const strategies = body?.strategies;
@@ -38,7 +38,11 @@ function validateMultiRunRequest(body, config) {
       new Set(strategies).size !== strategies.length || strategies.some((value) => !ALLOWED_STRATEGIES.has(value))) {
     throw apiError(400, "INVALID_STRATEGIES", "strategies 須為 technical、rf、xgboost、gru 的不重複非空陣列");
   }
-  return { stock_code: stockCode, strategies: [...strategies] };
+  const period = {start: body.start_date ?? config.periods?.backtest?.start ?? '2024-07-01', end: body.end_date ?? config.periods?.backtest?.end ?? '2024-12-30'};
+  const validDate=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v))&&new Date(v).toISOString().slice(0,10)===v;
+  if(!validDate(period.start)||!validDate(period.end)||period.start>period.end)throw apiError(400,'INVALID_PERIOD','請輸入正確的起訖日期');
+  if(period.start<'2024-07-01'||period.end>'2024-12-30')throw apiError(422,'BACKTEST_BLOCKED','目前模型可回測範圍為 2024/07/01～2024/12/30；請在此範圍選擇期間');
+  return { stock_code: stockCode, strategies: [...strategies], period };
 }
 
 function parseRunnerJson(stdout) {
@@ -83,6 +87,7 @@ function normalizeRunPayload(runId, stockCode, source) {
     data_role: audit.data_role,
     backtest_period: audit.periods?.backtest || run.results[0]?.period || null,
     status: "completed",
+    market_chart: run.market_chart || null,
     strategies,
     comparison: { ...run.comparison, rows: comparisonRows },
     buy_and_hold: run.buy_and_hold,
@@ -139,7 +144,7 @@ function createMultiStrategyBacktestService({
     if (activeJobId) throw apiError(409, "BACKTEST_QUEUE_BUSY", "目前已有多策略回測執行中，請稍後再試");
     const id = crypto.randomUUID();
     const job = {
-      run_id: id, stock_code: request.stock_code, strategies: request.strategies,
+      run_id: id, stock_code: request.stock_code, strategies: request.strategies, period: request.period,
       status: "pending", created_at: new Date().toISOString(), updated_at_ms: Date.now(),
       result: null, error: null,
     };
@@ -157,7 +162,8 @@ function createMultiStrategyBacktestService({
     const command = configuredPython || (fs.existsSync(venvPython) ? venvPython : process.platform === "win32" ? "python" : "python3");
     const args = [
       ...pythonArgs,
-      "hybrid/scripts/run_multi_strategy_backtest_v1.py",
+      "scripts/web_multi_backtest.py",
+      "--start-date", job.period.start, "--end-date", job.period.end,
       "--stock-code", job.stock_code,
       "--strategies", ...job.strategies,
     ];
@@ -216,6 +222,7 @@ function createMultiStrategyBacktestService({
         if (result.strategies.map((item) => item.strategy_id).join(",") !== job.strategies.join(",")) {
           throw apiError(500, "RESULT_STRATEGY_MISMATCH", "回測策略結果與提交的選項不一致");
         }
+        if (result.backtest_period?.start!==job.period.start||result.backtest_period?.end!==job.period.end) throw apiError(500,'RESULT_PERIOD_MISMATCH','回傳期間與提交日期不符');
         finishJob(job, "completed", result, null);
       } catch (error) {
         finishJob(job, "failed", null, { code: error.code || "RESULT_READ_FAILED", message: error.message || "無法讀取回測結果" });
@@ -255,7 +262,7 @@ function createMultiStrategyBacktestRouter({ express, authenticate, service }) {
         run_id: job.run_id, status: job.status,
         status_url: `/api/backtests/multi/${job.run_id}/status`,
         result_url: `/api/backtests/multi/${job.run_id}/result`,
-        stock_code: job.stock_code, strategies: job.strategies,
+        stock_code: job.stock_code, strategies: job.strategies, backtest_period:job.period,
       });
     } catch (error) {
       return res.status(error.status || 500).json({ error: { code: error.code || "BACKTEST_REQUEST_FAILED", message: error.message } });

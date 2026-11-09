@@ -72,14 +72,14 @@ function makeFakeSpawn(root) {
 test("validates stock and strategy allowlists and rejects development overrides", () => {
   const config = { stock_universe: ["2330"], data_role: "historical_development", data_protection: { final_oos_used: false } };
   assert.deepEqual(validateMultiRunRequest({ stock_code: "2330", strategies: ["technical", "rf"] }, config), {
-    stock_code: "2330", strategies: ["technical", "rf"],
+    stock_code: "2330", strategies: ["technical", "rf"], period:{start:"2024-07-01",end:"2024-12-30"},
   });
   assert.throws(() => validateMultiRunRequest({ stock_code: "9999", strategies: ["rf"] }, config), (error) => error.status === 422);
   assert.throws(() => validateMultiRunRequest({ stock_code: "2330", strategies: ["buy_and_hold"] }, config), (error) => error.status === 400);
   for (const strategy of ["technical", "rf", "xgboost", "gru"]) {
     assert.equal(validateMultiRunRequest({ stock_code: "2330", strategies: [strategy] }, config).strategies[0], strategy);
   }
-  assert.throws(() => validateMultiRunRequest({ stock_code: "2330", strategies: ["rf"], end_date: "2026-07-01" }, config), /核准的歷史開發日期/);
+  assert.throws(() => validateMultiRunRequest({ stock_code: "2330", strategies: ["rf"], end_date: "2026-07-01" }, config), /目前模型可回測範圍/);
 });
 
 test("JWT-protected async router submits, reports status, and returns normalized result", async () => {

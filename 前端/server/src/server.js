@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 const pool = require("./db");
 const {createAccountService,createAccountRouter}=require("./accountService");
 const accountService=createAccountService(pool);
-const { getHotMarket, searchStocks } = require("./marketService");
+const { getHotMarket, searchStocks, getMonthMarketHistory } = require("./marketService");
 const {
   listFavoriteCodes,
   getFavorites,
@@ -248,6 +248,11 @@ app.post("/api/auth/login", async (req, res) => {
     console.error("登入失敗：", error);
     return res.status(500).json({ message: "登入失敗，請稍後再試" });
   }
+});
+
+app.get('/api/market/history',async(req,res)=>{
+ try{res.json(await getMonthMarketHistory(String(req.query.symbol||'')));}
+ catch(e){res.status(e.status||502).json({message:e.status===400?e.message:'最近一個月行情暫時無法取得，請稍後重試'});}
 });
 
 app.get("/api/market/hot", async (_req, res) => {

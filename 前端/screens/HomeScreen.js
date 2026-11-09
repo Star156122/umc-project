@@ -1,3 +1,4 @@
+import usePageLayout from '../styles/usePageLayout';
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   ActivityIndicator,
@@ -13,7 +14,7 @@ import {
   View,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useFocusEffect } from "expo-router";
+import { useFocusEffect, router } from "expo-router";
 import MarketHeader from "../components/MarketHeader";
 import MarketStockRow from "../components/MarketStockRow";
 import MarketTrendChart from "../components/MarketTrendChart";
@@ -54,6 +55,7 @@ function MarketIndexCard({ item }) {
 }
 
 export default function HomeScreen() {
+ const layout=usePageLayout();
   const [query, setQuery] = useState("");
   const [stocks, setStocks] = useState([]);
   const [indices, setIndices] = useState([]);
@@ -226,9 +228,10 @@ export default function HomeScreen() {
 
   const header = (
     <View>
+      <Pressable accessibilityRole="button" onPress={()=>router.push('/analysis')} style={{backgroundColor:'#132d45',borderWidth:1,borderColor:'#355c7b',padding:24,borderRadius:20,marginBottom:18,gap:10}}><Text style={{color:'#8ecaff',fontSize:12,letterSpacing:2}}>STRATEGY LAB</Text><Text style={{color:'#f8fafc',fontSize:26,fontWeight:'800'}}>這個策略，會在哪裡買進與賣出？</Text><Text style={{color:'#b6c9db',lineHeight:24}}>選擇股票與歷史期間，查看交易回放、比較策略表現，再閱讀 Gemini 重點分析。</Text><Text style={{color:'#73b9ff',fontSize:17,fontWeight:'700'}}>開始策略模擬 →</Text></Pressable>
       <MarketHeader
         title="台股即時行情"
-        subtitle="Yahoo Finance 成交價・熱門股票・當日 5 分走勢"
+        subtitle="Yahoo Finance 行情・最近一個月走勢・日 K"
         icon="pulse"
       >
         <View style={styles.searchRow}>
@@ -269,7 +272,7 @@ export default function HomeScreen() {
       </MarketHeader>
 
       {indices.length > 0 ? (
-        <View style={styles.indicesRow}>
+        <View style={[styles.indicesRow,layout.compact&&{flexDirection:"column"}]}>
           {indices.slice(0, 2).map((item) => (
             <MarketIndexCard key={item.yahooSymbol || item.code} item={item} />
           ))}
@@ -354,7 +357,7 @@ export default function HomeScreen() {
         )}
         ListHeaderComponent={header}
         ListEmptyComponent={emptyContent}
-        contentContainerStyle={styles.listContent}
+        contentContainerStyle={[styles.listContent,layout.page]}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -377,7 +380,6 @@ const styles = StyleSheet.create({
   },
   list: {
     width: "100%",
-    maxWidth: 760,
     alignSelf: "center",
   },
   listContent: {

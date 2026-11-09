@@ -39,6 +39,7 @@ export default function TabsLayout() {
 
   return (
     <Tabs
+      initialRouteName="analysis"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: "#56a5ff",
@@ -60,7 +61,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "首頁",
+          title: "市場行情",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
           ),
@@ -69,7 +70,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="analysis"
         options={{
-          title: "分析",
+          title: "策略模擬",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="bar-chart" size={size} color={color} />
           ),

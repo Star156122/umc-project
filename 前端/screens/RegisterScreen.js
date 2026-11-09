@@ -1,3 +1,4 @@
+import usePageLayout from '../styles/usePageLayout';
 import React, { useState } from "react";
 import {
   View,
@@ -18,6 +19,7 @@ import { apiRequest } from "../src/config/api";
 import { marketColors } from "../styles/marketTheme";
 
 export default function RegisterScreen() {
+ const layout=usePageLayout();
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -101,7 +103,7 @@ export default function RegisterScreen() {
       >
         <ScrollView
           style={styles.container}
-          contentContainerStyle={styles.content}
+          contentContainerStyle={[styles.content,layout.page]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
@@ -114,17 +116,17 @@ export default function RegisterScreen() {
             <Text style={styles.backButtonText}>返回登入頁</Text>
           </Pressable>
 
-          <View style={styles.brandPanel}>
+          <View style={[styles.brandPanel,layout.compact&&{flexDirection:"column",alignItems:"flex-start",gap:12}]}>
             <View style={styles.logoBox}>
               <Ionicons name="person-add-outline" size={38} color={marketColors.white} />
             </View>
             <View style={{ flex: 1 }}>
               <Text style={styles.title}>建立帳號</Text>
-              <Text style={styles.subtitle}>註冊後即可使用行情、自選股與分析功能</Text>
+              <Text style={styles.subtitle}>建立你的研究清單，保存策略模擬與 Gemini 分析</Text>
             </View>
           </View>
 
-          <View style={styles.card}>
+          <View style={[styles.card,layout.card]}>
             {fields.map((field) => (
               <View key={field.key}>
                 <Text style={styles.label}>{field.label}</Text>
@@ -276,7 +278,6 @@ const styles = StyleSheet.create({
   content: {
     flexGrow: 1,
     width: "100%",
-    maxWidth: 640,
     alignSelf: "center",
     paddingHorizontal: 20,
     paddingTop: 24,
@@ -328,7 +329,7 @@ const styles = StyleSheet.create({
   card: {
     width: "100%",
     backgroundColor: marketColors.surface,
-    borderRadius: 24,
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: marketColors.border,
     padding: 20,

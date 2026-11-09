@@ -15,6 +15,7 @@ export default function MarketHeader({
     <View style={[styles.container, style]}>
       <View style={styles.topRow}>
         <View style={styles.textBox}>
+          <Text style={{color:"#7db9ed",fontSize:11,letterSpacing:2,marginBottom:8}}>STRATEGY LAB</Text>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.subtitle}>{subtitle}</Text>
         </View>
@@ -38,16 +39,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: marketColors.headerAccent,
     borderRadius: 21,
-    padding: 17,
+    padding: 24,
     marginBottom: 14,
     overflow: "hidden",
   },
   topRow: {
     flexDirection: "row",
+    flexWrap: "wrap",
     alignItems: "center",
   },
   textBox: {
     flex: 1,
+    minWidth: 0,
     paddingRight: 12,
   },
   title: {
