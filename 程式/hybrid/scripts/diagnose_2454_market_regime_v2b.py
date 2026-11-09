@@ -300,12 +300,19 @@ def main() -> None:
         technical_candidates=("technical_candidate", lambda s: int(bool_col(s).sum())),
         market_pass_candidates=("candidate_after_regime", lambda s: int(bool_col(s).sum())),
         filled_signals=("trade_filled", "sum"),
+        median_close_vs_ma120_pct=("close_vs_ma120_pct", "median"),
+        median_close_vs_ma240_pct=("close_vs_ma240_pct", "median"),
+        median_ma20_slope12_pct=("ma20_slope12_pct", "median"),
+        median_ma60_slope12_pct=("ma60_slope12_pct", "median"),
+        median_ma120_slope12_pct=("ma120_slope12_pct", "median"),
+        median_ma240_slope12_pct=("ma240_slope12_pct", "median"),
         median_breakout_excess_pct=("breakout_excess_pct", "median"),
         median_volume_ratio20=("volume_ratio20", "median"),
         median_upper_wick_ratio=("upper_wick_ratio", "median"),
         median_atr14_pct=("ATR14_pct", "median"),
         median_hv20_5m_pct=("HV20_5m_pct", "median"),
         median_proxy_vs_sma20_pct=("proxy_vs_sma20_pct", "median"),
+        median_proxy_return_20d_pct=("proxy_return_20d_pct", "median"),
         median_proxy_volatility_20d_pct=("proxy_volatility_20d_pct", "median"),
     )
     period_performance = period_performance.merge(signal_summary, on="period", how="left", validate="one_to_one")
@@ -395,6 +402,7 @@ def main() -> None:
     period_md = period_performance[[
         "period", "trades", "win_rate_trade_pct", "gross_pnl", "total_cost", "net_pnl",
         "profit_factor_net_entry_cohort", "max_drawdown_pct_reset_at_period_start", "median_mfe_pct", "median_mae_pct",
+        "mean_mfe_pct", "mean_mae_pct",
         "stop_loss_count", "technical_exit_count", "time_expiration_count",
     ]].to_markdown(index=False, floatfmt=".2f")
     exit_md = exit_summary.to_markdown(index=False, floatfmt=".2f")
@@ -402,6 +410,13 @@ def main() -> None:
     feat_md = win_loss_summary[(win_loss_summary.period.isin(["2024_H1", "2024_H2"]))].to_markdown(index=False, floatfmt=".3f")
     top_24 = trades.loc[trades.period == "2024_H1"].sort_values("net_pnl", ascending=False).head(3)
     top_24h2_losses = trades.loc[trades.period == "2024_H2"].sort_values("net_pnl").head(3)
+    h1 = period_performance.loc[period_performance.period == "2024_H1"].iloc[0]
+    h2 = period_performance.loc[period_performance.period == "2024_H2"].iloc[0]
+    h1sig = signal_summary.loc[signal_summary.period == "2024_H1"].iloc[0]
+    h2sig = signal_summary.loc[signal_summary.period == "2024_H2"].iloc[0]
+    h2_stop = exit_summary.loc[(exit_summary.period == "2024_H2") & (exit_summary.exit_type == "stop_loss")]
+    h2_stop_net = float(h2_stop.net_pnl.iloc[0]) if not h2_stop.empty else 0.0
+    h2_stop_loss_share = abs(h2_stop_net) / abs(float(h2.net_pnl)) * 100 if float(h2.net_pnl) else np.nan
     report = f"""# 2454 聯發科：Technical V2-B 市場狀態與交易績效診斷
 
 ## 範圍與方法
@@ -432,6 +447,10 @@ def main() -> None:
 
 候選訊號特徵是在訊號 K 收盤後可得。MA 斜率用最近 12 根 5 分 K 的相對變化；ATR14 是最近 14 根 5 分 K 真實波幅簡單平均；HV20 是最近 20 根 5 分 K 收盤報酬標準差。它們是描述性量，不是新增策略條件。
 
+## H1 / H2 的進場時點特徵對照
+
+上表涵蓋各期原始候選（含之後未成交者）的中位數。市場代理趨勢與波動使用訊號日前已完成的代理資料。
+
 ## 獲利與虧損交易特徵比較
 
 以下僅列 2024 H1/H2 的成交交易，樣本數每組很小；均值/中位數差異不能視為統計顯著，也不代表因果。
@@ -458,11 +477,13 @@ MFE 是持倉期間最高價相對進場價的最大有利幅度；MAE 是最低
 
 ## 已有數據支持的發現
 
-1. **2024 H1 與 H2 的交易結果方向相反。**H1 14 筆進場、勝率 {float(period_performance.loc[period_performance.period=='2024_H1','win_rate_trade_pct'].iloc[0]):.1f}%，淨損益約 NT${float(period_performance.loc[period_performance.period=='2024_H1','net_pnl'].iloc[0]):,.0f}；H2 8 筆、勝率 {float(period_performance.loc[period_performance.period=='2024_H2','win_rate_trade_pct'].iloc[0]):.1f}%，淨損益約 NT${float(period_performance.loc[period_performance.period=='2024_H2','net_pnl'].iloc[0]):,.0f}。
-2. **H2 虧損不是只由成本造成。**H2 成本前毛損益已約 -NT${abs(float(period_performance.loc[period_performance.period=='2024_H2','gross_pnl'].iloc[0])):,.0f}，再加約 NT${float(period_performance.loc[period_performance.period=='2024_H2','total_cost'].iloc[0]):,.0f} 成本；H1 毛損益約 NT${float(period_performance.loc[period_performance.period=='2024_H1','gross_pnl'].iloc[0]):,.0f}，成本約 NT${float(period_performance.loc[period_performance.period=='2024_H1','total_cost'].iloc[0]):,.0f}。
-3. H2 的停損、技術出場、時間到期交易分布見上表；若虧損集中於某一出場原因，可指向值得檢查的路徑，但不代表單獨修改該規則就會改善。
-4. 市場代理的趨勢/波動與各期成交品質呈現何種共變，應看月度表和圖；只有四個半年且成交樣本少，無法確認穩定關係。
-5. 來源回測的訊號成交契約是完成 K 棒後、下一根實際可交易 K 棒開盤；市場代理取前一完整共同交易日，因此本診斷未使用未來價格建立訊號特徵。MFE/MAE 僅為事後路徑統計。
+1. **結果方向反轉。**2024 H1 有 {int(h1.trades)} 筆、勝率 {float(h1.win_rate_trade_pct):.1f}%、淨損益 NT${float(h1.net_pnl):,.0f}；H2 有 {int(h2.trades)} 筆、勝率 {float(h2.win_rate_trade_pct):.1f}%、淨損益 NT${float(h2.net_pnl):,.0f}。H1 成本前毛損益 NT${float(h1.gross_pnl):,.0f}、成本 NT${float(h1.total_cost):,.0f}；H2 毛損益已是 NT${float(h2.gross_pnl):,.0f}，再扣 NT${float(h2.total_cost):,.0f}。
+2. **H2 虧損集中在兩筆停損。**H2 有 {int(h2.stop_loss_count)} 筆停損，合計淨損益 NT${h2_stop_net:,.0f}，約占該段淨虧損金額 {h2_stop_loss_share:.1f}%；6 筆技術出場合計 NT${float(exit_summary.loc[(exit_summary.period=='2024_H2') & (exit_summary.exit_type=='technical_exit'),'net_pnl'].sum()):,.0f}。H1 有 3 筆停損合計 NT${float(exit_summary.loc[(exit_summary.period=='2024_H1') & (exit_summary.exit_type=='stop_loss'),'net_pnl'].sum()):,.0f}，但技術出場 10 筆合計 +NT${float(exit_summary.loc[(exit_summary.period=='2024_H1') & (exit_summary.exit_type=='technical_exit'),'net_pnl'].sum()):,.0f}，另 1 筆時間到期交易 +NT${float(exit_summary.loc[(exit_summary.period=='2024_H1') & (exit_summary.exit_type=='time_expiration'),'net_pnl'].sum()):,.0f}。
+3. **突破幅度與量比沒有顯示 H2 明顯較弱。**候選突破超越幅度中位數 H1 {float(h1sig.median_breakout_excess_pct):.3f}%、H2 {float(h2sig.median_breakout_excess_pct):.3f}%；量比 {float(h1sig.median_volume_ratio20):.2f} 對 {float(h2sig.median_volume_ratio20):.2f}。但 H2 的 ATR% {float(h2sig.median_atr14_pct):.3f}% 高於 H1 {float(h1sig.median_atr14_pct):.3f}%，HV20 {float(h2sig.median_hv20_5m_pct):.3f}% 高於 H1 {float(h1sig.median_hv20_5m_pct):.3f}%。這或許代表較躁動，但需更多資料驗證。
+4. **長期趨勢與代理市場環境在 H2 較弱。**候選收盤價高於 MA240 的中位幅度由 H1 {float(h1sig.median_close_vs_ma240_pct):.2f}% 降至 H2 {float(h2sig.median_close_vs_ma240_pct):.2f}%；MA120 斜率由 {float(h1sig.median_ma120_slope12_pct):.3f}% 降至 {float(h2sig.median_ma120_slope12_pct):.3f}%（仍為正）。凍結代理相對 SMA20 由 {float(h1sig.median_proxy_vs_sma20_pct):.2f}% 降到 {float(h2sig.median_proxy_vs_sma20_pct):.2f}%；20 日代理變化由 {float(h1sig.median_proxy_return_20d_pct):.2f}% 降到 {float(h2sig.median_proxy_return_20d_pct):.2f}%，代理波動度則由 {float(h1sig.median_proxy_volatility_20d_pct):.2f}% 升至 {float(h2sig.median_proxy_volatility_20d_pct):.2f}%。這些與結果同時變化，不證明因果。
+5. **進場後延續性偏弱。**實際成交的 MFE 中位數 H1 {float(h1.median_mfe_pct):.2f}%、H2 {float(h2.median_mfe_pct):.2f}%；H2 平均 MAE {float(h2.mean_mae_pct):.2f}%，H1 為 {float(h1.mean_mae_pct):.2f}%。H2 僅 8 筆交易，這是樣本描述，不足以推論普遍規律。
+6. **可用候選也變少。**H1 有 {int(h1sig.technical_candidates)} 筆技術候選、{int(h1sig.market_pass_candidates)} 筆通過市場代理；H2 分別 {int(h2sig.technical_candidates)} 與 {int(h2sig.market_pass_candidates)} 筆。這說明 H2 機會較少且既有濾網擋下更多候選，不代表濾網造成虧損。
+7. 來源回測使用完成 K 棒後、下一根實際可交易 K 棒開盤成交；市場代理只取前一完整共同交易日。MFE/MAE 是事後行情路徑，不參與訊號特徵。
 
 ## 可能原因與尚待驗證的假設
 
