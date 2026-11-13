@@ -13,7 +13,8 @@ function apiError(status, code, message) {
 }
 
 function readDevelopmentConfig(root) {
-  const configPath = path.join(root, "hybrid", "config", "multi_strategy_development_v1.json");
+  const mainPath = path.join(root, "hybrid", "config", "web_main_strategy_v1.json");
+  const configPath = fs.existsSync(mainPath) ? mainPath : path.join(root, "hybrid", "config", "multi_strategy_development_v1.json");
   let config;
   try { config = JSON.parse(fs.readFileSync(configPath, "utf8")); }
   catch (_error) { throw apiError(503, "DEVELOPMENT_CONFIG_UNAVAILABLE", "歷史開發回測設定目前無法讀取"); }
@@ -38,10 +39,11 @@ function validateMultiRunRequest(body, config) {
       new Set(strategies).size !== strategies.length || strategies.some((value) => !ALLOWED_STRATEGIES.has(value))) {
     throw apiError(400, "INVALID_STRATEGIES", "strategies 須為 technical、rf、xgboost、gru 的不重複非空陣列");
   }
-  const period = {start: body.start_date ?? config.periods?.backtest?.start ?? '2024-07-01', end: body.end_date ?? config.periods?.backtest?.end ?? '2024-12-30'};
+  const period = {start: body.start_date ?? config.datasets?.[stockCode]?.start ?? config.periods?.backtest?.start ?? '2024-07-01', end: body.end_date ?? config.datasets?.[stockCode]?.end ?? config.periods?.backtest?.end ?? '2024-12-30'};
   const validDate=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v))&&new Date(v).toISOString().slice(0,10)===v;
   if(!validDate(period.start)||!validDate(period.end)||period.start>period.end)throw apiError(400,'INVALID_PERIOD','請輸入正確的起訖日期');
-  if(period.start<'2024-07-01'||period.end>'2024-12-30')throw apiError(422,'BACKTEST_BLOCKED','目前模型可回測範圍為 2024/07/01～2024/12/30；請在此範圍選擇期間');
+  const coverage=config.datasets?.[stockCode]||{start:'2024-07-01',end:'2024-12-30'};
+  if(period.start<coverage.start||period.end>coverage.end)throw apiError(422,'BACKTEST_BLOCKED',`此股票目前模型可回測範圍為 ${coverage.start}～${coverage.end}，正式保留測試不由一般網站解鎖`);
   return { stock_code: stockCode, strategies: [...strategies], period };
 }
 
@@ -71,7 +73,7 @@ function normalizeRunPayload(runId, stockCode, source) {
     details: {
       ...item.details,
       trades: item.trades || [],
-      model_training: modelKey[item.strategy_id] ? audit.model_training?.models?.[modelKey[item.strategy_id]] || null : null,
+      model_training: modelKey[item.strategy_id] ? audit.model_training?.models?.[modelKey[item.strategy_id]] || item.details?.model_training || null : null,
       strategy_source: item.audit || null,
     },
   }));
@@ -146,7 +148,7 @@ function createMultiStrategyBacktestService({
     const job = {
       run_id: id, stock_code: request.stock_code, strategies: request.strategies, period: request.period,
       status: "pending", created_at: new Date().toISOString(), updated_at_ms: Date.now(),
-      result: null, error: null,
+      result: null, error: null, strategy_profile: config.profile_id || null,
     };
     jobs.set(id, job);
     activeJobId = id;
@@ -219,6 +221,7 @@ function createMultiStrategyBacktestService({
       }
       try {
         const result = normalizeRunPayload(job.run_id, job.stock_code, outputDirectory);
+        if(job.strategy_profile && result.audit?.profile_id!==job.strategy_profile) throw apiError(500,'RESULT_PROFILE_MISMATCH','回測規則版本與目前主要策略不符');
         if (result.strategies.map((item) => item.strategy_id).join(",") !== job.strategies.join(",")) {
           throw apiError(500, "RESULT_STRATEGY_MISMATCH", "回測策略結果與提交的選項不一致");
         }
@@ -242,13 +245,15 @@ function createMultiStrategyBacktestService({
     if (activeJobId === job.run_id) activeJobId = null;
   }
 
-  return { submit, getJob, resolveJob, persistJob, persistAnalysis, listHistory };
+  function getProfile(){const c=readDevelopmentConfig(root);return {profile_id:c.profile_id||null,initial_capital:c.initial_capital||c.execution?.initial_capital||100000,default_period:c.periods?.backtest||{start:'2024-07-01',end:'2024-12-30'},stocks:c.stock_universe,coverage:Object.fromEntries(c.stock_universe.map(s=>[s,c.datasets?.[s]?{start:c.datasets[s].start,end:c.datasets[s].end}:{start:'2024-07-01',end:'2024-12-30'}])),rules:c.profile_id?{adds:false,extension:false,risk_budget:false,cash_fraction:.4,reserve_fraction:.2,stop_loss_pct:.025,common_three_model_coverage:true}:null};}
+  return { submit, getJob, resolveJob, persistJob, persistAnalysis, listHistory, getProfile };
 }
 
 function createMultiStrategyBacktestRouter({ express, authenticate, service }) {
   const router = express.Router();
   const safe=fn=>async(req,res)=>{try{await fn(req,res);}catch{res.status(503).json({message:"無法讀取歷史報告，請確認 MySQL 連線"});}};
   const resolve=(req)=>service.resolveJob?service.resolveJob(req.params.runId,req.user.userId):service.getJob(req.params.runId);
+  router.get('/profile',authenticate,(req,res)=>{try{res.json(service.getProfile());}catch{res.status(503).json({message:'主要策略設定無法讀取，請檢查後端設定'});}});
   router.get("/history",authenticate,safe(async(req,res)=>{
     const page=Number(req.query.page||0);if(!Number.isInteger(page)||page<0||page>100000)return res.status(400).json({message:"頁碼無效"});
     res.json(await service.listHistory(req.user.userId,page));

@@ -1,0 +1,21 @@
+{
+  "original_files_unchanged": true,
+  "locked_data_used": false,
+  "model_rebuilt_on_training_only": true,
+  "asus_in_training": false,
+  "validation_used_for_tuning": false,
+  "ordinary_ohlc_odd_quantity_proxy": true,
+  "common_legal_prediction_days": 113,
+  "original_hashes_before": {
+    "data\\market_data.sqlite3": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+    "data\\technical_v1_mltech_clean.sqlite3": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+    "trading_system\\backtest.py": "21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02",
+    "獨立實驗\\資金配置40_保留20\\程式\\engine.py": "6b374115f587a131bcf7cb60466f078ed7ad1da94e4a2780fa4226145636d4ca"
+  },
+  "original_hashes_after": {
+    "data\\market_data.sqlite3": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+    "data\\technical_v1_mltech_clean.sqlite3": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+    "trading_system\\backtest.py": "21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02",
+    "獨立實驗\\資金配置40_保留20\\程式\\engine.py": "6b374115f587a131bcf7cb60466f078ed7ad1da94e4a2780fa4226145636d4ca"
+  }
+}

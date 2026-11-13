@@ -1,0 +1,27 @@
+﻿time,trade_id,checks,failed,estimated_net_profit,ml,stop_unchanged,held,hard_cap,action,reason
+2025-05-14T11:00:00+08:00,4,"{""net_profit_positive"": true, ""trend"": false, ""market"": true, ""ml_buy"": true}","[""trend""]",1649.2195999999822,NOT_APPLICABLE,25.10625,162,216,EXIT,trend
+2025-06-11T09:40:00+08:00,7,"{""net_profit_positive"": true, ""trend"": false, ""market"": true, ""ml_buy"": true}","[""trend""]",969.0444999999891,NOT_APPLICABLE,26.568749999999998,162,216,EXIT,trend
+2025-06-30T10:30:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],17.80689999999595,NOT_APPLICABLE,27.933749999999996,162,216,GRANT,ALL_CONDITIONS_PASS
+2025-06-30T10:35:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],290.63294999999925,NOT_APPLICABLE,27.933749999999996,163,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T10:40:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],290.63294999999925,NOT_APPLICABLE,27.933749999999996,164,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T10:45:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],564.4590000000026,NOT_APPLICABLE,27.933749999999996,165,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T10:50:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],564.4590000000026,NOT_APPLICABLE,27.933749999999996,166,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T10:55:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],290.63294999999925,NOT_APPLICABLE,27.933749999999996,167,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T11:00:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],564.4590000000026,NOT_APPLICABLE,27.933749999999996,168,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T11:05:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],564.4590000000026,NOT_APPLICABLE,27.933749999999996,169,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T11:10:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],838.2850500000059,NOT_APPLICABLE,27.933749999999996,170,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T11:15:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],838.2850500000059,NOT_APPLICABLE,27.933749999999996,171,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T11:20:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],1111.1111000000092,NOT_APPLICABLE,27.933749999999996,172,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T11:25:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],1111.1111000000092,NOT_APPLICABLE,27.933749999999996,173,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T11:30:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],838.2850500000059,NOT_APPLICABLE,27.933749999999996,174,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T11:35:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],838.2850500000059,NOT_APPLICABLE,27.933749999999996,175,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T11:40:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],1111.1111000000092,NOT_APPLICABLE,27.933749999999996,176,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T11:45:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],838.2850500000059,NOT_APPLICABLE,27.933749999999996,177,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T11:50:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],1111.1111000000092,NOT_APPLICABLE,27.933749999999996,178,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T11:55:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],838.2850500000059,NOT_APPLICABLE,27.933749999999996,179,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T12:00:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],838.2850500000059,NOT_APPLICABLE,27.933749999999996,180,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T12:05:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],838.2850500000059,NOT_APPLICABLE,27.933749999999996,181,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T12:10:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],838.2850500000059,NOT_APPLICABLE,27.933749999999996,182,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T12:15:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],1111.1111000000092,NOT_APPLICABLE,27.933749999999996,183,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T12:20:00+08:00,9,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": true}",[],1111.1111000000092,NOT_APPLICABLE,27.933749999999996,184,216,CONTINUE,ALL_CONDITIONS_PASS
+2025-06-30T12:25:00+08:00,9,"{""net_profit_positive"": true, ""trend"": false, ""market"": true, ""ml_buy"": true}","[""trend""]",838.2850500000059,NOT_APPLICABLE,27.933749999999996,185,216,EXIT,trend

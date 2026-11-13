@@ -1,0 +1,194 @@
+{
+  "experiment_id": "pegatron4938-formal-2025h2-20261114-exp001",
+  "stock": "4938",
+  "created_before_data_access": "2026-11-13T19:14:44.815317+00:00",
+  "authorization": "User explicitly selected: 申請使用2025全年作正式最終保留測試，先凍結規格再驗證。",
+  "config": {
+    "experiment_id": "pegatron4938-formal-2025h2-20261114-exp001",
+    "stock": "4938",
+    "period": {
+      "start": "2025-01-01",
+      "end": "2025-12-31"
+    },
+    "data_role": "formal_additional_holdout_with_seen_h1_context",
+    "initial_capital": 250000,
+    "variants": [
+      "TECH",
+      "RF",
+      "XGB",
+      "GRU",
+      "BH"
+    ],
+    "slippages": [
+      0.0005,
+      0.0
+    ],
+    "risk_fraction": null,
+    "stop_pct": 0.025,
+    "risk_gap_buffer": 0.005,
+    "fee_rate": 0.001425,
+    "minimum_fee": 20,
+    "normal_sell_tax": 0.003,
+    "same_day_sell_tax": 0.0015,
+    "fee_rounding": "floor_to_whole_TWD_min_20_per_order",
+    "lot_size": 1,
+    "volume_fraction": 0.01,
+    "volume_window": 20,
+    "volume_to_shares": 1000,
+    "liquidity_limit": "buy_and_add_only_not_a_fill_guarantee",
+    "max_hold_bars": 162,
+    "min_hold_bars": 2,
+    "entry_cutoff": "12:30",
+    "reentry_expiry_sessions": 3,
+    "original_max_entries": 1,
+    "revised_max_entries": 2,
+    "original_cooldown": 6,
+    "revised_max_adds": 0,
+    "model": "random_forest",
+    "oof_path": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
+    "old_db": "data/technical_v1_mltech_clean.sqlite3",
+    "revised_db": "data/market_data.sqlite3",
+    "peer_pool": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "folds": [
+      {
+        "id": "FIXED_2025",
+        "start": "2025-01-01",
+        "end": "2025-12-31"
+      }
+    ],
+    "no_retraining": true,
+    "parameter_search": false,
+    "locked_data_used": false,
+    "research_only": true,
+    "execution_notes": [
+      "All four arms use the same legal quantity unit; allow odd-lot quantities, no increase to 1% risk budget.",
+      "No ordinary-market quote may be called a verified odd-lot fill.",
+      "If user selects approximation, every page must label ordinary-OHLC proxy research and unverified fills.",
+      "Original strategy and original databases are not modified.",
+      "Whole-boardlot and residual odd-lot orders require distinct fees and execution handling if quantity exceeds 999.",
+      "Corporate actions and nonzero-position paths must be checked before interpreting returns.",
+      "Odd quantities cannot day-trade: defer entire-position exit until all batches are prior-day and time >=09:10; stop may exceed planned loss. No partial sell model."
+    ],
+    "status": "PREPARED_NOT_CONSUMED",
+    "execution_data_mode": "ORDINARY_OHLC_ODD_QUANTITY_PROXY",
+    "prior_results_deleted_by_user": false,
+    "corporate_action_mode": "causal_cash_adjustment",
+    "user_proxy_authorization": "2026-11-13: 先做近似研究回測，報告清楚標示限制",
+    "execution_revision": "odd_no_same_day_exit_0910_observed_timeout_v2",
+    "odd_exit_rule": "all_batches_must_be_prior_day_and_time_at_least_0910",
+    "stock_name": "和碩",
+    "replication_parent": "isolated-buy-holding-extension-20261114-exp001",
+    "stocks": {
+      "4938": "和碩"
+    },
+    "warmup_start": "2024-11-01",
+    "selection_rule": "Two names fixed before new data/results; absent from registry/main config; target excluded from actual training manifests.",
+    "interpretation": "Only revised+same ML; no original-strategy improvement claim; independent 1m per stock, not a pooled portfolio.",
+    "holding_extension": {
+      "enabled": false,
+      "extra_bars": 54,
+      "max_extensions": 1,
+      "require_net_profit": true,
+      "require_ml_buy": true,
+      "require_market": true,
+      "trend_rule": "ready AND Close>MA_FAST>MA_MID AND Close>TREND_MA AND TREND_SLOPE>0",
+      "review": "every_completed_bar_from_original_deadline",
+      "exit": "next_legal_observed_open; existing non-daytrade restrictions remain",
+      "protective_exits_have_priority": true,
+      "stop_can_only_tighten": true,
+      "allow_adds_during_extension": false,
+      "hard_cap": "162+54 observed holding bars; execution restrictions can delay fills beyond decision cap",
+      "purpose": "Do not exit a profitable continuing trend solely due to timeout; no claim of predicting future prices.",
+      "technical_arm_ml_gate": false
+    },
+    "position_sizing_mode": "cash_fraction_with_fixed_reserve",
+    "risk_budget_enabled": false,
+    "cash_allocation_fraction": 0.4,
+    "initial_cash_reserve_fraction": 0.2,
+    "sizing_notes": "Risk budget disabled; first and single add each spend <=40% current cash including commission, leave >=20% INITIAL capital cash. Stop/volume/ML/holding extension retained.",
+    "backtest_authorization": "2026-11-14: 再回測五股，時間三個月，依照這次規則。",
+    "comparison_plan": "Five arms same stock, dates, initial capital, costs, bars and corporate actions; BH80% buy first legal09:10 open, hold to final close, reserve20%; four active arms cash40 reserve20 and conditional extension, ML BUY-only; full-period and common legal ML coverage separately; disclose exposure, not pooled. 1-4 trades insufficient. No parameter changes after outcomes. Proxy research, not final OOS. Pure technical has no ML gate at entry/add/extension; hybrid extension uses its own model BUY. Common coverage depends only on valid timestamps, not predicted labels.",
+    "training_stocks": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "training_period": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    },
+    "model_policy": "Reuse matching fixed technology V1 artifacts with verified hashes",
+    "buy_hold_fraction": 0.8,
+    "industry": "科技",
+    "allowed_scopes": [
+      "common"
+    ],
+    "coverage_policy": "Complete target sessions AND all three valid model predictions, independent of label; pure TECH no BUY requirement, hybrid own BUY only. Existing positions exit on full chronological observed stream.",
+    "windows": [
+      {
+        "id": "Q1",
+        "start": "2025-01-01",
+        "end": "2025-03-31",
+        "role": "validation_seen"
+      },
+      {
+        "id": "H1",
+        "start": "2025-01-01",
+        "end": "2025-06-30",
+        "role": "validation_seen"
+      },
+      {
+        "id": "YEAR",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "role": "mixed_seen_and_formal_holdout"
+      },
+      {
+        "id": "H2",
+        "start": "2025-07-01",
+        "end": "2025-12-31",
+        "role": "formal_additional_holdout"
+      }
+    ],
+    "authorization": "User explicitly selected: 申請使用2025全年作正式最終保留測試，先凍結規格再驗證。",
+    "evaluation": "Report all five arms; main5bps, common complete day+3 legal models, no adds or extension. Formal judgment only H2, each ML vsTECH net return positive difference AND MDD no worse AND >=5 trades; otherwise FAIL/INSUFFICIENT. All results retained, no result-based tuning. YEAR not wholly unseen. Single stock cannot prove generalization. Final2026July stays locked."
+  },
+  "hashes": {
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\程式\\benchmarks.py": "82fca32c0856b86e057d54fcbaf96da32c498c42c8cc81d5dff3b7bff9bd5964",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\程式\\engine.py": "e1c661651bbeda217e8f27f684d2f3a381685995b774f4434db213d519b65e57",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\程式\\fetch_formal.py": "9c9f276503297775ca9f71d2356878266210ac365264ac3efa6495e822462cc5",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\程式\\formal_guard.py": "4e60aebc5b33953545e70e09bcdfbc2b1b88b9bafa4e39572efa15aa6067506d",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\程式\\freeze_formal.py": "da9f4722dbb4f8857baac9eadd68c7d1aad00ecede77a69ebf71bce2f58871f0",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\程式\\infer_models.py": "727a60d12c39e0f8a8a509316a028dc76d4e6d03c834a78ced5b0a51fbfb9d6a",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\程式\\prepare.py": "921d793b55fe793081499bdbd848a8a0732e36abe5d49d1e70b2a4aded7def4e",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\程式\\run_formal.py": "018a0610c9aab083ef51b071364bbff2d8df82de8a420cd021d79a6b95509d15",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\模型\\training_audit.json": "9aa447095a9737cfd782c3cd5fbcec2430333e9ab2c88a87bf85c5060591edd5",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\模型\\training_manifest.csv": "ff8d1015ee462802bc45d6acec284523e8c16e789510d352f06d79a4f5dc674b",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\模型\\gru\\model.pt": "d42273fb710d6d54126b7d2f45300efae5770f8007c19a7038227c36beb8c740",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\模型\\gru\\scaler.npz": "5b9bac6f5eaf811e2f959fdf2d3cb629cd2ad3c59febf0c050e546982f4b3c5a",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\模型\\random_forest\\model.joblib": "4e7525cedcd0c24e09e6fa8b51b4d4291e668eac9af1f055ee6ec3e9fcd69100",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\模型\\random_forest\\scaler.npz": "522e290a256eba6d083540f0fd8661bb20c09565f8d72fe693beb39f726a9043",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\模型\\xgboost\\model.joblib": "acd5bf7a570b99ec9bebfe65ba9607f90a4cc4359222da4b3ef809f008127ca4",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\模型\\xgboost\\scaler.npz": "522e290a256eba6d083540f0fd8661bb20c09565f8d72fe693beb39f726a9043",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\設定\\experiment.json": "b557a54396f2758afd09d715f301b5ad0dbb9b483f3d194f51e392666e6b61ae",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\資料\\4938_cash_dividends.json": "9f95a267279f58b50f17fe8c1e66034df3f79252dec398c8e8e072ec56725eea",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\configs\\holdout_policy.json": "da998e98d092911a1692a2e7d7bf32f14d8c14bcc021559593d442456ed936f5",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\configs\\ml_data_policy.json": "6fcbf5e8e915fbcbddd11017e360c6eb9a58deb4218f0b78923c82008d605d11",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\trading_system\\research_guard.py": "d178eb5a19c0a4f5d00aa3eb60aa7fe6261a9dd5fb7e7b3bddac03c304a52a21",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\trading_system\\backtest.py": "21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\configs\\technical_v2_candidate.json": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+    "C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\configs\\ml_v1_research.json": "8aa8e3e069c9b95b450e4582e73c9566295423d26f730fe56a54303acf24fb00"
+  },
+  "state_at_freeze": "UNCONSUMED",
+  "general_locks_modified": false,
+  "formal_2025h2_only": true,
+  "2026_final_oos_remains_locked": true
+}

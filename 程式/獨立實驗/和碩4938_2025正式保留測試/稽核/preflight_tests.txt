@@ -1,0 +1,16 @@
+test_cash_contract (__main__.Preflight.test_cash_contract) ... ok
+test_general_guard_still_rejects_holdout (__main__.Preflight.test_general_guard_still_rejects_holdout) ... ok
+test_no_add_extension_common_and_capital (__main__.Preflight.test_no_add_extension_common_and_capital) ... ok
+test_scope_does_not_include_2026 (__main__.Preflight.test_scope_does_not_include_2026) ... ok
+test_sources_compile (__main__.Preflight.test_sources_compile) ... ok
+test_target_excluded_from_training (__main__.Preflight.test_target_excluded_from_training) ... C:\Users\yunso\OneDrive\桌面\專題0928\umc-project\程式\獨立實驗\和碩4938_2025正式保留測試\測試\preflight.py:27: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\yunso\\OneDrive\\桌面\\專題0928\\umc-project\\程式\\獨立實驗\\和碩4938_2025正式保留測試\\模型\\training_manifest.csv' mode='r' encoding='utf-8-sig'>
+  rows=list(csv.DictReader((H/'模型/training_manifest.csv').open(encoding='utf-8-sig')))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_timeout_still_exists (__main__.Preflight.test_timeout_still_exists) ... ok
+test_unconsumed_access_is_blocked (__main__.Preflight.test_unconsumed_access_is_blocked) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.165s
+
+OK

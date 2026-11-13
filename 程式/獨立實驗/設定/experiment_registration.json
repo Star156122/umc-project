@@ -1,0 +1,15 @@
+{
+  "experiment_id": "isolated-buy-2454-20261113-exp001",
+  "strategy": "technical_v2b_buy_isolated",
+  "variant": "A_B_C_D_PACKAGE_COMPARISON",
+  "test_start": "2023-01-01",
+  "test_end": "2024-12-31",
+  "dataset_role": "training_development_exposed",
+  "stock_codes": "2454",
+  "status": "preregistered",
+  "decision": "NOT_RUN",
+  "report_file": "獨立實驗/結果/index.html",
+  "result_file": "獨立實驗/結果",
+  "holdout_used": "false",
+  "notes": "User authorized isolated package comparison 2026-11-13; frozen original unchanged; no tuning; 1m independent capital; RF existing OOF; 5bps each side plus zero; hypothesis improved rule coherence and net outcome; risk increased exposure and fewer round-lot trades; one package change; single-stock exploratory only."
+}

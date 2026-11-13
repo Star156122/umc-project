@@ -1,0 +1,833 @@
+{
+  "audit_time": "2026-11-14T04:39:26.661735+08:00",
+  "profile_id": "main-buy-noadd-noextension-common-v1-20261114",
+  "scope": "Current website execution path, preserved legacy six-strategy runtime, planning document and visible subsequent user decisions. Not every historical experiment configuration.",
+  "method": "Source/configuration review, AST locations, 23 static setting checks; no backtest, training, locked market-data access or trading-code mutation.",
+  "overall": "CORE_RULES_CONNECTED_WITH_DISCLOSED_GAPS",
+  "static_checks": {
+    "profile_id": true,
+    "capital_250000": true,
+    "no_risk_budget": true,
+    "no_adds": true,
+    "no_extension": true,
+    "cash_40_reserve_20": true,
+    "common_only": true,
+    "stop_2p5": true,
+    "holding_162_min_2": true,
+    "cutoff_1230": true,
+    "reentry_3sessions_2daily": true,
+    "quantity_1share": true,
+    "volume_1pct_20bars": true,
+    "fees_and_tax": true,
+    "tech_periods": true,
+    "breakout_55_30": true,
+    "bollinger_20_2": true,
+    "no_volume_signal_confirmation": true,
+    "ml_24_by_24": true,
+    "ml_fixed_1pct": true,
+    "gru_context_2": true,
+    "nine_prepared_stocks": true,
+    "main_runner_no_training": true
+  },
+  "sources": [
+    {
+      "path": "前端/screens/AnalysisScreen.js",
+      "sha256": "6c90b8381f41ff6e34dadc8230e3cf39b3096f7700dc5a94c443a184a53963c6",
+      "bytes": 50
+    },
+    {
+      "path": "前端/screens/MultiStrategyScreen.js",
+      "sha256": "eb8f342d3a6e56e4360c3e2fd67ef24c29474531cc2df8c2a3493dd5b78d63e8",
+      "bytes": 18593
+    },
+    {
+      "path": "前端/src/features/multiBacktestModel.js",
+      "sha256": "a06b5b48aff76d57be0a5d066efcf157d2339d2fa0f6308594241b26d5f158a4",
+      "bytes": 4122
+    },
+    {
+      "path": "前端/server/src/server.js",
+      "sha256": "379d439d8e49ddf4aed40cc6fd6870c2b50f3be76dd2fcf18d9b73e41ce8d3d8",
+      "bytes": 18098
+    },
+    {
+      "path": "前端/server/src/multiStrategyBacktestService.js",
+      "sha256": "7cd2013acf85d16d8bac500ca7c3a233c2d825a188e0eeae02adeeb7f9d1bcfd",
+      "bytes": 16940
+    },
+    {
+      "path": "前端/server/src/pythonBacktestService.js",
+      "sha256": "472a5b36358cd40ab31634e95e9739647f02e38982a383f7c69f0425c344f0d6",
+      "bytes": 13754
+    },
+    {
+      "path": "前端/server/src/multiInsightsService.js",
+      "sha256": "ceb71035f526116848e725f593ef6145ac4316139a40f2eabf889d08f35a5c8b",
+      "bytes": 6151
+    },
+    {
+      "path": "程式/scripts/web_multi_backtest.py",
+      "sha256": "a431e5b93c36be0bd534b39b3511d58445723270eba4a067357c5604a624fc4e",
+      "bytes": 4224,
+      "functions": [
+        {
+          "name": "validate_period",
+          "line": 16
+        },
+        {
+          "name": "chart_data",
+          "line": 22
+        },
+        {
+          "name": "main",
+          "line": 35
+        }
+      ]
+    },
+    {
+      "path": "程式/hybrid/config/web_main_strategy_v1.json",
+      "sha256": "338d2332f6cdfcec6601378f5d3e494018d65c0168595510895f775e5b4e3e6a",
+      "bytes": 10578
+    },
+    {
+      "path": "程式/hybrid/core/web_main_backtest.py",
+      "sha256": "8539a28c0e032741f1d6862ccbd96b01dc1c5483319849c10a525a18a1fa855a",
+      "bytes": 7473,
+      "functions": [
+        {
+          "name": "request_config",
+          "line": 14
+        },
+        {
+          "name": "summarize",
+          "line": 25
+        },
+        {
+          "name": "normalize",
+          "line": 31
+        },
+        {
+          "name": "run",
+          "line": 62
+        }
+      ]
+    },
+    {
+      "path": "程式/hybrid/core/main_buy_strategy_v1.py",
+      "sha256": "1589edd8d2415b131e90ad59819174bee0cc6f5fc6f14e48918b9faae8377e67",
+      "bytes": 33118,
+      "functions": [
+        {
+          "name": "validate",
+          "line": 33
+        },
+        {
+          "name": "holding_review",
+          "line": 43
+        },
+        {
+          "name": "load_bars",
+          "line": 73
+        },
+        {
+          "name": "indicators",
+          "line": 88
+        },
+        {
+          "name": "load_inputs",
+          "line": 133
+        },
+        {
+          "name": "ml_status",
+          "line": 169
+        },
+        {
+          "name": "fee",
+          "line": 185
+        },
+        {
+          "name": "commission",
+          "line": 189
+        },
+        {
+          "name": "round_lot",
+          "line": 195
+        },
+        {
+          "name": "cash_quantity",
+          "line": 199
+        },
+        {
+          "name": "approved_quantity",
+          "line": 222
+        },
+        {
+          "name": "high_expiry",
+          "line": 260
+        },
+        {
+          "name": "simulate",
+          "line": 264
+        }
+      ]
+    },
+    {
+      "path": "程式/hybrid/core/main_buy_benchmark.py",
+      "sha256": "926d7d7011681ab308155aff7937aa833573c804a10c4b82e07558f777354f35",
+      "bytes": 4006,
+      "functions": [
+        {
+          "name": "buyhold",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "path": "程式/configs/technical_v2_candidate.json",
+      "sha256": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+      "bytes": 4774
+    },
+    {
+      "path": "程式/trading_system/backtest.py",
+      "sha256": "21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02",
+      "bytes": 191885,
+      "functions": [
+        {
+          "name": "safe_path_part",
+          "line": 46
+        },
+        {
+          "name": "build_report_prefix",
+          "line": 53
+        },
+        {
+          "name": "stock_report_dir",
+          "line": 62
+        },
+        {
+          "name": "patch_tsst_log_paths",
+          "line": 66
+        },
+        {
+          "name": "BacktestQuote",
+          "line": 127
+        },
+        {
+          "name": "str_to_bool",
+          "line": 150
+        },
+        {
+          "name": "require_env",
+          "line": 156
+        },
+        {
+          "name": "resolve_config_path",
+          "line": 262
+        },
+        {
+          "name": "_stringify_config_value",
+          "line": 267
+        },
+        {
+          "name": "_validate_config_keys",
+          "line": 273
+        },
+        {
+          "name": "load_backtest_config",
+          "line": 282
+        },
+        {
+          "name": "apply_backtest_config_defaults",
+          "line": 308
+        },
+        {
+          "name": "AppConfig",
+          "line": 316
+        },
+        {
+          "name": "indicator_exprs",
+          "line": 442
+        },
+        {
+          "name": "add_macd_columns",
+          "line": 472
+        },
+        {
+          "name": "add_indicators",
+          "line": 494
+        },
+        {
+          "name": "number_or_none",
+          "line": 502
+        },
+        {
+          "name": "taipei_datetime_from_timestamp",
+          "line": 512
+        },
+        {
+          "name": "taipei_timestamp",
+          "line": 518
+        },
+        {
+          "name": "indicator_snapshot",
+          "line": 525
+        },
+        {
+          "name": "format_indicator_value",
+          "line": 537
+        },
+        {
+          "name": "BacktestSafeTsst",
+          "line": 543
+        },
+        {
+          "name": "FixedPriceTsst",
+          "line": 763
+        },
+        {
+          "name": "MovingAverageTsst",
+          "line": 853
+        },
+        {
+          "name": "is_after_exit_time",
+          "line": 1583
+        },
+        {
+          "name": "parse_ymd",
+          "line": 1589
+        },
+        {
+          "name": "iter_dates",
+          "line": 1593
+        },
+        {
+          "name": "sino_ts_to_local_timestamp",
+          "line": 1601
+        },
+        {
+          "name": "resolve_data_cache_path",
+          "line": 1607
+        },
+        {
+          "name": "open_tick_cache",
+          "line": 1614
+        },
+        {
+          "name": "_load_cached_day",
+          "line": 1675
+        },
+        {
+          "name": "_save_cached_day",
+          "line": 1712
+        },
+        {
+          "name": "is_cache_range_complete",
+          "line": 1757
+        },
+        {
+          "name": "login_sinopac",
+          "line": 1790
+        },
+        {
+          "name": "fetch_sinopac_ticks",
+          "line": 1807
+        },
+        {
+          "name": "MarketDataStats",
+          "line": 1894
+        },
+        {
+          "name": "_market_data_stats",
+          "line": 1900
+        },
+        {
+          "name": "_build_raw_kbars_from_cache",
+          "line": 1919
+        },
+        {
+          "name": "load_cached_kbar_frame",
+          "line": 2021
+        },
+        {
+          "name": "replay_kbars",
+          "line": 2082
+        },
+        {
+          "name": "replay_ticks",
+          "line": 2141
+        },
+        {
+          "name": "build_kbar_rows_from_ticks",
+          "line": 2165
+        },
+        {
+          "name": "build_kbar_rows_from_frame",
+          "line": 2203
+        },
+        {
+          "name": "_write_csv",
+          "line": 2241
+        },
+        {
+          "name": "_escape",
+          "line": 2248
+        },
+        {
+          "name": "_format_number",
+          "line": 2252
+        },
+        {
+          "name": "_format_money",
+          "line": 2258
+        },
+        {
+          "name": "_bucket_timestamp",
+          "line": 2264
+        },
+        {
+          "name": "_json",
+          "line": 2271
+        },
+        {
+          "name": "_display_tick_source",
+          "line": 2275
+        },
+        {
+          "name": "_build_trade_rows",
+          "line": 2283
+        },
+        {
+          "name": "_build_signal_rows",
+          "line": 2322
+        },
+        {
+          "name": "_build_pnl_rows",
+          "line": 2357
+        },
+        {
+          "name": "calculate_performance_metrics",
+          "line": 2425
+        },
+        {
+          "name": "calculate_buy_and_hold_benchmark",
+          "line": 2512
+        },
+        {
+          "name": "calculate_mark_to_market_risk",
+          "line": 2540
+        },
+        {
+          "name": "load_optional_news_summary",
+          "line": 2592
+        },
+        {
+          "name": "_build_equity_curve",
+          "line": 2636
+        },
+        {
+          "name": "save_backtest_to_database",
+          "line": 2647
+        },
+        {
+          "name": "_metric",
+          "line": 2771
+        },
+        {
+          "name": "_trade_table_rows",
+          "line": 2775
+        },
+        {
+          "name": "_signal_table_rows",
+          "line": 2802
+        },
+        {
+          "name": "generate_local_report_legacy",
+          "line": 2831
+        },
+        {
+          "name": "generate_local_report",
+          "line": 3146
+        },
+        {
+          "name": "validate_safety_settings",
+          "line": 3896
+        },
+        {
+          "name": "validate_env",
+          "line": 3903
+        },
+        {
+          "name": "validate_config",
+          "line": 3917
+        },
+        {
+          "name": "build_tsst",
+          "line": 4005
+        },
+        {
+          "name": "parse_args",
+          "line": 4060
+        },
+        {
+          "name": "main",
+          "line": 4388
+        }
+      ]
+    },
+    {
+      "path": "程式/hybrid/core/short_swing_ab_test.py",
+      "sha256": "7ef2ea5380929290d4596cb334bf1a20077cafb3a4abec77b3768ef12117e89f",
+      "bytes": 3981,
+      "functions": [
+        {
+          "name": "EntryComponents",
+          "line": 18
+        },
+        {
+          "name": "entry_components",
+          "line": 52
+        },
+        {
+          "name": "validate_experiment_config",
+          "line": 73
+        }
+      ]
+    },
+    {
+      "path": "程式/hybrid/core/data_eligibility_v1.py",
+      "sha256": "b3a4a5d760b66d0e181755fa69ebf57552ba9f2351d3b9dbc1a98036933678da",
+      "bytes": 8683,
+      "functions": [
+        {
+          "name": "expected_session_timestamps",
+          "line": 21
+        },
+        {
+          "name": "valid_ohlcv",
+          "line": 28
+        },
+        {
+          "name": "audit_session",
+          "line": 41
+        },
+        {
+          "name": "select_unambiguous_valid_bars",
+          "line": 65
+        },
+        {
+          "name": "proxy_close_for_day",
+          "line": 86
+        },
+        {
+          "name": "build_peer_proxy",
+          "line": 95
+        },
+        {
+          "name": "market_context_from_proxy",
+          "line": 113
+        },
+        {
+          "name": "signal_and_fill_are_contiguous",
+          "line": 139
+        },
+        {
+          "name": "is_newly_eligible",
+          "line": 144
+        },
+        {
+          "name": "indicator_window_clear",
+          "line": 149
+        },
+        {
+          "name": "signal_window_eligible",
+          "line": 157
+        },
+        {
+          "name": "classify_same_session_gap",
+          "line": 163
+        },
+        {
+          "name": "classify_skipped_incomplete_session",
+          "line": 174
+        }
+      ]
+    },
+    {
+      "path": "程式/configs/ml_v1_research.json",
+      "sha256": "8aa8e3e069c9b95b450e4582e73c9566295423d26f730fe56a54303acf24fb00",
+      "bytes": 6323
+    },
+    {
+      "path": "程式/ml/ml_v1_labels.py",
+      "sha256": "995e6345bb67cab1af7ec8cd22bac7eb9e4d42aec7038d3af18e228f131ad5d0",
+      "bytes": 6213,
+      "functions": [
+        {
+          "name": "aggregate_daily_market",
+          "line": 16
+        },
+        {
+          "name": "build_label_frame",
+          "line": 37
+        },
+        {
+          "name": "eligible_common_samples",
+          "line": 110
+        },
+        {
+          "name": "label_distribution",
+          "line": 123
+        },
+        {
+          "name": "finite_distribution",
+          "line": 133
+        }
+      ]
+    },
+    {
+      "path": "程式/ml/ml_v1_sequence.py",
+      "sha256": "72056a82efdc5f78c28ddfdab7fade51517a5e5c0a23ae9c6cc593c6826a9862",
+      "bytes": 2332,
+      "functions": [
+        {
+          "name": "SequenceEligibility",
+          "line": 18
+        },
+        {
+          "name": "evaluate_exact_sequence",
+          "line": 25
+        },
+        {
+          "name": "select_exact_sequence",
+          "line": 46
+        }
+      ]
+    },
+    {
+      "path": "程式/ml/models.py",
+      "sha256": "413c19fd5317d9645da980ac6e569b5930d78c5418ab0091805816abd0fc3003",
+      "bytes": 15761,
+      "functions": [
+        {
+          "name": "evaluate",
+          "line": 19
+        },
+        {
+          "name": "per_stock_metrics",
+          "line": 34
+        },
+        {
+          "name": "train_random_forest",
+          "line": 38
+        },
+        {
+          "name": "train_xgboost",
+          "line": 47
+        },
+        {
+          "name": "train_gru",
+          "line": 57
+        },
+        {
+          "name": "run_model",
+          "line": 105
+        },
+        {
+          "name": "evaluate_multiclass",
+          "line": 123
+        },
+        {
+          "name": "_train_random_forest_multiclass",
+          "line": 168
+        },
+        {
+          "name": "_train_xgboost_multiclass",
+          "line": 177
+        },
+        {
+          "name": "_context_for",
+          "line": 188
+        },
+        {
+          "name": "tabular_multiclass_input",
+          "line": 192
+        },
+        {
+          "name": "build_gru_multiclass_model",
+          "line": 202
+        },
+        {
+          "name": "_train_gru_multiclass",
+          "line": 224
+        },
+        {
+          "name": "fit_multiclass_model",
+          "line": 279
+        },
+        {
+          "name": "run_multiclass_model",
+          "line": 287
+        }
+      ]
+    },
+    {
+      "path": "程式/獨立實驗/華碩2357_2025上半年/程式/train_models.py",
+      "sha256": "c766aa0617d1648955dba2139487b5743e68a7fe2d75e673b913ad2a937177ab",
+      "bytes": 3031,
+      "functions": []
+    },
+    {
+      "path": "程式/獨立實驗/華碩2357_2025上半年/程式/infer_models.py",
+      "sha256": "d74ea74a730a026ed3c809e5afc0e6f875d61bf6d6f622799f764fe37edd348e",
+      "bytes": 4539,
+      "functions": []
+    },
+    {
+      "path": "程式/獨立實驗/華碩2357_2025上半年/模型/training_audit.json",
+      "sha256": "953c019e61ee5b27fa8e21cf61f7bafa7bc648e0d6beca2f4c2648b4b3f45325",
+      "bytes": 6907
+    },
+    {
+      "path": "程式/獨立實驗/第一金2892_2025上半年/模型/training_audit.json",
+      "sha256": "c38f670c12c25c20023a1d94666ef4af9d65cc131874ca6b51932f15df2b4b8d",
+      "bytes": 6907
+    },
+    {
+      "path": "程式/backtest_config.json",
+      "sha256": "d8f2c4667fb29103646989fd303e4ef55e59b16eab710c2f9b13ee65553488ab",
+      "bytes": 4148
+    },
+    {
+      "path": "程式/app_backtest.py",
+      "sha256": "5d9296405d76f2367cb37c24421dc8714aab6a34457c93fefe825779186cddcf",
+      "bytes": 471,
+      "functions": []
+    },
+    {
+      "path": "程式/trading_system/research_guard.py",
+      "sha256": "d178eb5a19c0a4f5d00aa3eb60aa7fe6261a9dd5fb7e7b3bddac03c304a52a21",
+      "bytes": 3954,
+      "functions": [
+        {
+          "name": "HoldoutLockedError",
+          "line": 22
+        },
+        {
+          "name": "_date",
+          "line": 26
+        },
+        {
+          "name": "assert_development_period",
+          "line": 34
+        },
+        {
+          "name": "assert_config",
+          "line": 50
+        },
+        {
+          "name": "assert_timestamps",
+          "line": 56
+        },
+        {
+          "name": "_is_reserved_period_declaration",
+          "line": 64
+        },
+        {
+          "name": "assert_payload",
+          "line": 72
+        },
+        {
+          "name": "guarded_json_loads",
+          "line": 92
+        }
+      ]
+    },
+    {
+      "path": "程式/docs/長期研究規範.md",
+      "sha256": "10239598e4c778bf697282864428ab6d24cf26acfe2888faa2358da2ed53365c",
+      "bytes": 8827
+    },
+    {
+      "path": "C:\\Users\\yunso\\OneDrive\\桌面\\BUY策略修改完整規劃_20261113_修訂版.md",
+      "sha256": "56b071a95bfea06041a8c2e7433919a2aa448962bb7514fd3027ea881b7dfe28",
+      "purpose": "original planning document compared with later explicit user decisions"
+    }
+  ],
+  "findings": [
+    {
+      "id": "A1",
+      "description": "舊六策略API仍可呼叫",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A2",
+      "description": "主設定含過時描述",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A3",
+      "description": "Gemini仍用舊買進持有成本說明",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A4",
+      "description": "共同日期先擋缺預測，Gate診斷不足",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A5",
+      "description": "產業診斷未完整實作",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A6",
+      "description": "缺獨立市場日曆對照",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A7",
+      "description": "缺高點不可信狀態",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A8",
+      "description": "買進持有短區間與除息邊界",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A9",
+      "description": "網站未完整呈現未平倉",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A10",
+      "description": "診斷與雜湊欄位不完整",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A11",
+      "description": "網站缺額外研究比較口徑",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A12",
+      "description": "非共用資金組合",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A13",
+      "description": "成交僅普通OHLC近似",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A14",
+      "description": "非完整公司行動引擎",
+      "status": "DISCLOSED_NOT_FIXED"
+    },
+    {
+      "id": "A15",
+      "description": "非全參數不可變凍結",
+      "status": "DISCLOSED_NOT_FIXED"
+    }
+  ]
+}

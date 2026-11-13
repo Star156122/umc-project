@@ -1,0 +1,410 @@
+[
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230101&stockNo=2303",
+    "file": "2303_daily_20230101.json",
+    "sha256": "9c89bd99d194db692d555612c69c1e5d62bb94341f9fe400568ff8e285747283",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230201&stockNo=2303",
+    "file": "2303_daily_20230201.json",
+    "sha256": "32db456122f70ce7bd8710c02717a4679cc380b286bbbfbd50d62bbf403b103f",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230301&stockNo=2303",
+    "file": "2303_daily_20230301.json",
+    "sha256": "b81d92085257083bd33ceb2fb851eb76356e5eb863f3893733602fc2e0cd8ba7",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230401&stockNo=2303",
+    "file": "2303_daily_20230401.json",
+    "sha256": "15e2dc2fbb0679d6009adfe4323025932be82820f584b23b1cd8c9276e9ed8b7",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230501&stockNo=2303",
+    "file": "2303_daily_20230501.json",
+    "sha256": "43ae5cfe7e8ae07feda24919af9823f6143f969d8d1f222b26973e95740623d3",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230601&stockNo=2303",
+    "file": "2303_daily_20230601.json",
+    "sha256": "f8f60d02b2934a6c96b805e6930a86a5bf6f05b8becb5016ae34dcf2376771a8",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230701&stockNo=2303",
+    "file": "2303_daily_20230701.json",
+    "sha256": "7e033ba6f3f7d8b4ae12246d4a0a197cd3155c86acf4df53d964b2b2bf9ffe44",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230801&stockNo=2303",
+    "file": "2303_daily_20230801.json",
+    "sha256": "f66c3db655d985fddfed8baf116a0feba2e773d43c3344f7da44313f6c78f10a",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230901&stockNo=2303",
+    "file": "2303_daily_20230901.json",
+    "sha256": "77e78e8bd3d94aebd0489aec6bfb80c1f016e9b551eb8bf247fde4bfaed7ba97",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20231001&stockNo=2303",
+    "file": "2303_daily_20231001.json",
+    "sha256": "5b6554de2c525f5154a2dae160d47b2d736b189a0853858e4787ece9a31a9d1d",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20231101&stockNo=2303",
+    "file": "2303_daily_20231101.json",
+    "sha256": "1dbd7eebd08f07eebcea59cfabe298594e508c8718d01e3ee643806b5de05ae3",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20231201&stockNo=2303",
+    "file": "2303_daily_20231201.json",
+    "sha256": "09b26341380c43e08e1c8f1c07e876c07f0fb1d210835023aade2cd188764078",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240101&stockNo=2303",
+    "file": "2303_daily_20240101.json",
+    "sha256": "e441d11eb73390e14b5a6130eb427b2da339e4f921c85ee4f619371f3adcddc6",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240201&stockNo=2303",
+    "file": "2303_daily_20240201.json",
+    "sha256": "35487b3c7d7d17d236486749aa6b4c072a5eb5551bfa95583debb198e98123b3",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240301&stockNo=2303",
+    "file": "2303_daily_20240301.json",
+    "sha256": "fd467c42b6e2ad4f5366d2e5ad7445804fa4df993f6df9ed655531dee72016e9",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240401&stockNo=2303",
+    "file": "2303_daily_20240401.json",
+    "sha256": "6a85f8c245d11162bc8594d7e88e24060c2f8587b168e4844fc23f25bf3f8072",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240501&stockNo=2303",
+    "file": "2303_daily_20240501.json",
+    "sha256": "f204b63fbb40dd48e3997a4eaca92795daf81900abb621244c3eac5b5175ec87",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240601&stockNo=2303",
+    "file": "2303_daily_20240601.json",
+    "sha256": "eebb9d3c242a9bbccdda3cee4b88d044cda1d255a425877b608da92a05c5a22f",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240701&stockNo=2303",
+    "file": "2303_daily_20240701.json",
+    "sha256": "eba9b7776f2656f58c74a42e56cc0f0f8b0f50138b7c2617c1d1aa593fbfef20",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240801&stockNo=2303",
+    "file": "2303_daily_20240801.json",
+    "sha256": "9e928c85c0b6ce1f1e477297f1b05c5501af1fb46f816a5e281fce634583595a",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240901&stockNo=2303",
+    "file": "2303_daily_20240901.json",
+    "sha256": "422200cef2a14a857fa7836cf7c33b7417a432cbc9ebd85acc5b4ee4a458a320",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241001&stockNo=2303",
+    "file": "2303_daily_20241001.json",
+    "sha256": "4959e5be25b722e82c465e205b9c851cffdf7cf8d1a27accc084953eda24786e",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241101&stockNo=2303",
+    "file": "2303_daily_20241101.json",
+    "sha256": "23bf04d567d2e0bddc4ce70a90399a494565ecf1efb0832268eb6c14a9c20360",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241201&stockNo=2303",
+    "file": "2303_daily_20241201.json",
+    "sha256": "90c8af7ddbccdff429244da5d897d17a094664b8631b90c97587967cc8c32a87",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  }
+]

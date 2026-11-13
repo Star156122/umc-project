@@ -1,0 +1,11 @@
+{
+  "events": [
+    {
+      "ex_date": "2024-12-12",
+      "payment_date": "2025-01-09",
+      "cash_per_share": 3.99963706
+    }
+  ],
+  "scope": "Only actions from warmup start 2024-09-16 through 2024-12-31; earlier actions outside 240-bar rolling window.",
+  "source": "https://investor.tsmc.com/english/dividends/2q24"
+}

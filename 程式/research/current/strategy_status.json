@@ -786,5 +786,16 @@
     "2026_used": false,
     "final_oos_used": false,
     "strategy_changed": false
+  },
+  "website_primary_strategy": {
+    "profile_id": "main-buy-noadd-noextension-common-v1-20261114",
+    "status": "USER_SELECTED_NOT_PROFIT_VALIDATED",
+    "config": "hybrid/config/web_main_strategy_v1.json",
+    "risk_budget_enabled": false,
+    "adds_enabled": false,
+    "holding_extension_enabled": false,
+    "coverage": "COMMON_COMPLETE_AND_THREE_VALID_MODELS",
+    "initial_capital": 250000,
+    "formal_holdout_access_enabled": false
   }
 }

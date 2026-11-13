@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "ex_date": "2025-06-03",
+      "payment_date": "2025-06-27",
+      "cash_per_share": 3.79927437
+    }
+  ],
+  "sources": [
+    "https://www.wistron.com/en/Investors/ShareholdersServices/DividendHistory",
+    "https://superpy.kgieworld.com.tw/kgipythonapi/stockInfo/finance/exDividend?stockCode=3231"
+  ],
+  "scope": "Only 2024Nov through2025June actions; no subsequent market data accessed."
+}

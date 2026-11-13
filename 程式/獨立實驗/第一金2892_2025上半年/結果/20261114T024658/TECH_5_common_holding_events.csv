@@ -1,0 +1,4 @@
+﻿time,trade_id,checks,failed,estimated_net_profit,ml,stop_unchanged,held,hard_cap,action,reason
+2025-05-14T11:00:00+08:00,4,"{""net_profit_positive"": true, ""trend"": false, ""market"": true, ""ml_buy"": true}","[""trend""]",1497.6346380000177,NOT_APPLICABLE,25.118803124999996,162,216,EXIT,trend
+2025-06-11T09:40:00+08:00,7,"{""net_profit_positive"": true, ""trend"": false, ""market"": true, ""ml_buy"": true}","[""trend""]",808.263703500008,NOT_APPLICABLE,26.582034374999996,162,216,EXIT,trend
+2025-06-30T10:30:00+08:00,9,"{""net_profit_positive"": false, ""trend"": true, ""market"": true, ""ml_buy"": true}","[""net_profit_positive""]",-141.51532549998956,NOT_APPLICABLE,27.947716874999998,162,216,EXIT,net_profit_positive

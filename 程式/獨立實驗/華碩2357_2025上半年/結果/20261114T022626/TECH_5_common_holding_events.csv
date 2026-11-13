@@ -1,0 +1,2 @@
+﻿time,trade_id,checks,failed,estimated_net_profit,ml,stop_unchanged,held,hard_cap,action,reason
+2025-06-13T09:20:00+08:00,9,"{""net_profit_positive"": true, ""trend"": false, ""market"": true, ""ml_buy"": true}","[""trend""]",1406.4437620000099,NOT_APPLICABLE,645.772725,162,216,EXIT,trend

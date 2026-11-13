@@ -1,0 +1,11 @@
+{
+  "stock": "2454",
+  "source": "https://www.mediatek.com/zh-tw/investor-relations/shareholder-services",
+  "retrieved_on": "2026-11-13",
+  "scope": "Only ex-dates in 2023–2024; no stock dividends in these three distributions per issuer table.",
+  "events": [
+    {"ex_date": "2023-06-20", "cash_per_share": 76.00660606, "payment_date": "2023-07-20"},
+    {"ex_date": "2024-01-04", "cash_per_share": 24.6, "payment_date": "2024-01-31"},
+    {"ex_date": "2024-07-04", "cash_per_share": 30.40530874, "payment_date": "2024-07-31"}
+  ]
+}

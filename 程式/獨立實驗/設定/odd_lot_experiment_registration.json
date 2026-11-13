@@ -1,0 +1,15 @@
+{
+  "experiment_id": "isolated-buy-2454-20261113-exp002-odd-lot",
+  "strategy": "technical_v2b_buy_isolated",
+  "variant": "SAME_FOUR_ARMS_ALLOW_ODD_LOT",
+  "test_start": "2023-01-01",
+  "test_end": "2024-12-31",
+  "dataset_role": "training_development_exposed",
+  "stock_codes": "2454",
+  "status": "completed",
+  "decision": "PROXY_RESEARCH_ONLY",
+  "report_file": "獨立實驗/結果/20261113T224843/index.html",
+  "result_file": "獨立實驗/結果/20261113T224843",
+  "holdout_used": "false",
+  "notes": "User authorized common odd-lot quantity model; 1m capital and 1% risk unchanged; no tuning; need exact data or explicit proxy choice. Prior exp001 results deleted by user. No inference that allowing shares improves profits.; User explicitly selected ordinary OHLC proxy; known no-same-day odd exits and >=09:10 enforced; observed-bar timeout corrected; no tuning; report=PROXY_RESEARCH_ONLY."
+}

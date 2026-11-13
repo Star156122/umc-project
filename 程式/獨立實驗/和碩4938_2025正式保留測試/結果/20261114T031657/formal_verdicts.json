@@ -1,0 +1,20 @@
+[
+  {
+    "model": "RF",
+    "verdict": "FAIL",
+    "difference_vs_technical": -0.014465151080600425,
+    "trade_count": 5
+  },
+  {
+    "model": "XGB",
+    "verdict": "FAIL",
+    "difference_vs_technical": -0.009730967026000625,
+    "trade_count": 5
+  },
+  {
+    "model": "GRU",
+    "verdict": "PASS_FIXED_CRITERIA_ONLY",
+    "difference_vs_technical": 0.013107956296799839,
+    "trade_count": 5
+  }
+]

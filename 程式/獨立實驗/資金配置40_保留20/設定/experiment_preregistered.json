@@ -1,0 +1,15 @@
+{
+  "experiment_id": "isolated-buy-cash40-reserve20-20261114-exp001",
+  "strategy": "technical_v2b_buy_isolated",
+  "variant": "D_EXTENSION_CASH40_RESERVE20",
+  "test_start": "2024-10-01",
+  "test_end": "2024-12-31",
+  "dataset_role": "training_development_exposed",
+  "stock_codes": "2303|2330|2379|2454|3034",
+  "status": "implementation_not_run",
+  "decision": "NOT_BACKTESTED",
+  "holdout_used": "false",
+  "notes": "User explicitly cancels risk budget. Single change position sizing: first/add max40% current available cash including fees, reserve20% initial capital fixed, prior20 volume1% cap, recompute next open and never increase queued shares. No 1% loss ceiling, no guarantee of maximum loss. Existing stop/ML/extension/one-add unchanged. No market replay.",
+  "report_file": "",
+  "result_file": "獨立實驗\\資金配置40_保留20\\結果"
+}

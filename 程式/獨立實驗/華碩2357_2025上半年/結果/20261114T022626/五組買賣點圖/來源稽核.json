@@ -1,0 +1,33 @@
+{
+  "source_sha256": "7e26f13fb0a0738d9f9f3bd01cc0d7d0abd0108e8bd47e2fbc91b99e3a05da67",
+  "source_result": "20261114T022626",
+  "strategy_replayed": false,
+  "source_results_modified": false,
+  "stocks": {
+    "BH": {
+      "bars": 6261,
+      "buy_markers": 1,
+      "sell_markers": 1
+    },
+    "TECH": {
+      "bars": 6261,
+      "buy_markers": 18,
+      "sell_markers": 11
+    },
+    "RF": {
+      "bars": 6261,
+      "buy_markers": 2,
+      "sell_markers": 1
+    },
+    "XGB": {
+      "bars": 6261,
+      "buy_markers": 4,
+      "sell_markers": 3
+    },
+    "GRU": {
+      "bars": 6261,
+      "buy_markers": 4,
+      "sell_markers": 3
+    }
+  }
+}

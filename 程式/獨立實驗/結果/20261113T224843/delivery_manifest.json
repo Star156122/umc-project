@@ -1,0 +1,20 @@
+{
+  "packaged_at": "2026-11-13T23:04:10.374520+08:00",
+  "report_only_postprocessing": "Offline report delivery; see frozen configuration and explicit proxy authorization.",
+  "report_assets": {
+    "A_analysis.html": "328cf1ca759d14b8fb239e669449f5834b2354503f7b6a0db180f9cdb6739cf7",
+    "A_funnel.html": "79cfd29ea4d33148268090668e38275676580884e62a6fceadfbf8c30f0e26f0",
+    "B_analysis.html": "e0053b7695741d2045cb4efd7d9565956bdeb97217338dce3ef5a323f7f16c70",
+    "B_funnel.html": "d712a1d8fb5bbd9b70b73bed12ff323c94904e73f6397b9d82f4f5d6ee137d0e",
+    "C_analysis.html": "68b26a8e62d37aebd5553a93359232bcf40705e1ff90aa55867cb54351f6fca5",
+    "C_funnel.html": "074124223a7ab532baa3ab8f4d61b5f953943cd878187ef541f5cf557d99b3a8",
+    "data.js": "2f46e6e83807be6018f1840ecdba2153a9c50731149a4685090398f4d255cbb7",
+    "D_analysis.html": "027474a6a0015b567d83aefa10de3750558f686364db5bb560efb78aa304b38c",
+    "D_funnel.html": "3774735ce99a5b0b9389b9b7859253f895a8d70b4686bf308ad228043f9af755",
+    "index.html": "387e8d73e0ddd918635ac966f1a448fa73efe95c03864d1628b72c90d8cbe550",
+    "report.css": "3cabe744d1e28e4466558c70b65361aa2ca6093a6389bb85f53f9a81a5f7ffe9",
+    "report.js": "5420dae818f2ebc3a59639e58e918a5687f3605cd69535557027285dbd1ac582"
+  },
+  "simulation_freeze": "freeze.json",
+  "quality_checks": "html_qa.json"
+}

@@ -1,0 +1,2 @@
+﻿trade_id,entry_time,exit_time,entry_price,exit_price,quantity,net_pnl,gross_pnl,net_return,holding_bars,exit_reason,adds,entry_day,exit_day,cash_dividends,deferred_exits
+1,2024-12-26T10:15:00+08:00,2024-12-27T11:00:00+08:00,505.2525,503.74800000000005,342,-1522.384447999997,-514.5389999999898,-0.00879775617940473,62,DATA_GAP_NEXT_OBSERVED_OPEN,0,2024-12-26,2024-12-27,0,[]

@@ -1,0 +1,16 @@
+{
+  "latest_report": "20261114T022626",
+  "html_pages_checked": 17,
+  "synthetic_tests_passed": 6,
+  "strategy_results_changed_after_replay": false,
+  "program_hashes_at_delivery": {
+    "build_trade_charts.py": "e807be427676481304135b79604e29ac73b0f413d4037a0d06e53cb378ae1eef",
+    "engine.py": "b3ad9c9f8bfedaa408eed3f73d0501f142e629e3eb5385e284364020842368a6",
+    "infer_models.py": "d74ea74a730a026ed3c809e5afc0e6f875d61bf6d6f622799f764fe37edd348e",
+    "package_asus.py": "cfe46d2d284366aa0b5934f3b7c6a0814f3e33de86aac1fb1cef55f49baffe26",
+    "prepare.py": "921d793b55fe793081499bdbd848a8a0732e36abe5d49d1e70b2a4aded7def4e",
+    "prepare_official.py": "c8eeb461f6840d3a26478f204d9f1115ad02ccd5c99f5d21bb52f13179cdc163",
+    "run_asus.py": "aab9feab068a411378fcf163a9592f730b6988a9f464aa27f37a32d216d419ad",
+    "train_models.py": "c766aa0617d1648955dba2139487b5743e68a7fe2d75e673b913ad2a937177ab"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "state": "CONSUMED",
+  "freeze_sha256": "27d0cb2b903db3aeb6ba2248be5743796bc0e55eefa53096f1f41c1ba49352c6",
+  "first_access_authorized_at": "2026-11-13T19:15:07.839812+00:00",
+  "authorization": "User explicitly selected: 申請使用2025全年作正式最終保留測試，先凍結規格再驗證。",
+  "never_reset_even_on_failure": true
+}

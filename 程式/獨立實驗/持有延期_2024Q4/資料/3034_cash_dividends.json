@@ -1,0 +1,5 @@
+{
+  "events": [],
+  "scope": "Only actions from warmup start 2024-09-16 through 2024-12-31; earlier actions outside 240-bar rolling window.",
+  "source": "https://www.novatek.com.tw/zh-TW/IR_info/ir_dividendInformation"
+}

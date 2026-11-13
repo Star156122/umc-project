@@ -1,0 +1,2407 @@
+[
+  {
+    "date": "2023-01-03",
+    "volume_shares": 4509288,
+    "close": 644.0
+  },
+  {
+    "date": "2023-01-04",
+    "volume_shares": 3081086,
+    "close": 636.0
+  },
+  {
+    "date": "2023-01-05",
+    "volume_shares": 5429497,
+    "close": 631.0
+  },
+  {
+    "date": "2023-01-06",
+    "volume_shares": 7951964,
+    "close": 660.0
+  },
+  {
+    "date": "2023-01-09",
+    "volume_shares": 7084736,
+    "close": 675.0
+  },
+  {
+    "date": "2023-01-10",
+    "volume_shares": 8836356,
+    "close": 694.0
+  },
+  {
+    "date": "2023-01-11",
+    "volume_shares": 7050840,
+    "close": 707.0
+  },
+  {
+    "date": "2023-01-12",
+    "volume_shares": 6557029,
+    "close": 715.0
+  },
+  {
+    "date": "2023-01-13",
+    "volume_shares": 7897961,
+    "close": 694.0
+  },
+  {
+    "date": "2023-01-16",
+    "volume_shares": 5310041,
+    "close": 704.0
+  },
+  {
+    "date": "2023-01-17",
+    "volume_shares": 4750714,
+    "close": 693.0
+  },
+  {
+    "date": "2023-01-30",
+    "volume_shares": 18980506,
+    "close": 739.0
+  },
+  {
+    "date": "2023-01-31",
+    "volume_shares": 13095953,
+    "close": 718.0
+  },
+  {
+    "date": "2023-02-01",
+    "volume_shares": 5815887,
+    "close": 724.0
+  },
+  {
+    "date": "2023-02-02",
+    "volume_shares": 11416420,
+    "close": 747.0
+  },
+  {
+    "date": "2023-02-03",
+    "volume_shares": 6601968,
+    "close": 751.0
+  },
+  {
+    "date": "2023-02-06",
+    "volume_shares": 7693098,
+    "close": 731.0
+  },
+  {
+    "date": "2023-02-07",
+    "volume_shares": 7367549,
+    "close": 717.0
+  },
+  {
+    "date": "2023-02-08",
+    "volume_shares": 7991431,
+    "close": 744.0
+  },
+  {
+    "date": "2023-02-09",
+    "volume_shares": 4016255,
+    "close": 749.0
+  },
+  {
+    "date": "2023-02-10",
+    "volume_shares": 3235750,
+    "close": 740.0
+  },
+  {
+    "date": "2023-02-13",
+    "volume_shares": 4171947,
+    "close": 731.0
+  },
+  {
+    "date": "2023-02-14",
+    "volume_shares": 3487039,
+    "close": 732.0
+  },
+  {
+    "date": "2023-02-15",
+    "volume_shares": 6977304,
+    "close": 710.0
+  },
+  {
+    "date": "2023-02-16",
+    "volume_shares": 5178561,
+    "close": 711.0
+  },
+  {
+    "date": "2023-02-17",
+    "volume_shares": 3610451,
+    "close": 723.0
+  },
+  {
+    "date": "2023-02-20",
+    "volume_shares": 2619587,
+    "close": 726.0
+  },
+  {
+    "date": "2023-02-21",
+    "volume_shares": 2746079,
+    "close": 725.0
+  },
+  {
+    "date": "2023-02-22",
+    "volume_shares": 4610941,
+    "close": 713.0
+  },
+  {
+    "date": "2023-02-23",
+    "volume_shares": 8227452,
+    "close": 745.0
+  },
+  {
+    "date": "2023-02-24",
+    "volume_shares": 8209174,
+    "close": 723.0
+  },
+  {
+    "date": "2023-03-01",
+    "volume_shares": 16624548,
+    "close": 791.0
+  },
+  {
+    "date": "2023-03-02",
+    "volume_shares": 9729803,
+    "close": 775.0
+  },
+  {
+    "date": "2023-03-03",
+    "volume_shares": 6642734,
+    "close": 775.0
+  },
+  {
+    "date": "2023-03-06",
+    "volume_shares": 7685453,
+    "close": 784.0
+  },
+  {
+    "date": "2023-03-07",
+    "volume_shares": 5202228,
+    "close": 788.0
+  },
+  {
+    "date": "2023-03-08",
+    "volume_shares": 8741223,
+    "close": 768.0
+  },
+  {
+    "date": "2023-03-09",
+    "volume_shares": 5335712,
+    "close": 767.0
+  },
+  {
+    "date": "2023-03-10",
+    "volume_shares": 6008380,
+    "close": 756.0
+  },
+  {
+    "date": "2023-03-13",
+    "volume_shares": 5327065,
+    "close": 764.0
+  },
+  {
+    "date": "2023-03-14",
+    "volume_shares": 6588044,
+    "close": 761.0
+  },
+  {
+    "date": "2023-03-15",
+    "volume_shares": 5292738,
+    "close": 758.0
+  },
+  {
+    "date": "2023-03-16",
+    "volume_shares": 6000004,
+    "close": 756.0
+  },
+  {
+    "date": "2023-03-17",
+    "volume_shares": 6841068,
+    "close": 773.0
+  },
+  {
+    "date": "2023-03-20",
+    "volume_shares": 5321040,
+    "close": 770.0
+  },
+  {
+    "date": "2023-03-21",
+    "volume_shares": 5445430,
+    "close": 771.0
+  },
+  {
+    "date": "2023-03-22",
+    "volume_shares": 5659553,
+    "close": 781.0
+  },
+  {
+    "date": "2023-03-23",
+    "volume_shares": 4865131,
+    "close": 793.0
+  },
+  {
+    "date": "2023-03-24",
+    "volume_shares": 4406461,
+    "close": 790.0
+  },
+  {
+    "date": "2023-03-27",
+    "volume_shares": 3071593,
+    "close": 780.0
+  },
+  {
+    "date": "2023-03-28",
+    "volume_shares": 4137411,
+    "close": 766.0
+  },
+  {
+    "date": "2023-03-29",
+    "volume_shares": 2981780,
+    "close": 773.0
+  },
+  {
+    "date": "2023-03-30",
+    "volume_shares": 3614487,
+    "close": 778.0
+  },
+  {
+    "date": "2023-03-31",
+    "volume_shares": 4496209,
+    "close": 787.0
+  },
+  {
+    "date": "2023-04-06",
+    "volume_shares": 9301246,
+    "close": 753.0
+  },
+  {
+    "date": "2023-04-07",
+    "volume_shares": 4618526,
+    "close": 749.0
+  },
+  {
+    "date": "2023-04-10",
+    "volume_shares": 5956250,
+    "close": 742.0
+  },
+  {
+    "date": "2023-04-11",
+    "volume_shares": 4665168,
+    "close": 756.0
+  },
+  {
+    "date": "2023-04-12",
+    "volume_shares": 4555491,
+    "close": 758.0
+  },
+  {
+    "date": "2023-04-13",
+    "volume_shares": 5815842,
+    "close": 750.0
+  },
+  {
+    "date": "2023-04-14",
+    "volume_shares": 5990292,
+    "close": 748.0
+  },
+  {
+    "date": "2023-04-17",
+    "volume_shares": 14840026,
+    "close": 709.0
+  },
+  {
+    "date": "2023-04-18",
+    "volume_shares": 15093599,
+    "close": 688.0
+  },
+  {
+    "date": "2023-04-19",
+    "volume_shares": 11632986,
+    "close": 675.0
+  },
+  {
+    "date": "2023-04-20",
+    "volume_shares": 10238247,
+    "close": 673.0
+  },
+  {
+    "date": "2023-04-21",
+    "volume_shares": 5480008,
+    "close": 665.0
+  },
+  {
+    "date": "2023-04-24",
+    "volume_shares": 4802301,
+    "close": 676.0
+  },
+  {
+    "date": "2023-04-25",
+    "volume_shares": 9007698,
+    "close": 650.0
+  },
+  {
+    "date": "2023-04-26",
+    "volume_shares": 7417677,
+    "close": 649.0
+  },
+  {
+    "date": "2023-04-27",
+    "volume_shares": 4770671,
+    "close": 662.0
+  },
+  {
+    "date": "2023-04-28",
+    "volume_shares": 6790242,
+    "close": 665.0
+  },
+  {
+    "date": "2023-05-02",
+    "volume_shares": 6448130,
+    "close": 671.0
+  },
+  {
+    "date": "2023-05-03",
+    "volume_shares": 6817126,
+    "close": 680.0
+  },
+  {
+    "date": "2023-05-04",
+    "volume_shares": 5752312,
+    "close": 668.0
+  },
+  {
+    "date": "2023-05-05",
+    "volume_shares": 3271540,
+    "close": 675.0
+  },
+  {
+    "date": "2023-05-08",
+    "volume_shares": 3131678,
+    "close": 675.0
+  },
+  {
+    "date": "2023-05-09",
+    "volume_shares": 2224247,
+    "close": 677.0
+  },
+  {
+    "date": "2023-05-10",
+    "volume_shares": 3945608,
+    "close": 668.0
+  },
+  {
+    "date": "2023-05-11",
+    "volume_shares": 3193160,
+    "close": 668.0
+  },
+  {
+    "date": "2023-05-12",
+    "volume_shares": 5310815,
+    "close": 673.0
+  },
+  {
+    "date": "2023-05-15",
+    "volume_shares": 3670003,
+    "close": 680.0
+  },
+  {
+    "date": "2023-05-16",
+    "volume_shares": 3837504,
+    "close": 680.0
+  },
+  {
+    "date": "2023-05-17",
+    "volume_shares": 8035289,
+    "close": 685.0
+  },
+  {
+    "date": "2023-05-18",
+    "volume_shares": 4642695,
+    "close": 689.0
+  },
+  {
+    "date": "2023-05-19",
+    "volume_shares": 5282896,
+    "close": 698.0
+  },
+  {
+    "date": "2023-05-22",
+    "volume_shares": 4735362,
+    "close": 705.0
+  },
+  {
+    "date": "2023-05-23",
+    "volume_shares": 5482158,
+    "close": 716.0
+  },
+  {
+    "date": "2023-05-24",
+    "volume_shares": 5846655,
+    "close": 711.0
+  },
+  {
+    "date": "2023-05-25",
+    "volume_shares": 4795371,
+    "close": 708.0
+  },
+  {
+    "date": "2023-05-26",
+    "volume_shares": 11322817,
+    "close": 730.0
+  },
+  {
+    "date": "2023-05-29",
+    "volume_shares": 10781343,
+    "close": 738.0
+  },
+  {
+    "date": "2023-05-30",
+    "volume_shares": 18933732,
+    "close": 763.0
+  },
+  {
+    "date": "2023-05-31",
+    "volume_shares": 12616197,
+    "close": 759.0
+  },
+  {
+    "date": "2023-06-01",
+    "volume_shares": 6475068,
+    "close": 748.0
+  },
+  {
+    "date": "2023-06-02",
+    "volume_shares": 6602831,
+    "close": 751.0
+  },
+  {
+    "date": "2023-06-05",
+    "volume_shares": 5479487,
+    "close": 759.0
+  },
+  {
+    "date": "2023-06-06",
+    "volume_shares": 4539092,
+    "close": 757.0
+  },
+  {
+    "date": "2023-06-07",
+    "volume_shares": 5460461,
+    "close": 768.0
+  },
+  {
+    "date": "2023-06-08",
+    "volume_shares": 7438271,
+    "close": 768.0
+  },
+  {
+    "date": "2023-06-09",
+    "volume_shares": 4669885,
+    "close": 764.0
+  },
+  {
+    "date": "2023-06-12",
+    "volume_shares": 3946889,
+    "close": 767.0
+  },
+  {
+    "date": "2023-06-13",
+    "volume_shares": 7414411,
+    "close": 779.0
+  },
+  {
+    "date": "2023-06-14",
+    "volume_shares": 5431002,
+    "close": 780.0
+  },
+  {
+    "date": "2023-06-15",
+    "volume_shares": 8544438,
+    "close": 766.0
+  },
+  {
+    "date": "2023-06-16",
+    "volume_shares": 10727794,
+    "close": 751.0
+  },
+  {
+    "date": "2023-06-19",
+    "volume_shares": 20318537,
+    "close": 785.0
+  },
+  {
+    "date": "2023-06-20",
+    "volume_shares": 28362644,
+    "close": 691.0
+  },
+  {
+    "date": "2023-06-21",
+    "volume_shares": 17552774,
+    "close": 693.0
+  },
+  {
+    "date": "2023-06-26",
+    "volume_shares": 4807895,
+    "close": 685.0
+  },
+  {
+    "date": "2023-06-27",
+    "volume_shares": 4722955,
+    "close": 681.0
+  },
+  {
+    "date": "2023-06-28",
+    "volume_shares": 6520526,
+    "close": 695.0
+  },
+  {
+    "date": "2023-06-29",
+    "volume_shares": 5304709,
+    "close": 696.0
+  },
+  {
+    "date": "2023-06-30",
+    "volume_shares": 5442323,
+    "close": 688.0
+  },
+  {
+    "date": "2023-07-03",
+    "volume_shares": 3088086,
+    "close": 691.0
+  },
+  {
+    "date": "2023-07-04",
+    "volume_shares": 3880537,
+    "close": 700.0
+  },
+  {
+    "date": "2023-07-05",
+    "volume_shares": 3803541,
+    "close": 697.0
+  },
+  {
+    "date": "2023-07-06",
+    "volume_shares": 4539581,
+    "close": 690.0
+  },
+  {
+    "date": "2023-07-07",
+    "volume_shares": 4819527,
+    "close": 682.0
+  },
+  {
+    "date": "2023-07-10",
+    "volume_shares": 6111018,
+    "close": 673.0
+  },
+  {
+    "date": "2023-07-11",
+    "volume_shares": 3472971,
+    "close": 686.0
+  },
+  {
+    "date": "2023-07-12",
+    "volume_shares": 4353464,
+    "close": 685.0
+  },
+  {
+    "date": "2023-07-13",
+    "volume_shares": 5685109,
+    "close": 680.0
+  },
+  {
+    "date": "2023-07-14",
+    "volume_shares": 6182648,
+    "close": 692.0
+  },
+  {
+    "date": "2023-07-17",
+    "volume_shares": 4524171,
+    "close": 683.0
+  },
+  {
+    "date": "2023-07-18",
+    "volume_shares": 4934643,
+    "close": 683.0
+  },
+  {
+    "date": "2023-07-19",
+    "volume_shares": 6475653,
+    "close": 696.0
+  },
+  {
+    "date": "2023-07-20",
+    "volume_shares": 2629394,
+    "close": 692.0
+  },
+  {
+    "date": "2023-07-21",
+    "volume_shares": 11982886,
+    "close": 682.0
+  },
+  {
+    "date": "2023-07-24",
+    "volume_shares": 7662267,
+    "close": 675.0
+  },
+  {
+    "date": "2023-07-25",
+    "volume_shares": 7473142,
+    "close": 665.0
+  },
+  {
+    "date": "2023-07-26",
+    "volume_shares": 7778681,
+    "close": 655.0
+  },
+  {
+    "date": "2023-07-27",
+    "volume_shares": 4857149,
+    "close": 658.0
+  },
+  {
+    "date": "2023-07-28",
+    "volume_shares": 4310361,
+    "close": 658.0
+  },
+  {
+    "date": "2023-07-31",
+    "volume_shares": 17202994,
+    "close": 690.0
+  },
+  {
+    "date": "2023-08-01",
+    "volume_shares": 14701465,
+    "close": 713.0
+  },
+  {
+    "date": "2023-08-02",
+    "volume_shares": 9248789,
+    "close": 709.0
+  },
+  {
+    "date": "2023-08-04",
+    "volume_shares": 7295888,
+    "close": 706.0
+  },
+  {
+    "date": "2023-08-07",
+    "volume_shares": 5595685,
+    "close": 706.0
+  },
+  {
+    "date": "2023-08-08",
+    "volume_shares": 5805650,
+    "close": 690.0
+  },
+  {
+    "date": "2023-08-09",
+    "volume_shares": 3247603,
+    "close": 701.0
+  },
+  {
+    "date": "2023-08-10",
+    "volume_shares": 4544788,
+    "close": 693.0
+  },
+  {
+    "date": "2023-08-11",
+    "volume_shares": 5202231,
+    "close": 679.0
+  },
+  {
+    "date": "2023-08-14",
+    "volume_shares": 3774054,
+    "close": 672.0
+  },
+  {
+    "date": "2023-08-15",
+    "volume_shares": 2827119,
+    "close": 678.0
+  },
+  {
+    "date": "2023-08-16",
+    "volume_shares": 6070735,
+    "close": 689.0
+  },
+  {
+    "date": "2023-08-17",
+    "volume_shares": 4930026,
+    "close": 674.0
+  },
+  {
+    "date": "2023-08-18",
+    "volume_shares": 3292501,
+    "close": 674.0
+  },
+  {
+    "date": "2023-08-21",
+    "volume_shares": 2756277,
+    "close": 669.0
+  },
+  {
+    "date": "2023-08-22",
+    "volume_shares": 3767273,
+    "close": 672.0
+  },
+  {
+    "date": "2023-08-23",
+    "volume_shares": 2124750,
+    "close": 671.0
+  },
+  {
+    "date": "2023-08-24",
+    "volume_shares": 6428618,
+    "close": 691.0
+  },
+  {
+    "date": "2023-08-25",
+    "volume_shares": 5811245,
+    "close": 694.0
+  },
+  {
+    "date": "2023-08-28",
+    "volume_shares": 6133086,
+    "close": 701.0
+  },
+  {
+    "date": "2023-08-29",
+    "volume_shares": 5358981,
+    "close": 710.0
+  },
+  {
+    "date": "2023-08-30",
+    "volume_shares": 4407859,
+    "close": 709.0
+  },
+  {
+    "date": "2023-08-31",
+    "volume_shares": 6359299,
+    "close": 705.0
+  },
+  {
+    "date": "2023-09-01",
+    "volume_shares": 3098361,
+    "close": 710.0
+  },
+  {
+    "date": "2023-09-04",
+    "volume_shares": 2522028,
+    "close": 711.0
+  },
+  {
+    "date": "2023-09-05",
+    "volume_shares": 5279205,
+    "close": 718.0
+  },
+  {
+    "date": "2023-09-06",
+    "volume_shares": 3242836,
+    "close": 712.0
+  },
+  {
+    "date": "2023-09-07",
+    "volume_shares": 3316214,
+    "close": 717.0
+  },
+  {
+    "date": "2023-09-08",
+    "volume_shares": 4521206,
+    "close": 709.0
+  },
+  {
+    "date": "2023-09-11",
+    "volume_shares": 2183539,
+    "close": 714.0
+  },
+  {
+    "date": "2023-09-12",
+    "volume_shares": 7009423,
+    "close": 728.0
+  },
+  {
+    "date": "2023-09-13",
+    "volume_shares": 9660616,
+    "close": 732.0
+  },
+  {
+    "date": "2023-09-14",
+    "volume_shares": 5768123,
+    "close": 733.0
+  },
+  {
+    "date": "2023-09-15",
+    "volume_shares": 17615207,
+    "close": 763.0
+  },
+  {
+    "date": "2023-09-18",
+    "volume_shares": 12668690,
+    "close": 782.0
+  },
+  {
+    "date": "2023-09-19",
+    "volume_shares": 6470728,
+    "close": 773.0
+  },
+  {
+    "date": "2023-09-20",
+    "volume_shares": 5579484,
+    "close": 759.0
+  },
+  {
+    "date": "2023-09-21",
+    "volume_shares": 5238125,
+    "close": 746.0
+  },
+  {
+    "date": "2023-09-22",
+    "volume_shares": 7898746,
+    "close": 746.0
+  },
+  {
+    "date": "2023-09-25",
+    "volume_shares": 4731685,
+    "close": 755.0
+  },
+  {
+    "date": "2023-09-26",
+    "volume_shares": 3992725,
+    "close": 737.0
+  },
+  {
+    "date": "2023-09-27",
+    "volume_shares": 3938690,
+    "close": 737.0
+  },
+  {
+    "date": "2023-09-28",
+    "volume_shares": 4663792,
+    "close": 735.0
+  },
+  {
+    "date": "2023-10-02",
+    "volume_shares": 3984135,
+    "close": 745.0
+  },
+  {
+    "date": "2023-10-03",
+    "volume_shares": 10858690,
+    "close": 772.0
+  },
+  {
+    "date": "2023-10-04",
+    "volume_shares": 8115420,
+    "close": 780.0
+  },
+  {
+    "date": "2023-10-05",
+    "volume_shares": 6094736,
+    "close": 786.0
+  },
+  {
+    "date": "2023-10-06",
+    "volume_shares": 3120332,
+    "close": 786.0
+  },
+  {
+    "date": "2023-10-11",
+    "volume_shares": 14131456,
+    "close": 814.0
+  },
+  {
+    "date": "2023-10-12",
+    "volume_shares": 7541921,
+    "close": 815.0
+  },
+  {
+    "date": "2023-10-13",
+    "volume_shares": 10447476,
+    "close": 842.0
+  },
+  {
+    "date": "2023-10-16",
+    "volume_shares": 5985812,
+    "close": 840.0
+  },
+  {
+    "date": "2023-10-17",
+    "volume_shares": 8686799,
+    "close": 825.0
+  },
+  {
+    "date": "2023-10-18",
+    "volume_shares": 7906890,
+    "close": 813.0
+  },
+  {
+    "date": "2023-10-19",
+    "volume_shares": 7862713,
+    "close": 830.0
+  },
+  {
+    "date": "2023-10-20",
+    "volume_shares": 8706294,
+    "close": 828.0
+  },
+  {
+    "date": "2023-10-23",
+    "volume_shares": 5392858,
+    "close": 821.0
+  },
+  {
+    "date": "2023-10-24",
+    "volume_shares": 5162297,
+    "close": 816.0
+  },
+  {
+    "date": "2023-10-25",
+    "volume_shares": 6590507,
+    "close": 822.0
+  },
+  {
+    "date": "2023-10-26",
+    "volume_shares": 5768583,
+    "close": 817.0
+  },
+  {
+    "date": "2023-10-27",
+    "volume_shares": 7422025,
+    "close": 801.0
+  },
+  {
+    "date": "2023-10-30",
+    "volume_shares": 16750720,
+    "close": 857.0
+  },
+  {
+    "date": "2023-10-31",
+    "volume_shares": 12015011,
+    "close": 842.0
+  },
+  {
+    "date": "2023-11-01",
+    "volume_shares": 6970553,
+    "close": 846.0
+  },
+  {
+    "date": "2023-11-02",
+    "volume_shares": 10079016,
+    "close": 868.0
+  },
+  {
+    "date": "2023-11-03",
+    "volume_shares": 5808935,
+    "close": 870.0
+  },
+  {
+    "date": "2023-11-06",
+    "volume_shares": 7492650,
+    "close": 882.0
+  },
+  {
+    "date": "2023-11-07",
+    "volume_shares": 7289254,
+    "close": 888.0
+  },
+  {
+    "date": "2023-11-08",
+    "volume_shares": 9834316,
+    "close": 914.0
+  },
+  {
+    "date": "2023-11-09",
+    "volume_shares": 6965311,
+    "close": 905.0
+  },
+  {
+    "date": "2023-11-10",
+    "volume_shares": 7983550,
+    "close": 884.0
+  },
+  {
+    "date": "2023-11-13",
+    "volume_shares": 9776090,
+    "close": 906.0
+  },
+  {
+    "date": "2023-11-14",
+    "volume_shares": 4874889,
+    "close": 905.0
+  },
+  {
+    "date": "2023-11-15",
+    "volume_shares": 8644081,
+    "close": 908.0
+  },
+  {
+    "date": "2023-11-16",
+    "volume_shares": 8055932,
+    "close": 893.0
+  },
+  {
+    "date": "2023-11-17",
+    "volume_shares": 4982028,
+    "close": 904.0
+  },
+  {
+    "date": "2023-11-20",
+    "volume_shares": 7092656,
+    "close": 912.0
+  },
+  {
+    "date": "2023-11-21",
+    "volume_shares": 9993957,
+    "close": 926.0
+  },
+  {
+    "date": "2023-11-22",
+    "volume_shares": 6698496,
+    "close": 942.0
+  },
+  {
+    "date": "2023-11-23",
+    "volume_shares": 5460045,
+    "close": 930.0
+  },
+  {
+    "date": "2023-11-24",
+    "volume_shares": 4669666,
+    "close": 945.0
+  },
+  {
+    "date": "2023-11-27",
+    "volume_shares": 6360969,
+    "close": 931.0
+  },
+  {
+    "date": "2023-11-28",
+    "volume_shares": 5755130,
+    "close": 942.0
+  },
+  {
+    "date": "2023-11-29",
+    "volume_shares": 5410850,
+    "close": 948.0
+  },
+  {
+    "date": "2023-11-30",
+    "volume_shares": 7863209,
+    "close": 945.0
+  },
+  {
+    "date": "2023-12-01",
+    "volume_shares": 3529034,
+    "close": 947.0
+  },
+  {
+    "date": "2023-12-04",
+    "volume_shares": 5265906,
+    "close": 933.0
+  },
+  {
+    "date": "2023-12-05",
+    "volume_shares": 5372126,
+    "close": 929.0
+  },
+  {
+    "date": "2023-12-06",
+    "volume_shares": 3170413,
+    "close": 927.0
+  },
+  {
+    "date": "2023-12-07",
+    "volume_shares": 3086422,
+    "close": 931.0
+  },
+  {
+    "date": "2023-12-08",
+    "volume_shares": 5198667,
+    "close": 943.0
+  },
+  {
+    "date": "2023-12-11",
+    "volume_shares": 5744574,
+    "close": 941.0
+  },
+  {
+    "date": "2023-12-12",
+    "volume_shares": 4720019,
+    "close": 939.0
+  },
+  {
+    "date": "2023-12-13",
+    "volume_shares": 6227011,
+    "close": 955.0
+  },
+  {
+    "date": "2023-12-14",
+    "volume_shares": 6861135,
+    "close": 966.0
+  },
+  {
+    "date": "2023-12-15",
+    "volume_shares": 12593164,
+    "close": 996.0
+  },
+  {
+    "date": "2023-12-18",
+    "volume_shares": 4945844,
+    "close": 989.0
+  },
+  {
+    "date": "2023-12-19",
+    "volume_shares": 5132438,
+    "close": 992.0
+  },
+  {
+    "date": "2023-12-20",
+    "volume_shares": 6529930,
+    "close": 983.0
+  },
+  {
+    "date": "2023-12-21",
+    "volume_shares": 4676270,
+    "close": 976.0
+  },
+  {
+    "date": "2023-12-22",
+    "volume_shares": 3389702,
+    "close": 990.0
+  },
+  {
+    "date": "2023-12-25",
+    "volume_shares": 3423982,
+    "close": 995.0
+  },
+  {
+    "date": "2023-12-26",
+    "volume_shares": 3482709,
+    "close": 1000.0
+  },
+  {
+    "date": "2023-12-27",
+    "volume_shares": 8968047,
+    "close": 1040.0
+  },
+  {
+    "date": "2023-12-28",
+    "volume_shares": 5646158,
+    "close": 1025.0
+  },
+  {
+    "date": "2023-12-29",
+    "volume_shares": 5190939,
+    "close": 1015.0
+  },
+  {
+    "date": "2024-01-02",
+    "volume_shares": 10668557,
+    "close": 981.0
+  },
+  {
+    "date": "2024-01-03",
+    "volume_shares": 13403900,
+    "close": 953.0
+  },
+  {
+    "date": "2024-01-04",
+    "volume_shares": 9628243,
+    "close": 928.0
+  },
+  {
+    "date": "2024-01-05",
+    "volume_shares": 5851876,
+    "close": 921.0
+  },
+  {
+    "date": "2024-01-08",
+    "volume_shares": 6035931,
+    "close": 920.0
+  },
+  {
+    "date": "2024-01-09",
+    "volume_shares": 5893697,
+    "close": 928.0
+  },
+  {
+    "date": "2024-01-10",
+    "volume_shares": 4380442,
+    "close": 924.0
+  },
+  {
+    "date": "2024-01-11",
+    "volume_shares": 7008030,
+    "close": 920.0
+  },
+  {
+    "date": "2024-01-12",
+    "volume_shares": 4936513,
+    "close": 926.0
+  },
+  {
+    "date": "2024-01-15",
+    "volume_shares": 4413758,
+    "close": 922.0
+  },
+  {
+    "date": "2024-01-16",
+    "volume_shares": 11367477,
+    "close": 895.0
+  },
+  {
+    "date": "2024-01-17",
+    "volume_shares": 12081845,
+    "close": 879.0
+  },
+  {
+    "date": "2024-01-18",
+    "volume_shares": 6915744,
+    "close": 897.0
+  },
+  {
+    "date": "2024-01-19",
+    "volume_shares": 9409813,
+    "close": 920.0
+  },
+  {
+    "date": "2024-01-22",
+    "volume_shares": 9745086,
+    "close": 922.0
+  },
+  {
+    "date": "2024-01-23",
+    "volume_shares": 6388646,
+    "close": 911.0
+  },
+  {
+    "date": "2024-01-24",
+    "volume_shares": 8378719,
+    "close": 936.0
+  },
+  {
+    "date": "2024-01-25",
+    "volume_shares": 9340986,
+    "close": 943.0
+  },
+  {
+    "date": "2024-01-26",
+    "volume_shares": 5458694,
+    "close": 936.0
+  },
+  {
+    "date": "2024-01-29",
+    "volume_shares": 7208528,
+    "close": 938.0
+  },
+  {
+    "date": "2024-01-30",
+    "volume_shares": 9996375,
+    "close": 963.0
+  },
+  {
+    "date": "2024-01-31",
+    "volume_shares": 9456227,
+    "close": 966.0
+  },
+  {
+    "date": "2024-02-01",
+    "volume_shares": 17458860,
+    "close": 930.0
+  },
+  {
+    "date": "2024-02-02",
+    "volume_shares": 8662912,
+    "close": 936.0
+  },
+  {
+    "date": "2024-02-05",
+    "volume_shares": 5880641,
+    "close": 937.0
+  },
+  {
+    "date": "2024-02-15",
+    "volume_shares": 12555654,
+    "close": 972.0
+  },
+  {
+    "date": "2024-02-16",
+    "volume_shares": 4761127,
+    "close": 970.0
+  },
+  {
+    "date": "2024-02-19",
+    "volume_shares": 4384732,
+    "close": 963.0
+  },
+  {
+    "date": "2024-02-20",
+    "volume_shares": 8929345,
+    "close": 982.0
+  },
+  {
+    "date": "2024-02-21",
+    "volume_shares": 5894546,
+    "close": 981.0
+  },
+  {
+    "date": "2024-02-22",
+    "volume_shares": 11143348,
+    "close": 1015.0
+  },
+  {
+    "date": "2024-02-23",
+    "volume_shares": 24851080,
+    "close": 1100.0
+  },
+  {
+    "date": "2024-02-26",
+    "volume_shares": 12802833,
+    "close": 1115.0
+  },
+  {
+    "date": "2024-02-27",
+    "volume_shares": 17764235,
+    "close": 1115.0
+  },
+  {
+    "date": "2024-02-29",
+    "volume_shares": 9629679,
+    "close": 1140.0
+  },
+  {
+    "date": "2024-03-01",
+    "volume_shares": 12340648,
+    "close": 1105.0
+  },
+  {
+    "date": "2024-03-04",
+    "volume_shares": 12662274,
+    "close": 1150.0
+  },
+  {
+    "date": "2024-03-05",
+    "volume_shares": 8791366,
+    "close": 1155.0
+  },
+  {
+    "date": "2024-03-06",
+    "volume_shares": 10101276,
+    "close": 1190.0
+  },
+  {
+    "date": "2024-03-07",
+    "volume_shares": 15486926,
+    "close": 1230.0
+  },
+  {
+    "date": "2024-03-08",
+    "volume_shares": 16879880,
+    "close": 1230.0
+  },
+  {
+    "date": "2024-03-11",
+    "volume_shares": 5890017,
+    "close": 1225.0
+  },
+  {
+    "date": "2024-03-12",
+    "volume_shares": 5763673,
+    "close": 1215.0
+  },
+  {
+    "date": "2024-03-13",
+    "volume_shares": 7058092,
+    "close": 1215.0
+  },
+  {
+    "date": "2024-03-14",
+    "volume_shares": 13127561,
+    "close": 1150.0
+  },
+  {
+    "date": "2024-03-15",
+    "volume_shares": 8765752,
+    "close": 1135.0
+  },
+  {
+    "date": "2024-03-18",
+    "volume_shares": 6022543,
+    "close": 1170.0
+  },
+  {
+    "date": "2024-03-19",
+    "volume_shares": 8911458,
+    "close": 1150.0
+  },
+  {
+    "date": "2024-03-20",
+    "volume_shares": 6413758,
+    "close": 1130.0
+  },
+  {
+    "date": "2024-03-21",
+    "volume_shares": 6662414,
+    "close": 1140.0
+  },
+  {
+    "date": "2024-03-22",
+    "volume_shares": 6420828,
+    "close": 1125.0
+  },
+  {
+    "date": "2024-03-25",
+    "volume_shares": 3339686,
+    "close": 1120.0
+  },
+  {
+    "date": "2024-03-26",
+    "volume_shares": 6780815,
+    "close": 1130.0
+  },
+  {
+    "date": "2024-03-27",
+    "volume_shares": 6243784,
+    "close": 1165.0
+  },
+  {
+    "date": "2024-03-28",
+    "volume_shares": 7545389,
+    "close": 1160.0
+  },
+  {
+    "date": "2024-03-29",
+    "volume_shares": 8549357,
+    "close": 1195.0
+  },
+  {
+    "date": "2024-04-01",
+    "volume_shares": 5481587,
+    "close": 1160.0
+  },
+  {
+    "date": "2024-04-02",
+    "volume_shares": 4324010,
+    "close": 1165.0
+  },
+  {
+    "date": "2024-04-03",
+    "volume_shares": 4204622,
+    "close": 1160.0
+  },
+  {
+    "date": "2024-04-08",
+    "volume_shares": 4137606,
+    "close": 1150.0
+  },
+  {
+    "date": "2024-04-09",
+    "volume_shares": 3400861,
+    "close": 1160.0
+  },
+  {
+    "date": "2024-04-10",
+    "volume_shares": 6687109,
+    "close": 1195.0
+  },
+  {
+    "date": "2024-04-11",
+    "volume_shares": 6406311,
+    "close": 1200.0
+  },
+  {
+    "date": "2024-04-12",
+    "volume_shares": 5339872,
+    "close": 1180.0
+  },
+  {
+    "date": "2024-04-15",
+    "volume_shares": 9660747,
+    "close": 1110.0
+  },
+  {
+    "date": "2024-04-16",
+    "volume_shares": 13458990,
+    "close": 1055.0
+  },
+  {
+    "date": "2024-04-17",
+    "volume_shares": 8144332,
+    "close": 1050.0
+  },
+  {
+    "date": "2024-04-18",
+    "volume_shares": 7339262,
+    "close": 1050.0
+  },
+  {
+    "date": "2024-04-19",
+    "volume_shares": 16604482,
+    "close": 993.0
+  },
+  {
+    "date": "2024-04-22",
+    "volume_shares": 9681250,
+    "close": 966.0
+  },
+  {
+    "date": "2024-04-23",
+    "volume_shares": 6158115,
+    "close": 972.0
+  },
+  {
+    "date": "2024-04-24",
+    "volume_shares": 6424187,
+    "close": 1010.0
+  },
+  {
+    "date": "2024-04-25",
+    "volume_shares": 6733096,
+    "close": 981.0
+  },
+  {
+    "date": "2024-04-26",
+    "volume_shares": 5856365,
+    "close": 1005.0
+  },
+  {
+    "date": "2024-04-29",
+    "volume_shares": 8251393,
+    "close": 1015.0
+  },
+  {
+    "date": "2024-04-30",
+    "volume_shares": 6311140,
+    "close": 992.0
+  },
+  {
+    "date": "2024-05-02",
+    "volume_shares": 5508680,
+    "close": 1000.0
+  },
+  {
+    "date": "2024-05-03",
+    "volume_shares": 6978404,
+    "close": 1040.0
+  },
+  {
+    "date": "2024-05-06",
+    "volume_shares": 4644236,
+    "close": 1035.0
+  },
+  {
+    "date": "2024-05-07",
+    "volume_shares": 3238845,
+    "close": 1045.0
+  },
+  {
+    "date": "2024-05-08",
+    "volume_shares": 10343764,
+    "close": 1095.0
+  },
+  {
+    "date": "2024-05-09",
+    "volume_shares": 7989043,
+    "close": 1095.0
+  },
+  {
+    "date": "2024-05-10",
+    "volume_shares": 4664901,
+    "close": 1095.0
+  },
+  {
+    "date": "2024-05-13",
+    "volume_shares": 4261629,
+    "close": 1115.0
+  },
+  {
+    "date": "2024-05-14",
+    "volume_shares": 7954993,
+    "close": 1155.0
+  },
+  {
+    "date": "2024-05-15",
+    "volume_shares": 5734377,
+    "close": 1155.0
+  },
+  {
+    "date": "2024-05-16",
+    "volume_shares": 10452836,
+    "close": 1190.0
+  },
+  {
+    "date": "2024-05-17",
+    "volume_shares": 6555819,
+    "close": 1165.0
+  },
+  {
+    "date": "2024-05-20",
+    "volume_shares": 6368808,
+    "close": 1190.0
+  },
+  {
+    "date": "2024-05-21",
+    "volume_shares": 3544126,
+    "close": 1175.0
+  },
+  {
+    "date": "2024-05-22",
+    "volume_shares": 4592310,
+    "close": 1185.0
+  },
+  {
+    "date": "2024-05-23",
+    "volume_shares": 6526951,
+    "close": 1205.0
+  },
+  {
+    "date": "2024-05-24",
+    "volume_shares": 4139304,
+    "close": 1195.0
+  },
+  {
+    "date": "2024-05-27",
+    "volume_shares": 16451271,
+    "close": 1285.0
+  },
+  {
+    "date": "2024-05-28",
+    "volume_shares": 10732534,
+    "close": 1310.0
+  },
+  {
+    "date": "2024-05-29",
+    "volume_shares": 8661046,
+    "close": 1290.0
+  },
+  {
+    "date": "2024-05-30",
+    "volume_shares": 8581664,
+    "close": 1290.0
+  },
+  {
+    "date": "2024-05-31",
+    "volume_shares": 15194460,
+    "close": 1235.0
+  },
+  {
+    "date": "2024-06-03",
+    "volume_shares": 6400731,
+    "close": 1270.0
+  },
+  {
+    "date": "2024-06-04",
+    "volume_shares": 7219004,
+    "close": 1240.0
+  },
+  {
+    "date": "2024-06-05",
+    "volume_shares": 6012669,
+    "close": 1230.0
+  },
+  {
+    "date": "2024-06-06",
+    "volume_shares": 10328177,
+    "close": 1290.0
+  },
+  {
+    "date": "2024-06-07",
+    "volume_shares": 5092253,
+    "close": 1275.0
+  },
+  {
+    "date": "2024-06-11",
+    "volume_shares": 5846697,
+    "close": 1270.0
+  },
+  {
+    "date": "2024-06-12",
+    "volume_shares": 8015243,
+    "close": 1300.0
+  },
+  {
+    "date": "2024-06-13",
+    "volume_shares": 13667003,
+    "close": 1385.0
+  },
+  {
+    "date": "2024-06-14",
+    "volume_shares": 6250845,
+    "close": 1395.0
+  },
+  {
+    "date": "2024-06-17",
+    "volume_shares": 4762970,
+    "close": 1380.0
+  },
+  {
+    "date": "2024-06-18",
+    "volume_shares": 7868192,
+    "close": 1405.0
+  },
+  {
+    "date": "2024-06-19",
+    "volume_shares": 12145736,
+    "close": 1485.0
+  },
+  {
+    "date": "2024-06-20",
+    "volume_shares": 7215413,
+    "close": 1500.0
+  },
+  {
+    "date": "2024-06-21",
+    "volume_shares": 12105025,
+    "close": 1490.0
+  },
+  {
+    "date": "2024-06-24",
+    "volume_shares": 9608976,
+    "close": 1410.0
+  },
+  {
+    "date": "2024-06-25",
+    "volume_shares": 9815912,
+    "close": 1385.0
+  },
+  {
+    "date": "2024-06-26",
+    "volume_shares": 5222459,
+    "close": 1405.0
+  },
+  {
+    "date": "2024-06-27",
+    "volume_shares": 5022470,
+    "close": 1395.0
+  },
+  {
+    "date": "2024-06-28",
+    "volume_shares": 7091837,
+    "close": 1400.0
+  },
+  {
+    "date": "2024-07-01",
+    "volume_shares": 5231972,
+    "close": 1415.0
+  },
+  {
+    "date": "2024-07-02",
+    "volume_shares": 5192639,
+    "close": 1410.0
+  },
+  {
+    "date": "2024-07-03",
+    "volume_shares": 6507165,
+    "close": 1405.0
+  },
+  {
+    "date": "2024-07-04",
+    "volume_shares": 7932727,
+    "close": 1375.0
+  },
+  {
+    "date": "2024-07-05",
+    "volume_shares": 7046623,
+    "close": 1350.0
+  },
+  {
+    "date": "2024-07-08",
+    "volume_shares": 8013255,
+    "close": 1420.0
+  },
+  {
+    "date": "2024-07-09",
+    "volume_shares": 9919314,
+    "close": 1460.0
+  },
+  {
+    "date": "2024-07-10",
+    "volume_shares": 5691397,
+    "close": 1435.0
+  },
+  {
+    "date": "2024-07-11",
+    "volume_shares": 5549812,
+    "close": 1420.0
+  },
+  {
+    "date": "2024-07-12",
+    "volume_shares": 7528115,
+    "close": 1360.0
+  },
+  {
+    "date": "2024-07-15",
+    "volume_shares": 3700301,
+    "close": 1355.0
+  },
+  {
+    "date": "2024-07-16",
+    "volume_shares": 5267624,
+    "close": 1345.0
+  },
+  {
+    "date": "2024-07-17",
+    "volume_shares": 6370105,
+    "close": 1325.0
+  },
+  {
+    "date": "2024-07-18",
+    "volume_shares": 10515746,
+    "close": 1280.0
+  },
+  {
+    "date": "2024-07-19",
+    "volume_shares": 6157494,
+    "close": 1260.0
+  },
+  {
+    "date": "2024-07-22",
+    "volume_shares": 7568809,
+    "close": 1225.0
+  },
+  {
+    "date": "2024-07-23",
+    "volume_shares": 6609048,
+    "close": 1275.0
+  },
+  {
+    "date": "2024-07-26",
+    "volume_shares": 10546400,
+    "close": 1245.0
+  },
+  {
+    "date": "2024-07-29",
+    "volume_shares": 5212301,
+    "close": 1240.0
+  },
+  {
+    "date": "2024-07-30",
+    "volume_shares": 4562729,
+    "close": 1255.0
+  },
+  {
+    "date": "2024-07-31",
+    "volume_shares": 7646628,
+    "close": 1220.0
+  },
+  {
+    "date": "2024-08-01",
+    "volume_shares": 12859885,
+    "close": 1180.0
+  },
+  {
+    "date": "2024-08-02",
+    "volume_shares": 14592681,
+    "close": 1090.0
+  },
+  {
+    "date": "2024-08-05",
+    "volume_shares": 23157567,
+    "close": 991.0
+  },
+  {
+    "date": "2024-08-06",
+    "volume_shares": 16842716,
+    "close": 1075.0
+  },
+  {
+    "date": "2024-08-07",
+    "volume_shares": 10786767,
+    "close": 1150.0
+  },
+  {
+    "date": "2024-08-08",
+    "volume_shares": 8260831,
+    "close": 1115.0
+  },
+  {
+    "date": "2024-08-09",
+    "volume_shares": 7138660,
+    "close": 1125.0
+  },
+  {
+    "date": "2024-08-12",
+    "volume_shares": 4732084,
+    "close": 1175.0
+  },
+  {
+    "date": "2024-08-13",
+    "volume_shares": 3893560,
+    "close": 1160.0
+  },
+  {
+    "date": "2024-08-14",
+    "volume_shares": 4566599,
+    "close": 1185.0
+  },
+  {
+    "date": "2024-08-15",
+    "volume_shares": 3208717,
+    "close": 1155.0
+  },
+  {
+    "date": "2024-08-16",
+    "volume_shares": 7309904,
+    "close": 1230.0
+  },
+  {
+    "date": "2024-08-19",
+    "volume_shares": 6237209,
+    "close": 1255.0
+  },
+  {
+    "date": "2024-08-20",
+    "volume_shares": 4411805,
+    "close": 1250.0
+  },
+  {
+    "date": "2024-08-21",
+    "volume_shares": 4669809,
+    "close": 1220.0
+  },
+  {
+    "date": "2024-08-22",
+    "volume_shares": 3087965,
+    "close": 1230.0
+  },
+  {
+    "date": "2024-08-23",
+    "volume_shares": 4319266,
+    "close": 1225.0
+  },
+  {
+    "date": "2024-08-26",
+    "volume_shares": 3784179,
+    "close": 1215.0
+  },
+  {
+    "date": "2024-08-27",
+    "volume_shares": 3963303,
+    "close": 1210.0
+  },
+  {
+    "date": "2024-08-28",
+    "volume_shares": 4883821,
+    "close": 1200.0
+  },
+  {
+    "date": "2024-08-29",
+    "volume_shares": 5628485,
+    "close": 1250.0
+  },
+  {
+    "date": "2024-08-30",
+    "volume_shares": 6035560,
+    "close": 1240.0
+  },
+  {
+    "date": "2024-09-02",
+    "volume_shares": 3294144,
+    "close": 1225.0
+  },
+  {
+    "date": "2024-09-03",
+    "volume_shares": 3534979,
+    "close": 1220.0
+  },
+  {
+    "date": "2024-09-04",
+    "volume_shares": 10457652,
+    "close": 1135.0
+  },
+  {
+    "date": "2024-09-05",
+    "volume_shares": 9432513,
+    "close": 1110.0
+  },
+  {
+    "date": "2024-09-06",
+    "volume_shares": 5340953,
+    "close": 1145.0
+  },
+  {
+    "date": "2024-09-09",
+    "volume_shares": 7455495,
+    "close": 1105.0
+  },
+  {
+    "date": "2024-09-10",
+    "volume_shares": 5893397,
+    "close": 1130.0
+  },
+  {
+    "date": "2024-09-11",
+    "volume_shares": 4096499,
+    "close": 1110.0
+  },
+  {
+    "date": "2024-09-12",
+    "volume_shares": 4719178,
+    "close": 1155.0
+  },
+  {
+    "date": "2024-09-13",
+    "volume_shares": 3546828,
+    "close": 1125.0
+  },
+  {
+    "date": "2024-09-16",
+    "volume_shares": 3821456,
+    "close": 1130.0
+  },
+  {
+    "date": "2024-09-18",
+    "volume_shares": 7611728,
+    "close": 1105.0
+  },
+  {
+    "date": "2024-09-19",
+    "volume_shares": 7911002,
+    "close": 1120.0
+  },
+  {
+    "date": "2024-09-20",
+    "volume_shares": 9138981,
+    "close": 1125.0
+  },
+  {
+    "date": "2024-09-23",
+    "volume_shares": 4562996,
+    "close": 1145.0
+  },
+  {
+    "date": "2024-09-24",
+    "volume_shares": 7297056,
+    "close": 1195.0
+  },
+  {
+    "date": "2024-09-25",
+    "volume_shares": 11480089,
+    "close": 1225.0
+  },
+  {
+    "date": "2024-09-26",
+    "volume_shares": 9967330,
+    "close": 1270.0
+  },
+  {
+    "date": "2024-09-27",
+    "volume_shares": 9319433,
+    "close": 1260.0
+  },
+  {
+    "date": "2024-09-30",
+    "volume_shares": 8944466,
+    "close": 1175.0
+  },
+  {
+    "date": "2024-10-01",
+    "volume_shares": 6670719,
+    "close": 1210.0
+  },
+  {
+    "date": "2024-10-04",
+    "volume_shares": 7601314,
+    "close": 1230.0
+  },
+  {
+    "date": "2024-10-07",
+    "volume_shares": 9261022,
+    "close": 1250.0
+  },
+  {
+    "date": "2024-10-08",
+    "volume_shares": 4746298,
+    "close": 1225.0
+  },
+  {
+    "date": "2024-10-09",
+    "volume_shares": 5671636,
+    "close": 1245.0
+  },
+  {
+    "date": "2024-10-11",
+    "volume_shares": 10811730,
+    "close": 1300.0
+  },
+  {
+    "date": "2024-10-14",
+    "volume_shares": 4125156,
+    "close": 1290.0
+  },
+  {
+    "date": "2024-10-15",
+    "volume_shares": 6492009,
+    "close": 1300.0
+  },
+  {
+    "date": "2024-10-16",
+    "volume_shares": 7425191,
+    "close": 1275.0
+  },
+  {
+    "date": "2024-10-17",
+    "volume_shares": 4514915,
+    "close": 1275.0
+  },
+  {
+    "date": "2024-10-18",
+    "volume_shares": 8916104,
+    "close": 1305.0
+  },
+  {
+    "date": "2024-10-21",
+    "volume_shares": 6706607,
+    "close": 1330.0
+  },
+  {
+    "date": "2024-10-22",
+    "volume_shares": 5500454,
+    "close": 1310.0
+  },
+  {
+    "date": "2024-10-23",
+    "volume_shares": 5639751,
+    "close": 1300.0
+  },
+  {
+    "date": "2024-10-24",
+    "volume_shares": 4698981,
+    "close": 1270.0
+  },
+  {
+    "date": "2024-10-25",
+    "volume_shares": 7326983,
+    "close": 1315.0
+  },
+  {
+    "date": "2024-10-28",
+    "volume_shares": 5720182,
+    "close": 1335.0
+  },
+  {
+    "date": "2024-10-29",
+    "volume_shares": 5519603,
+    "close": 1300.0
+  },
+  {
+    "date": "2024-10-30",
+    "volume_shares": 5528055,
+    "close": 1290.0
+  },
+  {
+    "date": "2024-11-01",
+    "volume_shares": 9461786,
+    "close": 1290.0
+  },
+  {
+    "date": "2024-11-04",
+    "volume_shares": 3513519,
+    "close": 1295.0
+  },
+  {
+    "date": "2024-11-05",
+    "volume_shares": 3688814,
+    "close": 1290.0
+  },
+  {
+    "date": "2024-11-06",
+    "volume_shares": 3881189,
+    "close": 1305.0
+  },
+  {
+    "date": "2024-11-07",
+    "volume_shares": 4517086,
+    "close": 1305.0
+  },
+  {
+    "date": "2024-11-08",
+    "volume_shares": 4299470,
+    "close": 1280.0
+  },
+  {
+    "date": "2024-11-11",
+    "volume_shares": 2878555,
+    "close": 1295.0
+  },
+  {
+    "date": "2024-11-12",
+    "volume_shares": 4326905,
+    "close": 1265.0
+  },
+  {
+    "date": "2024-11-13",
+    "volume_shares": 4182334,
+    "close": 1255.0
+  },
+  {
+    "date": "2024-11-14",
+    "volume_shares": 4605044,
+    "close": 1235.0
+  },
+  {
+    "date": "2024-11-15",
+    "volume_shares": 4349007,
+    "close": 1270.0
+  },
+  {
+    "date": "2024-11-18",
+    "volume_shares": 3985278,
+    "close": 1240.0
+  },
+  {
+    "date": "2024-11-19",
+    "volume_shares": 4531599,
+    "close": 1285.0
+  },
+  {
+    "date": "2024-11-20",
+    "volume_shares": 4926471,
+    "close": 1275.0
+  },
+  {
+    "date": "2024-11-21",
+    "volume_shares": 2634995,
+    "close": 1265.0
+  },
+  {
+    "date": "2024-11-22",
+    "volume_shares": 6437379,
+    "close": 1310.0
+  },
+  {
+    "date": "2024-11-25",
+    "volume_shares": 7734600,
+    "close": 1280.0
+  },
+  {
+    "date": "2024-11-26",
+    "volume_shares": 3272636,
+    "close": 1280.0
+  },
+  {
+    "date": "2024-11-27",
+    "volume_shares": 3069870,
+    "close": 1250.0
+  },
+  {
+    "date": "2024-11-28",
+    "volume_shares": 4374911,
+    "close": 1255.0
+  },
+  {
+    "date": "2024-11-29",
+    "volume_shares": 4324490,
+    "close": 1255.0
+  },
+  {
+    "date": "2024-12-02",
+    "volume_shares": 4705833,
+    "close": 1310.0
+  },
+  {
+    "date": "2024-12-03",
+    "volume_shares": 6211010,
+    "close": 1315.0
+  },
+  {
+    "date": "2024-12-04",
+    "volume_shares": 4844752,
+    "close": 1320.0
+  },
+  {
+    "date": "2024-12-05",
+    "volume_shares": 5559581,
+    "close": 1325.0
+  },
+  {
+    "date": "2024-12-06",
+    "volume_shares": 4364288,
+    "close": 1305.0
+  },
+  {
+    "date": "2024-12-09",
+    "volume_shares": 4592126,
+    "close": 1325.0
+  },
+  {
+    "date": "2024-12-10",
+    "volume_shares": 8230114,
+    "close": 1350.0
+  },
+  {
+    "date": "2024-12-11",
+    "volume_shares": 7633823,
+    "close": 1350.0
+  },
+  {
+    "date": "2024-12-12",
+    "volume_shares": 8447774,
+    "close": 1380.0
+  },
+  {
+    "date": "2024-12-13",
+    "volume_shares": 6733740,
+    "close": 1410.0
+  },
+  {
+    "date": "2024-12-16",
+    "volume_shares": 7521031,
+    "close": 1385.0
+  },
+  {
+    "date": "2024-12-17",
+    "volume_shares": 9362088,
+    "close": 1425.0
+  },
+  {
+    "date": "2024-12-18",
+    "volume_shares": 6198374,
+    "close": 1420.0
+  },
+  {
+    "date": "2024-12-19",
+    "volume_shares": 6719997,
+    "close": 1420.0
+  },
+  {
+    "date": "2024-12-20",
+    "volume_shares": 5731484,
+    "close": 1390.0
+  },
+  {
+    "date": "2024-12-23",
+    "volume_shares": 4417200,
+    "close": 1410.0
+  },
+  {
+    "date": "2024-12-24",
+    "volume_shares": 3278608,
+    "close": 1405.0
+  },
+  {
+    "date": "2024-12-25",
+    "volume_shares": 2449652,
+    "close": 1410.0
+  },
+  {
+    "date": "2024-12-26",
+    "volume_shares": 2448448,
+    "close": 1420.0
+  },
+  {
+    "date": "2024-12-27",
+    "volume_shares": 2406377,
+    "close": 1430.0
+  },
+  {
+    "date": "2024-12-30",
+    "volume_shares": 2890276,
+    "close": 1420.0
+  },
+  {
+    "date": "2024-12-31",
+    "volume_shares": 3371199,
+    "close": 1415.0
+  }
+]

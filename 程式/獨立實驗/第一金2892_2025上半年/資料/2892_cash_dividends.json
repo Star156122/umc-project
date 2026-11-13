@@ -1,0 +1,7 @@
+{
+  "events": [],
+  "sources": [
+    "https://superpy.kgieworld.com.tw/kgipythonapi/stockInfo/finance/exDividend?stockCode=2892"
+  ],
+  "scope": "Only 2024Nov through2025June actions; no subsequent market data accessed."
+}

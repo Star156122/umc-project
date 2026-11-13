@@ -1,11 +1,11 @@
 export const STRATEGIES = [
-  {id:'technical',name:'純技術指標',subtitle:'Technical V2-B',color:'#ff6574'},
+  {id:'technical',name:'純技術指標',subtitle:'共同完整日・無加碼／延期',color:'#ff6574'},
   {id:'rf',name:'Random Forest',subtitle:'RF',color:'#53b7ff'},
   {id:'xgboost',name:'XGBoost',subtitle:'機器學習',color:'#ffcc66'},
   {id:'gru',name:'GRU',subtitle:'深度學習',color:'#ba97ff'},
 ];
 export const BENCHMARK = {id:'buy_and_hold',name:'Buy & Hold',subtitle:'買進持有',color:'#47d7ab'};
-export const STOCKS = {'2303':'聯電','2330':'台積電','2379':'瑞昱','2454':'聯發科','3034':'聯詠'};
+export const STOCKS = {'2303':'聯電','2330':'台積電','2379':'瑞昱','2454':'聯發科','3034':'聯詠','2357':'華碩','3231':'緯創','2892':'第一金','4938':'和碩'};
 export const METRICS = [
   ['initial_capital','初始本金','元','回測開始時的資金'],
   ['final_equity','最終資產','元','回測結束時的資金總值'],
@@ -26,12 +26,13 @@ export function validateResult(result,expected) {
   if(result.run_id!==expected.run_id||String(result.stock_code)!==String(expected.stock_code))throw Error('回測結果與目前工作不一致，請重新查詢。');
   if(result.strategies.map(x=>x.strategy_id).sort().join(',')!==[...expected.strategies].sort().join(','))throw Error('回傳策略與提交選項不同，請由後端確認。');
   if(result.data_role!=='historical_development'||result.backtest_period?.start!==(expected.period?.start||'2024-07-01')||result.backtest_period?.end!==(expected.period?.end||'2024-12-30'))throw Error('後端資料期間或角色與目前開發模式不符，已停止顯示。');
+  if(expected.strategy_profile&&result.audit?.profile_id!==expected.strategy_profile)throw Error('回傳策略規則版本不同，已停止顯示。');
   return result;
 }
 export function explainError(error) {
   const code=error?.data?.error?.code||error?.code;
   const message=error?.data?.error?.message||error?.message||'請求失敗';
-  const hints={BACKTEST_RUN_NOT_FOUND:'找不到此工作或報告。請先重新整理歷史報告清單；未完成或未保存的工作可能在伺服器重啟後失效。',BACKTEST_QUEUE_BUSY:'伺服器正在處理另一份回測，請等它結束後再提交。',BACKTEST_BLOCKED:'資料不足或研究政策限制，這次無法執行。',DEVELOPMENT_DEFAULTS_ONLY:'目前僅支援固定的 2024 年歷史開發期間。'};
+  const hints={BACKTEST_RUN_NOT_FOUND:'找不到此工作或報告。請先重新整理歷史報告清單；未完成或未保存的工作可能在伺服器重啟後失效。',BACKTEST_QUEUE_BUSY:'伺服器正在處理另一份回測，請等它結束後再提交。',BACKTEST_BLOCKED:'資料不足或研究政策限制，這次無法執行。',DEVELOPMENT_DEFAULTS_ONLY:'目前僅能使用網站核准的日期與本金設定。'};
   return hints[code]?`${hints[code]}${code==='BACKTEST_BLOCKED'?' '+message:''}`:message;
 }
 export async function fetchRunUpdate(request,job) {

@@ -1,0 +1,17 @@
+{
+  "dataset_id": "asus2357-five-arm-validation-20261114-exp001",
+  "stock_code": "2357",
+  "stock_name": "華碩",
+  "industry": "電腦及週邊設備",
+  "test_start": "2025-01-01",
+  "test_end": "2025-06-30",
+  "participated_in_development": "false",
+  "results_viewed": "false",
+  "influenced_strategy": "false",
+  "current_classification": "validation_seen_period_new_stock_pending_audit",
+  "clean_validation_eligible": "false",
+  "experiment_ids": "asus2357-five-arm-validation-20261114-exp001",
+  "notes": "2025H1 already available validation period; new stock does not establish wholly untouched Final OOS. Warmup2024Nov onward. No locked dates. Fixed stock before outcomes.",
+  "report_location": "",
+  "result_location": "獨立實驗\\華碩2357_2025上半年\\資料"
+}

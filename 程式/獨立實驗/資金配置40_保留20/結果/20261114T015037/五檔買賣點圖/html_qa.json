@@ -1,0 +1,35 @@
+{
+  "pages": [
+    {
+      "page": "index.html",
+      "markers": "PASS",
+      "trade_zoom": "PASS"
+    },
+    {
+      "page": "2303.html",
+      "markers": "PASS",
+      "trade_zoom": "PASS"
+    },
+    {
+      "page": "2330.html",
+      "markers": "PASS",
+      "trade_zoom": "PASS"
+    },
+    {
+      "page": "2379.html",
+      "markers": "PASS",
+      "trade_zoom": "PASS"
+    },
+    {
+      "page": "2454.html",
+      "markers": "PASS",
+      "trade_zoom": "PASS"
+    },
+    {
+      "page": "3034.html",
+      "markers": "PASS",
+      "trade_zoom": "PASS"
+    }
+  ],
+  "javascript_errors": []
+}

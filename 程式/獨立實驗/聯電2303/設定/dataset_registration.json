@@ -1,0 +1,17 @@
+{
+  "dataset_id": "isolated-buy-2303-20261113-fixed-replication-exp001",
+  "stock_code": "2303",
+  "stock_name": "聯電",
+  "industry": "半導體",
+  "test_start": "2023-01-01",
+  "test_end": "2024-12-31",
+  "participated_in_development": "true",
+  "results_viewed": "false",
+  "influenced_strategy": "false",
+  "current_classification": "training_development_exposed",
+  "clean_validation_eligible": "false",
+  "report_location": "獨立實驗/聯電2303/結果",
+  "result_location": "獨立實驗/聯電2303/資料",
+  "experiment_ids": "isolated-buy-2303-20261113-fixed-replication-exp001",
+  "notes": "Existing bounded SQLite plus official index, UMC daily volume unit check and issuer dividends; no locked dates; not Clean Validation."
+}

@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "actual_node_python_pipeline": true,
+  "profile_id": "main-buy-noadd-noextension-common-v1-20261114",
+  "period": {
+    "start": "2025-01-01",
+    "end": "2025-03-31"
+  },
+  "model_count": 3,
+  "selected_strategies": 4,
+  "history_preserved": true
+}

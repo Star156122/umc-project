@@ -1,0 +1,130 @@
+{
+  "experiment_id": "buy-noadd-noextension-commoncoverage-20261114-exp001-3231",
+  "stock": "3231",
+  "period": {
+    "start": "2025-01-01",
+    "end": "2025-06-30"
+  },
+  "data_role": "validation_seen_period_new_stock",
+  "initial_capital": 250000,
+  "variants": [
+    "TECH",
+    "RF",
+    "XGB",
+    "GRU",
+    "BH"
+  ],
+  "slippages": [
+    0.0005,
+    0.0
+  ],
+  "risk_fraction": null,
+  "stop_pct": 0.025,
+  "risk_gap_buffer": 0.005,
+  "fee_rate": 0.001425,
+  "minimum_fee": 20,
+  "normal_sell_tax": 0.003,
+  "same_day_sell_tax": 0.0015,
+  "fee_rounding": "floor_to_whole_TWD_min_20_per_order",
+  "lot_size": 1,
+  "volume_fraction": 0.01,
+  "volume_window": 20,
+  "volume_to_shares": 1000,
+  "liquidity_limit": "buy_and_add_only_not_a_fill_guarantee",
+  "max_hold_bars": 162,
+  "min_hold_bars": 2,
+  "entry_cutoff": "12:30",
+  "reentry_expiry_sessions": 3,
+  "original_max_entries": 1,
+  "revised_max_entries": 2,
+  "original_cooldown": 6,
+  "revised_max_adds": 0,
+  "model": "random_forest",
+  "oof_path": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
+  "old_db": "data/technical_v1_mltech_clean.sqlite3",
+  "revised_db": "data/market_data.sqlite3",
+  "peer_pool": [
+    "2303",
+    "2330",
+    "2379",
+    "2454",
+    "3034"
+  ],
+  "folds": [
+    {
+      "id": "VALIDATION_2025H1",
+      "start": "2025-01-01",
+      "end": "2025-06-30"
+    }
+  ],
+  "no_retraining": true,
+  "parameter_search": false,
+  "locked_data_used": false,
+  "research_only": true,
+  "execution_notes": [
+    "All four arms use the same legal quantity unit; allow odd-lot quantities, no increase to 1% risk budget.",
+    "No ordinary-market quote may be called a verified odd-lot fill.",
+    "If user selects approximation, every page must label ordinary-OHLC proxy research and unverified fills.",
+    "Original strategy and original databases are not modified.",
+    "Whole-boardlot and residual odd-lot orders require distinct fees and execution handling if quantity exceeds 999.",
+    "Corporate actions and nonzero-position paths must be checked before interpreting returns.",
+    "Odd quantities cannot day-trade: defer entire-position exit until all batches are prior-day and time >=09:10; stop may exceed planned loss. No partial sell model."
+  ],
+  "status": "IMPLEMENTED_NOT_REPLAYED",
+  "execution_data_mode": "ORDINARY_OHLC_ODD_QUANTITY_PROXY",
+  "prior_results_deleted_by_user": false,
+  "corporate_action_mode": "causal_cash_adjustment",
+  "user_proxy_authorization": "2026-11-13: 先做近似研究回測，報告清楚標示限制",
+  "execution_revision": "odd_no_same_day_exit_0910_observed_timeout_v2",
+  "odd_exit_rule": "all_batches_must_be_prior_day_and_time_at_least_0910",
+  "stock_name": "緯創",
+  "replication_parent": "isolated-buy-holding-extension-20261114-exp001",
+  "stocks": {
+    "3231": "緯創"
+  },
+  "warmup_start": "2024-11-01",
+  "selection_rule": "Two names fixed before new data/results; absent from registry/main config; target excluded from actual training manifests.",
+  "interpretation": "Only revised+same ML; no original-strategy improvement claim; independent 1m per stock, not a pooled portfolio.",
+  "holding_extension": {
+    "enabled": false,
+    "extra_bars": 54,
+    "max_extensions": 1,
+    "require_net_profit": true,
+    "require_ml_buy": true,
+    "require_market": true,
+    "trend_rule": "ready AND Close>MA_FAST>MA_MID AND Close>TREND_MA AND TREND_SLOPE>0",
+    "review": "every_completed_bar_from_original_deadline",
+    "exit": "next_legal_observed_open; existing non-daytrade restrictions remain",
+    "protective_exits_have_priority": true,
+    "stop_can_only_tighten": true,
+    "allow_adds_during_extension": false,
+    "hard_cap": "162+54 observed holding bars; execution restrictions can delay fills beyond decision cap",
+    "purpose": "Do not exit a profitable continuing trend solely due to timeout; no claim of predicting future prices.",
+    "technical_arm_ml_gate": false
+  },
+  "position_sizing_mode": "cash_fraction_with_fixed_reserve",
+  "risk_budget_enabled": false,
+  "cash_allocation_fraction": 0.4,
+  "initial_cash_reserve_fraction": 0.2,
+  "sizing_notes": "Risk budget disabled; first and single add each spend <=40% current cash including commission, leave >=20% INITIAL capital cash. Stop/volume/ML/holding extension retained.",
+  "backtest_authorization": "2026-11-14: 再回測五股，時間三個月，依照這次規則。",
+  "comparison_plan": "Five arms same stock, dates, initial capital, costs, bars and corporate actions; BH80% buy first legal09:10 open, hold to final close, reserve20%; four active arms cash40 reserve20 and conditional extension, ML BUY-only; full-period and common legal ML coverage separately; disclose exposure, not pooled. 1-4 trades insufficient. No parameter changes after outcomes. Proxy research, not final OOS. Pure technical has no ML gate at entry/add/extension; hybrid extension uses its own model BUY. Common coverage depends only on valid timestamps, not predicted labels.",
+  "training_stocks": [
+    "2303",
+    "2330",
+    "2379",
+    "2454",
+    "3034"
+  ],
+  "training_period": {
+    "start": "2023-01-01",
+    "end": "2024-12-31"
+  },
+  "model_policy": "Reuse matching fixed technology V1 artifacts with verified hashes",
+  "buy_hold_fraction": 0.8,
+  "industry": "科技",
+  "allowed_scopes": [
+    "common"
+  ],
+  "coverage_policy": "Complete target sessions AND all three valid model predictions, independent of label; pure TECH no BUY requirement, hybrid own BUY only. Existing positions exit on full chronological observed stream."
+}

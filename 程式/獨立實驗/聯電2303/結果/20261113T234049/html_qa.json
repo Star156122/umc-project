@@ -1,0 +1,32 @@
+{
+  "pages": [
+    {
+      "page": "index.html",
+      "controls": "PASS",
+      "javascript": "PASS"
+    },
+    {
+      "page": "C_funnel.html",
+      "controls": "PASS",
+      "javascript": "PASS"
+    },
+    {
+      "page": "C_analysis.html",
+      "controls": "PASS",
+      "javascript": "PASS"
+    },
+    {
+      "page": "D_funnel.html",
+      "controls": "PASS",
+      "javascript": "PASS"
+    },
+    {
+      "page": "D_analysis.html",
+      "controls": "PASS",
+      "javascript": "PASS"
+    }
+  ],
+  "javascript_errors": [],
+  "mobile_preview": true,
+  "ledger_checks": "share quantities, no same-day odd exits, no pre-09:10 executions, PnL reconciliation"
+}

@@ -1,0 +1,12 @@
+{
+  "stock": "2357",
+  "start": "2024-11-01",
+  "end": "2025-06-30",
+  "original_databases_modified": false,
+  "locked_data_used": false,
+  "status": "FETCHED_PENDING_SESSION_AUDIT",
+  "bars": 8740,
+  "source_minute_rows": 40113,
+  "first": 1730422860.0,
+  "last": 1751261400.0
+}

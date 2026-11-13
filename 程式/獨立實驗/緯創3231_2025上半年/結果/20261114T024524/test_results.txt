@@ -1,0 +1,11 @@
+test_cash40_reserve20_on_250k (__main__.ValidationTests.test_cash40_reserve20_on_250k) ... ok
+test_fixed_prediction_is_legal_without_fake_oof (__main__.ValidationTests.test_fixed_prediction_is_legal_without_fake_oof) ... ok
+test_fixed_scope_and_locked_dates (__main__.ValidationTests.test_fixed_scope_and_locked_dates) ... ok
+test_pure_technical_extension_does_not_require_any_ml (__main__.ValidationTests.test_pure_technical_extension_does_not_require_any_ml) ... ok
+test_sizing_and_holding_functions_match_parent (__main__.ValidationTests.test_sizing_and_holding_functions_match_parent) ... ok
+test_training_manifest_excludes_asus_and_future (__main__.ValidationTests.test_training_manifest_excludes_asus_and_future) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.020s
+
+OK

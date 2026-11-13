@@ -1,0 +1,11 @@
+{
+  "change": "完整策略名稱、四組報酬率卡片、四種比較前後報酬率與百分點差、白話篩選頁導覽",
+  "backtest_rerun": false,
+  "results_unchanged": true,
+  "protected_hashes": {
+    "metrics.csv": "eb919b730684145e6009333adfd53911f271b7fddd34d2952dc64a9f0e17013c",
+    "data.js": "2f46e6e83807be6018f1840ecdba2153a9c50731149a4685090398f4d255cbb7",
+    "audit.json": "c4cf32f89b8ab03ae366f1a0d17fb2e1901cfeb5799ec7a8c377c6fb5db48670",
+    "freeze.json": "f4ee0d7706c31202541bb7498166592efc1a4695eee0b85cd7b289008d398f68"
+  }
+}

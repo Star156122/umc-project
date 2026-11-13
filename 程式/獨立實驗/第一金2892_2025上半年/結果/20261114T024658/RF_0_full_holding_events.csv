@@ -1,0 +1,2 @@
+﻿time,trade_id,checks,failed,estimated_net_profit,ml,stop_unchanged,held,hard_cap,action,reason
+2025-05-15T09:20:00+08:00,1,"{""net_profit_positive"": true, ""trend"": true, ""market"": true, ""ml_buy"": false}","[""ml_buy""]",173.95260000000417,HOLD,25.59375,162,216,EXIT,ml_buy

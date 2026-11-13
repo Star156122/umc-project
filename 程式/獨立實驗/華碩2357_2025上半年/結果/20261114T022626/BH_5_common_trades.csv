@@ -1,0 +1,2 @@
+﻿trade_id,entry_time,exit_time,entry_day,exit_day,entry_price,exit_price,quantity,net_pnl,gross_pnl,holding_bars,adds,exit_reason,holding_extensions,cash_dividends
+1,2025-01-02T09:10:00+08:00,2025-06-30T13:30:00+08:00,2025-01-02,2025-06-30,622.3109999999999,647.676,320,17797.03104000003,18996.80000000004,6259,0,BUY_HOLD_END_CLOSE,0,10880

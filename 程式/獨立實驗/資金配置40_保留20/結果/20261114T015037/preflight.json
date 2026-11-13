@@ -1,0 +1,112 @@
+{
+  "2303": {
+    "official_sessions": 62,
+    "observed_sessions": 63,
+    "missing_sessions": [],
+    "ratio_median": 1260.7350466243142,
+    "volume_to_shares": 1000,
+    "sources": [
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241001&stockNo=2303",
+        "sha256": "4959e5be25b722e82c465e205b9c851cffdf7cf8d1a27accc084953eda24786e"
+      },
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241101&stockNo=2303",
+        "sha256": "23bf04d567d2e0bddc4ce70a90399a494565ecf1efb0832268eb6c14a9c20360"
+      },
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241201&stockNo=2303",
+        "sha256": "90c8af7ddbccdff429244da5d897d17a094664b8631b90c97587967cc8c32a87"
+      }
+    ],
+    "note": "Magnitude check only; official total-day and intraday scope differ, not exact volume parity."
+  },
+  "2330": {
+    "official_sessions": 62,
+    "observed_sessions": 63,
+    "missing_sessions": [],
+    "ratio_median": 1280.2112338142815,
+    "volume_to_shares": 1000,
+    "sources": [
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241001&stockNo=2330",
+        "sha256": "be96eca23022345981b50466ede10036af99f94151f7de324c225e524292c7ac"
+      },
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241101&stockNo=2330",
+        "sha256": "042aca2aaae8536d8b21a711491fe527fcb27b89cfd3e4d6bad454913b301b47"
+      },
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241201&stockNo=2330",
+        "sha256": "25214f5f22b3758da6a311f50d9d4eb94a260fa62369ba777223ee8422c73ab6"
+      }
+    ],
+    "note": "Magnitude check only; official total-day and intraday scope differ, not exact volume parity."
+  },
+  "2379": {
+    "official_sessions": 62,
+    "observed_sessions": 62,
+    "missing_sessions": [],
+    "ratio_median": 1212.4387450895388,
+    "volume_to_shares": 1000,
+    "sources": [
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241001&stockNo=2379",
+        "sha256": "789c523afb42acf41cd3f3c71fdf99a53dca774be96d645cf1b32f3a7a548bdc"
+      },
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241101&stockNo=2379",
+        "sha256": "08f66150b60fef9c4ece75d51749490aef6b4fd099a4a38ffa59c980ed8988dd"
+      },
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241201&stockNo=2379",
+        "sha256": "c17d76336983ee302082db19318f3c006a23cf6a62a1307ae1d77e5482a7c657"
+      }
+    ],
+    "note": "Magnitude check only; official total-day and intraday scope differ, not exact volume parity."
+  },
+  "2454": {
+    "official_sessions": 62,
+    "observed_sessions": 63,
+    "missing_sessions": [],
+    "ratio_median": 1245.26023956577,
+    "volume_to_shares": 1000,
+    "sources": [
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241001&stockNo=2454",
+        "sha256": "2759671452591790c04dbbec6711e8a821f029b8b50d12ef3473e2c8af4370b5"
+      },
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241101&stockNo=2454",
+        "sha256": "b48bf03f219a69beb59452cf441f8c6795931ac24cc63a382e9509429dcc437a"
+      },
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241201&stockNo=2454",
+        "sha256": "c9bca8fb86a18106900ba1e082f826b0b90999ba0d5c4d2bd390137f342c4a2b"
+      }
+    ],
+    "note": "Magnitude check only; official total-day and intraday scope differ, not exact volume parity."
+  },
+  "3034": {
+    "official_sessions": 62,
+    "observed_sessions": 63,
+    "missing_sessions": [],
+    "ratio_median": 1285.1799674979532,
+    "volume_to_shares": 1000,
+    "sources": [
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241001&stockNo=3034",
+        "sha256": "527f113846f93496dd8badd57375cc4274bab89b02fc0e1fdec2b2a89b5df2e6"
+      },
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241101&stockNo=3034",
+        "sha256": "c5896affdec2c68dd7de30b26b1f42f68c9f4ec8457bc59d8506dff553679def"
+      },
+      {
+        "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241201&stockNo=3034",
+        "sha256": "7b6a8dfce93a9ff5138b20be77f0e42d9daa43286ed1a9d4985e7bf3d6e5f9e9"
+      }
+    ],
+    "note": "Magnitude check only; official total-day and intraday scope differ, not exact volume parity."
+  }
+}

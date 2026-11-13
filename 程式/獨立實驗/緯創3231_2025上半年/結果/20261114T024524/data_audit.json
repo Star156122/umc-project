@@ -1,0 +1,14 @@
+{
+  "source": "isolated Shioaji minute aggregation, ordinary5m proxy",
+  "observed_bars": 8586,
+  "complete_sessions": 159,
+  "partial_sessions": [],
+  "corporate_actions": [
+    {
+      "ex_date": "2025-06-03",
+      "payment_date": "2025-06-27",
+      "cash_per_share": 3.79927437
+    }
+  ],
+  "locked_market_data_used": false
+}

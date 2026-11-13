@@ -1,0 +1,4 @@
+{
+  "status": "SUPERSEDED_TIMEOUT_CORRECTNESS",
+  "reason": "Holding timeout must count all observed target bars, even when old signal stream has no eligible entry date. Corrected timer; no parameter tuning."
+}

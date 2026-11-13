@@ -1,0 +1,11 @@
+{
+  "stock": "2303",
+  "official_daily_rows": 481,
+  "days_compared": 481,
+  "official_to_local_volume_median": 1153.1148498927805,
+  "volume_to_shares": 1000,
+  "status": "PASS_UNIT_MAGNITUDE_CHECK",
+  "source": "Source importer preserves Shioaji ordinary Volume lots; official daily shares confirm magnitude, not exact session-volume parity.",
+  "locked_data_used": false,
+  "index_sha256": "455acf2c68eb26a1b8d27ed4315e3c369956df0c7586474080f0ae585f4ceeba"
+}

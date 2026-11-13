@@ -1,0 +1,183 @@
+{
+  "created_before_replay": "2026-11-14T02:45:25.426782+08:00",
+  "config": {
+    "experiment_id": "new-stock-3231-five-arm-20261114-exp001",
+    "stock": "3231",
+    "period": {
+      "start": "2025-01-01",
+      "end": "2025-06-30"
+    },
+    "data_role": "validation_seen_period_new_stock",
+    "initial_capital": 250000,
+    "variants": [
+      "TECH",
+      "RF",
+      "XGB",
+      "GRU",
+      "BH"
+    ],
+    "slippages": [
+      0.0005,
+      0.0
+    ],
+    "risk_fraction": null,
+    "stop_pct": 0.025,
+    "risk_gap_buffer": 0.005,
+    "fee_rate": 0.001425,
+    "minimum_fee": 20,
+    "normal_sell_tax": 0.003,
+    "same_day_sell_tax": 0.0015,
+    "fee_rounding": "floor_to_whole_TWD_min_20_per_order",
+    "lot_size": 1,
+    "volume_fraction": 0.01,
+    "volume_window": 20,
+    "volume_to_shares": 1000,
+    "liquidity_limit": "buy_and_add_only_not_a_fill_guarantee",
+    "max_hold_bars": 162,
+    "min_hold_bars": 2,
+    "entry_cutoff": "12:30",
+    "reentry_expiry_sessions": 3,
+    "original_max_entries": 1,
+    "revised_max_entries": 2,
+    "original_cooldown": 6,
+    "revised_max_adds": 1,
+    "model": "random_forest",
+    "oof_path": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
+    "old_db": "data/technical_v1_mltech_clean.sqlite3",
+    "revised_db": "data/market_data.sqlite3",
+    "peer_pool": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "folds": [
+      {
+        "id": "VALIDATION_2025H1",
+        "start": "2025-01-01",
+        "end": "2025-06-30"
+      }
+    ],
+    "no_retraining": true,
+    "parameter_search": false,
+    "locked_data_used": false,
+    "research_only": true,
+    "execution_notes": [
+      "All four arms use the same legal quantity unit; allow odd-lot quantities, no increase to 1% risk budget.",
+      "No ordinary-market quote may be called a verified odd-lot fill.",
+      "If user selects approximation, every page must label ordinary-OHLC proxy research and unverified fills.",
+      "Original strategy and original databases are not modified.",
+      "Whole-boardlot and residual odd-lot orders require distinct fees and execution handling if quantity exceeds 999.",
+      "Corporate actions and nonzero-position paths must be checked before interpreting returns.",
+      "Odd quantities cannot day-trade: defer entire-position exit until all batches are prior-day and time >=09:10; stop may exceed planned loss. No partial sell model."
+    ],
+    "status": "PREREGISTERED_AUTHORIZED",
+    "execution_data_mode": "ORDINARY_OHLC_ODD_QUANTITY_PROXY",
+    "prior_results_deleted_by_user": false,
+    "corporate_action_mode": "causal_cash_adjustment",
+    "user_proxy_authorization": "2026-11-13: 先做近似研究回測，報告清楚標示限制",
+    "execution_revision": "odd_no_same_day_exit_0910_observed_timeout_v2",
+    "odd_exit_rule": "all_batches_must_be_prior_day_and_time_at_least_0910",
+    "stock_name": "緯創",
+    "replication_parent": "isolated-buy-holding-extension-20261114-exp001",
+    "stocks": {
+      "3231": "緯創"
+    },
+    "warmup_start": "2024-11-01",
+    "selection_rule": "Two names fixed before new data/results; absent from registry/main config; target excluded from actual training manifests.",
+    "interpretation": "Only revised+same ML; no original-strategy improvement claim; independent 1m per stock, not a pooled portfolio.",
+    "holding_extension": {
+      "enabled": true,
+      "extra_bars": 54,
+      "max_extensions": 1,
+      "require_net_profit": true,
+      "require_ml_buy": true,
+      "require_market": true,
+      "trend_rule": "ready AND Close>MA_FAST>MA_MID AND Close>TREND_MA AND TREND_SLOPE>0",
+      "review": "every_completed_bar_from_original_deadline",
+      "exit": "next_legal_observed_open; existing non-daytrade restrictions remain",
+      "protective_exits_have_priority": true,
+      "stop_can_only_tighten": true,
+      "allow_adds_during_extension": false,
+      "hard_cap": "162+54 observed holding bars; execution restrictions can delay fills beyond decision cap",
+      "purpose": "Do not exit a profitable continuing trend solely due to timeout; no claim of predicting future prices.",
+      "technical_arm_ml_gate": false
+    },
+    "position_sizing_mode": "cash_fraction_with_fixed_reserve",
+    "risk_budget_enabled": false,
+    "cash_allocation_fraction": 0.4,
+    "initial_cash_reserve_fraction": 0.2,
+    "sizing_notes": "Risk budget disabled; first and single add each spend <=40% current cash including commission, leave >=20% INITIAL capital cash. Stop/volume/ML/holding extension retained.",
+    "backtest_authorization": "2026-11-14: 再回測五股，時間三個月，依照這次規則。",
+    "comparison_plan": "Five arms same stock, dates, initial capital, costs, bars and corporate actions; BH80% buy first legal09:10 open, hold to final close, reserve20%; four active arms cash40 reserve20 and conditional extension, ML BUY-only; full-period and common legal ML coverage separately; disclose exposure, not pooled. 1-4 trades insufficient. No parameter changes after outcomes. Proxy research, not final OOS. Pure technical has no ML gate at entry/add/extension; hybrid extension uses its own model BUY. Common coverage depends only on valid timestamps, not predicted labels.",
+    "training_stocks": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "training_period": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    },
+    "model_policy": "Reuse matching fixed technology V1 artifacts with verified hashes",
+    "buy_hold_fraction": 0.8,
+    "industry": "科技"
+  },
+  "authorization": "User 去做: 緯創3231 five arms, 2025H1,250k each; prior agreed no-risk cash40 reserve20 and extension.",
+  "original_hashes": {
+    "data\\market_data.sqlite3": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+    "data\\technical_v1_mltech_clean.sqlite3": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+    "trading_system\\backtest.py": "21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02",
+    "獨立實驗\\資金配置40_保留20\\程式\\engine.py": "6b374115f587a131bcf7cb60466f078ed7ad1da94e4a2780fa4226145636d4ca"
+  },
+  "program_hashes": {
+    "build_trade_charts.py": "d1b0bae3d515e5672d8fd2c9073ae271ca89801751517dad5ccdb7cd39b923ad",
+    "engine.py": "b546df27f2759afd6d809c7f4374e7ae7fcd2da65939a91bbd5fb2d5963944cf",
+    "infer_models.py": "25aa34132a9a8a9df87abf2a3df2409f002a904ed87b507e2b6e6cf94c5e142e",
+    "prepare.py": "921d793b55fe793081499bdbd848a8a0732e36abe5d49d1e70b2a4aded7def4e",
+    "prepare_official.py": "3f6ef6d7e21ffa409636109dbf9b502565da4df82a0b756681d2598de94f87f7",
+    "run_asus.py": "5cca1ade69af9233cd881aaa2b0cc2e85560c535d80e6fe0f6d125e04afa310c",
+    "train_models.py": "16b9044e1469688284ddc47c85ad3c4bee1e5e64890c92a799669e283c03fc1b"
+  },
+  "model_hashes": {
+    "模型\\training_audit.json": "9aa447095a9737cfd782c3cd5fbcec2430333e9ab2c88a87bf85c5060591edd5",
+    "模型\\training_manifest.csv": "ff8d1015ee462802bc45d6acec284523e8c16e789510d352f06d79a4f5dc674b",
+    "模型\\gru\\model.pt": "d42273fb710d6d54126b7d2f45300efae5770f8007c19a7038227c36beb8c740",
+    "模型\\gru\\scaler.npz": "5b9bac6f5eaf811e2f959fdf2d3cb629cd2ad3c59febf0c050e546982f4b3c5a",
+    "模型\\random_forest\\model.joblib": "4e7525cedcd0c24e09e6fa8b51b4d4291e668eac9af1f055ee6ec3e9fcd69100",
+    "模型\\random_forest\\scaler.npz": "522e290a256eba6d083540f0fd8661bb20c09565f8d72fe693beb39f726a9043",
+    "模型\\xgboost\\model.joblib": "acd5bf7a570b99ec9bebfe65ba9607f90a4cc4359222da4b3ef809f008127ca4",
+    "模型\\xgboost\\scaler.npz": "522e290a256eba6d083540f0fd8661bb20c09565f8d72fe693beb39f726a9043"
+  },
+  "data_hashes": {
+    "3231_cash_dividends.json": "3639cb2848335b62d3a69bc2acf3b29875a81581efdb946b686c9551a80ff0af",
+    "3231_history.sqlite3": "e87bf646439bf014c2faa9d6115855eb4d442ac751ffe47ffa0af478f59767bc",
+    "3231_official_daily.json": "447e08681003ef065d5e0171bacffb62a6a0b2d5a16dc1d456b540c0cb6c83ce",
+    "FMTQIK_20241101.json": "3409b1fb40486c18051cb05a00c06473c03dad3cd34ce39cf1cb6a72d6bbbb8b",
+    "FMTQIK_20241201.json": "a1761c86062eea54aac9e33231cc5478386111da743734b0f91274907fb868e7",
+    "FMTQIK_20250101.json": "650bd1d6956642b5b957a2e2efa9729b9ff066df924bb383bc1d9911ababfa68",
+    "FMTQIK_20250201.json": "9c6f7603782c597980ad959a3edc3b3187264e47899eec63e8f3fc6faf97e84c",
+    "FMTQIK_20250301.json": "8fa1a45a85ccf406bf0f58dfcc7ec639e180d114fae0f84f4c469d8ad38f341d",
+    "FMTQIK_20250401.json": "c04f17bad6fe1ef4436c62079a4b29be3965f33b6bb6c1962e09d817041a9ae3",
+    "FMTQIK_20250501.json": "c50a70466a3a0bdc68d2c87dc08aeb30b0ade9a9eebbb950ef5650406e847b75",
+    "FMTQIK_20250601.json": "eb7d006b2d30be850e78ad0c967cca2ae83e5a464bab91e7b6174906a1ef8531",
+    "history_fetch_status.json": "92c25be50fd59f52d8c970d3e3d34b919559958c9891d9d58b29841d3bd7b4dc",
+    "index_daily.json": "b344301210e25a89740ad405678f29fe66917eff3eec52f88f84e7bb9c272feb",
+    "inference_audit.json": "f900e67a65f9e65111911ad04e55f0c3493a14f657754f32ede5aa4ab61fdcc2",
+    "official_sources.json": "3580a52bb579c5a785cdaaa90a53f4fcb02f6ccdebee37a8ed7f56d489ac8f05",
+    "predictions.json": "91ebd8d48a2fbb8d6b0ea708bd456a90e9bbddf5f9b29480e701f2fcfe8f69c9",
+    "preflight.json": "80f4c5f2627d78fca1c9aaa3ab3b800c047706a2ce00f7f0dc84f41151a5c3fe",
+    "STOCK_DAY_20241101.json": "264e86dbf5b2b9d38fe1963e00f5e9d733cd204ae26439976cbb3fd119c08cec",
+    "STOCK_DAY_20241201.json": "a34a9bed8934d366f53542ac0e022c4b0129e7bd63b781bf6e0d6cdf52b8a492",
+    "STOCK_DAY_20250101.json": "dd7973247c9b04dee57165d2a0df9c8e4a9930455f5bd81a4cdcdc82263fc758",
+    "STOCK_DAY_20250201.json": "923482f5eccb5ac3b201e47a57e246cbf1789905d6a2d713da5f32b042298da3",
+    "STOCK_DAY_20250301.json": "21c443a5b36b57daca1d34225ed6f2faf9c5254bbee4dcf5cb8bba5b094a9fb7",
+    "STOCK_DAY_20250401.json": "b8b95dba783cd65e4566f763354c6108dfd555a1e048644fe5d6bd1b10c05020",
+    "STOCK_DAY_20250501.json": "35fe425751d3622e90739d920eed1f561b21f08f89013bca467dbf4f047894b3",
+    "STOCK_DAY_20250601.json": "1b871ddb913cba199abd0a0c8ab57d92c3a9a47435aeff5a9e1d551238b94344"
+  },
+  "locked_data_used": false
+}

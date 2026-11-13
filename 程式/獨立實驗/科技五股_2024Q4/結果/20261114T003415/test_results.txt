@@ -1,0 +1,24 @@
+test_add_does_not_get_new_budget (__main__.ExperimentTests.test_add_does_not_get_new_budget) ... ok
+test_cash_cannot_be_negative (__main__.ExperimentTests.test_cash_cannot_be_negative) ... ok
+test_chronology_and_stop_in_synthetic_trade (__main__.ExperimentTests.test_chronology_and_stop_in_synthetic_trade) ... ok
+test_date_lock_and_scope (__main__.ExperimentTests.test_date_lock_and_scope) ... ok
+test_high_price_cannot_buy_one_lot (__main__.ExperimentTests.test_high_price_cannot_buy_one_lot) ... ok
+test_liquidity_units (__main__.ExperimentTests.test_liquidity_units) ... ok
+test_lot_is_not_maximum (__main__.ExperimentTests.test_lot_is_not_maximum) ... ok
+test_mixed_board_and_odd_orders_pay_separate_fees (__main__.ExperimentTests.test_mixed_board_and_odd_orders_pay_separate_fees) ... ok
+test_ml_future_and_previous_actual_session (__main__.ExperimentTests.test_ml_future_and_previous_actual_session) ... ok
+test_odd_proxy_trade_cash_and_dividend_receivable_reconcile (__main__.ExperimentTests.test_odd_proxy_trade_cash_and_dividend_receivable_reconcile) ... ok
+test_odd_quantity_same_day_exit_is_not_fabricated (__main__.ExperimentTests.test_odd_quantity_same_day_exit_is_not_fabricated) ... ok
+test_open_can_only_reduce (__main__.ExperimentTests.test_open_can_only_reduce) ... ok
+test_replication_engine_has_only_stock_routing_changes (__main__.ExperimentTests.test_replication_engine_has_only_stock_routing_changes) ... ok
+test_same_budget_can_buy_odd_quantity (__main__.ExperimentTests.test_same_budget_can_buy_odd_quantity) ... ok
+test_small_odd_order_minimum_fees_in_risk (__main__.ExperimentTests.test_small_odd_order_minimum_fees_in_risk) ... ok
+test_three_market_sessions_not_calendar_days (__main__.ExperimentTests.test_three_market_sessions_not_calendar_days) ... ok
+test_timeout_runs_even_without_legacy_signal_eligibility (__main__.ExperimentTests.test_timeout_runs_even_without_legacy_signal_eligibility) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.190s
+
+OK
+
+Q4 date scope, five-stock allowlist, unchanged sizing and simulator source: PASS

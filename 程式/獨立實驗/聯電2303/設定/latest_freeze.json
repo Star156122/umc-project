@@ -1,0 +1,117 @@
+{
+  "created_before_simulation": "2026-11-13T23:40:50.093888+08:00",
+  "config": {
+    "experiment_id": "isolated-buy-2303-20261113-fixed-replication-exp001",
+    "stock": "2303",
+    "period": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    },
+    "data_role": "training_development_exposed",
+    "initial_capital": 1000000,
+    "variants": [
+      "C",
+      "D"
+    ],
+    "slippages": [
+      0.0005,
+      0.0
+    ],
+    "risk_fraction": 0.01,
+    "stop_pct": 0.025,
+    "risk_gap_buffer": 0.005,
+    "fee_rate": 0.001425,
+    "minimum_fee": 20,
+    "normal_sell_tax": 0.003,
+    "same_day_sell_tax": 0.0015,
+    "fee_rounding": "floor_to_whole_TWD_min_20_per_order",
+    "lot_size": 1,
+    "volume_fraction": 0.01,
+    "volume_window": 20,
+    "volume_to_shares": 1000,
+    "liquidity_limit": "buy_and_add_only_not_a_fill_guarantee",
+    "max_hold_bars": 162,
+    "min_hold_bars": 2,
+    "entry_cutoff": "12:30",
+    "reentry_expiry_sessions": 3,
+    "original_max_entries": 1,
+    "revised_max_entries": 2,
+    "original_cooldown": 6,
+    "revised_max_adds": 1,
+    "model": "random_forest",
+    "oof_path": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
+    "old_db": "data/technical_v1_mltech_clean.sqlite3",
+    "revised_db": "data/market_data.sqlite3",
+    "peer_pool": [
+      "2303",
+      "2330",
+      "2379",
+      "2454",
+      "3034"
+    ],
+    "folds": [
+      {
+        "id": "WF1",
+        "start": "2023-09-01",
+        "end": "2023-12-31"
+      },
+      {
+        "id": "WF2",
+        "start": "2024-01-01",
+        "end": "2024-06-30"
+      },
+      {
+        "id": "WF3",
+        "start": "2024-07-01",
+        "end": "2024-12-31"
+      }
+    ],
+    "no_retraining": true,
+    "parameter_search": false,
+    "locked_data_used": false,
+    "research_only": true,
+    "execution_notes": [
+      "All four arms use the same legal quantity unit; allow odd-lot quantities, no increase to 1% risk budget.",
+      "No ordinary-market quote may be called a verified odd-lot fill.",
+      "If user selects approximation, every page must label ordinary-OHLC proxy research and unverified fills.",
+      "Original strategy and original databases are not modified.",
+      "Whole-boardlot and residual odd-lot orders require distinct fees and execution handling if quantity exceeds 999.",
+      "Corporate actions and nonzero-position paths must be checked before interpreting returns.",
+      "Odd quantities cannot day-trade: defer entire-position exit until all batches are prior-day and time >=09:10; stop may exceed planned loss. No partial sell model."
+    ],
+    "status": "PREREGISTERED_FIXED_REPLICATION",
+    "execution_data_mode": "ORDINARY_OHLC_ODD_QUANTITY_PROXY",
+    "prior_results_deleted_by_user": false,
+    "corporate_action_mode": "causal_cash_adjustment",
+    "user_proxy_authorization": "2026-11-13: 先做近似研究回測，報告清楚標示限制",
+    "execution_revision": "odd_no_same_day_exit_0910_observed_timeout_v2",
+    "odd_exit_rule": "all_batches_must_be_prior_day_and_time_at_least_0910",
+    "stock_name": "聯電",
+    "replication_parent": "isolated-buy-2454-20261113-exp002-odd-lot"
+  },
+  "original_hashes": {
+    "trading_system\\backtest.py": "21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02",
+    "trading_system\\technical_v1.py": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36",
+    "hybrid\\core\\risk_v1.py": "b7b4e292c461d338e0f1a0d7bca0d36e54e2ba03601e7d3ceed3d9072f181547",
+    "configs\\technical_v2_candidate.json": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+    "data\\technical_v1_mltech_clean.sqlite3": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+    "data\\market_data.sqlite3": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+    "exports\\hybrid_poc_v1_20261013T041540804059\\ml_v1_baseline_oof_predictions.csv": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b",
+    "獨立實驗\\結果\\20261113T224843\\metrics.csv": "eb919b730684145e6009333adfd53911f271b7fddd34d2952dc64a9f0e17013c",
+    "獨立實驗\\程式\\engine.py": "5bc0b92695bc339378ad6a56cb8716ff25c4af5853af1b5f50a5b4b68447507d",
+    "獨立實驗\\設定\\experiment_odd_lot.json": "616cfc0ab18e3ef97a77bcf74b29cdea0a0ba8c7ef0d4f7e23cd8335334715a5"
+  },
+  "program_hashes": {
+    "engine.py": "313e59941befa788a565f5b43645bd5df828654f76238eda9825ccab5eb49d7f",
+    "prepare.py": "921d793b55fe793081499bdbd848a8a0732e36abe5d49d1e70b2a4aded7def4e",
+    "prepare_umc.py": "e201dee9fbc064cf8479b762972d531fde640a26361cf1a65767028d560a9bca",
+    "run_umc.py": "662055bd4fb425767ca473220a7467db859d1566d2a8518550f4879e686ce86b",
+    "report.js": "323be2a99e0e3768a19d1ce37a371a2bd36dd9f5b07a9613f37b05c441acb8bb",
+    "test_experiment.py": "50985bc74ef72be21db3eb3dda54edf0417a0c7cc506c8cdc84adabf6cd4e48e"
+  },
+  "config_sha256": "5662c79e72995e135c2a546f9b8f48e1608411340873ee0bf679ef7f8afe1cb9",
+  "authorization": "2026-11-13: 先做近似研究回測，報告清楚標示限制",
+  "cash_dividend_source_sha256": "ffe9fa20b8788d0b9f6e64947360b95d9880270a875003214b9a1b969ef1c9cf",
+  "data_role": "training_development_exposed",
+  "locked_data_used": false
+}

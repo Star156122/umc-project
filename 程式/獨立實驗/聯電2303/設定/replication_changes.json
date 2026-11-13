@@ -1,0 +1,11 @@
+{
+  "base_engine_sha256": "5bc0b92695bc339378ad6a56cb8716ff25c4af5853af1b5f50a5b4b68447507d",
+  "engine_copy_sha256": "313e59941befa788a565f5b43645bd5df828654f76238eda9825ccab5eb49d7f",
+  "allowed_engine_changes": [
+    "root path for nested isolated folder",
+    "stock guard 2454 -> 2303",
+    "stock cash dividend input filename"
+  ],
+  "other_strategy_or_risk_changes": false,
+  "parent_metrics_sha256": "eb919b730684145e6009333adfd53911f271b7fddd34d2952dc64a9f0e17013c"
+}

@@ -1,0 +1,27 @@
+{
+  "original_files_unchanged": true,
+  "original_hashes_before": {
+    "data\\technical_v1_mltech_clean.sqlite3": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+    "data\\market_data.sqlite3": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+    "exports\\hybrid_poc_v1_20261013T041540804059\\ml_v1_baseline_oof_predictions.csv": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b",
+    "trading_system\\backtest.py": "21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02",
+    "獨立實驗\\聯電2303\\程式\\engine.py": "313e59941befa788a565f5b43645bd5df828654f76238eda9825ccab5eb49d7f",
+    "獨立實驗\\聯電2303\\結果\\20261113T234049\\metrics.csv": "cbdaa21cd70a000c635bdb8176fb86eb3c398bb6134633d7772a7b4e99f0c07f",
+    "獨立實驗\\結果\\20261113T224843\\metrics.csv": "eb919b730684145e6009333adfd53911f271b7fddd34d2952dc64a9f0e17013c"
+  },
+  "original_hashes_after": {
+    "data\\technical_v1_mltech_clean.sqlite3": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+    "data\\market_data.sqlite3": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+    "exports\\hybrid_poc_v1_20261013T041540804059\\ml_v1_baseline_oof_predictions.csv": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b",
+    "trading_system\\backtest.py": "21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02",
+    "獨立實驗\\聯電2303\\程式\\engine.py": "313e59941befa788a565f5b43645bd5df828654f76238eda9825ccab5eb49d7f",
+    "獨立實驗\\聯電2303\\結果\\20261113T234049\\metrics.csv": "cbdaa21cd70a000c635bdb8176fb86eb3c398bb6134633d7772a7b4e99f0c07f",
+    "獨立實驗\\結果\\20261113T224843\\metrics.csv": "eb919b730684145e6009333adfd53911f271b7fddd34d2952dc64a9f0e17013c"
+  },
+  "locked_data_used": false,
+  "model_retrained": false,
+  "parameters_changed": false,
+  "independent_accounts": true,
+  "execution": "ORDINARY_OHLC_ODD_QUANTITY_PROXY",
+  "correctness_checks_passed": true
+}

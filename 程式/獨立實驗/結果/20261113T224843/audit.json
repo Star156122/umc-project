@@ -1,0 +1,35 @@
+{
+  "original_files_unchanged": true,
+  "original_hashes_before": {
+    "trading_system\\backtest.py": "21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02",
+    "trading_system\\technical_v1.py": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36",
+    "hybrid\\core\\risk_v1.py": "b7b4e292c461d338e0f1a0d7bca0d36e54e2ba03601e7d3ceed3d9072f181547",
+    "configs\\technical_v2_candidate.json": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+    "data\\technical_v1_mltech_clean.sqlite3": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+    "data\\market_data.sqlite3": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+    "exports\\hybrid_poc_v1_20261013T041540804059\\ml_v1_baseline_oof_predictions.csv": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b"
+  },
+  "original_hashes_after": {
+    "trading_system\\backtest.py": "21d0712ab767ab02b5ff4dffd71ccd90a0a126006c56290cce292292601e7d02",
+    "trading_system\\technical_v1.py": "077e2fabcd0b839ed7b22d51724bf365f39dbea7b4022536616256d29f7c8d36",
+    "hybrid\\core\\risk_v1.py": "b7b4e292c461d338e0f1a0d7bca0d36e54e2ba03601e7d3ceed3d9072f181547",
+    "configs\\technical_v2_candidate.json": "4784a8ca5b1d3db4fae32700bb58e0b9934f7fa7768605a26c9e25485a7bbde5",
+    "data\\technical_v1_mltech_clean.sqlite3": "aeabb19cd62b586e162252ed78de35f84fc8e9fa3ff22ed3baa1060f08dfc717",
+    "data\\market_data.sqlite3": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+    "exports\\hybrid_poc_v1_20261013T041540804059\\ml_v1_baseline_oof_predictions.csv": "d70c57acd81445c5e33474ec7a28ff18d52e2a3e162c0737132f3be7ca6f7e4b"
+  },
+  "tests_passed": true,
+  "locked_data_used": false,
+  "model_retrained": false,
+  "status": "PROXY_RESEARCH_ONLY",
+  "notes": [
+    "No strategy adoption claim. One stock, exposed development data.",
+    "All full-source equity curves replay chronological raw bars; old signal indicators retain old common stream.",
+    "Ordinary OHLC approximates odd-quantity fills, explicitly selected by user; not verified odd-lot execution.",
+    "Causal cash dividend adjustment from issuer history, ex-day receivables and delayed cash payment; no personal tax model.",
+    "Exposure-normalized returns are descriptive only, not a tradable matched-risk strategy.",
+    "Technical-only full scope retains the full 2023–2024 warm-up period; ML applies only within frozen OOF windows.",
+    "Common scope restricts all four arms to legal ML coverage independent of predicted label.",
+    "No simulated marker is invented for a rejected event."
+  ]
+}

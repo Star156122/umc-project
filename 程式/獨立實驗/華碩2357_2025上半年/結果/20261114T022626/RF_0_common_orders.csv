@@ -1,0 +1,4 @@
+﻿time,timestamp,action,quantity,price,reference,fee,tax,reason,cash_before,cash_after,allocation_spending_cap,fixed_cash_reserve,trade_id,slippage_cost
+2025-01-08T09:10:00+08:00,1736298600,BUY,153,650.0,650.0,141,0,SIGNAL,250000.0,150409.0,100000.0,50000.0,1,0.0
+2025-01-08T09:25:00+08:00,1736299500,ADD,91,657.0,657.0,85,0,SIGNAL,150409.0,90537.0,60163.600000000006,50000.0,1,0.0
+2025-01-09T11:25:00+08:00,1736393100,SELL,244,640.0,640.0,222,468.48,TECHNICAL_30_LOW,,,,,1,0.0

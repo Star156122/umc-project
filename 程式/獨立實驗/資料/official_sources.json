@@ -1,0 +1,770 @@
+[
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20230101",
+    "path": "資料\\index_20230101.json",
+    "sha256": "214aa1b758d0731a313a499c9e63777d3d41b4abe6f21ec391f5658e07b9b6e5",
+    "retrieved_at": "2026-11-13T21:30:58.698954+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230101&stockNo=2454",
+    "path": "資料\\2454_daily_20230101.json",
+    "sha256": "2f3c5554f2e31f3257a44cde3f980002c875a44d3a5b6eeef0ad360e12eb1d37",
+    "retrieved_at": "2026-11-13T21:30:58.702219+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20230201",
+    "path": "資料\\index_20230201.json",
+    "sha256": "2dbc9a4e1e6bb0658c6f25781f89720a94178d94546e7132c05c656360600e5c",
+    "retrieved_at": "2026-11-13T21:30:58.704733+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230201&stockNo=2454",
+    "path": "資料\\2454_daily_20230201.json",
+    "sha256": "196874c8eddd1ccc13accdfef26cfe53ca5d96bc2008b36148ed3a5219174a2d",
+    "retrieved_at": "2026-11-13T21:30:58.707733+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20230301",
+    "path": "資料\\index_20230301.json",
+    "sha256": "38428d48a084d198db20052f82bffd875f34c22594dd74dafd0c8e6c391e64e3",
+    "retrieved_at": "2026-11-13T21:30:58.712482+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230301&stockNo=2454",
+    "path": "資料\\2454_daily_20230301.json",
+    "sha256": "ed060b5b039071869d28994337514177207a6deea5d8f5334a0de546f1aa19ac",
+    "retrieved_at": "2026-11-13T21:30:58.715487+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20230401",
+    "path": "資料\\index_20230401.json",
+    "sha256": "5ac47163bc59af450650028efcf6dd1fe26876dce61b3c3d747d78abe4a4f428",
+    "retrieved_at": "2026-11-13T21:30:58.718995+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230401&stockNo=2454",
+    "path": "資料\\2454_daily_20230401.json",
+    "sha256": "64b7506785171bdfecf1a523c045eefaa79bbc17e565ab572a41fb870731b976",
+    "retrieved_at": "2026-11-13T21:30:58.721506+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20230501",
+    "path": "資料\\index_20230501.json",
+    "sha256": "09147aa85ab5ade1466234e0471387846f72d7263f02619e8ebbee17803c933e",
+    "retrieved_at": "2026-11-13T21:30:58.725540+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230501&stockNo=2454",
+    "path": "資料\\2454_daily_20230501.json",
+    "sha256": "3aa5121da00600c4a39284ad87e8013cf88cc24acb5f17a5444089dae83ae7de",
+    "retrieved_at": "2026-11-13T21:30:58.728540+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20230601",
+    "path": "資料\\index_20230601.json",
+    "sha256": "edf4586225e07697c0a28b33d984ccdc7b6714b575e8008e03de0311868f088c",
+    "retrieved_at": "2026-11-13T21:30:58.731547+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230601&stockNo=2454",
+    "path": "資料\\2454_daily_20230601.json",
+    "sha256": "89e00be298456b3b9cecd611cc961407704df8c284c4053189efec95090064dd",
+    "retrieved_at": "2026-11-13T21:30:58.734059+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20230701",
+    "path": "資料\\index_20230701.json",
+    "sha256": "700e29093303ea21365ce70c0d655a0f2dcb020c2d65850605a024b5354fb2d5",
+    "retrieved_at": "2026-11-13T21:30:58.737059+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230701&stockNo=2454",
+    "path": "資料\\2454_daily_20230701.json",
+    "sha256": "c92edac2cecb30385d61a62d6b5bbfbeb966ca25ea4902c0688e1cfb5318b79e",
+    "retrieved_at": "2026-11-13T21:30:58.740563+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20230801",
+    "path": "資料\\index_20230801.json",
+    "sha256": "f6222efd115c5b9c3d3fe51334d7070b52a8863bf353aeb794ccefff2b3b6b61",
+    "retrieved_at": "2026-11-13T21:30:58.743682+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230801&stockNo=2454",
+    "path": "資料\\2454_daily_20230801.json",
+    "sha256": "3fefe9bc461bc676ee26d6537fefd5a38ebdc45e6623e50af91fc892daa3f4e5",
+    "retrieved_at": "2026-11-13T21:30:58.746680+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20230901",
+    "path": "資料\\index_20230901.json",
+    "sha256": "77fa71c17fcb79b7540dcc3d7bc9e59e2007c332a45871ec0bd7df315f7dc098",
+    "retrieved_at": "2026-11-13T21:30:58.749679+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20230901&stockNo=2454",
+    "path": "資料\\2454_daily_20230901.json",
+    "sha256": "0914163457b63af3b61880033e98d6c653b9e37bfbe6028cc20be86df2346480",
+    "retrieved_at": "2026-11-13T21:30:58.752686+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20231001",
+    "path": "資料\\index_20231001.json",
+    "sha256": "7e832cdbad526644c2db3fc54592f3e17936dd7e9e8519b05e8294f7e5de50e6",
+    "retrieved_at": "2026-11-13T21:30:58.755774+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20231001&stockNo=2454",
+    "path": "資料\\2454_daily_20231001.json",
+    "sha256": "768527dab320b2a96d89037aaa62cb41fbf281b010304b0d56f84ae1d61fa76a",
+    "retrieved_at": "2026-11-13T21:30:58.758774+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20231101",
+    "path": "資料\\index_20231101.json",
+    "sha256": "bb9caec36658b11d8450d57910a6ec9949e51b4a1d68a8b0a7b633812437f215",
+    "retrieved_at": "2026-11-13T21:30:58.762779+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20231101&stockNo=2454",
+    "path": "資料\\2454_daily_20231101.json",
+    "sha256": "1290b42870fc06435b8428a6e0e84b53432e45f5217d76ae0c18864ca340609d",
+    "retrieved_at": "2026-11-13T21:30:58.765287+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20231201",
+    "path": "資料\\index_20231201.json",
+    "sha256": "1061a07b5162cf85d2e26b4c81e6e692296e2690fd66279d423060b63d55022d",
+    "retrieved_at": "2026-11-13T21:30:58.768407+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20231201&stockNo=2454",
+    "path": "資料\\2454_daily_20231201.json",
+    "sha256": "4c3654a37cbc1d8e38851d33fa495f22485dd0c3525636536ec198d22286a8b0",
+    "retrieved_at": "2026-11-13T21:30:58.770910+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20240101",
+    "path": "資料\\index_20240101.json",
+    "sha256": "cc962a986fdcda89c000e687e6f80c420ba2cc1453fbe8a4089b5a0ff37998a6",
+    "retrieved_at": "2026-11-13T21:30:58.774424+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240101&stockNo=2454",
+    "path": "資料\\2454_daily_20240101.json",
+    "sha256": "a11ab44210a88770ff37cfde2326e9c35fda4e7f7d81e64a7166977baa0c3a1d",
+    "retrieved_at": "2026-11-13T21:30:58.777429+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20240201",
+    "path": "資料\\index_20240201.json",
+    "sha256": "3f3b39f734424119d5b724f74a787cb65242cc25091da39a4e6ca961956f310d",
+    "retrieved_at": "2026-11-13T21:30:58.779428+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240201&stockNo=2454",
+    "path": "資料\\2454_daily_20240201.json",
+    "sha256": "36d7e5ad062b3d6e8d267b809694367b4fa6d177e2f0024f2897036e47277c84",
+    "retrieved_at": "2026-11-13T21:30:58.782441+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20240301",
+    "path": "資料\\index_20240301.json",
+    "sha256": "b6d9f5172c89f76bb67bf7697fa3f6657f77371db3e8b8de8a2be444f08d45b5",
+    "retrieved_at": "2026-11-13T21:30:58.785451+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240301&stockNo=2454",
+    "path": "資料\\2454_daily_20240301.json",
+    "sha256": "0c8822a521609b5b85621f3a6b2f7b9676ab0c6566f9f6422ff238c18ed04abe",
+    "retrieved_at": "2026-11-13T21:30:58.788453+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20240401",
+    "path": "資料\\index_20240401.json",
+    "sha256": "c8d9291547116a10d1e61505504719275b178d7b7811d361e53bd688cd0104db",
+    "retrieved_at": "2026-11-13T21:30:58.791451+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240401&stockNo=2454",
+    "path": "資料\\2454_daily_20240401.json",
+    "sha256": "e8f5b32a950bafa80b3010e870deba82a2080d84195f201067719c7ce8eaf341",
+    "retrieved_at": "2026-11-13T21:30:58.793961+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20240501",
+    "path": "資料\\index_20240501.json",
+    "sha256": "1889fe91dbb132d08f88387fcb8b3870ccabbfffb769f9410e9d8a16467689c6",
+    "retrieved_at": "2026-11-13T21:30:58.797965+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240501&stockNo=2454",
+    "path": "資料\\2454_daily_20240501.json",
+    "sha256": "b448e6c6946b4ab083694c205c1ff4c5ff1f954101cce90b24a4befea0da3136",
+    "retrieved_at": "2026-11-13T21:30:58.800470+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20240601",
+    "path": "資料\\index_20240601.json",
+    "sha256": "fbdec61ce759515d3857599a983536549defd81fad182724a7b91084eb9044b3",
+    "retrieved_at": "2026-11-13T21:30:58.804570+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240601&stockNo=2454",
+    "path": "資料\\2454_daily_20240601.json",
+    "sha256": "39f1b3a6d9bb02671736f8477a34fedfc519ca30e91118c88308c3cad44b41c7",
+    "retrieved_at": "2026-11-13T21:30:58.807569+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20240701",
+    "path": "資料\\index_20240701.json",
+    "sha256": "b8890b7cee3ef8e211d39ed662a81869257cecf8b6380dcc155fd9dd95ca61ab",
+    "retrieved_at": "2026-11-13T21:30:58.810569+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240701&stockNo=2454",
+    "path": "資料\\2454_daily_20240701.json",
+    "sha256": "77ed2195f73e46d92c492492a7849db8871a59067559d6b115ce1a5215b79c81",
+    "retrieved_at": "2026-11-13T21:30:58.814082+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20240801",
+    "path": "資料\\index_20240801.json",
+    "sha256": "598ccbf8012beac04d9efb6f52b922be11197c21c9edcbfd97da879693f024bf",
+    "retrieved_at": "2026-11-13T21:30:58.817082+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240801&stockNo=2454",
+    "path": "資料\\2454_daily_20240801.json",
+    "sha256": "ff95ef295409f71411f874021d1fb569298eccf3dbffe622ff3f8b3265e6af23",
+    "retrieved_at": "2026-11-13T21:30:58.819592+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20240901",
+    "path": "資料\\index_20240901.json",
+    "sha256": "39b670bb2c385898aba6efe5241d265d931fcd6eb45c496ace112f48b4043ff9",
+    "retrieved_at": "2026-11-13T21:30:58.823100+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20240901&stockNo=2454",
+    "path": "資料\\2454_daily_20240901.json",
+    "sha256": "508e51e8c6dbdfb7cbecba1f55219b8ed8efb75e7ffd0f96225707cd478d26a6",
+    "retrieved_at": "2026-11-13T21:30:58.826110+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20241001",
+    "path": "資料\\index_20241001.json",
+    "sha256": "9b92d0f3cc6d531ef442ae0436044dee5846d94766dfd2d26f919bf7ba9bd95d",
+    "retrieved_at": "2026-11-13T21:30:58.828110+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241001&stockNo=2454",
+    "path": "資料\\2454_daily_20241001.json",
+    "sha256": "2759671452591790c04dbbec6711e8a821f029b8b50d12ef3473e2c8af4370b5",
+    "retrieved_at": "2026-11-13T21:30:58.831621+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20241101",
+    "path": "資料\\index_20241101.json",
+    "sha256": "3e1dfad6091c9427147120c0a445f0ba769b9fc71df2e5ed8ddb06823b236216",
+    "retrieved_at": "2026-11-13T21:30:58.834130+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241101&stockNo=2454",
+    "path": "資料\\2454_daily_20241101.json",
+    "sha256": "b48bf03f219a69beb59452cf441f8c6795931ac24cc63a382e9509429dcc437a",
+    "retrieved_at": "2026-11-13T21:30:58.837136+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20241201",
+    "path": "資料\\index_20241201.json",
+    "sha256": "854701a8d61edb081fef179bc739f59a60ac2c947e13f1ff812fbfe7e2b7af61",
+    "retrieved_at": "2026-11-13T21:30:58.840640+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "成交筆數",
+      "發行量加權股價指數",
+      "漲跌點數"
+    ]
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241201&stockNo=2454",
+    "path": "資料\\2454_daily_20241201.json",
+    "sha256": "c9bca8fb86a18106900ba1e082f826b0b90999ba0d5c4d2bd390137f342c4a2b",
+    "retrieved_at": "2026-11-13T21:30:58.843695+08:00",
+    "fields": [
+      "日期",
+      "成交股數",
+      "成交金額",
+      "開盤價",
+      "最高價",
+      "最低價",
+      "收盤價",
+      "漲跌價差",
+      "成交筆數",
+      "註記"
+    ]
+  }
+]

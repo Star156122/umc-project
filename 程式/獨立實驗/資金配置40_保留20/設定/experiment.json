@@ -1,0 +1,121 @@
+{
+  "experiment_id": "isolated-buy-cash40-reserve20-20261114-exp001",
+  "stock": "2303",
+  "period": {
+    "start": "2024-10-01",
+    "end": "2024-12-31"
+  },
+  "data_role": "training_development_exposed",
+  "initial_capital": 1000000,
+  "variants": [
+    "D"
+  ],
+  "slippages": [
+    0.0005,
+    0.0
+  ],
+  "risk_fraction": null,
+  "stop_pct": 0.025,
+  "risk_gap_buffer": 0.005,
+  "fee_rate": 0.001425,
+  "minimum_fee": 20,
+  "normal_sell_tax": 0.003,
+  "same_day_sell_tax": 0.0015,
+  "fee_rounding": "floor_to_whole_TWD_min_20_per_order",
+  "lot_size": 1,
+  "volume_fraction": 0.01,
+  "volume_window": 20,
+  "volume_to_shares": 1000,
+  "liquidity_limit": "buy_and_add_only_not_a_fill_guarantee",
+  "max_hold_bars": 162,
+  "min_hold_bars": 2,
+  "entry_cutoff": "12:30",
+  "reentry_expiry_sessions": 3,
+  "original_max_entries": 1,
+  "revised_max_entries": 2,
+  "original_cooldown": 6,
+  "revised_max_adds": 1,
+  "model": "random_forest",
+  "oof_path": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
+  "old_db": "data/technical_v1_mltech_clean.sqlite3",
+  "revised_db": "data/market_data.sqlite3",
+  "peer_pool": [
+    "2303",
+    "2330",
+    "2379",
+    "2454",
+    "3034"
+  ],
+  "folds": [
+    {
+      "id": "WF1",
+      "start": "2023-09-01",
+      "end": "2023-12-31"
+    },
+    {
+      "id": "WF2",
+      "start": "2024-01-01",
+      "end": "2024-06-30"
+    },
+    {
+      "id": "WF3",
+      "start": "2024-07-01",
+      "end": "2024-12-31"
+    }
+  ],
+  "no_retraining": true,
+  "parameter_search": false,
+  "locked_data_used": false,
+  "research_only": true,
+  "execution_notes": [
+    "All four arms use the same legal quantity unit; allow odd-lot quantities, no increase to 1% risk budget.",
+    "No ordinary-market quote may be called a verified odd-lot fill.",
+    "If user selects approximation, every page must label ordinary-OHLC proxy research and unverified fills.",
+    "Original strategy and original databases are not modified.",
+    "Whole-boardlot and residual odd-lot orders require distinct fees and execution handling if quantity exceeds 999.",
+    "Corporate actions and nonzero-position paths must be checked before interpreting returns.",
+    "Odd quantities cannot day-trade: defer entire-position exit until all batches are prior-day and time >=09:10; stop may exceed planned loss. No partial sell model."
+  ],
+  "status": "PREREGISTERED_AUTHORIZED_REPLAY",
+  "execution_data_mode": "ORDINARY_OHLC_ODD_QUANTITY_PROXY",
+  "prior_results_deleted_by_user": false,
+  "corporate_action_mode": "causal_cash_adjustment",
+  "user_proxy_authorization": "2026-11-13: 先做近似研究回測，報告清楚標示限制",
+  "execution_revision": "odd_no_same_day_exit_0910_observed_timeout_v2",
+  "odd_exit_rule": "all_batches_must_be_prior_day_and_time_at_least_0910",
+  "stock_name": "聯電",
+  "replication_parent": "isolated-buy-holding-extension-20261114-exp001",
+  "stocks": {
+    "2303": "聯電",
+    "2330": "台積電",
+    "2379": "瑞昱",
+    "2454": "聯發科",
+    "3034": "聯詠"
+  },
+  "warmup_start": "2024-09-16",
+  "selection_rule": "Freeze the five existing peer-pool listed technology stocks before simulation; not random or representative of all technology stocks.",
+  "interpretation": "Only revised+same ML; no original-strategy improvement claim; independent 1m per stock, not a pooled portfolio.",
+  "holding_extension": {
+    "enabled": true,
+    "extra_bars": 54,
+    "max_extensions": 1,
+    "require_net_profit": true,
+    "require_ml_buy": true,
+    "require_market": true,
+    "trend_rule": "ready AND Close>MA_FAST>MA_MID AND Close>TREND_MA AND TREND_SLOPE>0",
+    "review": "every_completed_bar_from_original_deadline",
+    "exit": "next_legal_observed_open; existing non-daytrade restrictions remain",
+    "protective_exits_have_priority": true,
+    "stop_can_only_tighten": true,
+    "allow_adds_during_extension": false,
+    "hard_cap": "162+54 observed holding bars; execution restrictions can delay fills beyond decision cap",
+    "purpose": "Do not exit a profitable continuing trend solely due to timeout; no claim of predicting future prices."
+  },
+  "position_sizing_mode": "cash_fraction_with_fixed_reserve",
+  "risk_budget_enabled": false,
+  "cash_allocation_fraction": 0.4,
+  "initial_cash_reserve_fraction": 0.2,
+  "sizing_notes": "Risk budget disabled; first and single add each spend <=40% current cash including commission, leave >=20% INITIAL capital cash. Stop/volume/ML/holding extension retained.",
+  "backtest_authorization": "2026-11-14: 再回測五股，時間三個月，依照這次規則。",
+  "comparison_plan": "Compare fixed preceding five-stock 2024Q4 version, both slips; disclose return/drawdown/exposure, add/extension events; no retuning, no pooled portfolio; 1-4 trades insufficient. Changes relative preceding executed version are cash sizing plus conditional extension."
+}

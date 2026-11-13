@@ -1,0 +1,7 @@
+{
+  "cash_return": 0,
+  "buy_hold_price_only_return": 0.06068277978539993,
+  "quantity": 24673,
+  "status": "REFERENCE_ONLY_NOT_TOTAL_RETURN",
+  "note": "價格報酬參考，不含未核實股利與公司行動，不作策略優劣判準；首末觀測價、費稅及5bps滑價。"
+}

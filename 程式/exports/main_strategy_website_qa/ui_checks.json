@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "api_mocked_for_ui": true,
+  "actual_python_result_rendered": true,
+  "stock_date_switch": true,
+  "holdout_blocked_before_post": true,
+  "profile_identity_checked": true,
+  "javascript_errors": []
+}

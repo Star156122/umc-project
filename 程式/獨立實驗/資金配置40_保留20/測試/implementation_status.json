@@ -1,0 +1,7 @@
+{
+  "enabled": true,
+  "risk_budget_enabled": false,
+  "cash_allocation_tests_passed": 11,
+  "historical_backtest_executed": false,
+  "frontend_changed": false
+}

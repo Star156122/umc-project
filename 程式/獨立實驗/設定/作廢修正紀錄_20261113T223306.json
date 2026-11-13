@@ -1,0 +1,4 @@
+{
+  "status": "SUPERSEDED_EXECUTION_TIMING_ERROR",
+  "reason": "Initial proxy run allowed same-day odd exits and some exits before 09:10. Correct known market rules without changing strategy parameters; do not use this output for conclusions."
+}

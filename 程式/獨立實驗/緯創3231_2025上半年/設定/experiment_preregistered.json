@@ -1,0 +1,15 @@
+{
+  "experiment_id": "new-stock-3231-five-arm-20261114-exp001",
+  "strategy": "cash40_reserve20_extension",
+  "variant": "BH_TECH_RF_XGB_GRU",
+  "test_start": "2025-01-01",
+  "test_end": "2025-06-30",
+  "dataset_role": "validation_seen_period_new_stock",
+  "stock_codes": "3231",
+  "status": "preregistered",
+  "decision": "NOT_RUN",
+  "holdout_used": "false",
+  "notes": "Five arms same stock, dates, initial capital, costs, bars and corporate actions; BH80% buy first legal09:10 open, hold to final close, reserve20%; four active arms cash40 reserve20 and conditional extension, ML BUY-only; full-period and common legal ML coverage separately; disclose exposure, not pooled. 1-4 trades insufficient. No parameter changes after outcomes. Proxy research, not final OOS. Pure technical has no ML gate at entry/add/extension; hybrid extension uses its own model BUY. Common coverage depends only on valid timestamps, not predicted labels. User requested another tech+financial stock, same time/capital; fixed selection before results; no tuning. Reuse matching fixed technology V1 artifacts with verified hashes",
+  "report_file": "",
+  "result_file": "獨立實驗\\緯創3231_2025上半年\\結果"
+}

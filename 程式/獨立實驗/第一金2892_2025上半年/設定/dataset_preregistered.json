@@ -1,0 +1,17 @@
+{
+  "dataset_id": "new-stock-2892-five-arm-20261114-exp001",
+  "stock_code": "2892",
+  "stock_name": "第一金",
+  "industry": "金融",
+  "test_start": "2025-01-01",
+  "test_end": "2025-06-30",
+  "participated_in_development": "false",
+  "results_viewed": "false",
+  "influenced_strategy": "false",
+  "current_classification": "validation_seen_period_new_stock",
+  "clean_validation_eligible": "false",
+  "experiment_ids": "new-stock-2892-five-arm-20261114-exp001",
+  "notes": "Stock absent from prior registry/config; actual training excludes target. New data read only bounded2024Nov-2025June; locked dates forbidden.",
+  "report_location": "",
+  "result_location": "獨立實驗\\第一金2892_2025上半年\\資料"
+}

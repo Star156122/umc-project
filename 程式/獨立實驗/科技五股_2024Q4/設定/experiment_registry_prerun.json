@@ -1,0 +1,15 @@
+{
+  "experiment_id": "isolated-buy-five-tech-2024q4-20261114-exp001",
+  "strategy": "technical_v2b_buy_isolated",
+  "variant": "D_MODIFIED_SAME_RF_BUY_ONLY",
+  "test_start": "2024-10-01",
+  "test_end": "2024-12-31",
+  "dataset_role": "training_development_exposed",
+  "stock_codes": "2303|2330|2379|2454|3034",
+  "status": "preregistered",
+  "decision": "NOT_RUN",
+  "holdout_used": "false",
+  "notes": "User requested five technology stocks, Q4 2024, revised+ML only. Fixed existing peer pool before results. No tuning/retraining. Hypothesis: sparse trades and heterogeneous outcomes across stocks; descriptive replication, not before/after improvement. 1m independent per stock, cash start Oct1. Warmup Sep16 only. Same risk/cost/proxy execution. Preserve zero and failed results. No parameter scan.",
+  "report_file": "獨立實驗/科技五股_2024Q4/結果/index.html",
+  "result_file": "獨立實驗/科技五股_2024Q4/結果"
+}

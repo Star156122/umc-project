@@ -1,0 +1,3 @@
+﻿time,timestamp,action,quantity,price,reference,fee,tax,reason,trade_id,slippage_cost
+2024-11-07T10:25:00+08:00,1730946300,BUY,6000,46.7,46.7,399,0,SIGNAL,1,0.0
+2024-11-08T10:55:00+08:00,1731034500,SELL,6000,47.05,47.05,402,846.9,TECHNICAL_30_LOW,1,0.0

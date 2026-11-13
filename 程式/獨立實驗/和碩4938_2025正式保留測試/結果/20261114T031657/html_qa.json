@@ -1,0 +1,105 @@
+{
+  "pages": [
+    {
+      "page": "index.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_Q1/index.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_Q1/BH.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_Q1/TECH.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_Q1/RF.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_Q1/XGB.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_Q1/GRU.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_H1/index.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_H1/BH.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_H1/TECH.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_H1/RF.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_H1/XGB.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_H1/GRU.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_YEAR/index.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_YEAR/BH.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_YEAR/TECH.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_YEAR/RF.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_YEAR/XGB.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_YEAR/GRU.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_H2/index.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_H2/BH.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_H2/TECH.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_H2/RF.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_H2/XGB.html",
+      "status": "PASS"
+    },
+    {
+      "page": "買賣圖_H2/GRU.html",
+      "status": "PASS"
+    }
+  ],
+  "javascript_errors": []
+}

@@ -1,0 +1,15 @@
+{
+  "html_count": 5,
+  "assets": {
+    "C_analysis.html": "a1f89fc116f3c345f9fe00fee82a07788cedba65ae3fe9f6e991dc1b8012b2d0",
+    "C_funnel.html": "b0f697bb118a38c40dc36b9d88ba5b9a3e72d69302c76f4b10b899e66fa72112",
+    "data.js": "fc595a14b834a9ac48e1ceefafbd381943db1f6b206b48f3eab49df9b326b7e0",
+    "D_analysis.html": "d4266b2022fce1bbf4b68afc28586630af6f9ecf85e41dde551010d7968bb431",
+    "D_funnel.html": "437ac3a9bb937445e7af874b5947f83661d130e3174eb46d64c5194025227858",
+    "index.html": "49cb1d53140a259e5bb07850745c0418c4a665ea68cf89d27b8133398b785d7f",
+    "report.css": "cd258cf090dc55db7f2dba5a8d0310beb77c336d6b7fbfc734852e788a486f8c",
+    "report.js": "069b10011c1f32137094a3ed750ca1650f938b18a9bedfba88a1c0571b92e3e9"
+  },
+  "parent_results_preserved": true,
+  "engine_stock_routing_only": true
+}

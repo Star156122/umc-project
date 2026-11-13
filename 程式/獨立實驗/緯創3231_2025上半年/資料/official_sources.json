@@ -1,0 +1,66 @@
+[
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20241101",
+    "file": "FMTQIK_20241101.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241101&stockNo=3231",
+    "file": "STOCK_DAY_20241101.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20241201",
+    "file": "FMTQIK_20241201.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20241201&stockNo=3231",
+    "file": "STOCK_DAY_20241201.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20250101",
+    "file": "FMTQIK_20250101.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20250101&stockNo=3231",
+    "file": "STOCK_DAY_20250101.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20250201",
+    "file": "FMTQIK_20250201.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20250201&stockNo=3231",
+    "file": "STOCK_DAY_20250201.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20250301",
+    "file": "FMTQIK_20250301.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20250301&stockNo=3231",
+    "file": "STOCK_DAY_20250301.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20250401",
+    "file": "FMTQIK_20250401.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20250401&stockNo=3231",
+    "file": "STOCK_DAY_20250401.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20250501",
+    "file": "FMTQIK_20250501.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20250501&stockNo=3231",
+    "file": "STOCK_DAY_20250501.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date=20250601",
+    "file": "FMTQIK_20250601.json"
+  },
+  {
+    "url": "https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=20250601&stockNo=3231",
+    "file": "STOCK_DAY_20250601.json"
+  }
+]

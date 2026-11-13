@@ -16,7 +16,7 @@ from trading_system.research_guard import assert_development_period
 def validate_period(start, end):
     first, last = date.fromisoformat(start), date.fromisoformat(end)
     assert_development_period(first, last)
-    if not date(2024,7,1) <= first <= last <= date(2024,12,30):
+    if not date(2024,7,1) <= first <= last <= date(2025,6,30):
         raise ValueError('BLOCKED_PERIOD_OUTSIDE_AUTHORIZED_DEVELOPMENT')
 
 def chart_data(config, code):
@@ -41,6 +41,11 @@ def main():
     args=parser.parse_args()
     try:
         validate_period(args.start_date,args.end_date)
+        if (ROOT/'hybrid/config/web_main_strategy_v1.json').exists():
+            from hybrid.core.web_main_backtest import run
+            output=run(args.stock_code,args.start_date,args.end_date,args.strategies)
+            print(json.dumps({'status':'COMPLETED_DEVELOPMENT_RESEARCH','output_directory':str(output),'data_role':'historical_development','profile_id':'main-buy-noadd-noextension-common-v1-20261114','final_oos_used':False,'holdout_policy_modified':False},ensure_ascii=False))
+            return 0
         config=json.loads((ROOT/'hybrid/config/multi_strategy_development_v1.json').read_text(encoding='utf-8'))
         config['periods']['backtest']={'start':args.start_date,'end':args.end_date}
         # This snapshot is per request; never rewrite the shared research configuration.

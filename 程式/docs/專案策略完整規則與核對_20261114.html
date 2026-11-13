@@ -1,0 +1,879 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>專案策略完整規則與核對｜2026-11-14</title><style>*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f3f6fb;color:#1b2b40;font:16px/1.8 system-ui,"Microsoft JhengHei",sans-serif}header{background:#102b46;color:white;padding:35px max(24px,calc((100% - 1080px)/2))}header p{margin:8px 0;color:#dbeafe}.badges{display:flex;flex-wrap:wrap;gap:8px}.badge{background:#234764;border:1px solid #7395b0;padding:4px 12px;border-radius:20px;font-size:14px}.layout{display:grid;grid-template-columns:240px minmax(0,1080px);gap:28px;max-width:1400px;margin:auto;padding:28px}nav{position:sticky;top:15px;align-self:start;max-height:94vh;overflow:auto;background:white;border-radius:14px;padding:16px}nav a{display:block;color:#245a80;text-decoration:none;padding:7px 0;font-size:14px}main{min-width:0;background:white;border-radius:16px;padding:34px}h1{font-size:30px;line-height:1.45}h2{font-size:25px;border-top:2px solid #dce5f1;padding-top:28px;margin-top:42px;scroll-margin-top:20px}h3{font-size:20px;color:#245a80}a{color:#075ead}.table-scroll{overflow-x:auto;margin:18px 0}table{border-collapse:collapse;width:100%;font-size:15px}th,td{text-align:left;vertical-align:top;padding:12px 14px;border:1px solid #dbe4ee}th{background:#eaf1fa;color:#173d60}tr:nth-child(even){background:#f8fafc}code{font-size:.91em;background:#eef3f9;padding:2px 4px;border-radius:4px;overflow-wrap:anywhere}pre{background:#102b46;color:#edf4ff;padding:20px;border-radius:10px;overflow-x:auto;font-size:14px}pre code{background:none;color:inherit;padding:0;overflow-wrap:normal}strong{color:#0b4773}blockquote{border-left:4px solid #eea43b;padding:10px 18px;background:#fff8eb}footer{text-align:center;padding:24px;color:#60758a}@media(max-width:850px){.layout{display:block;padding:12px}nav{position:static;max-height:250px;margin-bottom:16px}main{padding:20px}h1{font-size:26px}h2{font-size:22px}header{padding:25px}}@media print{header{padding:0;background:white;color:black}header p{color:black}.layout{display:block;padding:0}nav,.badges{display:none}main{padding:0}.table-scroll{overflow:visible}table{font-size:10px}th,td{padding:5px}h2{break-before:auto}pre{white-space:pre-wrap;background:#eee;color:black}body{font-size:11px;background:white}a{color:inherit}footer{display:none}}</style></head><body><header><h1>專案策略規則｜組員閱讀版</h1><p>以實際程式核對原規劃及後續決定 · 2026-11-14</p><div class="badges"><span class="badge">主要規則已接入</span><span class="badge">15項落差如實揭露</span><span class="badge">本次未改策略／未跑回測</span></div></header><div class="layout"><nav aria-label="目錄"><strong>章節目錄</strong><a href="#section-1">1. 給組員的一頁摘要</a><a href="#section-2">2. 專案有哪些版本，哪一個現在在用</a><a href="#section-3">3. 可選股票、日期與資料</a><a href="#section-4">4. 進場訊號：怎樣才會買</a><a href="#section-5">5. ML Gate：模型到底做什麼</a><a href="#section-6">6. 買多少：現金、股數與成交量</a><a href="#section-7">7. 平倉後再進場</a><a href="#section-8">8. 持倉與所有出場條件</a><a href="#section-9">9. 成交成本與公司行動</a><a href="#section-10">10. 買進持有基準</a><a href="#section-11">11. 篩選漏斗與結果怎麼解讀</a><a href="#section-12">12. 完整核對發現的落差與未完成項</a><a href="#section-13">13. 從原規劃到最後決定的變更對照</a><a href="#section-14">14. 附錄：專案仍保留的舊六策略</a><a href="#section-15">15. 工程來源與核對方式</a></nav><main><h1>專案策略完整規則與核對</h1>
+<p>更新日：2026-11-14。用途：提供組員閱讀、簡報與後續修正依據。</p>
+<p>本文件以網站目前真正呼叫的程式為準，對照《BUY策略修改完整規劃_20261113_修訂版》及其後對話中的最終決定。這次只核對及製作文檔，沒有修改交易規則、重訓、重新執行回測或讀取鎖定行情。</p>
+<p><strong>核對結論：主要修改已接入網站新回測，但整份規劃尚非全部完成。專案仍有舊入口，部分報表說明及診斷也有落差；詳見第 12 節。不能把「已接入主要策略」寫成「所有功能已完整驗收」。</strong></p>
+<h2 id="section-1">1. 給組員的一頁摘要</h2>
+<p>目前主要策略是「確認突破後買進」的股票做多策略，不做空、不預先猜突破、不攤平、不加碼、不延期。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>目前主要規則</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>回測組別</td>
+<td>純技術、RF＋技術、XGBoost＋技術、GRU＋技術；買進持有自動加入比較</td>
+</tr>
+<tr>
+<td>帳戶</td>
+<td>每組獨立 250,000 元，單次回測一檔股票，各組資金不共用</td>
+</tr>
+<tr>
+<td>行情</td>
+<td>5 分 K，台北時間；一般交易 OHLCV 近似零股數量成交</td>
+</tr>
+<tr>
+<td>日期</td>
+<td>新進場限目標股票完整交易日，且三模型均有合法前日預測</td>
+</tr>
+<tr>
+<td>主要訊號</td>
+<td>完成 5 分 K 的收盤首次突破前 55 根最高價</td>
+</tr>
+<tr>
+<td>技術確認</td>
+<td>收盤 ≥ 布林上軌、MA20 &gt; MA60、收盤 &gt; MA120、MA120 比 12 根前高、收盤 &gt; MA240</td>
+</tr>
+<tr>
+<td>大盤</td>
+<td>官方加權指數前一交易日收盤 &gt; 包含該日在內的 SMA20</td>
+</tr>
+<tr>
+<td>ML</td>
+<td>各 ML 組另要求自己的預測為 BUY；純技術不要求 BUY；不是三模型投票</td>
+</tr>
+<tr>
+<td>時間</td>
+<td>預計下一根開盤進場時間須介於 09:10～12:30，且與訊號同日、連續相隔 5 分鐘</td>
+</tr>
+<tr>
+<td>買多少</td>
+<td>含買進費用最多支出當下現金 40%，且買後現金至少保留初始本金 20%＝50,000 元</td>
+</tr>
+<tr>
+<td>其他數量限制</td>
+<td>前 20 根已完成 K 平均成交股數的 1%；以 1 股向下取整，不設最多 1,000 股</td>
+</tr>
+<tr>
+<td>進場次數</td>
+<td>每股每日最多兩次新持倉；持倉期間不再買</td>
+</tr>
+<tr>
+<td>一般出場</td>
+<td>2.5% 固定價格停損、收盤跌破前 30 根低點、持有滿 162 根觀測 K，或期間結束</td>
+</tr>
+<tr>
+<td>再進場</td>
+<td>須有新突破事件；有效期內另須收盤嚴格高於上一段持倉最高價</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>每邊滑價 0.05%；手續費 0.1425%、每張委託最低 20 元；普通賣出稅 0.3%</td>
+</tr>
+<tr>
+<td>成交限制</td>
+<td>目前整段部位一律不做當日賣出，最早次日 09:10；可能延遲停損並擴大損失</td>
+</tr>
+<tr>
+<td>未啟用</td>
+<td>加碼、延期、固定獲利百分比停利、部分減碼、追蹤停損、SELL 放行、做空、新聞交易</td>
+</tr>
+</tbody>
+</table></div>
+<p>所有 MA、突破與布林參數在這裡都是 <strong>5 分 K 根數</strong>；只有大盤 SMA20 是 <strong>20 個市場交易日</strong>。162 根約等於三個完整交易日的 K 棒數，不代表固定三個曆日，也不保證到時一定成交。</p>
+<h2 id="section-2">2. 專案有哪些版本，哪一個現在在用</h2>
+<h3>2.1 網站主畫面使用的版本</h3>
+<p>版本 ID：<code>main-buy-noadd-noextension-common-v1-20261114</code>。</p>
+<p>實際呼叫順序：</p>
+<pre><code class="language-text">網站「策略模擬」
+→ POST /api/backtests/multi/run
+→ multiStrategyBacktestService.js
+→ scripts/web_multi_backtest.py
+→ hybrid/core/web_main_backtest.py
+→ hybrid/core/main_buy_strategy_v1.py
+</code></pre>
+<p><code>GET /api/backtests/multi/profile</code> 提供版本、本金與各股日期；前端和後端都會核對新結果版本。<code>technical</code>、<code>rf</code>、<code>xgboost</code>、<code>gru</code> 是四個選項；RF、XGB、GRU 共用同一套技術、部位及出場規則，只在各自 ML Gate 不同。</p>
+<h3>2.2 保留的其他版本</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>類型</th>
+<th>專案中的狀態</th>
+<th>是否是主畫面新回測</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原 Technical V2-B／Risk V1</td>
+<td>原凍結設定與歷史結果保留</td>
+<td>否</td>
+</tr>
+<tr>
+<td>之前的獨立實驗</td>
+<td>原版／修改版、加碼、延期、資金配置等實驗保留各自規則</td>
+<td>否，不能套用現在規則解釋舊結果</td>
+</tr>
+<tr>
+<td>舊六策略引擎</td>
+<td>MA、RSI、MACD、布林、區間突破、多數決；舊 API 仍有掛載</td>
+<td>否，但技術上仍可呼叫，尚未統一到新版</td>
+</tr>
+<tr>
+<td>4938 正式保留測試</td>
+<td>先前個別授權、已使用並保存凍結紀錄</td>
+<td>否；不授權網站再次使用下半年</td>
+</tr>
+</tbody>
+</table></div>
+<p>「主策略已換」表示主畫面新回測使用新版，不表示專案裡每個 API、舊引擎或歷史報告都已改寫。</p>
+<h2 id="section-3">3. 可選股票、日期與資料</h2>
+<h3>3.1 目前網站允許的範圍</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>股票</th>
+<th>可提交日期範圍</th>
+<th>ML 來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2303 聯電、2330 台積電、2379 瑞昱、2454 聯發科、3034 聯詠</td>
+<td>2024-07-01～2024-12-30</td>
+<td>既有時間順序 OOF 預測</td>
+</tr>
+<tr>
+<td>2357 華碩、3231 緯創、2892 第一金、4938 和碩</td>
+<td>2025-01-01～2025-06-30</td>
+<td>已保存的固定模型推論</td>
+</tr>
+</tbody>
+</table></div>
+<p>可在各自範圍內選三個月、六個月或自訂日期；不是任一股票都支援任意年份。主設定固定每組 25 萬元，網站請求不能自行覆寫本金、風險或策略參數。不支援的股票／日期會拒絕，不拿另一股票、ETF 或預測代替。</p>
+<p>2024 結果屬已曝光開發資料；2025 上半年屬已使用驗證資料，不能宣稱完全未看過。這兩類資料不合併成一個「乾淨樣本外」結果。</p>
+<h3>3.2 行情來源與完整性</h3>
+<ul>
+<li>目標股票使用設定指定的本地 SQLite <code>market_kbars</code>，頻率為 5 分鐘，以唯讀方式讀取。原五股使用 <code>data/market_data.sqlite3</code>；新增股票使用其獨立實驗資料，4938 使用只含上半年範圍的獨立快照。</li>
+<li>大盤使用先前保存的證交所官方加權指數日線 <code>index_daily.json</code>；網站本次回測不臨時下載、不重訓。</li>
+<li>一個完整個股交易日須有 09:00～13:25 的 <strong>54 根</strong> K，時間唯一、順序正確、價格有限且大於零、最低價 ≤ 開收盤 ≤ 最高價、成交量非負。</li>
+<li>缺棒、重複或無效資料不補造、不插值；可辨識的有效棒保留作既有部位退出及診斷。</li>
+<li>技術指標至少須有最近 240 個排定交易時段的連續有效棒，且必要指標有值。暖機用資料不列為回測開始前的交易。</li>
+<li>原五股的暖機起點為 2024-05-01；2025 上半年股票為 2024-11-01。</li>
+<li>「三模型合法覆蓋」不代表三個都看漲；BUY／HOLD／SELL 都能構成合法覆蓋，缺失或時間不合法則不行。</li>
+<li>共同資格只限制新進場；持倉不能因當天不在共同日期就跳過出場。</li>
+</ul>
+<p><strong>歷史研究限制：</strong> 完整日資格是看完當天 54 根資料後建立的研究樣本篩選。早上實盤無法預知下午是否會缺棒；目前不能直接宣稱這是已具備即時可交易性的完整實盤規格。</p>
+<h3>3.3 日期鎖</h3>
+<p>一般入口仍禁止 2025-07-01～2025-12-31 及 2026-07-01 起的鎖定資料。先前特別授權的 4938 正式測試已使用，不能再稱該個別測試未看過；那份授權沒有擴張成網站通用解鎖。</p>
+<h2 id="section-4">4. 進場訊號：怎樣才會買</h2>
+<p>用已完成的當根 K 稱作 t，收盤價稱作 C。</p>
+<h3>4.1 個股技術條件，必須全部通過</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>條件</th>
+<th>精確定義</th>
+<th>白話</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新突破</td>
+<td><code>C(t) &gt; max(前55根High)</code>，而且 <code>C(t−1) ≤ t−1當時的前55根High</code></td>
+<td>從尚未突破轉成首次突破，不是一直站在高處就一直買</td>
+</tr>
+<tr>
+<td>布林上軌</td>
+<td><code>C(t) ≥ MA20(t) + 2 × 20根收盤標準差</code>；標準差 ddof＝0</td>
+<td>收盤至少到上軌；等於上軌可通過</td>
+</tr>
+<tr>
+<td>均線方向</td>
+<td><code>MA20(t) &gt; MA60(t)</code></td>
+<td>短線平均強於中線；不另外要求當根黃金交叉</td>
+</tr>
+<tr>
+<td>趨勢位置</td>
+<td><code>C(t) &gt; MA120(t)</code></td>
+<td>股價位在趨勢均線上方</td>
+</tr>
+<tr>
+<td>趨勢斜率</td>
+<td><code>MA120(t) − MA120(t−12) &gt; 0</code></td>
+<td>趨勢均線比 12 根前高</td>
+</tr>
+<tr>
+<td>長線位置</td>
+<td><code>C(t) &gt; MA240(t)</code></td>
+<td>股價在長均線上方</td>
+</tr>
+</tbody>
+</table></div>
+<p>前 55 根高點不含當根；布林與均線可以包含剛完成的當根。均線不每日重置，可跨交易日累積。</p>
+<p>目前沒有「當根成交量須大於均量 1.1 倍」等進場量能確認；<strong>委託量上限</strong>仍存在，兩者用途不同。RSI、MACD 不是目前主策略的額外技術硬門檻，雖然 ML 特徵會使用相關資訊。</p>
+<h3>4.2 大盤條件</h3>
+<p>訊號日之前一個市場交易日的官方加權指數收盤，須嚴格高於含該日在內最近 20 個交易日收盤的簡單平均。</p>
+<p>例：週二進場看週一已完成日線，不看週二尚未完成的大盤收盤。等於 SMA20 不通過；不足 20 筆不通過。日內共用同一狀態，大盤轉弱不會直接命令已持倉賣出。</p>
+<p>目前未加入產業指數硬門檻，也未完成獨立產業代理診斷。官方日線是否漏掉整個市場交易日的獨立交叉檢查仍有限，見第 12 節。</p>
+<h3>4.3 持倉、次數與事件</h3>
+<ul>
+<li>必須空手；已持倉即使再有技術與 BUY 訊號，也不追加股票。</li>
+<li>每日最多兩次實際新持倉進場，包含第一次與平倉後再進場；委託失敗不算一次成交。</li>
+<li>出場當根不能重買；存在待出場動作時不能新增部位。</li>
+<li>同一突破機會被任一條件擋下，不會因下一根還在上方就無限重送；要先回到未突破狀態，再形成新的穿越。</li>
+<li>每日進場次數換日歸零；換日不會直接替持續突破製造新事件。</li>
+<li>新版不執行固定六根冷卻；舊設定欄位仍保留，不代表它在新版有作用。</li>
+</ul>
+<h3>4.4 時間與下一根成交</h3>
+<ul>
+<li>當根完整收盤後判斷，安排<strong>同日緊接的下一根</strong>開盤模擬買入；相隔必須剛好 300 秒。</li>
+<li>下一根不存在、缺棒、跨日或超過進場時間就不能買，不把訊號任意延到隔天。</li>
+<li>程式原窗口是 09:00～12:30；加上零股近似模式的 09:10 限制，實際預計買進開盤為 <strong>09:10～12:30，含端點</strong>。</li>
+<li>例如 09:05～09:10 的 K 完成，訊號合格時以 09:10 下一根開盤參考價加滑價成交；不是按訊號收盤保證成交。</li>
+</ul>
+<h2 id="section-5">5. ML Gate：模型到底做什麼</h2>
+<h3>5.1 三組模型是分開比較</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>組別</th>
+<th>必須有三模型合法覆蓋</th>
+<th>另外要求的預測</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>純技術</td>
+<td>是，作為共同樣本限制</td>
+<td>不要求任一模型 BUY</td>
+</tr>
+<tr>
+<td>RF＋技術</td>
+<td>是</td>
+<td>RF＝BUY</td>
+</tr>
+<tr>
+<td>XGBoost＋技術</td>
+<td>是</td>
+<td>XGBoost＝BUY</td>
+</tr>
+<tr>
+<td>GRU＋技術</td>
+<td>是</td>
+<td>GRU＝BUY</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>不是三模型都 BUY 才買，也不是多數決。</strong> BUY 只讓技術候選繼續接受資金、持倉、再進場及成交檢查，不保證一定成交。</p>
+<p>使用前一個市場交易日形成、對今天生效的一筆預測，當日不隨每根 K 重算模型。2025 保存的固定推論將可得時間保守記為訊號日 23:59:59；較早 ML 規格的收盤決策時間為 13:30。兩者都必須早於次日進場。</p>
+<h3>5.2 BUY、HOLD、SELL 的意思</h3>
+<p>這是模型對未來一段期間報酬類別的預測，不是精確的當下漲跌判定。訓練用固定標籤：以前一天 T 的資訊，觀察 T+1 開盤買到 T+3 收盤賣出的成本後報酬。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>類別</th>
+<th>訓練標籤定義</th>
+<th>主策略行為</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BUY</td>
+<td>成本後報酬 ≥ +1%</td>
+<td>允許技術進場繼續檢查</td>
+</tr>
+<tr>
+<td>HOLD</td>
+<td>−1% &lt; 成本後報酬 &lt; +1%</td>
+<td>不新增多單</td>
+</tr>
+<tr>
+<td>SELL</td>
+<td>成本後報酬 ≤ −1%</td>
+<td>不新增多單，不做空</td>
+</tr>
+</tbody>
+</table></div>
+<p>標籤使用未來結果是訓練目標；交易當下只能使用已產生的預測，不能把真實未來標籤帶回回測。標籤成本為買賣各 0.1425% 手續費、賣出稅 0.3%，與目前含最低費用、滑價的逐筆成交成本模型不是完全相同。</p>
+<p>模型取 SELL／HOLD／BUY 三機率最大者為類別，沒有新增「BUY 機率必須超過 60%」等門檻。完全同機率時，<code>argmax</code> 的順序為 SELL、HOLD、BUY，先出現者優先。</p>
+<p><strong>持有後不因 ML 改為 HOLD／SELL 就自動出場</strong>；退出由第 8 節規則決定。做空須另外設計進出場及交易限制，目前沒有實作。</p>
+<h3>5.3 哪些預測才合法</h3>
+<p>目前程式會檢查：</p>
+<ol>
+<li>股票及模型名稱正確，每個生效日只有一筆。</li>
+<li><code>signal_date</code> 是官方日線清單中今天的上一交易日，<code>entry_date</code> 是今天。</li>
+<li>預測可得時間嚴格早於進場檢查時間。</li>
+<li>三機率有限、介於 0～1、加總與 1 的誤差小於 0.00001，預測類別符合最大機率。</li>
+<li>OOF 預測須為 training、固定 1% 標籤、訓練終日早於訊號日，訊號日在所屬 validation fold 內。</li>
+<li>2025 固定推論須來自指定來源、資料角色為 validation，訓練目標終日不得晚於訊號日及 2024-12-31。</li>
+</ol>
+<p>缺預測記為 <code>MISSING</code>；檢查未通過記為 <code>INVALID_OR_LATE</code>；合法 HOLD／SELL 與缺預測是不同概念。重要落差：共同日期先剔除缺失／非法預測，因此網站 ML 階段統計不一定會顯示這些原始缺失筆數；不是缺失不存在。</p>
+<h3>5.4 訓練、特徵與模型參數</h3>
+<ul>
+<li>網站回測只讀預先保存的預測，不因換股票或按回測重新訓練。</li>
+<li>2024 原五股採時間順序 OOF，各筆訓練／驗證邊界依預測列判斷；不是用完整 2024 訓練後回頭預測同年。</li>
+<li>2025 科技股使用 2303、2330、2379、2454、3034 的 2023～2024 已成熟標籤訓練模型；2357、3231、4938 不加入該訓練名單。</li>
+<li>2025 第一金使用金融股 2881、2882、2884、2886、2891 的 2023～2024 模型，不是沿用科技模型。</li>
+<li>保存的訓練稽核顯示科技樣本 2,256 筆、金融樣本 2,276 筆；訊號起日 2023-02-10、終日 2024-12-26，最晚目標日 2024-12-31。不是每個 2023 年初日期都能形成樣本。</li>
+<li>每日輸入須有精確 11:35～13:30 的 24 個五分鐘時間點，一個也不補造；這是 ML 序列規格，與技術交易日 09:00～13:25 的 54 棒規格不同。</li>
+<li>RF／XGB 將 24×24 序列攤平成 576 個輸入；GRU 讀序列，另外加入 5 日／20 日成交量趨勢兩個日線特徵。標準化器只以訓練資料估計。</li>
+</ul>
+<p>24 個核心特徵如下，英文名可供工程組直接對照：</p>
+<pre><code class="language-text">open_vs_prev_close, high_vs_prev_close, low_vs_prev_close,
+return_1, return_3, return_6, return_12,
+volume_ratio_5, volume_ratio_20, volume_zscore_20,
+close_vs_ma5, close_vs_ma20, price_zscore_20, rsi14_scaled,
+macd_vs_close, macd_signal_vs_close, macd_hist_vs_close,
+range_vs_close, body_return, close_location,
+volatility_12, volatility_24, trend_slope_12, trend_slope_24
+</code></pre>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>固定設定摘要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RF</td>
+<td>200 棵樹、深度 10、葉節點至少 5 筆、balanced 類別權重、seed 42</td>
+</tr>
+<tr>
+<td>XGBoost</td>
+<td>150 棵樹、深度 4、learning rate 0.05、subsample 0.8、colsample 0.8、balanced 樣本權重、seed 42</td>
+</tr>
+<tr>
+<td>GRU</td>
+<td>隱藏 16、1 層、dropout 0、batch 128、learning rate 0.001、seed 42；2025 固定模型訓練 10 epochs，不使用 2025 回測結果挑 epochs</td>
+</tr>
+</tbody>
+</table></div>
+<p>其他研究模型、二分類機率回測、波動標籤或新特徵實驗仍在專案中，但不是網站本版 Gate。</p>
+<h2 id="section-6">6. 買多少：現金、股數與成交量</h2>
+<h3>6.1 目前公式</h3>
+<pre><code class="language-text">初始本金 I = 250,000
+當下可用現金 C
+固定保留現金 R = I × 20% = 50,000
+本次含買進手續費的支出上限 B = max(0, min(C × 40%, C − R))
+買進價格 P = 參考價 × (1 + 0.05%)
+流動性股數上限 = floor(前20根平均成交量 × 1,000 × 1%)
+
+選擇最大整數股數 q，使：
+  q × P + 買進手續費(q, P) ≤ B
+  q ≤ 流動性股數上限
+  q ≤ 訊號時原核准股數（實際開盤重檢時）
+</code></pre>
+<p>例如首次現金 25 萬，本次含費最多支出 10 萬。股票約 100 元，實際可買會略少於 1,000 股；約 50 元可能超過 1,000 股；高價股也可少於 1,000 股。這不是強迫每次買滿，流動性、成本或其他條件可使股數更低或拒單。</p>
+<h3>6.2 明確取消與保留</h3>
+<ul>
+<li>取消每段 1% 損失風險額度；程式不再以「停損損失最多 2,500 元」倒推股數。</li>
+<li>取消原本單股占帳戶淨值 40% 硬上限。現在的 40% 是<strong>當下現金的單次含費支出上限</strong>，不是原本淨值曝險上限。</li>
+<li>取消最多 1,000 股；合法數量單位為 1 股，不是無限買入。</li>
+<li>保留現金、成交量、整數股數與禁止負現金限制；沒有融資、借券或槓桿模型。</li>
+<li>股價上漲後，市值可以超過原始買進金額的 40%；不會因此自動減碼。</li>
+<li>現金下限以初始本金固定計算，不隨帳戶淨值每天重算；應收未配發股利不算可下單現金。</li>
+<li>成交量原始單位按「張」乘 1,000 轉股，既有資料已做量級核對；不能把 1% 參與率當成真實撮合保證。</li>
+</ul>
+<h3>6.3 跳空與委託</h3>
+<p>訊號收盤先核准股數，下一根開盤用實際參考價重新檢查同一現金配置、費用與流動性。價格跳高可減量，不足一股拒單；開盤變便宜也不超過訊號時核准量。這是回測的成交層預算裁切，不代表前一根已知道開盤價。</p>
+<p>目前一個股票、一個待買動作、整筆成交或減量拒單；不是完整的多股票委託簿，不提供逐筆部分撮合、排隊或跨股票未成交額度競用模型。</p>
+<h2 id="section-7">7. 平倉後再進場</h2>
+<ol>
+<li>平倉時固定記下前一段持倉的可觀測最高價 H。開盤退出不採退出後該棒的最高價；盤中停損棒的高低先後無法重建，程式保守不納入其未確定高點。</li>
+<li>H 在平倉當日及之後第 1、2、3 個市場交易日有效，到第 3 日結束；下一交易日清除。週末不算交易日。</li>
+<li>有效期間須同時有第 4 節的新突破事件，且完成 K 收盤 <strong>嚴格大於 H</strong>。等於 H 或只有影線超過不行。</li>
+<li>技術、大盤、ML BUY（ML 組）、現金、時間、次數與成交資格全部重新檢查，通過後下一根成交。</li>
+<li>等待期間 H 不追著退出後的新高移動。遇已記錄的現金除息會做機械價格調整，這不等於採用退出後市場新高。</li>
+<li>被擋下不持續追單；須解除突破後再出現新事件。</li>
+<li>到期清除 H 後，不立刻把持續在突破線上方視為新機會；先有一根收盤不高於其當時前 55 根高點，再等之後首次突破。</li>
+<li>換日不自動清除 H；出場當根不重買；每日仍最多兩次新持倉。</li>
+</ol>
+<p>例：100 元突破買進，持倉最高 101 元後出場；再到 101 元不買。有效期內完成 K 收盤 &gt;101 元，且本次也是合格的新突破、其他條件全過，才排下一根買。</p>
+<p>資料缺口方面目前會遮蔽指標窗口，卻沒有獨立的「整段 H 不可信」狀態；第 12 節列為與原規劃的缺漏。</p>
+<h2 id="section-8">8. 持倉與所有出場條件</h2>
+<h3>8.1 固定停損</h3>
+<ul>
+<li>實際買進價格已含買進滑價，停損線＝買進價格 × 97.5%。</li>
+<li>不是帳戶總資金最多虧 2.5%，也不含全部出場成本；實際損失可能更大。</li>
+<li>若觀測開盤 ≤ 停損線，用較差的開盤為賣出參考；否則該棒最低價 ≤ 停損線時，以停損線為參考，再扣賣出滑價。</li>
+<li>停損不受一般技術退出「最少 2 根」限制，但仍受次日及 09:10 成交限制。</li>
+<li>不因下跌放寬停損，也沒有把停損每天跟最高價上移的追蹤停損。</li>
+</ul>
+<h3>8.2 技術出場</h3>
+<p>持倉至少計數 2 根後，完成 K 收盤嚴格跌破<strong>前 30 根、不含當根</strong>最低價，安排下一個可觀測且可合法賣出的開盤退出。等於前低不觸發。</p>
+<p>目前主引擎不另外以「跌破 MA120」作獨立退出，也不使用 ML SELL、RSI、MACD 或大盤轉弱直接賣出。舊六策略引擎有不同退出規則，不能混用。</p>
+<h3>8.3 到期出場</h3>
+<p>從買入所在 K 起，每處理一根有效觀測 K，持有計數加 1。到 162 根時，若尚無其他待出場原因，就安排到期退出；<strong>延期功能關閉</strong>，即使趨勢強或模型仍 BUY 也不核准延長。</p>
+<p>因買入棒算第 1 根，162 根是持倉棒計數，不是買入後再完整等待 162 根。沒有固定百分比停利；賺錢仍由停損、前低、到期等規則決定退出。</p>
+<h3>8.4 資料缺口</h3>
+<p>持倉中發現兩個可觀測棒跨過不只一個排定時段，嘗試在下一個可觀測開盤退出，原因記為 <code>DATA_GAP_NEXT_OBSERVED_OPEN</code>；不能視為缺資料期間沒有下跌，也不能重建缺口中的精確停損成交。</p>
+<h3>8.5 期間結束</h3>
+<p>最後一根觀測 K 嘗試以收盤參考價扣滑價平倉，原因 <code>END_OF_WINDOW</code>。若仍因當日買進等限制無法賣出，保留未平倉部位、以最後收盤計價，不應虛構已完成交易。網站對未平倉揭露仍不足，詳見第 12 節。</p>
+<h3>8.6 成交限制與處理順序</h3>
+<p>本版只要是目前這個零股近似模式，<strong>即使數量恰為 1,000 股整數倍，也把整段部位套用「不得當日賣出、09:10 前不得賣」</strong>，是保守的整段研究限制，不是宣稱所有整股都依法不能當沖。</p>
+<p>觸發時不能賣，會記錄延後原因；下一個合法觀測開盤才處理，保留停損優先性。不同情況可超過 2.5% 停損或 162 根決策期限，這叫受成交限制延遲，<strong>不是啟用策略延期</strong>。</p>
+<p>每根的主要實作順序為：除息／現金流處理 → 資料缺口／既有待退出 → 前一根核准的買入 → 檢查停損 → 收盤技術及到期退出 → 淨值紀錄 → 新訊號／再進場檢查 → 期末退出。</p>
+<p>已排定的技術或到期退出可跨日等待合法賣出；新買單則不得把當日訊號延到隔日。沒有部分減碼，賣出時整段一次退出。</p>
+<h2 id="section-9">9. 成交成本與公司行動</h2>
+<h3>9.1 模擬成本</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>現行算法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>買進滑價</td>
+<td>參考價 × 1.0005</td>
+</tr>
+<tr>
+<td>賣出滑價</td>
+<td>參考價 × 0.9995</td>
+</tr>
+<tr>
+<td>手續費</td>
+<td>每筆 <code>max(20, floor(成交金額 × 0.001425))</code>，單位元</td>
+</tr>
+<tr>
+<td>一般賣出稅</td>
+<td>成交金額 × 0.003；模型未另取整稅額</td>
+</tr>
+<tr>
+<td>混合整股／零股</td>
+<td>例如 1,500 股視為 1,000 股與 500 股兩種委託，各計最低手續費；買賣均如此</td>
+</tr>
+<tr>
+<td>部分成交／漲跌停／委託簿</td>
+<td>未完整模擬；真實無法成交與排隊不保證被目前 OHLC 模型辨識</td>
+</tr>
+</tbody>
+</table></div>
+<p>設定仍有零滑價值，但網站 runner 固定每邊 0.05%，<strong>目前主畫面不會另外生成零滑價對照</strong>。原先獨立實驗的零滑價結果不等於網站本次也有跑。</p>
+<p>程式保留當沖稅率欄位，但主策略不允許當日退出，不能因此說它有支援當沖。這些是專案研究假設，不是本次重新核定的券商費率／法規說明。</p>
+<h3>9.2 現金除息</h3>
+<p>以已保存的現金股利事件做因果式價格調整，避免單純除息價差假裝成突破或獲利。持倉停損線、高點及再進場 H 依除息金額調整；股利先記應收，付款日才加現金，期末尚未付款列入資產但不可花用。</p>
+<p>目前不是通用的所有公司行動引擎，股票分割、減資、配股及事件公告可得時間的完整逐筆稽核仍需補足。不能把只有現金除息處理說成公司行動全部驗收完成。</p>
+<h2 id="section-10">10. 買進持有基準</h2>
+<ul>
+<li>每次主動策略回測自動加入買進持有，獨立給相同 25 萬元。</li>
+<li>從期間內第一個至少 09:10 的可觀測開盤買進，含費最多投入 80% 初始本金，保留 20%。</li>
+<li>同樣受歷史均量 1% 限制；因此未必真的投入滿 80%。</li>
+<li>期間內不套技術突破、大盤、BUY Gate、停損或 162 根退出，持有至最後觀測收盤後賣出，計入兩邊費用、滑價、賣出稅及股利。</li>
+<li>使用同一請求的起迄期間，但目前<strong>不以三模型共同日期篩選其買入時點</strong>。因此它是期間及成本基準，不是進場日期、持有時間或曝險都與主動策略相同。</li>
+<li>只是一段持有，勝率顯示不適用；不能拿一筆基準宣稱有統計勝率。</li>
+</ul>
+<p>仍有邊界情況未完全對齊：單日回測可能同日進出；首日恰逢除息時股利資格需再檢查；沒有任何 09:10 可用棒、缺少前一根流動性資料或無法買一股時可能直接失敗。目前應列為待補正，不能保證任意短日期區間皆可用。</p>
+<h2 id="section-11">11. 篩選漏斗與結果怎麼解讀</h2>
+<h3>11.1 漏斗順序</h3>
+<pre><code class="language-text">全部觀測K棒
+→ 資料資格與暖機（含共同完整日及三模型合法覆蓋）
+→ 新突破事件
+→ 布林上軌
+→ MA20高於MA60
+→ 收盤高於MA120且斜率為正
+→ 收盤高於MA240
+→ 進場時間
+→ 大盤濾網
+→ ML Gate（純技術直接通過這一分類檢查）
+→ 空手狀態與每日次數
+→ 再進場高點
+→ 下一根成交資格
+→ 流動性至少一股
+→ 資金配置至少一股
+→ 現金至少一股
+→ 委託核准
+→ 實際買進
+</code></pre>
+<p>這是按固定順序逐層篩選，某層的阻擋數是「到得了這層才被擋」。另有突破候選的全部不合格原因及第一阻擋原因；全部原因可以一筆多項，不能直接相加當不同交易。</p>
+<p>ML 通過數不是實際買進數，後面仍可能被持倉、再進場、資金或成交擋下。漏斗先從每根 K 開始，不能把全部 K 棒數當成獨立交易機會。持倉中遇到突破會記候選，但不因此加碼。</p>
+<h3>11.2 結果定義</h3>
+<ul>
+<li>交易數：從買進到全數賣出的完整持倉段數；買單與賣單各一筆不算兩次完整交易。未平倉不算已完成交易。</li>
+<li>淨損益：期末資產減初始本金；含股票估值、現金及應收股利，並反映已計成本。</li>
+<li>報酬率：淨損益／初始本金，不是只除以實際投入本金；不作保證年化。</li>
+<li>勝率：成本後獲利的已完成交易／已完成交易；損益零不算贏，沒有交易顯示不適用。</li>
+<li>最大回撤：逐根淨值相對歷史高點的最大跌幅，以初始本金作初始高點下限。</li>
+<li>PF：已完成交易正淨損益總和／負淨損益絕對總和；沒有虧損時程式回傳不適用，不是自動顯示無限。</li>
+<li>Sharpe：每日最後觀測淨值的報酬平均／樣本標準差 × √252，不扣無風險利率；首日報酬在目前計算中填零，短樣本尤其須小心。</li>
+<li>平均／最大曝險：觀測時點股票市值／帳戶淨值；不同組投入金額不同，不能只看淨報酬判定訊號較好。</li>
+<li>1～4 筆完整交易：證據不足；零交易同樣不作策略有效結論。超過 4 筆也不代表已通過跨股票泛化驗證。</li>
+<li>滑價已進入成交價與淨損益；若另列滑價成本，不應再從淨損益重複扣一次。</li>
+</ul>
+<p>網站提供報酬、勝率、回撤、交易、資產曲線與 5 分 K 買賣點，專業細節包含漏斗及費用等；完整 raw ledger 另保存。新聞與 Gemini 在結果完成後解讀資料，<strong>不參與下單篩選或退出</strong>。</p>
+<h2 id="section-12">12. 完整核對發現的落差與未完成項</h2>
+<p>以下按目前實作如實揭露；本次沒有偷偷修正，也沒有用舊回測結果驗證修正後績效。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>編號</th>
+<th>發現</th>
+<th>影響／尚缺的工作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1</td>
+<td>舊 <code>/api/backtests/run</code> 仍掛載並跑原六策略</td>
+<td>主畫面走新版，但整個專案不是單一策略入口；外部呼叫舊 API 仍得到不同資金與規則。需明確限制或標示舊入口</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>主設定的 <code>sizing_notes</code>、<code>comparison_plan</code>、<code>interpretation</code>、<code>model_policy</code> 等仍含舊加碼／延期、100萬及重建模型說明</td>
+<td>實際控制開關已是無加碼、無延期、25萬，網站也不重訓；這些描述會誤導讀設定檔的組員，需清理一致性</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>Gemini 輸入仍固定寫「Buy &amp; Hold 期末未賣出、未計賣出成本」</td>
+<td>與新版基準實際賣出並計費稅相反，AI 解讀可能錯誤；不是數值程式沒扣成本，而是解讀提示過時</td>
+</tr>
+<tr>
+<td>A4</td>
+<td>ML 缺失／非法時間可能先被共同日期篩選擋下</td>
+<td>raw 候選有分類，但網站 ML Gate 區塊無法完整交代所有缺預測；需增加獨立覆蓋排除原因及筆數</td>
+</tr>
+<tr>
+<td>A5</td>
+<td>產業代理先記錄的規劃尚未完整做出</td>
+<td>目前只有大盤硬門檻及個股訊號，沒有完整產業同步性診斷</td>
+</tr>
+<tr>
+<td>A6</td>
+<td>大盤官方清單只查排序與重複，不另以獨立市場交易日曆逐日對照</td>
+<td>若整個交易日漏在清單外，可能把更早日誤認前一交易日；尚非完整驗收「前日缺漏必阻擋」</td>
+</tr>
+<tr>
+<td>A7</td>
+<td>資料缺口未另外設 H 不可信旗標</td>
+<td>有指標缺口遮蔽與缺口退出，但上一段最高價可能不含未觀測高點；與文件 6.4 的完整高點可靠性要求仍有差距</td>
+</tr>
+<tr>
+<td>A8</td>
+<td>買進持有的單日、首日除息及缺資料邊界尚未全部處理</td>
+<td>不應把任意區間的基準都視為已完整驗證；亦不等於主動策略的共同日期／曝險配對基準</td>
+</tr>
+<tr>
+<td>A9</td>
+<td>主動引擎可保留期末未平倉，但網站 normalize 未完整傳遞 <code>open_position</code> 與未實現損益欄位</td>
+<td>可能看見帳戶報酬卻沒有已完成交易；需清楚呈現，避免誤讀</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>診斷並未達原文件所有欄位要求</td>
+<td>有事件 ID、時間、阻擋、數量上限與訂單等；尚缺一致的參數／程式雜湊綁定、完整產業值、首次／再進場獨立彙總、每筆持有時間等網站呈現</td>
+</tr>
+<tr>
+<td>A11</td>
+<td>網站不產生零滑價、共同／新增日期雙口徑及相近曝險對照</td>
+<td>這些曾列研究比較需求；目前主畫面只跑固定 0.05% 與 common。先前獨立實驗不等於本次都有產生</td>
+</tr>
+<tr>
+<td>A12</td>
+<td>原規劃的多股票共用帳戶、總曝險／集中度分配未實作</td>
+<td>目前逐股逐策略獨立帳戶；不能把五檔各25萬結果當同一個25萬組合</td>
+</tr>
+<tr>
+<td>A13</td>
+<td>普通 OHLC 近似零股，不具完整逐筆撮合／部分成交／漲跌停可成交模型</td>
+<td>不保證真實成交；停損、期末出場、流動性上限都有模型限制，不能當可直接實盤驗收</td>
+</tr>
+<tr>
+<td>A14</td>
+<td>現金除息有處理，但不是完整公司行動與公告時間引擎</td>
+<td>分割、減資、配股及所有事件可得時間需另外核對</td>
+</tr>
+<tr>
+<td>A15</td>
+<td>主版本硬檢查部分開關，但不是每個數值都以不可變雜湊凍結</td>
+<td>網站請求不能調參，維護者改本地設定仍可能改行為；不等同正式最終測試的完整凍結機制</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>因此「有沒有做到」的完整答案是：已做出這段討論最後選定的主要進出場與配置，但文件的所有診斷、成交正確性要求、比較功能及全專案入口一致性尚未全部完成。</strong> 測試曾通過表示所測串接正常，不能拿來代替上述缺漏的驗收。</p>
+<h2 id="section-13">13. 從原規劃到最後決定的變更對照</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>議題</th>
+<th>早期規劃／討論</th>
+<th>後續最後決定</th>
+<th>目前狀態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>大盤</td>
+<td>四檔同儕原價平均</td>
+<td>官方加權指數、前日 &gt; SMA20</td>
+<td>已套用；日曆完整性有 A6 限制</td>
+</tr>
+<tr>
+<td>其他股缺棒</td>
+<td>五股同日完整才放行</td>
+<td>目標完整＋真正必要市場資料</td>
+<td>已移除同儕54棒限制；另依後續要求加共同三模型覆蓋</td>
+</tr>
+<tr>
+<td>固定股數</td>
+<td>最多1,000股</td>
+<td>取消封頂</td>
+<td>已套用</td>
+</tr>
+<tr>
+<td>合法單位</td>
+<td>第一輪只整張</td>
+<td>同意零股數量近似研究</td>
+<td>目前1股單位，非真實零股逐筆成交</td>
+</tr>
+<tr>
+<td>淨值曝險</td>
+<td>單股40%硬上限</td>
+<td>取消</td>
+<td>已取消；勿與後來現金40%混淆</td>
+</tr>
+<tr>
+<td>損失預算</td>
+<td>每段共用1%</td>
+<td>最後明確取消</td>
+<td>已取消</td>
+</tr>
+<tr>
+<td>現金配置</td>
+<td>早期按剩餘風險</td>
+<td>現金最多40%、保留初始20%</td>
+<td>已套用</td>
+</tr>
+<tr>
+<td>加碼</td>
+<td>浮盈、新突破、每段一次</td>
+<td>最後取消</td>
+<td>關閉，保留程式分支不表示有啟用</td>
+</tr>
+<tr>
+<td>到期延期</td>
+<td>曾要求啟用偏強延長</td>
+<td>最後取消</td>
+<td>關閉；成交受限延遲仍可能發生</td>
+</tr>
+<tr>
+<td>固定停損</td>
+<td>2.5%</td>
+<td>保留</td>
+<td>已套用，非最大實際損失保證</td>
+</tr>
+<tr>
+<td>固定冷卻</td>
+<td>出場後6根</td>
+<td>新突破＋上一段高點</td>
+<td>新版不執行6根冷卻</td>
+</tr>
+<tr>
+<td>每日次數</td>
+<td>最多一次</td>
+<td>最多兩次新持倉</td>
+<td>已套用</td>
+</tr>
+<tr>
+<td>高點再進場</td>
+<td>101元等於高點不買</td>
+<td>收盤嚴格突破、3個後續市場交易日有效</td>
+<td>已套用；缺口高點可靠性缺 A7</td>
+</tr>
+<tr>
+<td>進場時間</td>
+<td>曾討論重新核定</td>
+<td>第一輪保留12:30</td>
+<td>目前保留，加上09:10限制</td>
+</tr>
+<tr>
+<td>ML</td>
+<td>RF BUY-only</td>
+<td>比較RF／XGB／GRU，各用自己BUY</td>
+<td>已套用，無重訓、無新增機率門檻</td>
+</tr>
+<tr>
+<td>HOLD／SELL</td>
+<td>曾問是否放行／做空</td>
+<td>BUY做多，SELL暫不討論</td>
+<td>不放行、不做空；也不是ML SELL直接平倉</td>
+</tr>
+<tr>
+<td>預測突破前先買</td>
+<td>曾提出可能性</td>
+<td>尚無完整規格及確認啟用</td>
+<td>未實作，仍等實際收盤突破</td>
+</tr>
+<tr>
+<td>比較組別</td>
+<td>原版、修改版及各自＋ML四組</td>
+<td>正式比較BH／TECH／RF／XGB／GRU</td>
+<td>網站採後者五組，不自動重跑舊四組</td>
+</tr>
+<tr>
+<td>日期比較</td>
+<td>全部可用日、共同日</td>
+<td>最後要求共同完整日＋三模型覆蓋</td>
+<td>主動策略只跑common；BH另作期間基準</td>
+</tr>
+<tr>
+<td>股票／期間／本金</td>
+<td>曾1股、5股、3月、6月、全年、100萬</td>
+<td>網站本版25萬與各股準備範圍</td>
+<td>依第3節；個別正式全年授權不延伸網站</td>
+</tr>
+<tr>
+<td>零滑價對照</td>
+<td>獨立研究要求</td>
+<td>沒有明確取消</td>
+<td>網站尚缺，見A11</td>
+</tr>
+<tr>
+<td>改善判準</td>
+<td>五股至少三股改善、中位數、回撤、不含2303、相近曝險</td>
+<td>未被「改成網站主策略」自動證明達成</td>
+<td>這些不是進場門檻；網站未完整自動判定，不可宣稱全部通過</td>
+</tr>
+<tr>
+<td>結果保存</td>
+<td>曾授權刪除特定早期實驗結果</td>
+<td>保留後續與正式研究追溯</td>
+<td>本次不刪除、不回寫舊結果</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="section-14">14. 附錄：專案仍保留的舊六策略</h2>
+<p>這一節是<strong>舊 <code>/api/backtests/run</code>／<code>app_backtest.py</code> 預設設定</strong>，供組員辨識，不是網站主要五組策略中的「純技術」定義，也不是每份歷史實驗的通用參數。</p>
+<p>舊 API 會指定 <code>2303_&lt;strategy&gt;</code> profile，再換目標代碼；不是針對每檔重新挑最佳參數。預設期間 2026 上半年、本金10萬元、最多1,000股並受95%現金利用率限制、跨日波段、每日一次、出場後6根冷卻且換日歸零、進場09:00～12:30、一般技術出場至少持有2根。停利百分比為0，最大持有根數未指定時預設0＝關閉；停損由各 profile 覆寫。舊引擎停損以完成收盤判斷，與新版盤中高低價停損模型不同。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>舊策略</th>
+<th>主要買進規則</th>
+<th>主要技術賣出規則</th>
+<th>profile重要參數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MA</td>
+<td>MA20首次上穿MA60、收盤&gt;MA240、收盤&gt;MA360且MA360較36根前上升</td>
+<td>收盤&lt;MA240；此profile關閉均線死叉賣出</td>
+<td>停損2.5%</td>
+</tr>
+<tr>
+<td>RSI</td>
+<td>前根RSI&lt;55，當根進入55～70；收盤&gt;MA360且斜率36根為正</td>
+<td>RSI&lt;50</td>
+<td>RSI14；停損2.5%；未啟用63～66排除區</td>
+</tr>
+<tr>
+<td>MACD</td>
+<td>MACD12/26首次上穿signal9、MACD&gt;0；收盤&gt;MA240且斜率24根為正</td>
+<td>MACD&lt;0或收盤&lt;MA240；此profile不採死叉即賣</td>
+<td>停損2.5%</td>
+</tr>
+<tr>
+<td>布林</td>
+<td>前收盤在下軌外、當收盤回到下軌內；RSI≤55；至中線空間≥0.6%；紅K且高於前收盤；站上上升MA360</td>
+<td>收盤≥布林中線</td>
+<td>布林78根、2.5σ；斜率36；停損2%</td>
+</tr>
+<tr>
+<td>區間突破</td>
+<td>首次收盤突破前60根高點、量≥20根均量1.1倍；站上上升MA120</td>
+<td>收盤跌破前30根低點，或跌破MA120</td>
+<td>斜率12；停損2.5%</td>
+</tr>
+<tr>
+<td>多數決</td>
+<td>MA／RSI／MACD三票至少兩票多方，且站上上升MA240</td>
+<td>三票都空方</td>
+<td>MA20/60/120；RSI55～70與賣線50；MACD12/26/9且多票須&gt;0；斜率24；停損3%</td>
+</tr>
+</tbody>
+</table></div>
+<p>多數決細節：MA多票＝MA20&gt;MA60且收盤&gt;MA120，空票＝MA20&lt;MA60或收盤&lt;MA120；RSI多票＝55～70、空票＝&lt;50；MACD多票＝MACD&gt;signal且&gt;0，空票＝MACD&lt;signal。三票狀態判斷不等於每票都必須當根交叉。</p>
+<p>原 Technical V2-B 是另一個研究候選：55根突破＋布林20／2σ＋MA20/60/120/240、舊同儕市場、Risk V1的1%損失預算／40%淨值曝險。它也不等於上表的舊六策略「60根突破＋1.1倍量」。不同設定名稱相似，但實際規則不能混為一套。</p>
+<p>其他研究分支（放寬資格、不同出場、ML標籤與特徵比較等）各依自己的凍結設定和結果；本文件不將它們列成目前啟用規則，也不宣稱已逐一重新驗證所有歷史試驗。</p>
+<h2 id="section-15">15. 工程來源與核對方式</h2>
+<p>本次依實際分支閱讀，不以舊規劃文字推定已實作。相對路徑均以 <code>umc-project</code> 為根：</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>來源</th>
+<th>對應內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>前端/screens/AnalysisScreen.js</code>、<code>MultiStrategyScreen.js</code>、<code>src/features/multiBacktestModel.js</code></td>
+<td>畫面入口、版本核對、選股／期間／策略</td>
+</tr>
+<tr>
+<td><code>前端/server/src/server.js</code></td>
+<td>新舊API掛載</td>
+</tr>
+<tr>
+<td><code>前端/server/src/multiStrategyBacktestService.js</code></td>
+<td>請求限制、Python呼叫、結果與歷史</td>
+</tr>
+<tr>
+<td><code>程式/scripts/web_multi_backtest.py</code></td>
+<td>網站Python路由與日期防線</td>
+</tr>
+<tr>
+<td><code>程式/hybrid/config/web_main_strategy_v1.json</code></td>
+<td>主策略開關、資金、成本、資料對應</td>
+</tr>
+<tr>
+<td><code>程式/hybrid/core/web_main_backtest.py</code></td>
+<td>四組模擬、BH加入、結果normalize</td>
+</tr>
+<tr>
+<td><code>程式/hybrid/core/main_buy_strategy_v1.py</code></td>
+<td>資料、ML、股數、事件、進出場與統計實作</td>
+</tr>
+<tr>
+<td><code>程式/hybrid/core/main_buy_benchmark.py</code></td>
+<td>買進持有實作</td>
+</tr>
+<tr>
+<td><code>程式/configs/technical_v2_candidate.json</code>、<code>trading_system/backtest.py</code>、<code>hybrid/core/short_swing_ab_test.py</code></td>
+<td>技術參數、指標公式、進場條件</td>
+</tr>
+<tr>
+<td><code>程式/hybrid/core/data_eligibility_v1.py</code></td>
+<td>完整54棒及有效OHLCV判定</td>
+</tr>
+<tr>
+<td><code>程式/configs/ml_v1_research.json</code>、<code>ml/ml_v1_labels.py</code>、<code>ml/ml_v1_sequence.py</code>、<code>ml/models.py</code></td>
+<td>ML標籤、特徵、模型架構</td>
+</tr>
+<tr>
+<td><code>程式/獨立實驗/華碩2357_2025上半年/程式/train_models.py</code>、<code>infer_models.py</code>、<code>模型/training_audit.json</code></td>
+<td>科技模型實際訓練及推論規格</td>
+</tr>
+<tr>
+<td><code>程式/獨立實驗/第一金2892_2025上半年/模型/training_audit.json</code></td>
+<td>金融模型訓練來源</td>
+</tr>
+<tr>
+<td><code>前端/server/src/multiInsightsService.js</code></td>
+<td>新聞／AI不參與交易及A3落差</td>
+</tr>
+<tr>
+<td><code>程式/backtest_config.json</code>、<code>app_backtest.py</code>、<code>前端/server/src/pythonBacktestService.js</code></td>
+<td>舊六策略實際入口及參數</td>
+</tr>
+<tr>
+<td><code>程式/trading_system/research_guard.py</code>、<code>docs/長期研究規範.md</code></td>
+<td>通用日期鎖及資料治理</td>
+</tr>
+</tbody>
+</table></div>
+<p>同資料夾的 <code>專案策略核對證據_20261114.json</code> 保存本次已核對的原始碼／設定SHA-256、程式定位、控制開關與核對結果，方便組員確認日後檔案是否變更。它是核對快照，不代表已建立正式不可變模型／回測凍結鏈。</p>
+</main></div><footer>資料來源：本地程式與設定核對。研究回測不代表未來獲利。</footer></body></html>

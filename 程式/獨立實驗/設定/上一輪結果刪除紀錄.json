@@ -1,0 +1,13 @@
+{
+  "time": "2026-11-13T22:23:53.010072+08:00",
+  "authorization": "User explicitly requested removal of prior isolated experiment results, retain modified strategy.",
+  "removed": [
+    "20261113T214134",
+    "20261113T214214",
+    "聯發科2454_獨立實驗報告與明細.zip",
+    "index.html",
+    "latest.json"
+  ],
+  "retained": "strategy implementation, settings, tests, input sources, original strategy/databases",
+  "next_experiment_id": "isolated-buy-2454-20261113-exp002-odd-lot"
+}

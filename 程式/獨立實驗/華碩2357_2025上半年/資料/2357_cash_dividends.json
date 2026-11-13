@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "ex_date": "2025-06-26",
+      "payment_date": "2025-07-17",
+      "cash_per_share": 34
+    }
+  ],
+  "announced_date": "2025-06-10",
+  "sources": [
+    "https://superpy.kgieworld.com.tw/kgipythonapi/stockInfo/finance/exDividend?stockCode=2357",
+    "https://www.asus.com/EVENT/Investor/stock_shareholder"
+  ],
+  "source_caution": "Issuer English table lists July2 record date under exclude-dividend header; use June26 ex-date confirmed by KGI dividend schedule and June10 issuer announcement. July17 payment is metadata known before ex-date, no July market data read."
+}

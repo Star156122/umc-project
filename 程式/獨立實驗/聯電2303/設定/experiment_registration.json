@@ -1,0 +1,15 @@
+{
+  "experiment_id": "isolated-buy-2303-20261113-fixed-replication-exp001",
+  "strategy": "technical_v2b_buy_isolated",
+  "variant": "FIXED_C_D_STOCK_REPLICATION",
+  "test_start": "2023-01-01",
+  "test_end": "2024-12-31",
+  "dataset_role": "training_development_exposed",
+  "stock_codes": "2303",
+  "status": "preregistered",
+  "decision": "NOT_RUN",
+  "report_file": "獨立實驗/聯電2303/結果/index.html",
+  "result_file": "獨立實驗/聯電2303/結果",
+  "holdout_used": "false",
+  "notes": "User requested fixed replication on UMC, C/D only. Same 1m,1% risk,2.5% stop,RF OOF,proxy and costs as2454. Hypothesis: assess whether observed modification effects differ across stocks. Single change=target stock; no tuning; old1000-share cap retained only C; no cross-stock performance pooling."
+}

@@ -1,0 +1,21 @@
+{
+  "stock": "2303",
+  "source": "https://www.umc.com/en/IR_Stock/dividend_information",
+  "payment_sources": [
+    "https://toalpha.tw/stock/2303/filings",
+    "https://www.cna.com.tw/news/afe/202407020052.aspx"
+  ],
+  "note": "Issuer table is NT$ per 1000 shares; converted to per share. Payment dates cross-checked against announcement/news; not ADS dividends.",
+  "events": [
+    {
+      "ex_date": "2023-06-27",
+      "cash_per_share": 3.60046348,
+      "payment_date": "2023-07-19"
+    },
+    {
+      "ex_date": "2024-07-02",
+      "cash_per_share": 3.00011747,
+      "payment_date": "2024-07-24"
+    }
+  ]
+}

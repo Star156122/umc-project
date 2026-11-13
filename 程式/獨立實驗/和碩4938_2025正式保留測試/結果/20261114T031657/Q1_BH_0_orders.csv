@@ -1,0 +1,3 @@
+﻿time,timestamp,action,quantity,price,reference,fee,tax,trade_id,reason,slippage_cost
+2025-01-02T09:10:00+08:00,1735780200,BUY,1780,91.6,91.6,231,0,1,BUY_HOLD_FIRST_LEGAL_OPEN,0.0
+2025-03-31T13:30:00+08:00,1743399000,SELL,1780,85.8,85.8,217,458.172,1,BUY_HOLD_END_CLOSE,0.0

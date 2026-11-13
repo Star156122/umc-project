@@ -1,0 +1,50 @@
+{
+  "pages": [
+    {
+      "page": "index.html",
+      "status": "PASS"
+    },
+    {
+      "page": "BH_funnel.html",
+      "status": "PASS"
+    },
+    {
+      "page": "BH_analysis.html",
+      "status": "PASS"
+    },
+    {
+      "page": "TECH_funnel.html",
+      "status": "PASS"
+    },
+    {
+      "page": "TECH_analysis.html",
+      "status": "PASS"
+    },
+    {
+      "page": "RF_funnel.html",
+      "status": "PASS"
+    },
+    {
+      "page": "RF_analysis.html",
+      "status": "PASS"
+    },
+    {
+      "page": "XGB_funnel.html",
+      "status": "PASS"
+    },
+    {
+      "page": "XGB_analysis.html",
+      "status": "PASS"
+    },
+    {
+      "page": "GRU_funnel.html",
+      "status": "PASS"
+    },
+    {
+      "page": "GRU_analysis.html",
+      "status": "PASS"
+    }
+  ],
+  "javascript_errors": [],
+  "mobile_preview": true
+}

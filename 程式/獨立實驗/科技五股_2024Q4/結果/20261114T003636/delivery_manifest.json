@@ -1,0 +1,14 @@
+{
+  "report": "結果\\20261114T003636",
+  "qa_passed": true,
+  "post_replay_changes": "Report CSS only; execution results unchanged. Packaging utility added after replay.",
+  "program_hashes_at_delivery": {
+    "程式\\engine.py": "a62d8c28de8cb3774adf76af150b69176424071b649abb9bc5ceb3c960c5c307",
+    "程式\\package.py": "d798aa8b852d2a78bcf5e154f7e696409ec85df3336c2752eb5e92699e3027cb",
+    "程式\\prepare.py": "921d793b55fe793081499bdbd848a8a0732e36abe5d49d1e70b2a4aded7def4e",
+    "程式\\report.css": "cb949dc8dbed8715745918c7a2ddcac40a1233ab79a611cc087bb1916fa63d46",
+    "程式\\report.js": "3d89994dc0ec440b0fa4c1367947e5e40c03c626074b08db737fb19997fd2e35",
+    "程式\\run.py": "fe1360f510562153897b7eb9b01e9e970098a2110c027dfb76825a91f8ba424d",
+    "程式\\shioaji.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

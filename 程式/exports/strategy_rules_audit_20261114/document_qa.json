@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "chapters": 15,
+  "static_setting_checks": 23,
+  "mobile_body_overflow": false,
+  "page_errors": [],
+  "network_sources": "local file, no external resources"
+}

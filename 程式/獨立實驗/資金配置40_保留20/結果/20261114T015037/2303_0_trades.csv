@@ -1,0 +1,2 @@
+﻿trade_id,entry_time,exit_time,entry_price,exit_price,quantity,net_pnl,gross_pnl,net_return,holding_bars,exit_reason,adds,entry_day,exit_day,cash_dividends,deferred_exits,holding_extensions
+1,2024-11-07T10:25:00+08:00,2024-11-08T10:55:00+08:00,46.7,47.05,13635,-770.1802500000922,2990.399999999907,-0.0012044240966999577,60,TECHNICAL_30_LOW,1,2024-11-07,2024-11-08,0,[],0

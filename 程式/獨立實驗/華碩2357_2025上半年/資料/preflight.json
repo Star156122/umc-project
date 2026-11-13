@@ -1,0 +1,9 @@
+{
+  "calendar_sessions": 159,
+  "official_stock_days": 159,
+  "volume_unit_ratio_median": 1163.5336538461538,
+  "volume_to_shares": 1000,
+  "missing_entire_days": [],
+  "status": "PASS_UNIT_MAGNITUDE_ONLY",
+  "locked_market_data_used": false
+}

@@ -1,0 +1,3 @@
+﻿trade_id,entry_time,exit_time,entry_price,exit_price,quantity,net_pnl,gross_pnl,net_return,holding_bars,exit_reason,adds,entry_day,exit_day,cash_dividends,deferred_exits,holding_extensions
+1,2025-01-20T09:15:00+08:00,2025-01-21T09:25:00+08:00,607.0,606.0,164,-744.1520000000019,-164.0,-0.007464735326866574,56,TECHNICAL_30_LOW,0,2025-01-20,2025-01-21,0,[],0
+2,2025-02-03T09:35:00+08:00,2025-02-05T13:25:00+08:00,637.0,653.0,247,1558.1270000000077,2496.0,0.00979830838888195,154,TECHNICAL_30_LOW,1,2025-02-03,2025-02-05,0,[],0

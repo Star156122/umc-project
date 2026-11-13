@@ -1,0 +1,61 @@
+test_add_does_not_get_new_budget (__main__.ExperimentTests.test_add_does_not_get_new_budget) ... ok
+test_cash_cannot_be_negative (__main__.ExperimentTests.test_cash_cannot_be_negative) ... ok
+test_chronology_and_stop_in_synthetic_trade (__main__.ExperimentTests.test_chronology_and_stop_in_synthetic_trade) ... ok
+test_date_lock_and_scope (__main__.ExperimentTests.test_date_lock_and_scope) ... ok
+test_high_price_cannot_buy_one_lot (__main__.ExperimentTests.test_high_price_cannot_buy_one_lot) ... ok
+test_liquidity_units (__main__.ExperimentTests.test_liquidity_units) ... ok
+test_lot_is_not_maximum (__main__.ExperimentTests.test_lot_is_not_maximum) ... ok
+test_mixed_board_and_odd_orders_pay_separate_fees (__main__.ExperimentTests.test_mixed_board_and_odd_orders_pay_separate_fees) ... ok
+test_ml_future_and_previous_actual_session (__main__.ExperimentTests.test_ml_future_and_previous_actual_session) ... ok
+test_odd_proxy_trade_cash_and_dividend_receivable_reconcile (__main__.ExperimentTests.test_odd_proxy_trade_cash_and_dividend_receivable_reconcile) ... ok
+test_odd_quantity_same_day_exit_is_not_fabricated (__main__.ExperimentTests.test_odd_quantity_same_day_exit_is_not_fabricated) ... ok
+test_open_can_only_reduce (__main__.ExperimentTests.test_open_can_only_reduce) ... ok
+test_replication_engine_has_only_stock_routing_changes (__main__.ExperimentTests.test_replication_engine_has_only_stock_routing_changes) ... ok
+test_same_budget_can_buy_odd_quantity (__main__.ExperimentTests.test_same_budget_can_buy_odd_quantity) ... ok
+test_small_odd_order_minimum_fees_in_risk (__main__.ExperimentTests.test_small_odd_order_minimum_fees_in_risk) ... ok
+test_three_market_sessions_not_calendar_days (__main__.ExperimentTests.test_three_market_sessions_not_calendar_days) ... ok
+test_timeout_runs_even_without_legacy_signal_eligibility (__main__.ExperimentTests.test_timeout_runs_even_without_legacy_signal_eligibility) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.035s
+
+OK
+test_at_below_reserve_and_negative_cash_reject (__main__.CashTests.test_at_below_reserve_and_negative_cash_reject) ... ok
+test_first_order_including_fees_at_most_40_percent (__main__.CashTests.test_first_order_including_fees_at_most_40_percent) ... ok
+test_fixed_reserve_dominates_near_floor (__main__.CashTests.test_fixed_reserve_dominates_near_floor) ... ok
+test_gap_recheck_never_increases_queued_quantity (__main__.CashTests.test_gap_recheck_never_increases_queued_quantity) ... ok
+test_guard_and_frozen_cash_contract (__main__.CashTests.test_guard_and_frozen_cash_contract) ... ok
+test_holding_logic_unchanged (__main__.CashTests.test_holding_logic_unchanged) ... ok
+test_liquidity_still_limits_and_invalid_unit_rejects (__main__.CashTests.test_liquidity_still_limits_and_invalid_unit_rejects) ... ok
+test_reserve_is_initial_not_current_equity (__main__.CashTests.test_reserve_is_initial_not_current_equity) ... ok
+test_second_order_uses_remaining_cash_40_percent (__main__.CashTests.test_second_order_uses_remaining_cash_40_percent) ... ok
+test_stop_distance_and_exhausted_budget_no_longer_limit_size (__main__.CashTests.test_stop_distance_and_exhausted_budget_no_longer_limit_size) ... ok
+test_whole_and_odd_fees_fit_reserve_exactly (__main__.CashTests.test_whole_and_odd_fees_fit_reserve_exactly) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.009s
+
+OK
+test_add_budget_logic_is_unchanged (__main__.ExtensionTests.test_add_budget_logic_is_unchanged) ... ok
+test_all_non_buy_statuses_deny_extension (__main__.ExtensionTests.test_all_non_buy_statuses_deny_extension) ... ok
+test_before_deadline_is_untouched (__main__.ExtensionTests.test_before_deadline_is_untouched) ... ok
+test_disabled_preserves_timeout (__main__.ExtensionTests.test_disabled_preserves_timeout) ... ok
+test_disabled_simulator_matches_frozen_parent (__main__.ExtensionTests.test_disabled_simulator_matches_frozen_parent) ... ok
+test_failed_extension_review_sells_on_next_bar_not_signal_close (__main__.ExtensionTests.test_failed_extension_review_sells_on_next_bar_not_signal_close) ... ok
+test_failure_during_extension_exits (__main__.ExtensionTests.test_failure_during_extension_exits) ... ok
+test_grant_once_without_changing_stop_size_or_clock (__main__.ExtensionTests.test_grant_once_without_changing_stop_size_or_clock) ... ok
+test_gross_gain_insufficient_for_fees_is_denied (__main__.ExtensionTests.test_gross_gain_insufficient_for_fees_is_denied) ... ok
+test_guard_and_frozen_max_extension (__main__.ExtensionTests.test_guard_and_frozen_max_extension) ... ok
+test_hard_cap_never_renews (__main__.ExtensionTests.test_hard_cap_never_renews) ... ok
+test_market_trend_and_missing_indicators_deny (__main__.ExtensionTests.test_market_trend_and_missing_indicators_deny) ... ok
+test_new_breakout_during_extension_cannot_add (__main__.ExtensionTests.test_new_breakout_during_extension_cannot_add) ... ok
+test_original_stop_still_exits_during_extension (__main__.ExtensionTests.test_original_stop_still_exits_during_extension) ... ok
+test_protective_exit_cannot_be_cancelled (__main__.ExtensionTests.test_protective_exit_cannot_be_cancelled) ... ok
+test_real_simulator_grants_once_and_exits_next_open_at_cap (__main__.ExtensionTests.test_real_simulator_grants_once_and_exits_next_open_at_cap) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.208s
+
+OK
+
+Q4 scope, cash allocation/reserve and inherited holding review: PASS

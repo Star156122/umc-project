@@ -1,0 +1,35 @@
+{
+  "pages": [
+    {
+      "page": "index.html",
+      "markers": "PASS",
+      "trade_zoom": "PASS"
+    },
+    {
+      "page": "BH.html",
+      "markers": "PASS",
+      "trade_zoom": "PASS"
+    },
+    {
+      "page": "TECH.html",
+      "markers": "PASS",
+      "trade_zoom": "PASS"
+    },
+    {
+      "page": "RF.html",
+      "markers": "PASS",
+      "trade_zoom": "PASS"
+    },
+    {
+      "page": "XGB.html",
+      "markers": "PASS",
+      "trade_zoom": "PASS"
+    },
+    {
+      "page": "GRU.html",
+      "markers": "PASS",
+      "trade_zoom": "PASS"
+    }
+  ],
+  "javascript_errors": []
+}

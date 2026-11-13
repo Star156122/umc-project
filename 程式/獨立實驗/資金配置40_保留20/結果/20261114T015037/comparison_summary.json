@@ -1,0 +1,25 @@
+{
+  "main_slippage_each_side": 0.0005,
+  "mean_return": -0.008790853813680055,
+  "median_return": -0.00426741153900001,
+  "mean_return_change": -0.002566183455810034,
+  "median_return_change": -0.0015793173740501487,
+  "median_change_excluding_2303": -0.0023747749324999345,
+  "leave_one_out_change_medians": {
+    "2303": -0.0023747749324999345,
+    "2330": -0.0007896586870250744,
+    "2379": -0.003164433619525009,
+    "2454": -0.0007896586870250744,
+    "3034": -0.003164433619525009
+  },
+  "improved_stocks": 0,
+  "unchanged_stocks": 2,
+  "worsened_stocks": 3,
+  "profitable_stocks": 0,
+  "closed_trades": 8,
+  "adds": 1,
+  "extensions": 0,
+  "conclusion": "DEVELOPMENT_NO_OBSERVED_IMPROVEMENT_INSUFFICIENT_TRADES",
+  "portfolio_aggregation": false,
+  "exposure_comparison": "Paired average/max exposure disclosed; no tradable matched-exposure replay performed."
+}

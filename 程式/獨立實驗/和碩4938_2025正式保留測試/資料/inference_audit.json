@@ -1,0 +1,44 @@
+{
+  "inference_only": true,
+  "labels_created": false,
+  "features": [
+    "open_vs_prev_close",
+    "high_vs_prev_close",
+    "low_vs_prev_close",
+    "return_1",
+    "return_3",
+    "return_6",
+    "return_12",
+    "volume_ratio_5",
+    "volume_ratio_20",
+    "volume_zscore_20",
+    "close_vs_ma5",
+    "close_vs_ma20",
+    "price_zscore_20",
+    "rsi14_scaled",
+    "macd_vs_close",
+    "macd_signal_vs_close",
+    "macd_hist_vs_close",
+    "range_vs_close",
+    "body_return",
+    "close_location",
+    "volatility_12",
+    "volatility_24",
+    "trend_slope_12",
+    "trend_slope_24"
+  ],
+  "context": [
+    "volume_trend_5d",
+    "volume_trend_20d"
+  ],
+  "cleaning": {
+    "duplicates_removed": 0,
+    "invalid_ohlcv_removed": 0
+  },
+  "eligible_rows": 241,
+  "exclusions": {
+    "missing_exact_sequence": 2
+  },
+  "decision_time_note": "Use end-of-signal-day availability, conservatively after feature computation/model fitting; always before next-session candidates.",
+  "same_feature_schema_as_training": true
+}

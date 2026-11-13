@@ -1,0 +1,14 @@
+{
+  "report_folder": "20261114T015037",
+  "strategy_results_changed_after_replay": false,
+  "qa_pages": 17,
+  "program_hashes_at_delivery": {
+    "build_trade_charts.py": "ee00f6a53a19dc45f393bb41d577a959ff6d3cae2a470b1b66693833dcca2c96",
+    "engine.py": "6b374115f587a131bcf7cb60466f078ed7ad1da94e4a2780fa4226145636d4ca",
+    "package_result.py": "7c764ef1fb477344a2d6ff05a8e5959d0a8e2c3ca28802487518aa07d638f74a",
+    "prepare.py": "921d793b55fe793081499bdbd848a8a0732e36abe5d49d1e70b2a4aded7def4e",
+    "report.css": "cb949dc8dbed8715745918c7a2ddcac40a1233ab79a611cc087bb1916fa63d46",
+    "report.js": "de195a0b80a4f6fdc057fe3ccc58ebbc5ba6624fbe9ee08ddeccb9d6be04b805",
+    "run.py": "748df9b7b7a29ccbcee30f0f7a836cf869337843e585cedd1d66559471cc56c3"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "source_results_modified": false,
+  "parameters_tuned_after_results": false,
+  "main_slippage_each_side": 0.0005,
+  "data_role": "validation_seen_period_new_stocks",
+  "stock": "2892",
+  "training_excludes_target": true,
+  "model_training_rows": 2276,
+  "html_pages_checked": 17
+}

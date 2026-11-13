@@ -1,0 +1,33 @@
+{
+  "source_sha256": "31936e9f5a47375d4b88957c09e855ed617128da8d17fd69d088cd732144b3a4",
+  "source_result": "20261114T003636",
+  "strategy_replayed": false,
+  "source_results_modified": false,
+  "stocks": {
+    "2303": {
+      "bars": 3348,
+      "buy_markers": 1,
+      "sell_markers": 1
+    },
+    "2330": {
+      "bars": 3348,
+      "buy_markers": 3,
+      "sell_markers": 3
+    },
+    "2379": {
+      "bars": 3334,
+      "buy_markers": 1,
+      "sell_markers": 1
+    },
+    "2454": {
+      "bars": 3347,
+      "buy_markers": 2,
+      "sell_markers": 2
+    },
+    "3034": {
+      "bars": 3335,
+      "buy_markers": 1,
+      "sell_markers": 1
+    }
+  }
+}

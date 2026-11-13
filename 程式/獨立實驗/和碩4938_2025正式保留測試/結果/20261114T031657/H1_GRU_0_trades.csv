@@ -1,0 +1,2 @@
+﻿trade_id,entry_time,exit_time,entry_price,exit_price,quantity,net_pnl,gross_pnl,net_return,holding_bars,exit_reason,adds,entry_day,exit_day,cash_dividends,deferred_exits,holding_extensions
+1,2025-05-06T09:40:00+08:00,2025-05-07T10:15:00+08:00,82.5,82.2,753,-587.5898000000016,-225.90000000000146,-0.009445186905747447,61,TECHNICAL_30_LOW,0,2025-05-06,2025-05-07,0,[],0

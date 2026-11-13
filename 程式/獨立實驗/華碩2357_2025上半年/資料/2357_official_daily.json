@@ -1,0 +1,797 @@
+[
+  {
+    "date": "2024-11-01",
+    "close": 583.0,
+    "volume_shares": 2981754
+  },
+  {
+    "date": "2024-11-04",
+    "close": 596.0,
+    "volume_shares": 2400127
+  },
+  {
+    "date": "2024-11-05",
+    "close": 596.0,
+    "volume_shares": 2327460
+  },
+  {
+    "date": "2024-11-06",
+    "close": 606.0,
+    "volume_shares": 3739105
+  },
+  {
+    "date": "2024-11-07",
+    "close": 607.0,
+    "volume_shares": 3259726
+  },
+  {
+    "date": "2024-11-08",
+    "close": 621.0,
+    "volume_shares": 4342861
+  },
+  {
+    "date": "2024-11-11",
+    "close": 614.0,
+    "volume_shares": 7405526
+  },
+  {
+    "date": "2024-11-12",
+    "close": 612.0,
+    "volume_shares": 5082315
+  },
+  {
+    "date": "2024-11-13",
+    "close": 611.0,
+    "volume_shares": 2948691
+  },
+  {
+    "date": "2024-11-14",
+    "close": 623.0,
+    "volume_shares": 6514720
+  },
+  {
+    "date": "2024-11-15",
+    "close": 607.0,
+    "volume_shares": 8728495
+  },
+  {
+    "date": "2024-11-18",
+    "close": 612.0,
+    "volume_shares": 11158749
+  },
+  {
+    "date": "2024-11-19",
+    "close": 622.0,
+    "volume_shares": 13122586
+  },
+  {
+    "date": "2024-11-20",
+    "close": 619.0,
+    "volume_shares": 11020116
+  },
+  {
+    "date": "2024-11-21",
+    "close": 610.0,
+    "volume_shares": 9349250
+  },
+  {
+    "date": "2024-11-22",
+    "close": 611.0,
+    "volume_shares": 10186323
+  },
+  {
+    "date": "2024-11-25",
+    "close": 602.0,
+    "volume_shares": 14052208
+  },
+  {
+    "date": "2024-11-26",
+    "close": 617.0,
+    "volume_shares": 9025998
+  },
+  {
+    "date": "2024-11-27",
+    "close": 594.0,
+    "volume_shares": 7752311
+  },
+  {
+    "date": "2024-11-28",
+    "close": 581.0,
+    "volume_shares": 5076900
+  },
+  {
+    "date": "2024-11-29",
+    "close": 588.0,
+    "volume_shares": 4370258
+  },
+  {
+    "date": "2024-12-02",
+    "close": 602.0,
+    "volume_shares": 3229794
+  },
+  {
+    "date": "2024-12-03",
+    "close": 595.0,
+    "volume_shares": 5363294
+  },
+  {
+    "date": "2024-12-04",
+    "close": 601.0,
+    "volume_shares": 3122838
+  },
+  {
+    "date": "2024-12-05",
+    "close": 600.0,
+    "volume_shares": 6319368
+  },
+  {
+    "date": "2024-12-06",
+    "close": 598.0,
+    "volume_shares": 6125669
+  },
+  {
+    "date": "2024-12-09",
+    "close": 608.0,
+    "volume_shares": 2564371
+  },
+  {
+    "date": "2024-12-10",
+    "close": 605.0,
+    "volume_shares": 2669274
+  },
+  {
+    "date": "2024-12-11",
+    "close": 604.0,
+    "volume_shares": 2012837
+  },
+  {
+    "date": "2024-12-12",
+    "close": 608.0,
+    "volume_shares": 2206599
+  },
+  {
+    "date": "2024-12-13",
+    "close": 615.0,
+    "volume_shares": 2169318
+  },
+  {
+    "date": "2024-12-16",
+    "close": 601.0,
+    "volume_shares": 3464098
+  },
+  {
+    "date": "2024-12-17",
+    "close": 595.0,
+    "volume_shares": 4013509
+  },
+  {
+    "date": "2024-12-18",
+    "close": 609.0,
+    "volume_shares": 2503570
+  },
+  {
+    "date": "2024-12-19",
+    "close": 602.0,
+    "volume_shares": 3686176
+  },
+  {
+    "date": "2024-12-20",
+    "close": 600.0,
+    "volume_shares": 3815400
+  },
+  {
+    "date": "2024-12-23",
+    "close": 615.0,
+    "volume_shares": 4460075
+  },
+  {
+    "date": "2024-12-24",
+    "close": 615.0,
+    "volume_shares": 2763600
+  },
+  {
+    "date": "2024-12-25",
+    "close": 613.0,
+    "volume_shares": 1594368
+  },
+  {
+    "date": "2024-12-26",
+    "close": 616.0,
+    "volume_shares": 1553528
+  },
+  {
+    "date": "2024-12-27",
+    "close": 624.0,
+    "volume_shares": 1273077
+  },
+  {
+    "date": "2024-12-30",
+    "close": 617.0,
+    "volume_shares": 1209573
+  },
+  {
+    "date": "2024-12-31",
+    "close": 616.0,
+    "volume_shares": 1574080
+  },
+  {
+    "date": "2025-01-02",
+    "close": 605.0,
+    "volume_shares": 4495811
+  },
+  {
+    "date": "2025-01-03",
+    "close": 623.0,
+    "volume_shares": 4497573
+  },
+  {
+    "date": "2025-01-06",
+    "close": 629.0,
+    "volume_shares": 3476134
+  },
+  {
+    "date": "2025-01-07",
+    "close": 648.0,
+    "volume_shares": 5203328
+  },
+  {
+    "date": "2025-01-08",
+    "close": 646.0,
+    "volume_shares": 4548902
+  },
+  {
+    "date": "2025-01-09",
+    "close": 633.0,
+    "volume_shares": 2735706
+  },
+  {
+    "date": "2025-01-10",
+    "close": 626.0,
+    "volume_shares": 2896922
+  },
+  {
+    "date": "2025-01-13",
+    "close": 609.0,
+    "volume_shares": 4338170
+  },
+  {
+    "date": "2025-01-14",
+    "close": 608.0,
+    "volume_shares": 3020537
+  },
+  {
+    "date": "2025-01-15",
+    "close": 591.0,
+    "volume_shares": 3854848
+  },
+  {
+    "date": "2025-01-16",
+    "close": 600.0,
+    "volume_shares": 2254756
+  },
+  {
+    "date": "2025-01-17",
+    "close": 600.0,
+    "volume_shares": 1739827
+  },
+  {
+    "date": "2025-01-20",
+    "close": 610.0,
+    "volume_shares": 2032003
+  },
+  {
+    "date": "2025-01-21",
+    "close": 599.0,
+    "volume_shares": 2793852
+  },
+  {
+    "date": "2025-01-22",
+    "close": 607.0,
+    "volume_shares": 2319648
+  },
+  {
+    "date": "2025-02-03",
+    "close": 649.0,
+    "volume_shares": 11635099
+  },
+  {
+    "date": "2025-02-04",
+    "close": 647.0,
+    "volume_shares": 6284714
+  },
+  {
+    "date": "2025-02-05",
+    "close": 657.0,
+    "volume_shares": 4855913
+  },
+  {
+    "date": "2025-02-06",
+    "close": 652.0,
+    "volume_shares": 3118631
+  },
+  {
+    "date": "2025-02-07",
+    "close": 665.0,
+    "volume_shares": 3711330
+  },
+  {
+    "date": "2025-02-10",
+    "close": 669.0,
+    "volume_shares": 3337046
+  },
+  {
+    "date": "2025-02-11",
+    "close": 665.0,
+    "volume_shares": 2436795
+  },
+  {
+    "date": "2025-02-12",
+    "close": 675.0,
+    "volume_shares": 3278439
+  },
+  {
+    "date": "2025-02-13",
+    "close": 679.0,
+    "volume_shares": 1775823
+  },
+  {
+    "date": "2025-02-14",
+    "close": 678.0,
+    "volume_shares": 2184999
+  },
+  {
+    "date": "2025-02-17",
+    "close": 681.0,
+    "volume_shares": 1678066
+  },
+  {
+    "date": "2025-02-18",
+    "close": 698.0,
+    "volume_shares": 3881799
+  },
+  {
+    "date": "2025-02-19",
+    "close": 691.0,
+    "volume_shares": 3286979
+  },
+  {
+    "date": "2025-02-20",
+    "close": 693.0,
+    "volume_shares": 3057613
+  },
+  {
+    "date": "2025-02-21",
+    "close": 709.0,
+    "volume_shares": 3827018
+  },
+  {
+    "date": "2025-02-24",
+    "close": 698.0,
+    "volume_shares": 1955660
+  },
+  {
+    "date": "2025-02-25",
+    "close": 691.0,
+    "volume_shares": 3334093
+  },
+  {
+    "date": "2025-02-26",
+    "close": 698.0,
+    "volume_shares": 3080403
+  },
+  {
+    "date": "2025-02-27",
+    "close": 682.0,
+    "volume_shares": 4742280
+  },
+  {
+    "date": "2025-03-03",
+    "close": 669.0,
+    "volume_shares": 3410924
+  },
+  {
+    "date": "2025-03-04",
+    "close": 670.0,
+    "volume_shares": 3559707
+  },
+  {
+    "date": "2025-03-05",
+    "close": 678.0,
+    "volume_shares": 2094557
+  },
+  {
+    "date": "2025-03-06",
+    "close": 674.0,
+    "volume_shares": 1728589
+  },
+  {
+    "date": "2025-03-07",
+    "close": 659.0,
+    "volume_shares": 2634444
+  },
+  {
+    "date": "2025-03-10",
+    "close": 654.0,
+    "volume_shares": 3187193
+  },
+  {
+    "date": "2025-03-11",
+    "close": 654.0,
+    "volume_shares": 3507701
+  },
+  {
+    "date": "2025-03-12",
+    "close": 600.0,
+    "volume_shares": 20311828
+  },
+  {
+    "date": "2025-03-13",
+    "close": 608.0,
+    "volume_shares": 7839959
+  },
+  {
+    "date": "2025-03-14",
+    "close": 608.0,
+    "volume_shares": 3937221
+  },
+  {
+    "date": "2025-03-17",
+    "close": 624.0,
+    "volume_shares": 4541832
+  },
+  {
+    "date": "2025-03-18",
+    "close": 656.0,
+    "volume_shares": 8650508
+  },
+  {
+    "date": "2025-03-19",
+    "close": 645.0,
+    "volume_shares": 4413773
+  },
+  {
+    "date": "2025-03-20",
+    "close": 650.0,
+    "volume_shares": 4837945
+  },
+  {
+    "date": "2025-03-21",
+    "close": 650.0,
+    "volume_shares": 5633984
+  },
+  {
+    "date": "2025-03-24",
+    "close": 631.0,
+    "volume_shares": 3318132
+  },
+  {
+    "date": "2025-03-25",
+    "close": 631.0,
+    "volume_shares": 4648788
+  },
+  {
+    "date": "2025-03-26",
+    "close": 645.0,
+    "volume_shares": 6253453
+  },
+  {
+    "date": "2025-03-27",
+    "close": 640.0,
+    "volume_shares": 4738777
+  },
+  {
+    "date": "2025-03-28",
+    "close": 642.0,
+    "volume_shares": 3059808
+  },
+  {
+    "date": "2025-03-31",
+    "close": 609.0,
+    "volume_shares": 6191256
+  },
+  {
+    "date": "2025-04-01",
+    "close": 613.0,
+    "volume_shares": 3738251
+  },
+  {
+    "date": "2025-04-02",
+    "close": 604.0,
+    "volume_shares": 3725302
+  },
+  {
+    "date": "2025-04-07",
+    "close": 544.0,
+    "volume_shares": 815639
+  },
+  {
+    "date": "2025-04-08",
+    "close": 490.0,
+    "volume_shares": 4144232
+  },
+  {
+    "date": "2025-04-09",
+    "close": 441.0,
+    "volume_shares": 12938639
+  },
+  {
+    "date": "2025-04-10",
+    "close": 485.0,
+    "volume_shares": 2880247
+  },
+  {
+    "date": "2025-04-11",
+    "close": 512.0,
+    "volume_shares": 10185692
+  },
+  {
+    "date": "2025-04-14",
+    "close": 542.0,
+    "volume_shares": 7590534
+  },
+  {
+    "date": "2025-04-15",
+    "close": 563.0,
+    "volume_shares": 5384662
+  },
+  {
+    "date": "2025-04-16",
+    "close": 553.0,
+    "volume_shares": 4461233
+  },
+  {
+    "date": "2025-04-17",
+    "close": 543.0,
+    "volume_shares": 4370989
+  },
+  {
+    "date": "2025-04-18",
+    "close": 543.0,
+    "volume_shares": 3422731
+  },
+  {
+    "date": "2025-04-21",
+    "close": 531.0,
+    "volume_shares": 2873006
+  },
+  {
+    "date": "2025-04-22",
+    "close": 512.0,
+    "volume_shares": 4975460
+  },
+  {
+    "date": "2025-04-23",
+    "close": 543.0,
+    "volume_shares": 3789259
+  },
+  {
+    "date": "2025-04-24",
+    "close": 544.0,
+    "volume_shares": 5663251
+  },
+  {
+    "date": "2025-04-25",
+    "close": 591.0,
+    "volume_shares": 7551952
+  },
+  {
+    "date": "2025-04-28",
+    "close": 583.0,
+    "volume_shares": 3437108
+  },
+  {
+    "date": "2025-04-29",
+    "close": 586.0,
+    "volume_shares": 2285088
+  },
+  {
+    "date": "2025-04-30",
+    "close": 580.0,
+    "volume_shares": 2198975
+  },
+  {
+    "date": "2025-05-02",
+    "close": 590.0,
+    "volume_shares": 1928376
+  },
+  {
+    "date": "2025-05-05",
+    "close": 575.0,
+    "volume_shares": 4679406
+  },
+  {
+    "date": "2025-05-06",
+    "close": 587.0,
+    "volume_shares": 3129203
+  },
+  {
+    "date": "2025-05-07",
+    "close": 594.0,
+    "volume_shares": 2398505
+  },
+  {
+    "date": "2025-05-08",
+    "close": 594.0,
+    "volume_shares": 1801985
+  },
+  {
+    "date": "2025-05-09",
+    "close": 602.0,
+    "volume_shares": 2202185
+  },
+  {
+    "date": "2025-05-12",
+    "close": 603.0,
+    "volume_shares": 2222051
+  },
+  {
+    "date": "2025-05-13",
+    "close": 608.0,
+    "volume_shares": 3413336
+  },
+  {
+    "date": "2025-05-14",
+    "close": 622.0,
+    "volume_shares": 6443330
+  },
+  {
+    "date": "2025-05-15",
+    "close": 628.0,
+    "volume_shares": 3009704
+  },
+  {
+    "date": "2025-05-16",
+    "close": 634.0,
+    "volume_shares": 3454358
+  },
+  {
+    "date": "2025-05-19",
+    "close": 621.0,
+    "volume_shares": 3124646
+  },
+  {
+    "date": "2025-05-20",
+    "close": 632.0,
+    "volume_shares": 3019832
+  },
+  {
+    "date": "2025-05-21",
+    "close": 628.0,
+    "volume_shares": 2803334
+  },
+  {
+    "date": "2025-05-22",
+    "close": 632.0,
+    "volume_shares": 2154818
+  },
+  {
+    "date": "2025-05-23",
+    "close": 622.0,
+    "volume_shares": 1802617
+  },
+  {
+    "date": "2025-05-26",
+    "close": 627.0,
+    "volume_shares": 2803396
+  },
+  {
+    "date": "2025-05-27",
+    "close": 608.0,
+    "volume_shares": 4965646
+  },
+  {
+    "date": "2025-05-28",
+    "close": 619.0,
+    "volume_shares": 4597400
+  },
+  {
+    "date": "2025-05-29",
+    "close": 625.0,
+    "volume_shares": 7501028
+  },
+  {
+    "date": "2025-06-02",
+    "close": 622.0,
+    "volume_shares": 3137153
+  },
+  {
+    "date": "2025-06-03",
+    "close": 638.0,
+    "volume_shares": 4210170
+  },
+  {
+    "date": "2025-06-04",
+    "close": 638.0,
+    "volume_shares": 5522129
+  },
+  {
+    "date": "2025-06-05",
+    "close": 642.0,
+    "volume_shares": 3025104
+  },
+  {
+    "date": "2025-06-06",
+    "close": 645.0,
+    "volume_shares": 2726387
+  },
+  {
+    "date": "2025-06-09",
+    "close": 646.0,
+    "volume_shares": 2335768
+  },
+  {
+    "date": "2025-06-10",
+    "close": 659.0,
+    "volume_shares": 3032584
+  },
+  {
+    "date": "2025-06-11",
+    "close": 675.0,
+    "volume_shares": 3651804
+  },
+  {
+    "date": "2025-06-12",
+    "close": 682.0,
+    "volume_shares": 2832093
+  },
+  {
+    "date": "2025-06-13",
+    "close": 684.0,
+    "volume_shares": 3798529
+  },
+  {
+    "date": "2025-06-16",
+    "close": 683.0,
+    "volume_shares": 2374692
+  },
+  {
+    "date": "2025-06-17",
+    "close": 700.0,
+    "volume_shares": 4845356
+  },
+  {
+    "date": "2025-06-18",
+    "close": 705.0,
+    "volume_shares": 5201656
+  },
+  {
+    "date": "2025-06-19",
+    "close": 705.0,
+    "volume_shares": 3130285
+  },
+  {
+    "date": "2025-06-20",
+    "close": 683.0,
+    "volume_shares": 7919336
+  },
+  {
+    "date": "2025-06-23",
+    "close": 678.0,
+    "volume_shares": 5677783
+  },
+  {
+    "date": "2025-06-24",
+    "close": 745.0,
+    "volume_shares": 11432817
+  },
+  {
+    "date": "2025-06-25",
+    "close": 700.0,
+    "volume_shares": 17498216
+  },
+  {
+    "date": "2025-06-26",
+    "close": 641.0,
+    "volume_shares": 21635605
+  },
+  {
+    "date": "2025-06-27",
+    "close": 640.0,
+    "volume_shares": 6968511
+  },
+  {
+    "date": "2025-06-30",
+    "close": 644.0,
+    "volume_shares": 11285072
+  }
+]

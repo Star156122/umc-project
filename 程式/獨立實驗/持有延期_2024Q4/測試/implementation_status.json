@@ -1,0 +1,9 @@
+{
+  "implementation_enabled": true,
+  "historical_backtest_executed": false,
+  "synthetic_tests_passed": 16,
+  "baseline_files_unchanged": true,
+  "frontend_changed": false,
+  "add_risk_sizing_changed": false,
+  "locked_data_used": false
+}
