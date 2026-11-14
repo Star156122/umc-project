@@ -25,7 +25,7 @@ export function validateResult(result,expected) {
   if(result?.status!=='completed'||result?.api_version!=='multi_strategy_backtest_v1'||!Array.isArray(result.strategies)||!result.buy_and_hold)throw Error('後端結果格式不完整，未顯示不確定的績效。');
   if(result.run_id!==expected.run_id||String(result.stock_code)!==String(expected.stock_code))throw Error('回測結果與目前工作不一致，請重新查詢。');
   if(result.strategies.map(x=>x.strategy_id).sort().join(',')!==[...expected.strategies].sort().join(','))throw Error('回傳策略與提交選項不同，請由後端確認。');
-  if(result.data_role!=='historical_development'||result.backtest_period?.start!==(expected.period?.start||'2024-07-01')||result.backtest_period?.end!==(expected.period?.end||'2024-12-30'))throw Error('後端資料期間或角色與目前開發模式不符，已停止顯示。');
+  if(!(result.data_role==='historical_development'||(result.data_role==='formal_report_replay'&&result.audit?.formal_report_replay===true))||result.backtest_period?.start!==(expected.period?.start||'2024-07-01')||result.backtest_period?.end!==(expected.period?.end||'2024-12-30'))throw Error('後端資料期間或角色與目前開發模式不符，已停止顯示。');
   if(expected.strategy_profile&&result.audit?.profile_id!==expected.strategy_profile)throw Error('回傳策略規則版本不同，已停止顯示。');
   return result;
 }

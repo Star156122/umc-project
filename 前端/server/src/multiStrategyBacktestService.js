@@ -1,3 +1,4 @@
+const formalReports = require('./formalReportReplay');
 const fs = require("fs");
 const path = require("path");
 const { spawn } = require("child_process");
@@ -24,7 +25,7 @@ function readDevelopmentConfig(root) {
   return config;
 }
 
-function validateMultiRunRequest(body, config) {
+function validateMultiRunRequest(body, config, formal = {}) {
   const code = String(body?.stock_code || "").trim();
   if (!/^\d{4,6}$/.test(code)) throw apiError(400, "INVALID_STOCK_CODE", "stock_code 須為 4～6 位數字");
   const stockCode = code.padStart(4, "0");
@@ -43,8 +44,9 @@ function validateMultiRunRequest(body, config) {
   const validDate=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v))&&new Date(v).toISOString().slice(0,10)===v;
   if(!validDate(period.start)||!validDate(period.end)||period.start>period.end)throw apiError(400,'INVALID_PERIOD','請輸入正確的起訖日期');
   const coverage=config.datasets?.[stockCode]||{start:'2024-07-01',end:'2024-12-30'};
-  if(period.start<coverage.start||period.end>coverage.end)throw apiError(422,'BACKTEST_BLOCKED',`此股票目前模型可回測範圍為 ${coverage.start}～${coverage.end}，正式保留測試不由一般網站解鎖`);
-  return { stock_code: stockCode, strategies: [...strategies], period };
+  const savedFormal=formal[stockCode]?.periods?.some(p=>p.start===period.start&&p.end===period.end);
+  if(!savedFormal&&(period.start<coverage.start||period.end>coverage.end))throw apiError(422,'BACKTEST_BLOCKED',`此股票目前模型可回測範圍為 ${coverage.start}～${coverage.end}，正式保留測試不由一般網站解鎖`);
+  return { stock_code: stockCode, strategies: [...strategies], period, ...(savedFormal?{formal_replay:true}:{}) };
 }
 
 function parseRunnerJson(stdout) {
@@ -142,13 +144,13 @@ function createMultiStrategyBacktestService({
   function submit(body) {
     pruneJobs();
     const config = readDevelopmentConfig(root);
-    const request = validateMultiRunRequest(body, config);
+    const request = validateMultiRunRequest(body, config, formalReports.formalProfile(root));
     if (activeJobId) throw apiError(409, "BACKTEST_QUEUE_BUSY", "目前已有多策略回測執行中，請稍後再試");
     const id = crypto.randomUUID();
     const job = {
       run_id: id, stock_code: request.stock_code, strategies: request.strategies, period: request.period,
       status: "pending", created_at: new Date().toISOString(), updated_at_ms: Date.now(),
-      result: null, error: null, strategy_profile: config.profile_id || null,
+      result: null, error: null, formal_replay:request.formal_replay||false, strategy_profile: request.formal_replay?formalReports.PROFILE:config.profile_id || null,
     };
     jobs.set(id, job);
     activeJobId = id;
@@ -159,6 +161,11 @@ function createMultiStrategyBacktestService({
   function execute(job) {
     job.status = "running";
     job.updated_at_ms = Date.now();
+    if(job.formal_replay){
+      try{finishJob(job,'completed',formalReports.replay(root,job),null);}
+      catch(error){finishJob(job,'failed',null,{code:'FORMAL_REPORT_UNAVAILABLE',message:error.message});}
+      return;
+    }
     const configuredPython = pythonCommand || String(process.env.PYTHON_EXECUTABLE || "").trim();
     const venvPython = path.join(root, ".venv", process.platform === "win32" ? "Scripts/python.exe" : "bin/python");
     const command = configuredPython || (fs.existsSync(venvPython) ? venvPython : process.platform === "win32" ? "python" : "python3");
@@ -245,7 +252,7 @@ function createMultiStrategyBacktestService({
     if (activeJobId === job.run_id) activeJobId = null;
   }
 
-  function getProfile(){const c=readDevelopmentConfig(root);return {profile_id:c.profile_id||null,initial_capital:c.initial_capital||c.execution?.initial_capital||100000,default_period:c.periods?.backtest||{start:'2024-07-01',end:'2024-12-30'},stocks:c.stock_universe,coverage:Object.fromEntries(c.stock_universe.map(s=>[s,c.datasets?.[s]?{start:c.datasets[s].start,end:c.datasets[s].end}:{start:'2024-07-01',end:'2024-12-30'}])),rules:c.profile_id?{adds:false,extension:false,risk_budget:false,cash_fraction:.4,reserve_fraction:.2,stop_loss_pct:.025,common_three_model_coverage:true}:null};}
+  function getProfile(){const c=readDevelopmentConfig(root);return {formal_reports:formalReports.formalProfile(root),profile_id:c.profile_id||null,initial_capital:c.initial_capital||c.execution?.initial_capital||100000,default_period:c.periods?.backtest||{start:'2024-07-01',end:'2024-12-30'},stocks:c.stock_universe,coverage:Object.fromEntries(c.stock_universe.map(s=>[s,c.datasets?.[s]?{start:c.datasets[s].start,end:c.datasets[s].end}:{start:'2024-07-01',end:'2024-12-30'}])),rules:c.profile_id?{adds:false,extension:false,risk_budget:false,cash_fraction:.4,reserve_fraction:.2,stop_loss_pct:.025,common_three_model_coverage:true}:null};}
   return { submit, getJob, resolveJob, persistJob, persistAnalysis, listHistory, getProfile };
 }
 

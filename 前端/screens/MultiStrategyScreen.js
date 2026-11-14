@@ -1,7 +1,7 @@
 import usePageLayout from '../styles/usePageLayout';
 import {useLocalSearchParams} from 'expo-router';
 import React,{useEffect,useRef,useState,useMemo} from 'react';
-import {ActivityIndicator,Pressable,ScrollView,StyleSheet,Text,TextInput,View} from 'react-native';
+import {ActivityIndicator,Pressable,ScrollView,StyleSheet,Text,View} from 'react-native';
 import {apiRequest} from '../src/config/api';
 import {STRATEGIES,STOCKS,METRICS,formatMetric,strategyInfo,resultRows,explainError,fetchRunUpdate} from '../src/features/multiBacktestModel';
 import {loadPreferences,subscribePreferences,DEFAULT_PREFERENCES,notifyBacktestCompleted} from '../src/features/preferences';
@@ -20,17 +20,22 @@ export default function MultiStrategyScreen(){
  const [profile,setProfile]=useState(null);
  const [historyVersion,setHistoryVersion]=useState(0),[opening,setOpening]=useState(false),[saving,setSaving]=useState(false);
  const [preferences,setPreferences]=useState(DEFAULT_PREFERENCES),[notice,setNotice]=useState('');
- const [stock,setStock]=useState('2357'),[selected,setSelected]=useState(['technical','rf','xgboost','gru']);
+ const [stock,setStock]=useState('2357'),[selected,setSelected]=useState(['rf','xgboost','gru']);
  const [job,setJob]=useState(null),[status,setStatus]=useState(''),[result,setResult]=useState(null),[error,setError]=useState(''),[elapsed,setElapsed]=useState(0),[history,setHistory]=useState([]);
  const token=useRef(0),timer=useRef(null),mounted=useRef(true),busy=useRef(false),failures=useRef(0);
  useEffect(()=>{let alive=true;apiRequest('/api/backtests/multi/profile').then(p=>{if(p.profile_id!=='main-buy-noadd-noextension-common-v1-20261114')throw Error('後端尚未載入新版主要策略，請重新啟動後端');if(alive)setProfile(p);}).catch(e=>{if(alive)setError('主要策略設定讀取失敗：'+e.message);});return()=>{alive=false;};},[]);
  const coverage=profile?.coverage?.[stock];
- useEffect(()=>{if(coverage&&!busy.current)setPeriod(p=>p.start>=coverage.start&&p.end<=coverage.end?p:{start:coverage.start,end:coverage.end});},[stock,coverage?.start,coverage?.end]);
- useEffect(()=>{if(typeof params.stock==='string'&&!busy.current)setStock(params.stock);},[params.stock]);
+ const supported=code=>profile?.coverage?.[code]?.start<='2025-01-01'&&profile?.coverage?.[code]?.end>='2025-03-31';
+ const periods=[{start:'2025-01-01',end:'2025-12-31',label:'一年'},{start:'2025-01-01',end:'2025-06-30',label:'半年'},{start:'2025-01-01',end:'2025-03-31',label:'三個月'}];
+ const formal=profile?.formal_reports?.[stock];
+ const available=p=>!!coverage&&((p.start>=coverage.start&&p.end<=coverage.end)||formal?.periods?.some(x=>x.start===p.start&&x.end===p.end));
+ const requestedStrategies=['technical',...selected.filter(x=>x!=='technical')];
+ useEffect(()=>{if(!profile||busy.current)return;if(!supported(stock)){const next=profile.stocks.find(supported);if(next)setStock(next);}else if(!available(period))setPeriod({start:'2025-01-01',end:'2025-03-31'});},[profile,stock]);
+ useEffect(()=>{if(typeof params.stock==='string'&&STOCKS[params.stock]&&!busy.current)setStock(params.stock);},[params.stock]);
  const active=['pending','running','submitting'].includes(status);
  const unresolved=active||status==='paused'||opening||saving;
  const rows=useMemo(()=>resultRows(result),[result]);
- useEffect(()=>{let alive=true;const apply=p=>{if(!alive)return;setPreferences(p);if(!busy.current){setStock(typeof params.stock==='string'?params.stock:p.stock);setSelected(p.strategies);}};loadPreferences().then(apply).catch(()=>{});const off=subscribePreferences(apply);return()=>{alive=false;off();};},[]);
+ useEffect(()=>{let alive=true;const apply=p=>{if(!alive)return;setPreferences(p);if(!busy.current){setStock(typeof params.stock==='string'?params.stock:p.stock);setSelected(p.strategies.filter(x=>['rf','xgboost','gru'].includes(x)));}};loadPreferences().then(apply).catch(()=>{});const off=subscribePreferences(apply);return()=>{alive=false;off();};},[]);
  useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;token.current++;clearTimeout(timer.current);};},[]);
  useEffect(()=>{if(!active||!job)return;const tick=()=>setElapsed(Math.max(0,Math.floor((Date.now()-job.startedAt)/1000)));tick();const interval=setInterval(tick,1000);return()=>clearInterval(interval);},[active,job]);
  async function poll(current,serial){
@@ -57,17 +62,16 @@ export default function MultiStrategyScreen(){
  }
  async function run(){
   if(busy.current||unresolved)return;
-  if(!/^\d{4,6}$/.test(stock.trim())){setError('請輸入 4～6 位數字的股票代號');return;}
-  if(!coverage){setError('請等待主要策略設定載入，或確認股票資料是否已準備');return;}
-  if(!/^\d{4}-\d{2}-\d{2}$/.test(period.start)||!/^\d{4}-\d{2}-\d{2}$/.test(period.end)||period.start>period.end||period.start<coverage.start||period.end>coverage.end){setError(`請選擇 ${coverage.start}～${coverage.end} 之間的有效期間`);return;}
-  if(!selected.length){setError('請至少勾選一種策略');return;}
+  if(!STOCKS[stock]||!supported(stock)){setError('請選擇已備妥 2025 年資料的股票按鈕');return;}
+  if(!periods.some(p=>p.start===period.start&&p.end===period.end)||!available(period)){setError('此股票尚未備妥所選期間的資料');return;}
+  if(!selected.length){setError('請至少勾選一種模型策略');return;}
   setNotice('');busy.current=true;clearTimeout(timer.current);const serial=++token.current;
   setStatus('submitting');setError('');setResult(null);setJob(null);setElapsed(0);failures.current=0;
   try{
-   const response=await apiRequest('/api/backtests/multi/run',{method:'POST',body:JSON.stringify({stock_code:stock.trim(),strategies:selected,start_date:period.start,end_date:period.end}),timeoutMs:30000});
+   const response=await apiRequest('/api/backtests/multi/run',{method:'POST',body:JSON.stringify({stock_code:stock.trim(),strategies:requestedStrategies,start_date:period.start,end_date:period.end}),timeoutMs:30000});
    if(!mounted.current||serial!==token.current)return;
    if(typeof response.run_id!=='string'||!response.run_id)throw Error('後端未回傳工作編號，請確認 API。');
-   const current={run_id:response.run_id,stock_code:stock.trim(),strategies:[...selected],period:{...period},strategy_profile:profile?.profile_id,startedAt:Date.now()};
+   const current={run_id:response.run_id,stock_code:stock.trim(),strategies:[...requestedStrategies],period:{...period},strategy_profile:formal?.periods?.some(p=>p.start===period.start&&p.end===period.end)?formal.profile_id:profile?.profile_id,startedAt:Date.now()};
    setJob(current);setStatus(response.status==='running'?'running':'pending');poll(current,serial);
   }catch(e){if(mounted.current&&serial===token.current){setStatus('failed');setError(explainError(e)+(!e.status?'。提交結果不明，伺服器可能仍在執行，請勿連續重複送出。':''));}busy.current=false;}
  }
@@ -82,12 +86,12 @@ export default function MultiStrategyScreen(){
  function resume(){if(!job||busy.current)return;busy.current=true;failures.current=0;setStatus('running');setError('');poll(job,++token.current);}
  return <ScrollView style={{flex:1,backgroundColor:marketColors.background}} contentContainerStyle={[s.page,layout.page]}>
   {!!notice&&<Pressable onPress={()=>setNotice('')}><Text accessibilityLiveRegion="polite" style={s.period}>{notice}（點擊關閉）</Text></Pressable>}
-  <View style={[s.hero,layout.card]}><Text style={s.eyebrow}>STRATEGY LAB / 歷史模擬</Text><Text style={[s.title,layout.title]}>看懂策略，從每一筆交易開始</Text><Text style={s.note}>選股票、選期間、比較策略。先看買賣位置，再了解報酬與風險。</Text><Text style={s.period}>可用資料　{coverage?.start||'讀取中'} — {coverage?.end||'讀取中'}</Text><Text style={s.note}>這是歷史開發結果，不是最近三個月績效或最新投資訊號。Buy & Hold 自動加入比較。</Text></View>
-  <View style={[s.card,layout.card]}><Text style={s.heading}>1　選擇股票</Text><TextInput accessibilityLabel="多策略股票代號" value={stock} onChangeText={setStock} editable={!unresolved} keyboardType="number-pad" maxLength={6} style={s.input}/><View style={s.wrap}>{Object.entries(STOCKS).map(([code,name])=><Pressable key={code} disabled={unresolved} onPress={()=>setStock(code)} style={[s.chip,stock===code&&s.chosen]}><Text style={s.text}>{code} {name}</Text></Pressable>)}</View><Text style={s.note}>主要策略：不加碼、不延期；共同完整日＋三模型合法預測覆蓋。每組25萬元，首次含費最多使用現金40%，保留初始20%，無1%風險額度，保留2.5%停損。</Text>
-  <Text style={s.heading}>2　選擇回測期間</Text><View style={s.wrap}>{(coverage?.start?.startsWith('2025')?[['2025-01-01','2025-03-31','三個月 / 1–3月'],['2025-01-01','2025-06-30','六個月 / 1–6月']]:[['2024-12-01','2024-12-30','單月 / 12月'],['2024-10-01','2024-12-30','三個月 / 10–12月'],['2024-07-01','2024-12-30','六個月 / 7–12月']]).map(([start,end,label])=><Pressable disabled={unresolved} key={label} onPress={()=>setPeriod({start,end})} style={[s.chip,period.start===start&&period.end===end&&s.chosen]}><Text style={s.text}>{label}</Text></Pressable>)}</View><View style={s.wrap}><View><Text style={s.note}>開始日期（YYYY-MM-DD）</Text><TextInput accessibilityLabel="開始日期" editable={!unresolved} value={period.start} onChangeText={start=>setPeriod(p=>({...p,start}))} style={s.input}/></View><View><Text style={s.note}>結束日期（YYYY-MM-DD）</Text><TextInput accessibilityLabel="結束日期" editable={!unresolved} value={period.end} onChangeText={end=>setPeriod(p=>({...p,end}))} style={s.input}/></View></View><Text style={s.note}>可用日期：{coverage?.start||'讀取中'} ～ {coverage?.end||'讀取中'}。只使用已準備的合法資料與模型，保留期間不由一般網站解鎖。</Text>
-  <Text style={s.heading}>3　勾選策略（可複選）</Text><View style={s.wrap}>{STRATEGIES.map(item=><Pressable key={item.id} accessibilityRole="checkbox" accessibilityLabel={item.name} accessibilityState={{checked:selected.includes(item.id),disabled:unresolved}} disabled={unresolved} onPress={()=>setSelected(old=>old.includes(item.id)?old.filter(x=>x!==item.id):[...old,item.id])} style={[s.strategy,selected.includes(item.id)&&{borderColor:item.color,backgroundColor:'#192d42'}]}><Text style={[s.text,{fontWeight:'700',color:item.color}]}>{selected.includes(item.id)?'☑':'☐'} {item.name}</Text><Text style={s.note}>{item.subtitle}</Text></Pressable>)}</View>
-  <Text style={s.note}>比較基準：Buy & Hold（買進持有）自動加入，不必勾選。</Text>
-  <Pressable accessibilityRole="button" disabled={unresolved||!selected.length||!profile} onPress={run} style={[s.run,(unresolved||!selected.length)&&{opacity:.5}]}><Text style={s.runText}>{active?'回測處理中…':status==='paused'?'請先繼續查詢目前工作':`執行 ${selected.length} 種策略回測`}</Text></Pressable>
+  <View style={[s.hero,layout.card]}><Text style={s.eyebrow}>STRATEGY LAB / 歷史模擬</Text><Text style={[s.title,layout.title]}>看懂策略，從每一筆交易開始</Text><Text style={s.note}>選股票、選期間、比較策略。先看買賣位置，再了解報酬與風險。</Text><Text style={s.period}>可用資料　{coverage?.start||'讀取中'} — {coverage?.end||'讀取中'}</Text><Text style={s.note}>這是 2025 年歷史模擬，不是最新績效或投資訊號。純技術指標與買進持有固定加入比較。</Text></View>
+  <View style={[s.card,layout.card]}><Text style={s.heading}>1　選擇股票</Text><View style={s.wrap}>{Object.entries(STOCKS).map(([code,name])=><Pressable key={code} disabled={unresolved||!supported(code)} accessibilityRole="button" accessibilityState={{disabled:unresolved||!supported(code),selected:stock===code}} onPress={()=>setStock(code)} style={[s.chip,stock===code&&s.chosen,!supported(code)&&{opacity:.4}]}><Text style={s.text}>{code} {name}{!supported(code)?'（2025 資料未備妥）':''}</Text></Pressable>)}</View><Text style={s.note}>主要策略：不加碼、不延期；共同完整日＋三模型合法預測覆蓋。每組25萬元，首次含費最多使用現金40%，保留初始20%，保留2.5%停損。</Text>
+  <Text style={s.heading}>2　選擇 2025 年回測期間</Text><View style={s.wrap}>{periods.map(p=><Pressable disabled={unresolved||!available(p)} key={p.label} accessibilityRole="button" accessibilityState={{disabled:unresolved||!available(p),selected:period.end===p.end}} onPress={()=>setPeriod({start:p.start,end:p.end})} style={[s.chip,period.end===p.end&&s.chosen,!available(p)&&{opacity:.4}]}><Text style={s.text}>{p.label}{!available(p)?'（資料未備妥）':''}</Text><Text style={s.note}>{p.start} ～ {p.end}</Text></Pressable>)}</View><Text style={s.note}>三個月為 1–3 月、半年為 1–6 月、一年為 1–12 月。和碩讀取已完成的正式報告；全年包含已使用的上半年及正式驗證下半年，不代表整年皆為未見資料。</Text>
+  <Text style={s.heading}>3　勾選策略（可複選）</Text><View style={s.wrap}>{STRATEGIES.filter(item=>item.id!=='technical').map(item=><Pressable key={item.id} accessibilityRole="checkbox" accessibilityLabel={item.name} accessibilityState={{checked:selected.includes(item.id),disabled:unresolved}} disabled={unresolved} onPress={()=>setSelected(old=>old.includes(item.id)?old.filter(x=>x!==item.id):[...old,item.id])} style={[s.strategy,selected.includes(item.id)&&{borderColor:item.color,backgroundColor:'#192d42'}]}><Text style={[s.text,{fontWeight:'700',color:item.color}]}>{selected.includes(item.id)?'☑':'☐'} {item.name}</Text><Text style={s.note}>{item.subtitle}</Text></Pressable>)}</View>
+  <Text style={s.note}>比較基準：純技術指標與 Buy & Hold（買進持有）固定加入，不必勾選。</Text>
+  <Pressable accessibilityRole="button" disabled={unresolved||!selected.length||!profile} onPress={run} style={[s.run,(unresolved||!selected.length)&&{opacity:.5}]}><Text style={s.runText}>{active?'回測處理中…':status==='paused'?'請先繼續查詢目前工作':`查看 ${selected.length} 種模型策略＋2 項比較基準`}</Text></Pressable>
   </View>
   {!!status&&<View style={[s.card,layout.card]} accessibilityLiveRegion="polite"><View style={s.wrap}>{active&&<ActivityIndicator color="#73b9ff"/>}<Text style={s.heading}>{STATUS[status]||status}</Text></View>{job&&<><Text style={s.note}>本次股票 {job.stock_code} {STOCKS[job.stock_code]||''}　已等待 {Math.floor(elapsed/60)} 分 {elapsed%60} 秒</Text><Text selectable style={s.note}>工作編號：{job.run_id}</Text></>}{active&&<Text style={s.note}>正在等待伺服器完成，頁面會自動更新。模型計算可能需要數分鐘；後端未提供百分比進度。</Text>}{status==='paused'&&<Pressable onPress={resume} style={s.chip}><Text style={s.text}>繼續查詢</Text></Pressable>}</View>}
   {!!error&&<Text accessibilityRole="alert" style={s.error}>{error}</Text>}
@@ -104,7 +108,7 @@ export default function MultiStrategyScreen(){
    <Pressable onPress={()=>setShowTable(!showTable)} accessibilityRole="button" accessibilityState={{expanded:showTable}}><Text style={{color:'#73b9ff'}}>{showTable?'收合':'展開'}完整績效比較表</Text></Pressable>
    {showTable&&<ScrollView horizontal><View><View style={s.tableRow}><Text style={[s.cell,s.label]}>基本績效</Text>{rows.map(r=><Text key={r.strategy_id} style={[s.cell,{color:strategyInfo(r.strategy_id).color,fontWeight:'700'}]}>{strategyInfo(r.strategy_id).name}</Text>)}</View>{METRICS.map(([key,name,unit])=><View key={key} style={s.tableRow}><Text style={[s.cell,s.label]}>{name}</Text>{rows.map(r=><Text selectable key={r.strategy_id} style={s.cell}>{formatMetric(r.summary?.[key],unit)}</Text>)}</View>)}</View></ScrollView>}
    {showTable&&METRICS.map(([,name,,meaning])=><Text key={name} style={s.note}>{name}：{meaning}</Text>)}
-   <Text style={s.note}>{result.audit?.profile_id?'買進持有期初最多投入80%，受成交量限制；期末賣出並計費稅，投入比例與主動策略不同。':'Buy & Hold 期末仍持有股票，損益包含未實現損益，未計期末賣出成本；曝險比例也與 Risk V1 策略不同。'}</Text></View>
+   <Text style={s.note}>{result.audit?.profile_id?'買進持有期初最多投入80%，受成交量限制；期末賣出並計費稅，投入比例與主動策略不同。':'Buy & Hold 期末仍持有股票，損益包含未實現損益，未計期末賣出成本；投入資金比例也與主動策略不同。'}</Text></View>
 
    <MultiGeminiPanel key={'ai:'+result.run_id} result={result} onSaved={()=>setHistoryVersion(v=>v+1)}/>
    <StockNewsPanel key={'news:'+result.run_id} report={{analysisId:result.run_id}} apiBase={`/api/backtests/multi/${encodeURIComponent(result.run_id)}`} />

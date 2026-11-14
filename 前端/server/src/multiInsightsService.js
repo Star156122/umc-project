@@ -5,8 +5,10 @@ const fail=(message,status=400)=>Object.assign(new Error(message),{status});
 function reportContext(result){
  if(result?.status!=='completed')throw fail('回測結果尚未完成',409);
  const start=result.backtest_period?.start,end=result.backtest_period?.end;
- if(result.data_role!=='historical_development'||!/^\d{4}-\d{2}-\d{2}$/.test(start||'')||!/^\d{4}-\d{2}-\d{2}$/.test(end||''))throw fail('回測資料角色或期間無效',403);
- news.guard(start,end);
+ const formal=result.data_role==='formal_report_replay'&&result.audit?.formal_report_replay===true&&result.audit?.profile_id==='pegatron4938-formal-2025h2-20261114-exp001'&&result.stock_code==='4938';
+ if(!(result.data_role==='historical_development'||formal)||!/^\d{4}-\d{2}-\d{2}$/.test(start||'')||!/^\d{4}-\d{2}-\d{2}$/.test(end||''))throw fail('回測資料角色或期間無效',403);
+ if(formal){if(start!=='2025-01-01'||!['2025-03-31','2025-06-30','2025-12-31'].includes(end))throw fail('正式報告期間不符',403);}
+ else news.guard(start,end);
  return {code:result.stock_code,startDate:start,endDate:end};
 }
 function analysisInput(result){
@@ -18,7 +20,7 @@ function analysisInput(result){
   summary:Object.fromEntries(metrics.map(k=>[k,row.summary?.[k]??null])),
   details:Object.fromEntries(['sharpe_ratio','sharpe_reason','profit_factor_reason','commission_total','transaction_tax_total','total_transaction_cost','average_win','average_loss','payoff_ratio','gate_entry_count','gate_block_counts','open_position_quantity_at_end'].map(k=>[k,row.details?.[k]??null])),
   recent_trades:(row.details?.trades||[]).slice(-10).map(t=>Object.fromEntries(['datetime','timestamp','action','price','quantity','fee','tax','net_cash_flow'].filter(k=>t[k]!=null).map(k=>[k,t[k]])))
- })),limitations:['歷史開發結果，不是未見資料驗證或最新預測。','Buy & Hold 期末未賣出，未計期末賣出成本；曝險可能與風控策略不同。','僅附每個策略最近十筆交易，不代表完整交易歷史。']};
+ })),limitations:[result.audit?.formal_report_replay?'既有正式報告重現；2025上半年已使用，下半年為正式驗證，全年不是全部未見資料。':'歷史開發結果，不是未見資料驗證或最新預測。',result.audit?.profile_id?'買進持有期初最多投入80%，期末賣出並扣費稅，投入比例與主動策略不同。':'Buy & Hold 期末未賣出，未計期末賣出成本；投入比例可能與主動策略不同。','僅附每個策略最近十筆交易，不代表完整交易歷史。',...(result.audit?.known_limitations||[])]};
 }
 async function generateAnalysis(result,{fetchImpl=fetch,readConfig}={}){
  const input=analysisInput(result);
