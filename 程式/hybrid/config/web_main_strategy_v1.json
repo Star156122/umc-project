@@ -147,8 +147,18 @@
   "data_protection": {
     "final_oos_used": false
   },
+  "dataset_onboarding": {
+    "required_qa_status": "QA_PASSED",
+    "preflight_command": "python scripts/preflight_web_main_datasets.py STOCK_CODE",
+    "last_qa_report": "research/current/web_dataset_preflight_20261114.json",
+    "general_website_may_unlock_holdout": false,
+    "formal_authorization_scope": "one frozen stock and experiment only"
+  },
   "datasets": {
     "2303": {
+      "stock_name": "聯電",
+      "qa_status": "QA_PASSED",
+      "warmup_start": "2024-05-01",
       "start": "2024-07-01",
       "end": "2024-12-30",
       "database": "data/market_data.sqlite3",
@@ -158,6 +168,9 @@
       "dividends": "獨立實驗/聯電2303/資料/2303_cash_dividends.json"
     },
     "2330": {
+      "stock_name": "台積電",
+      "qa_status": "QA_PASSED",
+      "warmup_start": "2024-05-01",
       "start": "2024-07-01",
       "end": "2024-12-30",
       "database": "data/market_data.sqlite3",
@@ -183,6 +196,9 @@
       ]
     },
     "2379": {
+      "stock_name": "瑞昱",
+      "qa_status": "QA_PASSED",
+      "warmup_start": "2024-05-01",
       "start": "2024-07-01",
       "end": "2024-12-30",
       "database": "data/market_data.sqlite3",
@@ -198,6 +214,9 @@
       ]
     },
     "2454": {
+      "stock_name": "聯發科",
+      "qa_status": "QA_PASSED",
+      "warmup_start": "2024-05-01",
       "start": "2024-07-01",
       "end": "2024-12-30",
       "database": "data/market_data.sqlite3",
@@ -207,6 +226,9 @@
       "dividends": "獨立實驗/資料/2454_cash_dividends.json"
     },
     "3034": {
+      "stock_name": "聯詠",
+      "qa_status": "QA_PASSED",
+      "warmup_start": "2024-05-01",
       "start": "2024-07-01",
       "end": "2024-12-30",
       "database": "data/market_data.sqlite3",
@@ -222,6 +244,9 @@
       ]
     },
     "2357": {
+      "stock_name": "華碩",
+      "qa_status": "QA_PASSED",
+      "warmup_start": "2024-11-01",
       "start": "2025-01-01",
       "end": "2025-06-30",
       "database": "獨立實驗/華碩2357_2025上半年/資料/2357_history.sqlite3",
@@ -231,6 +256,9 @@
       "predictions": "獨立實驗/華碩2357_2025上半年/資料/predictions.json"
     },
     "3231": {
+      "stock_name": "緯創",
+      "qa_status": "QA_PASSED",
+      "warmup_start": "2024-11-01",
       "start": "2025-01-01",
       "end": "2025-06-30",
       "database": "獨立實驗/緯創3231_2025上半年/資料/3231_history.sqlite3",
@@ -240,6 +268,9 @@
       "predictions": "獨立實驗/緯創3231_2025上半年/資料/predictions.json"
     },
     "2892": {
+      "stock_name": "第一金",
+      "qa_status": "QA_PASSED",
+      "warmup_start": "2024-11-01",
       "start": "2025-01-01",
       "end": "2025-06-30",
       "database": "獨立實驗/第一金2892_2025上半年/資料/2892_history.sqlite3",
@@ -249,6 +280,9 @@
       "predictions": "獨立實驗/第一金2892_2025上半年/資料/predictions.json"
     },
     "4938": {
+      "stock_name": "和碩",
+      "qa_status": "QA_PASSED",
+      "warmup_start": "2024-11-01",
       "start": "2025-01-01",
       "end": "2025-06-30",
       "database": "data/web_main_4938_h1/history.sqlite3",

@@ -17,6 +17,11 @@ function fixtureRoot() {
   fs.mkdirSync(path.join(root, "exports"), { recursive: true });
   fs.writeFileSync(path.join(root, "hybrid", "config", "multi_strategy_development_v1.json"), JSON.stringify({
     data_role: "historical_development", stock_universe: ["2303", "2330"],
+    dataset_onboarding:{required_qa_status:"QA_PASSED"},
+    datasets:{
+      "2303":{start:"2024-07-01",end:"2024-12-30",qa_status:"QA_PASSED",stock_name:"聯電"},
+      "2330":{start:"2024-07-01",end:"2024-12-30",qa_status:"QA_PASSED",stock_name:"台積電"},
+    },
     data_protection: { final_oos_used: false },
   }));
   return root;
@@ -69,12 +74,13 @@ function makeFakeSpawn(root) {
   };
 }
 
-test("validates stock and strategy allowlists and rejects development overrides", () => {
-  const config = { stock_universe: ["2330"], data_role: "historical_development", data_protection: { final_oos_used: false } };
+test("validates QA-approved stock and strategy allowlists and rejects development overrides", () => {
+  const config = { stock_universe: ["2330"], datasets:{"2330":{start:"2024-07-01",end:"2024-12-30",qa_status:"QA_PASSED"}}, data_role: "historical_development", data_protection: { final_oos_used: false } };
   assert.deepEqual(validateMultiRunRequest({ stock_code: "2330", strategies: ["technical", "rf"] }, config), {
     stock_code: "2330", strategies: ["technical", "rf"], period:{start:"2024-07-01",end:"2024-12-30"},
   });
   assert.throws(() => validateMultiRunRequest({ stock_code: "9999", strategies: ["rf"] }, config), (error) => error.status === 422);
+  assert.throws(() => validateMultiRunRequest({ stock_code: "2330", strategies: ["rf"] }, {...config,datasets:{"2330":{...config.datasets["2330"],qa_status:"PENDING"}}}), /QA_PASSED/);
   assert.throws(() => validateMultiRunRequest({ stock_code: "2330", strategies: ["buy_and_hold"] }, config), (error) => error.status === 400);
   for (const strategy of ["technical", "rf", "xgboost", "gru"]) {
     assert.equal(validateMultiRunRequest({ stock_code: "2330", strategies: [strategy] }, config).strategies[0], strategy);

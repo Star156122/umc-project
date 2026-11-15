@@ -1,6 +1,6 @@
 const test=require('node:test'),assert=require('node:assert/strict');
 const {validateMultiRunRequest,createMultiStrategyBacktestService}=require('../src/multiStrategyBacktestService');
-const config={stock_universe:['2330'],periods:{backtest:{start:'2024-07-01',end:'2024-12-30'}}};
+const config={stock_universe:['2330'],datasets:{'2330':{start:'2024-07-01',end:'2024-12-30',qa_status:'QA_PASSED'}},periods:{backtest:{start:'2024-07-01',end:'2024-12-30'}}};
 const body={stock_code:'2330',strategies:['technical']};
 test('custom dates are real validated periods, not client-side chart filters',()=>{
  assert.deepEqual(validateMultiRunRequest({...body,start_date:'2024-12-01',end_date:'2024-12-30'},config).period,{start:'2024-12-01',end:'2024-12-30'});

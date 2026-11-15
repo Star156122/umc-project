@@ -17,7 +17,8 @@ def request_config(code,start,end):
     c.update(stock=str(code),period={'start':start,'end':end})
     spec=c['datasets'].get(str(code))
     if not spec:raise ValueError('股票尚未具備完整行情與三模型預測，不能套用其他股票或模型代替')
-    c['warmup_start']='2024-05-01' if spec['prediction_kind']=='oof_csv' else '2024-11-01'
+    if not spec.get('warmup_start'):raise ValueError('股票尚未登記指標暖機起點')
+    c['warmup_start']=spec['warmup_start']
     c['folds']=[{'start':spec['start'],'end':spec['end']}]
     engine.validate(c)
     return c

@@ -1,0 +1,19 @@
+{
+  "experiment_id": "web-main-dataset-preflight-20261114",
+  "checked_on": "2026-11-14",
+  "status": "QA_PASSED",
+  "scope": "website dataset identity, paths, schemas, development date bounds and shared three-model coverage",
+  "performance_calculated": false,
+  "locked_data_used": false,
+  "datasets": [
+    {"stock_code": "2303", "complete_sessions": 124, "common_eligible_sessions": 120, "dividend_events": 2},
+    {"stock_code": "2330", "complete_sessions": 124, "common_eligible_sessions": 120, "dividend_events": 3},
+    {"stock_code": "2379", "complete_sessions": 107, "common_eligible_sessions": 100, "dividend_events": 1},
+    {"stock_code": "2454", "complete_sessions": 123, "common_eligible_sessions": 118, "dividend_events": 3},
+    {"stock_code": "3034", "complete_sessions": 110, "common_eligible_sessions": 103, "dividend_events": 1},
+    {"stock_code": "2357", "complete_sessions": 113, "common_eligible_sessions": 110, "dividend_events": 1},
+    {"stock_code": "3231", "complete_sessions": 116, "common_eligible_sessions": 114, "dividend_events": 1},
+    {"stock_code": "2892", "complete_sessions": 116, "common_eligible_sessions": 114, "dividend_events": 0},
+    {"stock_code": "4938", "complete_sessions": 114, "common_eligible_sessions": 112, "dividend_events": 1}
+  ]
+}

@@ -20,6 +20,10 @@ class MainProfileTests(unittest.TestCase):
   c=request_config('2357','2025-01-01','2025-03-31')
   for k,v in [('revised_max_adds',1),('risk_budget_enabled',True),('initial_capital',100000)]:
    with self.assertRaises(ValueError):engine.validate(dict(c,**{k:v}))
+ def test_dataset_must_be_qa_passed(self):
+  c=request_config('2357','2025-01-01','2025-03-31')
+  c=copy.deepcopy(c);c['datasets']['2357']['qa_status']='PENDING'
+  with self.assertRaises(ValueError):engine.validate(c)
  def test_engine_has_strict_three_model_coverage_and_no_extension(self):
   c=request_config('2357','2025-01-01','2025-03-31')
   self.assertEqual(engine.holding_review({'held':162},{},True,'BUY',c,0),('TIMEOUT',None))

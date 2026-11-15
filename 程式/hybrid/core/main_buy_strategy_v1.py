@@ -35,6 +35,7 @@ def validate(c):
     if c.get('profile_id')!='main-buy-noadd-noextension-common-v1-20261114':raise ValueError('Wrong main strategy profile')
     spec=c['datasets'].get(c['stock'])
     if not spec or not spec['start']<=c['period']['start']<=c['period']['end']<=spec['end']:raise ValueError('Stock period outside prepared model/data coverage')
+    if spec.get('qa_status')!='QA_PASSED':raise ValueError('Stock dataset has not passed website integration QA')
     if c['revised_max_adds']!=0 or c['holding_extension']['enabled'] or c['allowed_scopes']!=['common']:raise ValueError('Main strategy forbids adds, extension and non-common scope')
     if c['risk_budget_enabled'] or c['cash_allocation_fraction']!=.4 or c['initial_cash_reserve_fraction']!=.2:raise ValueError('Main cash allocation changed')
     if c['initial_capital']!=250000:raise ValueError('Current main profile uses250000 initial capital')
