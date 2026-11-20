@@ -1,0 +1,44 @@
+{
+  "experiment_id": "isolated-mixed-lot-exit-split-20261120-exp001",
+  "profile_id": "main-buy-noadd-noextension-common-v1-20261114",
+  "phase": "A1_SINGLE_CHANGE_PAIRED_EXECUTION_REPLAY",
+  "single_change": "split executable whole-board-lot quantity from deferred odd-lot residual",
+  "period": {
+    "start": "2024-07-01",
+    "end": "2024-12-30",
+    "role": "training_exposed"
+  },
+  "stocks": [
+    "2303",
+    "2330",
+    "2379",
+    "2454",
+    "3034"
+  ],
+  "arms": [
+    "technical",
+    "rf",
+    "xgboost",
+    "gru"
+  ],
+  "locked_data_used": false,
+  "holdout_authorization_requested": false,
+  "parameter_search": false,
+  "paired_fixed_quantity_replay": true,
+  "affected_stocks": [
+    "2303"
+  ],
+  "affected_trades": 1,
+  "decision": "INSUFFICIENT_CROSS_STOCK_EVIDENCE",
+  "official_rule_sources": [
+    "https://twse-regulation.twse.com.tw/TW/law/DAT06.aspx?FLCODE=FL007115&FLDATE=20241216&LSER=001",
+    "https://www.twse.com.tw/zh/products/system/day-trading.html"
+  ],
+  "generated_at": "2026-11-20T17:54:50.553069+08:00",
+  "row_counts": {
+    "comparison": 20,
+    "candidate_trades": 60,
+    "split_orders": 1,
+    "affected_equity_curve": 6696
+  }
+}
