@@ -25,8 +25,8 @@ function guard(start, end) {
 }
 function context(report, mode, now = new Date()) {
   if (!['latest', 'historical'].includes(mode)) throw fail('新聞模式無效');
-  const code = String(report.code || '');
-  if (!/^\d{4,6}$/.test(code)) throw fail('股票代號無效');
+  const code = String(report.code || '').toUpperCase();
+  if (!/^\d{4,6}[A-Z]?$/.test(code)) throw fail('股票代號無效');
   const today = new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Taipei', year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
   const end = mode === 'latest' ? today : date(report.endDate);
   const start = mode === 'latest' ? new Date(Date.parse(end) - 29*86400000).toISOString().slice(0,10) : date(report.startDate);

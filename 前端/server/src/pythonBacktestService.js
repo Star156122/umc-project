@@ -29,9 +29,9 @@ const BACKTEST_TIMEOUT_MS = Math.max(
 );
 
 function validateCode(code) {
-  const cleanCode = String(code || "").trim();
-  if (!/^\d{4,6}$/.test(cleanCode)) {
-    throw createHttpError("股票代號須為 4～6 位數字", 400);
+  const cleanCode = String(code || "").trim().toUpperCase();
+  if (!/^\d{4,6}[A-Z]?$/.test(cleanCode)) {
+    throw createHttpError("股票代號須為 4～6 位數字（ETF 可含一個英文字尾，如 00632R）", 400);
   }
   return cleanCode;
 }

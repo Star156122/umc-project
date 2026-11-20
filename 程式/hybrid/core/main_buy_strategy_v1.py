@@ -179,7 +179,7 @@ def ml_status(day,timestamp,lookup,calendar):
     if str(r.get('is_oof','')).lower()=='true':
         valid=valid and r['data_role']=='training' and r['label_version']=='ml_v1_fixed_1pct' and r['fold_train_end']<r['signal_date'] and r['fold_validation_start']<=r['signal_date']<=r['fold_validation_end']
     else:
-        valid=valid and r.get('prediction_source')=='fixed_2023_2024_new_stock_inference' and r['data_role']=='validation' and r['training_target_max']<=r['signal_date'] and r['training_target_max']<='2024-12-31'
+        valid=valid and r.get('prediction_source') in ('fixed_2023_2024_new_stock_inference','fixed_2023_2024_training_stock_time_oos_inference') and r['data_role']=='validation' and r['training_target_max']<=r['signal_date'] and r['training_target_max']<='2024-12-31'
     return r['prediction'] if valid else 'INVALID_OR_LATE'
 
 

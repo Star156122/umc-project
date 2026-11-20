@@ -158,42 +158,26 @@
     "2303": {
       "stock_name": "聯電",
       "qa_status": "QA_PASSED",
-      "warmup_start": "2024-05-01",
-      "start": "2024-07-01",
-      "end": "2024-12-30",
+      "warmup_start": "2024-11-01",
+      "start": "2025-01-01",
+      "end": "2025-06-30",
       "database": "data/market_data.sqlite3",
-      "index": "獨立實驗/資料/index_daily.json",
-      "prediction_kind": "oof_csv",
-      "predictions": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
-      "dividends": "獨立實驗/聯電2303/資料/2303_cash_dividends.json"
+      "index": "獨立實驗/華碩2357_2025上半年/資料/index_daily.json",
+      "dividends": "獨立實驗/聯電2303台積電2330_2025上半年/資料/2303_cash_dividends.json",
+      "prediction_kind": "fixed_json",
+      "predictions": "獨立實驗/聯電2303台積電2330_2025上半年/資料/2303_predictions.json"
     },
     "2330": {
       "stock_name": "台積電",
       "qa_status": "QA_PASSED",
-      "warmup_start": "2024-05-01",
-      "start": "2024-07-01",
-      "end": "2024-12-30",
+      "warmup_start": "2024-11-01",
+      "start": "2025-01-01",
+      "end": "2025-06-30",
       "database": "data/market_data.sqlite3",
-      "index": "獨立實驗/資料/index_daily.json",
-      "prediction_kind": "oof_csv",
-      "predictions": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
-      "events": [
-        {
-          "ex_date": "2024-06-13",
-          "payment_date": "2024-07-11",
-          "cash_per_share": 3.49978969
-        },
-        {
-          "ex_date": "2024-09-12",
-          "payment_date": "2024-10-09",
-          "cash_per_share": 4.0001382
-        },
-        {
-          "ex_date": "2024-12-12",
-          "payment_date": "2025-01-09",
-          "cash_per_share": 3.99963706
-        }
-      ]
+      "index": "獨立實驗/華碩2357_2025上半年/資料/index_daily.json",
+      "dividends": "獨立實驗/聯電2303台積電2330_2025上半年/資料/2330_cash_dividends.json",
+      "prediction_kind": "fixed_json",
+      "predictions": "獨立實驗/聯電2303台積電2330_2025上半年/資料/2330_predictions.json"
     },
     "2379": {
       "stock_name": "瑞昱",

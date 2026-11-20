@@ -159,7 +159,10 @@ def _valid_prediction_days(root: Path, spec: dict, stock: str, start: str,
                          and row.get("fold_validation_start", "9999-99-99") <= signal_day
                          <= row.get("fold_validation_end", "0000-00-00"))
             else:
-                legal = (row.get("prediction_source") == "fixed_2023_2024_new_stock_inference"
+                # Fixed 2023-2024 models: either a stock unseen in training, or a training
+                # stock predicted only out-of-time (labelled separately, never as new-stock).
+                legal = (row.get("prediction_source") in ("fixed_2023_2024_new_stock_inference",
+                                                          "fixed_2023_2024_training_stock_time_oos_inference")
                          and row["data_role"] == "validation"
                          and row.get("training_target_max", "9999-99-99") <= signal_day
                          and row.get("training_target_max", "9999-99-99") <= "2024-12-31")

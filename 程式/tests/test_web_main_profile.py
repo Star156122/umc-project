@@ -12,9 +12,10 @@ class MainProfileTests(unittest.TestCase):
   q,_=engine.approved_quantity(100,250000,250000,10000,True,c,.0005)
   self.assertLessEqual(q*100.05+engine.commission(q,100.05,c),100000)
  def test_stock_specific_coverage_and_future_guard(self):
-  request_config('2330','2024-12-01','2024-12-30')
+  request_config('2379','2024-12-01','2024-12-30')
+  request_config('2330','2025-01-01','2025-03-31')
   request_config('4938','2025-01-01','2025-06-30')
-  for code,start,end in [('2357','2024-12-01','2024-12-30'),('2330','2025-01-01','2025-03-31'),('4938','2025-07-01','2025-12-31'),('2357','2025-07-01','2025-12-31'),('2357','2026-07-01','2026-12-31')]:
+  for code,start,end in [('2357','2024-12-01','2024-12-30'),('2330','2024-12-01','2024-12-30'),('2330','2025-07-01','2025-12-31'),('4938','2025-07-01','2025-12-31'),('2357','2025-07-01','2025-12-31'),('2357','2026-07-01','2026-12-31')]:
    with self.assertRaises(ValueError):request_config(code,start,end)
  def test_period_and_policy_cannot_be_overridden(self):
   c=request_config('2357','2025-01-01','2025-03-31')

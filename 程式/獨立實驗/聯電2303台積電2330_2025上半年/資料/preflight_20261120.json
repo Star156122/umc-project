@@ -1,0 +1,167 @@
+{
+  "status": "QA_PASSED",
+  "datasets": [
+    {
+      "stock_code": "2303",
+      "status": "QA_PASSED",
+      "coverage": {
+        "start": "2025-01-01",
+        "end": "2025-06-30"
+      },
+      "complete_sessions": 116,
+      "common_eligible_sessions": 115,
+      "valid_prediction_days": {
+        "random_forest": 115,
+        "xgboost": 115,
+        "gru": 115
+      },
+      "dividend_events": 1,
+      "performance_calculated": false,
+      "locked_data_used": false
+    },
+    {
+      "stock_code": "2330",
+      "status": "QA_PASSED",
+      "coverage": {
+        "start": "2025-01-01",
+        "end": "2025-06-30"
+      },
+      "complete_sessions": 116,
+      "common_eligible_sessions": 114,
+      "valid_prediction_days": {
+        "random_forest": 114,
+        "xgboost": 114,
+        "gru": 114
+      },
+      "dividend_events": 3,
+      "performance_calculated": false,
+      "locked_data_used": false
+    },
+    {
+      "stock_code": "2379",
+      "status": "QA_PASSED",
+      "coverage": {
+        "start": "2024-07-01",
+        "end": "2024-12-30"
+      },
+      "complete_sessions": 107,
+      "common_eligible_sessions": 100,
+      "valid_prediction_days": {
+        "random_forest": 114,
+        "xgboost": 114,
+        "gru": 114
+      },
+      "dividend_events": 1,
+      "performance_calculated": false,
+      "locked_data_used": false
+    },
+    {
+      "stock_code": "2454",
+      "status": "QA_PASSED",
+      "coverage": {
+        "start": "2024-07-01",
+        "end": "2024-12-30"
+      },
+      "complete_sessions": 123,
+      "common_eligible_sessions": 118,
+      "valid_prediction_days": {
+        "random_forest": 119,
+        "xgboost": 119,
+        "gru": 119
+      },
+      "dividend_events": 3,
+      "performance_calculated": false,
+      "locked_data_used": false
+    },
+    {
+      "stock_code": "3034",
+      "status": "QA_PASSED",
+      "coverage": {
+        "start": "2024-07-01",
+        "end": "2024-12-30"
+      },
+      "complete_sessions": 110,
+      "common_eligible_sessions": 103,
+      "valid_prediction_days": {
+        "random_forest": 114,
+        "xgboost": 114,
+        "gru": 114
+      },
+      "dividend_events": 1,
+      "performance_calculated": false,
+      "locked_data_used": false
+    },
+    {
+      "stock_code": "2357",
+      "status": "QA_PASSED",
+      "coverage": {
+        "start": "2025-01-01",
+        "end": "2025-06-30"
+      },
+      "complete_sessions": 113,
+      "common_eligible_sessions": 110,
+      "valid_prediction_days": {
+        "random_forest": 113,
+        "xgboost": 113,
+        "gru": 113
+      },
+      "dividend_events": 1,
+      "performance_calculated": false,
+      "locked_data_used": false
+    },
+    {
+      "stock_code": "3231",
+      "status": "QA_PASSED",
+      "coverage": {
+        "start": "2025-01-01",
+        "end": "2025-06-30"
+      },
+      "complete_sessions": 116,
+      "common_eligible_sessions": 114,
+      "valid_prediction_days": {
+        "random_forest": 114,
+        "xgboost": 114,
+        "gru": 114
+      },
+      "dividend_events": 1,
+      "performance_calculated": false,
+      "locked_data_used": false
+    },
+    {
+      "stock_code": "2892",
+      "status": "QA_PASSED",
+      "coverage": {
+        "start": "2025-01-01",
+        "end": "2025-06-30"
+      },
+      "complete_sessions": 116,
+      "common_eligible_sessions": 114,
+      "valid_prediction_days": {
+        "random_forest": 114,
+        "xgboost": 114,
+        "gru": 114
+      },
+      "dividend_events": 0,
+      "performance_calculated": false,
+      "locked_data_used": false
+    },
+    {
+      "stock_code": "4938",
+      "status": "QA_PASSED",
+      "coverage": {
+        "start": "2025-01-01",
+        "end": "2025-06-30"
+      },
+      "complete_sessions": 114,
+      "common_eligible_sessions": 112,
+      "valid_prediction_days": {
+        "random_forest": 114,
+        "xgboost": 114,
+        "gru": 114
+      },
+      "dividend_events": 1,
+      "performance_calculated": false,
+      "locked_data_used": false
+    }
+  ]
+}
