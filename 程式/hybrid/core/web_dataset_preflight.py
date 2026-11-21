@@ -50,9 +50,21 @@ def _valid_date(value: object) -> str:
 
 
 def _load_index(root: Path, spec: dict, start: str, end: str) -> tuple[list[dict], set[str]]:
-    rows = json.loads(_file(root, spec["index"]).read_text(encoding="utf8"))
-    if not isinstance(rows, list) or not rows:
-        raise ValueError("Index data must be a non-empty JSON array")
+    paths = spec["index"] if isinstance(spec["index"], list) else [spec["index"]]
+    merged: dict[str, dict] = {}
+    for relative in paths:
+        part = json.loads(_file(root, relative).read_text(encoding="utf8"))
+        if not isinstance(part, list) or not part:
+            raise ValueError("Index data must be a non-empty JSON array")
+        part_dates = [row.get("date") if isinstance(row, dict) else None for row in part]
+        if part_dates != sorted(set(part_dates)):
+            raise ValueError("Index dates must be unique and strictly increasing")
+        for row in part:
+            day = row["date"]
+            if day in merged and abs(float(merged[day]["close"]) - float(row["close"])) > 1e-6:
+                raise ValueError(f"Index files disagree on {day}")
+            merged.setdefault(day, row)
+    rows = [merged[day] for day in sorted(merged)]
     dates: list[str] = []
     for row in rows:
         if not isinstance(row, dict) or "date" not in row or "close" not in row:
@@ -108,17 +120,37 @@ def _audit_market_bars(root: Path, spec: dict, stock: str, warmup: str,
     return complete
 
 
-def _prediction_rows(root: Path, spec: dict, stock: str) -> dict[str, list[dict]]:
-    if spec.get("prediction_kind") == "fixed_json":
-        payload = json.loads(_file(root, spec["predictions"]).read_text(encoding="utf8"))
+def _source_rows(root: Path, kind: str, relative: str, stock: str) -> dict[str, list[dict]]:
+    if kind == "fixed_json":
+        payload = json.loads(_file(root, relative).read_text(encoding="utf8"))
         if not isinstance(payload, dict):
             raise ValueError("Fixed predictions must be a JSON object keyed by model")
         return {model: payload.get(model) for model in MODELS}
-    if spec.get("prediction_kind") == "oof_csv":
-        with _file(root, spec["predictions"]).open(encoding="utf-8-sig", newline="") as handle:
+    if kind == "oof_csv":
+        with _file(root, relative).open(encoding="utf-8-sig", newline="") as handle:
             rows = [row for row in csv.DictReader(handle) if str(row.get("stock_code")) == stock]
         return {model: [row for row in rows if row.get("model") == model] for model in MODELS}
     raise ValueError("prediction_kind must be fixed_json or oof_csv")
+
+
+def _prediction_rows(root: Path, spec: dict, stock: str) -> dict[str, list[dict]]:
+    sources = spec.get("prediction_sources")
+    if not sources:
+        return _source_rows(root, spec.get("prediction_kind"), spec["predictions"], stock)
+    ordered = sorted(sources, key=lambda item: _valid_date(item["start"]))
+    for left, right in zip(ordered, ordered[1:]):
+        if _valid_date(left["end"]) >= right["start"]:
+            raise ValueError("Prediction source segments overlap")
+    merged: dict[str, list[dict]] = {model: [] for model in MODELS}
+    for source in ordered:
+        part = _source_rows(root, source["kind"], source["path"], stock)
+        for model in MODELS:
+            rows = part.get(model)
+            if not isinstance(rows, list) or not rows:
+                raise ValueError(f"Missing required model predictions: {model}")
+            merged[model] += [row for row in rows
+                              if source["start"] <= str(row.get("entry_date")) <= source["end"]]
+    return merged
 
 
 def _valid_prediction_days(root: Path, spec: dict, stock: str, start: str,

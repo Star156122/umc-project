@@ -131,10 +131,62 @@ def indicators(by, stock, calendar, params, gap_mask=True, dividends=None):
     return records,valid_dates
 
 
+def index_paths(spec):
+    """One index file, or several date-ordered files stitched for a continuous window."""
+    return spec['index'] if isinstance(spec['index'],list) else [spec['index']]
+
+
+def load_index(spec):
+    merged={}
+    for path in index_paths(spec):
+        for r in json.loads((ROOT/path).read_text(encoding='utf8')):
+            if r['date'] in merged and abs(float(merged[r['date']]['close'])-float(r['close']))>1e-6:
+                raise ValueError('Index files disagree on '+r['date'])
+            merged.setdefault(r['date'],r)
+    return [merged[d] for d in sorted(merged)]
+
+
+def prediction_sources(spec):
+    """Single source, or date-segmented sources (e.g. 2024 OOF + 2025 fixed-model inference)."""
+    if spec.get('prediction_sources'):
+        return spec['prediction_sources']
+    return [{'kind':spec['prediction_kind'],'path':spec['predictions'],'start':None,'end':None}]
+
+
+def prediction_paths(spec):
+    paths=[s['path'] for s in prediction_sources(spec)]
+    return paths[0] if len(paths)==1 else paths
+
+
+def _read_prediction_source(source,stock):
+    if source['kind']=='fixed_json':
+        return json.loads((ROOT/source['path']).read_text(encoding='utf8'))
+    if source['kind']=='oof_csv':
+        with (ROOT/source['path']).open(encoding='utf-8-sig',newline='') as f:rows=[r for r in csv.DictReader(f) if r['stock_code']==stock]
+        return {m:[r for r in rows if r['model']==m] for m in ['random_forest','xgboost','gru']}
+    raise ValueError('Unknown prediction source kind: '+str(source['kind']))
+
+
+def load_predictions(spec,stock):
+    sources=prediction_sources(spec)
+    if len(sources)==1 and sources[0]['start'] is None:
+        return _read_prediction_source(sources[0],stock)
+    ordered=sorted(sources,key=lambda s:s['start'])
+    for a,b in zip(ordered,ordered[1:]):
+        if a['end']>=b['start']:raise ValueError('Prediction source segments overlap')
+    merged={m:[] for m in ['random_forest','xgboost','gru']}
+    for source in ordered:
+        p=_read_prediction_source(source,stock)
+        for m in merged:
+            rows=p.get(m)
+            if not isinstance(rows,list):raise ValueError('Missing required model coverage: '+m)
+            merged[m]+=[r for r in rows if source['start']<=r['entry_date']<=source['end']]
+    return merged
+
+
 def load_inputs(c):
     validate(c);spec=c['datasets'][c['stock']]
-    index=json.loads((ROOT/spec['index']).read_text(encoding='utf8'))
-    index=[r for r in index if c['warmup_start']<=r['date']<=c['period']['end']]
+    index=[r for r in load_index(spec) if c['warmup_start']<=r['date']<=c['period']['end']]
     calendar=[r['date'] for r in index]
     if not calendar or calendar!=sorted(set(calendar)):raise ValueError('Invalid official calendar')
     for day in calendar:assert_development_period(day,day)
@@ -148,11 +200,7 @@ def load_inputs(c):
     if not bars:raise ValueError('No prepared ordinary5m data; no proxy substitution')
     contexts={}
     for i,day in enumerate(calendar):contexts[day]={'new':i>=20 and index[i-1]['close']>np.mean([r['close'] for r in index[i-20:i]]),'old':False,'index_reference':calendar[i-1] if i else None}
-    if spec['prediction_kind']=='fixed_json':
-        p=json.loads((ROOT/spec['predictions']).read_text(encoding='utf8'))
-    else:
-        with (ROOT/spec['predictions']).open(encoding='utf-8-sig',newline='') as f:rows=[r for r in csv.DictReader(f) if r['stock_code']==c['stock']]
-        p={m:[r for r in rows if r['model']==m] for m in ['random_forest','xgboost','gru']}
+    p=load_predictions(spec,c['stock'])
     lookups={}
     for model in ['random_forest','xgboost','gru']:
         rows=p.get(model)
@@ -164,7 +212,7 @@ def load_inputs(c):
             if row['entry_date'] in lookup:raise ValueError('Duplicate prediction effective date')
             lookup[row['entry_date']]=row
         lookups[model]=lookup
-    return {'bars':bars,'old_map':{},'old_prev':{},'common':complete,'calendar':calendar,'contexts':contexts,'ml':lookups['random_forest'],'ml_by_model':lookups,'dividends':{e['ex_date']:e for e in dividends},'audit':{'profile_id':c['profile_id'],'database':spec['database'],'official_index':spec['index'],'predictions':spec['predictions'],'complete_sessions':len(complete),'partial_sessions':sorted({b['day'] for b in bars}-complete),'locked_data_used':False}}
+    return {'bars':bars,'old_map':{},'old_prev':{},'common':complete,'calendar':calendar,'contexts':contexts,'ml':lookups['random_forest'],'ml_by_model':lookups,'dividends':{e['ex_date']:e for e in dividends},'audit':{'profile_id':c['profile_id'],'database':spec['database'],'official_index':spec['index'],'predictions':prediction_paths(spec),'complete_sessions':len(complete),'partial_sessions':sorted({b['day'] for b in bars}-complete),'locked_data_used':False}}
 
 
 def ml_status(day,timestamp,lookup,calendar):

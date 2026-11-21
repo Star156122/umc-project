@@ -15,7 +15,10 @@ class MainProfileTests(unittest.TestCase):
   request_config('2379','2024-12-01','2024-12-30')
   request_config('2330','2025-01-01','2025-03-31')
   request_config('4938','2025-01-01','2025-06-30')
-  for code,start,end in [('2357','2024-12-01','2024-12-30'),('2330','2024-12-01','2024-12-30'),('2330','2025-07-01','2025-12-31'),('4938','2025-07-01','2025-12-31'),('2357','2025-07-01','2025-12-31'),('2357','2026-07-01','2026-12-31')]:
+  for code in ['2303','2330']:
+   c=request_config(code,'2024-07-01','2025-06-30')
+   self.assertEqual([x['kind'] for x in c['datasets'][code]['prediction_sources']],['oof_csv','fixed_json'])
+  for code,start,end in [('2357','2024-12-01','2024-12-30'),('2330','2024-06-01','2024-06-30'),('2303','2024-06-03','2025-06-30'),('2330','2025-07-01','2025-12-31'),('4938','2025-07-01','2025-12-31'),('2357','2025-07-01','2025-12-31'),('2357','2026-07-01','2026-12-31')]:
    with self.assertRaises(ValueError):request_config(code,start,end)
  def test_period_and_policy_cannot_be_overridden(self):
   c=request_config('2357','2025-01-01','2025-03-31')
