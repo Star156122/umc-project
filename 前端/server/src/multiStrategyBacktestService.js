@@ -25,9 +25,6 @@ function readDevelopmentConfig(root) {
   return config;
 }
 
-<<<<<<< HEAD
-function validateMultiRunRequest(body, config, formal = {}) {
-=======
 function approvedDatasets(config) {
   const required = config.dataset_onboarding?.required_qa_status || "QA_PASSED";
   const registered = new Set((config.stock_universe || []).map((item) => String(item).padStart(4, "0")));
@@ -36,10 +33,9 @@ function approvedDatasets(config) {
   ));
 }
 
-function validateMultiRunRequest(body, config) {
->>>>>>> 07ca432 (20261115)
-  const code = String(body?.stock_code || "").trim();
-  if (!/^\d{4,6}$/.test(code)) throw apiError(400, "INVALID_STOCK_CODE", "stock_code 須為 4～6 位數字");
+function validateMultiRunRequest(body, config, formal = {}) {
+  const code = String(body?.stock_code || "").trim().toUpperCase();
+  if (!/^\d{4,6}[A-Z]?$/.test(code)) throw apiError(400, "INVALID_STOCK_CODE", "stock_code 須為 4～6 位數字（ETF 可含一個英文字尾）");
   const stockCode = code.padStart(4, "0");
   const approved = approvedDatasets(config);
   const dataset = approved[stockCode];
@@ -55,16 +51,10 @@ function validateMultiRunRequest(body, config) {
   const period = {start: body.start_date ?? dataset.start, end: body.end_date ?? dataset.end};
   const validDate=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v))&&new Date(v).toISOString().slice(0,10)===v;
   if(!validDate(period.start)||!validDate(period.end)||period.start>period.end)throw apiError(400,'INVALID_PERIOD','請輸入正確的起訖日期');
-<<<<<<< HEAD
-  const coverage=config.datasets?.[stockCode]||{start:'2024-07-01',end:'2024-12-30'};
+  const coverage=dataset;
   const savedFormal=formal[stockCode]?.periods?.some(p=>p.start===period.start&&p.end===period.end);
   if(!savedFormal&&(period.start<coverage.start||period.end>coverage.end))throw apiError(422,'BACKTEST_BLOCKED',`此股票目前模型可回測範圍為 ${coverage.start}～${coverage.end}，正式保留測試不由一般網站解鎖`);
   return { stock_code: stockCode, strategies: [...strategies], period, ...(savedFormal?{formal_replay:true}:{}) };
-=======
-  const coverage=dataset;
-  if(period.start<coverage.start||period.end>coverage.end)throw apiError(422,'BACKTEST_BLOCKED',`此股票目前模型可回測範圍為 ${coverage.start}～${coverage.end}，正式保留測試不由一般網站解鎖`);
-  return { stock_code: stockCode, strategies: [...strategies], period };
->>>>>>> 07ca432 (20261115)
 }
 
 function parseRunnerJson(stdout) {
@@ -270,11 +260,7 @@ function createMultiStrategyBacktestService({
     if (activeJobId === job.run_id) activeJobId = null;
   }
 
-<<<<<<< HEAD
-  function getProfile(){const c=readDevelopmentConfig(root);return {formal_reports:formalReports.formalProfile(root),profile_id:c.profile_id||null,initial_capital:c.initial_capital||c.execution?.initial_capital||100000,default_period:c.periods?.backtest||{start:'2024-07-01',end:'2024-12-30'},stocks:c.stock_universe,coverage:Object.fromEntries(c.stock_universe.map(s=>[s,c.datasets?.[s]?{start:c.datasets[s].start,end:c.datasets[s].end}:{start:'2024-07-01',end:'2024-12-30'}])),rules:c.profile_id?{adds:false,extension:false,risk_budget:false,cash_fraction:.4,reserve_fraction:.2,stop_loss_pct:.025,common_three_model_coverage:true}:null};}
-=======
-  function getProfile(){const c=readDevelopmentConfig(root),datasets=approvedDatasets(c),stocks=Object.keys(datasets);return {profile_id:c.profile_id||null,initial_capital:c.initial_capital||c.execution?.initial_capital||100000,default_period:c.periods?.backtest||{start:'2024-07-01',end:'2024-12-30'},stocks,stock_names:Object.fromEntries(stocks.map(s=>[s,datasets[s].stock_name||s])),coverage:Object.fromEntries(stocks.map(s=>[s,{start:datasets[s].start,end:datasets[s].end,qa_status:datasets[s].qa_status}])),dataset_qa_required:c.dataset_onboarding?.required_qa_status||'QA_PASSED',rules:c.profile_id?{adds:false,extension:false,risk_budget:false,cash_fraction:.4,reserve_fraction:.2,stop_loss_pct:.025,common_three_model_coverage:true}:null};}
->>>>>>> 07ca432 (20261115)
+  function getProfile(){const c=readDevelopmentConfig(root),datasets=approvedDatasets(c),stocks=Object.keys(datasets);return {formal_reports:formalReports.formalProfile(root),profile_id:c.profile_id||null,initial_capital:c.initial_capital||c.execution?.initial_capital||100000,default_period:c.periods?.backtest||{start:'2024-07-01',end:'2024-12-30'},stocks,stock_names:Object.fromEntries(stocks.map(s=>[s,datasets[s].stock_name||s])),coverage:Object.fromEntries(stocks.map(s=>[s,{start:datasets[s].start,end:datasets[s].end,qa_status:datasets[s].qa_status}])),dataset_qa_required:c.dataset_onboarding?.required_qa_status||'QA_PASSED',rules:c.profile_id?{adds:false,extension:false,risk_budget:false,cash_fraction:.4,reserve_fraction:.2,stop_loss_pct:.025,common_three_model_coverage:true}:null};}
   return { submit, getJob, resolveJob, persistJob, persistAnalysis, listHistory, getProfile };
 }
 

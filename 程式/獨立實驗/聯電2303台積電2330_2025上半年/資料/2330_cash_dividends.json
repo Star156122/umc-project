@@ -1,0 +1,27 @@
+{
+  "stock": "2330",
+  "events": [
+    {
+      "ex_date": "2024-12-12",
+      "payment_date": "2025-01-09",
+      "cash_per_share": 3.99963706
+    },
+    {
+      "ex_date": "2025-03-18",
+      "payment_date": "2025-04-10",
+      "cash_per_share": 4.50002042
+    },
+    {
+      "ex_date": "2025-06-12",
+      "payment_date": "2025-07-10",
+      "cash_per_share": 4.50002042
+    }
+  ],
+  "window": "2024-11-01..2025-06-30 (warmup + 2025H1 validation)",
+  "fetched_at": "2026-11-20",
+  "sources": [
+    "https://www.twse.com.tw/rwd/zh/exRight/TWT49U (ex-date, cash)",
+    "https://investor.tsmc.com/english/dividends (Distribution Date, exact cash)"
+  ],
+  "source_caution": "Payment dates after 2025-06-30 are announced metadata known before the ex-date; no July market data was read."
+}

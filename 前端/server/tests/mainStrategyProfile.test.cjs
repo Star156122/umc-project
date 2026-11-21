@@ -5,7 +5,8 @@ test('new main profile validates prepared per-stock coverage and forbids holdout
  assert.equal(config.revised_max_adds,0);assert.equal(config.holding_extension.enabled,false);assert.equal(config.initial_capital,250000);
  assert.equal(config.datasets['2357'].qa_status,'QA_PASSED');
  assert.deepEqual(validateMultiRunRequest({stock_code:'2357',strategies:['technical']},config).period,{start:'2025-01-01',end:'2025-06-30'});
- assert.deepEqual(validateMultiRunRequest({stock_code:'2330',strategies:['rf']},config).period,{start:'2024-07-01',end:'2024-12-30'});
+ assert.deepEqual(validateMultiRunRequest({stock_code:'2330',strategies:['rf']},config).period,{start:'2024-07-01',end:'2025-06-30'});
+ assert.deepEqual(validateMultiRunRequest({stock_code:'2379',strategies:['rf']},config).period,{start:'2024-07-01',end:'2024-12-30'});
  for(const [start,end] of [['2025-07-01','2025-12-31'],['2026-07-01','2026-12-31'],['2024-01-01','2024-06-30']])assert.throws(()=>validateMultiRunRequest({stock_code:'2357',strategies:['technical'],start_date:start,end_date:end},config));
  assert.throws(()=>validateMultiRunRequest({stock_code:'2357',strategies:['technical'],initial_capital:100000},config));
  const pending=JSON.parse(JSON.stringify(config));pending.datasets['2357'].qa_status='PENDING';

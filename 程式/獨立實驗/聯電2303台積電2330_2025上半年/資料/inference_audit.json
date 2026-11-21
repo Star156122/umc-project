@@ -1,0 +1,92 @@
+{
+  "experiment_id": "web-2303-2330-2025h1-onboarding-20261120",
+  "inference_only": true,
+  "labels_created": false,
+  "retrained": false,
+  "prediction_source": "fixed_2023_2024_training_stock_time_oos_inference",
+  "stock_was_in_model_training": true,
+  "model_home": "獨立實驗\\華碩2357_2025上半年\\模型",
+  "model_training_stocks": [
+    "2303",
+    "2330",
+    "2379",
+    "2454",
+    "3034"
+  ],
+  "training_target_max": "2024-12-31",
+  "model_file_sha256": {
+    "random_forest/model.joblib": "4e7525cedcd0c24e09e6fa8b51b4d4291e668eac9af1f055ee6ec3e9fcd69100",
+    "random_forest/scaler.npz": "522e290a256eba6d083540f0fd8661bb20c09565f8d72fe693beb39f726a9043",
+    "xgboost/model.joblib": "acd5bf7a570b99ec9bebfe65ba9607f90a4cc4359222da4b3ef809f008127ca4",
+    "xgboost/scaler.npz": "522e290a256eba6d083540f0fd8661bb20c09565f8d72fe693beb39f726a9043",
+    "gru/model.pt": "d42273fb710d6d54126b7d2f45300efae5770f8007c19a7038227c36beb8c740",
+    "gru/scaler.npz": "5b9bac6f5eaf811e2f959fdf2d3cb629cd2ad3c59febf0c050e546982f4b3c5a"
+  },
+  "database": "data\\market_data.sqlite3",
+  "database_query_window": [
+    "2024-11-01",
+    "<2025-07-01"
+  ],
+  "index": "獨立實驗\\華碩2357_2025上半年\\資料\\index_daily.json",
+  "features": [
+    "open_vs_prev_close",
+    "high_vs_prev_close",
+    "low_vs_prev_close",
+    "return_1",
+    "return_3",
+    "return_6",
+    "return_12",
+    "volume_ratio_5",
+    "volume_ratio_20",
+    "volume_zscore_20",
+    "close_vs_ma5",
+    "close_vs_ma20",
+    "price_zscore_20",
+    "rsi14_scaled",
+    "macd_vs_close",
+    "macd_signal_vs_close",
+    "macd_hist_vs_close",
+    "range_vs_close",
+    "body_return",
+    "close_location",
+    "volatility_12",
+    "volatility_24",
+    "trend_slope_12",
+    "trend_slope_24"
+  ],
+  "context": [
+    "volume_trend_5d",
+    "volume_trend_20d"
+  ],
+  "performance_calculated": false,
+  "locked_data_used": false,
+  "stocks": {
+    "2303": {
+      "eligible_rows": 115,
+      "exclusions": {
+        "nonfinite_features": 1
+      },
+      "cleaning": {
+        "duplicates_removed": 0,
+        "invalid_ohlcv_removed": 0
+      },
+      "first_entry": "2025-01-02",
+      "last_entry": "2025-06-30",
+      "predictions_sha256": "b436055e33617b95cd2022cc231b4e682a9f159a061480718bf44d92ff6a3f46"
+    },
+    "2330": {
+      "eligible_rows": 114,
+      "exclusions": {
+        "nonfinite_features": 2
+      },
+      "cleaning": {
+        "duplicates_removed": 0,
+        "invalid_ohlcv_removed": 0
+      },
+      "first_entry": "2025-01-02",
+      "last_entry": "2025-06-30",
+      "predictions_sha256": "27dad2a0454a62a86ff23b3901ef9ae57fb8e1cd1267a858cb3ac6650e36cc07"
+    }
+  },
+  "decision_time_note": "End-of-signal-day availability; always before next-session entry."
+}

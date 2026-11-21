@@ -100,7 +100,7 @@ export default function WatchListScreen() {
 
   async function addStock(){
     if(adding)return;
-    if(!/^\d{4,6}$/.test(newCode.trim())){setError("請輸入 4～6 位股票代號");return;}
+    if(!/^\d{4,6}[A-Za-z]?$/.test(newCode.trim())){setError("請輸入 4～6 位股票代號（ETF 可含英文字尾，如 00632R）");return;}
     setAdding(true);setError("");
     try{await apiRequest("/api/favorites",{method:"POST",body:JSON.stringify({code:newCode.trim()}),timeoutMs:30000});setNewCode("");await loadFavorites({silent:true});}catch(e){setError(e.message);}finally{setAdding(false);}
   }

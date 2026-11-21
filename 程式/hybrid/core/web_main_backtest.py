@@ -23,6 +23,12 @@ def request_config(code,start,end):
     engine.validate(c)
     return c
 
+def dataset_role(start,end):
+    """Mixed windows are never reported as validation."""
+    if end<'2025-01-01':return 'training_exposed'
+    if start>='2025-01-01':return 'validation_seen'
+    return 'mixed_training_exposed_and_validation_seen'
+
 def summarize(r):
     m=r['metrics']
     return {'initial_capital':m['initial_capital'],'final_equity':m['final_equity'],
@@ -52,7 +58,7 @@ def normalize(r,strategy,c):
       'gate_decisions':gate_events,'filter_funnel':r['funnel'],'trades':orders,'closed_trades':r['trades'],
       'risk_contract':{'risk_budget_enabled':False,'sizing_reference':'每次買入含費最多使用可用現金40%，保留初始20%現金','initial_cash_reserve':50000,'stop_loss_pct':.025,'adds_enabled':False,'holding_extension_enabled':False,'max_hold_bars':162,'coverage':'共同完整日＋三模型合法預測'},
       'evidence':'買進持有基準' if strategy=='buy_and_hold' else ('證據不足' if m['trade_count']<5 else '歷史回測，未保證泛化'),
-      'model_training':{'version':'ML_V1_FIXED_1PCT','source':c['datasets'][c['stock']]['prediction_kind'],'training_cutoff_policy':'2024年使用時間順序OOF；2025年使用2023～2024固定訓練模型，不以回測期間重訓'},
+      'model_training':{'version':'ML_V1_FIXED_1PCT','source':'+'.join(x['kind'] for x in engine.prediction_sources(c['datasets'][c['stock']])),'training_cutoff_policy':'2024年使用時間順序OOF；2025年使用2023～2024固定訓練模型，不以回測期間重訓'},
       'exposure_assumption':'期初最多80%資金，受流動性限制，期末賣出並計賣出費稅' if strategy=='buy_and_hold' else None}
     summary=summarize(r)
     if strategy=='buy_and_hold':summary['win_rate_pct']=None
@@ -74,8 +80,9 @@ def run(code,start,end,strategies):
         raw[strategy]=r;results.append(normalize(r,strategy,c))
     from hybrid.core.main_buy_benchmark import buyhold
     bh=buyhold(c,data,.0005);benchmark=normalize(bh,'buy_and_hold',c)
-    spec=c['datasets'][c['stock']];sources=[ROOT/spec[k] for k in ['database','index','predictions']]
-    audit={'profile_id':PROFILE,'data_role':'historical_development','dataset_role':'training_exposed' if end<'2025-01-01' else 'validation_seen',
+    spec=c['datasets'][c['stock']]
+    sources=[ROOT/spec['database'],*(ROOT/x for x in engine.index_paths(spec)),*(ROOT/x['path'] for x in engine.prediction_sources(spec))]
+    audit={'profile_id':PROFILE,'data_role':'historical_development','dataset_role':dataset_role(start,end),
       'stock_code':str(code),'periods':{'backtest':{'start':start,'end':end}},'initial_capital':250000,
       'rules':{'adds_enabled':False,'holding_extension_enabled':False,'risk_budget_enabled':False,'cash_fraction':.4,'initial_cash_reserve_fraction':.2,'stop_loss_pct':.025,'coverage':'COMMON_COMPLETE_AND_THREE_VALID_MODELS','slippage_each_side':.0005},
       'coverage_audit':data['audit'],'final_oos_used':False,'holdout_policy_modified':False,

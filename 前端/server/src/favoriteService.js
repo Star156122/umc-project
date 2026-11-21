@@ -147,7 +147,7 @@ async function addFavorite(userId, input) {
 
 async function removeFavorite(userId, code) {
   const cleanCode = normalizeCode(code);
-  if (!/^\d{4,6}$/.test(cleanCode)) {
+  if (!/^\d{4,6}[A-Z]?$/i.test(cleanCode)) {
     const error = new Error("股票代號格式不正確");
     error.status = 400;
     throw error;

@@ -174,10 +174,10 @@ function validateRecords(records) {
 }
 
 function buildMlV1OofStockResearch(stockCode, model, root = PYTHON_BACKTEST_ROOT) {
-  const code = String(stockCode || "").trim();
+  const code = String(stockCode || "").trim().toUpperCase();
   const selectedModel = String(model || "").trim().toLowerCase();
-  if (!/^\d{4,6}$/.test(code)) {
-    throw new MlV1OofResearchError("股票代號格式錯誤，請輸入 4～6 位數字。", 400, "INVALID_STOCK_CODE");
+  if (!/^\d{4,6}[A-Z]?$/.test(code)) {
+    throw new MlV1OofResearchError("股票代號格式錯誤，請輸入 4～6 位數字（ETF 可含一個英文字尾）。", 400, "INVALID_STOCK_CODE");
   }
   if (!MODELS.has(selectedModel)) {
     throw new MlV1OofResearchError("請指定 random_forest、xgboost 或 gru 模型。", 400, "INVALID_MODEL");

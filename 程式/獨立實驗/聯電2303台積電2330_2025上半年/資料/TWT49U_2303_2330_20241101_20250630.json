@@ -1,0 +1,32 @@
+{
+  "source": "https://www.twse.com.tw/rwd/zh/exRight/TWT49U?startDate=20241101&endDate=20250630&response=json",
+  "fetched_at": "2026-11-20",
+  "raw_sha256": "61b448ba871cec70a34cb4ff1fb12493aadbb5b506b439f414e5bb85193b9e73",
+  "note": "Trimmed to 2303/2330 ex-date, code and cash dividend only. Raw response also carried latest-filing financial fields (2026Q3) which were NOT stored or used.",
+  "rows": [
+    {
+      "ex_date": "2024-12-12",
+      "stock_code": "2330",
+      "cash_per_share_twse": 3.999637,
+      "type": "息"
+    },
+    {
+      "ex_date": "2025-03-18",
+      "stock_code": "2330",
+      "cash_per_share_twse": 4.50002,
+      "type": "息"
+    },
+    {
+      "ex_date": "2025-06-12",
+      "stock_code": "2330",
+      "cash_per_share_twse": 4.50002,
+      "type": "息"
+    },
+    {
+      "ex_date": "2025-06-24",
+      "stock_code": "2303",
+      "cash_per_share_twse": 2.850164,
+      "type": "息"
+    }
+  ]
+}
