@@ -1,0 +1,157 @@
+{
+  "experiment_id": "web-main-data-completion-20261122",
+  "bounded_period": {
+    "start": "2024-05-01",
+    "end": "2025-06-30"
+  },
+  "source_databases": {
+    "2303": "data\\market_data.sqlite3",
+    "2330": "data\\market_data.sqlite3",
+    "2379": "data\\market_data.sqlite3",
+    "2454": "data\\market_data.sqlite3",
+    "3034": "data\\market_data.sqlite3",
+    "2357": "獨立實驗\\華碩2357_2025上半年\\資料\\2357_history.sqlite3",
+    "3231": "獨立實驗\\緯創3231_2025上半年\\資料\\3231_history.sqlite3",
+    "2892": "獨立實驗\\第一金2892_2025上半年\\資料\\2892_history.sqlite3",
+    "4938": "data\\web_main_4938_h1\\history.sqlite3"
+  },
+  "download_gaps": {
+    "2379": [
+      [
+        "2025-01-01",
+        "2025-06-30"
+      ]
+    ],
+    "2454": [
+      [
+        "2025-01-01",
+        "2025-06-30"
+      ]
+    ],
+    "3034": [
+      [
+        "2025-01-01",
+        "2025-06-30"
+      ]
+    ],
+    "2357": [
+      [
+        "2024-05-01",
+        "2024-10-31"
+      ]
+    ],
+    "3231": [
+      [
+        "2024-05-01",
+        "2024-10-31"
+      ]
+    ],
+    "2892": [
+      [
+        "2024-05-01",
+        "2024-10-31"
+      ]
+    ],
+    "4938": [
+      [
+        "2024-05-01",
+        "2024-10-31"
+      ]
+    ]
+  },
+  "additional_holdout_accessed": false,
+  "final_oos_accessed": false,
+  "source_hashes_before": {
+    "data\\market_data.sqlite3": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+    "data\\web_main_4938_h1\\history.sqlite3": "5ac71d9726f061183380de75ec1f1bf0e84f634c6f53e6bdb376d70ee69ad48f",
+    "獨立實驗\\第一金2892_2025上半年\\資料\\2892_history.sqlite3": "24c76a9372b8600b39d4de882d89e9fcb48fa553c54d437706fb6b126d2ccdca",
+    "獨立實驗\\緯創3231_2025上半年\\資料\\3231_history.sqlite3": "e87bf646439bf014c2faa9d6115855eb4d442ac751ffe47ffa0af478f59767bc",
+    "獨立實驗\\華碩2357_2025上半年\\資料\\2357_history.sqlite3": "4586770ff43a094d9087dae12f30dd8364a4e89bd746f7637a744275eec81234"
+  },
+  "source_hashes_after": {
+    "data\\market_data.sqlite3": "11a19c6a3e855fab8a91d3d04e4ef75041b60da1c23c281b2a46b1785d3a45d0",
+    "data\\web_main_4938_h1\\history.sqlite3": "5ac71d9726f061183380de75ec1f1bf0e84f634c6f53e6bdb376d70ee69ad48f",
+    "獨立實驗\\第一金2892_2025上半年\\資料\\2892_history.sqlite3": "24c76a9372b8600b39d4de882d89e9fcb48fa553c54d437706fb6b126d2ccdca",
+    "獨立實驗\\緯創3231_2025上半年\\資料\\3231_history.sqlite3": "e87bf646439bf014c2faa9d6115855eb4d442ac751ffe47ffa0af478f59767bc",
+    "獨立實驗\\華碩2357_2025上半年\\資料\\2357_history.sqlite3": "4586770ff43a094d9087dae12f30dd8364a4e89bd746f7637a744275eec81234"
+  },
+  "source_databases_modified": false,
+  "fetches": [
+    {
+      "stock_code": "2379",
+      "start": "2025-01-01",
+      "end": "2025-06-30",
+      "five_minute_rows": 6327,
+      "source_minute_rows": 26169,
+      "source_first_timestamp": 1735779660.0,
+      "source_last_timestamp": 1751261400.0
+    },
+    {
+      "stock_code": "2454",
+      "start": "2025-01-01",
+      "end": "2025-06-30",
+      "five_minute_rows": 6360,
+      "source_minute_rows": 29947,
+      "source_first_timestamp": 1735779660.0,
+      "source_last_timestamp": 1751261400.0
+    },
+    {
+      "stock_code": "3034",
+      "start": "2025-01-01",
+      "end": "2025-06-30",
+      "five_minute_rows": 6338,
+      "source_minute_rows": 26557,
+      "source_first_timestamp": 1735779660.0,
+      "source_last_timestamp": 1751261400.0
+    },
+    {
+      "stock_code": "2357",
+      "start": "2024-05-01",
+      "end": "2024-10-31",
+      "five_minute_rows": 6763,
+      "source_minute_rows": 31151,
+      "source_first_timestamp": 1714611660.0,
+      "source_last_timestamp": 1730266200.0
+    },
+    {
+      "stock_code": "3231",
+      "start": "2024-05-01",
+      "end": "2024-10-31",
+      "five_minute_rows": 6765,
+      "source_minute_rows": 32669,
+      "source_first_timestamp": 1714611660.0,
+      "source_last_timestamp": 1730266200.0
+    },
+    {
+      "stock_code": "2892",
+      "start": "2024-05-01",
+      "end": "2024-10-31",
+      "five_minute_rows": 6765,
+      "source_minute_rows": 32196,
+      "source_first_timestamp": 1714611660.0,
+      "source_last_timestamp": 1730266200.0
+    },
+    {
+      "stock_code": "4938",
+      "start": "2024-05-01",
+      "end": "2024-10-31",
+      "five_minute_rows": 6759,
+      "source_minute_rows": 31027,
+      "source_first_timestamp": 1714611660.0,
+      "source_last_timestamp": 1730266200.0
+    }
+  ],
+  "output_rows": 139410,
+  "output_by_stock": {
+    "2303": 15511,
+    "2330": 15511,
+    "2379": 15432,
+    "2454": 15490,
+    "3034": 15452,
+    "2357": 15503,
+    "3231": 15510,
+    "2892": 15510,
+    "4938": 15491
+  },
+  "performance_calculated": false
+}

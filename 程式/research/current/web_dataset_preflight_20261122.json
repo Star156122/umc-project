@@ -1,0 +1,53 @@
+{
+  "experiment_id": "web-main-data-completion-20261122",
+  "checked_on": "2026-11-22",
+  "status": "CURRENT_CONFIG_QA_PASSED_NEW_BOUNDED_OUTPUT_PENDING_INTEGRATION_PREFLIGHT",
+  "scope": "website dataset identity, official-session coverage, explicit partial sessions, legal three-model prediction coverage and bounded completion plan",
+  "performance_calculated": false,
+  "locked_data_used": false,
+  "calendar_correction": {
+    "date": "2024-12-01",
+    "weekday": "Sunday",
+    "official_session": false,
+    "missing_bar_classification": "EXCLUDED_NOT_A_TRADING_DAY"
+  },
+  "current_registered_coverage": [
+    {"stock_code": "2303", "period": "2024-07-01..2024-12-30", "complete_sessions": 124, "partial_sessions": 0, "common_eligible_sessions": 120},
+    {"stock_code": "2330", "period": "2024-07-01..2024-12-30", "complete_sessions": 124, "partial_sessions": 0, "common_eligible_sessions": 120},
+    {"stock_code": "2379", "period": "2024-07-01..2024-12-30", "complete_sessions": 107, "partial_sessions": 17, "common_eligible_sessions": 100},
+    {"stock_code": "2454", "period": "2024-07-01..2024-12-30", "complete_sessions": 123, "partial_sessions": 1, "common_eligible_sessions": 118},
+    {"stock_code": "3034", "period": "2024-07-01..2024-12-30", "complete_sessions": 110, "partial_sessions": 14, "common_eligible_sessions": 103},
+    {"stock_code": "2357", "period": "2025-01-01..2025-06-30", "complete_sessions": 113, "partial_sessions": 3, "common_eligible_sessions": 110},
+    {"stock_code": "3231", "period": "2025-01-01..2025-06-30", "complete_sessions": 116, "partial_sessions": 0, "common_eligible_sessions": 114},
+    {"stock_code": "2892", "period": "2025-01-01..2025-06-30", "complete_sessions": 116, "partial_sessions": 0, "common_eligible_sessions": 114},
+    {"stock_code": "4938", "period": "2025-01-01..2025-06-30", "complete_sessions": 114, "partial_sessions": 2, "common_eligible_sessions": 112}
+  ],
+  "completed_target_ranges": [
+    {"stock_codes": ["2379", "2454", "3034"], "data_role": "validation", "completed_period": "2025-01-01..2025-06-30", "generated": ["5-minute bars", "legal RF/XGBoost/GRU predictions"]},
+    {"stock_codes": ["2357", "3231", "2892", "4938"], "data_role": "training", "completed_period": "2024-05-01..2024-10-31", "generated": ["5-minute bars", "causal 2024-H2 RF/XGBoost/GRU predictions"]}
+  ],
+  "completion_implementation": {
+    "fetch_script": "scripts/fill_web_main_dataset_gaps.py",
+    "prediction_script": "scripts/build_web_main_legal_predictions.py",
+    "output_database": "data/web_main_bounded_2024h2_2025h1/history.sqlite3",
+    "source_databases_modified": false,
+    "2024_prediction_policy": "ML V1 expanding-window WF3/WF4; fold training target dates end before signal dates",
+    "2025_prediction_policy": "fixed full-Training refit; training_target_max=2024-12-31",
+    "fetch_status": "COMPLETED",
+    "prediction_status": "LEGAL_PREDICTIONS_BUILT_PENDING_INTEGRATION_PREFLIGHT",
+    "output_rows": 139410,
+    "output_files": {
+      "fetch_audit": "data/web_main_bounded_2024h2_2025h1/fetch_audit.json",
+      "prediction_audit": "data/web_main_bounded_2024h2_2025h1/prediction_audit.json",
+      "predictions": "data/web_main_bounded_2024h2_2025h1/predictions"
+    },
+    "parameter_search": false,
+    "backtest_run": false
+  },
+  "integration_state": {
+    "website_config_switched": false,
+    "current_registered_sources_qa_passed": true,
+    "new_bounded_output_preflight_completed": false,
+    "next_step": "Wire the bounded database and per-stock predictions in a separate reviewed change, then run the strict read-only preflight before exposing expanded periods."
+  }
+}
