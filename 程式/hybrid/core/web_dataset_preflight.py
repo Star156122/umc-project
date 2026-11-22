@@ -11,6 +11,7 @@ import json
 import math
 import sqlite3
 from collections import defaultdict
+from contextlib import closing
 from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -83,12 +84,25 @@ def _load_index(root: Path, spec: dict, start: str, end: str) -> tuple[list[dict
     return rows, period_dates
 
 
+def _declared_session_days(spec: dict, key: str, official_days: set[str]) -> set[str]:
+    values = spec.get(key, [])
+    if not isinstance(values, list) or any(not isinstance(value, str) for value in values):
+        raise ValueError(f"{key} must be a list of YYYY-MM-DD strings")
+    days = {_valid_date(value) for value in values}
+    if len(days) != len(values):
+        raise ValueError(f"{key} contains duplicate dates")
+    outside = sorted(days - official_days)
+    if outside:
+        raise ValueError(f"{key} contains non-official sessions: {outside}")
+    return days
+
+
 def _audit_market_bars(root: Path, spec: dict, stock: str, warmup: str,
-                       start: str, end: str) -> set[str]:
+                       start: str, end: str, official_days: set[str]) -> tuple[set[str], dict[str, dict]]:
     path = _file(root, spec["database"])
     lo = int(datetime.fromisoformat(warmup).replace(tzinfo=TZ).timestamp())
     hi = int((datetime.fromisoformat(end) + timedelta(days=1)).replace(tzinfo=TZ).timestamp())
-    with sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True) as connection:
+    with closing(sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True)) as connection:
         connection.row_factory = sqlite3.Row
         connection.execute("PRAGMA query_only=ON")
         columns = {row[1] for row in connection.execute("PRAGMA table_info(market_kbars)")}
@@ -111,13 +125,26 @@ def _audit_market_bars(root: Path, spec: dict, stock: str, warmup: str,
         stamp = datetime.fromtimestamp(float(row["kbar_timestamp"]), TZ)
         if "09:00" <= stamp.strftime("%H:%M") <= "13:25":
             by_day[stamp.date().isoformat()].append(row)
-    complete = {
-        day for day, day_rows in by_day.items()
-        if start <= day <= end and audit_session(day_rows, day)["session_complete"]
+    audits = {
+        day: audit_session(by_day.get(day, []), day)
+        for day in sorted(official_days)
     }
+    missing_days = sorted(day for day, audit in audits.items() if audit["bar_count"] == 0)
+    if missing_days:
+        raise ValueError(f"Missing entire official market sessions: {missing_days}")
+    complete = {day for day, audit in audits.items() if audit["session_complete"]}
     if not complete:
         raise ValueError("No complete 54-bar session inside configured coverage")
-    return complete
+    partial = {day: audit for day, audit in audits.items() if not audit["session_complete"]}
+    declared_partial = _declared_session_days(spec, "allowed_partial_sessions", official_days)
+    actual_partial = set(partial)
+    if actual_partial != declared_partial:
+        undeclared = sorted(actual_partial - declared_partial)
+        stale = sorted(declared_partial - actual_partial)
+        raise ValueError(
+            f"Partial-session declaration mismatch; undeclared={undeclared}, stale={stale}"
+        )
+    return complete, partial
 
 
 def _source_rows(root: Path, kind: str, relative: str, stock: str) -> dict[str, list[dict]]:
@@ -236,18 +263,40 @@ def preflight_dataset(root: Path, config: dict, stock: str) -> dict:
     warmup = _valid_date(spec.get("warmup_start"))
     assert_development_period(warmup, end)
     _, index_days = _load_index(root, spec, start, end)
-    complete_days = _audit_market_bars(root, spec, stock, warmup, start, end)
+    complete_days, partial_days = _audit_market_bars(
+        root, spec, stock, warmup, start, end, index_days,
+    )
     prediction_days = _valid_prediction_days(root, spec, stock, start, end, index_days)
     common_days = set.intersection(complete_days, *(prediction_days[model] for model in MODELS))
     if not common_days:
         raise ValueError("No shared complete session with all three legal model predictions")
+    declared_prediction_gaps = _declared_session_days(
+        spec, "allowed_prediction_gaps", complete_days,
+    )
+    actual_prediction_gaps = complete_days - common_days
+    if actual_prediction_gaps != declared_prediction_gaps:
+        undeclared = sorted(actual_prediction_gaps - declared_prediction_gaps)
+        stale = sorted(declared_prediction_gaps - actual_prediction_gaps)
+        raise ValueError(
+            f"Three-model prediction coverage mismatch; undeclared={undeclared}, stale={stale}"
+        )
     dividends = _audit_dividends(root, spec)
     return {
         "stock_code": stock,
         "status": "QA_PASSED",
         "coverage": {"start": start, "end": end},
         "complete_sessions": len(complete_days),
+        "partial_sessions": {
+            day: {
+                "bar_count": audit["bar_count"],
+                "missing_bar_count": len(audit["missing_timestamps"]),
+                "duplicate_bar_count": len(audit["duplicate_timestamps"]),
+                "invalid_ohlcv_count": len(audit["invalid_ohlcv_timestamps"]),
+            }
+            for day, audit in sorted(partial_days.items())
+        },
         "common_eligible_sessions": len(common_days),
+        "allowed_prediction_gaps": sorted(declared_prediction_gaps),
         "valid_prediction_days": {model: len(prediction_days[model]) for model in MODELS},
         "dividend_events": dividends,
         "performance_calculated": False,

@@ -150,7 +150,7 @@
   "dataset_onboarding": {
     "required_qa_status": "QA_PASSED",
     "preflight_command": "python scripts/preflight_web_main_datasets.py STOCK_CODE",
-    "last_qa_report": "research/current/web_dataset_preflight_20261114.json",
+    "last_qa_report": "research/current/web_dataset_preflight_20261122_merged.json",
     "general_website_may_unlock_holdout": false,
     "formal_authorization_scope": "one frozen stock and experiment only"
   },
@@ -166,7 +166,6 @@
         "獨立實驗/資料/index_daily.json",
         "獨立實驗/華碩2357_2025上半年/資料/index_daily.json"
       ],
-      "dividends": "獨立實驗/聯電2303台積電2330_2025上半年/資料/2303_cash_dividends.json",
       "prediction_kind": "segmented",
       "prediction_sources": [
         {
@@ -185,7 +184,37 @@
         }
       ],
       "dataset_role": "mixed_training_exposed_and_validation_seen",
-      "continuous_window_note": "2024H2 training + 2025H1 validation_seen run as one continuous window by user request 2026-11-21; never report as validation or clean OOS. 2024H2 cash dividends not in local data."
+      "continuous_window_note": "2024H2 training + 2025H1 validation_seen run as one continuous window by user request 2026-11-21; never report as validation or clean OOS. 2024H2 cash dividends not in local data.",
+      "events": [
+        {
+          "ex_date": "2023-06-27",
+          "payment_date": "2023-07-19",
+          "cash_per_share": 3.60046348
+        },
+        {
+          "ex_date": "2024-07-02",
+          "payment_date": "2024-07-24",
+          "cash_per_share": 3.00011747
+        },
+        {
+          "ex_date": "2025-06-24",
+          "payment_date": "2025-07-16",
+          "cash_per_share": 2.850164
+        }
+      ],
+      "dividend_sources": [
+        "獨立實驗/聯電2303/資料/2303_cash_dividends.json",
+        "獨立實驗/聯電2303台積電2330_2025上半年/資料/2303_cash_dividends.json"
+      ],
+      "allowed_partial_sessions": [],
+      "allowed_prediction_gaps": [
+        "2024-08-29",
+        "2024-08-30",
+        "2024-09-02",
+        "2024-12-30",
+        "2024-12-31",
+        "2025-04-08"
+      ]
     },
     "2330": {
       "stock_name": "台積電",
@@ -198,7 +227,6 @@
         "獨立實驗/資料/index_daily.json",
         "獨立實驗/華碩2357_2025上半年/資料/index_daily.json"
       ],
-      "dividends": "獨立實驗/聯電2303台積電2330_2025上半年/資料/2330_cash_dividends.json",
       "prediction_kind": "segmented",
       "prediction_sources": [
         {
@@ -217,7 +245,48 @@
         }
       ],
       "dataset_role": "mixed_training_exposed_and_validation_seen",
-      "continuous_window_note": "2024H2 training + 2025H1 validation_seen run as one continuous window by user request 2026-11-21; never report as validation or clean OOS. 2024H2 cash dividends not in local data."
+      "continuous_window_note": "2024H2 training + 2025H1 validation_seen run as one continuous window by user request 2026-11-21; never report as validation or clean OOS. 2024H2 cash dividends not in local data.",
+      "events": [
+        {
+          "ex_date": "2024-06-13",
+          "payment_date": "2024-07-11",
+          "cash_per_share": 3.49978969
+        },
+        {
+          "ex_date": "2024-09-12",
+          "payment_date": "2024-10-09",
+          "cash_per_share": 4.0001382
+        },
+        {
+          "ex_date": "2024-12-12",
+          "payment_date": "2025-01-09",
+          "cash_per_share": 3.99963706
+        },
+        {
+          "ex_date": "2025-03-18",
+          "payment_date": "2025-04-10",
+          "cash_per_share": 4.50002042
+        },
+        {
+          "ex_date": "2025-06-12",
+          "payment_date": "2025-07-10",
+          "cash_per_share": 4.50002042
+        }
+      ],
+      "dividend_sources": [
+        "main config inline events (2024)",
+        "獨立實驗/聯電2303台積電2330_2025上半年/資料/2330_cash_dividends.json"
+      ],
+      "allowed_partial_sessions": [],
+      "allowed_prediction_gaps": [
+        "2024-08-29",
+        "2024-08-30",
+        "2024-09-02",
+        "2024-12-30",
+        "2024-12-31",
+        "2025-04-08",
+        "2025-04-11"
+      ]
     },
     "2379": {
       "stock_name": "瑞昱",
@@ -229,6 +298,34 @@
       "index": "獨立實驗/資料/index_daily.json",
       "prediction_kind": "oof_csv",
       "predictions": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
+      "allowed_partial_sessions": [
+        "2024-08-23",
+        "2024-08-26",
+        "2024-08-29",
+        "2024-08-30",
+        "2024-09-03",
+        "2024-09-11",
+        "2024-09-12",
+        "2024-09-30",
+        "2024-10-15",
+        "2024-10-30",
+        "2024-11-05",
+        "2024-11-14",
+        "2024-11-15",
+        "2024-12-13",
+        "2024-12-23",
+        "2024-12-24",
+        "2024-12-25"
+      ],
+      "allowed_prediction_gaps": [
+        "2024-08-27",
+        "2024-09-02",
+        "2024-10-16",
+        "2024-11-06",
+        "2024-11-18",
+        "2024-12-26",
+        "2024-12-30"
+      ],
       "events": [
         {
           "ex_date": "2024-09-05",
@@ -247,7 +344,17 @@
       "index": "獨立實驗/資料/index_daily.json",
       "prediction_kind": "oof_csv",
       "predictions": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
-      "dividends": "獨立實驗/資料/2454_cash_dividends.json"
+      "dividends": "獨立實驗/資料/2454_cash_dividends.json",
+      "allowed_partial_sessions": [
+        "2024-10-30"
+      ],
+      "allowed_prediction_gaps": [
+        "2024-08-29",
+        "2024-08-30",
+        "2024-09-02",
+        "2024-11-01",
+        "2024-12-30"
+      ]
     },
     "3034": {
       "stock_name": "聯詠",
@@ -259,6 +366,31 @@
       "index": "獨立實驗/資料/index_daily.json",
       "prediction_kind": "oof_csv",
       "predictions": "exports/hybrid_poc_v1_20261013T041540804059/ml_v1_baseline_oof_predictions.csv",
+      "allowed_partial_sessions": [
+        "2024-08-27",
+        "2024-09-23",
+        "2024-09-24",
+        "2024-09-27",
+        "2024-10-14",
+        "2024-10-15",
+        "2024-10-17",
+        "2024-10-25",
+        "2024-12-05",
+        "2024-12-06",
+        "2024-12-09",
+        "2024-12-11",
+        "2024-12-12",
+        "2024-12-27"
+      ],
+      "allowed_prediction_gaps": [
+        "2024-08-29",
+        "2024-08-30",
+        "2024-09-02",
+        "2024-09-30",
+        "2024-10-16",
+        "2024-12-10",
+        "2024-12-30"
+      ],
       "events": [
         {
           "ex_date": "2024-07-10",
@@ -277,7 +409,17 @@
       "index": "獨立實驗/華碩2357_2025上半年/資料/index_daily.json",
       "dividends": "獨立實驗/華碩2357_2025上半年/資料/2357_cash_dividends.json",
       "prediction_kind": "fixed_json",
-      "predictions": "獨立實驗/華碩2357_2025上半年/資料/predictions.json"
+      "predictions": "獨立實驗/華碩2357_2025上半年/資料/predictions.json",
+      "allowed_partial_sessions": [
+        "2025-03-06",
+        "2025-04-07",
+        "2025-05-07"
+      ],
+      "allowed_prediction_gaps": [
+        "2025-04-08",
+        "2025-04-09",
+        "2025-04-11"
+      ]
     },
     "3231": {
       "stock_name": "緯創",
@@ -289,7 +431,12 @@
       "index": "獨立實驗/緯創3231_2025上半年/資料/index_daily.json",
       "dividends": "獨立實驗/緯創3231_2025上半年/資料/3231_cash_dividends.json",
       "prediction_kind": "fixed_json",
-      "predictions": "獨立實驗/緯創3231_2025上半年/資料/predictions.json"
+      "predictions": "獨立實驗/緯創3231_2025上半年/資料/predictions.json",
+      "allowed_partial_sessions": [],
+      "allowed_prediction_gaps": [
+        "2025-04-08",
+        "2025-04-11"
+      ]
     },
     "2892": {
       "stock_name": "第一金",
@@ -301,7 +448,12 @@
       "index": "獨立實驗/第一金2892_2025上半年/資料/index_daily.json",
       "dividends": "獨立實驗/第一金2892_2025上半年/資料/2892_cash_dividends.json",
       "prediction_kind": "fixed_json",
-      "predictions": "獨立實驗/第一金2892_2025上半年/資料/predictions.json"
+      "predictions": "獨立實驗/第一金2892_2025上半年/資料/predictions.json",
+      "allowed_partial_sessions": [],
+      "allowed_prediction_gaps": [
+        "2025-02-12",
+        "2025-03-27"
+      ]
     },
     "4938": {
       "stock_name": "和碩",
@@ -313,7 +465,15 @@
       "index": "data/web_main_4938_h1/index.json",
       "predictions": "data/web_main_4938_h1/predictions.json",
       "dividends": "data/web_main_4938_h1/dividends.json",
-      "prediction_kind": "fixed_json"
+      "prediction_kind": "fixed_json",
+      "allowed_partial_sessions": [
+        "2025-04-07",
+        "2025-04-10"
+      ],
+      "allowed_prediction_gaps": [
+        "2025-04-08",
+        "2025-04-11"
+      ]
     }
   }
 }
