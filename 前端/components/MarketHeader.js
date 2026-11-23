@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { marketColors } from "../styles/marketTheme";
+import { colors, radius, shadow, space, type } from "../styles/theme";
 
 export default function MarketHeader({
   title,
@@ -15,14 +15,14 @@ export default function MarketHeader({
     <View style={[styles.container, style]}>
       <View style={styles.topRow}>
         <View style={styles.textBox}>
-          <Text style={{color:"#7db9ed",fontSize:11,letterSpacing:2,marginBottom:8}}>STRATEGY LAB</Text>
+          <Text style={styles.eyebrow}>STRATEGY LAB</Text>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.subtitle}>{subtitle}</Text>
         </View>
 
         {rightContent || (
           <View style={styles.iconBox}>
-            <Ionicons name={icon} size={24} color={marketColors.white} />
+            <Ionicons name={icon} size={22} color={colors.primaryText} />
           </View>
         )}
       </View>
@@ -35,46 +35,38 @@ export default function MarketHeader({
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    backgroundColor: marketColors.header,
+    backgroundColor: colors.header,
     borderWidth: 1,
-    borderColor: marketColors.headerAccent,
-    borderRadius: 21,
-    padding: 24,
-    marginBottom: 14,
+    borderColor: colors.headerAccent,
+    borderRadius: radius.xl,
+    padding: space.xl,
+    marginBottom: space.md,
     overflow: "hidden",
+    ...shadow,
   },
   topRow: {
     flexDirection: "row",
-    flexWrap: "wrap",
     alignItems: "center",
+    gap: space.md,
   },
   textBox: {
     flex: 1,
     minWidth: 0,
-    paddingRight: 12,
   },
-  title: {
-    color: marketColors.white,
-    fontSize: 25,
-    fontWeight: "900",
-  },
-  subtitle: {
-    color: "#b7cfdb",
-    fontSize: 13,
-    lineHeight: 19,
-    marginTop: 4,
-  },
+  eyebrow: { ...type.eyebrow, marginBottom: space.xs },
+  title: { ...type.display, fontSize: 26, lineHeight: 34 },
+  subtitle: { ...type.small, marginTop: space.xxs },
   iconBox: {
     width: 48,
     height: 48,
-    borderRadius: 16,
+    borderRadius: radius.md,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: marketColors.headerAccent,
+    backgroundColor: colors.primarySoft,
     borderWidth: 1,
-    borderColor: "#17688f",
+    borderColor: colors.headerAccent,
   },
   children: {
-    marginTop: 14,
+    marginTop: space.lg,
   },
 });

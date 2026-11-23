@@ -160,9 +160,9 @@ function calculateTradeWeightedWinRate(folds) {
 }
 
 function buildTechnicalV2StockResearch(stockCode, root = PYTHON_BACKTEST_ROOT) {
-  const code = String(stockCode || "").trim();
-  if (!/^\d{4,6}$/.test(code)) {
-    throw new TechnicalV2ResearchError("股票代號格式錯誤，請輸入 4～6 位數字。", 400, "INVALID_STOCK_CODE");
+  const code = String(stockCode || "").trim().toUpperCase();
+  if (!/^\d{4,6}[A-Z]?$/.test(code)) {
+    throw new TechnicalV2ResearchError("股票代號格式錯誤，請輸入 4～6 位數字（ETF 可含一個英文字尾）。", 400, "INVALID_STOCK_CODE");
   }
 
   const { audit, freeze } = validateSource(root);

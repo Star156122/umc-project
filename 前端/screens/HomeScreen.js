@@ -19,7 +19,7 @@ import MarketHeader from "../components/MarketHeader";
 import MarketStockRow from "../components/MarketStockRow";
 import MarketTrendChart from "../components/MarketTrendChart";
 import { apiRequest } from "../src/config/api";
-import { marketColors } from "../styles/marketTheme";
+import { colors as marketColors, radius, shadow, space, type, ui } from "../styles/theme";
 
 function formatPrice(value) {
   if (!Number.isFinite(Number(value))) return "—";
@@ -228,14 +228,14 @@ export default function HomeScreen() {
 
   const header = (
     <View>
-      <Pressable accessibilityRole="button" onPress={()=>router.push('/analysis')} style={{backgroundColor:'#132d45',borderWidth:1,borderColor:'#355c7b',padding:24,borderRadius:20,marginBottom:18,gap:10}}><Text style={{color:'#8ecaff',fontSize:12,letterSpacing:2}}>STRATEGY LAB</Text><Text style={{color:'#f8fafc',fontSize:26,fontWeight:'800'}}>這個策略，會在哪裡買進與賣出？</Text><Text style={{color:'#b6c9db',lineHeight:24}}>選擇股票與歷史期間，查看交易回放、比較策略表現，再閱讀 Gemini 重點分析。</Text><Text style={{color:'#73b9ff',fontSize:17,fontWeight:'700'}}>開始策略模擬 →</Text></Pressable>
+      <Pressable accessibilityRole="button" onPress={()=>router.push('/analysis')} style={({pressed})=>[styles.labCard,pressed&&{backgroundColor:marketColors.surfacePressed}]}><Text style={ui.eyebrow}>STRATEGY LAB</Text><Text style={styles.labTitle}>這個策略，會在哪裡買進與賣出？</Text><Text style={ui.muted}>選擇股票與歷史期間，查看交易回放、比較策略表現，再閱讀 Gemini 重點分析。</Text><View style={styles.labButton}><Text style={ui.buttonPrimaryText}>開始策略模擬 →</Text></View></Pressable>
       <MarketHeader
         title="台股即時行情"
         subtitle="Yahoo Finance 行情・最近一個月走勢・日 K"
         icon="pulse"
       >
         <View style={styles.searchRow}>
-          <Ionicons name="search" size={22} color={marketColors.textMuted} />
+          <Ionicons name="search" size={19} color={marketColors.textMuted} />
           <TextInput
             style={styles.searchInput}
             value={query}
@@ -281,7 +281,7 @@ export default function HomeScreen() {
 
       <View style={styles.sectionRow}>
         <View style={styles.sectionTitleBox}>
-          <Ionicons name="flame" size={20} color="#ff5d3a" />
+          <Ionicons name="flame" size={19} color={marketColors.warning} />
           <Text numberOfLines={1} style={styles.sectionTitle}>
             {title}
           </Text>
@@ -290,7 +290,7 @@ export default function HomeScreen() {
       </View>
 
       <View style={styles.infoBox}>
-        <Ionicons name="information-circle-outline" size={17} color="#74b9ff" />
+        <Ionicons name="information-circle-outline" size={16} color={marketColors.info} />
         <Text style={styles.infoText}>資料來源：Yahoo Finance。{sourceNote}</Text>
       </View>
 
@@ -299,12 +299,12 @@ export default function HomeScreen() {
           <Ionicons
             name={notice.type === "success" ? "checkmark-circle" : "alert-circle"}
             size={19}
-            color={notice.type === "success" ? "#4ade80" : "#f87171"}
+            color={notice.type === "success" ? marketColors.success : marketColors.danger}
           />
           <Text
             style={[
               styles.noticeText,
-              { color: notice.type === "success" ? "#bbf7d0" : "#fecaca" },
+              { color: notice.type === "success" ? marketColors.successText : marketColors.dangerText },
             ]}
           >
             {notice.text}
@@ -317,8 +317,8 @@ export default function HomeScreen() {
 
       {error ? (
         <View style={[styles.noticeBox, styles.errorBox]}>
-          <Ionicons name="alert-circle" size={20} color="#f87171" />
-          <Text style={[styles.noticeText, { color: "#fecaca" }]}>{error}</Text>
+          <Ionicons name="alert-circle" size={19} color={marketColors.danger} />
+          <Text style={[styles.noticeText, { color: marketColors.dangerText }]}>{error}</Text>
           <Pressable onPress={() => loadHotStocks()}>
             <Text style={styles.retryText}>重試</Text>
           </Pressable>
@@ -334,7 +334,7 @@ export default function HomeScreen() {
     </View>
   ) : (
     <View style={styles.stateCard}>
-      <Ionicons name="search-outline" size={48} color="#526979" />
+      <Ionicons name="search-outline" size={44} color={marketColors.textSubtle} />
       <Text style={styles.emptyTitle}>Yahoo Finance 找不到符合的股票</Text>
       <Text style={styles.emptySubtitle}>請改用完整股票代號或公司名稱搜尋</Text>
     </View>
@@ -374,194 +374,105 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: marketColors.background,
+  safeArea: { flex: 1, backgroundColor: marketColors.background },
+  list: { width: "100%", alignSelf: "center" },
+  listContent: { paddingTop: space.lg, paddingBottom: 120 },
+  labCard: {
+    backgroundColor: marketColors.surface,
+    borderWidth: 1,
+    borderColor: marketColors.border,
+    borderRadius: radius.xl,
+    padding: space.xl,
+    marginBottom: space.md,
+    gap: space.xs,
+    ...shadow,
   },
-  list: {
-    width: "100%",
-    alignSelf: "center",
-  },
-  listContent: {
-    paddingHorizontal: 12,
-    paddingTop: 14,
-    paddingBottom: 120,
-  },
+  labTitle: { ...type.title, fontSize: 24, lineHeight: 32, fontWeight: "800" },
+  labButton: { ...StyleSheet.flatten(ui.buttonPrimary), alignSelf: "flex-start", marginTop: space.xs },
   searchRow: {
-    minHeight: 52,
+    minHeight: 48,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: marketColors.input,
     borderWidth: 1,
     borderColor: marketColors.border,
-    borderRadius: 14,
-    paddingLeft: 13,
+    borderRadius: radius.md,
+    paddingLeft: space.sm,
     overflow: "hidden",
   },
   searchInput: {
     flex: 1,
-    minHeight: 50,
-    paddingHorizontal: 10,
+    minWidth: 0,
+    minHeight: 46,
+    paddingHorizontal: space.xs,
     color: marketColors.text,
-    fontSize: 16,
+    fontSize: 15,
+    fontFamily: type.body.fontFamily,
+    outlineStyle: "none",
   },
-  clearButton: {
-    width: 42,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  clearButton: { width: 40, height: 46, alignItems: "center", justifyContent: "center" },
   searchButton: {
-    width: 72,
-    height: 52,
+    width: 76,
+    alignSelf: "stretch",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: marketColors.primary,
   },
   searchButtonPressed: { backgroundColor: marketColors.primaryPressed },
-  searchButtonDisabled: { opacity: 0.7 },
-  searchButtonText: {
-    color: marketColors.white,
-    fontWeight: "900",
-    fontSize: 16,
-  },
+  searchButtonDisabled: { opacity: 0.6 },
+  searchButtonText: { ...type.body, color: marketColors.white, fontWeight: "700" },
   indicesRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 10,
-    marginBottom: 16,
+    gap: space.sm,
+    marginBottom: space.lg,
   },
   indexCard: {
     flex: 1,
-    minWidth: 150,
+    minWidth: 260,
     borderWidth: 1,
     borderColor: marketColors.border,
-    borderRadius: 17,
+    borderRadius: radius.lg,
     backgroundColor: marketColors.surface,
-    padding: 13,
+    padding: space.md,
+    gap: space.xs,
+    ...shadow,
   },
-  indexTitleRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  indexName: {
-    color: marketColors.text,
-    fontSize: 16,
-    fontWeight: "900",
-  },
-  indexSource: {
-    color: marketColors.textSubtle,
-    fontSize: 11,
-  },
-  indexPriceRow: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    marginTop: 7,
-  },
-  indexPrice: {
-    fontSize: 25,
-    fontWeight: "700",
-  },
-  indexPercent: {
-    fontSize: 12,
-    fontWeight: "800",
-    marginLeft: 7,
-    marginBottom: 4,
-  },
-  indexChart: {
-    marginTop: 8,
-    alignItems: "center",
-  },
+  indexTitleRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+  indexName: { ...type.subheading, fontWeight: "700" },
+  indexSource: { ...type.caption },
+  indexPriceRow: { flexDirection: "row", alignItems: "flex-end", gap: space.xs, marginBottom: space.xxs },
+  indexPrice: { ...type.number, fontSize: 26, lineHeight: 32, fontWeight: "700" },
+  indexPercent: { ...type.number, fontSize: 13, fontWeight: "700", marginBottom: 4 },
   sectionRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 2,
-    marginBottom: 10,
+    marginTop: space.xs,
+    marginBottom: space.sm,
   },
-  sectionTitleBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    flex: 1,
-  },
-  sectionTitle: {
-    color: marketColors.text,
-    fontSize: 20,
-    fontWeight: "900",
-    marginLeft: 7,
-    flex: 1,
-  },
-  updateText: {
-    color: marketColors.textSubtle,
-    fontSize: 11,
-    marginLeft: 8,
-  },
-  infoBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 11,
-    paddingHorizontal: 11,
-    paddingVertical: 9,
-    borderRadius: 13,
-    backgroundColor: "#0b2436",
-    borderWidth: 1,
-    borderColor: "#17425c",
-  },
-  infoText: {
-    color: "#b9d9ee",
-    fontSize: 12,
-    marginLeft: 7,
-    flex: 1,
-  },
-  noticeBox: {
-    marginBottom: 11,
-    padding: 12,
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderRadius: 13,
-  },
-  successBox: {
-    borderColor: "#166534",
-    backgroundColor: "#0b2b20",
-  },
-  errorBox: {
-    borderColor: "#7f1d1d",
-    backgroundColor: "#331719",
-  },
-  noticeText: {
-    flex: 1,
-    marginLeft: 8,
-  },
-  retryText: {
-    color: "#60a5fa",
-    fontWeight: "800",
-  },
+  sectionTitleBox: { flexDirection: "row", alignItems: "center", gap: space.xs, flex: 1 },
+  sectionTitle: { ...type.title, flex: 1 },
+  updateText: { ...type.caption, ...type.number, marginLeft: space.xs },
+  infoBox: { ...StyleSheet.flatten([ui.notice, ui.noticeInfo]), alignItems: "center", marginBottom: space.sm },
+  infoText: { ...StyleSheet.flatten(ui.noticeInfoText) },
+  noticeBox: { ...StyleSheet.flatten(ui.notice), alignItems: "center", marginBottom: space.sm },
+  successBox: StyleSheet.flatten(ui.noticeSuccess),
+  errorBox: StyleSheet.flatten(ui.noticeError),
+  noticeText: { ...type.small, flex: 1 },
+  retryText: { ...type.small, color: marketColors.primaryText, fontWeight: "700" },
   stateCard: {
     minHeight: 260,
     alignItems: "center",
     justifyContent: "center",
+    gap: space.xs,
     backgroundColor: marketColors.surface,
     borderWidth: 1,
     borderColor: marketColors.border,
-    borderRadius: 20,
-    paddingHorizontal: 24,
-    marginTop: 2,
+    borderRadius: radius.lg,
+    paddingHorizontal: space.xl,
   },
-  stateText: {
-    color: marketColors.textMuted,
-    marginTop: 12,
-  },
-  emptyTitle: {
-    color: marketColors.text,
-    fontSize: 18,
-    fontWeight: "900",
-    marginTop: 12,
-    textAlign: "center",
-  },
-  emptySubtitle: {
-    color: marketColors.textSubtle,
-    marginTop: 6,
-    textAlign: "center",
-  },
+  stateText: { ...type.small, marginTop: space.xs },
+  emptyTitle: { ...type.heading, marginTop: space.xs, textAlign: "center" },
+  emptySubtitle: { ...type.small, textAlign: "center" },
 });

@@ -626,8 +626,8 @@ async function searchStocks(query, limit = 8) {
   if (!keyword) return getHotMarket();
 
   let stocks = [];
-  if (/^\d{4,6}$/.test(keyword)) {
-    stocks = await resolveNumericCode(keyword);
+  if (/^\d{4,6}[A-Z]?$/i.test(keyword)) {
+    stocks = await resolveNumericCode(keyword.toUpperCase());
   } else if (isTaiwanYahooSymbol(keyword)) {
     try {
       stocks = [await getYahooStockBySymbol(keyword)];
@@ -673,8 +673,8 @@ async function resolveStockForFavorite({ code, yahooSymbol }) {
     return stock;
   }
 
-  const cleanCode = cleanText(code);
-  if (!/^\d{4,6}$/.test(cleanCode)) {
+  const cleanCode = cleanText(code).toUpperCase();
+  if (!/^\d{4,6}[A-Z]?$/.test(cleanCode)) {
     throw new Error("股票代號格式不正確");
   }
 
@@ -696,7 +696,7 @@ function databaseRowToYahooSymbol(row) {
 const monthCache = new Map();
 async function getMonthMarketHistory(symbol) {
  const normalized=normalizeYahooSymbol(symbol);
- if(!/^(?:\^TWII|\d{4,6}\.(?:TW|TWO))$/.test(normalized))throw Object.assign(new Error('股票代號格式不正確'),{status:400});
+ if(!/^(?:\^TWII|\d{4,6}[A-Z]?\.(?:TW|TWO))$/.test(normalized))throw Object.assign(new Error('股票代號格式不正確'),{status:400});
  const old=monthCache.get(normalized);
  if(old&&old.expiresAt>Date.now())return old.promise;
  const promise=(async()=>{

@@ -432,8 +432,8 @@ function foldMetrics(row) {
 }
 
 function buildHybridRiskV1StockResearch(stockCode, root = PYTHON_BACKTEST_ROOT) {
-  const code = String(stockCode || "").trim();
-  if (!/^\d{4,6}$/.test(code)) throw new HybridRiskV1ResearchError("股票代號格式錯誤，請輸入 4～6 位數字。", 400, "INVALID_STOCK_CODE");
+  const code = String(stockCode || "").trim().toUpperCase();
+  if (!/^\d{4,6}[A-Z]?$/.test(code)) throw new HybridRiskV1ResearchError("股票代號格式錯誤，請輸入 4～6 位數字（ETF 可含一個英文字尾）。", 400, "INVALID_STOCK_CODE");
   const src = loadAndValidateSources(root);
   const candidateRows = src.candidates.filter((row) => row.stock_code === code);
   if (!candidateRows.length) throw new HybridRiskV1ResearchError(`找不到股票 ${code} 的 Technical Control + RF BUY-only Gate + Risk V1 歷史成果。`, 404, "RESEARCH_RESULT_NOT_FOUND");

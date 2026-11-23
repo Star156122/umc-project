@@ -3,6 +3,7 @@ import { ActivityIndicator, View } from "react-native";
 import { Redirect, Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { colors } from "../../../styles/theme";
 
 export default function TabsLayout() {
   const [checking, setChecking] = useState(true);
@@ -25,10 +26,10 @@ export default function TabsLayout() {
           flex: 1,
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#06111b",
+          backgroundColor: colors.background,
         }}
       >
-        <ActivityIndicator size="large" color="#0874f8" />
+        <ActivityIndicator size="large" color={colors.primary} />
       </View>
     );
   }
@@ -42,19 +43,19 @@ export default function TabsLayout() {
       initialRouteName="analysis"
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#56a5ff",
-        tabBarInactiveTintColor: "#8295a5",
+        tabBarActiveTintColor: colors.primaryText,
+        tabBarInactiveTintColor: colors.textSubtle,
         tabBarStyle: {
-          backgroundColor: "#081722",
-          borderTopColor: "#263b4b",
+          backgroundColor: colors.surface,
+          borderTopColor: colors.border,
           borderTopWidth: 1,
-          height: 68,
-          paddingTop: 7,
+          height: 64,
+          paddingTop: 6,
           paddingBottom: 8,
         },
         tabBarLabelStyle: {
           fontSize: 12,
-          fontWeight: "800",
+          fontWeight: "600",
         },
       }}
     >
