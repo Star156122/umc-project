@@ -3,7 +3,7 @@
   "stock": "2357",
   "period": {
     "start": "2025-01-01",
-    "end": "2025-06-30"
+    "end": "2025-12-31"
   },
   "data_role": "historical_development",
   "initial_capital": 250000,
@@ -140,8 +140,8 @@
   ],
   "periods": {
     "backtest": {
-      "start": "2024-07-01",
-      "end": "2025-06-30"
+      "start": "2025-01-01",
+      "end": "2025-12-31"
     }
   },
   "data_protection": {
@@ -150,135 +150,99 @@
   "dataset_onboarding": {
     "required_qa_status": "QA_PASSED",
     "preflight_command": "python scripts/preflight_web_main_datasets.py STOCK_CODE",
-    "last_qa_report": "research/current/web_dataset_preflight_20261122_nine_stock.json",
-    "general_website_may_unlock_holdout": false,
+    "last_qa_report": "research/current/web_dataset_preflight_2025_full_year.json",
+    "website_backtest_end": "2025-12-31",
     "formal_authorization_scope": "one frozen stock and experiment only"
   },
   "datasets": {
     "2303": {
       "stock_name": "聯電",
       "qa_status": "QA_PASSED",
-      "warmup_start": "2024-05-01",
-      "start": "2024-07-01",
-      "end": "2025-06-30",
-      "database": "data/web_main_bounded_2024h2_2025h1/history.sqlite3",
-      "index": "data/web_main_bounded_2024h2_2025h1/index.json",
+      "warmup_start": "2024-11-01",
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "database": "data/web_main_2025/history.sqlite3",
+      "index": "data/web_main_2025/index.json",
       "prediction_kind": "fixed_json",
-      "dataset_role": "mixed_training_exposed_and_validation_seen",
-      "events": [
-        {
-          "ex_date": "2023-06-27",
-          "payment_date": "2023-07-19",
-          "cash_per_share": 3.60046348
-        },
-        {
-          "ex_date": "2024-07-02",
-          "payment_date": "2024-07-24",
-          "cash_per_share": 3.00011747
-        },
-        {
-          "ex_date": "2025-06-24",
-          "payment_date": "2025-07-16",
-          "cash_per_share": 2.850164
-        }
-      ],
-      "dividend_sources": [
-        "獨立實驗/聯電2303/資料/2303_cash_dividends.json",
-        "獨立實驗/聯電2303台積電2330_2025上半年/資料/2303_cash_dividends.json"
-      ],
-      "predictions": "data/web_main_bounded_2024h2_2025h1/predictions/2303.json",
-      "continuous_window_note": "2024H2 (causal walk-forward predictions, training_exposed) + 2025H1 (fixed 2023-2024 models, validation_seen) as one continuous window by user request; never report as validation or clean OOS.",
+      "predictions": "data/web_main_2025/predictions/2303.json",
       "allowed_partial_sessions": [],
       "allowed_prediction_gaps": [
         "2025-04-08"
+      ],
+      "events": [
+        {
+          "ex_date": "2023-06-27",
+          "cash_per_share": 3.60046348,
+          "payment_date": "2023-07-19"
+        },
+        {
+          "ex_date": "2024-07-02",
+          "cash_per_share": 3.00011747,
+          "payment_date": "2024-07-24"
+        }
       ]
     },
     "2330": {
       "stock_name": "台積電",
       "qa_status": "QA_PASSED",
-      "warmup_start": "2024-05-01",
-      "start": "2024-07-01",
-      "end": "2025-06-30",
-      "database": "data/web_main_bounded_2024h2_2025h1/history.sqlite3",
-      "index": "data/web_main_bounded_2024h2_2025h1/index.json",
+      "warmup_start": "2024-11-01",
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "database": "data/web_main_2025/history.sqlite3",
+      "index": "data/web_main_2025/index.json",
       "prediction_kind": "fixed_json",
-      "dataset_role": "mixed_training_exposed_and_validation_seen",
+      "predictions": "data/web_main_2025/predictions/2330.json",
+      "allowed_partial_sessions": [],
+      "allowed_prediction_gaps": [
+        "2025-04-08",
+        "2025-04-11",
+        "2025-07-28",
+        "2025-08-25"
+      ],
       "events": [
-        {
-          "ex_date": "2024-06-13",
-          "payment_date": "2024-07-11",
-          "cash_per_share": 3.49978969
-        },
-        {
-          "ex_date": "2024-09-12",
-          "payment_date": "2024-10-09",
-          "cash_per_share": 4.0001382
-        },
         {
           "ex_date": "2024-12-12",
           "payment_date": "2025-01-09",
-          "cash_per_share": 3.99963706
+          "cash_per_share": 3.99963706,
+          "source_url": "https://investor.tsmc.com/english/dividends/2q24"
         },
         {
           "ex_date": "2025-03-18",
           "payment_date": "2025-04-10",
-          "cash_per_share": 4.50002042
+          "cash_per_share": 4.50002042,
+          "source_url": "https://investor.tsmc.com/english/dividends/3q24"
         },
         {
           "ex_date": "2025-06-12",
           "payment_date": "2025-07-10",
-          "cash_per_share": 4.50002042
+          "cash_per_share": 4.50002042,
+          "source_url": "https://investor.tsmc.com/schinese/dividends/4q24"
+        },
+        {
+          "ex_date": "2025-09-16",
+          "payment_date": "2025-10-09",
+          "cash_per_share": 5.00001754,
+          "source_url": "https://investor.tsmc.com/chinese/dividends"
+        },
+        {
+          "ex_date": "2025-12-11",
+          "payment_date": "2026-01-08",
+          "cash_per_share": 5.00001118,
+          "source_url": "https://investor.tsmc.com/chinese/dividends"
         }
-      ],
-      "dividend_sources": [
-        "main config inline events (2024)",
-        "獨立實驗/聯電2303台積電2330_2025上半年/資料/2330_cash_dividends.json"
-      ],
-      "predictions": "data/web_main_bounded_2024h2_2025h1/predictions/2330.json",
-      "continuous_window_note": "2024H2 (causal walk-forward predictions, training_exposed) + 2025H1 (fixed 2023-2024 models, validation_seen) as one continuous window by user request; never report as validation or clean OOS.",
-      "allowed_partial_sessions": [],
-      "allowed_prediction_gaps": [
-        "2025-04-08",
-        "2025-04-11"
       ]
     },
     "2379": {
       "stock_name": "瑞昱",
       "qa_status": "QA_PASSED",
-      "warmup_start": "2024-05-01",
-      "start": "2024-07-01",
-      "end": "2025-06-30",
-      "database": "data/web_main_bounded_2024h2_2025h1/history.sqlite3",
-      "index": "data/web_main_bounded_2024h2_2025h1/index.json",
+      "warmup_start": "2024-11-01",
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "database": "data/web_main_2025/history.sqlite3",
+      "index": "data/web_main_2025/index.json",
       "prediction_kind": "fixed_json",
-      "predictions": "data/web_main_bounded_2024h2_2025h1/predictions/2379.json",
-      "events": [
-        {
-          "ex_date": "2024-09-05",
-          "payment_date": "2024-10-08",
-          "cash_per_share": 15.5
-        }
-      ],
-      "dataset_role": "mixed_training_exposed_and_validation_seen",
-      "continuous_window_note": "2024H2 (causal walk-forward predictions, training_exposed) + 2025H1 (fixed 2023-2024 models, validation_seen) as one continuous window by user request; never report as validation or clean OOS.",
+      "predictions": "data/web_main_2025/predictions/2379.json",
       "allowed_partial_sessions": [
-        "2024-08-23",
-        "2024-08-26",
-        "2024-08-29",
-        "2024-08-30",
-        "2024-09-03",
-        "2024-09-11",
-        "2024-09-12",
-        "2024-09-30",
-        "2024-10-15",
-        "2024-10-30",
-        "2024-11-05",
-        "2024-11-14",
-        "2024-11-15",
-        "2024-12-13",
-        "2024-12-23",
-        "2024-12-24",
-        "2024-12-25",
         "2025-01-07",
         "2025-01-08",
         "2025-01-16",
@@ -296,14 +260,33 @@
         "2025-05-21",
         "2025-05-22",
         "2025-06-12",
-        "2025-06-18"
+        "2025-06-18",
+        "2025-07-24",
+        "2025-07-25",
+        "2025-07-30",
+        "2025-07-31",
+        "2025-08-22",
+        "2025-08-25",
+        "2025-09-01",
+        "2025-09-12",
+        "2025-09-22",
+        "2025-09-25",
+        "2025-09-26",
+        "2025-10-16",
+        "2025-10-21",
+        "2025-10-22",
+        "2025-10-23",
+        "2025-10-30",
+        "2025-11-10",
+        "2025-11-28",
+        "2025-12-03",
+        "2025-12-08",
+        "2025-12-09",
+        "2025-12-10",
+        "2025-12-12",
+        "2025-12-29"
       ],
       "allowed_prediction_gaps": [
-        "2024-08-27",
-        "2024-10-16",
-        "2024-11-06",
-        "2024-11-18",
-        "2024-12-26",
         "2025-01-09",
         "2025-01-17",
         "2025-02-24",
@@ -314,68 +297,77 @@
         "2025-04-11",
         "2025-04-25",
         "2025-05-15",
-        "2025-05-23"
+        "2025-05-23",
+        "2025-08-01",
+        "2025-09-15",
+        "2025-10-27",
+        "2025-12-01"
+      ],
+      "events": [
+        {
+          "ex_date": "2025-09-10",
+          "payment_date": "2025-10-09",
+          "cash_per_share": 25.5,
+          "source_url": "https://www.realtek.com/InvestorRelations/DividendInfo?menu_id=712"
+        }
       ]
     },
     "2454": {
       "stock_name": "聯發科",
       "qa_status": "QA_PASSED",
-      "warmup_start": "2024-05-01",
-      "start": "2024-07-01",
-      "end": "2025-06-30",
-      "database": "data/web_main_bounded_2024h2_2025h1/history.sqlite3",
-      "index": "data/web_main_bounded_2024h2_2025h1/index.json",
+      "warmup_start": "2024-11-01",
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "database": "data/web_main_2025/history.sqlite3",
+      "index": "data/web_main_2025/index.json",
       "prediction_kind": "fixed_json",
-      "predictions": "data/web_main_bounded_2024h2_2025h1/predictions/2454.json",
-      "dividends": "獨立實驗/資料/2454_cash_dividends.json",
-      "dataset_role": "mixed_training_exposed_and_validation_seen",
-      "continuous_window_note": "2024H2 (causal walk-forward predictions, training_exposed) + 2025H1 (fixed 2023-2024 models, validation_seen) as one continuous window by user request; never report as validation or clean OOS.",
+      "predictions": "data/web_main_2025/predictions/2454.json",
       "allowed_partial_sessions": [
-        "2024-10-30",
         "2025-04-07",
         "2025-04-10"
       ],
       "allowed_prediction_gaps": [
-        "2024-11-01",
         "2025-04-08",
-        "2025-04-11"
+        "2025-04-11",
+        "2025-08-06",
+        "2025-09-01",
+        "2025-11-27"
+      ],
+      "events": [
+        {
+          "ex_date": "2023-06-20",
+          "cash_per_share": 76.00660606,
+          "payment_date": "2023-07-20"
+        },
+        {
+          "ex_date": "2024-01-04",
+          "cash_per_share": 24.6,
+          "payment_date": "2024-01-31"
+        },
+        {
+          "ex_date": "2024-07-04",
+          "cash_per_share": 30.40530874,
+          "payment_date": "2024-07-31"
+        },
+        {
+          "ex_date": "2025-07-03",
+          "payment_date": "2025-07-31",
+          "cash_per_share": 25.00021747,
+          "source_url": "https://www.mediatek.com/zh-tw/investor-relations/shareholder-services"
+        }
       ]
     },
     "3034": {
       "stock_name": "聯詠",
       "qa_status": "QA_PASSED",
-      "warmup_start": "2024-05-01",
-      "start": "2024-07-01",
-      "end": "2025-06-30",
-      "database": "data/web_main_bounded_2024h2_2025h1/history.sqlite3",
-      "index": "data/web_main_bounded_2024h2_2025h1/index.json",
+      "warmup_start": "2024-11-01",
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "database": "data/web_main_2025/history.sqlite3",
+      "index": "data/web_main_2025/index.json",
       "prediction_kind": "fixed_json",
-      "predictions": "data/web_main_bounded_2024h2_2025h1/predictions/3034.json",
-      "events": [
-        {
-          "ex_date": "2024-07-10",
-          "payment_date": "2024-08-09",
-          "cash_per_share": 32
-        }
-      ],
-      "dataset_role": "mixed_training_exposed_and_validation_seen",
-      "continuous_window_note": "2024H2 (causal walk-forward predictions, training_exposed) + 2025H1 (fixed 2023-2024 models, validation_seen) as one continuous window by user request; never report as validation or clean OOS.",
+      "predictions": "data/web_main_2025/predictions/3034.json",
       "allowed_partial_sessions": [
-        "2024-08-27",
-        "2024-09-23",
-        "2024-09-24",
-        "2024-09-27",
-        "2024-10-14",
-        "2024-10-15",
-        "2024-10-17",
-        "2024-10-25",
-        "2024-12-05",
-        "2024-12-06",
-        "2024-12-09",
-        "2024-12-11",
-        "2024-12-12",
-        "2024-12-27",
-        "2024-12-31",
         "2025-01-10",
         "2025-01-20",
         "2025-02-11",
@@ -392,12 +384,15 @@
         "2025-04-07",
         "2025-04-10",
         "2025-04-17",
-        "2025-06-16"
+        "2025-06-16",
+        "2025-08-01",
+        "2025-08-22",
+        "2025-08-25",
+        "2025-09-01",
+        "2025-09-03",
+        "2025-10-15"
       ],
       "allowed_prediction_gaps": [
-        "2024-09-30",
-        "2024-10-16",
-        "2024-12-10",
         "2025-02-12",
         "2025-03-04",
         "2025-03-14",
@@ -405,103 +400,134 @@
         "2025-03-27",
         "2025-04-08",
         "2025-04-11",
-        "2025-04-18"
+        "2025-04-18",
+        "2025-09-02",
+        "2025-09-04",
+        "2025-10-16"
+      ],
+      "events": [
+        {
+          "ex_date": "2025-07-09",
+          "payment_date": "2025-08-08",
+          "cash_per_share": 28,
+          "source_url": "https://www.novatek.com.tw/zh-TW/IR_info/ir_dividendInformation"
+        }
       ]
     },
     "2357": {
       "stock_name": "華碩",
       "qa_status": "QA_PASSED",
-      "warmup_start": "2024-05-01",
-      "start": "2024-07-01",
-      "end": "2025-06-30",
-      "database": "data/web_main_bounded_2024h2_2025h1/history.sqlite3",
-      "index": "data/web_main_bounded_2024h2_2025h1/index.json",
-      "dividends": "獨立實驗/華碩2357_2025上半年/資料/2357_cash_dividends.json",
+      "warmup_start": "2024-11-01",
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "database": "data/web_main_2025/history.sqlite3",
+      "index": "data/web_main_2025/index.json",
       "prediction_kind": "fixed_json",
-      "predictions": "data/web_main_bounded_2024h2_2025h1/predictions/2357.json",
-      "dataset_role": "mixed_training_exposed_and_validation_seen",
-      "continuous_window_note": "2024H2 (causal walk-forward predictions, training_exposed) + 2025H1 (fixed 2023-2024 models, validation_seen) as one continuous window by user request; never report as validation or clean OOS.",
+      "predictions": "data/web_main_2025/predictions/2357.json",
       "allowed_partial_sessions": [
-        "2024-08-28",
-        "2024-10-29",
-        "2024-12-27",
         "2025-03-06",
         "2025-04-07",
-        "2025-05-07"
+        "2025-05-07",
+        "2025-08-04",
+        "2025-08-06",
+        "2025-09-05",
+        "2025-10-23",
+        "2025-11-03",
+        "2025-11-19",
+        "2025-12-05",
+        "2025-12-10",
+        "2025-12-12"
       ],
       "allowed_prediction_gaps": [
         "2025-04-08",
         "2025-04-09",
-        "2025-04-11"
+        "2025-04-11",
+        "2025-08-05",
+        "2025-09-08",
+        "2025-10-27",
+        "2025-12-08"
+      ],
+      "events": [
+        {
+          "ex_date": "2025-06-26",
+          "payment_date": "2025-07-17",
+          "cash_per_share": 34
+        }
       ]
     },
     "3231": {
       "stock_name": "緯創",
       "qa_status": "QA_PASSED",
-      "warmup_start": "2024-05-01",
-      "start": "2024-07-01",
-      "end": "2025-06-30",
-      "database": "data/web_main_bounded_2024h2_2025h1/history.sqlite3",
-      "index": "data/web_main_bounded_2024h2_2025h1/index.json",
-      "dividends": "獨立實驗/緯創3231_2025上半年/資料/3231_cash_dividends.json",
+      "warmup_start": "2024-11-01",
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "database": "data/web_main_2025/history.sqlite3",
+      "index": "data/web_main_2025/index.json",
       "prediction_kind": "fixed_json",
-      "predictions": "data/web_main_bounded_2024h2_2025h1/predictions/3231.json",
-      "dataset_role": "mixed_training_exposed_and_validation_seen",
-      "continuous_window_note": "2024H2 (causal walk-forward predictions, training_exposed) + 2025H1 (fixed 2023-2024 models, validation_seen) as one continuous window by user request; never report as validation or clean OOS.",
+      "predictions": "data/web_main_2025/predictions/3231.json",
       "allowed_partial_sessions": [],
       "allowed_prediction_gaps": [
         "2025-04-08",
-        "2025-04-11"
+        "2025-04-11",
+        "2025-10-01"
+      ],
+      "events": [
+        {
+          "ex_date": "2025-06-03",
+          "payment_date": "2025-06-27",
+          "cash_per_share": 3.79927437
+        }
       ]
     },
     "2892": {
       "stock_name": "第一金",
       "qa_status": "QA_PASSED",
-      "warmup_start": "2024-05-01",
-      "start": "2024-07-01",
-      "end": "2025-06-30",
-      "database": "data/web_main_bounded_2024h2_2025h1/history.sqlite3",
-      "index": "data/web_main_bounded_2024h2_2025h1/index.json",
-      "dividends": "獨立實驗/第一金2892_2025上半年/資料/2892_cash_dividends.json",
+      "warmup_start": "2024-11-01",
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "database": "data/web_main_2025/history.sqlite3",
+      "index": "data/web_main_2025/index.json",
       "prediction_kind": "fixed_json",
-      "predictions": "data/web_main_bounded_2024h2_2025h1/predictions/2892.json",
-      "dataset_role": "mixed_training_exposed_and_validation_seen",
-      "continuous_window_note": "2024H2 (causal walk-forward predictions, training_exposed) + 2025H1 (fixed 2023-2024 models, validation_seen) as one continuous window by user request; never report as validation or clean OOS.",
+      "predictions": "data/web_main_2025/predictions/2892.json",
       "allowed_partial_sessions": [],
       "allowed_prediction_gaps": [
-        "2024-08-21",
         "2025-02-12",
         "2025-03-27"
+      ],
+      "events": [
+        {
+          "ex_date": "2025-08-07",
+          "payment_date": "2025-08-27",
+          "cash_per_share": 0.95,
+          "source_url": "https://wwwc.twse.com.tw/pdf/ch/2892_ch.pdf"
+        }
       ]
     },
     "4938": {
       "stock_name": "和碩",
       "qa_status": "QA_PASSED",
-      "warmup_start": "2024-05-01",
-      "start": "2024-07-01",
-      "end": "2025-06-30",
-      "database": "data/web_main_bounded_2024h2_2025h1/history.sqlite3",
-      "index": "data/web_main_bounded_2024h2_2025h1/index.json",
-      "predictions": "data/web_main_bounded_2024h2_2025h1/predictions/4938.json",
-      "dividends": "data/web_main_4938_h1/dividends.json",
+      "warmup_start": "2024-11-01",
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "database": "data/web_main_2025/history.sqlite3",
+      "index": "data/web_main_2025/index.json",
+      "predictions": "data/web_main_2025/predictions/4938.json",
       "prediction_kind": "fixed_json",
-      "dataset_role": "mixed_training_exposed_and_validation_seen",
-      "continuous_window_note": "2024H2 (causal walk-forward predictions, training_exposed) + 2025H1 (fixed 2023-2024 models, validation_seen) as one continuous window by user request; never report as validation or clean OOS.",
       "allowed_partial_sessions": [
-        "2024-08-13",
-        "2024-08-27",
-        "2024-08-28",
-        "2024-09-09",
-        "2024-12-06",
-        "2024-12-25",
         "2025-04-07",
-        "2025-04-10"
+        "2025-04-10",
+        "2025-09-03"
       ],
       "allowed_prediction_gaps": [
-        "2024-10-29",
-        "2024-12-09",
         "2025-04-08",
         "2025-04-11"
+      ],
+      "events": [
+        {
+          "ex_date": "2025-06-17",
+          "payment_date": "2025-07-09",
+          "cash_per_share": 4.50282529
+        }
       ]
     }
   }

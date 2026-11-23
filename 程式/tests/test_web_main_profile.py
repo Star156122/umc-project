@@ -2,6 +2,7 @@ import copy,json,unittest
 from pathlib import Path
 from hybrid.core import main_buy_strategy_v1 as engine
 from hybrid.core.web_main_backtest import request_config,normalize,PROFILE
+from trading_system.research_guard import assert_website_period
 
 class MainProfileTests(unittest.TestCase):
  def test_real_profile_cash_and_no_add_extension(self):
@@ -12,14 +13,13 @@ class MainProfileTests(unittest.TestCase):
   q,_=engine.approved_quantity(100,250000,250000,10000,True,c,.0005)
   self.assertLessEqual(q*100.05+engine.commission(q,100.05,c),100000)
  def test_stock_specific_coverage_and_future_guard(self):
-  request_config('2379','2024-12-01','2024-12-30')
-  request_config('2330','2025-01-01','2025-03-31')
-  request_config('4938','2025-01-01','2025-06-30')
   for code in ['2303','2330','2379','2454','3034','2357','3231','2892','4938']:
-   c=request_config(code,'2024-07-01','2025-06-30')
-   self.assertEqual(c['datasets'][code]['predictions'],f'data/web_main_bounded_2024h2_2025h1/predictions/{code}.json')
-  for code,start,end in [('2357','2024-06-03','2024-12-30'),('2330','2024-06-01','2024-06-30'),('2303','2024-06-03','2025-06-30'),('2330','2025-07-01','2025-12-31'),('4938','2025-07-01','2025-12-31'),('2357','2025-07-01','2025-12-31'),('2357','2026-07-01','2026-12-31')]:
-   with self.assertRaises(ValueError):request_config(code,start,end)
+   c=request_config(code,'2025-01-01','2025-12-31',check_period=assert_website_period)
+   self.assertEqual(c['datasets'][code]['predictions'],f'data/web_main_2025/predictions/{code}.json')
+  with self.assertRaises(ValueError):
+   request_config('2303','2025-01-01','2025-12-31')
+  with self.assertRaises(ValueError):
+   request_config('2303','2025-12-31','2026-01-01',check_period=assert_website_period)
  def test_period_and_policy_cannot_be_overridden(self):
   c=request_config('2357','2025-01-01','2025-03-31')
   for k,v in [('revised_max_adds',1),('risk_budget_enabled',True),('initial_capital',100000)]:

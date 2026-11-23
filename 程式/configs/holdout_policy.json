@@ -6,6 +6,7 @@
     "additional_holdout": {"start": "2025-07-01", "end": "2025-12-31", "access": "forbidden"},
     "final_out_of_sample": {"start": "2026-07-01", "end": null, "access": "forbidden"}
   },
+  "website_historical_backtest": {"start": "2025-01-01", "end": "2025-12-31", "training_end": "2024-12-31", "authorized_on": "2026-11-23"},
   "holdout": {"start": "2025-07-01", "end": "2025-12-31", "access": "forbidden"},
   "final_test": {"start": "2026-07-01", "end": null, "access": "forbidden"},
   "state": "locked_unseen",
