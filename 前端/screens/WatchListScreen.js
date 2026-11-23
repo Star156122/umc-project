@@ -17,7 +17,7 @@ import { useFocusEffect } from "expo-router";
 import MarketHeader from "../components/MarketHeader";
 import MarketStockRow from "../components/MarketStockRow";
 import { apiRequest } from "../src/config/api";
-import { marketColors } from "../styles/marketTheme";
+import { colors as marketColors, radius, space, type, ui } from "../styles/theme";
 
 export default function WatchListScreen() {
  const layout=usePageLayout();
@@ -118,21 +118,23 @@ export default function WatchListScreen() {
         }
       />
 
-      <View style={{gap:12,marginVertical:16}}>
-        <TextInput accessibilityLabel="新增自選股票代號" placeholder="輸入股票代號，例如 2330" placeholderTextColor="#91a6b9" value={newCode} onChangeText={setNewCode} keyboardType="number-pad" maxLength={6} style={{padding:12,color:"white",borderWidth:1,borderColor:"#45647d",borderRadius:10}}/>
-        <Pressable disabled={adding} onPress={addStock} style={{padding:12,backgroundColor:"#184873",borderRadius:10}}><Text style={{color:"white"}}>{adding?"加入中…":"加入自選股"}</Text></Pressable>
-        <TextInput accessibilityLabel="篩選自選股" placeholder="依代號或名稱篩選" placeholderTextColor="#91a6b9" value={filter} onChangeText={setFilter} style={{padding:12,color:"white",borderWidth:1,borderColor:"#45647d",borderRadius:10}}/>
+      <View style={styles.toolCard}>
+        <View style={styles.toolRow}>
+          <TextInput accessibilityLabel="新增自選股票代號" placeholder="輸入股票代號，例如 2330" placeholderTextColor={marketColors.textSubtle} value={newCode} onChangeText={setNewCode} keyboardType="number-pad" maxLength={6} style={[ui.input,styles.toolInput]}/>
+          <Pressable disabled={adding} onPress={addStock} style={({pressed})=>[ui.buttonPrimary,pressed&&ui.buttonPrimaryPressed,adding&&ui.disabled]}><Text style={ui.buttonPrimaryText}>{adding?"加入中…":"加入自選股"}</Text></Pressable>
+        </View>
+        <TextInput accessibilityLabel="篩選自選股" placeholder="依代號或名稱篩選" placeholderTextColor={marketColors.textSubtle} value={filter} onChangeText={setFilter} style={ui.input}/>
       </View>
       <View style={styles.sectionRow}>
         <View style={styles.sectionTitleBox}>
-          <Ionicons name="star" size={19} color="#ffd54a" />
+          <Ionicons name="star" size={19} color={marketColors.star} />
           <Text style={styles.sectionTitle}>自選清單</Text>
         </View>
         <Text style={styles.updateText}>更新 {updateTimeText}</Text>
       </View>
 
       <View style={styles.infoBox}>
-        <Ionicons name="information-circle-outline" size={17} color="#74b9ff" />
+        <Ionicons name="information-circle-outline" size={16} color={marketColors.info} />
         <Text style={styles.infoText}>
           金色星號代表已加入自選；再次按下即可從資料庫移除。
         </Text>
@@ -140,7 +142,7 @@ export default function WatchListScreen() {
 
       {error ? (
         <View style={styles.errorBox}>
-          <Ionicons name="alert-circle" size={20} color="#f87171" />
+          <Ionicons name="alert-circle" size={19} color={marketColors.danger} />
           <Text style={styles.errorText}>{error}</Text>
           <Pressable onPress={() => loadFavorites()}>
             <Text style={styles.retryText}>重試</Text>
@@ -158,7 +160,7 @@ export default function WatchListScreen() {
   ) : (
     <View style={styles.stateCard}>
       <View style={styles.emptyIconBox}>
-        <Ionicons name="star-outline" size={39} color="#ffd54a" />
+        <Ionicons name="star-outline" size={34} color={marketColors.star} />
       </View>
       <Text style={styles.emptyTitle}>{filter.trim()?"沒有符合篩選的股票":"還沒有自選股"}</Text>
       <Text style={styles.emptySubtitle}>
@@ -200,131 +202,66 @@ export default function WatchListScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: marketColors.background,
+  safeArea: { flex: 1, backgroundColor: marketColors.background },
+  list: { width: "100%", alignSelf: "center" },
+  listContent: { paddingTop: space.lg, paddingBottom: 120 },
+  toolCard: {
+    ...StyleSheet.flatten(ui.card),
+    gap: space.sm,
+    padding: space.md,
+    marginBottom: space.lg,
   },
-  list: {
-    width: "100%",
-    alignSelf: "center",
-  },
-  listContent: {
-    paddingHorizontal: 12,
-    paddingTop: 14,
-    paddingBottom: 120,
-  },
+  toolRow: { flexDirection: "row", flexWrap: "wrap", gap: space.sm },
+  toolInput: { flex: 1, minWidth: 200 },
   countBadge: {
-    minWidth: 58,
-    height: 48,
-    paddingHorizontal: 12,
-    borderRadius: 16,
+    minWidth: 60,
+    height: 52,
+    paddingHorizontal: space.sm,
+    borderRadius: radius.md,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: marketColors.headerAccent,
+    backgroundColor: marketColors.primarySoft,
     borderWidth: 1,
-    borderColor: "#17688f",
+    borderColor: marketColors.headerAccent,
   },
-  countValue: {
-    color: marketColors.white,
-    fontSize: 18,
-    fontWeight: "900",
-  },
-  countLabel: {
-    color: "#b8d4e1",
-    fontSize: 9,
-  },
+  countValue: { ...type.title, ...type.number, lineHeight: 26 },
+  countLabel: { ...type.caption, color: marketColors.textMuted, fontSize: 11 },
   sectionRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 2,
-    marginBottom: 10,
+    marginBottom: space.sm,
   },
-  sectionTitleBox: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  sectionTitle: {
-    color: marketColors.text,
-    fontSize: 20,
-    fontWeight: "900",
-    marginLeft: 7,
-  },
-  updateText: {
-    color: marketColors.textSubtle,
-    fontSize: 11,
-  },
-  infoBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 11,
-    paddingHorizontal: 11,
-    paddingVertical: 9,
-    borderRadius: 13,
-    backgroundColor: "#0b2436",
-    borderWidth: 1,
-    borderColor: "#17425c",
-  },
-  infoText: {
-    color: "#b9d9ee",
-    fontSize: 12,
-    marginLeft: 7,
-    flex: 1,
-  },
-  errorBox: {
-    marginBottom: 11,
-    padding: 12,
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderRadius: 13,
-    borderColor: "#7f1d1d",
-    backgroundColor: "#331719",
-  },
-  errorText: {
-    flex: 1,
-    color: "#fecaca",
-    marginLeft: 8,
-  },
-  retryText: {
-    color: "#60a5fa",
-    fontWeight: "800",
-  },
+  sectionTitleBox: { flexDirection: "row", alignItems: "center", gap: space.xs },
+  sectionTitle: { ...type.title },
+  updateText: { ...type.caption, ...type.number },
+  infoBox: { ...StyleSheet.flatten([ui.notice, ui.noticeInfo]), alignItems: "center", marginBottom: space.sm },
+  infoText: StyleSheet.flatten(ui.noticeInfoText),
+  errorBox: { ...StyleSheet.flatten([ui.notice, ui.noticeError]), alignItems: "center", marginBottom: space.sm },
+  errorText: StyleSheet.flatten(ui.noticeErrorText),
+  retryText: { ...type.small, color: marketColors.primaryText, fontWeight: "700" },
   stateCard: {
     minHeight: 280,
     alignItems: "center",
     justifyContent: "center",
+    gap: space.xs,
     backgroundColor: marketColors.surface,
     borderWidth: 1,
     borderColor: marketColors.border,
-    borderRadius: 20,
-    paddingHorizontal: 28,
+    borderRadius: radius.lg,
+    paddingHorizontal: space.xxl,
   },
-  stateText: {
-    color: marketColors.textMuted,
-    marginTop: 12,
-  },
+  stateText: { ...type.small, marginTop: space.xs },
   emptyIconBox: {
-    width: 78,
-    height: 78,
-    borderRadius: 39,
+    width: 72,
+    height: 72,
+    borderRadius: radius.pill,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: marketColors.surfaceRaised,
+    backgroundColor: "rgba(252,201,63,0.10)",
     borderWidth: 1,
-    borderColor: marketColors.border,
+    borderColor: "rgba(252,201,63,0.35)",
   },
-  emptyTitle: {
-    color: marketColors.text,
-    fontSize: 20,
-    fontWeight: "900",
-    marginTop: 18,
-  },
-  emptySubtitle: {
-    color: marketColors.textSubtle,
-    fontSize: 14,
-    lineHeight: 22,
-    textAlign: "center",
-    marginTop: 8,
-  },
+  emptyTitle: { ...type.heading, marginTop: space.sm },
+  emptySubtitle: { ...type.small, textAlign: "center", maxWidth: 420 },
 });

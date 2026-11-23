@@ -17,6 +17,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { apiRequest } from "../src/config/api";
 import { marketColors } from "../styles/marketTheme";
+import { authBase } from "../styles/authStyles";
 
 export default function RegisterScreen() {
  const layout=usePageLayout();
@@ -102,8 +103,8 @@ export default function RegisterScreen() {
         behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
         <ScrollView
-          style={styles.container}
-          contentContainerStyle={[styles.content,layout.page]}
+          style={styles.scroll}
+          contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
@@ -112,13 +113,13 @@ export default function RegisterScreen() {
             onPress={() => router.replace("/login")}
             disabled={loading}
           >
-            <Ionicons name="arrow-back" size={22} color="#78b7ff" />
+            <Ionicons name="arrow-back" size={18} color={marketColors.primaryText} />
             <Text style={styles.backButtonText}>返回登入頁</Text>
           </Pressable>
 
-          <View style={[styles.brandPanel,layout.compact&&{flexDirection:"column",alignItems:"flex-start",gap:12}]}>
+          <View style={styles.brandPanel}>
             <View style={styles.logoBox}>
-              <Ionicons name="person-add-outline" size={38} color={marketColors.white} />
+              <Ionicons name="person-add-outline" size={28} color={marketColors.white} />
             </View>
             <View style={{ flex: 1 }}>
               <Text style={styles.title}>建立帳號</Text>
@@ -131,7 +132,7 @@ export default function RegisterScreen() {
               <View key={field.key}>
                 <Text style={styles.label}>{field.label}</Text>
                 <View style={styles.inputBox}>
-                  <Ionicons name={field.icon} size={22} color={marketColors.primary} />
+                  <Ionicons name={field.icon} size={20} color={marketColors.textMuted} />
                   <TextInput
                     style={styles.input}
                     placeholder={field.placeholder}
@@ -152,7 +153,7 @@ export default function RegisterScreen() {
 
             <Text style={styles.label}>密碼</Text>
             <View style={styles.inputBox}>
-              <Ionicons name="lock-closed-outline" size={22} color={marketColors.primary} />
+              <Ionicons name="lock-closed-outline" size={20} color={marketColors.textMuted} />
               <TextInput
                 style={styles.input}
                 placeholder="至少輸入 6 個字元"
@@ -170,7 +171,7 @@ export default function RegisterScreen() {
               <Pressable style={styles.eyeButton} onPress={() => setShowPassword((v) => !v)}>
                 <Ionicons
                   name={showPassword ? "eye-off-outline" : "eye-outline"}
-                  size={23}
+                  size={20}
                   color={marketColors.textMuted}
                 />
               </Pressable>
@@ -180,8 +181,8 @@ export default function RegisterScreen() {
             <View style={styles.inputBox}>
               <Ionicons
                 name="shield-checkmark-outline"
-                size={22}
-                color={marketColors.primary}
+                size={20}
+                color={marketColors.textMuted}
               />
               <TextInput
                 style={styles.input}
@@ -205,7 +206,7 @@ export default function RegisterScreen() {
               >
                 <Ionicons
                   name={showConfirmPassword ? "eye-off-outline" : "eye-outline"}
-                  size={23}
+                  size={20}
                   color={marketColors.textMuted}
                 />
               </Pressable>
@@ -251,7 +252,7 @@ export default function RegisterScreen() {
                 <ActivityIndicator color={marketColors.white} />
               ) : (
                 <>
-                  <Ionicons name="person-add" size={23} color={marketColors.white} />
+                  <Ionicons name="person-add" size={20} color={marketColors.white} />
                   <Text style={styles.registerButtonText}>建立帳號</Text>
                 </>
               )}
@@ -272,142 +273,11 @@ export default function RegisterScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: marketColors.background },
-  keyboardView: { flex: 1 },
-  container: { flex: 1, backgroundColor: marketColors.background },
-  content: {
-    flexGrow: 1,
-    width: "100%",
-    alignSelf: "center",
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    paddingBottom: 42,
-  },
-  backButton: {
-    alignSelf: "flex-start",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 10,
-    marginBottom: 10,
-  },
-  backButtonText: {
-    color: "#78b7ff",
-    fontSize: 16,
-    fontWeight: "800",
-    marginLeft: 6,
-  },
-  brandPanel: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: marketColors.header,
-    borderWidth: 1,
-    borderColor: marketColors.headerAccent,
-    borderRadius: 22,
-    padding: 17,
-    marginBottom: 15,
-  },
-  logoBox: {
-    width: 66,
-    height: 66,
-    borderRadius: 20,
-    backgroundColor: marketColors.headerAccent,
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: 14,
-  },
-  title: {
-    color: marketColors.text,
-    fontSize: 26,
-    fontWeight: "900",
-  },
-  subtitle: {
-    color: "#b7cfdb",
-    fontSize: 13,
-    lineHeight: 19,
-    marginTop: 4,
-  },
-  card: {
-    width: "100%",
-    backgroundColor: marketColors.surface,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: marketColors.border,
-    padding: 20,
-  },
-  label: {
-    color: "#c7d5df",
-    fontSize: 14,
-    fontWeight: "800",
-    marginBottom: 8,
-    marginLeft: 2,
-  },
-  inputBox: {
-    minHeight: 60,
-    backgroundColor: marketColors.input,
-    borderWidth: 1,
-    borderColor: marketColors.border,
-    borderRadius: 16,
-    paddingHorizontal: 15,
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  input: {
-    flex: 1,
-    minHeight: 58,
-    color: marketColors.text,
-    fontSize: 16,
-    marginLeft: 11,
-    paddingVertical: 0,
-  },
-  eyeButton: {
-    width: 42,
-    height: 48,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  messageBox: {
-    minHeight: 48,
-    borderWidth: 1,
-    borderRadius: 13,
-    paddingHorizontal: 13,
-    paddingVertical: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  errorBox: { backgroundColor: marketColors.dangerSurface, borderColor: "#7f1d1d" },
-  successBox: { backgroundColor: marketColors.successSurface, borderColor: "#166534" },
-  messageText: { flex: 1, fontSize: 14, fontWeight: "700", marginLeft: 8 },
-  errorText: { color: "#fecaca" },
-  successText: { color: "#bbf7d0" },
-  registerButton: {
-    height: 62,
-    backgroundColor: marketColors.primary,
-    borderRadius: 16,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  pressedButton: { backgroundColor: marketColors.primaryPressed },
-  disabledButton: { opacity: 0.62 },
-  registerButtonText: {
-    color: marketColors.white,
-    fontSize: 20,
-    fontWeight: "900",
-    marginLeft: 8,
-  },
-  loginButton: {
-    height: 54,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    borderRadius: 14,
-  },
-  loginPressed: { backgroundColor: marketColors.surfaceRaised },
-  loginButtonText: {
-    color: "#78b7ff",
-    fontSize: 16,
-    fontWeight: "800",
-  },
+  ...authBase,
+  registerButton: authBase.primaryButton,
+  pressedButton: authBase.primaryPressed,
+  registerButtonText: authBase.primaryText,
+  loginButton: authBase.secondaryButton,
+  loginPressed: authBase.secondaryPressed,
+  loginButtonText: authBase.secondaryText,
 });

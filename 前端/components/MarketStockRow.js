@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import MarketTrendChart from "./MarketTrendChart";
-import { marketColors } from "../styles/marketTheme";
+import { colors as marketColors, radius, shadow, space, type } from "../styles/theme";
 
 function formatPrice(value) {
   if (!Number.isFinite(Number(value))) return "—";
@@ -107,12 +107,12 @@ export default function MarketStockRow({
               ]}
             >
               {favoriteLoading ? (
-                <ActivityIndicator size="small" color="#f4c430" />
+                <ActivityIndicator size="small" color={marketColors.star} />
               ) : (
                 <Ionicons
                   name={isFavorite ? "star" : "star-outline"}
                   size={23}
-                  color={isFavorite ? "#ffd54a" : "#b9c6d1"}
+                  color={isFavorite ? marketColors.star : marketColors.textMuted}
                 />
               )}
             </Pressable>
@@ -149,14 +149,14 @@ export default function MarketStockRow({
           </View>
         )}
 
-        <Pressable accessibilityRole="button" onPress={()=>router.push({pathname:'/analysis',params:{stock:String(stock.code)}})} style={{paddingVertical:12}}><Text style={{color:'#83c4ff',fontWeight:'700'}}>模擬這檔股票的策略 →</Text></Pressable>
+        <Pressable accessibilityRole="button" onPress={()=>router.push({pathname:'/analysis',params:{stock:String(stock.code)}})} style={({pressed})=>[styles.simulateButton,pressed&&styles.buttonPressed]}><Text style={styles.simulateText}>模擬這檔股票的策略 →</Text></Pressable>
         <View style={styles.volumeRow}>
           <Ionicons name="bar-chart-outline" size={15} color={marketColors.textMuted} />
           <Text style={styles.volumeText}>成交量 {formatVolume(stock?.volume)}</Text>
         </View>
       </View>
 
-      <View style={{ flex: compact ? undefined : 2, width: compact ? "100%" : undefined, padding: 12 }}><MarketTrendChart stock={stock} height={compact ? 210 : 230} /></View>
+      <View style={[styles.chartWrap, compact && styles.chartWrapCompact, { flex: compact ? undefined : 2, width: compact ? "100%" : undefined }]}><MarketTrendChart stock={stock} height={compact ? 210 : 230} /></View>
     </View>
   );
 }
@@ -168,71 +168,56 @@ const styles = StyleSheet.create({
     backgroundColor: marketColors.surface,
     borderWidth: 1,
     borderColor: marketColors.border,
-    borderRadius: 18,
-    marginBottom: 12,
+    borderRadius: radius.lg,
+    marginBottom: space.sm,
     overflow: "hidden",
+    ...shadow,
   },
   compactCard: { minHeight: 142 },
   wideCard: { minHeight: 156 },
   quotePanel: {
     flex: 1,
     justifyContent: "space-between",
+    gap: space.sm,
   },
-  compactQuotePanel: {
-    paddingHorizontal: 13,
-    paddingVertical: 13,
-  },
-  wideQuotePanel: {
-    paddingHorizontal: 17,
-    paddingVertical: 13,
-  },
+  compactQuotePanel: { padding: space.md },
+  wideQuotePanel: { padding: space.lg },
   nameRow: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
+    gap: space.xs,
   },
-  nameBox: {
-    flex: 1,
-    paddingRight: 8,
-  },
-  stockName: {
-    color: marketColors.text,
-    fontWeight: "900",
-  },
-  compactName: { fontSize: 20, lineHeight: 25 },
-  wideName: { fontSize: 23, lineHeight: 28 },
+  nameBox: { flex: 1, minWidth: 0 },
+  stockName: { ...type.heading, fontWeight: "800" },
+  compactName: { fontSize: 19, lineHeight: 26 },
+  wideName: { fontSize: 21, lineHeight: 28 },
   metaRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 4,
+    gap: space.xs,
+    marginTop: space.xxs,
   },
   marketPill: {
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 10,
+    paddingHorizontal: space.xs,
+    paddingVertical: 2,
+    borderRadius: radius.pill,
     backgroundColor: marketColors.surfaceRaised,
+    borderWidth: 1,
+    borderColor: marketColors.border,
   },
-  marketPillText: {
-    color: "#c6d4df",
-    fontSize: 11,
-    fontWeight: "800",
-  },
-  sourceText: {
-    color: marketColors.textSubtle,
-    fontSize: 10,
-    marginLeft: 7,
-    flexShrink: 1,
-  },
+  marketPillText: { ...type.caption, color: marketColors.textMuted, fontWeight: "700", ...type.number },
+  sourceText: { ...type.caption, flexShrink: 1 },
   favoriteButton: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
+    width: 40,
+    height: 40,
+    borderRadius: radius.pill,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
   },
   favoriteButtonActive: {
-    backgroundColor: "#423817",
-    borderColor: "#f4c430",
+    backgroundColor: "rgba(252,201,63,0.12)",
+    borderColor: "rgba(252,201,63,0.55)",
   },
   favoriteButtonIdle: {
     backgroundColor: marketColors.surfaceRaised,
@@ -242,59 +227,38 @@ const styles = StyleSheet.create({
   priceRow: {
     flexDirection: "row",
     alignItems: "flex-end",
+    gap: space.sm,
   },
-  price: {
-    fontWeight: "600",
-    letterSpacing: -1,
+  price: { ...type.number, fontWeight: "700", letterSpacing: -0.5 },
+  compactPrice: { fontSize: 32, lineHeight: 38 },
+  widePrice: { fontSize: 38, lineHeight: 44 },
+  changeBox: { paddingBottom: 4 },
+  changeText: { ...type.number, fontSize: 14, lineHeight: 19, fontWeight: "700" },
+  unavailableTitle: { ...type.subheading, color: marketColors.textMuted },
+  unavailableSubtitle: { ...type.caption, marginTop: space.xxs },
+  simulateButton: {
+    alignSelf: "flex-start",
+    paddingVertical: space.xs,
+    paddingHorizontal: space.sm,
+    borderRadius: radius.sm,
+    backgroundColor: marketColors.primarySoft,
   },
-  compactPrice: { fontSize: 34 },
-  widePrice: { fontSize: 42 },
-  changeBox: {
-    marginLeft: 11,
-    paddingBottom: 3,
-  },
-  changeText: {
-    fontSize: 15,
-    fontWeight: "800",
-  },
-  unavailableTitle: {
-    color: marketColors.textMuted,
-    fontSize: 17,
-    fontWeight: "800",
-  },
-  unavailableSubtitle: {
-    color: marketColors.textSubtle,
-    fontSize: 12,
-    marginTop: 4,
-  },
+  simulateText: { ...type.small, color: marketColors.primaryText, fontWeight: "700" },
   volumeRow: {
     flexDirection: "row",
     alignItems: "center",
+    gap: space.xxs,
   },
-  volumeText: {
-    color: "#cbd7e0",
-    marginLeft: 6,
-    fontSize: 13,
-  },
-  chartPanel: {
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 9,
-    backgroundColor: "#07131e",
+  volumeText: { ...type.small, ...type.number },
+  chartWrap: {
+    padding: space.sm,
     borderLeftWidth: 1,
     borderLeftColor: marketColors.borderSoft,
+    backgroundColor: marketColors.surfaceSunken,
   },
-  compactChartPanel: { width: 142 },
-  wideChartPanel: { width: 205 },
-  noChartBox: { alignItems: "center" },
-  noChartText: {
-    color: marketColors.textSubtle,
-    fontSize: 11,
-    marginTop: 7,
-  },
-  chartCaption: {
-    color: marketColors.textSubtle,
-    fontSize: 10,
-    marginTop: 5,
+  chartWrapCompact: {
+    borderLeftWidth: 0,
+    borderTopWidth: 1,
+    borderTopColor: marketColors.borderSoft,
   },
 });

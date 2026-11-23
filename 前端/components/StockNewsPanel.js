@@ -2,7 +2,7 @@ import ReportText from './ReportText';
 import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { apiRequest } from '../src/config/api';
-import { marketColors as colors } from '../styles/marketTheme';
+import { colors, radius, space, type, ui } from '../styles/theme';
 
 function NewsGroup({analysisId, mode, onSaved,apiBase}) {
   const [sourcesOpen,setSourcesOpen]=useState(false);
@@ -28,7 +28,7 @@ function NewsGroup({analysisId, mode, onSaved,apiBase}) {
     {data && <Text style={styles.meta}>{data.start} ～ {data.end} · 查詢於 {new Date(data.fetchedAt).toLocaleString('zh-TW')}</Text>}
     <Text style={styles.note}>{data?.note || (mode==='latest'?'現在的消息與歷史回測分開呈現。':'只顯示回測期間發布的新聞，不代替完整歷史資料。')}</Text>
     {!data?.summary&&!loading&&<Text style={styles.text}>先產生重點摘要，快速了解公司近況、產業動態與待確認風險；來源可另外展開。</Text>}
-    {loading && <ActivityIndicator color={colors.primary}/>}
+    {loading && <ActivityIndicator color={colors.primaryText}/>}
     {!!error && <Text accessibilityRole="alert" style={styles.error}>{error}</Text>}
     {!!data?.warning && <Text style={styles.note}>{data.warning}</Text>}
     {!!data?.summary && <View style={styles.summary}>
@@ -44,31 +44,30 @@ function NewsGroup({analysisId, mode, onSaved,apiBase}) {
     {data && !data.items.length && <Text style={styles.text}>此期間未找到符合條件的新聞；不代表沒有事件發生。</Text>}
     {!!data?.coverage && <Text style={styles.meta}>{data.coverage}</Text>}
     {!blocked && <View style={styles.actions}>
-      <Pressable disabled={loading||summarizing} onPress={()=>load()} style={styles.button}><Text style={styles.link}>重新載入新聞</Text></Pressable>
-      {!!data?.items?.length && !data.summary && <Pressable disabled={loading||summarizing} onPress={()=>load(true)} style={styles.button}><Text style={styles.link}>{summarizing?'Gemini 正在整理…':'產生 Gemini 摘要'}</Text></Pressable>}
+      <Pressable disabled={loading||summarizing} onPress={()=>load()} style={({pressed})=>[ui.buttonSecondary,pressed&&ui.buttonSecondaryPressed]}><Text style={ui.buttonSecondaryText}>重新載入新聞</Text></Pressable>
+      {!!data?.items?.length && !data.summary && <Pressable disabled={loading||summarizing} onPress={()=>load(true)} style={({pressed})=>[ui.buttonPrimary,{minHeight:44},pressed&&ui.buttonPrimaryPressed,summarizing&&ui.disabled]}><Text style={[ui.buttonPrimaryText,{fontSize:15}]}>{summarizing?'Gemini 正在整理…':'產生 Gemini 摘要'}</Text></Pressable>}
     </View>
     }
     {!data?.summary && !!data?.items?.length && <Text style={styles.meta}>產生摘要會將上述公開標題送至 Gemini，使用已設定的 API；可能產生費用。</Text>}
   </View>;
 }
 export default function StockNewsPanel({report,onSaved,apiBase}) {
-  return <View>
+  return <View style={{gap:space.md}}>
     <Text style={styles.heading}>公司近況與產業觀察</Text>
     <NewsGroup key={`${report.analysisId}:latest`} analysisId={report.analysisId} mode="latest" onSaved={onSaved} apiBase={apiBase}/>
     <NewsGroup key={`${report.analysisId}:historical`} analysisId={report.analysisId} mode="historical" onSaved={onSaved} apiBase={apiBase}/>
   </View>;
 }
 const styles=StyleSheet.create({
-  heading:{fontSize:22,fontWeight:'700',color:colors.text,marginVertical:18},
-  card:{backgroundColor:colors.surface||'#0d1e29',borderWidth:1,borderColor:colors.border||'#294455',borderRadius:20,padding:22,marginBottom:18,gap:12},
-  title:{fontSize:18,fontWeight:'700',color:colors.text||'#f1f5f9'},
-  text:{fontSize:15,lineHeight:25,color:colors.text||'#f1f5f9'},
-  note:{fontSize:14,lineHeight:23,color:colors.textMuted},
-  meta:{fontSize:12,lineHeight:20,color:colors.textMuted},
-  error:{fontSize:14,color:colors.danger||'#ff9c9c'},
-  link:{fontSize:15,lineHeight:24,color:colors.primary},
-  item:{paddingVertical:10,borderBottomWidth:1,borderBottomColor:colors.border||'#294455',gap:4},
-  summary:{gap:10,paddingVertical:12},
-  actions:{flexDirection:'row',flexWrap:'wrap',gap:12},
-  button:{padding:10,borderWidth:1,borderColor:colors.primary,borderRadius:10},
+  heading:{...type.title,marginTop:space.md},
+  card:{...StyleSheet.flatten(ui.card),gap:space.sm},
+  title:{...type.heading},
+  text:{...type.body},
+  note:{...type.small},
+  meta:{...type.caption},
+  error:{...type.small,color:colors.dangerText},
+  link:{...type.body,color:colors.primaryText},
+  item:{paddingVertical:space.sm,borderBottomWidth:1,borderBottomColor:colors.borderSoft,gap:2},
+  summary:{gap:space.sm,paddingVertical:space.xs},
+  actions:{flexDirection:'row',flexWrap:'wrap',gap:space.xs,marginTop:space.xxs},
 });
