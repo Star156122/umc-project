@@ -1,0 +1,10 @@
+const test=require('node:test'),assert=require('node:assert/strict');
+const {geminiChat,geminiModels,geminiStatusMessage}=require('../src/geminiClient');
+const ok={ok:true,status:200};
+test('model list uses primary then default or configured fallbacks',()=>{assert.deepEqual(geminiModels({OPENAI_MODEL:'gemini-a'}),['gemini-a','gemini-3.5-flash-lite']);assert.deepEqual(geminiModels({OPENAI_MODEL:'gemini-a',GEMINI_FALLBACK_MODELS:'gemini-b, bad model,gemini-a,gemini-b'}),['gemini-a','gemini-b']);assert.deepEqual(geminiModels({OPENAI_MODEL:'gemini-a',GEMINI_FALLBACK_MODELS:''}),['gemini-a']);assert.equal(geminiModels({OPENAI_MODEL:'gpt-4'}),null);});
+test('shared client (used by news summary) falls back on 429, 503 and timeout, stops on 400',async()=>{const run=async(primary)=>{const used=[];const r=await geminiChat({key:'test-only',models:['gemini-main','gemini-backup'],messages:[],retryDelays:[1],sleep:async()=>{},fetchImpl:async(u,o)=>{const m=JSON.parse(o.body).model;used.push(m);if(m==='gemini-backup')return ok;if(primary==='timeout')throw Error('timeout');return {ok:false,status:primary};}});return {r,used};};
+ let x=await run(429);assert.equal(x.r.model,'gemini-backup');assert.deepEqual(x.used,['gemini-main','gemini-backup']);
+ x=await run(503);assert.equal(x.r.model,'gemini-backup');assert.deepEqual(x.used,['gemini-main','gemini-main','gemini-backup']);
+ x=await run('timeout');assert.equal(x.r.model,'gemini-backup');
+ x=await run(400);assert.equal(x.r.response,null);assert.equal(x.r.error,400);assert.deepEqual(x.used,['gemini-main']);
+ assert.match(geminiStatusMessage(429),/額度已用完/);assert.match(geminiStatusMessage('timeout'),/逾時/);});
