@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from hybrid.core.web_dataset_preflight import preflight_dataset
+from trading_system.research_guard import assert_website_period
 
 
 def main() -> int:
@@ -22,7 +23,7 @@ def main() -> int:
     failed = False
     for stock in stocks:
         try:
-            reports.append(preflight_dataset(ROOT, config, stock))
+            reports.append(preflight_dataset(ROOT, config, stock, check_period=assert_website_period))
         except Exception as error:
             failed = True
             reports.append({

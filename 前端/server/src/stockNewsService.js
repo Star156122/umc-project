@@ -13,9 +13,13 @@ const date = value => {
   return s;
 };
 const day = value => new Date(new Date(value).getTime() + 86400000).toISOString().slice(0,10);
-function guard(start, end) {
+function guard(start, end, { websiteBacktest = false } = {}) {
   const policy = JSON.parse(fs.readFileSync(path.join(PYTHON_BACKTEST_ROOT, 'configs/holdout_policy.json'), 'utf8'));
-  if (start > end) throw fail('新聞起訖日期顛倒');
+  if (date(start) > date(end)) throw fail('回測起訖日期顛倒');
+  const website = policy.website_historical_backtest;
+  if (websiteBacktest && website?.start === '2025-01-01' &&
+      website.end === '2025-12-31' && website.training_end === '2024-12-31' &&
+      start >= website.start && end <= website.end) return;
   const blocked = Object.values(policy.roles || {}).filter(role => role.access === 'forbidden');
   if (!blocked.length && policy.holdout) blocked.push(policy.holdout);
   if (policy.final_test?.access === 'forbidden') blocked.push(policy.final_test);
@@ -121,7 +125,7 @@ async function summarizeNews(report, mode) {
     const env = require('dotenv').parse(fs.readFileSync(path.join(PYTHON_BACKTEST_ROOT,'.env')));
     const key = env.GEMINI_API_KEY;
     if (!key) throw fail('後端尚未設定 Gemini 金鑰',503);
-    const model = env.OPENAI_MODEL;
+    const model = env.GEMINI_MODEL || env.OPENAI_MODEL;
     if (!model || !/^gemini-[\w.-]+$/.test(model)) throw fail('Gemini 模型設定無效',503);
     const response = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
       method:'POST',signal:AbortSignal.timeout(120000),

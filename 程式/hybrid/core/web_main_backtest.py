@@ -3,7 +3,7 @@ import copy,csv,json,hashlib
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
-from trading_system.research_guard import assert_development_period
+from trading_system.research_guard import assert_development_period, assert_website_period
 from hybrid.core import main_buy_strategy_v1 as engine
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -11,8 +11,8 @@ PROFILE='main-buy-noadd-noextension-common-v1-20261114'
 STRATEGIES={'technical':'TECH','rf':'RF','xgboost':'XGB','gru':'GRU'}
 MODELS={'technical':'random_forest','rf':'random_forest','xgboost':'xgboost','gru':'gru'}
 
-def request_config(code,start,end):
-    assert_development_period(start,end)
+def request_config(code,start,end, *, check_period=assert_development_period):
+    check_period(start,end)
     c=json.loads((ROOT/'hybrid/config/web_main_strategy_v1.json').read_text(encoding='utf8'))
     c.update(stock=str(code),period={'start':start,'end':end})
     spec=c['datasets'].get(str(code))
@@ -20,7 +20,7 @@ def request_config(code,start,end):
     if not spec.get('warmup_start'):raise ValueError('股票尚未登記指標暖機起點')
     c['warmup_start']=spec['warmup_start']
     c['folds']=[{'start':spec['start'],'end':spec['end']}]
-    engine.validate(c)
+    engine.validate(c, check_period=check_period)
     return c
 
 def dataset_role(start,end):
@@ -67,27 +67,31 @@ def normalize(r,strategy,c):
       'audit':{'profile_id':PROFILE,'adds':m['adds'],'holding_extensions':m['holding_extensions']}}
 
 def run(code,start,end,strategies):
-    c=request_config(code,start,end)
+    if start < "2025-01-01":
+        raise ValueError("Website backtests start in 2025")
+    c=request_config(code,start,end,check_period=assert_website_period)
     if not strategies or len(set(strategies))!=len(strategies) or any(s not in STRATEGIES for s in strategies):raise ValueError('Invalid selected strategies')
-    data=engine.load_inputs(c)
+    data=engine.load_inputs(c,check_period=assert_website_period)
     # Three model lookups are always loaded even when only pure technical is selected.
     if set(data['ml_by_model'])!={'random_forest','xgboost','gru'}:raise ValueError('Required three-model coverage is missing')
     results=[];raw={}
     for strategy in strategies:
         d=dict(data);d['ml']=data['ml_by_model'][MODELS[strategy]]
-        r=engine.simulate(c,d,STRATEGIES[strategy],.0005,'common',(start,end))
+        r=engine.simulate(c,d,STRATEGIES[strategy],.0005,'common',(start,end),check_period=assert_website_period)
         if r['metrics']['adds'] or r['metrics']['holding_extensions']:raise AssertionError('Main strategy cannot add/extend')
         raw[strategy]=r;results.append(normalize(r,strategy,c))
     from hybrid.core.main_buy_benchmark import buyhold
     bh=buyhold(c,data,.0005);benchmark=normalize(bh,'buy_and_hold',c)
     spec=c['datasets'][c['stock']]
     sources=[ROOT/spec['database'],*(ROOT/x for x in engine.index_paths(spec)),*(ROOT/x['path'] for x in engine.prediction_sources(spec))]
-    audit={'profile_id':PROFILE,'data_role':'historical_development','dataset_role':dataset_role(start,end),
+    audit={'profile_id':PROFILE,'data_role':'historical_development','dataset_role':'website_historical_backtest',
       'stock_code':str(code),'periods':{'backtest':{'start':start,'end':end}},'initial_capital':250000,
       'rules':{'adds_enabled':False,'holding_extension_enabled':False,'risk_budget_enabled':False,'cash_fraction':.4,'initial_cash_reserve_fraction':.2,'stop_loss_pct':.025,'coverage':'COMMON_COMPLETE_AND_THREE_VALID_MODELS','slippage_each_side':.0005},
       'coverage_audit':data['audit'],'final_oos_used':False,'holdout_policy_modified':False,
       'source_files':[str(p.relative_to(ROOT)) for p in sources],
       'known_limitations':['普通K線近似零股數量成交，未驗證真實零股價差與部分成交','共同日期只限制新進場，既有部位持續處理出場','買進持有最多80%投入，曝險與主動策略不同','不足5筆證據不足，不宣稱新策略已驗證獲利']}
+    if code == '2892' and start <= '2025-08-07' <= end:
+        audit['known_limitations'].append('第一金 2025/08/07 除權息計入現金股利；既有引擎不模擬股票股利及股數變化。')
     bars=[b for b in data['bars'] if start<=b['day']<=end]
     output=ROOT/'exports'/('web_main_'+datetime.now().strftime('%Y%m%dT%H%M%S%f'));output.mkdir(parents=True)
     payload={'results':results,'buy_and_hold':benchmark,'comparison':{'time_axis_identical':True,'profile_id':PROFILE},'audit':audit,

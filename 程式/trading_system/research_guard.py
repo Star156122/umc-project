@@ -47,18 +47,30 @@ def assert_development_period(start, end):
         raise HoldoutLockedError(FINAL_TEST_MESSAGE)
 
 
+def assert_website_period(start, end):
+    """Allow only authorized 2025 inference/backtests and their late-2024 warmup."""
+    policy = json.loads(POLICY.read_text(encoding='utf-8'))
+    expected = {'start': '2025-01-01', 'end': '2025-12-31',
+                'training_end': '2024-12-31', 'authorized_on': '2026-11-23'}
+    if policy.get('website_historical_backtest') != expected:
+        raise HoldoutLockedError('Annual website backtest is not authorized.')
+    first, last = _date(start), _date(end)
+    if not date(2024, 11, 1) <= first <= last <= date(2025, 12, 31):
+        raise HoldoutLockedError('Date outside authorized website data range.')
+
+
 def assert_config(config):
     assert_development_period(config.backtest_start, config.backtest_end)
     if hasattr(config, 'backfill_start'):
         assert_development_period(config.backfill_start, config.backfill_end)
 
 
-def assert_timestamps(stamps):
+def assert_timestamps(stamps, *, check_period=assert_development_period):
     stamps=list(stamps)
     if stamps:
         first=datetime.fromtimestamp(float(min(stamps)), ZoneInfo('Asia/Taipei')).date()
         last=datetime.fromtimestamp(float(max(stamps)), ZoneInfo('Asia/Taipei')).date()
-        assert_development_period(first, last)
+        check_period(first, last)
 
 
 def _is_reserved_period_declaration(value):

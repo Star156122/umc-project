@@ -40,12 +40,12 @@ def main():
     parser.add_argument('--strategies',nargs='+',required=True)
     args=parser.parse_args()
     try:
-        validate_period(args.start_date,args.end_date)
         if (ROOT/'hybrid/config/web_main_strategy_v1.json').exists():
             from hybrid.core.web_main_backtest import run
             output=run(args.stock_code,args.start_date,args.end_date,args.strategies)
             print(json.dumps({'status':'COMPLETED_DEVELOPMENT_RESEARCH','output_directory':str(output),'data_role':'historical_development','profile_id':'main-buy-noadd-noextension-common-v1-20261114','final_oos_used':False,'holdout_policy_modified':False},ensure_ascii=False))
             return 0
+        validate_period(args.start_date,args.end_date)
         config=json.loads((ROOT/'hybrid/config/multi_strategy_development_v1.json').read_text(encoding='utf-8'))
         config['periods']['backtest']={'start':args.start_date,'end':args.end_date}
         # This snapshot is per request; never rewrite the shared research configuration.

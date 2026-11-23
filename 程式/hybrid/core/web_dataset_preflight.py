@@ -50,7 +50,7 @@ def _valid_date(value: object) -> str:
     return text
 
 
-def _load_index(root: Path, spec: dict, start: str, end: str) -> tuple[list[dict], set[str]]:
+def _load_index(root: Path, spec: dict, start: str, end: str, check_period) -> tuple[list[dict], set[str]]:
     paths = spec["index"] if isinstance(spec["index"], list) else [spec["index"]]
     merged: dict[str, dict] = {}
     for relative in paths:
@@ -74,7 +74,7 @@ def _load_index(root: Path, spec: dict, start: str, end: str) -> tuple[list[dict
         close = float(row["close"])
         if not math.isfinite(close) or close <= 0:
             raise ValueError(f"Invalid index close on {day}")
-        assert_development_period(day, day)
+        check_period(day, day)
         dates.append(day)
     if dates != sorted(set(dates)):
         raise ValueError("Index dates must be unique and strictly increasing")
@@ -98,7 +98,7 @@ def _declared_session_days(spec: dict, key: str, official_days: set[str]) -> set
 
 
 def _audit_market_bars(root: Path, spec: dict, stock: str, warmup: str,
-                       start: str, end: str, official_days: set[str]) -> tuple[set[str], dict[str, dict]]:
+                       start: str, end: str, official_days: set[str], check_period) -> tuple[set[str], dict[str, dict]]:
     path = _file(root, spec["database"])
     lo = int(datetime.fromisoformat(warmup).replace(tzinfo=TZ).timestamp())
     hi = int((datetime.fromisoformat(end) + timedelta(days=1)).replace(tzinfo=TZ).timestamp())
@@ -117,7 +117,7 @@ def _audit_market_bars(root: Path, spec: dict, stock: str, warmup: str,
         )]
     if not rows:
         raise ValueError("No prepared 5-minute bars for configured stock and dates")
-    assert_timestamps(row["kbar_timestamp"] for row in rows)
+    assert_timestamps((row["kbar_timestamp"] for row in rows), check_period=check_period)
     by_day: dict[str, list[dict]] = defaultdict(list)
     for row in rows:
         if str(row["stock_code"]) != stock:
@@ -181,7 +181,7 @@ def _prediction_rows(root: Path, spec: dict, stock: str) -> dict[str, list[dict]
 
 
 def _valid_prediction_days(root: Path, spec: dict, stock: str, start: str,
-                           end: str, calendar: set[str]) -> dict[str, set[str]]:
+                           end: str, calendar: set[str], check_period) -> dict[str, set[str]]:
     grouped = _prediction_rows(root, spec, stock)
     result: dict[str, set[str]] = {}
     for model in MODELS:
@@ -195,8 +195,8 @@ def _valid_prediction_days(root: Path, spec: dict, stock: str, start: str,
                 raise ValueError(f"Invalid prediction schema for {model}")
             signal_day = _valid_date(row["signal_date"])
             entry_day = _valid_date(row["entry_date"])
-            assert_development_period(signal_day, signal_day)
-            assert_development_period(entry_day, entry_day)
+            check_period(signal_day, signal_day)
+            check_period(entry_day, entry_day)
             if str(row["stock_code"]) != stock or row["model"] != model:
                 raise ValueError(f"Prediction identity mismatch for {model}")
             if entry_day in seen_days:
@@ -251,7 +251,7 @@ def _audit_dividends(root: Path, spec: dict) -> int:
     return len(events)
 
 
-def preflight_dataset(root: Path, config: dict, stock: str) -> dict:
+def preflight_dataset(root: Path, config: dict, stock: str, *, check_period=assert_development_period) -> dict:
     stock = str(stock)
     if stock not in {str(code) for code in config.get("stock_universe", [])}:
         raise ValueError("Stock is not registered in stock_universe")
@@ -259,14 +259,14 @@ def preflight_dataset(root: Path, config: dict, stock: str) -> dict:
     if not isinstance(spec, dict):
         raise ValueError("Stock is missing a datasets registration")
     start, end = _valid_date(spec.get("start")), _valid_date(spec.get("end"))
-    assert_development_period(start, end)
+    check_period(start, end)
     warmup = _valid_date(spec.get("warmup_start"))
-    assert_development_period(warmup, end)
-    _, index_days = _load_index(root, spec, start, end)
+    check_period(warmup, end)
+    _, index_days = _load_index(root, spec, start, end, check_period)
     complete_days, partial_days = _audit_market_bars(
-        root, spec, stock, warmup, start, end, index_days,
+        root, spec, stock, warmup, start, end, index_days, check_period,
     )
-    prediction_days = _valid_prediction_days(root, spec, stock, start, end, index_days)
+    prediction_days = _valid_prediction_days(root, spec, stock, start, end, index_days, check_period)
     common_days = set.intersection(complete_days, *(prediction_days[model] for model in MODELS))
     if not common_days:
         raise ValueError("No shared complete session with all three legal model predictions")

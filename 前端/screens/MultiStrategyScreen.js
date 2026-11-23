@@ -16,7 +16,7 @@ const STATUS={pending:'等待執行',running:'執行中',completed:'執行完成
 export default function MultiStrategyScreen(){
  const layout=usePageLayout();
  const params=useLocalSearchParams();
- const [period,setPeriod]=useState({start:'2024-07-01',end:'2025-06-30'}),[showHistory,setShowHistory]=useState(false),[showTable,setShowTable]=useState(false);
+ const [period,setPeriod]=useState({start:'2025-01-01',end:'2025-12-31'}),[showHistory,setShowHistory]=useState(false),[showTable,setShowTable]=useState(false);
  const [profile,setProfile]=useState(null);
  const [historyVersion,setHistoryVersion]=useState(0),[opening,setOpening]=useState(false),[saving,setSaving]=useState(false);
  const [preferences,setPreferences]=useState(DEFAULT_PREFERENCES),[notice,setNotice]=useState('');
@@ -25,9 +25,7 @@ export default function MultiStrategyScreen(){
  const token=useRef(0),timer=useRef(null),mounted=useRef(true),busy=useRef(false),failures=useRef(0);
  useEffect(()=>{let alive=true;apiRequest('/api/backtests/multi/profile').then(p=>{if(p.profile_id!=='main-buy-noadd-noextension-common-v1-20261114')throw Error('後端尚未載入新版主要策略，請重新啟動後端');if(alive)setProfile(p);}).catch(e=>{if(alive)setError('主要策略設定讀取失敗：'+e.message);});return()=>{alive=false;};},[]);
  const coverage=profile?.coverage?.[stock];
- const FULL_PERIOD={start:'2024-07-01',end:'2025-06-30'};
- // 回測期間一律從 2024/07/01 起算，最長到 2025/06/30（24下半～25上半）。
- const periods=[{start:'2024-07-01',end:'2024-09-30',label:'三個月'},{start:'2024-07-01',end:'2024-12-30',label:'半年'},{start:'2024-07-01',end:'2025-06-30',label:'一年'}];
+ const periods=[{start:'2025-01-01',end:'2025-03-31',label:'三個月'},{start:'2025-01-01',end:'2025-06-30',label:'半年'},{start:'2025-01-01',end:'2025-12-31',label:'2025 年全年'}];
  const fits=(code,p)=>!!profile?.coverage?.[code]&&p.start>=profile.coverage[code].start&&p.end<=profile.coverage[code].end;
  const supported=code=>periods.some(p=>fits(code,p));
  const formal=profile?.formal_reports?.[stock];
@@ -75,7 +73,7 @@ export default function MultiStrategyScreen(){
    const response=await apiRequest('/api/backtests/multi/run',{method:'POST',body:JSON.stringify({stock_code:stock.trim(),strategies:requestedStrategies,start_date:period.start,end_date:period.end}),timeoutMs:30000});
    if(!mounted.current||serial!==token.current)return;
    if(typeof response.run_id!=='string'||!response.run_id)throw Error('後端未回傳工作編號，請確認 API。');
-   const current={run_id:response.run_id,stock_code:stock.trim(),strategies:[...requestedStrategies],period:{...period},strategy_profile:formal?.periods?.some(p=>p.start===period.start&&p.end===period.end)?formal.profile_id:profile?.profile_id,startedAt:Date.now()};
+   const current={run_id:response.run_id,stock_code:stock.trim(),strategies:[...requestedStrategies],period:{...period},strategy_profile:!fits(stock,period)&&formal?.periods?.some(p=>p.start===period.start&&p.end===period.end)?formal.profile_id:profile?.profile_id,startedAt:Date.now()};
    setJob(current);setStatus(response.status==='running'?'running':'pending');poll(current,serial);
   }catch(e){if(mounted.current&&serial===token.current){setStatus('failed');setError(explainError(e)+(!e.status?'。提交結果不明，伺服器可能仍在執行，請勿連續重複送出。':''));}busy.current=false;}
  }
@@ -92,7 +90,7 @@ export default function MultiStrategyScreen(){
  const step=(n,title)=><View style={s.stepHead}><View style={s.stepBadge}><Text style={s.stepNum}>{n}</Text></View><Text style={s.heading}>{title}</Text></View>;
  return <ScrollView style={{flex:1,backgroundColor:colors.background}} contentContainerStyle={[s.page,layout.page]}>
   {!!notice&&<Pressable onPress={()=>setNotice('')} style={[ui.notice,ui.noticeSuccess]}><Text accessibilityLiveRegion="polite" style={ui.noticeSuccessText}>{notice}（點擊關閉）</Text></Pressable>}
-  <View style={[s.hero,layout.card]}><Text style={ui.eyebrow}>STRATEGY LAB / 歷史模擬</Text><Text style={[s.title,layout.title]}>看懂策略，從每一筆交易開始</Text><Text style={s.lead}>選股票、選期間、比較策略。先看買賣位置，再了解報酬與風險。</Text><View style={s.periodPill}><Text style={s.periodLabel}>可用資料</Text><Text style={s.period}>{coverage?.start||'讀取中'} — {coverage?.end||'讀取中'}</Text></View><Text style={s.note}>回測期間統一為 2024/07/01～2025/06/30 歷史模擬，不是最新績效或投資訊號。純技術指標與買進持有固定加入比較。</Text></View>
+  <View style={[s.hero,layout.card]}><Text style={ui.eyebrow}>STRATEGY LAB / 歷史模擬</Text><Text style={[s.title,layout.title]}>看懂策略，從每一筆交易開始</Text><Text style={s.lead}>選股票、選期間、比較策略。先看買賣位置，再了解報酬與風險。</Text><View style={s.periodPill}><Text style={s.periodLabel}>可用資料</Text><Text style={s.period}>{coverage?.start||'讀取中'} — {coverage?.end||'讀取中'}</Text></View><Text style={s.note}>2025 年的歷史回測，不是最新績效或投資訊號。純技術指標與買進持有固定加入比較。</Text></View>
   <View style={[s.card,layout.card]}>
    <View style={s.section}>{step('1','選擇股票')}<View style={s.wrap}>{Object.entries(STOCKS).map(([code,name])=><Pressable key={code} disabled={unresolved||!supported(code)} accessibilityRole="button" accessibilityState={{disabled:unresolved||!supported(code),selected:stock===code}} onPress={()=>setStock(code)} style={[s.chip,stock===code&&s.chosen,!supported(code)&&ui.disabled]}><Text style={[s.text,stock===code&&s.chosenText]}>{code} {name}</Text></Pressable>)}</View><View style={[ui.notice,ui.noticeInfo]}><Text style={ui.noticeInfoText}>主要策略：不加碼、不延期；共同完整日＋三模型合法預測覆蓋。每組25萬元，首次含費最多使用現金40%，保留初始20%，保留2.5%停損。</Text></View></View>
    <View style={s.divider}/>

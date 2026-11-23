@@ -30,8 +30,8 @@ STAGES = ['資料資格與暖機','新突破事件','布林上軌','MA20高於MA
           '流動性至少一張','風險至少一張','現金至少一張','委託核准','實際買進']
 
 
-def validate(c):
-    assert_development_period(c['period']['start'],c['period']['end'])
+def validate(c, *, check_period=assert_development_period):
+    check_period(c['period']['start'],c['period']['end'])
     if c.get('profile_id')!='main-buy-noadd-noextension-common-v1-20261114':raise ValueError('Wrong main strategy profile')
     spec=c['datasets'].get(c['stock'])
     if not spec or not spec['start']<=c['period']['start']<=c['period']['end']<=spec['end']:raise ValueError('Stock period outside prepared model/data coverage')
@@ -71,14 +71,14 @@ def holding_review(pos, bar, market, ml, c, slip, pending_exit=None):
     return None,dict(event,action='CONTINUE',reason='ALL_CONDITIONS_PASS')
 
 
-def load_bars(path,c):
-    validate(c)
+def load_bars(path,c, *, check_period=assert_development_period):
+    validate(c, check_period=check_period)
     lo=int(datetime.fromisoformat(c['warmup_start']).replace(tzinfo=TZ).timestamp())
     hi=int((datetime.fromisoformat(c['period']['end'])+timedelta(days=1)).replace(tzinfo=TZ).timestamp())
     with sqlite3.connect(path.resolve().as_uri()+'?mode=ro',uri=True) as con:
         con.row_factory=sqlite3.Row;con.execute('PRAGMA query_only=ON')
         rows=[dict(r) for r in con.execute('SELECT stock_code,kbar_timestamp,open,high,low,close,volume FROM market_kbars WHERE stock_code=? AND freq_minutes=5 AND kbar_timestamp>=? AND kbar_timestamp<? ORDER BY kbar_timestamp',(c['stock'],lo,hi))]
-    assert_timestamps(r['kbar_timestamp'] for r in rows)
+    assert_timestamps((r['kbar_timestamp'] for r in rows), check_period=check_period)
     by={}
     for r in rows:
         d=datetime.fromtimestamp(r['kbar_timestamp'],TZ)
@@ -184,18 +184,18 @@ def load_predictions(spec,stock):
     return merged
 
 
-def load_inputs(c):
-    validate(c);spec=c['datasets'][c['stock']]
+def load_inputs(c, *, check_period=assert_development_period):
+    validate(c, check_period=check_period);spec=c['datasets'][c['stock']]
     index=[r for r in load_index(spec) if c['warmup_start']<=r['date']<=c['period']['end']]
     calendar=[r['date'] for r in index]
     if not calendar or calendar!=sorted(set(calendar)):raise ValueError('Invalid official calendar')
-    for day in calendar:assert_development_period(day,day)
-    raw=load_bars(ROOT/spec['database'],c)
+    for day in calendar:check_period(day,day)
+    raw=load_bars(ROOT/spec['database'],c, check_period=check_period)
     params=json.loads((ROOT/'configs/technical_v2_candidate.json').read_text(encoding='utf8'))['candidate_parameters']
     dividends=spec.get('events',[])
     if spec.get('dividends'):dividends=json.loads((ROOT/spec['dividends']).read_text(encoding='utf8'))['events']
     dividends=[e for e in dividends if c['warmup_start']<=e['ex_date']<=c['period']['end']]
-    for e in dividends:assert_development_period(e['ex_date'],e['ex_date'])
+    for e in dividends:check_period(e['ex_date'],e['ex_date'])
     bars,complete=indicators(raw,c['stock'],calendar,params,True,dividends)
     if not bars:raise ValueError('No prepared ordinary5m data; no proxy substitution')
     contexts={}
@@ -207,7 +207,9 @@ def load_inputs(c):
         if not isinstance(rows,list):raise ValueError('Missing required model coverage: '+model)
         lookup={}
         for row in rows:
-            for k in ['signal_date','entry_date']:assert_development_period(row[k],row[k])
+            if not c['period']['start'] <= row['entry_date'] <= c['period']['end']:
+                continue
+            for k in ['signal_date','entry_date']:check_period(row[k],row[k])
             if row['stock_code']!=c['stock'] or row['model']!=model:raise ValueError('Prediction stock/model mismatch')
             if row['entry_date'] in lookup:raise ValueError('Duplicate prediction effective date')
             lookup[row['entry_date']]=row
@@ -310,8 +312,8 @@ def high_expiry(exit_day,calendar,c):
     return calendar[min(len(calendar)-1,calendar.index(exit_day)+c['reentry_expiry_sessions'])]
 
 
-def simulate(c,data,variant,slip,scope='common',window=None):
-    validate(c)
+def simulate(c,data,variant,slip,scope='common',window=None, *, check_period=assert_development_period):
+    validate(c, check_period=check_period)
     if scope!='common':raise ValueError('Only common full-session and three-model coverage is allowed')
     revised=True
     hybrid=variant in ['RF','XGB','GRU']
@@ -376,7 +378,7 @@ def simulate(c,data,variant,slip,scope='common',window=None):
         day=b['day']; ts=b['kbar_timestamp']
         if not window[0]<=day<=window[1]:
             continue
-        assert_development_period(day,day)
+        check_period(day,day)
         if day!=last_day:
             daily.setdefault(day,0)
             if not revised:

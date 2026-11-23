@@ -52,8 +52,9 @@ function validateMultiRunRequest(body, config, formal = {}) {
   const validDate=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v))&&new Date(v).toISOString().slice(0,10)===v;
   if(!validDate(period.start)||!validDate(period.end)||period.start>period.end)throw apiError(400,'INVALID_PERIOD','請輸入正確的起訖日期');
   const coverage=dataset;
-  const savedFormal=formal[stockCode]?.periods?.some(p=>p.start===period.start&&p.end===period.end);
-  if(!savedFormal&&(period.start<coverage.start||period.end>coverage.end))throw apiError(422,'BACKTEST_BLOCKED',`此股票目前模型可回測範圍為 ${coverage.start}～${coverage.end}，正式保留測試不由一般網站解鎖`);
+  const outsideCoverage=period.start<coverage.start||period.end>coverage.end;
+  const savedFormal=outsideCoverage&&formal[stockCode]?.periods?.some(p=>p.start===period.start&&p.end===period.end);
+  if(!savedFormal&&outsideCoverage)throw apiError(422,'BACKTEST_BLOCKED',`此股票目前模型可回測範圍為 ${coverage.start}～${coverage.end}，正式保留測試不由一般網站解鎖`);
   return { stock_code: stockCode, strategies: [...strategies], period, ...(savedFormal?{formal_replay:true}:{}) };
 }
 
