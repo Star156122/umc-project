@@ -700,10 +700,15 @@ async function getMonthMarketHistory(symbol) {
  const old=monthCache.get(normalized);
  if(old&&old.expiresAt>Date.now())return old.promise;
  const promise=(async()=>{
-  const payload=await fetchYahoo(`/v8/finance/chart/${encodeURIComponent(normalized)}`,{range:'1mo',interval:'1d',includePrePost:'false',events:'div,splits'});
-  const stock=normalizeChartStock(extractChartResult(payload,normalized),normalized);
+  // 多抓 3 個月，只顯示最近一個月；更早的收盤價給均線暖機，讓 MA 從圖表第一根 K 棒就有值。
+  const payload=await fetchYahoo(`/v8/finance/chart/${encodeURIComponent(normalized)}`,{range:'3mo',interval:'1d',includePrePost:'false',events:'div,splits'});
+  const all=normalizeChartStock(extractChartResult(payload,normalized),normalized).history;
+  const cutoff=new Date();cutoff.setMonth(cutoff.getMonth()-1);
+  const split=all.findIndex(p=>Date.parse(p.time)>=cutoff.getTime());
+  const stock={history:split<0?[]:all.slice(split)};
+  const maSeed=(split<0?all:all.slice(0,split)).slice(-20).map(p=>p.close);
   const day=time=>new Date(Date.parse(time)+28800000).toISOString().slice(0,10);
-  return {history:stock.history,historyRange:'1mo',interval:'1d',start:stock.history.length?day(stock.history[0].time):null,end:stock.history.length?day(stock.history.at(-1).time):null,fetchedAt:new Date().toISOString(),source:'Yahoo Finance'};
+  return {history:stock.history,maSeed,historyRange:'1mo',interval:'1d',start:stock.history.length?day(stock.history[0].time):null,end:stock.history.length?day(stock.history.at(-1).time):null,fetchedAt:new Date().toISOString(),source:'Yahoo Finance'};
  })();
  if(monthCache.size>=100)monthCache.delete(monthCache.keys().next().value);
  monthCache.set(normalized,{promise,expiresAt:Date.now()+5*60*1000});
